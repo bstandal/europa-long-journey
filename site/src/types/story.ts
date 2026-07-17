@@ -1,6 +1,34 @@
+export type InteractionFamily = "route" | "network" | "boundary" | "compare";
+
+export type MapScope = "europe" | "world";
+
+export type MapCoordinate = {
+  latitude: number;
+  longitude: number;
+  label?: string;
+};
+
+export type InteractionStep = {
+  id: string;
+  label: string;
+  summary: string;
+  points: MapCoordinate[];
+  links?: [number, number][];
+  closed?: boolean;
+};
+
+export type StoryInteraction = {
+  family: InteractionFamily;
+  prompt: string;
+  accessibleSummary: string;
+  mapScope: MapScope;
+  steps: InteractionStep[];
+};
+
 export type StoryScene = {
   id: string;
   order: number;
+  era: string;
   period: { start: number; end?: number; label: string };
   title: string;
   kicker: string;
@@ -13,6 +41,8 @@ export type StoryScene = {
   sourceIds: string[];
   landmark: string;
   side: "left" | "right";
+  transitionEffect?: "fracture" | "rebuild" | "return";
+  interaction: StoryInteraction;
   hotspots: {
     id: string;
     label: string;

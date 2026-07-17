@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ChapterIndex from "../components/ChapterIndex.astro";
+import Icon from "../components/Icon.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import StoryScene from "../components/StoryScene.astro";
 import TimeRail from "../components/TimeRail.astro";
@@ -11,8 +12,8 @@ const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
-  title="EUROPA — A Journey Through Five Thousand Years"
-  description="A continuous journey through five thousand years of European history, from the Pontic steppe to the present."
+  title="EUROPA — A Journey Through Nine Thousand Years"
+  description="A twenty-minute interactive journey through nine thousand years of European history, from the first farmers to the present."
   bodyClass="journey-page"
 >
   <SiteHeader />
@@ -28,16 +29,19 @@ const base = import.meta.env.BASE_URL;
       />
       <div class="hero__shade"></div>
       <div class="hero__content">
-        <p class="hero__overline">A journey through five thousand years</p>
+        <p class="hero__overline">A twenty-minute journey through nine thousand years</p>
         <h1 id="hero-title">EUROPA</h1>
         <div class="hero__rule"></div>
-        <p class="hero__period">3300 BC <span>—</span> PRESENT</p>
-        <a class="hero__cta" href="#steppe-comes-west">
-          <span>Begin the journey</span>
-          <i class="ph ph-arrow-down" aria-hidden="true"></i>
+        <p class="hero__period">7000 BC <span>—</span> PRESENT</p>
+        <a class="hero__cta" href={`#${scenes[0].id}`} data-journey-cta>
+          <span data-journey-cta-label>Begin the journey</span>
+          <Icon name="arrow-down" />
+        </a>
+        <a class="hero__restart" href={`#${scenes[0].id}`} data-journey-restart hidden>
+          Start again
         </a>
       </div>
-      <div class="hero__edge-note hero__edge-note--left">THE PONTIC STEPPE</div>
+      <div class="hero__edge-note hero__edge-note--left">THE AEGEAN</div>
       <div class="hero__edge-note hero__edge-note--right">THE PRESENT</div>
       <div class="hero__scroll-cue" aria-hidden="true">
         <span></span>

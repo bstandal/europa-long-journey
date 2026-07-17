@@ -3,5 +3,6 @@ site/dist/
 site/.astro/
 site/.npm-cache/
 site/.qa-*.png
+site/.audit-current/
 .mobile-audit/
 .DS_Store

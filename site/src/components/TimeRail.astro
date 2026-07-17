@@ -1,11 +1,12 @@
 ---
-import { scenes } from "../data/scenes";
+import { scenes, storyEras } from "../data/scenes";
 ---
 
 <aside class="time-rail" aria-label="Journey progress" data-time-rail>
   <div class="time-rail__current">
     <span class="time-rail__chapter" data-rail-chapter>01</span>
-    <span class="time-rail__year" data-rail-year>3300 BC</span>
+    <span class="time-rail__year" data-rail-year>7000 BC</span>
+    <span class="time-rail__era" data-rail-era>{storyEras[0].label}</span>
   </div>
   <div class="time-rail__track" aria-hidden="true">
     <span class="time-rail__fill" data-rail-fill></span>
@@ -18,6 +19,7 @@ import { scenes } from "../data/scenes";
             href={`#${scene.id}`}
             aria-label={`${scene.title}, ${scene.period.label}`}
             data-rail-link={scene.id}
+            data-rail-era-id={scene.era}
           >
             <span></span>
           </a>

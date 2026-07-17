@@ -1,0 +1,31 @@
+---
+type IconName =
+  | "arrow-down"
+  | "arrow-down-right"
+  | "arrow-left"
+  | "arrow-right"
+  | "arrow-up-right"
+  | "caret-up"
+  | "cursor-click"
+  | "list"
+  | "map-pin"
+  | "map-trifold"
+  | "path"
+  | "x";
+
+type Props = {
+  name: IconName;
+  class?: string;
+};
+
+const { name, class: className } = Astro.props;
+---
+
+<svg
+  class:list={["icon", className]}
+  viewBox="0 0 24 24"
+  aria-hidden="true"
+  focusable="false"
+>
+  <use href={`#icon-${name}`}></use>
+</svg>
