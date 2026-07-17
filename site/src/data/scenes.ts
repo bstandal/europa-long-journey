@@ -10,7 +10,7 @@ export const scenes: StoryScene[] = [
     kicker: "A Settled Continent",
     thesis: "Farming reached Europe with migrants from Anatolia, changing the land as thoroughly as the people.",
     body:
-      "The first European fields were sown by newcomers. Families from Anatolia crossed the Aegean, settled in the Balkans and followed the Danube towards central Europe. Others worked their way west along the Mediterranean coast. They travelled with wheat, barley, sheep and cattle, and with practical knowledge: how to store a harvest, fire a pot and keep the same patch of ground productive. The hunter-gatherers they met did not simply vanish. Some communities resisted, some exchanged goods and partners, and many eventually mixed. By the time riders appeared on the eastern plains, migration had already altered Europe once.",
+      "The first European fields were sown by families from Anatolia. They crossed the Aegean, established villages in the Balkans and followed the Danube towards central Europe. Others moved west along the Mediterranean coast. Wheat, barley, sheep and cattle travelled with them, together with the skills to store a harvest, fire a pot and keep the same ground productive. Forest gave way to fields; grain stores supported larger settlements. Established foragers traded with the villages, joined households and adopted crops. By the time riders appeared on the eastern plains, farming had already remade Europe’s landscape, diet and population.",
     focus: { latitude: 40.2, longitude: 25.2 },
     camera: { x: 0.525, y: 0.69, scale: 1.38, rotation: -0.01 },
     palette: "aegean",
@@ -91,9 +91,9 @@ export const scenes: StoryScene[] = [
     period: { start: -3300, end: -2000, label: "3300–2000 BC" },
     title: "The Steppe Comes West",
     kicker: "Origins",
-    thesis: "The peoples of prehistoric Europe were formed by migration, encounter and mixture.",
+    thesis: "Migration from the Pontic steppe carried new populations, languages and forms of mobility deep into Europe.",
     body:
-      "Around 3000 BC, people from the grasslands north of the Black Sea began moving west in large numbers. Ancient DNA has made the scale of that movement hard to miss: Corded Ware communities in parts of central Europe derived about three quarters of their ancestry from steppe populations. The newcomers met descendants of both hunter-gatherers and early farmers. Their languages, family networks and ways of travelling spread widely, though never in exactly the same form. Horses and wagons made a larger world manageable. Herds, households and marriage ties carried that world deep into Europe.",
+      "Around 3000 BC, people from the grasslands north of the Black Sea began moving west in large numbers. Ancient DNA reveals the scale: Corded Ware communities in parts of central Europe derived about three quarters of their ancestry from steppe populations. Wagons carried households and possessions; horses widened the range of herders, messengers and warriors. New burial customs marked family lines across the landscape. Speech travelled with kinship, marriage and command, helping Indo-European languages spread through much of the continent. From the lower Dnipro to the Rhine and southern Scandinavia, movement from the steppe created a new European population.",
     focus: { latitude: 47, longitude: 38 },
     camera: { x: 0.682, y: 0.532, scale: 1.28, rotation: -0.018 },
     palette: "steppe",
@@ -167,7 +167,7 @@ export const scenes: StoryScene[] = [
     kicker: "Ships, Amber and the Northern Sun",
     thesis: "Bronze tied the Nordic world to mines, ports and trading communities far beyond the Baltic.",
     body:
-      "A bronze sword buried in Scandinavia began as ore somewhere else. Copper and tin rarely lay near one another, so every axe, razor and ornament depended on a chain of miners, sailors, traders and metalworkers. Copper travelled north from the Alps, Wales and more distant sources; Baltic amber went the other way. The Nordic Bronze Age belonged fully to this traffic. Its longhouses, burial mounds, fine metalwork and rock carvings crowded with ships point to communities looking outwards across the sea. Exchange could mean gifts and marriage, but also raiding and enslavement. Control of distant connections brought prestige at home.",
+      "A bronze sword buried in Scandinavia began as ore somewhere else. Copper and tin rarely lay near one another, so every axe, razor and ornament depended on miners, sailors, traders and metalworkers spread across great distances. Copper moved north from the Alps, Wales and more distant sources; Baltic amber travelled south towards the Aegean. The Nordic Bronze Age grew inside this traffic. Longhouses and burial mounds overlooked busy waterways, while rock carvings filled Scandinavian stone with ships, crews and warriors. Chiefs turned imported metal into gifts, weapons and ceremony. Command of the sea routes became a source of authority at home.",
     focus: { latitude: 55.8, longitude: 10.2 },
     camera: { x: 0.34, y: 0.34, scale: 1.16, rotation: -0.006 },
     palette: "steppe",
@@ -272,7 +272,7 @@ export const scenes: StoryScene[] = [
     kicker: "The Polis",
     thesis: "The Greek polis made government something citizens could argue about in public.",
     body:
-      "Politics in a Greek polis happened at shouting distance. Male citizens met in assemblies, sat on juries and fought in the ranks beside the men whose proposals they had just opposed. Most inhabitants—women, slaves and resident foreigners—had no share in this freedom. Even so, the idea that laws could be debated and officeholders called to account was extraordinary. Athens developed democracy; Sparta, Corinth and hundreds of smaller cities arranged power differently. Their resistance to Persia made self-government part of the Greek story. Later Europeans inherited no single Greek model. They inherited an argument about who should rule, and why.",
+      "Politics in a Greek polis happened at shouting distance. Citizens met in assemblies, sat on juries and fought beside men whose proposals they had just opposed. In Athens, speakers persuaded the assembly, magistrates faced scrutiny and large citizen juries decided public cases. Sparta, Corinth and hundreds of smaller cities organised power in their own ways, turning the Greek world into a field of political experiments. Resistance to Persia joined civic freedom to military survival. Historians recorded the choices of statesmen; philosophers asked which constitution formed the best citizens. Europe inherited from the polis a durable question: who should rule, and by what right?",
     focus: { latitude: 37.98, longitude: 23.72 },
     camera: { x: 0.514, y: 0.724, scale: 1.62, rotation: 0.012 },
     palette: "aegean",
@@ -344,7 +344,7 @@ export const scenes: StoryScene[] = [
     kicker: "One Political World",
     thesis: "Rome made conquest durable by giving provincial communities a place within the empire.",
     body:
-      "Roman armies conquered the Mediterranean, but armies alone cannot explain why the empire lasted. Rome recruited local elites, preserved useful customs and covered the provinces with towns, roads and courts. A notable in Gaul or Spain could govern his city, enter imperial service and eventually think of Rome as his own political world. Soldiers, merchants and families carried Latin and Roman law well beyond Italy. The frontier remained heavily armed, and provincial life was never equal. Yet membership kept widening. In AD 212, Caracalla granted citizenship to almost every free inhabitant of the empire—an astonishing end point for a city that had once ruled only its neighbours.",
+      "Roman legions conquered the Mediterranean; roads, cities and citizenship made the conquests hold. Rome recruited provincial elites, preserved useful local customs and gave municipal councils responsibility for taxes and order. A notable in Gaul or Spain could govern his city, enter imperial service and make Rome his political world. Soldiers, merchants and families carried Latin and Roman law far beyond Italy. Each extension of citizenship turned former subjects into participants in the imperial system. In AD 212, Caracalla granted the Roman name to almost every free inhabitant of the empire. A city on the Tiber had gathered much of Europe into one legal order.",
     focus: { latitude: 41.9, longitude: 12.5 },
     camera: { x: 0.382, y: 0.64, scale: 1.48, rotation: -0.006 },
     palette: "roman",
@@ -431,7 +431,7 @@ export const scenes: StoryScene[] = [
     kicker: "New Rome",
     thesis: "Christianity changed the Roman Empire, and Constantinople kept that empire alive in the east.",
     body:
-      "Constantine’s conversion brought the imperial court into a faith that had once been persecuted. Bishops met in councils, emperors intervened in doctrine, and monasteries spread across the Roman world. The western court disappeared in the fifth century, but the empire continued from Constantinople. Its inhabitants still called themselves Romans. Their officials compiled Roman law, their scholars copied classical texts and their armies defended the Balkans and Anatolia. Greek gradually replaced Latin at court without erasing the Roman identity. For a thousand years after Constantine, New Rome remained a wealthy Christian capital facing Persian, Arab and Turkish rivals.",
+      "When Constantine adopted Christianity, the faith entered the machinery of empire. Bishops met in councils, emperors intervened in doctrine and monasteries spread across the Roman world. Constantine also founded a capital on the Bosporus, protected by water, walls and command of the route between Europe and Asia. After the western court disappeared, Constantinople carried the Roman state forward. Its officials compiled Roman law, its scholars copied classical texts and its armies defended the Balkans and Anatolia. Greek became the language of court and learning; Roman remained the political name. For a thousand years, New Rome anchored Christian empire in the east.",
     focus: { latitude: 41.01, longitude: 28.97 },
     camera: { x: 0.576, y: 0.659, scale: 1.58, rotation: 0.01 },
     palette: "byzantine",
@@ -506,7 +506,7 @@ export const scenes: StoryScene[] = [
     kicker: "A New Commonwealth",
     thesis: "After Rome’s western collapse, kingdoms and churches slowly assembled a new Christian Europe.",
     body:
-      "The centuries after western Rome were full of improvisation. Germanic kings borrowed Roman titles and administrators; Latin churchmen preserved literacy and supplied courts with educated officials. The Franks joined warfare, conversion and government, and Charlemagne revived the imperial title in the west. Christianity then moved beyond the old Roman frontier. Scandinavians, Bohemians, Poles, Croats and Magyars entered the Latin Church, while Kyiv and Rus’ looked towards Constantinople. No ruler commanded all these lands. What joined them was a growing stock of beliefs, institutions and political habits, divided between Latin west and Greek east.",
+      "New kingdoms rose among the remains of western Rome. Their rulers borrowed Roman titles, employed Latin churchmen and founded monasteries that preserved books, trained officials and cleared land. The Franks joined conquest, conversion and government; on Christmas Day 800, Charlemagne received an imperial crown in Rome. Missionaries and royal marriages then carried Christianity beyond the old frontier. Scandinavians, Bohemians, Poles, Croats and Magyars entered the Latin Church, while Kyiv received its Christianity from Constantinople. Courts, bishoprics and monasteries connected rulers across long distances. By the year 1000, Latin west and Greek east formed two related worlds with a shared Christian inheritance.",
     focus: { latitude: 50.78, longitude: 6.08 },
     camera: { x: 0.307, y: 0.452, scale: 1.38, rotation: -0.01 },
     palette: "carolingian",
@@ -597,7 +597,7 @@ export const scenes: StoryScene[] = [
     kicker: "Power Divides",
     thesis: "The quarrel over bishops forced popes and emperors to define where sacred authority ended.",
     body:
-      "In the winter of 1077, Emperor Henry IV waited outside Canossa while Pope Gregory VII decided whether to lift his excommunication. The scene became famous because neither man accepted the other as his master. Their immediate quarrel concerned bishops: did a bishop receive office from the Church or from the ruler whose lands he governed? The settlement at Worms in 1122 divided the ceremony, though not the rivalry. Western Christendom now had two organised centres of authority, each armed with law and loyal officials. Their contests were often destructive, but they left room for cities, courts and corporations to claim rights of their own.",
+      "In the winter of 1077, Emperor Henry IV waited outside Canossa while Pope Gregory VII decided whether to lift his excommunication. Their quarrel concerned bishops, men who held sacred office and governed valuable lands. Gregory claimed the Church alone could invest them; Henry treated their appointment as an instrument of royal government. The Concordat of Worms divided the ceremony in 1122, separating spiritual office from temporal authority. Popes and emperors now faced one another as organised powers, each armed with law, courts and loyal officials. Their long contest opened political space in which cities, universities and corporations could secure jurisdictions of their own.",
     focus: { latitude: 44.58, longitude: 10.45 },
     camera: { x: 0.372, y: 0.566, scale: 1.62, rotation: 0.008 },
     palette: "imperial",
@@ -678,9 +678,9 @@ export const scenes: StoryScene[] = [
     period: { start: 1000, end: 1300, label: "1000–1300" },
     title: "A Society Beyond Kin",
     kicker: "The Associational West",
-    thesis: "Medieval Europeans built institutions that did not depend on blood ties or a single lifetime.",
+    thesis: "Medieval Europeans gave monasteries, guilds, communes and universities legal lives that outlasted their founders.",
     body:
-      "A monastery could own land after its founders were dead. A guild could fine a member, elect officers and care for a widow who shared no blood with its leaders. Such arrangements became common in medieval Europe. Church rules on marriage had loosened some extended kin networks, although family still mattered enormously. Alongside it grew communes, cathedral chapters, universities and other sworn associations. They kept records, held property and settled disputes according to written rules. The result was a crowded social landscape in which people dealt with one another as members of an institution as well as relatives, subjects and neighbours.",
+      "A monastery could hold land centuries after its founders were dead. A guild could elect officers, fine a member and support the household of a deceased craftsman. Communes, cathedral chapters and universities acquired the same durable character. Members swore oaths, kept records, held common property and settled disputes under written rules. Canon lawyers gave these bodies a legal personality distinct from any one member. The idea travelled easily because it solved practical problems: property survived succession, obligations became enforceable and collective decisions bound future officeholders. Medieval Europe filled with self-governing institutions whose lives exceeded those of the people who created them.",
     focus: { latitude: 44.49, longitude: 11.34 },
     camera: { x: 0.369, y: 0.585, scale: 1.58, rotation: 0.008 },
     palette: "monastic",
@@ -769,7 +769,7 @@ export const scenes: StoryScene[] = [
     kicker: "Trust at a Distance",
     thesis: "Medieval merchants developed ways to make promises credible far from home.",
     body:
-      "At the fairs of Champagne, an Italian merchant might buy Flemish cloth with money that existed only as an entry in a ledger. Trade on this scale required more than trust between friends. Notaries recorded partnerships, merchant courts delivered quick judgments, and bills of exchange moved credit without moving heavy coin. Ports and rulers granted foreign traders privileges because their business produced taxes. War, piracy and arbitrary confiscation remained familiar hazards, and many people were excluded from the best opportunities. Even so, medieval commerce taught Europeans how to conduct business across jurisdictions. The oceanic ventures of later centuries relied on habits first tested in these fairs, ports and counting houses.",
+      "At the fairs of Champagne, an Italian merchant could buy Flemish cloth with money that existed only as an entry in a ledger. Trade on this scale required promises that survived distance. Notaries recorded partnerships, merchant courts delivered quick judgments and bills of exchange moved credit without moving heavy coin. Ports and rulers granted foreign merchants privileges because traffic produced customs revenue. Regular fairs gave strangers known dates and places to settle accounts. From Genoa to Bruges, documents joined markets governed by different laws and currencies. The oceanic ventures of later centuries would rely on commercial habits first tested in these fairs, ports and counting houses.",
     focus: { latitude: 48.3, longitude: 4.1 },
     camera: { x: 0.315, y: 0.49, scale: 1.34, rotation: -0.008 },
     palette: "monastic",
@@ -870,7 +870,7 @@ export const scenes: StoryScene[] = [
     kicker: "Cities Without a State",
     thesis: "Baltic and North Sea towns protected their trade by acting together while guarding their independence.",
     body:
-      "The Hanseatic League was less a state than a habit of cooperation. Merchants from Lübeck, Hamburg and other northern towns secured trading privileges abroad, shared warehouses and called meetings when common interests were threatened. Fish from Norway, grain from Prussia, Russian wax and Flemish cloth passed through their hands. There was no Hanseatic king, treasury or permanent capital. A town joined a boycott or naval campaign because it judged the cause worthwhile, and might refuse the next request. The arrangement was untidy and often hostile to outsiders. For several centuries, it was also strong enough to make rulers negotiate with cities as a collective power.",
+      "Merchants from Lübeck, Hamburg and other northern towns built the Hanseatic League from privileges, warehouses and repeated meetings. Fish from Norway, grain from Prussia, Russian wax and Flemish cloth passed through their hands. Four great foreign enclaves secured places for Hanseatic merchants in London, Bruges, Bergen and Novgorod. The league had no king, treasury or permanent capital. Its strength came from coordinated action: towns closed markets, imposed boycotts and armed fleets when trade was threatened. Each city decided when to take part, preserving the independence that made cooperation valuable. For centuries, northern rulers had to negotiate with cities acting as a collective power.",
     focus: { latitude: 53.87, longitude: 10.69 },
     camera: { x: 0.36, y: 0.31, scale: 1.28, rotation: -0.012 },
     palette: "carolingian",
@@ -967,9 +967,9 @@ export const scenes: StoryScene[] = [
     period: { start: 962, end: 1806, label: "962–1806" },
     title: "The Empire of Many Liberties",
     kicker: "The Holy Roman Empire",
-    thesis: "The Holy Roman Empire held central Europe together through negotiated rights rather than uniform rule.",
+    thesis: "Negotiated rights held the many jurisdictions of central Europe inside one imperial order.",
     body:
-      "The Holy Roman Empire makes poor sense if measured against France or England. It had no permanent capital and never became a single kingdom. An emperor governed alongside princes, bishops, free cities, knights and village communities, all defending rights acquired at different moments. The resulting map looked chaotic because the underlying constitution was historical rather than tidy. Disputes passed through diets, negotiations and, after the reforms of 1495, an imperial chamber court. Force never disappeared, and powerful estates usually fared best. Still, the empire lasted for more than eight centuries by giving its many members reasons to remain inside a shared legal order.",
+      "Central Europe lived for more than eight centuries inside the Holy Roman Empire. An elected emperor governed alongside princes, bishops, free cities, knights and village communities, each holding rights acquired at different moments. The map became a mosaic because jurisdiction followed inheritance, privilege and custom. Imperial diets gathered the estates to approve taxes and settle common business. After 1495, the Imperial Chamber Court offered a standing forum for disputes that once invited private war. A city could defend its charter and a prince his territory without leaving the realm. Negotiated rights gave the empire its durability and made legal pluralism a central European political tradition.",
     focus: { latitude: 50.1, longitude: 9.4 },
     camera: { x: 0.365, y: 0.45, scale: 1.46, rotation: -0.01 },
     palette: "imperial",
@@ -1059,7 +1059,7 @@ export const scenes: StoryScene[] = [
     kicker: "Defence and Recovery",
     thesis: "Centuries of war around Iberia, the Balkans and the Mediterranean shaped Europe’s southern and eastern edges.",
     body:
-      "No single line divided Christian Europe from its Muslim neighbours. The frontier ran through ports, islands, mountain passes and mixed borderlands where people traded as readily as they fought. Christian kingdoms pushed south in Iberia until Granada fell in 1492. In the east, Turkish conquest of Anatolia helped provoke the crusades; Ottoman armies later took Constantinople, crossed the Balkans and reached Vienna. Alliances regularly ignored the religious divide, and war was never continuous. Yet the pressure was lasting. Galleys, fortresses and frontier armies demanded taxes and administration on a new scale, drawing distant European states into conflicts once treated as local.",
+      "For centuries, Europe’s southern and eastern frontiers were made by siege, settlement and counterattack. Christian kingdoms advanced through Iberia until Granada surrendered in 1492. Turkish conquest in Anatolia helped provoke the crusades; Ottoman armies then took Constantinople, crossed the Balkans and twice reached Vienna. Mediterranean powers built galley fleets, island bases and chains of coastal forts. The Habsburgs organised a permanent military frontier through Hungary and Croatia, supporting garrisons with taxes raised far inland. Karlowitz shifted the frontier south-east in 1699. These long wars turned border defence into a European enterprise and forced states to command men, money and supplies on a new scale.",
     focus: { latitude: 48.21, longitude: 16.37 },
     camera: { x: 0.428, y: 0.506, scale: 1.42, rotation: 0.008 },
     palette: "frontier",
@@ -1155,7 +1155,7 @@ export const scenes: StoryScene[] = [
     kicker: "The Oceanic Turn",
     thesis: "Armed ocean-going ships allowed European states to operate far beyond their own coasts.",
     body:
-      "Portugal captured Ceuta in 1415, then spent decades feeling its way down the African coast. Each voyage added knowledge of winds, currents and harbours. Mariners adapted Mediterranean navigation and shipbuilding to Atlantic conditions, while cannon and royal finance gave their vessels unusual staying power. Portuguese ships reached India; Spanish expeditions crossed the Atlantic; Dutch, English and French rivals entered the same waters. None succeeded through European skill alone. Local pilots, brokers and allies were indispensable, and conquest or coercion often followed contact. What changed was the reach of the state: ships, forts and contracts could now support political power thousands of miles from home.",
+      "Portugal captured Ceuta in 1415 and spent the next decades extending its voyages down the African coast. Each expedition added winds, currents and harbours to the charts carried home. Mariners adapted Mediterranean navigation and shipbuilding to Atlantic conditions; cannon and royal finance kept vessels at sea and protected fortified ports. Portuguese ships rounded Africa and reached India. Spanish expeditions crossed the Atlantic, followed by Dutch, English and French rivals. Pilots and brokers turned landfalls into working routes; forts and contracts made the routes durable. Ocean-going ships had enlarged the reach of the European state to thousands of miles beyond its own shores.",
     focus: { latitude: 38.72, longitude: -9.14 },
     camera: { x: 0.128, y: 0.708, scale: 1.32, rotation: -0.018 },
     palette: "atlantic",
@@ -1231,9 +1231,9 @@ export const scenes: StoryScene[] = [
     period: { start: 1517, end: 1648, label: "1517–1648" },
     title: "The Reformation",
     kicker: "Christendom Fractures",
-    thesis: "The Reformation broke western Christendom into rival confessions that governments could neither reunite nor ignore.",
+    thesis: "The Reformation divided western Christendom and made confessional allegiance a permanent concern of government.",
     body:
-      "Luther intended an argument about indulgences and church authority. Print turned it into a European crisis. Pamphlets crossed borders, vernacular Bibles entered homes, and rulers discovered that religious reform could strengthen their control of churches and property. Catholic renewal was equally energetic, producing new schools, orders and missions. Confessional loyalty reached into worship, marriage and education, and disagreement repeatedly ended in revolt or war. By the settlements of Augsburg and Westphalia, unity was beyond recovery. Toleration remained narrow, but governments had begun to live with neighbours—and sometimes subjects—whose faith they considered wrong.",
+      "Luther began with an argument about indulgences and church authority. Print turned it into a European crisis. Pamphlets crossed borders, vernacular Bibles entered homes and rulers discovered that reform could place churches and property under territorial control. Catholic renewal answered with seminaries, schools, new religious orders and missions. Confessional loyalty reached into worship, marriage and education; rulers expected subjects to share the faith of the state. Revolts and wars followed as rival churches hardened their institutions. Augsburg and Westphalia ended the project of restoring a single western Christendom. European governments learned to conduct politics across permanent religious division.",
     focus: { latitude: 51.87, longitude: 12.65 },
     camera: { x: 0.375, y: 0.414, scale: 1.5, rotation: -0.012 },
     palette: "imperial",
@@ -1324,9 +1324,9 @@ export const scenes: StoryScene[] = [
     period: { start: 1526, end: 1918, label: "1526–1918" },
     title: "Habsburg Europe",
     kicker: "Many Peoples, One Crown",
-    thesis: "The Habsburgs governed a collection of historic kingdoms whose peoples shared a ruler, not a nationality.",
+    thesis: "The Habsburgs bound historic kingdoms and their different peoples to a common dynasty.",
     body:
-      "The Habsburg monarchy was assembled one inheritance and marriage at a time. After 1526, the Austrian lands, Bohemia and Hungary shared a dynasty and an Ottoman frontier, but kept their own laws, diets and privileges. Vienna provided the court, much of the army and the diplomatic centre. It could not simply order the provinces to become alike. Every attempt at centralisation reopened old bargains. The Compromise of 1867 gave Hungary a separate government, while Czechs, Croats, Poles, Romanians, Ukrainians and others pursued their own claims. The monarchy was unequal and coercive, yet millions lived with several loyalties at once: local, national, dynastic and imperial.",
+      "The Habsburg monarchy was assembled one inheritance and marriage at a time. After 1526, the Austrian lands, Bohemia and Hungary shared a dynasty and an Ottoman frontier. Each crownland kept its laws, diet and privileges. Vienna supplied the court, diplomatic centre and much of the army; provincial elites supplied taxes, recruits and local government through recurring bargains. The Compromise of 1867 created separate Austrian and Hungarian governments under one ruler. Czechs, Croats, Poles, Romanians and Ukrainians organised national movements inside the dynastic framework. Millions carried local, national, dynastic and imperial loyalties together until war destroyed the monarchy in 1918.",
     focus: { latitude: 48.21, longitude: 16.37 },
     camera: { x: 0.43, y: 0.5, scale: 1.42, rotation: 0.008 },
     palette: "imperial",
@@ -1433,9 +1433,9 @@ export const scenes: StoryScene[] = [
     period: { start: 1543, end: 1700, label: "1543–1700" },
     title: "The Scientific Revolution",
     kicker: "Knowledge Under Inspection",
-    thesis: "European scholars learned to treat claims about nature as results that others should be able to test.",
+    thesis: "European scholars built institutions that exposed claims about nature to observation, test and criticism.",
     body:
-      "No one announced a Scientific Revolution. Copernicus revised astronomy, Vesalius opened bodies, Galileo pointed instruments at the sky, and Newton found a mathematical language for motion. Around them stood printers, universities, workshops, observatories and wealthy patrons. New scientific societies asked members to describe methods closely enough for others to repeat them. A scholar obstructed in one city might publish in another, and rival courts competed for useful knowledge. Classical authority still mattered, and experiment settled fewer arguments than later stories suggest. Even so, evidence acquired a new social life: results travelled, attracted criticism and could be corrected by people who had never met their author.",
+      "Copernicus rearranged the heavens, Vesalius opened bodies, Galileo pointed new instruments at the sky and Newton gave motion a mathematical language. Their work travelled through printers, universities, workshops, observatories and courts competing for useful knowledge. Scientific societies in London, Paris and elsewhere asked members to describe methods closely enough for another observer to repeat them. Journals fixed claims in print and correspondence carried criticism across borders. A scholar blocked in one city could find a publisher in another. Evidence acquired a public career: results travelled, drew attack, survived replication or yielded to correction. Knowledge became a cumulative European enterprise.",
     focus: { latitude: 51.51, longitude: -0.13 },
     camera: { x: 0.28, y: 0.43, scale: 1.32, rotation: -0.006 },
     palette: "industrial",
@@ -1535,7 +1535,7 @@ export const scenes: StoryScene[] = [
     kicker: "Commerce, Credit and Toleration",
     thesis: "The Dutch Republic turned the independence of its cities into an unlikely source of global power.",
     body:
-      "The Dutch Republic was an improbable great power: a loose federation of provinces, crowded with towns and jealous of central authority. Amsterdam’s merchants built shipping networks that reached from the Baltic to Asia. The state borrowed cheaply, investors traded shares, and printers sold maps and arguments across Europe. Leiden drew scholars who found other countries less welcoming. Dutch tolerance had firm limits; the Reformed Church enjoyed public privilege, and overseas wealth rested partly on conquest and slavery. Still, Catholics, Jews and dissenting Protestants found room to work and publish. Foreign visitors noticed that disorderly politics and commercial success seemed to coexist.",
+      "The Dutch Republic rose as a loose federation of provinces crowded with self-governing towns. Amsterdam’s merchants built shipping networks from the Baltic to Asia. The state borrowed at low rates, investors traded shares and marine risk, and the exchange concentrated news from every market. Printers sold maps, books and arguments across Europe. Leiden’s university drew scholars, while refugees brought capital, skills and commercial contacts into Dutch cities. Provincial rivalry kept power dispersed; common danger made the towns cooperate through the States General. Foreign visitors found a country where civic independence, religious latitude and relentless commerce reinforced one another—and made a small republic a global power.",
     focus: { latitude: 52.37, longitude: 4.9 },
     camera: { x: 0.292, y: 0.38, scale: 1.58, rotation: -0.008 },
     palette: "atlantic",
@@ -1636,7 +1636,7 @@ export const scenes: StoryScene[] = [
     kicker: "Public Opinion",
     thesis: "A growing reading public began to judge laws, rulers and customs as matters open to argument.",
     body:
-      "The Enlightenment happened in rooms: London coffeehouses, Parisian salons, Masonic lodges, theatres and the meeting places of provincial reading societies. Newspapers and journals carried arguments between them. Readers compared English liberties, Dutch commerce, French manners and the reforms of central European rulers, often from places they had never seen. Edinburgh philosophers wrote about sympathy and markets; Parisian writers made reputations that courts could not fully control. Censors still closed presses, and this public was mostly educated and male. It nevertheless changed the terms of authority. A custom once defended by age or revelation increasingly had to survive criticism in print.",
+      "The Enlightenment gathered in London coffeehouses, Parisian salons, Masonic lodges, theatres and provincial reading societies. Newspapers and journals carried arguments from one room to another. Readers compared English liberties, Dutch commerce, French manners and the reforms of central European rulers. Edinburgh philosophers examined sympathy, history and markets; Parisian writers built reputations large enough to trouble ministers. Publishers learned that controversy sold. Reviews made books answerable to strangers, and public opinion became a force courts tried to measure and manage. A law or custom once defended by age and authority now faced a new test: could it survive criticism in print?",
     focus: { latitude: 48.86, longitude: 2.35 },
     camera: { x: 0.33, y: 0.47, scale: 1.28, rotation: -0.004 },
     palette: "belle-epoque",
@@ -1737,7 +1737,7 @@ export const scenes: StoryScene[] = [
     kicker: "The Great Acceleration",
     thesis: "In Britain, coal, machinery and commercial skill pushed production beyond the limits of muscle and water.",
     body:
-      "Britain’s industrial breakthrough came from a peculiar combination of expensive labour, accessible coal, skilled mechanics, credit and large markets. Mine owners paid for engines that pumped water; textile manufacturers adapted machines to spin and weave far faster than hand workers. Steam power then escaped the mine and entered factories, ships and railways. Mechanics and manufacturers kept modifying their machines in workshops and mills. British industry also drew on cotton, capital and consumers tied to slavery and empire. By 1850, smoke-filled towns and railway timetables had altered everyday life. They had also given industrial states a kind of military and economic power that agrarian societies struggled to match.",
+      "Britain’s industrial breakthrough joined expensive labour, accessible coal, skilled mechanics, credit and large markets. Mine owners bought engines to pump water from deep shafts. Textile manufacturers adapted machinery to spin and weave at speeds no workshop could match. Steam power escaped the mine and entered factories, ships and railways; each application created demand for stronger iron, better tools and more coal. Manchester drew raw cotton through Liverpool and sent finished cloth into world markets. By 1850, factory bells and railway timetables governed the working day in growing towns. Industrial production had given European states a new kind of economic and military power.",
     focus: { latitude: 53.48, longitude: -2.24 },
     camera: { x: 0.209, y: 0.394, scale: 1.34, rotation: 0.012 },
     palette: "industrial",
@@ -1834,7 +1834,7 @@ export const scenes: StoryScene[] = [
     kicker: "Continental Ascendancy",
     thesis: "Industrial power allowed European states to command trade routes, territory and capital on a global scale.",
     body:
-      "A traveller leaving Europe in 1900 encountered European power almost everywhere: in shipping schedules, banks, colonial offices, mission schools and telegraph stations. Steam and railways had reduced travel times; rifles and industrial supply chains widened the gap between imperial armies and many of their opponents. London and Paris directed capital towards mines, ports and plantations on other continents. European rule also imposed racial categories, extracted labour and resources, and destroyed political independence. By 1914, European states controlled most imperial territory and much of the world’s shipping and overseas investment. Many Europeans mistook this brief, violent concentration of power for the natural order of things.",
+      "A traveller leaving Europe in 1900 encountered European power in shipping schedules, banks, colonial offices, railway stations and telegraph cables. Steam compressed ocean journeys; railways carried troops and goods inland; industrial supply chains kept imperial armies equipped far from home. London and Paris directed capital towards mines, ports and plantations on other continents. Shipping companies and submarine cables bound those investments to European markets and ministries. By 1914, European states controlled most imperial territory, the leading sea routes and a commanding share of overseas finance. Industrial capacity had become geopolitical command, placing Europe at the centre of a world system.",
     focus: { latitude: 48.86, longitude: 2.35 },
     camera: { x: 0.263, y: 0.492, scale: 1.36, rotation: -0.006 },
     palette: "belle-epoque",
@@ -1938,7 +1938,7 @@ export const scenes: StoryScene[] = [
     kicker: "The Catastrophe",
     thesis: "Two world wars turned Europe’s industrial and administrative strength against its own societies.",
     body:
-      "Europe went to war in 1914 with railway schedules, mass armies and confident predictions of victory. Four years later, empires had collapsed and millions were dead. The peace created new states but no durable settlement. Fascists, Nazis and Soviet communists used radio, bureaucracy and mass politics to pursue control on a scale older tyrannies could not manage. The next war destroyed cities and culminated in the systematic murder of Europe’s Jews. In 1945, the continent that had dominated so much of the world was ruined and divided. Its security now depended on the United States in the west and the Soviet Union in the east.",
+      "Europe went to war in 1914 with railway schedules, mass armies and confident promises of victory. Four years of artillery, trenches and blockade killed millions and broke the German, Habsburg, Russian and Ottoman empires. The peace drew new borders without creating a stable order. Fascists, Nazis and Soviet communists then joined radio, bureaucracy and mass politics to systems of control beyond the reach of older tyrannies. The next war consumed cities and culminated in Germany’s systematic murder of Europe’s Jews. In 1945, the continent that had commanded the world lay ruined and divided between American and Soviet power.",
     focus: { latitude: 49.16, longitude: 5.38 },
     camera: { x: 0.299, y: 0.486, scale: 1.66, rotation: 0.018 },
     palette: "catastrophe",
@@ -2030,7 +2030,7 @@ export const scenes: StoryScene[] = [
     kicker: "Recovery",
     thesis: "Western Europe recovered by tying national economies and old rivals into a shared legal order.",
     body:
-      "The work of rebuilding Western Europe was strikingly practical. American money helped restore factories and trade, while American military power sheltered states that could no longer defend themselves alone. France and West Germany placed coal and steel production under a common authority, making the raw materials of war a subject of routine negotiation. Treaties, courts and regulations gradually widened that bargain. Prosperity gave democratic governments room to build welfare states and lower trade barriers. The Iron Curtain still cut the continent in two, and NATO remained essential. In 1989, eastern Europeans brought that division to an end through their own protests and political courage.",
+      "Western Europe rebuilt through factories, trade and security guaranteed by the United States. France and West Germany placed coal and steel under a common authority, turning the raw materials of war into subjects of routine administration. Treaties widened the arrangement into a common market; courts and regulations made each bargain part of a permanent legal order. Growth financed welfare states and gave democratic politics a material foundation. Across the Iron Curtain, Soviet power held a different European system in place. In 1989, strikes, demonstrations and political courage from Gdańsk to Prague broke that division and opened the road to continental reunification.",
     focus: { latitude: 50.85, longitude: 4.35 },
     camera: { x: 0.286, y: 0.45, scale: 1.52, rotation: -0.008 },
     palette: "reconstruction",
@@ -2139,9 +2139,9 @@ export const scenes: StoryScene[] = [
     period: { start: 1991, label: "1991–PRESENT" },
     title: "Europe Returns",
     kicker: "The Unfinished Journey",
-    thesis: "Reunification enlarged Europe’s institutions, but the war in Ukraine has tested their political resolve.",
+    thesis: "Reunification enlarged Europe’s institutions; the war in Ukraine now tests their capacity for common action.",
     body:
-      "After 1989, countries from the Baltic to the Balkans entered institutions once confined to Western Europe. Roads and railways crossed borders that had been sealed within living memory; students, workers and capital followed. EU membership and NATO protection offered different kinds of belonging, and neither reached every European country. Russia’s invasion of Ukraine exposed those distinctions with brutal clarity. It also showed how much the continent still relied on American military power despite its wealth, population and technical skill. The question at Europe’s eastern frontier is therefore immediate: can its governments turn common interests into decisions, resources and the will to defend them?",
+      "After 1989, countries from the Baltic to the Balkans entered institutions once confined to Western Europe. Roads and railways crossed borders sealed within living memory; students, workers and capital followed. European Union membership carried law and markets eastward. NATO extended an American-backed defence guarantee across the same region. Ukraine held neither membership when Russia launched its full-scale invasion in 2022. European governments answered with sanctions, weapons and new defence budgets, while the United States remained central to the military effort. The unfinished journey now turns on Europe’s ability to convert common interests into decisions, resources and sustained power.",
     focus: { latitude: 50.45, longitude: 30.52 },
     camera: { x: 0.594, y: 0.458, scale: 1.35, rotation: 0.004 },
     palette: "present",

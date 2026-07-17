@@ -10,6 +10,34 @@ const sourceIds = new Set(sources.map((source) => source.id));
 const allowedFamilies = new Set(["route", "network", "boundary", "compare"]);
 const allowedScopes = new Set(["europe", "world"]);
 const root = fileURLToPath(new URL("../public", import.meta.url));
+const defensivePhrases = [
+  "even so",
+  "it is important to",
+  "important to remember",
+  "of course",
+  "to be sure",
+  "needless to say",
+  "not simply",
+  "not merely",
+  "cannot be understood as",
+  "later stories suggest",
+  "later accounts suggest",
+  "for all its",
+];
+const genericAiPhrases = [
+  "rich tapestry",
+  "stands as a testament",
+  "serves as a testament",
+  "delve into",
+  "complex interplay",
+  "multifaceted",
+  "broader context",
+  "cannot be overstated",
+  "ever-evolving",
+  "it is worth noting",
+  "it should be noted",
+];
+const defensiveTurn = /(?:^|[.!?]\s+)(?:But|Yet|Still|However|Nevertheless|Nonetheless)\b/;
 
 for (const [index, scene] of scenes.entries()) {
   if (!scene.id || sceneIds.has(scene.id)) errors.push(`Scene ${index + 1} has a missing or duplicate id.`);
@@ -23,6 +51,32 @@ for (const [index, scene] of scenes.entries()) {
   }
   if (!scene.title || !scene.thesis || !scene.body || !scene.landmark) {
     errors.push(`Scene "${scene.id}" is missing required public content.`);
+  }
+  const narrativeCopy = `${scene.thesis} ${scene.body}`;
+  const publicCopy = [
+    scene.title,
+    scene.kicker,
+    narrativeCopy,
+    scene.landmark,
+    scene.interaction.prompt,
+    scene.interaction.accessibleSummary,
+    ...scene.interaction.steps.map((step) => `${step.label} ${step.summary}`),
+    ...scene.hotspots.map((hotspot) => `${hotspot.label} ${hotspot.detail}`),
+  ]
+    .join(" ")
+    .toLocaleLowerCase("en");
+  for (const phrase of defensivePhrases) {
+    if (narrativeCopy.toLocaleLowerCase("en").includes(phrase)) {
+      errors.push(`Scene "${scene.id}" uses the defensive phrase "${phrase}".`);
+    }
+  }
+  for (const phrase of genericAiPhrases) {
+    if (publicCopy.includes(phrase)) {
+      errors.push(`Scene "${scene.id}" uses the generic AI phrase "${phrase}".`);
+    }
+  }
+  if (defensiveTurn.test(narrativeCopy)) {
+    errors.push(`Scene "${scene.id}" turns aside to answer an implied objection.`);
   }
   if (!scene.era) errors.push(`Scene "${scene.id}" needs a narrative era.`);
   if (!allowedFamilies.has(scene.interaction.family)) {

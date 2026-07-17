@@ -20,6 +20,19 @@ When implementing from a selected generated mock, treat that image as the source
 - Existing chapters may be rebalanced to prevent overlap with the added chapters while preserving
   their central theses.
 - The public experience contains no methodology discussion or empty “coming soon” portals.
+- The public story follows a deliberate Europe-centred causal spine. It does not pause to catalogue
+  omitted perspectives, defend its selection, or answer objections the reader has not raised.
+- Each chapter makes one affirmative claim and moves through a concrete sequence: situation,
+  mechanism, breakthrough, consequence.
+- Include conflict, exclusion, coercion, exchange, or outside actors when they cause an event in the
+  chapter. Do not add them as a balancing ledger or as proof that the authors know a counterargument.
+- Prefer named people, institutions, tools, places, and actions to abstract language about complexity,
+  dynamics, nuance, or competing perspectives.
+- Treat phrases such as “even so”, “still”, “not simply”, “of course”, and “later accounts suggest” as
+  editorial warnings. Rewrite the passage around direct action and causation.
+- End chapter prose on an irreversible result or a clear handoff to the next chapter, never on a caveat.
+- Show the editorial choice through narrative space and emphasis. Do not explain or apologise for it
+  in public-facing copy.
 - Desktop is cinematic and map-led; mobile becomes a readable vertical sequence with short crossfades.
 - Mobile is a first-class interactive experience: every chapter keeps the map visible, exposes all places
   through touch targets of at least 44px, and provides direct previous/next chapter controls.
