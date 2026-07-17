@@ -24,6 +24,7 @@ type SceneNode = HTMLElement & {
 type ScenePoint = {
   id: string;
   order: number;
+  title: string;
   latitude: number;
   longitude: number;
   x: number;
@@ -52,17 +53,29 @@ const chapterDialog = document.querySelector<HTMLDialogElement>("[data-chapter-d
 const hotspotButtons = Array.from(
   document.querySelectorAll<HTMLButtonElement>("[data-map-hotspot]"),
 );
+const placeControls = Array.from(
+  document.querySelectorAll<HTMLButtonElement>("[data-place-control]"),
+);
+const mobilePlaceButtons = Array.from(
+  document.querySelectorAll<HTMLButtonElement>("[data-mobile-place]"),
+);
 const mapInsight = document.querySelector<HTMLElement>("[data-map-insight]");
 const insightTitle = document.querySelector<HTMLElement>("[data-insight-title]");
 const insightDetail = document.querySelector<HTMLElement>("[data-insight-detail]");
 const insightCoordinates = document.querySelector<HTMLElement>("[data-insight-coordinates]");
 const closeInsightButton = document.querySelector<HTMLButtonElement>("[data-close-insight]");
+const mobilePreviousButton =
+  document.querySelector<HTMLButtonElement>("[data-mobile-previous]");
+const mobileNextButton = document.querySelector<HTMLButtonElement>("[data-mobile-next]");
+const mobileSceneCount = document.querySelector<HTMLElement>("[data-mobile-scene-count]");
+const mobileSceneTitle = document.querySelector<HTMLElement>("[data-mobile-scene-title]");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const compact = window.matchMedia("(max-width: 720px)").matches;
 
 const points: ScenePoint[] = sceneNodes.map((element) => ({
   id: element.dataset.sceneId,
   order: Number(element.dataset.order),
+  title: element.querySelector<HTMLElement>("h2")?.textContent?.trim() ?? "",
   latitude: Number(element.dataset.latitude),
   longitude: Number(element.dataset.longitude),
   x: Number(element.dataset.cameraX),
@@ -86,7 +99,9 @@ let routeMarkers: Graphics[] = [];
 let mapWidth = 2400;
 let mapHeight = 1500;
 let insightPinned = false;
-let activeHotspot: HTMLButtonElement | undefined;
+let activePlaceKey: string | undefined;
+let activePlaceControl: HTMLButtonElement | undefined;
+let suppressNextFocusPreview = false;
 
 function formatCoordinate(value: number, positive: string, negative: string) {
   return `${Math.abs(Math.round(value))}° ${value >= 0 ? positive : negative}`;
@@ -132,21 +147,42 @@ function projectCoordinates(latitude: number, longitude: number) {
   };
 }
 
-function hideInsight() {
+function getPlaceKey(button: HTMLButtonElement) {
+  return `${button.dataset.sceneId}:${button.dataset.hotspotId}`;
+}
+
+function hideInsight(restoreFocus = false) {
+  const controlToRestore = activePlaceControl;
   insightPinned = false;
-  activeHotspot?.classList.remove("is-open");
-  activeHotspot?.setAttribute("aria-expanded", "false");
-  activeHotspot = undefined;
+  activePlaceKey = undefined;
+  activePlaceControl = undefined;
+  for (const control of placeControls) {
+    control.classList.remove("is-open");
+    control.setAttribute("aria-expanded", "false");
+  }
   if (mapInsight) mapInsight.hidden = true;
+  document.body.classList.remove("has-place-insight");
+  if (restoreFocus && controlToRestore && !controlToRestore.hidden) {
+    requestAnimationFrame(() => {
+      suppressNextFocusPreview = true;
+      controlToRestore.focus({ preventScroll: true });
+      requestAnimationFrame(() => {
+        suppressNextFocusPreview = false;
+      });
+    });
+  }
 }
 
 function showInsight(button: HTMLButtonElement, pinned: boolean) {
-  activeHotspot?.classList.remove("is-open");
-  activeHotspot?.setAttribute("aria-expanded", "false");
-  activeHotspot = button;
+  const key = getPlaceKey(button);
+  activePlaceKey = key;
+  activePlaceControl = button;
   insightPinned = pinned;
-  button.classList.add("is-open");
-  button.setAttribute("aria-expanded", "true");
+  for (const control of placeControls) {
+    const isCurrent = getPlaceKey(control) === key;
+    control.classList.toggle("is-open", isCurrent);
+    control.setAttribute("aria-expanded", String(isCurrent));
+  }
   if (insightTitle) insightTitle.textContent = button.dataset.label ?? "";
   if (insightDetail) insightDetail.textContent = button.dataset.detail ?? "";
   if (insightCoordinates) {
@@ -159,6 +195,45 @@ function showInsight(button: HTMLButtonElement, pinned: boolean) {
     )}`;
   }
   if (mapInsight) mapInsight.hidden = false;
+  document.body.classList.add("has-place-insight");
+}
+
+function updateMobileControls(index: number) {
+  const current = points[index];
+  for (const button of mobilePlaceButtons) {
+    button.hidden = button.dataset.sceneId !== current.id;
+  }
+  if (mobileSceneCount) {
+    mobileSceneCount.textContent = `${String(current.order).padStart(2, "0")} / ${points.length}`;
+  }
+  if (mobileSceneTitle) mobileSceneTitle.textContent = current.title;
+  if (mobilePreviousButton) {
+    mobilePreviousButton.disabled = index === 0;
+    const previous = points[index - 1];
+    mobilePreviousButton.setAttribute(
+      "aria-label",
+      previous ? `Previous chapter: ${previous.title}` : "Previous chapter",
+    );
+  }
+  if (mobileNextButton) {
+    mobileNextButton.disabled = index === points.length - 1;
+    const next = points[index + 1];
+    mobileNextButton.setAttribute(
+      "aria-label",
+      next ? `Next chapter: ${next.title}` : "Next chapter",
+    );
+  }
+}
+
+function moveToScene(index: number) {
+  const point = points[index];
+  if (!point) return;
+  hideInsight();
+  point.element.scrollIntoView({
+    behavior: reduceMotion ? "auto" : "smooth",
+    block: "start",
+  });
+  window.history.replaceState(null, "", `#${point.id}`);
 }
 
 function updateHotspotPositions() {
@@ -174,6 +249,14 @@ function updateHotspotPositions() {
   const positionY = world?.position.y ?? stageHeight / 2;
   const cosine = Math.cos(rotation);
   const sine = Math.sin(rotation);
+  const safeTop = compact ? 128 : 72;
+  const safeBottom = compact ? 100 : 44;
+  const candidates: {
+    button: HTMLButtonElement;
+    screenX: number;
+    screenY: number;
+    inFrame: boolean;
+  }[] = [];
 
   for (const button of hotspotButtons) {
     if (button.dataset.sceneId !== activeSceneId) {
@@ -190,11 +273,32 @@ function updateHotspotPositions() {
     const screenX = positionX + relativeX * cosine - relativeY * sine;
     const screenY = positionY + relativeX * sine + relativeY * cosine;
     const inFrame =
-      screenX > 18 && screenX < stageWidth - 18 && screenY > 72 && screenY < stageHeight - 44;
+      screenX > 22 &&
+      screenX < stageWidth - 22 &&
+      screenY > safeTop &&
+      screenY < stageHeight - safeBottom;
 
-    button.hidden = !inFrame;
-    button.style.left = `${screenX}px`;
-    button.style.top = `${screenY}px`;
+    candidates.push({ button, screenX, screenY, inFrame });
+  }
+
+  const visibleCandidates = candidates.filter((candidate) => candidate.inFrame);
+  if (compact && visibleCandidates.length === 2) {
+    const [first, second] = visibleCandidates;
+    const distance = Math.hypot(first.screenX - second.screenX, first.screenY - second.screenY);
+    if (distance < 58) {
+      const midpointX = (first.screenX + second.screenX) / 2;
+      const midpointY = (first.screenY + second.screenY) / 2;
+      first.screenX = clamp(midpointX - 29, 24, stageWidth - 24);
+      first.screenY = clamp(midpointY - 4, safeTop, stageHeight - safeBottom);
+      second.screenX = clamp(midpointX + 29, 24, stageWidth - 24);
+      second.screenY = clamp(midpointY + 4, safeTop, stageHeight - safeBottom);
+    }
+  }
+
+  for (const candidate of candidates) {
+    candidate.button.hidden = !candidate.inFrame;
+    candidate.button.style.left = `${candidate.screenX}px`;
+    candidate.button.style.top = `${candidate.screenY}px`;
   }
 }
 
@@ -270,6 +374,7 @@ function setActive(index: number) {
   }
   document.body.dataset.era = current.element.dataset.palette;
   document.body.dataset.sceneSide = current.side;
+  updateMobileControls(index);
   updateHotspotPositions();
 }
 
@@ -349,28 +454,39 @@ function setupControls() {
     if (event.target === chapterDialog) chapterDialog.close();
   });
 
-  hotspotButtons.forEach((button) => {
+  placeControls.forEach((button) => {
     button.addEventListener("mouseenter", () => {
-      if (!insightPinned) showInsight(button, false);
+      if (!compact && !insightPinned) showInsight(button, false);
     });
     button.addEventListener("mouseleave", () => {
-      if (!insightPinned) hideInsight();
+      if (!compact && !insightPinned) hideInsight();
     });
     button.addEventListener("focus", () => {
-      if (!insightPinned) showInsight(button, false);
+      if (suppressNextFocusPreview) {
+        suppressNextFocusPreview = false;
+        return;
+      }
+      if (!compact && !insightPinned) showInsight(button, false);
     });
     button.addEventListener("blur", () => {
       if (!insightPinned) hideInsight();
     });
     button.addEventListener("click", () => {
-      if (activeHotspot === button && insightPinned) hideInsight();
+      if (activePlaceKey === getPlaceKey(button) && insightPinned) hideInsight();
       else showInsight(button, true);
     });
   });
 
-  closeInsightButton?.addEventListener("click", hideInsight);
+  mobilePreviousButton?.addEventListener("click", () => moveToScene(activeIndex - 1));
+  mobileNextButton?.addEventListener("click", () => moveToScene(activeIndex + 1));
+
+  closeInsightButton?.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    window.setTimeout(() => hideInsight(!compact), 0);
+  });
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && !mapInsight?.hidden) hideInsight();
+    if (event.key === "Escape" && !mapInsight?.hidden) hideInsight(!compact);
   });
 }
 

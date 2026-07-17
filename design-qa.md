@@ -31,7 +31,8 @@ has no sound, and the persistent chronology enters with the journey rather than 
 
 - 1440 × 900: full cinematic map, alternating story cards and chronology rail.
 - 1024 × 768: compact card typography keeps a complete chapter in view.
-- 390 × 844: fitted hero wordmark, static map plate, tappable place markers and a contained detail panel.
+- 390 × 844: fitted hero wordmark, persistent map plate, 44px place markers, two explicit place controls,
+  contained detail panel and previous/next chapter navigation.
 - Reduced-motion CSS removes the animated canvas and exposes a static map plate.
 
 ## Issues resolved
@@ -47,6 +48,16 @@ has no sound, and the persistent chronology enters with the journey rather than 
   labelled interactive region and hid only decorative layers.
 - P2: The map instruction collided with coordinates. Moved the instruction to the upper free edge.
 - P2: Source links and the continuation panel competed with the narrative. Removed both from the public MVP.
+- P1: On mobile, the opaque story-flow background covered the sticky map after the first chapter. Made the
+  mobile story layer transparent so every chapter retains its historical map.
+- P1: A cropped mobile camera could hide one of a chapter’s two places. Added a synchronized two-place tray
+  so all 28 locations remain directly reachable regardless of the current crop.
+- P1: Mobile chapter changes previously depended on long scrolling or the full chapter dialog. Added a
+  restrained previous/next navigator with live chapter title and disabled end states.
+- P1: Mobile map markers were below reliable touch size and could overlap. Increased hit areas to 44px and
+  separated nearby markers while preserving their geographic relationship.
+- P2: The mobile detail overlay competed with place controls. The tray now yields to the detail panel and
+  returns immediately when it closes.
 
 No unresolved P0, P1 or P2 issues remain.
 

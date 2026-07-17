@@ -13,4 +13,6 @@ When implementing from a selected generated mock, treat that image as the source
 - Use one continuous, illuminated map world with a glowing route and a restrained vertical chronology.
 - The public experience contains no methodology discussion or empty “coming soon” portals.
 - Desktop is cinematic and map-led; mobile becomes a readable vertical sequence with short crossfades.
+- Mobile is a first-class interactive experience: every chapter keeps the map visible, exposes all places
+  through touch targets of at least 44px, and provides direct previous/next chapter controls.
 - No autoplay audio, flags, blackletter, excessive heraldry, or political-poster styling.

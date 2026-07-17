@@ -29,6 +29,7 @@ const base = import.meta.env.BASE_URL;
             class="map-hotspot"
             type="button"
             hidden
+            data-place-control
             data-map-hotspot
             data-scene-id={scene.id}
             data-hotspot-id={hotspot.id}
@@ -38,6 +39,7 @@ const base = import.meta.env.BASE_URL;
             data-detail={hotspot.detail}
             aria-label={`Explore ${hotspot.label}`}
             aria-expanded="false"
+            aria-controls="map-place-detail"
           >
             <span class="map-hotspot__pulse" aria-hidden="true">
               <i class="ph ph-map-pin"></i>
@@ -48,12 +50,78 @@ const base = import.meta.env.BASE_URL;
       )
     }
   </div>
-  <aside class="map-insight" data-map-insight hidden aria-live="polite">
+
+  <nav class="mobile-scene-nav" data-mobile-scene-nav aria-label="Move between chapters">
+    <button
+      class="mobile-scene-nav__button"
+      type="button"
+      data-mobile-previous
+      aria-label="Previous chapter"
+      disabled
+    >
+      <i class="ph ph-arrow-left" aria-hidden="true"></i>
+    </button>
+    <div class="mobile-scene-nav__current" aria-live="polite">
+      <span data-mobile-scene-count>01 / 14</span>
+      <strong data-mobile-scene-title>{scenes[0].title}</strong>
+    </div>
+    <button
+      class="mobile-scene-nav__button"
+      type="button"
+      data-mobile-next
+      aria-label="Next chapter"
+    >
+      <i class="ph ph-arrow-right" aria-hidden="true"></i>
+    </button>
+  </nav>
+
+  <nav class="mobile-place-tray" data-mobile-place-tray aria-label="Places in the current chapter">
+    <div class="mobile-place-tray__heading">
+      <span>Explore this chapter</span>
+      <span>Tap a place</span>
+    </div>
+    <div class="mobile-place-tray__options">
+      {
+        scenes.flatMap((scene) =>
+          scene.hotspots.map((hotspot) => (
+            <button
+              class="mobile-place-chip"
+              type="button"
+              hidden
+              data-place-control
+              data-mobile-place
+              data-scene-id={scene.id}
+              data-hotspot-id={hotspot.id}
+              data-latitude={hotspot.latitude}
+              data-longitude={hotspot.longitude}
+              data-label={hotspot.label}
+              data-detail={hotspot.detail}
+              aria-label={`Explore ${hotspot.label}`}
+              aria-expanded="false"
+              aria-controls="map-place-detail"
+            >
+              <i class="ph ph-map-pin" aria-hidden="true"></i>
+              <span>{hotspot.label}</span>
+            </button>
+          )),
+        )
+      }
+    </div>
+  </nav>
+
+  <aside
+    id="map-place-detail"
+    class="map-insight"
+    data-map-insight
+    hidden
+    aria-live="polite"
+    aria-labelledby="map-place-detail-title"
+  >
     <button class="map-insight__close" type="button" data-close-insight aria-label="Close place detail">
       <i class="ph ph-x" aria-hidden="true"></i>
     </button>
     <p class="map-insight__eyebrow">Place in this chapter</p>
-    <h3 data-insight-title></h3>
+    <h3 id="map-place-detail-title" data-insight-title></h3>
     <p data-insight-detail></p>
     <p class="map-insight__coordinates" data-insight-coordinates></p>
   </aside>
