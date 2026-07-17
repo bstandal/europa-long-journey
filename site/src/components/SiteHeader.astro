@@ -1,4 +1,6 @@
 ---
+import Icon from "./Icon.astro";
+
 const base = import.meta.env.BASE_URL;
 type Props = { section?: "journey" | "sources" };
 const { section = "journey" } = Astro.props;
@@ -10,12 +12,12 @@ const { section = "journey" } = Astro.props;
     {
       section === "journey" ? (
         <button class="nav-button" type="button" data-open-index aria-haspopup="dialog">
-          <i class="ph ph-list" aria-hidden="true" />
+          <Icon name="list" />
           <span>Chapters</span>
         </button>
       ) : (
-        <a class="nav-button" href={`${base}#steppe-comes-west`}>
-          <i class="ph ph-arrow-left" aria-hidden="true" />
+        <a class="nav-button" href={`${base}#first-farmers`}>
+          <Icon name="arrow-left" />
           <span>The journey</span>
         </a>
       )

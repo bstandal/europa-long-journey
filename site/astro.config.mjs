@@ -13,6 +13,9 @@ export default defineConfig({
   base,
   output: "static",
   trailingSlash: "always",
+  devToolbar: {
+    enabled: false,
+  },
   vite: {
     server: {
       host: "0.0.0.0",

@@ -1,8 +1,8 @@
 # EUROPA
 
-**EUROPA — A Journey Through Five Thousand Years** is a static, map-led historical journey.
-Its fourteen chapters move from the Pontic steppe to the present through one continuous
-illuminated route.
+**EUROPA — A Journey Through Nine Thousand Years** is a static, map-led historical journey.
+Its twenty-four chapters move from the first farmers to the present through one continuous
+illuminated route and four families of optional map interactions.
 
 The site is built with Astro, TypeScript and PixiJS. Public prose and interface copy are English.
 

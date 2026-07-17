@@ -1,31 +1,51 @@
 ---
-import { scenes } from "../data/scenes";
+import { scenes, storyEras } from "../data/scenes";
+import Icon from "./Icon.astro";
 ---
 
 <dialog class="chapter-dialog" data-chapter-dialog aria-labelledby="chapter-dialog-title">
   <div class="chapter-dialog__inner">
     <header class="chapter-dialog__header">
       <div>
-        <p class="eyebrow">The long journey</p>
-        <h2 id="chapter-dialog-title">Fourteen chapters</h2>
+        <p class="eyebrow">The twenty-minute journey</p>
+        <h2 id="chapter-dialog-title">Twenty-four chapters</h2>
       </div>
       <button class="icon-button" type="button" data-close-index aria-label="Close chapter index">
-        <i class="ph ph-x" aria-hidden="true"></i>
+        <Icon name="x" />
       </button>
     </header>
-    <ol class="chapter-list">
+    <div class="chapter-dialog__resume" data-dialog-resume-wrap hidden>
+      <a href={`#${scenes[0].id}`} data-dialog-resume>
+        <span>Continue the journey</span>
+        <strong data-dialog-resume-title>{scenes[0].title}</strong>
+        <Icon name="arrow-down-right" />
+      </a>
+    </div>
+    <div class="chapter-groups">
       {
-        scenes.map((scene) => (
-          <li>
-            <a href={`#${scene.id}`} data-dialog-jump>
-              <span class="chapter-list__number">{String(scene.order).padStart(2, "0")}</span>
-              <span class="chapter-list__title">{scene.title}</span>
-              <span class="chapter-list__period">{scene.period.label}</span>
-              <i class="ph ph-arrow-down-right" aria-hidden="true" />
-            </a>
-          </li>
+        storyEras.map((era) => (
+          <section class="chapter-group" aria-labelledby={`chapter-era-${era.id}`}>
+            <header>
+              <p>{era.range}</p>
+              <h3 id={`chapter-era-${era.id}`}>{era.label}</h3>
+            </header>
+            <ol class="chapter-list">
+              {scenes
+                .filter((scene) => scene.era === era.id)
+                .map((scene) => (
+                  <li data-chapter-list-item={scene.id}>
+                    <a href={`#${scene.id}`} data-dialog-jump>
+                      <span class="chapter-list__number">{String(scene.order).padStart(2, "0")}</span>
+                      <span class="chapter-list__title">{scene.title}</span>
+                      <span class="chapter-list__period">{scene.period.label}</span>
+                      <Icon name="arrow-down-right" />
+                    </a>
+                  </li>
+                ))}
+            </ol>
+          </section>
         ))
       }
-    </ol>
+    </div>
   </div>
 </dialog>

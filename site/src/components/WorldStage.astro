@@ -1,5 +1,6 @@
 ---
 import { scenes } from "../data/scenes";
+import Icon from "./Icon.astro";
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -7,8 +8,9 @@ const base = import.meta.env.BASE_URL;
   class="world-stage"
   data-world-stage
   data-map={`${base}assets/europe-relief.webp`}
+  data-world-map={`${base}assets/world-relief.jpg`}
   data-landmarks={`${base}assets/landmark-panorama.webp`}
-  style={`--map-url: url("${base}assets/europe-relief.webp"); --hero-url: url("${base}assets/hero-europa.webp");`}
+  style={`--map-url: url("${base}assets/europe-relief.webp"); --world-map-url: url("${base}assets/world-relief.jpg"); --hero-url: url("${base}assets/hero-europa.webp");`}
   role="region"
   aria-label="Interactive map for the current chapter"
 >
@@ -16,12 +18,13 @@ const base = import.meta.env.BASE_URL;
   <canvas class="world-stage__canvas" data-world-canvas aria-hidden="true"></canvas>
   <div class="world-stage__wash" aria-hidden="true"></div>
   <div class="world-stage__grain" aria-hidden="true"></div>
-  <div class="world-stage__coordinates" data-coordinates aria-hidden="true">47° N · 38° E</div>
+  <div class="world-stage__coordinates" data-coordinates aria-hidden="true">40° N · 25° E</div>
   <div class="world-stage__legend" aria-hidden="true">
     <span class="legend-route"></span>
-    <span>THE LONG ROUTE</span>
+    <span data-map-legend>THE LONG ROUTE</span>
   </div>
-  <div class="map-hotspots" aria-label="Places in the current chapter">
+
+  <div class="map-hotspots" role="group" aria-label="Places in the current chapter">
     {
       scenes.flatMap((scene) =>
         scene.hotspots.map((hotspot) => (
@@ -42,7 +45,7 @@ const base = import.meta.env.BASE_URL;
             aria-controls="map-place-detail"
           >
             <span class="map-hotspot__pulse" aria-hidden="true">
-              <i class="ph ph-map-pin"></i>
+              <Icon name="map-pin" />
             </span>
             <span class="map-hotspot__label">{hotspot.label}</span>
           </button>
@@ -59,10 +62,10 @@ const base = import.meta.env.BASE_URL;
       aria-label="Previous chapter"
       disabled
     >
-      <i class="ph ph-arrow-left" aria-hidden="true"></i>
+      <Icon name="arrow-left" />
     </button>
     <div class="mobile-scene-nav__current" aria-live="polite">
-      <span data-mobile-scene-count>01 / 14</span>
+      <span data-mobile-scene-count>01 / {String(scenes.length).padStart(2, "0")}</span>
       <strong data-mobile-scene-title>{scenes[0].title}</strong>
     </div>
     <button
@@ -71,62 +74,189 @@ const base = import.meta.env.BASE_URL;
       data-mobile-next
       aria-label="Next chapter"
     >
-      <i class="ph ph-arrow-right" aria-hidden="true"></i>
+      <Icon name="arrow-right" />
     </button>
   </nav>
 
-  <nav class="mobile-place-tray" data-mobile-place-tray aria-label="Places in the current chapter">
-    <div class="mobile-place-tray__heading">
-      <span>Explore this chapter</span>
-      <span>Tap a place</span>
+  <aside class="map-interaction-dock" data-map-interaction-dock aria-label="Explore the current map">
+    {
+      scenes.map((scene) => (
+        <section
+          class="map-interaction-panel"
+          hidden
+          data-interaction-panel
+          data-scene-id={scene.id}
+          aria-labelledby={`interaction-title-${scene.id}`}
+        >
+          <p class="map-interaction-panel__eyebrow">
+            <Icon name="map-trifold" />
+            {scene.interaction.family}
+          </p>
+          <h2 id={`interaction-title-${scene.id}`}>{scene.interaction.prompt}</h2>
+          <div
+            class="map-interaction-panel__steps"
+            role="group"
+            aria-label={scene.interaction.prompt}
+          >
+            {scene.interaction.steps.map((step, index) => (
+              <button
+                type="button"
+                class:list={["map-step-button", { "is-active": index === 0 }]}
+                data-interaction-step
+                data-scene-id={scene.id}
+                data-step-index={index}
+                aria-pressed={index === 0 ? "true" : "false"}
+              >
+                {step.label}
+              </button>
+            ))}
+          </div>
+          <p class="map-interaction-panel__summary" data-interaction-summary aria-live="polite">
+            {scene.interaction.steps[0].summary}
+          </p>
+        </section>
+      ))
+    }
+  </aside>
+
+  <button
+    class="mobile-explorer-toggle"
+    type="button"
+    data-mobile-explorer-toggle
+    aria-expanded="false"
+    aria-controls="mobile-map-explorer"
+  >
+    <span>
+      <Icon name="map-trifold" />
+      Explore this map
+    </span>
+    <small data-mobile-explorer-count>{scenes[0].interaction.steps.length} views · {scenes[0].hotspots.length} places</small>
+    <Icon name="caret-up" />
+  </button>
+
+  <aside
+    id="mobile-map-explorer"
+    class="mobile-map-explorer"
+    data-mobile-map-explorer
+    hidden
+    aria-label="Explore the current chapter map"
+  >
+    <header class="mobile-map-explorer__header">
+      <div>
+        <p>Explore this chapter</p>
+        <strong data-mobile-explorer-title>{scenes[0].interaction.prompt}</strong>
+      </div>
+      <button type="button" data-close-mobile-explorer aria-label="Close map explorer">
+        <Icon name="x" />
+      </button>
+    </header>
+    <div class="mobile-map-explorer__tabs" role="tablist" aria-label="Map explorer sections">
+      <button
+        id="mobile-explorer-tab-story"
+        type="button"
+        role="tab"
+        aria-selected="true"
+        aria-controls="mobile-explorer-story"
+        tabindex="0"
+        data-mobile-explorer-tab="story"
+      >
+        Story
+      </button>
+      <button
+        id="mobile-explorer-tab-places"
+        type="button"
+        role="tab"
+        aria-selected="false"
+        aria-controls="mobile-explorer-places"
+        tabindex="-1"
+        data-mobile-explorer-tab="places"
+      >
+        Places
+      </button>
     </div>
-    <div class="mobile-place-tray__options">
+    <div
+      id="mobile-explorer-story"
+      class="mobile-map-explorer__content"
+      role="tabpanel"
+      aria-labelledby="mobile-explorer-tab-story"
+      data-mobile-explorer-content="story"
+    >
       {
-        scenes.flatMap((scene) =>
-          scene.hotspots.map((hotspot) => (
-            <button
-              class="mobile-place-chip"
-              type="button"
-              hidden
-              data-place-control
-              data-mobile-place
-              data-scene-id={scene.id}
-              data-hotspot-id={hotspot.id}
-              data-latitude={hotspot.latitude}
-              data-longitude={hotspot.longitude}
-              data-label={hotspot.label}
-              data-detail={hotspot.detail}
-              aria-label={`Explore ${hotspot.label}`}
-              aria-expanded="false"
-              aria-controls="map-place-detail"
-            >
-              <i class="ph ph-map-pin" aria-hidden="true"></i>
-              <span>{hotspot.label}</span>
-            </button>
-          )),
-        )
+        scenes.map((scene) => (
+          <section hidden data-mobile-interaction-panel data-scene-id={scene.id}>
+            <div class="mobile-map-explorer__steps">
+              {scene.interaction.steps.map((step, index) => (
+                <button
+                  type="button"
+                  class:list={["map-step-button", { "is-active": index === 0 }]}
+                  data-interaction-step
+                  data-scene-id={scene.id}
+                  data-step-index={index}
+                  aria-pressed={index === 0 ? "true" : "false"}
+                >
+                  {step.label}
+                </button>
+              ))}
+            </div>
+            <p data-interaction-summary aria-live="polite">{scene.interaction.steps[0].summary}</p>
+          </section>
+        ))
       }
     </div>
-  </nav>
+    <div
+      id="mobile-explorer-places"
+      class="mobile-map-explorer__content"
+      role="tabpanel"
+      aria-labelledby="mobile-explorer-tab-places"
+      data-mobile-explorer-content="places"
+      hidden
+    >
+      <div class="mobile-map-explorer__places">
+        {
+          scenes.flatMap((scene) =>
+            scene.hotspots.map((hotspot) => (
+              <button
+                class="mobile-place-chip"
+                type="button"
+                hidden
+                data-place-control
+                data-mobile-place
+                data-scene-id={scene.id}
+                data-hotspot-id={hotspot.id}
+                data-latitude={hotspot.latitude}
+                data-longitude={hotspot.longitude}
+                data-label={hotspot.label}
+                data-detail={hotspot.detail}
+                aria-label={`Explore ${hotspot.label}`}
+                aria-expanded="false"
+                aria-controls="map-place-detail"
+              >
+                <Icon name="map-pin" />
+                <span>{hotspot.label}</span>
+              </button>
+            )),
+          )
+        }
+      </div>
+    </div>
+  </aside>
 
   <aside
     id="map-place-detail"
     class="map-insight"
     data-map-insight
     hidden
+    role="dialog"
+    aria-modal="false"
     aria-live="polite"
     aria-labelledby="map-place-detail-title"
   >
     <button class="map-insight__close" type="button" data-close-insight aria-label="Close place detail">
-      <i class="ph ph-x" aria-hidden="true"></i>
+      <Icon name="x" />
     </button>
     <p class="map-insight__eyebrow">Place in this chapter</p>
     <h3 id="map-place-detail-title" data-insight-title></h3>
     <p data-insight-detail></p>
     <p class="map-insight__coordinates" data-insight-coordinates></p>
   </aside>
-  <p class="map-explore-hint" aria-hidden="true">
-    <i class="ph ph-cursor-click"></i>
-    Select a place
-  </p>
 </div>

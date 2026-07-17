@@ -1,5 +1,7 @@
 ---
 import type { StoryScene as StorySceneType } from "../types/story";
+import { scenes } from "../data/scenes";
+import Icon from "./Icon.astro";
 
 type Props = {
   scene: StorySceneType;
@@ -14,6 +16,7 @@ const { scene } = Astro.props;
   data-story-scene
   data-scene-id={scene.id}
   data-order={scene.order}
+  data-era={scene.era}
   data-latitude={scene.focus.latitude}
   data-longitude={scene.focus.longitude}
   data-camera-x={scene.camera.x}
@@ -21,13 +24,15 @@ const { scene } = Astro.props;
   data-camera-scale={scene.camera.scale}
   data-camera-rotation={scene.camera.rotation ?? 0}
   data-palette={scene.palette}
+  data-map-scope={scene.interaction.mapScope}
+  data-transition-effect={scene.transitionEffect ?? ""}
 >
   <article class="scene-card">
     <div class="scene-card__topline">
       <span class="scene-number">{String(scene.order).padStart(2, "0")}</span>
       <span class="scene-period">{scene.period.label}</span>
       <span class="scene-place">
-        <i class="ph ph-map-pin" aria-hidden="true"></i>
+        <Icon name="map-pin" />
         {scene.landmark}
       </span>
     </div>
@@ -37,11 +42,11 @@ const { scene } = Astro.props;
     <p class="scene-body">{scene.body}</p>
     <div class="scene-card__footer">
       <span class="scene-route-label">
-        <i class="ph ph-path" aria-hidden="true"></i>
-        Chapter {scene.order} of 14
+        <Icon name="path" />
+        Chapter {scene.order} of {scenes.length}
       </span>
       <span class="scene-explore-label">
-        <i class="ph ph-cursor-click" aria-hidden="true"></i>
+        <Icon name="cursor-click" />
         Explore {scene.hotspots.length} places
       </span>
     </div>
