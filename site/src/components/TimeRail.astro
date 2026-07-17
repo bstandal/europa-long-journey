@@ -1,0 +1,29 @@
+---
+import { scenes } from "../data/scenes";
+---
+
+<aside class="time-rail" aria-label="Journey progress" data-time-rail>
+  <div class="time-rail__current">
+    <span class="time-rail__chapter" data-rail-chapter>01</span>
+    <span class="time-rail__year" data-rail-year>3300 BC</span>
+  </div>
+  <div class="time-rail__track" aria-hidden="true">
+    <span class="time-rail__fill" data-rail-fill></span>
+  </div>
+  <ol class="time-rail__points">
+    {
+      scenes.map((scene) => (
+        <li>
+          <a
+            href={`#${scene.id}`}
+            aria-label={`${scene.title}, ${scene.period.label}`}
+            data-rail-link={scene.id}
+          >
+            <span></span>
+          </a>
+        </li>
+      ))
+    }
+  </ol>
+  <span class="time-rail__end">NOW</span>
+</aside>

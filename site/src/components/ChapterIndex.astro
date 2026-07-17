@@ -1,0 +1,31 @@
+---
+import { scenes } from "../data/scenes";
+---
+
+<dialog class="chapter-dialog" data-chapter-dialog aria-labelledby="chapter-dialog-title">
+  <div class="chapter-dialog__inner">
+    <header class="chapter-dialog__header">
+      <div>
+        <p class="eyebrow">The long journey</p>
+        <h2 id="chapter-dialog-title">Fourteen chapters</h2>
+      </div>
+      <button class="icon-button" type="button" data-close-index aria-label="Close chapter index">
+        <i class="ph ph-x" aria-hidden="true"></i>
+      </button>
+    </header>
+    <ol class="chapter-list">
+      {
+        scenes.map((scene) => (
+          <li>
+            <a href={`#${scene.id}`} data-dialog-jump>
+              <span class="chapter-list__number">{String(scene.order).padStart(2, "0")}</span>
+              <span class="chapter-list__title">{scene.title}</span>
+              <span class="chapter-list__period">{scene.period.label}</span>
+              <i class="ph ph-arrow-down-right" aria-hidden="true" />
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</dialog>

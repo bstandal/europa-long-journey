@@ -1,0 +1,59 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ChapterIndex from "../components/ChapterIndex.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import StoryScene from "../components/StoryScene.astro";
+import TimeRail from "../components/TimeRail.astro";
+import WorldStage from "../components/WorldStage.astro";
+import { scenes } from "../data/scenes";
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+  title="EUROPA — A Journey Through Five Thousand Years"
+  description="A continuous journey through five thousand years of European history, from the Pontic steppe to the present."
+  bodyClass="journey-page"
+>
+  <SiteHeader />
+  <main id="main-content">
+    <section id="top" class="hero" aria-labelledby="hero-title">
+      <img
+        class="hero__image"
+        src={`${base}assets/hero-europa.webp`}
+        alt=""
+        width="1536"
+        height="1024"
+        fetchpriority="high"
+      />
+      <div class="hero__shade"></div>
+      <div class="hero__content">
+        <p class="hero__overline">A journey through five thousand years</p>
+        <h1 id="hero-title">EUROPA</h1>
+        <div class="hero__rule"></div>
+        <p class="hero__period">3300 BC <span>—</span> PRESENT</p>
+        <a class="hero__cta" href="#steppe-comes-west">
+          <span>Begin the journey</span>
+          <i class="ph ph-arrow-down" aria-hidden="true"></i>
+        </a>
+      </div>
+      <div class="hero__edge-note hero__edge-note--left">THE PONTIC STEPPE</div>
+      <div class="hero__edge-note hero__edge-note--right">THE PRESENT</div>
+      <div class="hero__scroll-cue" aria-hidden="true">
+        <span></span>
+      </div>
+    </section>
+
+    <div class="journey" data-journey>
+      <WorldStage />
+      <TimeRail />
+      <div class="story-flow">
+        {scenes.map((scene) => <StoryScene scene={scene} />)}
+      </div>
+    </div>
+  </main>
+  <ChapterIndex />
+  <script>
+    import "../scripts/world";
+  </script>
+</BaseLayout>

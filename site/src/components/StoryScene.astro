@@ -1,0 +1,49 @@
+---
+import type { StoryScene as StorySceneType } from "../types/story";
+
+type Props = {
+  scene: StorySceneType;
+};
+
+const { scene } = Astro.props;
+---
+
+<section
+  id={scene.id}
+  class:list={["story-scene", `story-scene--${scene.side}`]}
+  data-story-scene
+  data-scene-id={scene.id}
+  data-order={scene.order}
+  data-latitude={scene.focus.latitude}
+  data-longitude={scene.focus.longitude}
+  data-camera-x={scene.camera.x}
+  data-camera-y={scene.camera.y}
+  data-camera-scale={scene.camera.scale}
+  data-camera-rotation={scene.camera.rotation ?? 0}
+  data-palette={scene.palette}
+>
+  <article class="scene-card">
+    <div class="scene-card__topline">
+      <span class="scene-number">{String(scene.order).padStart(2, "0")}</span>
+      <span class="scene-period">{scene.period.label}</span>
+      <span class="scene-place">
+        <i class="ph ph-map-pin" aria-hidden="true"></i>
+        {scene.landmark}
+      </span>
+    </div>
+    <p class="scene-kicker">{scene.kicker}</p>
+    <h2>{scene.title}</h2>
+    <p class="scene-thesis">{scene.thesis}</p>
+    <p class="scene-body">{scene.body}</p>
+    <div class="scene-card__footer">
+      <span class="scene-route-label">
+        <i class="ph ph-path" aria-hidden="true"></i>
+        Chapter {scene.order} of 14
+      </span>
+      <span class="scene-explore-label">
+        <i class="ph ph-cursor-click" aria-hidden="true"></i>
+        Explore the map
+      </span>
+    </div>
+  </article>
+</section>

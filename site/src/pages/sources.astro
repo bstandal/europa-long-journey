@@ -1,0 +1,90 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import { assetRecords, sources } from "../data/sources";
+import { scenes } from "../data/scenes";
+
+const usedBy = new Map<string, string[]>();
+for (const scene of scenes) {
+  for (const sourceId of scene.sourceIds) {
+    usedBy.set(sourceId, [...(usedBy.get(sourceId) ?? []), scene.title]);
+  }
+}
+---
+
+<BaseLayout
+  title="Sources — EUROPA"
+  description="Sources, further reading and visual credits for EUROPA — A Journey Through Five Thousand Years."
+  bodyClass="sources-page"
+>
+  <meta slot="head" name="robots" content="noindex, nofollow" />
+  <SiteHeader section="sources" />
+  <main id="main-content" class="sources-main">
+    <header class="sources-hero">
+      <p class="eyebrow">EUROPA · Reference room</p>
+      <h1>Sources &amp;<br />further reading</h1>
+      <p>
+        The journey is concise; its foundations are not. These works support the dates,
+        institutions and historical movements shown across the fourteen chapters.
+      </p>
+      <a class="text-link" href={`${import.meta.env.BASE_URL}#steppe-comes-west`}>
+        <i class="ph ph-arrow-left" aria-hidden="true"></i>
+        Return to the journey
+      </a>
+    </header>
+
+    <section class="sources-section" aria-labelledby="historical-sources">
+      <div class="sources-section__heading">
+        <span>01</span>
+        <h2 id="historical-sources">Historical sources</h2>
+      </div>
+      <ol class="bibliography">
+        {
+          sources.map((source, index) => (
+            <li id={source.id}>
+              <span class="bibliography__number">{String(index + 1).padStart(2, "0")}</span>
+              <div>
+                <p>
+                  <strong>{source.author}.</strong> <cite>{source.title}</cite>.
+                  {source.publication && ` ${source.publication},`} {source.year}.
+                </p>
+                <p class="bibliography__used">
+                  Used in: {(usedBy.get(source.id) ?? []).join(" · ")}
+                </p>
+              </div>
+              {
+                source.url && (
+                  <a href={source.url} target="_blank" rel="noreferrer" aria-label={`Open ${source.title}`}>
+                    <i class="ph ph-arrow-up-right" aria-hidden="true" />
+                  </a>
+                )
+              }
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="sources-section" aria-labelledby="visual-sources">
+      <div class="sources-section__heading">
+        <span>02</span>
+        <h2 id="visual-sources">Cartography &amp; artwork</h2>
+      </div>
+      <div class="asset-grid">
+        {
+          assetRecords.map((asset) => (
+            <article id={asset.id}>
+              <p class="asset-grid__license">{asset.license}</p>
+              <h3>{asset.title}</h3>
+              <p>{asset.creator} · {asset.institution}</p>
+              <p class="asset-grid__credit">{asset.requiredCredit}</p>
+              <a href={asset.sourceUrl} target={asset.sourceUrl === "/" ? undefined : "_blank"} rel="noreferrer">
+                Source <i class="ph ph-arrow-up-right" aria-hidden="true" />
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+  </main>
+</BaseLayout>

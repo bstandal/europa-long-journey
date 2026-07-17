@@ -1,0 +1,26 @@
+{
+  "name": "site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "npm run validate:content && astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "validate:content": "tsx scripts/validate-content.ts"
+  },
+  "dependencies": {
+    "@fontsource/bodoni-moda": "^5.2.7",
+    "@fontsource/manrope": "^5.2.8",
+    "@phosphor-icons/web": "^2.1.2",
+    "astro": "^5.16.9",
+    "pixi.js": "^8.19.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.6",
+    "@types/node": "^24.10.1",
+    "tsx": "^4.23.1",
+    "typescript": "^5.9.3"
+  }
+}

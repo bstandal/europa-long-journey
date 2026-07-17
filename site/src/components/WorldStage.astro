@@ -1,0 +1,64 @@
+---
+import { scenes } from "../data/scenes";
+const base = import.meta.env.BASE_URL;
+---
+
+<div
+  class="world-stage"
+  data-world-stage
+  data-map={`${base}assets/europe-relief.webp`}
+  data-landmarks={`${base}assets/landmark-panorama.webp`}
+  style={`--map-url: url("${base}assets/europe-relief.webp"); --hero-url: url("${base}assets/hero-europa.webp");`}
+  role="region"
+  aria-label="Interactive map for the current chapter"
+>
+  <div class="world-stage__fallback" aria-hidden="true"></div>
+  <canvas class="world-stage__canvas" data-world-canvas aria-hidden="true"></canvas>
+  <div class="world-stage__wash" aria-hidden="true"></div>
+  <div class="world-stage__grain" aria-hidden="true"></div>
+  <div class="world-stage__coordinates" data-coordinates aria-hidden="true">47° N · 38° E</div>
+  <div class="world-stage__legend" aria-hidden="true">
+    <span class="legend-route"></span>
+    <span>THE LONG ROUTE</span>
+  </div>
+  <div class="map-hotspots" aria-label="Places in the current chapter">
+    {
+      scenes.flatMap((scene) =>
+        scene.hotspots.map((hotspot) => (
+          <button
+            class="map-hotspot"
+            type="button"
+            hidden
+            data-map-hotspot
+            data-scene-id={scene.id}
+            data-hotspot-id={hotspot.id}
+            data-latitude={hotspot.latitude}
+            data-longitude={hotspot.longitude}
+            data-label={hotspot.label}
+            data-detail={hotspot.detail}
+            aria-label={`Explore ${hotspot.label}`}
+            aria-expanded="false"
+          >
+            <span class="map-hotspot__pulse" aria-hidden="true">
+              <i class="ph ph-map-pin"></i>
+            </span>
+            <span class="map-hotspot__label">{hotspot.label}</span>
+          </button>
+        )),
+      )
+    }
+  </div>
+  <aside class="map-insight" data-map-insight hidden aria-live="polite">
+    <button class="map-insight__close" type="button" data-close-insight aria-label="Close place detail">
+      <i class="ph ph-x" aria-hidden="true"></i>
+    </button>
+    <p class="map-insight__eyebrow">Place in this chapter</p>
+    <h3 data-insight-title></h3>
+    <p data-insight-detail></p>
+    <p class="map-insight__coordinates" data-insight-coordinates></p>
+  </aside>
+  <p class="map-explore-hint" aria-hidden="true">
+    <i class="ph ph-cursor-click"></i>
+    Select a place
+  </p>
+</div>
