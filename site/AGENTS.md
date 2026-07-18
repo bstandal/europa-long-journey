@@ -52,6 +52,60 @@ When implementing from a selected generated mock, treat that image as the source
   mastery of metal, seafaring, craftsmanship, courage, beauty, monument-building, sacred imagery and
   heroic memory. Do not reduce the period to detached resource flows, social systems or a prelude to
   collapse; ground the pride in named objects, places, skills and achievements rather than slogans.
+- Chapter 04, “Greece and the Citizen”, is the next large level-two profile and should feel like the
+  journey's arrival at the first recognisably European public world. Scope it to roughly 22–26 minutes
+  of attentive use, but do not surface that estimate in public copy.
+- Organise Greece and the Citizen around one claim: the polis moved rule onto public ground, making
+  law, war, judgment and office the work of citizens. Its large double arc is that Sparta, Athens and
+  their allies preserve Greek autonomy together against Persia, then rival civic orders destroy that
+  unity in the Peloponnesian War. Do not turn the chapter into a catalogue of inventions or great men.
+- Write Chapter 04 as one compelling story with two depths. Assume no prior Greek history in the
+  continuous narrative; let knowledgeable readers recognise exact causation, attribution and
+  evidence rather than confronting newcomers with scholarly density. The expert standard is an
+  editorial control sheet, not a syllabus to recite.
+- Give every Chapter 04 movement a physical human opening, one unanswered question, one principal
+  mechanism, one meaningful reversal and an ending that opens the next movement. Introduce people by
+  role before relying on their names, and use no more than two unfamiliar Greek terms in one
+  paragraph or visual beat.
+- Keep the main narrative causally and emotionally complete. Put fuller source disputes and secondary
+  distinctions in `What survived`, while stating uncertainty in the main path only when it changes
+  the meaning. Interactions must teach through visible consequence, require no prior recall and never
+  test the reader.
+- Athens is the institutional climax, not the whole Greek world. Sparta is the co-protagonist with a
+  legible divided constitution, helot and perioikic material basis, alliance system, land leadership
+  and capacity for naval adaptation. Preserve the agency of Corinth, Thebes, Syracuse and smaller
+  allies. Show that democratic civic institutions spread and remained active through the Hellenistic
+  period rather than dying with Alexander.
+- Chapter 04's locked visual grammar is “The Public Ground”. Move from the enclosed heroic hall into
+  sanctuary, inscription, agora, harbour, muster ground, Pnyx, law court and theatre. Avoid pristine
+  white-marble museum imagery; the Greek world is painted, maritime, crowded, dusty and loud.
+- Chapter 04 contains twelve movements and exactly four principal interactions, placed in movements
+  2, 5, 8 and 11: public law, the Cleisthenic construction of the citizen body, participation in
+  Athenian institutions and the changing strategic systems of the Peloponnesian War. The Persian Wars
+  occupy a two-movement controlled cinematic sequence rather than a battle-game interaction.
+- Treat citizenship as a bounded civic status. Adult male citizens monopolised Assembly, jury and
+  most office; citizen women carried descent and central civic cults; metics and enslaved people lived
+  and worked inside the polis without equal political power. Include these distinctions where they
+  explain how the system functioned, not as an appended balancing ledger.
+- Do not frame the Persian Wars as a racial or civilisational duel. Persia must appear as a capable
+  imperial system, Greek cities must be visible on both sides, and the relevant Greek inheritance is
+  the decision to make civic autonomy something worth defending together.
+- Render “Sparta saves Greece” with historical precision: Leonidas gives the coalition an enduring
+  standard but loses at Thermopylae alongside Thespians, a contested Theban contingent and, on a
+  strong recent reconstruction, helots; Eurybiades holds formal allied naval command while Athens
+  supplies the largest contingent and Themistocles' strategic argument at Salamis; Pausanias leads
+  the allied land victory at Plataea.
+- Give the Peloponnesian War real phases and causes. Do not reduce its outbreak to changeless Spartan
+  fear or democracy versus oligarchy, and do not jump from annual invasions to Sicily and surrender.
+  Include allied agency, Sphacteria, Brasidas, the failed peace, Sicily, Decelea, the coup of 411,
+  Persian finance, Arginusae, the generals' trial, Lysander and Aegospotami. Sparta's victory requires
+  adaptation and the Great King's money.
+- Attribute ancient explanations rather than treating them as transcripts. In particular, present
+  the motive for Sparta's refusal to destroy Athens as Xenophon's account, and distinguish Herodotus,
+  Thucydides and Xenophon when the narrative changes source.
+- End Chapter 04 in 146 BC without declaring the polis or democracy dead. Rome enters a Mediterranean
+  already filled with citizens, councils, assemblies, magistrates and public law, then scales civic
+  membership into a different imperial order.
 - Show one direct, historically plausible confrontation without gore, heroic battle poses or fantasy
   invasion imagery. Let graves, weapons, new authority markers and the disappearance of sampled
   paternal lines carry the long duration of violence.

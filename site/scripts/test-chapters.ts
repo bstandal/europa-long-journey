@@ -1,16 +1,26 @@
 import assert from "node:assert/strict";
 import { access } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
+import { bronzeEurope } from "../src/data/chapters/bronze-europe";
 import { firstFarmers } from "../src/data/chapters/first-farmers";
+import { greeceAndTheCitizen } from "../src/data/chapters/greece-and-the-citizen";
 import { steppeComesWest } from "../src/data/chapters/steppe-comes-west";
+import { scenes } from "../src/data/scenes";
 import { sources } from "../src/data/sources";
 import type { ChapterDefinition } from "../src/types/chapter";
 
 const publicRoot = fileURLToPath(new URL("../public/", import.meta.url));
 const sourceIds = new Set(sources.map((source) => source.id));
 
-async function checkCommonChapter(chapter: ChapterDefinition) {
-  assert.equal(chapter.movements.length, 7, `${chapter.slug} should contain seven movements.`);
+async function checkCommonChapter(
+  chapter: ChapterDefinition,
+  expectedMovementCount: number,
+) {
+  assert.equal(
+    chapter.movements.length,
+    expectedMovementCount,
+    `${chapter.slug} should contain ${expectedMovementCount} movements.`,
+  );
   assert.equal(
     new Set(chapter.movements.map((movement) => movement.id)).size,
     chapter.movements.length,
@@ -36,6 +46,10 @@ async function checkCommonChapter(chapter: ChapterDefinition) {
   if (chapter.ending.mobileImage) {
     await access(`${publicRoot}${chapter.ending.mobileImage}`);
   }
+  if (chapter.routeImage) await access(`${publicRoot}${chapter.routeImage}`);
+  if (chapter.openingRouteImage) {
+    await access(`${publicRoot}${chapter.openingRouteImage}`);
+  }
 
   assert.doesNotMatch(
     JSON.stringify(chapter),
@@ -44,7 +58,7 @@ async function checkCommonChapter(chapter: ChapterDefinition) {
   );
 }
 
-await checkCommonChapter(firstFarmers);
+await checkCommonChapter(firstFarmers, 7);
 assert.deepEqual(
   firstFarmers.movements.map((movement) => movement.interaction?.kind),
   ["seasons", "route", "harvest", "lineage", "inspect", "growth", "compare"],
@@ -96,7 +110,7 @@ assert.ok(comparison?.kind === "compare", "The Farmers comparison is missing.");
 await access(`${publicRoot}${comparison.before.image}`);
 await access(`${publicRoot}${comparison.after.image}`);
 
-await checkCommonChapter(steppeComesWest);
+await checkCommonChapter(steppeComesWest, 7);
 assert.equal(
   steppeComesWest.movements.filter((movement) => movement.interaction).length,
   3,
@@ -148,6 +162,98 @@ assert.deepEqual(
 );
 await access(`${publicRoot}${inheritance.mapImage}`);
 
+await checkCommonChapter(bronzeEurope, 10);
+
+await checkCommonChapter(greeceAndTheCitizen, 12);
+assert.deepEqual(
+  greeceAndTheCitizen.acts?.map((act) => act.id),
+  ["public-light", "two-cities", "freedom-power", "greek-war"],
+  "Greece should preserve the four-act progression.",
+);
+for (const act of greeceAndTheCitizen.acts ?? []) {
+  assert.equal(
+    greeceAndTheCitizen.movements.filter((movement) => movement.actId === act.id).length,
+    3,
+    `Act ${act.id} should contain exactly three movements.`,
+  );
+}
+assert.deepEqual(
+  greeceAndTheCitizen.movements
+    .map((movement, index) => (movement.interaction ? index + 1 : null))
+    .filter(Boolean),
+  [2, 5, 8, 11],
+  "Greece interactions should appear in movements 2, 5, 8 and 11.",
+);
+assert.deepEqual(
+  greeceAndTheCitizen.movements
+    .map((movement) => movement.interaction?.kind)
+    .filter(Boolean),
+  ["inscription", "citizen-body", "civic-path", "war-timeline"],
+  "Greece should preserve the inscription, citizen body, civic path and war timeline sequence.",
+);
+
+const inscription = greeceAndTheCitizen.movements[1].interaction;
+assert.ok(inscription?.kind === "inscription", "Greece needs the inscription interaction.");
+assert.equal(inscription.states.length, 3, "The inscription needs three states.");
+assert.deepEqual(
+  inscription.states.map((state) => state.id),
+  ["surface", "reading", "consequence"],
+  "The inscription should move from surface to rule to consequence.",
+);
+
+const citizenBody = greeceAndTheCitizen.movements[4].interaction;
+assert.ok(citizenBody?.kind === "citizen-body", "Greece needs the Attic citizen-body interaction.");
+assert.equal(citizenBody.states.length, 4, "The Attic citizen body needs four layers.");
+await access(`${publicRoot}${citizenBody.mapImage}`);
+for (const state of citizenBody.states) {
+  await access(`${publicRoot}${state.overlayImage}`);
+}
+
+const civicPath = greeceAndTheCitizen.movements[7].interaction;
+assert.ok(civicPath?.kind === "civic-path", "Greece needs the civic-path interaction.");
+assert.equal(civicPath.paths.length, 3, "The civic path needs three public responsibilities.");
+assert.deepEqual(
+  civicPath.paths.map((path) => path.id),
+  ["council", "jury", "assembly"],
+  "The civic path should offer council, jury and assembly.",
+);
+
+const warTimeline = greeceAndTheCitizen.movements[10].interaction;
+assert.ok(warTimeline?.kind === "war-timeline", "Greece needs the war timeline.");
+assert.equal(warTimeline.states.length, 9, "The war timeline needs nine dated states.");
+assert.equal(warTimeline.states[0].period, "431 BC");
+assert.equal(warTimeline.states.at(-1)?.period, "403 BC");
+await access(`${publicRoot}${warTimeline.mapImage}`);
+for (const state of warTimeline.states) {
+  await access(`${publicRoot}${state.overlayImage}`);
+}
+
+const greeceWords = greeceAndTheCitizen.movements.reduce(
+  (sum, movement) =>
+    sum +
+    movement.body.reduce(
+      (movementSum, paragraph) =>
+        movementSum + paragraph.trim().split(/\s+/).length,
+      0,
+    ),
+  0,
+);
+assert.ok(
+  greeceWords >= 3200 && greeceWords <= 3800,
+  `Greece should contain 3,200–3,800 words of continuous narrative; found ${greeceWords}.`,
+);
+const greeceScene = scenes.find((scene) => scene.id === "greece-and-the-citizen");
+assert.equal(
+  greeceScene?.chronicle?.href,
+  "chapters/greece-and-the-citizen/",
+  "The main journey needs a working Greece chapter link.",
+);
+assert.equal(
+  greeceScene?.chronicle?.label,
+  "Enter the public ground",
+  "The Greece chapter link needs its historical invitation.",
+);
+
 const unsupportedQuantitativeKeys = new Set([
   "europeanTurnover",
   "combinedReplacement",
@@ -168,5 +274,7 @@ function rejectUnsupportedKeys(value: unknown): void {
 }
 rejectUnsupportedKeys(firstFarmers);
 rejectUnsupportedKeys(steppeComesWest);
+rejectUnsupportedKeys(bronzeEurope);
+rejectUnsupportedKeys(greeceAndTheCitizen);
 
-console.log("Farmers regression and Steppe chapter checks passed.");
+console.log("Farmers, Steppe, Bronze and Greece chapter checks passed.");

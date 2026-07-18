@@ -326,6 +326,10 @@ const allowedChapterInteractions = new Set([
   "mobility",
   "turnover",
   "inheritance",
+  "inscription",
+  "citizen-body",
+  "civic-path",
+  "war-timeline",
 ]);
 
 for (const chapter of chapters) {
@@ -377,6 +381,48 @@ for (const chapter of chapters) {
   }
   if (chapter.movements.length < 2) {
     errors.push(`Chapter "${chapter.slug}" needs at least two movements.`);
+  }
+
+  const actsById = new Map((chapter.acts ?? []).map((act) => [act.id, act]));
+  if (chapter.acts) {
+    if (actsById.size !== chapter.acts.length) {
+      errors.push(`Chapter "${chapter.slug}" act ids must be unique.`);
+    }
+    for (const act of chapter.acts) {
+      const actFields: PublicCopyField[] = [
+        { label: `act "${act.id}" id`, value: act.id },
+        { label: `act "${act.id}" number`, value: act.number },
+        { label: `act "${act.id}" label`, value: act.label },
+        { label: `act "${act.id}" period`, value: act.period },
+        { label: `act "${act.id}" title`, value: act.title },
+        { label: `act "${act.id}" detail`, value: act.detail },
+      ];
+      for (const field of actFields) {
+        if (!hasPublicText(field.value)) {
+          errors.push(`Chapter "${chapter.slug}" needs a nonempty ${field.label}.`);
+        }
+      }
+      validateChapterCopy(chapter.slug, actFields, new Set([`act "${act.id}" detail`]));
+    }
+    let currentActId: string | undefined;
+    const closedActs = new Set<string>();
+    for (const movement of chapter.movements) {
+      if (!movement.actId || !actsById.has(movement.actId)) {
+        errors.push(
+          `Movement "${chapter.slug}:${movement.id}" must reference a declared chapter act.`,
+        );
+        continue;
+      }
+      if (movement.actId !== currentActId) {
+        if (currentActId) closedActs.add(currentActId);
+        if (closedActs.has(movement.actId)) {
+          errors.push(
+            `Chapter "${chapter.slug}" act "${movement.actId}" is not a contiguous movement block.`,
+          );
+        }
+        currentActId = movement.actId;
+      }
+    }
   }
 
   for (const [index, movement] of chapter.movements.entries()) {
@@ -852,6 +898,155 @@ for (const chapter of chapters) {
         }
         break;
       }
+      case "inscription": {
+        const { states } = interaction;
+        validateInteractionItems(qualifiedId, "inscription states", states);
+        if (
+          states.length !== 3 ||
+          states.map((state) => state.mode).join(",") !==
+            "surface,reading,consequence"
+        ) {
+          errors.push(
+            `Movement "${qualifiedId}" inscription states must be surface, reading and consequence in that order.`,
+          );
+        }
+        for (const state of states) {
+          if (!hasPublicText(state.heading) || !hasPublicText(state.annotation)) {
+            errors.push(
+              `Movement "${qualifiedId}" inscription state "${state.id}" needs a heading and annotation.`,
+            );
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" inscription "${state.id}" label`, value: state.label },
+            { label: `movement "${movement.id}" inscription "${state.id}" detail`, value: state.detail },
+            { label: `movement "${movement.id}" inscription "${state.id}" heading`, value: state.heading },
+            { label: `movement "${movement.id}" inscription "${state.id}" excerpt`, value: state.excerpt },
+            { label: `movement "${movement.id}" inscription "${state.id}" annotation`, value: state.annotation },
+          );
+        }
+        break;
+      }
+      case "citizen-body": {
+        const { mapImage, states } = interaction;
+        validateInteractionItems(qualifiedId, "citizen-body states", states);
+        if (states.length !== 4) {
+          errors.push(`Movement "${qualifiedId}" citizen-body interaction needs exactly four states.`);
+        }
+        try {
+          await access(`${root}/${mapImage}`);
+        } catch {
+          errors.push(`Movement "${qualifiedId}" citizen-body map is missing at /${mapImage}.`);
+        }
+        for (const state of states) {
+          if (!hasPublicText(state.measure) || !hasPublicText(state.overlayImage)) {
+            errors.push(
+              `Movement "${qualifiedId}" citizen-body state "${state.id}" needs a measure and overlay image.`,
+            );
+          }
+          try {
+            await access(`${root}/${state.overlayImage}`);
+          } catch {
+            errors.push(
+              `Movement "${qualifiedId}" citizen-body state "${state.id}" is missing its overlay at /${state.overlayImage}.`,
+            );
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" citizen body "${state.id}" label`, value: state.label },
+            { label: `movement "${movement.id}" citizen body "${state.id}" detail`, value: state.detail },
+            { label: `movement "${movement.id}" citizen body "${state.id}" measure`, value: state.measure },
+          );
+        }
+        break;
+      }
+      case "civic-path": {
+        const { paths } = interaction;
+        validateInteractionItems(qualifiedId, "civic paths", paths);
+        if (
+          paths.length !== 3 ||
+          paths.map((path) => path.id).join(",") !== "council,jury,assembly"
+        ) {
+          errors.push(
+            `Movement "${qualifiedId}" civic paths must be council, jury and assembly in that order.`,
+          );
+        }
+        for (const path of paths) {
+          if (
+            !hasPublicText(path.role) ||
+            !hasPublicText(path.result) ||
+            path.steps.length < 2
+          ) {
+            errors.push(
+              `Movement "${qualifiedId}" civic path "${path.id}" needs a role, steps and final responsibility.`,
+            );
+          }
+          const stepIds = new Set(path.steps.map((step) => step.id));
+          if (
+            stepIds.size !== path.steps.length ||
+            path.steps.some(
+              (step) =>
+                !hasPublicText(step.id) ||
+                !hasPublicText(step.label) ||
+                !hasPublicText(step.detail),
+            )
+          ) {
+            errors.push(
+              `Movement "${qualifiedId}" civic path "${path.id}" has an incomplete or duplicate step.`,
+            );
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" civic path "${path.id}" label`, value: path.label },
+            { label: `movement "${movement.id}" civic path "${path.id}" detail`, value: path.detail },
+            { label: `movement "${movement.id}" civic path "${path.id}" role`, value: path.role },
+            { label: `movement "${movement.id}" civic path "${path.id}" result`, value: path.result },
+            ...path.steps.flatMap((step) => [
+              { label: `movement "${movement.id}" civic step "${step.id}" label`, value: step.label },
+              { label: `movement "${movement.id}" civic step "${step.id}" detail`, value: step.detail },
+            ]),
+          );
+        }
+        break;
+      }
+      case "war-timeline": {
+        const { mapImage, states } = interaction;
+        validateInteractionItems(qualifiedId, "war timeline states", states);
+        if (states.length !== 9) {
+          errors.push(`Movement "${qualifiedId}" war timeline needs exactly nine states.`);
+        }
+        try {
+          await access(`${root}/${mapImage}`);
+        } catch {
+          errors.push(`Movement "${qualifiedId}" war timeline map is missing at /${mapImage}.`);
+        }
+        for (const state of states) {
+          if (
+            !hasPublicText(state.period) ||
+            !hasPublicText(state.athens) ||
+            !hasPublicText(state.sparta) ||
+            !hasPublicText(state.turningPoint) ||
+            !hasPublicText(state.overlayImage)
+          ) {
+            errors.push(
+              `Movement "${qualifiedId}" war state "${state.id}" needs date, both systems, change and overlay.`,
+            );
+          }
+          try {
+            await access(`${root}/${state.overlayImage}`);
+          } catch {
+            errors.push(
+              `Movement "${qualifiedId}" war state "${state.id}" is missing its overlay at /${state.overlayImage}.`,
+            );
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" war state "${state.id}" label`, value: state.label },
+            { label: `movement "${movement.id}" war state "${state.id}" detail`, value: state.detail },
+            { label: `movement "${movement.id}" war state "${state.id}" period`, value: state.period },
+            { label: `movement "${movement.id}" war state "${state.id}" Athens`, value: state.athens },
+            { label: `movement "${movement.id}" war state "${state.id}" Sparta`, value: state.sparta },
+            { label: `movement "${movement.id}" war state "${state.id}" change`, value: state.turningPoint },
+          );
+        }
+        break;
+      }
     }
 
     validateChapterCopy(
@@ -888,6 +1083,8 @@ for (const chapter of chapters) {
   }
 
   for (const [label, asset] of [
+    ["route image", chapter.routeImage],
+    ["opening route image", chapter.openingRouteImage],
     ["ending image", chapter.ending.image],
     ["ending mobile image", chapter.ending.mobileImage],
   ] as const) {
@@ -896,6 +1093,24 @@ for (const chapter of chapters) {
       await access(`${root}/${asset}`);
     } catch {
       errors.push(`Chapter "${chapter.slug}" is missing its ${label} at /${asset}.`);
+    }
+  }
+
+  if (chapter.slug === "greece-and-the-citizen") {
+    const bodyWords = chapter.movements.reduce(
+      (sum, movement) =>
+        sum +
+        movement.body.reduce(
+          (movementSum, paragraph) =>
+            movementSum + paragraph.trim().split(/\s+/).length,
+          0,
+        ),
+      0,
+    );
+    if (bodyWords < 3200 || bodyWords > 3800) {
+      errors.push(
+        `Chapter "${chapter.slug}" continuous body should contain 3,200–3,800 words; found ${bodyWords}.`,
+      );
     }
   }
 }

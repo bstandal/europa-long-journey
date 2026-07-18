@@ -1,0 +1,23 @@
+---
+import type { ChapterAct } from "../../types/chapter";
+
+type Props = {
+  act: ChapterAct;
+};
+
+const { act } = Astro.props;
+---
+
+<section
+  class="chapter-act"
+  id={`act-${act.id}`}
+  data-chapter-act={act.id}
+  aria-labelledby={`act-${act.id}-title`}
+>
+  <div class="chapter-act__rule" aria-hidden="true"><span></span></div>
+  <div class="chapter-act__heading">
+    <p>Act {act.number} · {act.label} · {act.period}</p>
+    <h2 id={`act-${act.id}-title`}>{act.title}</h2>
+  </div>
+  <p>{act.detail}</p>
+</section>

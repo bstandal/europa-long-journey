@@ -78,6 +78,14 @@
     left 380ms ease;
 }
 
+.chapter-route__toggle {
+  display: none;
+}
+
+.chapter-route__panel {
+  display: block;
+}
+
 body[data-chapter-movement="a-continent-remade"] .chapter-route {
   right: auto;
   left: clamp(28px, 3.3vw, 52px);
@@ -141,6 +149,15 @@ body[data-chapter-movement="a-continent-remade"] .chapter-route {
   border-bottom: 1px solid rgba(240, 230, 206, 0.12);
 }
 
+.chapter-route__current small {
+  margin-bottom: 5px;
+  color: rgba(240, 230, 206, 0.48);
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
 .chapter-route__current span {
   color: var(--bronze-bright);
   font-size: 0.58rem;
@@ -189,6 +206,18 @@ body[data-chapter-movement="a-continent-remade"] .chapter-route {
   border-color: rgba(224, 189, 115, 0.35);
   color: var(--ivory);
   background: rgba(224, 189, 115, 0.07);
+}
+
+.chapter-route__acts {
+  border-bottom: 1px solid rgba(240, 230, 206, 0.12);
+}
+
+.chapter-route__acts a {
+  min-width: 70px;
+}
+
+.chapter-route__acts a:not(.is-active) {
+  opacity: 0.58;
 }
 
 .chapter-header__wordmark:focus-visible,
@@ -446,6 +475,67 @@ body[data-season-tone="winter"] .chapter-stage__shade {
 
 .chapter-flow {
   position: relative;
+}
+
+.chapter-act {
+  position: relative;
+  z-index: 6;
+  display: grid;
+  min-height: 54svh;
+  padding: 16svh clamp(34px, 7vw, 110px) 12svh;
+  grid-template-columns: minmax(250px, 0.8fr) minmax(300px, 1.2fr);
+  align-content: center;
+  gap: 36px clamp(44px, 8vw, 130px);
+  background:
+    linear-gradient(110deg, rgba(7, 13, 15, 0.97), rgba(7, 13, 15, 0.82)),
+    radial-gradient(circle at 77% 32%, rgba(224, 189, 115, 0.08), transparent 36%);
+  scroll-margin-top: 84px;
+}
+
+.chapter-act__rule {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.chapter-act__rule::before {
+  color: var(--bronze-bright);
+  content: "◆";
+  font-size: 0.55rem;
+}
+
+.chapter-act__rule span {
+  width: min(220px, 30vw);
+  height: 1px;
+  background: rgba(224, 189, 115, 0.42);
+}
+
+.chapter-act__heading p {
+  margin: 0 0 16px;
+  color: var(--bronze-bright);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.chapter-act h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(3.1rem, 5.2vw, 5.7rem);
+  font-weight: 400;
+  line-height: 0.95;
+  text-wrap: balance;
+}
+
+.chapter-act > p {
+  max-width: 650px;
+  margin: 42px 0 0;
+  color: rgba(240, 230, 206, 0.72);
+  font-family: var(--serif);
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  line-height: 1.6;
 }
 
 .chapter-movement {
@@ -1251,20 +1341,95 @@ body.chapter-runtime-ready .chapter-movement.is-active .chapter-interaction {
     top: 62px;
     right: 0;
     left: 0;
-    display: grid;
     width: auto;
-    height: 128px;
-    padding: 8px 12px;
-    grid-template-columns: 112px minmax(0, 1fr);
-    grid-template-rows: 70px 38px;
-    gap: 4px 10px;
+    height: 44px;
+    padding: 0;
     border-right: 0;
     border-left: 0;
     background: rgba(6, 11, 12, 0.94);
   }
 
+  .chapter-route__toggle {
+    display: flex;
+    width: 100%;
+    min-height: 44px;
+    padding: 0 16px;
+    align-items: center;
+    justify-content: space-between;
+    border: 0;
+    background: transparent;
+    color: var(--ivory);
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .chapter-route__toggle > span:first-child {
+    display: flex;
+    min-width: 0;
+    align-items: baseline;
+    gap: 9px;
+  }
+
+  .chapter-route__toggle small {
+    flex: none;
+    color: var(--bronze-bright);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .chapter-route__toggle strong {
+    overflow: hidden;
+    font-family: var(--serif);
+    font-size: 0.83rem;
+    font-weight: 400;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .chapter-route__toggle > span:last-child {
+    min-width: 44px;
+    color: rgba(240, 230, 206, 0.66);
+    font-size: 0.62rem;
+    letter-spacing: 0.13em;
+    text-align: right;
+    text-transform: uppercase;
+  }
+
+  .chapter-route__toggle > span:last-child::after {
+    margin-left: 7px;
+    content: "+";
+  }
+
+  .chapter-route__toggle[aria-expanded="true"] > span:last-child::after {
+    content: "−";
+  }
+
+  .chapter-route__panel {
+    position: absolute;
+    top: 44px;
+    right: 0;
+    left: 0;
+    display: none;
+    max-height: calc(100svh - 106px);
+    padding: 12px;
+    grid-template-columns: 112px minmax(0, 1fr);
+    grid-template-rows: 84px auto auto;
+    gap: 8px 12px;
+    overflow: auto;
+    border-top: 1px solid rgba(240, 230, 206, 0.12);
+    border-bottom: 1px solid rgba(224, 189, 115, 0.3);
+    background: rgba(6, 11, 12, 0.98);
+    box-shadow: 0 24px 44px rgba(0, 0, 0, 0.48);
+  }
+
+  .chapter-route__panel.is-open {
+    display: grid;
+  }
+
   .chapter-route__map {
-    height: 70px;
+    height: 84px;
   }
 
   .chapter-route__current {
@@ -1286,14 +1451,22 @@ body.chapter-runtime-ready .chapter-movement.is-active .chapter-interaction {
   }
 
   .chapter-route nav {
-    grid-row: 2;
     grid-column: 1 / -1;
     padding-top: 0;
   }
 
+  .chapter-route__acts {
+    grid-row: 2;
+    padding-bottom: 7px;
+  }
+
+  .chapter-route__movements {
+    grid-row: 3;
+  }
+
   .chapter-route nav a {
     min-width: 124px;
-    min-height: 38px;
+    min-height: 44px;
     padding: 4px 7px;
     font-size: 0.75rem;
   }
@@ -1319,6 +1492,23 @@ body.chapter-runtime-ready .chapter-movement.is-active .chapter-interaction {
       var(--opening-image) 58% center / cover;
   }
 
+  .chapter-act {
+    min-height: auto;
+    padding: 13svh 22px 11svh;
+    grid-template-columns: 1fr;
+    gap: 26px;
+    scroll-margin-top: 106px;
+  }
+
+  .chapter-act h2 {
+    font-size: clamp(3rem, 13.5vw, 4.5rem);
+  }
+
+  .chapter-act > p {
+    margin-top: 0;
+    font-size: 1.04rem;
+  }
+
   .chapter-opening > div {
     width: 100%;
   }
@@ -1338,12 +1528,13 @@ body.chapter-runtime-ready .chapter-movement.is-active .chapter-interaction {
     min-height: auto;
     padding: 0;
     background: #0a1112;
+    scroll-margin-top: 106px;
   }
 
   .chapter-movement__mobile-image {
     position: sticky;
     z-index: 0;
-    top: 190px;
+    top: 106px;
     display: block;
     height: 38svh;
     overflow: hidden;

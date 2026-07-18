@@ -1,0 +1,50 @@
+---
+import type { CivicPathInteraction as CivicPathInteractionData } from "../../../types/chapter";
+
+type Props = {
+  interaction: CivicPathInteractionData;
+};
+
+const { interaction } = Astro.props;
+---
+
+<div class="civic-path-control">
+  <div class="civic-path-control__choices" role="group" aria-label={interaction.prompt}>
+    {
+      interaction.paths.map((path, index) => (
+        <button
+          type="button"
+          class:list={["civic-path-control__button", { "is-active": index === 0 }]}
+          data-interaction-choice
+          data-choice-index={index}
+          data-state-id={path.id}
+          data-detail={path.detail}
+          aria-pressed={index === 0 ? "true" : "false"}
+        >
+          <span>{path.role}</span>
+          {path.label}
+        </button>
+      ))
+    }
+  </div>
+  <div class="civic-path-control__records" aria-live="polite">
+    {
+      interaction.paths.map((path, index) => (
+        <article data-civic-path-record={index} hidden={index !== 0}>
+          <ol>
+            {path.steps.map((step) => (
+              <li>
+                <span>{step.label}</span>
+                <p>{step.detail}</p>
+              </li>
+            ))}
+          </ol>
+          <p class="civic-path-control__result">
+            <span>Public responsibility</span>
+            {path.result}
+          </p>
+        </article>
+      ))
+    }
+  </div>
+</div>

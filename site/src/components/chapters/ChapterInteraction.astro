@@ -1,5 +1,9 @@
 ---
 import type { ChapterInteraction } from "../../types/chapter";
+import CitizenBodyInteraction from "./interactions/CitizenBodyInteraction.astro";
+import CivicPathInteraction from "./interactions/CivicPathInteraction.astro";
+import InscriptionInteraction from "./interactions/InscriptionInteraction.astro";
+import WarTimelineInteraction from "./interactions/WarTimelineInteraction.astro";
 
 type Props = {
   movementId: string;
@@ -28,7 +32,11 @@ const initialDetail =
                   ? interaction.states[0].detail
                   : interaction.kind === "turnover"
                     ? interaction.regions[0].detail
-                    : interaction.layers[0].detail;
+                    : interaction.kind === "inheritance"
+                      ? interaction.layers[0].detail
+                      : interaction.kind === "civic-path"
+                        ? interaction.paths[0].detail
+                        : interaction.states[0].detail;
 ---
 
 <div
@@ -47,6 +55,12 @@ const initialDetail =
             ? interaction.regions[0].id
             : interaction.kind === "inheritance"
               ? interaction.layers[0].id
+              : interaction.kind === "civic-path"
+                ? interaction.paths[0].id
+                : interaction.kind === "inscription" ||
+                    interaction.kind === "citizen-body" ||
+                    interaction.kind === "war-timeline"
+                  ? interaction.states[0].id
               : undefined
   }
   data-season-tone={
@@ -474,6 +488,30 @@ const initialDetail =
           ))}
         </div>
       </div>
+    )
+  }
+
+  {
+    interaction.kind === "inscription" && (
+      <InscriptionInteraction interaction={interaction} />
+    )
+  }
+
+  {
+    interaction.kind === "citizen-body" && (
+      <CitizenBodyInteraction interaction={interaction} />
+    )
+  }
+
+  {
+    interaction.kind === "civic-path" && (
+      <CivicPathInteraction interaction={interaction} />
+    )
+  }
+
+  {
+    interaction.kind === "war-timeline" && (
+      <WarTimelineInteraction interaction={interaction} />
     )
   }
 

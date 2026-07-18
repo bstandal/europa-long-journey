@@ -1,0 +1,49 @@
+---
+import type { InscriptionInteraction as InscriptionInteractionData } from "../../../types/chapter";
+
+type Props = {
+  interaction: InscriptionInteractionData;
+};
+
+const { interaction } = Astro.props;
+---
+
+<div class="inscription-control">
+  <div class="inscription-control__surface" aria-hidden="true">
+    <span>Ε</span><span>Ϝ</span><span>Α</span><span>Δ</span><span>Ε</span>
+    <span>Π</span><span>Ο</span><span>Λ</span><span>Ι</span>
+  </div>
+  <div class="inscription-control__choices" role="group" aria-label={interaction.prompt}>
+    {
+      interaction.states.map((state, index) => (
+        <button
+          type="button"
+          class:list={["inscription-control__button", { "is-active": index === 0 }]}
+          data-interaction-choice
+          data-choice-index={index}
+          data-state-id={state.id}
+          data-detail={state.detail}
+          aria-pressed={index === 0 ? "true" : "false"}
+        >
+          <span>{String(index + 1).padStart(2, "0")}</span>
+          {state.label}
+        </button>
+      ))
+    }
+  </div>
+  <div class="inscription-control__records" aria-live="polite">
+    {
+      interaction.states.map((state, index) => (
+        <article
+          data-greece-state-record={index}
+          data-state-mode={state.mode}
+          hidden={index !== 0}
+        >
+          <p>{state.heading}</p>
+          {state.excerpt && <blockquote>{state.excerpt}</blockquote>}
+          <span>{state.annotation}</span>
+        </article>
+      ))
+    }
+  </div>
+</div>

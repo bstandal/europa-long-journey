@@ -1,0 +1,75 @@
+---
+import type { WarTimelineInteraction as WarTimelineInteractionData } from "../../../types/chapter";
+
+type Props = {
+  interaction: WarTimelineInteractionData;
+};
+
+const { interaction } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+<div class="war-timeline-control">
+  <div class="greece-layer-map war-timeline-control__map" aria-hidden="true">
+    <img
+      class="greece-layer-map__base"
+      src={`${base}${interaction.mapImage}`}
+      alt=""
+      width="1200"
+      height="900"
+      loading="lazy"
+      decoding="async"
+    />
+    {
+      interaction.states.map((state, index) => (
+        <img
+          class:list={["greece-layer-map__overlay", { "is-active": index === 0 }]}
+          src={`${base}${state.overlayImage}`}
+          alt=""
+          width="1200"
+          height="900"
+          loading="lazy"
+          decoding="async"
+          data-greece-inline-layer={state.id}
+        />
+      ))
+    }
+  </div>
+  <div class="war-timeline-control__dates" role="group" aria-label={interaction.prompt}>
+    {
+      interaction.states.map((state, index) => (
+        <button
+          type="button"
+          class:list={["war-timeline-control__button", { "is-active": index === 0 }]}
+          data-interaction-choice
+          data-choice-index={index}
+          data-state-id={state.id}
+          data-detail={state.detail}
+          aria-pressed={index === 0 ? "true" : "false"}
+        >
+          {state.period}
+        </button>
+      ))
+    }
+  </div>
+  <div class="war-timeline-control__records" aria-live="polite">
+    {
+      interaction.states.map((state, index) => (
+        <article data-greece-state-record={index} hidden={index !== 0}>
+          <div>
+            <span>Athens</span>
+            <p>{state.athens}</p>
+          </div>
+          <div>
+            <span>Sparta</span>
+            <p>{state.sparta}</p>
+          </div>
+          <p class="war-timeline-control__turn">
+            <span>Decisive change</span>
+            {state.turningPoint}
+          </p>
+        </article>
+      ))
+    }
+  </div>
+</div>

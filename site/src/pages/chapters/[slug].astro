@@ -1,4 +1,5 @@
 ---
+import ChapterActDivider from "../../components/chapters/ChapterActDivider.astro";
 import ChapterHeader from "../../components/chapters/ChapterHeader.astro";
 import ChapterMovement from "../../components/chapters/ChapterMovement.astro";
 import ChapterRoute from "../../components/chapters/ChapterRoute.astro";
@@ -53,13 +54,21 @@ const nextHref = `${base}#${chapter.nextHash}`;
 
     <div class="chapter-flow">
       {
-        chapter.movements.map((movement) => (
-          <ChapterMovement movement={movement} />
-        ))
+        chapter.movements.map((movement, index) => {
+          const act = chapter.acts?.find((candidate) => candidate.id === movement.actId);
+          const previousActId = chapter.movements[index - 1]?.actId;
+          return (
+            <>
+              {act && act.id !== previousActId && <ChapterActDivider act={act} />}
+              <ChapterMovement movement={movement} />
+            </>
+          );
+        })
       }
     </div>
 
     <footer
+      id="chapter-ending"
       class="chapter-ending"
       style={[
         chapter.ending.image
