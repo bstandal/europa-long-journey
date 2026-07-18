@@ -272,6 +272,10 @@ export const scenes: StoryScene[] = [
         longitude: 22.75,
       },
     ],
+    chronicle: {
+      href: "chapters/bronze-europe/",
+      label: "Enter the great sea",
+    },
   },
   {
     id: "greece-and-the-citizen",
