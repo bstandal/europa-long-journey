@@ -61,6 +61,13 @@ When implementing from a selected generated mock, treat that image as the source
   chapter. Do not add them as a balancing ledger or as proof that the authors know a counterargument.
 - Prefer named people, institutions, tools, places, and actions to abstract language about complexity,
   dynamics, nuance, or competing perspectives.
+- Write public prose as authored historical nonfiction, not trailer copy. Every sentence must add a
+  historical fact, a causal connection, or a useful invitation to act. Remove aphoristic two-line
+  endings, vague declarations of continuity, ornamental contrasts, rhetorical crescendos, and
+  sentences whose only purpose is to sound momentous. Phrases in the pattern “X became Y. The
+  tradition never disappeared”, “more than…”, “echoes to this day”, “a new world was born”, or
+  “everything changed” are editorial warnings. Replace them with concrete subjects, materials,
+  actions, places, dates, and consequences.
 - Treat phrases such as “even so”, “still”, “not simply”, “of course”, and “later accounts suggest” as
   editorial warnings. Rewrite the passage around direct action and causation.
 - End chapter prose on an irreversible result or a clear handoff to the next chapter, never on a caveat.
