@@ -97,9 +97,9 @@ export const scenes: StoryScene[] = [
     period: { start: -3300, end: -2000, label: "3300–2000 BC" },
     title: "The Steppe Comes West",
     kicker: "Origins",
-    thesis: "Migration from the Pontic steppe carried new populations, languages and forms of mobility deep into Europe.",
+    thesis: "Mobile, armed and patrilineal communities from the Pontic steppe transformed Europe’s population and inheritance.",
     body:
-      "Around 3000 BC, people from the grasslands north of the Black Sea began moving west in large numbers. Ancient DNA reveals the scale: Corded Ware communities in parts of central Europe derived about three quarters of their ancestry from steppe populations. Wagons carried households and possessions; horses widened the range of herders, messengers and warriors. New burial customs marked family lines across the landscape. Speech travelled with kinship, marriage and command, helping Indo-European languages spread through much of the continent. From the lower Dnipro to the Rhine and southern Scandinavia, movement from the steppe created a new European population.",
+      "Around 3000 BC, people from the grasslands north of the Black Sea moved west in large numbers. Herds and ox-drawn wagons carried households across the lower Danube; widespread horse-based mobility came centuries later. Ancient DNA reveals the scale: sampled Corded Ware communities in Germany derived about three quarters of their ancestry from Yamnaya-related populations. Burial mounds fixed paternal lines to the landscape, while weapons and male-biased migration reordered power and descent. Speech travelled with kinship, marriage and command. From the lower Dnipro to central Europe and Iberia, steppe migration created new populations and helped Indo-European languages and inherited religious traditions spread.",
     focus: { latitude: 47, longitude: 38 },
     camera: { x: 0.682, y: 0.532, scale: 1.28, rotation: -0.018 },
     palette: "steppe",
@@ -163,6 +163,10 @@ export const scenes: StoryScene[] = [
         longitude: 14,
       },
     ],
+    chronicle: {
+      href: "chapters/steppe-comes-west/",
+      label: "Enter the eastern grasslands",
+    },
   },
   {
     id: "bronze-europe",

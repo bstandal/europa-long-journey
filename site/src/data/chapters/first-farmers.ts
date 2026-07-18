@@ -9,6 +9,19 @@ export const firstFarmers: ChapterDefinition = {
   period: "7000–3300 BC",
   claim:
     "Farming came to Europe with people who carried seed, animals and knowledge. It bound growing populations to land, season and stores made to outlast a single generation.",
+  theme: {
+    id: "farmers",
+    label: "Field, river and settled ground",
+  },
+  openingAction: "The river before the fields",
+  mapLabel: "The route from the Iron Gates to the first farming landscapes",
+  sourcesEyebrow: "Archaeology · ancient DNA · palaeopathology",
+  ending: {
+    period: "By 3300 BC",
+    title: "Europe had become a continent of fields, herds and long-lived settlements.",
+    detail: "No text preserves the languages of the people who made it so.",
+    nextPeriod: "3300 BC",
+  },
   returnHash: "first-farmers",
   nextHash: "steppe-comes-west",
   nextTitle: "The Steppe Comes West",

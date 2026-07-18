@@ -19,17 +19,18 @@ const movementSources = movement.sourceIds
   data-chapter-movement
   data-movement-id={movement.id}
   data-order={movement.order}
-  data-interaction-kind={movement.interaction.kind}
+  data-interaction-kind={movement.interaction?.kind}
+  data-visual-tone={movement.visualTone}
 >
   <div class="chapter-movement__mobile-image">
     <img
-      src={`${import.meta.env.BASE_URL}${movement.image}`}
+      src={`${import.meta.env.BASE_URL}${movement.mobileImage ?? movement.image}`}
       alt={movement.imageAlt}
-      width="1536"
-      height="1024"
+      width={movement.mobileImage ? "1024" : "1536"}
+      height={movement.mobileImage ? "1536" : "1024"}
       loading={movement.order === 1 ? "eager" : "lazy"}
       decoding="async"
-      style={`object-position:${movement.imagePosition ?? "center"}`}
+      style={`object-position:${movement.mobileImagePosition ?? movement.imagePosition ?? "center"}`}
     />
     <span>Evidence-led reconstruction</span>
   </div>
@@ -75,6 +76,10 @@ const movementSources = movement.sourceIds
         </p>
       </div>
     </details>
-    <ChapterInteraction movementId={movement.id} interaction={movement.interaction} />
+    {
+      movement.interaction && (
+        <ChapterInteraction movementId={movement.id} interaction={movement.interaction} />
+      )
+    }
   </article>
 </section>

@@ -28,6 +28,7 @@ const nextHref = `${base}#${chapter.nextHash}`;
 <ChapterLayout
   title={`${chapter.title} — EUROPA`}
   description={chapter.claim}
+  theme={chapter.theme.id}
 >
   <ChapterHeader returnHref={returnHref} />
   <main id="main-content" class="deep-chapter" data-deep-chapter data-chapter-slug={chapter.slug}>
@@ -37,13 +38,16 @@ const nextHref = `${base}#${chapter.nextHash}`;
     <section
       class="chapter-opening"
       aria-labelledby="chapter-title"
-      style={`--opening-image:url("${base}${chapter.movements[0].image}")`}
+      style={[
+        `--opening-image:url("${base}${chapter.movements[0].image}")`,
+        `--opening-mobile-image:url("${base}${chapter.movements[0].mobileImage ?? chapter.movements[0].image}")`,
+      ].join(";")}
     >
       <div>
         <p class="chapter-opening__number">{chapter.number} · {chapter.period}</p>
         <h1 id="chapter-title">{chapter.title}</h1>
         <p>{chapter.claim}</p>
-        <a href={`#${chapter.movements[0].id}`}>The river before the fields</a>
+        <a href={`#${chapter.movements[0].id}`}>{chapter.openingAction}</a>
       </div>
     </section>
 
@@ -55,14 +59,24 @@ const nextHref = `${base}#${chapter.nextHash}`;
       }
     </div>
 
-    <footer class="chapter-ending">
+    <footer
+      class="chapter-ending"
+      style={[
+        chapter.ending.image
+          ? `--ending-image:url("${base}${chapter.ending.image}")`
+          : "",
+        chapter.ending.mobileImage
+          ? `--ending-mobile-image:url("${base}${chapter.ending.mobileImage}")`
+          : "",
+      ].filter(Boolean).join(";")}
+    >
       <div class="chapter-ending__result">
-        <p>By 3300 BC</p>
-        <h2>Europe had become a continent of fields, herds and long-lived settlements.</h2>
-        <p>No text preserves the languages of the people who made it so.</p>
+        <p>{chapter.ending.period}</p>
+        <h2>{chapter.ending.title}</h2>
+        <p>{chapter.ending.detail}</p>
       </div>
       <a class="chapter-ending__next" href={nextHref}>
-        <span>3300 BC</span>
+        <span>{chapter.ending.nextPeriod}</span>
         <strong>{chapter.nextTitle}</strong>
       </a>
       <a class="chapter-ending__return" href={returnHref}>Return to the long road</a>

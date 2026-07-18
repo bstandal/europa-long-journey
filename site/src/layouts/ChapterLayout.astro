@@ -1,16 +1,22 @@
 ---
 import "../styles/chapter.css";
+import "../styles/chapter-steppe.css";
 import BaseLayout from "./BaseLayout.astro";
 
 type Props = {
   title: string;
   description: string;
+  theme: string;
 };
 
-const { title, description } = Astro.props;
+const { title, description, theme } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description} bodyClass="deep-chapter-page">
+<BaseLayout
+  title={title}
+  description={description}
+  bodyClass={`deep-chapter-page deep-chapter-page--${theme}`}
+>
   <script is:inline slot="head">
     document.documentElement.classList.add("chapter-js");
   </script>

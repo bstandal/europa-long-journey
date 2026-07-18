@@ -88,6 +88,55 @@ export type CompareInteraction = ChapterInteractionBase & {
   }[];
 };
 
+export type MobilityInteraction = ChapterInteractionBase & {
+  kind: "mobility";
+  states: {
+    id: string;
+    label: string;
+    detail: string;
+    reach: string;
+    load: string;
+  }[];
+};
+
+export type TurnoverInteraction = ChapterInteractionBase & {
+  kind: "turnover";
+  regions: {
+    id: string;
+    label: string;
+    period: string;
+    detail: string;
+    measures: {
+      id: "ancestry" | "local-paternal" | "incoming-paternal";
+      label: string;
+      value: string;
+      note: string;
+    }[];
+    sourceId: string;
+  }[];
+};
+
+export type InheritanceInteraction = ChapterInteractionBase & {
+  kind: "inheritance";
+  mapImage: string;
+  layers: {
+    id: "people" | "language" | "religion";
+    label: string;
+    detail: string;
+    routes: {
+      id: string;
+      label: string;
+      points: { x: number; y: number }[];
+    }[];
+    correspondences?: {
+      reconstructed: string;
+      west: string;
+      east: string;
+      note: string;
+    }[];
+  }[];
+};
+
 export type ChapterInteraction =
   | RouteInteraction
   | SeasonsInteraction
@@ -95,7 +144,24 @@ export type ChapterInteraction =
   | InspectInteraction
   | LineageInteraction
   | GrowthInteraction
-  | CompareInteraction;
+  | CompareInteraction
+  | MobilityInteraction
+  | TurnoverInteraction
+  | InheritanceInteraction;
+
+export type ChapterTheme = {
+  id: "farmers" | "steppe";
+  label: string;
+};
+
+export type ChapterEnding = {
+  period: string;
+  title: string;
+  detail: string;
+  image?: string;
+  mobileImage?: string;
+  nextPeriod: string;
+};
 
 export type ChapterMovement = {
   id: string;
@@ -107,8 +173,11 @@ export type ChapterMovement = {
   thesis: string;
   body: string[];
   image: string;
+  mobileImage?: string;
   imageAlt: string;
   imagePosition?: string;
+  mobileImagePosition?: string;
+  visualTone?: string;
   side: "left" | "right";
   sourceIds: string[];
   evidence: string[];
@@ -116,7 +185,7 @@ export type ChapterMovement = {
     x: number;
     y: number;
   };
-  interaction: ChapterInteraction;
+  interaction?: ChapterInteraction;
 };
 
 export type ChapterDefinition = {
@@ -125,6 +194,11 @@ export type ChapterDefinition = {
   title: string;
   period: string;
   claim: string;
+  theme: ChapterTheme;
+  openingAction: string;
+  mapLabel: string;
+  sourcesEyebrow: string;
+  ending: ChapterEnding;
   returnHash: string;
   nextHash: string;
   nextTitle: string;

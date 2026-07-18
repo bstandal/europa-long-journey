@@ -9,7 +9,7 @@
     "preview": "astro preview",
     "check": "astro check",
     "validate:content": "tsx scripts/validate-content.ts",
-    "test:chapter": "tsx scripts/test-first-farmers.ts"
+    "test:chapter": "tsx scripts/test-chapters.ts"
   },
   "dependencies": {
     "@fontsource/bodoni-moda": "^5.2.7",

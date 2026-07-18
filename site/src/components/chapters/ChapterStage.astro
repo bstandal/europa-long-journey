@@ -29,7 +29,7 @@ const base = import.meta.env.BASE_URL;
     }
     {
       chapter.movements.flatMap((movement) =>
-        movement.interaction.kind === "growth"
+        movement.interaction?.kind === "growth"
           ? movement.interaction.stages.map((state, index) => (
               <img
                 class:list={[
@@ -52,10 +52,10 @@ const base = import.meta.env.BASE_URL;
     }
     {
       chapter.movements
-        .filter((movement) => movement.interaction.kind === "compare")
+        .filter((movement) => movement.interaction?.kind === "compare")
         .map((movement) => {
           const compare =
-            movement.interaction.kind === "compare"
+            movement.interaction?.kind === "compare"
               ? movement.interaction
               : undefined;
           if (!compare) return null;
@@ -95,6 +95,70 @@ const base = import.meta.env.BASE_URL;
             </div>
           );
         })
+    }
+    {
+      chapter.movements.map((movement) => {
+        const inheritance =
+          movement.interaction?.kind === "inheritance"
+            ? movement.interaction
+            : undefined;
+        if (!inheritance) return null;
+        return (
+          <div
+            class="chapter-stage__inheritance"
+            data-inheritance-stage={movement.id}
+          >
+            <img
+              src={`${base}${inheritance.mapImage}`}
+              alt=""
+              width="1536"
+              height="1024"
+              loading="lazy"
+              decoding="async"
+            />
+            {inheritance.layers.map((layer, index) => (
+              <div
+                class:list={[
+                  "chapter-stage__inheritance-layer",
+                  { "is-active": index === 0 },
+                ]}
+                data-inheritance-layer={layer.id}
+              >
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+                  {layer.routes.map((route) => (
+                    <>
+                      <polyline
+                        points={route.points
+                          .map((point) => `${point.x},${point.y}`)
+                          .join(" ")}
+                      />
+                      <circle
+                        cx={route.points.at(-1)?.x}
+                        cy={route.points.at(-1)?.y}
+                        r="0.65"
+                      />
+                    </>
+                  ))}
+                </svg>
+                <span
+                  class="chapter-stage__inheritance-origin"
+                  style={`--map-x:${layer.routes[0]?.points[0]?.x ?? 50}%;--map-y:${layer.routes[0]?.points[0]?.y ?? 50}%`}
+                >
+                  Pontic steppe
+                </span>
+                {layer.routes.map((route) => (
+                  <span
+                    class="chapter-stage__inheritance-destination"
+                    style={`--map-x:${route.points.at(-1)?.x ?? 50}%;--map-y:${route.points.at(-1)?.y ?? 50}%`}
+                  >
+                    {route.label}
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        );
+      })
     }
   </div>
   <div class="chapter-stage__shade"></div>
