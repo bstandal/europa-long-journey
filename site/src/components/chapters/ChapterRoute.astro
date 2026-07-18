@@ -20,12 +20,25 @@ const firstMovement = chapter.movements[0];
 >
   <div class="chapter-route__map" aria-hidden="true">
     <img
-      src={`${base}assets/europe-relief.webp`}
+      class="chapter-route__base-map"
+      src={`${base}${chapter.routeImage ?? "assets/europe-relief.webp"}`}
       alt=""
       width="1536"
       height="1024"
       decoding="async"
     />
+    {
+      chapter.openingRouteImage && (
+        <img
+          class="chapter-route__opening-map"
+          src={`${base}${chapter.openingRouteImage}`}
+          alt=""
+          width="1536"
+          height="768"
+          decoding="async"
+        />
+      )
+    }
     <svg viewBox="0 0 100 100" preserveAspectRatio="none">
       <polyline points={routePoints}></polyline>
     </svg>

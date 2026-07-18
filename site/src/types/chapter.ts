@@ -150,7 +150,7 @@ export type ChapterInteraction =
   | InheritanceInteraction;
 
 export type ChapterTheme = {
-  id: "farmers" | "steppe";
+  id: "farmers" | "steppe" | "bronze";
   label: string;
 };
 
@@ -197,6 +197,8 @@ export type ChapterDefinition = {
   theme: ChapterTheme;
   openingAction: string;
   mapLabel: string;
+  routeImage?: string;
+  openingRouteImage?: string;
   sourcesEyebrow: string;
   ending: ChapterEnding;
   returnHash: string;

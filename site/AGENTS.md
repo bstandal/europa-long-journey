@@ -30,6 +30,28 @@ When implementing from a selected generated mock, treat that image as the source
 - Chapter 02 contains exactly three major interactions, placed in movements 3, 5 and 7: mobility,
   regional paternal-line turnover and Eurasian inheritance. The four intervening movements remain
   controlled reading beats so the chapter alternates attention instead of becoming a row of widgets.
+- Chapter 03, “Bronze Europe”, is a larger level-two profile reached from the long road. Scope it to
+  roughly 15–20 minutes of attentive use, but do not surface that estimate in public copy.
+- Organise Bronze Europe in three information layers: the continuous level-two narrative, optional
+  scene-level evidence, and later level-three regional or thematic deep dives. Do not publish empty
+  deep-dive links or “coming soon” thresholds before their destinations exist.
+- The Bronze Europe profile must be broad enough to connect the Nordic Bronze Age, continental
+  exchange, the Aegean palace worlds and the later Homeric memory of the heroic age. It still needs
+  one causal spine rather than a catalogue of regional cultures.
+- Chapter 03’s selected opening direction is “The Great Sea”: a Mediterranean-centred relief map
+  above a low ship-level dawn scene, with one polished-bronze route becoming a current across dark
+  green-black water. Mobile preserves this map-to-sea sequence at 390 × 844; desktop expands the sea
+  cinematically and keeps the route map as a restrained atlas plate.
+- Chapter 03 is one continuous ten-movement document flow. Its three-act structure is editorial,
+  never a tabbed gate: no movement may be hidden behind a click, and the route changes automatically
+  as the reader scrolls. Principal interactions are optional pauses in movements 2, 6, 8 and 10.
+- Chapter 03 needs enough authored narrative for 15–20 minutes of attentive use: approximately
+  2,700–3,000 public words across the opening, ten movements, evidence disclosures, interactions and
+  ending. Navigation may provide shortcuts but must never become the primary way to reveal content.
+- Tell Bronze Europe as our own European inheritance and with earned pride. Give narrative space to
+  mastery of metal, seafaring, craftsmanship, courage, beauty, monument-building, sacred imagery and
+  heroic memory. Do not reduce the period to detached resource flows, social systems or a prelude to
+  collapse; ground the pride in named objects, places, skills and achievements rather than slogans.
 - Show one direct, historically plausible confrontation without gore, heroic battle poses or fantasy
   invasion imagery. Let graves, weapons, new authority markers and the disappearance of sampled
   paternal lines carry the long duration of violence.

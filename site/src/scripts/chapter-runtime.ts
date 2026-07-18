@@ -438,14 +438,25 @@ function setupInteractions() {
 }
 
 function updateMovementFromViewport(updateHash = true) {
-  const pageRegionIsVisible =
+  const openingIsVisible =
     (opening?.getBoundingClientRect().bottom ?? 0) >
-      Math.max(96, window.innerHeight * 0.12) ||
-    [ending, sources].some((region) => {
-      if (!region) return false;
-      const bounds = region.getBoundingClientRect();
-      return bounds.top < window.innerHeight && bounds.bottom > 0;
-    });
+    Math.max(96, window.innerHeight * 0.12);
+  const endingIsVisible = [ending, sources].some((region) => {
+    if (!region) return false;
+    const bounds = region.getBoundingClientRect();
+    return bounds.top < window.innerHeight && bounds.bottom > 0;
+  });
+  const pageRegionIsVisible = openingIsVisible || endingIsVisible;
+
+  document.body.dataset.chapterRegion = openingIsVisible
+    ? "opening"
+    : endingIsVisible
+      ? "ending"
+      : "movement";
+  if (openingIsVisible) {
+    const firstMovementId = movements[0]?.dataset.movementId;
+    if (firstMovementId) setRoutePosition(firstMovementId);
+  }
 
   if (!compact.matches && pageRegionIsVisible) {
     if (focusedMovementIndex !== null) clearActiveMovement();
