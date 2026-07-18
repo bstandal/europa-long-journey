@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run validate:content && astro build",
+    "build": "npm run validate:content && npm run test:chapter && astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "validate:content": "tsx scripts/validate-content.ts"
+    "validate:content": "tsx scripts/validate-content.ts",
+    "test:chapter": "tsx scripts/test-first-farmers.ts"
   },
   "dependencies": {
     "@fontsource/bodoni-moda": "^5.2.7",

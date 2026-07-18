@@ -1,6 +1,5 @@
 ---
 import type { StoryScene as StorySceneType } from "../types/story";
-import { scenes } from "../data/scenes";
 import Icon from "./Icon.astro";
 
 type Props = {
@@ -8,6 +7,7 @@ type Props = {
 };
 
 const { scene } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 
 <section
@@ -39,15 +39,26 @@ const { scene } = Astro.props;
     <p class="scene-kicker">{scene.kicker}</p>
     <h2>{scene.title}</h2>
     <p class="scene-thesis">{scene.thesis}</p>
+    {
+      scene.chronicle && (
+        <a class="scene-chronicle" href={`${base}${scene.chronicle.href}`}>
+          <span>
+            <small>{scene.period.label}</small>
+            <strong>{scene.chronicle.label}</strong>
+          </span>
+          <Icon name="arrow-right" />
+        </a>
+      )
+    }
     <p class="scene-body">{scene.body}</p>
     <div class="scene-card__footer">
       <span class="scene-route-label">
         <Icon name="path" />
-        Chapter {scene.order} of {scenes.length}
+        {scene.interaction.prompt}
       </span>
       <span class="scene-explore-label">
-        <Icon name="cursor-click" />
-        Explore {scene.hotspots.length} places
+        <Icon name="map-pin" />
+        {scene.landmark}
       </span>
     </div>
   </article>

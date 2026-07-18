@@ -8,9 +8,10 @@ export const scenes: StoryScene[] = [
     period: { start: -7000, end: -3300, label: "7000–3300 BC" },
     title: "The First Farmers",
     kicker: "A Settled Continent",
-    thesis: "Farming reached Europe with migrants from Anatolia, changing the land as thoroughly as the people.",
+    thesis:
+      "Farming reached Europe chiefly with people whose ancestry traced to Anatolian farming populations, changing land and population together.",
     body:
-      "The first European fields were sown by families from Anatolia. They crossed the Aegean, established villages in the Balkans and followed the Danube towards central Europe. Others moved west along the Mediterranean coast. Wheat, barley, sheep and cattle travelled with them, together with the skills to store a harvest, fire a pot and keep the same ground productive. Forest gave way to fields; grain stores supported larger settlements. Established foragers traded with the villages, joined households and adopted crops. By the time riders appeared on the eastern plains, farming had already remade Europe’s landscape, diet and population.",
+      "The first European fields were sown by farming communities moving from western Anatolia. They crossed the Aegean, established villages in the Balkans and followed the Danube towards central Europe. Others moved west along Mediterranean coasts. Wheat, barley, sheep and cattle travelled with them, together with the knowledge needed to store a harvest, fire a pot and cultivate the same ground again. Clearings opened within woodland for fields and pasture; grain stores supported denser settlements. Established river and forest communities traded with the villages, joined households and adopted selected practices. By the time riders appeared on the eastern plains, farming had already remade Europe’s landscape, diet and population.",
     focus: { latitude: 40.2, longitude: 25.2 },
     camera: { x: 0.525, y: 0.69, scale: 1.38, rotation: -0.01 },
     palette: "aegean",
@@ -28,7 +29,8 @@ export const scenes: StoryScene[] = [
         {
           id: "aegean-crossing",
           label: "The Aegean",
-          summary: "Families crossed from Anatolia into the Aegean and established some of Europe’s earliest farming villages.",
+          summary:
+            "Farming communities crossed from western Anatolia into the Aegean and established some of Europe’s earliest farming villages.",
           points: [
             { latitude: 38.5, longitude: 30.5, label: "Western Anatolia" },
             { latitude: 39.5, longitude: 22.5, label: "Thessaly" },
@@ -83,6 +85,10 @@ export const scenes: StoryScene[] = [
         longitude: 14.4,
       },
     ],
+    chronicle: {
+      href: "chapters/first-farmers/",
+      label: "Enter the first fields",
+    },
   },
   {
     id: "steppe-comes-west",

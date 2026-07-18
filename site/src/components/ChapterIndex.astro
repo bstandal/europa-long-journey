@@ -7,8 +7,8 @@ import Icon from "./Icon.astro";
   <div class="chapter-dialog__inner">
     <header class="chapter-dialog__header">
       <div>
-        <p class="eyebrow">The twenty-minute journey</p>
-        <h2 id="chapter-dialog-title">Twenty-four chapters</h2>
+        <p class="eyebrow">7000 BC — Present</p>
+        <h2 id="chapter-dialog-title">The road across Europe</h2>
       </div>
       <button class="icon-button" type="button" data-close-index aria-label="Close chapter index">
         <Icon name="x" />
@@ -16,7 +16,7 @@ import Icon from "./Icon.astro";
     </header>
     <div class="chapter-dialog__resume" data-dialog-resume-wrap hidden>
       <a href={`#${scenes[0].id}`} data-dialog-resume>
-        <span>Continue the journey</span>
+        <span>Return to</span>
         <strong data-dialog-resume-title>{scenes[0].title}</strong>
         <Icon name="arrow-down-right" />
       </a>

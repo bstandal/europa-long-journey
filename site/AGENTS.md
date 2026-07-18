@@ -9,6 +9,12 @@ When implementing from a selected generated mock, treat that image as the source
 ## EUROPA design decisions
 
 - Selected visual target: ideation option 1, “The Cartographic Procession”.
+- Chapter 01 deep-dive target: the revised “River to Field” direction, using a low, cinematic
+  Neolithic landscape, unboxed editorial copy and historically phrased controls embedded in the
+  scene. Its representative title is “The Harvest Had to Last”; avoid the earlier phrase “The year
+  closes around the field”.
+- Scope a deep chapter to roughly 8–12 minutes of attentive use, but do not surface that estimate in
+  public copy.
 - The site is an English-language, guided approximately 20-minute journey for curious adults.
 - The public journey contains 24 chapters grouped into six narrative acts.
 - The ten added chapters are The First Farmers; Bronze Europe; The Papal Revolution; The Medieval
@@ -22,6 +28,10 @@ When implementing from a selected generated mock, treat that image as the source
 - The public experience contains no methodology discussion or empty “coming soon” portals.
 - The public story follows a deliberate Europe-centred causal spine. It does not pause to catalogue
   omitted perspectives, defend its selection, or answer objections the reader has not raised.
+- Keep public interface copy inside the historical world wherever possible. Do not explain the
+  application, estimated reading time, interaction model, completion state or chapter format when a
+  concise historical invitation can carry the action. Prefer labels such as “Follow the farming
+  frontier” to meta copy such as “Explore the full chapter · 15–20 min”.
 - Each chapter makes one affirmative claim and moves through a concrete sequence: situation,
   mechanism, breakthrough, consequence.
 - Include conflict, exclusion, coercion, exchange, or outside actors when they cause an event in the
