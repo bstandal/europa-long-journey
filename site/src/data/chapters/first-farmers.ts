@@ -156,17 +156,18 @@ export const firstFarmers: ChapterDefinition = {
       titleLines: ["The Harvest", "Had to Last"],
       thesis: "Seed kept for spring could not be eaten in winter.",
       body: [
-        "A field changed the shape of the year. Ground had to be cleared and worked before seed went into it. Young plants needed protection. Grain ripened within a narrow window, then had to be cut, dried, threshed and kept away from damp, fire, insects and hungry animals. Livestock spread risk, but they added daily demands for pasture, water, birth and winter fodder. A missed season could not be repaired by working harder the next week.",
-        "Storage made the system powerful. Grain moved food through time, but the store contained competing futures. Some fed the household now. Some guarded against a poor winter. Some had to survive untouched until sowing. Farming could support more people in one place because households disciplined present hunger for a harvest that did not yet exist.",
+        "A field changed the shape of the year. Ground had to be cleared and worked before sowing. Young plants needed protection. Ripe grain had to be cut, dried, threshed and kept away from damp, fire, insects and hungry animals. Livestock spread risk, but they required pasture, water, care at birth and winter fodder. A missed season could not be repaired the following week.",
+        "Stored grain answered three different needs. Some fed the household through winter, some covered spoilage and scarcity, and some had to remain untouched for spring sowing. Farther east, Georgian farmers were fermenting grapes in large clay jars by about 6000 BC. Wine residues survive at Shulaveris Gora and Gadachrili Gora. The Georgian qvevri tradition continues this use of clay: large vessels are buried while the wine ferments and ages.",
       ],
       image: `${imageRoot}/harvest-had-to-last-v2.webp`,
       imageAlt:
         "An early Thessalian settlement beside harvested grain plots, baskets, sheaves and protected stores.",
       side: "left",
-      sourceIds: ["shennan-2018"],
+      sourceIds: ["shennan-2018", "mcgovern-2017", "unesco-qvevri-2013"],
       evidence: [
         "Charred emmer and einkorn grains preserve the crops that entered stores, ovens and spring sowing.",
         "Grinding stones, sickle traces, storage pits and burnt house deposits preserve the work between harvest and meal.",
+        "Organic acids from grape wine, together with grape pollen and skin remains, survive in and around large clay jars from Shulaveris Gora and Gadachrili Gora.",
       ],
       map: { x: 59, y: 78 },
       interaction: {

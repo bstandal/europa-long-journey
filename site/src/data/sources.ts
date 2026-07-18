@@ -18,6 +18,22 @@ export const sources: SourceRecord[] = [
     url: "https://doi.org/10.1038/nature25778",
   },
   {
+    id: "mcgovern-2017",
+    author: "Patrick E. McGovern et al.",
+    title: "Early Neolithic wine of Georgia in the South Caucasus",
+    publication: "Proceedings of the National Academy of Sciences 114",
+    year: "2017",
+    url: "https://doi.org/10.1073/pnas.1714728114",
+  },
+  {
+    id: "unesco-qvevri-2013",
+    author: "UNESCO",
+    title: "Ancient Georgian traditional Qvevri wine-making method",
+    publication: "Representative List of the Intangible Cultural Heritage of Humanity",
+    year: "2013",
+    url: "https://ich.unesco.org/en/RL/ancient-georgian-traditional-qvevri-wine-making-method-00870",
+  },
+  {
     id: "shennan-2013",
     author: "Stephen Shennan et al.",
     title: "Regional population collapse followed initial agriculture booms in mid-Holocene Europe",

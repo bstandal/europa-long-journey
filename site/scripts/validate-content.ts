@@ -37,6 +37,10 @@ const genericAiPhrases = [
   "ever-evolving",
   "it is worth noting",
   "it should be noted",
+  "the tradition never disappeared",
+  "echoes to this day",
+  "a new world was born",
+  "everything changed",
 ];
 const defensiveTurn = /(?:^|[.!?]\s+)(?:But|Yet|Still|However|Nevertheless|Nonetheless)\b/;
 const forbiddenChapterMetaCopy = [

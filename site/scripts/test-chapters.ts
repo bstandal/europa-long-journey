@@ -51,9 +51,11 @@ assert.deepEqual(
   "The Farmers interaction sequence changed unexpectedly.",
 );
 
-const harvest = firstFarmers.movements.find(
+const harvestMovement = firstFarmers.movements.find(
   (movement) => movement.interaction?.kind === "harvest",
-)?.interaction;
+);
+assert.ok(harvestMovement, "The Farmers harvest movement is missing.");
+const harvest = harvestMovement?.interaction;
 assert.ok(harvest?.kind === "harvest", "The Farmers harvest interaction is missing.");
 assert.equal(
   harvest.allocations.reduce((sum, allocation) => sum + allocation.initial, 0),
@@ -64,6 +66,15 @@ assert.deepEqual(
   harvest.allocations.map((allocation) => allocation.id).sort(),
   ["food", "reserve", "seed"],
   "The store must preserve food, reserve and seed choices.",
+);
+assert.ok(
+  harvestMovement.body.some((paragraph) => paragraph.includes("Georgian qvevri")),
+  "The harvest movement should connect Georgian Neolithic wine to the qvevri tradition.",
+);
+assert.ok(
+  harvestMovement.sourceIds.includes("mcgovern-2017") &&
+    harvestMovement.sourceIds.includes("unesco-qvevri-2013"),
+  "The Georgian wine passage needs archaeological and living-tradition sources.",
 );
 
 const growth = firstFarmers.movements.find(
