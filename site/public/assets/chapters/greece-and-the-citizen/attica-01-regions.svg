@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+  <path d="M204 60C358 86 433 146 500 250c34 53 54 100 79 142L525 500 267 345c27-55 30-104-9-158-35-36-74-65-54-127Z" fill="#d39a58" opacity=".58"/>
+  <path d="M267 345 525 500 400 595c-68-27-135-17-183-64-54-54-35-137 15-193Z" fill="#a64e39" opacity=".58"/>
+  <path d="M525 500c60 20 88 8 151 8 101 67 144 130 112 202-31 70-113 77-178 44-86-45-125-125-210-159Z" fill="#3f8390" opacity=".64"/>
+  <g fill="#fff2d8" font-family="system-ui, sans-serif" font-size="22" font-weight="700" letter-spacing="3">
+    <text x="320" y="220">INTERIOR</text>
+    <text x="253" y="471">CITY</text>
+    <text x="589" y="625">COAST</text>
+  </g>
+</svg>

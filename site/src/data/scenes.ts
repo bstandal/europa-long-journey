@@ -348,6 +348,10 @@ export const scenes: StoryScene[] = [
         longitude: 22.54,
       },
     ],
+    chronicle: {
+      href: "chapters/greece-and-the-citizen/",
+      label: "Enter the public ground",
+    },
   },
   {
     id: "rome-gathers-europe",

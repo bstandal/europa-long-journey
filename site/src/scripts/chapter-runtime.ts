@@ -1,6 +1,9 @@
 const movements = Array.from(
   document.querySelectorAll<HTMLElement>("[data-chapter-movement]"),
 );
+const actDividers = Array.from(
+  document.querySelectorAll<HTMLElement>("[data-chapter-act]"),
+);
 const stageImages = Array.from(
   document.querySelectorAll<HTMLImageElement>("[data-stage-image]"),
 );
@@ -13,6 +16,9 @@ const compareStages = Array.from(
 const inheritanceStages = Array.from(
   document.querySelectorAll<HTMLElement>("[data-inheritance-stage]"),
 );
+const greeceStages = Array.from(
+  document.querySelectorAll<HTMLElement>("[data-greece-stage]"),
+);
 const routeMarkers = Array.from(
   document.querySelectorAll<HTMLElement>("[data-route-marker]"),
 );
@@ -21,17 +27,40 @@ const routeLinks = Array.from(
 );
 const routePeriod = document.querySelector<HTMLElement>("[data-route-period]");
 const routePlace = document.querySelector<HTMLElement>("[data-route-place]");
+const routeAct = document.querySelector<HTMLElement>("[data-route-act]");
+const routeActLinks = Array.from(
+  document.querySelectorAll<HTMLAnchorElement>("[data-route-act-link]"),
+);
+const routeToggle = document.querySelector<HTMLButtonElement>("[data-route-toggle]");
+const routePanel = document.querySelector<HTMLElement>("[data-route-panel]");
+const routeToggleAct = document.querySelector<HTMLElement>("[data-route-toggle-act]");
+const routeTogglePlace = document.querySelector<HTMLElement>("[data-route-toggle-place]");
 const opening = document.querySelector<HTMLElement>(".chapter-opening");
 const ending = document.querySelector<HTMLElement>(".chapter-ending");
 const sources = document.querySelector<HTMLElement>(".chapter-sources");
 const compact = window.matchMedia("(max-width: 720px)");
+const initialMovementId = window.location.hash.replace(/^#/, "");
 
 let activeIndex = 0;
 let focusedMovementIndex: number | null = null;
 let scrollFrame: number | undefined;
+let restoringHash = false;
+
+function loadStageImage(image: HTMLImageElement | undefined) {
+  if (!image) return;
+  const source = image.dataset.stageSrc;
+  if (!source || image.getAttribute("src") === source) return;
+  image.src = source;
+}
+
+function preloadStageImages(index: number) {
+  loadStageImage(stageImages[index]);
+  loadStageImage(stageImages[index + 1]);
+}
 
 function setRoutePosition(movementId: string) {
   const activeLink = routeLinks.find((link) => link.dataset.routeLink === movementId);
+  const activeActId = activeLink?.dataset.routeActId;
   for (const marker of routeMarkers) {
     marker.classList.toggle("is-active", marker.dataset.routeMarker === movementId);
   }
@@ -41,9 +70,32 @@ function setRoutePosition(movementId: string) {
     if (active) link.setAttribute("aria-current", "location");
     else link.removeAttribute("aria-current");
   }
+  for (const link of routeActLinks) {
+    const active = link.dataset.routeActLink === activeActId;
+    link.classList.toggle("is-active", active);
+    if (active) link.setAttribute("aria-current", "step");
+    else link.removeAttribute("aria-current");
+  }
+  if (routeActLinks.length > 0) {
+    for (const link of routeLinks) {
+      link.hidden = Boolean(activeActId) && link.dataset.routeActId !== activeActId;
+    }
+  }
   if (!activeLink) return;
   if (routePeriod) routePeriod.textContent = activeLink.dataset.routePeriodValue ?? "";
   if (routePlace) routePlace.textContent = activeLink.dataset.routePlaceValue ?? "";
+  if (routeTogglePlace) {
+    routeTogglePlace.textContent = activeLink.dataset.routePlaceValue ?? "";
+  }
+  const activeActLink = routeActLinks.find(
+    (link) => link.dataset.routeActLink === activeActId,
+  );
+  if (routeAct && activeActLink) {
+    routeAct.textContent = `Act ${activeActLink.dataset.routeActNumber ?? ""} · ${activeActLink.dataset.routeActTitle ?? ""}`;
+  }
+  if (routeToggleAct && activeActLink) {
+    routeToggleAct.textContent = `Act ${activeActLink.dataset.routeActNumber ?? ""}`;
+  }
 }
 
 function setStageState(movementId: string, stateId: string) {
@@ -82,6 +134,7 @@ function setInteractionAvailability(index: number | null) {
 function setActiveMovement(index: number, updateHash = true) {
   const next = movements[index];
   if (!next) return;
+  preloadStageImages(index);
   activeIndex = index;
   focusedMovementIndex = index;
 
@@ -108,6 +161,12 @@ function setActiveMovement(index: number, updateHash = true) {
       inheritanceStage.dataset.inheritanceStage === next.dataset.movementId,
     );
   }
+  for (const greeceStage of greeceStages) {
+    greeceStage.classList.toggle(
+      "is-active",
+      greeceStage.dataset.greeceStage === next.dataset.movementId,
+    );
+  }
 
   const interaction = next.querySelector<HTMLElement>("[data-chapter-interaction]");
   const stateId = interaction?.dataset.stateId ?? "";
@@ -121,6 +180,7 @@ function setActiveMovement(index: number, updateHash = true) {
   }
 
   document.body.dataset.chapterMovement = next.dataset.movementId ?? "";
+  document.body.dataset.chapterSide = next.dataset.movementSide ?? "";
   document.body.dataset.chapterInteraction = next.dataset.interactionKind ?? "";
   document.body.dataset.chapterState = stateId;
 
@@ -142,7 +202,9 @@ function clearActiveMovement() {
   for (const inheritanceStage of inheritanceStages) {
     inheritanceStage.classList.remove("is-active");
   }
+  for (const greeceStage of greeceStages) greeceStage.classList.remove("is-active");
   document.body.dataset.chapterMovement = "";
+  document.body.dataset.chapterSide = "";
   document.body.dataset.chapterInteraction = "";
   document.body.dataset.chapterState = "";
   delete document.body.dataset.seasonTone;
@@ -233,6 +295,42 @@ function chooseButton(button: HTMLButtonElement) {
       "[data-inheritance-layer]",
     ) ?? []) {
       layer.classList.toggle("is-active", layer.dataset.inheritanceLayer === stateId);
+    }
+  }
+
+  if (kind === "inscription" || kind === "war-timeline") {
+    for (const record of interaction.querySelectorAll<HTMLElement>(
+      "[data-greece-state-record]",
+    )) {
+      record.hidden =
+        Number.parseInt(record.dataset.greeceStateRecord ?? "-1", 10) !== choiceIndex;
+    }
+  }
+
+  if (kind === "civic-path") {
+    for (const record of interaction.querySelectorAll<HTMLElement>(
+      "[data-civic-path-record]",
+    )) {
+      record.hidden =
+        Number.parseInt(record.dataset.civicPathRecord ?? "-1", 10) !== choiceIndex;
+    }
+  }
+
+  if (kind === "citizen-body" || kind === "war-timeline") {
+    const stateId = button.dataset.stateId ?? "";
+    for (const layer of interaction.querySelectorAll<HTMLElement>(
+      "[data-greece-inline-layer]",
+    )) {
+      layer.classList.toggle("is-active", layer.dataset.greeceInlineLayer === stateId);
+    }
+    const movementId = interaction.dataset.movementId;
+    const stage = greeceStages.find(
+      (candidate) => candidate.dataset.greeceStage === movementId,
+    );
+    for (const layer of stage?.querySelectorAll<HTMLElement>(
+      "[data-greece-stage-layer]",
+    ) ?? []) {
+      layer.classList.toggle("is-active", layer.dataset.greeceStageLayer === stateId);
     }
   }
 
@@ -437,7 +535,36 @@ function setupInteractions() {
   });
 }
 
+function setupRouteExplorer() {
+  if (!routeToggle || !routePanel) return;
+  const setOpen = (open: boolean) => {
+    routeToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    routePanel.classList.toggle("is-open", open);
+    document.body.classList.toggle("chapter-route-open", open);
+  };
+
+  routeToggle.addEventListener("click", () => {
+    setOpen(routeToggle.getAttribute("aria-expanded") !== "true");
+  });
+  routePanel.querySelectorAll<HTMLAnchorElement>("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      const actMovementId = link.dataset.routeActMovement;
+      if (actMovementId) setRoutePosition(actMovementId);
+      if (compact.matches) setOpen(false);
+    });
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape" || routeToggle.getAttribute("aria-expanded") !== "true") {
+      return;
+    }
+    setOpen(false);
+    routeToggle.focus();
+  });
+  compact.addEventListener("change", () => setOpen(false));
+}
+
 function updateMovementFromViewport(updateHash = true) {
+  if (restoringHash) return;
   const openingIsVisible =
     (opening?.getBoundingClientRect().bottom ?? 0) >
     Math.max(96, window.innerHeight * 0.12);
@@ -465,6 +592,22 @@ function updateMovementFromViewport(updateHash = true) {
   }
 
   const focusLine = window.innerHeight * 0.42;
+  const activeActDivider = actDividers.find((act) => {
+    const bounds = act.getBoundingClientRect();
+    return bounds.top <= focusLine && bounds.bottom >= focusLine;
+  });
+  if (activeActDivider) {
+    const actLink = routeActLinks.find(
+      (link) => link.dataset.routeActLink === activeActDivider.dataset.chapterAct,
+    );
+    const actMovementId = actLink?.dataset.routeActMovement;
+    if (actMovementId) setRoutePosition(actMovementId);
+    document.body.dataset.chapterRegion = "act";
+    if (focusedMovementIndex !== null) clearActiveMovement();
+    else setInteractionAvailability(null);
+    return;
+  }
+
   const index = movements.findIndex((movement) => {
     const bounds = movement.getBoundingClientRect();
     return bounds.top <= focusLine && bounds.bottom >= focusLine;
@@ -487,7 +630,7 @@ function scheduleMovementUpdate() {
   if (scrollFrame !== undefined) return;
   scrollFrame = window.requestAnimationFrame(() => {
     scrollFrame = undefined;
-    updateMovementFromViewport();
+    updateMovementFromViewport(false);
   });
 }
 
@@ -497,20 +640,46 @@ function updateRenderingMode() {
 
 function restoreHash() {
   const id = window.location.hash.replace(/^#/, "");
+  if (id.startsWith("act-")) {
+    const actLink = routeActLinks.find(
+      (link) => `act-${link.dataset.routeActLink}` === id,
+    );
+    const actMovementId = actLink?.dataset.routeActMovement;
+    if (actMovementId) setRoutePosition(actMovementId);
+    return;
+  }
+  restoreMovementId(id);
+}
+
+function restoreMovementId(id: string) {
   const index = movements.findIndex((movement) => movement.id === id);
   if (index < 0) return;
+  restoringHash = true;
   setActiveMovement(index, false);
   window.requestAnimationFrame(() => {
     movements[index].scrollIntoView({ block: "start", behavior: "auto" });
-    scheduleMovementUpdate();
+    window.requestAnimationFrame(() => {
+      restoringHash = false;
+      updateMovementFromViewport(false);
+    });
   });
 }
 
 setupInteractions();
+setupRouteExplorer();
 setInteractionAvailability(null);
 restoreHash();
 updateMovementFromViewport(false);
 document.body.classList.add("chapter-runtime-ready");
+
+if (movements.some((movement) => movement.id === initialMovementId)) {
+  const restoreInitialMovement = () => restoreMovementId(initialMovementId);
+  if (document.readyState === "complete") {
+    window.requestAnimationFrame(restoreInitialMovement);
+  } else {
+    window.addEventListener("load", restoreInitialMovement, { once: true });
+  }
+}
 
 window.addEventListener("hashchange", restoreHash);
 window.addEventListener("scroll", scheduleMovementUpdate, { passive: true });

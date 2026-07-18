@@ -15,7 +15,11 @@ const base = import.meta.env.BASE_URL;
       chapter.movements.map((movement, index) => (
         <img
           class:list={["chapter-stage__image", { "is-active": index === 0 }]}
-          src={`${base}${movement.image}`}
+          src={
+            index < 2
+              ? `${base}${movement.image}`
+              : "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+          }
           alt=""
           width="1536"
           height="1024"
@@ -23,6 +27,7 @@ const base = import.meta.env.BASE_URL;
           loading={index < 2 ? "eager" : "lazy"}
           decoding="async"
           data-stage-image={movement.id}
+          data-stage-src={`${base}${movement.image}`}
           style={`object-position:${movement.imagePosition ?? "center"}`}
         />
       ))
@@ -155,6 +160,47 @@ const base = import.meta.env.BASE_URL;
                   </span>
                 ))}
               </div>
+            ))}
+          </div>
+        );
+      })
+    }
+    {
+      chapter.movements.map((movement) => {
+        const interaction =
+          movement.interaction?.kind === "citizen-body" ||
+          movement.interaction?.kind === "war-timeline"
+            ? movement.interaction
+            : undefined;
+        if (!interaction) return null;
+        return (
+          <div
+            class="chapter-stage__greece-map"
+            data-greece-stage={movement.id}
+          >
+            <img
+              class="chapter-stage__greece-map-base"
+              src={`${base}${interaction.mapImage}`}
+              alt=""
+              width="1200"
+              height="900"
+              loading="lazy"
+              decoding="async"
+            />
+            {interaction.states.map((state, index) => (
+              <img
+                class:list={[
+                  "chapter-stage__greece-map-layer",
+                  { "is-active": index === 0 },
+                ]}
+                src={`${base}${state.overlayImage}`}
+                alt=""
+                width="1200"
+                height="900"
+                loading="lazy"
+                decoding="async"
+                data-greece-stage-layer={state.id}
+              />
             ))}
           </div>
         );

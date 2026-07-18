@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+  <g transform="translate(525 500)">
+    <circle r="150" fill="#061926" opacity=".86" stroke="#e0a36c" stroke-width="3"/>
+    <g stroke="#e0a36c" stroke-width="2">
+      <path d="M0 0V-150"/><path d="M0 0 88-121"/><path d="M0 0 143-46"/><path d="M0 0 143 46"/><path d="M0 0 88 121"/>
+      <path d="M0 0V150"/><path d="M0 0-88 121"/><path d="M0 0-143 46"/><path d="M0 0-143-46"/><path d="M0 0-88-121"/>
+    </g>
+    <circle r="47" fill="#d7824e"/>
+    <text y="-4" text-anchor="middle" fill="#fff2d8" font-family="system-ui, sans-serif" font-size="26" font-weight="800">500</text>
+    <text y="23" text-anchor="middle" fill="#fff2d8" font-family="system-ui, sans-serif" font-size="12" letter-spacing="2">COUNCIL</text>
+  </g>
+  <text x="340" y="764" fill="#fff2d8" font-family="system-ui, sans-serif" font-size="22" font-weight="700" letter-spacing="3">10 TRIBES × 50 CITIZENS</text>
+</svg>

@@ -11,6 +11,15 @@ type ChapterInteractionBase = {
   accessibleSummary: string;
 };
 
+export type ChapterStageState = {
+  id: string;
+  label: string;
+  detail: string;
+  stageImage?: string;
+  mobileStageImage?: string;
+  overlayImage?: string;
+};
+
 export type RouteInteraction = ChapterInteractionBase & {
   kind: "route";
   points: ChapterPoint[];
@@ -137,6 +146,53 @@ export type InheritanceInteraction = ChapterInteractionBase & {
   }[];
 };
 
+export type InscriptionInteraction = ChapterInteractionBase & {
+  kind: "inscription";
+  states: (ChapterStageState & {
+    mode: "surface" | "reading" | "consequence";
+    heading: string;
+    excerpt?: string;
+    annotation: string;
+  })[];
+};
+
+export type CitizenBodyInteraction = ChapterInteractionBase & {
+  kind: "citizen-body";
+  mapImage: string;
+  states: (ChapterStageState & {
+    overlayImage: string;
+    measure: string;
+  })[];
+};
+
+export type CivicPathInteraction = ChapterInteractionBase & {
+  kind: "civic-path";
+  paths: {
+    id: "council" | "jury" | "assembly";
+    label: string;
+    role: string;
+    detail: string;
+    steps: {
+      id: string;
+      label: string;
+      detail: string;
+    }[];
+    result: string;
+  }[];
+};
+
+export type WarTimelineInteraction = ChapterInteractionBase & {
+  kind: "war-timeline";
+  mapImage: string;
+  states: (ChapterStageState & {
+    period: string;
+    overlayImage: string;
+    athens: string;
+    sparta: string;
+    turningPoint: string;
+  })[];
+};
+
 export type ChapterInteraction =
   | RouteInteraction
   | SeasonsInteraction
@@ -147,11 +203,24 @@ export type ChapterInteraction =
   | CompareInteraction
   | MobilityInteraction
   | TurnoverInteraction
-  | InheritanceInteraction;
+  | InheritanceInteraction
+  | InscriptionInteraction
+  | CitizenBodyInteraction
+  | CivicPathInteraction
+  | WarTimelineInteraction;
 
 export type ChapterTheme = {
-  id: "farmers" | "steppe" | "bronze";
+  id: "farmers" | "steppe" | "bronze" | "greece";
   label: string;
+};
+
+export type ChapterAct = {
+  id: string;
+  number: string;
+  label: string;
+  period: string;
+  title: string;
+  detail: string;
 };
 
 export type ChapterEnding = {
@@ -165,6 +234,7 @@ export type ChapterEnding = {
 
 export type ChapterMovement = {
   id: string;
+  actId?: string;
   order: number;
   period: string;
   place: string;
@@ -204,5 +274,6 @@ export type ChapterDefinition = {
   returnHash: string;
   nextHash: string;
   nextTitle: string;
+  acts?: ChapterAct[];
   movements: ChapterMovement[];
 };

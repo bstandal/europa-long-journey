@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+  <g fill="#f2c788" stroke="#071d2b" stroke-width="4">
+    <circle cx="317" cy="185" r="10"/><circle cx="384" cy="227" r="8"/><circle cx="452" cy="298" r="9"/>
+    <circle cx="295" cy="354" r="8"/><circle cx="358" cy="409" r="10"/><circle cx="438" cy="443" r="8"/>
+    <circle cx="525" cy="500" r="13"/><circle cx="583" cy="545" r="8"/><circle cx="650" cy="590" r="10"/>
+    <circle cx="705" cy="647" r="8"/><circle cx="611" cy="680" r="9"/><circle cx="529" cy="625" r="8"/>
+    <circle cx="420" cy="563" r="9"/><circle cx="316" cy="510" r="8"/><circle cx="250" cy="452" r="9"/>
+    <circle cx="473" cy="367" r="7"/><circle cx="548" cy="403" r="8"/><circle cx="596" cy="476" r="7"/>
+  </g>
+  <path d="M236 734h470" stroke="#f2c788" stroke-width="2" opacity=".45"/>
+  <text x="236" y="772" fill="#fff2d8" font-family="system-ui, sans-serif" font-size="22" font-weight="700" letter-spacing="3">LOCAL REGISTRATION AMONG NEIGHBOURS</text>
+</svg>

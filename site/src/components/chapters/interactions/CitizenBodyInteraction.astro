@@ -1,0 +1,57 @@
+---
+import type { CitizenBodyInteraction as CitizenBodyInteractionData } from "../../../types/chapter";
+
+type Props = {
+  interaction: CitizenBodyInteractionData;
+};
+
+const { interaction } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+<div class="citizen-body-control">
+  <div class="greece-layer-map citizen-body-control__map" aria-hidden="true">
+    <img
+      class="greece-layer-map__base"
+      src={`${base}${interaction.mapImage}`}
+      alt=""
+      width="1200"
+      height="900"
+      loading="lazy"
+      decoding="async"
+    />
+    {
+      interaction.states.map((state, index) => (
+        <img
+          class:list={["greece-layer-map__overlay", { "is-active": index === 0 }]}
+          src={`${base}${state.overlayImage}`}
+          alt=""
+          width="1200"
+          height="900"
+          loading="lazy"
+          decoding="async"
+          data-greece-inline-layer={state.id}
+        />
+      ))
+    }
+  </div>
+  <div class="citizen-body-control__choices" role="group" aria-label={interaction.prompt}>
+    {
+      interaction.states.map((state, index) => (
+        <button
+          type="button"
+          class:list={["citizen-body-control__button", { "is-active": index === 0 }]}
+          data-interaction-choice
+          data-choice-index={index}
+          data-state-id={state.id}
+          data-detail={state.detail}
+          aria-pressed={index === 0 ? "true" : "false"}
+        >
+          <span>{String(index + 1).padStart(2, "0")}</span>
+          <strong>{state.label}</strong>
+          <small>{state.measure}</small>
+        </button>
+      ))
+    }
+  </div>
+</div>

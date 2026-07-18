@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+  <defs>
+    <linearGradient id="sea" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#0d3a53"/>
+      <stop offset="1" stop-color="#071d2b"/>
+    </linearGradient>
+    <linearGradient id="land" x1="0" y1="0" x2="0.8" y2="1">
+      <stop stop-color="#bd9566"/>
+      <stop offset="1" stop-color="#6e5a42"/>
+    </linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-opacity=".28"/></filter>
+  </defs>
+  <rect width="1200" height="900" fill="url(#sea)"/>
+  <g fill="#d8b47d" opacity=".06">
+    <path d="M0 90h1200M0 210h1200M0 330h1200M0 450h1200M0 570h1200M0 690h1200M0 810h1200" stroke="#d8b47d"/>
+    <path d="M120 0v900M300 0v900M480 0v900M660 0v900M840 0v900M1020 0v900" stroke="#d8b47d"/>
+  </g>
+  <path d="M204 60C358 86 433 146 500 250c72 112 79 194 176 258 101 67 144 130 112 202-31 70-113 77-178 44-86-45-125-125-210-159-68-27-135-17-183-64-54-54-35-137 15-193 50-55 73-103 26-151-35-36-74-65-54-127Z" fill="url(#land)" stroke="#e7c493" stroke-width="5" filter="url(#shadow)"/>
+  <path d="M611 754c31-24 72-14 92 12 18 23 6 54-25 67-36 15-79-3-84-34-3-17 5-34 17-45Z" fill="#8e704e" stroke="#d9b47f" stroke-width="3"/>
+  <path d="M805 662c22-16 48-10 56 10 8 20-7 39-31 42-24 3-46-13-43-31 2-8 8-15 18-21Z" fill="#8e704e" stroke="#d9b47f" stroke-width="3"/>
+  <g fill="#f1d09d" font-family="system-ui, sans-serif" letter-spacing="3">
+    <text x="70" y="55" font-size="24">ATTICA · 508/7 BC</text>
+    <text x="478" y="484" font-size="20">ATHENS</text>
+    <text x="760" y="730" font-size="17">SALAMIS</text>
+  </g>
+  <g fill="#dda36e" stroke="#071d2b" stroke-width="5">
+    <circle cx="525" cy="500" r="10"/>
+    <circle cx="735" cy="681" r="7"/>
+  </g>
+  <g fill="none" stroke="#e8c38e" stroke-width="2" opacity=".4">
+    <path d="M245 219c78 48 142 136 280 281"/>
+    <path d="M211 459c112 17 197 26 314 41"/>
+    <path d="M630 686c-35-72-61-127-105-186"/>
+  </g>
+</svg>

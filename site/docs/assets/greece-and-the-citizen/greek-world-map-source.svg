@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+  <defs>
+    <linearGradient id="sea" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0d4560"/><stop offset="1" stop-color="#061a28"/></linearGradient>
+    <linearGradient id="land" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c09a68"/><stop offset="1" stop-color="#6e5941"/></linearGradient>
+    <filter id="s"><feDropShadow dx="0" dy="8" stdDeviation="11" flood-opacity=".3"/></filter>
+  </defs>
+  <rect width="1200" height="900" fill="url(#sea)"/>
+  <g fill="url(#land)" stroke="#e2c18e" stroke-width="3" filter="url(#s)">
+    <path d="M82 0h517c-20 53-76 92-91 143-17 57 38 84 28 144-9 52-70 83-87 134-22 66 32 110 0 175-28 57-104 85-141 142-34 52-28 108-54 162H0V0Z"/>
+    <path d="M320 900c14-89 55-151 105-201 39-39 101-47 129-95 31-55 8-120 44-166 38-48 94-40 130-86 31-39 25-97 68-126 52-34 117-4 170-37 47-29 59-102 92-189h162v900H320Z"/>
+    <path d="M390 626c35-43 91-66 137-45 43 19 55 70 31 111-32 54-109 81-158 48-38-26-41-75-10-114Z"/>
+    <path d="M183 688c35-18 85-2 94 30 10 35-30 68-75 63-42-5-65-44-43-72 6-8 14-15 24-21Z"/>
+    <path d="M620 504c18-28 55-37 77-17 20 19 11 52-18 68-31 18-67 3-71-24-1-10 3-19 12-27Z"/>
+  </g>
+  <g fill="#d6b47e" opacity=".75">
+    <circle cx="590" cy="463" r="5"/><circle cx="473" cy="638" r="5"/><circle cx="510" cy="496" r="5"/>
+    <circle cx="535" cy="413" r="5"/><circle cx="706" cy="502" r="5"/><circle cx="823" cy="452" r="5"/>
+    <circle cx="945" cy="360" r="5"/><circle cx="180" cy="720" r="5"/>
+  </g>
+  <g fill="#f1d4a8" font-family="system-ui, sans-serif" letter-spacing="2">
+    <text x="520" y="445" font-size="18">ATHENS</text>
+    <text x="390" y="670" font-size="18">SPARTA</text>
+    <text x="456" y="482" font-size="16">CORINTH</text>
+    <text x="830" y="435" font-size="16">IONIA</text>
+    <text x="924" y="337" font-size="16">PERSIAN EMPIRE</text>
+    <text x="112" y="750" font-size="16">SICILY</text>
+    <text x="53" y="56" font-size="23">THE GREEK WORLD · AEGEAN AND MEDITERRANEAN</text>
+  </g>
+  <g fill="none" stroke="#e4bb7a" stroke-width="2" stroke-dasharray="8 9" opacity=".42">
+    <path d="M590 463C684 410 743 402 823 452"/>
+    <path d="M590 463C475 517 440 579 473 638"/>
+    <path d="M590 463C407 465 245 562 180 720"/>
+  </g>
+</svg>

@@ -1,0 +1,627 @@
+.deep-chapter-page--greece {
+  --chapter-earth: #a9774e;
+  --chapter-ochre: #d28a54;
+  --chapter-forest: #071723;
+  --chapter-smoke: rgba(236, 225, 200, 0.74);
+  --bronze: #a66a43;
+  --bronze-bright: #dda36e;
+  background: #06131c;
+}
+
+.deep-chapter-page--greece .deep-chapter {
+  background: #06131c;
+}
+
+.deep-chapter-page--greece .chapter-header {
+  border-bottom-color: rgba(237, 208, 162, 0.24);
+  background: rgba(5, 18, 27, 0.76);
+}
+
+.deep-chapter-page--greece .chapter-route {
+  border-color: rgba(217, 157, 101, 0.32);
+  background: rgba(5, 18, 27, 0.84);
+  transition:
+    right 380ms ease,
+    left 380ms ease,
+    opacity 240ms ease;
+}
+
+.deep-chapter-page--greece:not(.chapter-runtime-ready) .chapter-route,
+.deep-chapter-page--greece[data-chapter-region="ending"] .chapter-route {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (min-width: 721px) {
+  .deep-chapter-page--greece[data-chapter-side="right"] .chapter-route {
+    right: auto;
+    left: clamp(28px, 3.3vw, 52px);
+  }
+}
+
+.deep-chapter-page--greece .chapter-route__map {
+  background: #102b3b;
+}
+
+.deep-chapter-page--greece .chapter-route__map img {
+  opacity: 0.78;
+  filter: saturate(0.82) contrast(1.04) brightness(0.82);
+}
+
+.deep-chapter-page--greece .chapter-route__map polyline {
+  stroke: rgba(237, 167, 106, 0.82);
+}
+
+.deep-chapter-page--greece .chapter-route__marker {
+  border-color: rgba(242, 188, 129, 0.88);
+  background: #0a2534;
+}
+
+.deep-chapter-page--greece .chapter-route__marker.is-active {
+  background: #d7824e;
+  box-shadow:
+    0 0 0 5px rgba(215, 130, 78, 0.17),
+    0 0 22px rgba(215, 130, 78, 0.44);
+}
+
+.deep-chapter-page--greece .chapter-stage {
+  background: #071a26;
+}
+
+.deep-chapter-page--greece .chapter-stage__image {
+  filter: saturate(0.88) contrast(1.05) brightness(0.98);
+}
+
+.deep-chapter-page--greece .chapter-stage__shade {
+  background:
+    radial-gradient(circle at 67% 38%, transparent 0 23%, rgba(4, 15, 23, 0.08) 54%, rgba(4, 13, 20, 0.49) 100%),
+    linear-gradient(90deg, rgba(4, 15, 23, 0.77), rgba(4, 15, 23, 0.38) 34%, rgba(4, 15, 23, 0.03) 69%),
+    linear-gradient(180deg, rgba(242, 187, 116, 0.04), transparent 42%, rgba(3, 12, 18, 0.38));
+}
+
+.deep-chapter-page--greece[data-chapter-movement="the-league-follows-sparta"]
+  .chapter-stage__shade,
+.deep-chapter-page--greece[data-chapter-movement="persia-gives-sparta-the-sea"]
+  .chapter-stage__shade {
+  background:
+    radial-gradient(circle at 70% 37%, rgba(215, 170, 78, 0.06), transparent 23%, rgba(3, 14, 26, 0.35) 68%),
+    linear-gradient(90deg, rgba(5, 17, 31, 0.8), rgba(7, 26, 48, 0.19) 68%),
+    linear-gradient(180deg, rgba(20, 47, 91, 0.16), transparent 52%, rgba(3, 12, 19, 0.48));
+}
+
+.deep-chapter-page--greece .chapter-opening {
+  min-height: 112svh;
+  padding-bottom: 11svh;
+}
+
+.deep-chapter-page--greece .chapter-opening h1 {
+  max-width: 1020px;
+  font-size: clamp(5.1rem, 9vw, 9rem);
+  letter-spacing: -0.015em;
+}
+
+.deep-chapter-page--greece .chapter-opening a {
+  padding: 8px 0;
+  border-bottom-color: #d7824e;
+  color: #f1c79a;
+}
+
+.deep-chapter-page--greece .chapter-act {
+  overflow: hidden;
+  background:
+    linear-gradient(110deg, rgba(6, 19, 28, 0.98), rgba(7, 29, 42, 0.86)),
+    radial-gradient(circle at 78% 28%, rgba(207, 129, 73, 0.13), transparent 38%);
+}
+
+.deep-chapter-page--greece .chapter-act::after {
+  position: absolute;
+  right: -4vw;
+  bottom: -15vw;
+  width: 34vw;
+  height: 34vw;
+  border: 1px solid rgba(230, 178, 118, 0.08);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 4vw rgba(230, 178, 118, 0.025),
+    0 0 0 9vw rgba(230, 178, 118, 0.018);
+  content: "";
+}
+
+.deep-chapter-page--greece .chapter-movement {
+  min-height: 154svh;
+  padding-top: 18svh;
+  padding-bottom: 45svh;
+}
+
+.deep-chapter-page--greece .chapter-movement__story {
+  width: min(720px, 53vw);
+}
+
+.deep-chapter-page--greece .chapter-movement--right .chapter-movement__story {
+  background:
+    linear-gradient(90deg, rgba(5, 19, 28, 0.72), rgba(5, 19, 28, 0.93)),
+    linear-gradient(180deg, rgba(209, 122, 70, 0.06), transparent 42%);
+}
+
+.deep-chapter-page--greece .chapter-movement__body {
+  border-left-color: rgba(215, 130, 78, 0.56);
+}
+
+.chapter-stage__greece-map {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  overflow: hidden;
+  background: #071b29;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 650ms ease;
+}
+
+.chapter-stage__greece-map.is-active {
+  opacity: 1;
+}
+
+.chapter-stage__greece-map-base,
+.chapter-stage__greece-map-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.chapter-stage__greece-map-base {
+  opacity: 0.9;
+  filter: saturate(0.8) contrast(1.04) brightness(0.84);
+}
+
+.chapter-stage__greece-map-layer {
+  opacity: 0;
+  transition: opacity 360ms ease;
+}
+
+.chapter-stage__greece-map-layer.is-active {
+  opacity: 1;
+}
+
+.inscription-control {
+  display: grid;
+  max-width: 930px;
+  grid-template-columns: 180px minmax(250px, 0.75fr) minmax(290px, 1fr);
+  align-items: stretch;
+  gap: 14px;
+}
+
+.inscription-control__surface {
+  display: grid;
+  min-height: 118px;
+  padding: 16px;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: center;
+  gap: 4px;
+  background:
+    linear-gradient(115deg, rgba(199, 151, 104, 0.17), transparent 38%),
+    #2b2b27;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
+  color: rgba(236, 216, 180, 0.58);
+  font-family: var(--serif);
+  font-size: 1.05rem;
+}
+
+.inscription-control__choices {
+  display: grid;
+  align-content: stretch;
+}
+
+.inscription-control__button,
+.citizen-body-control__button,
+.civic-path-control__button,
+.war-timeline-control__button {
+  min-height: 44px;
+  border: 0;
+  border-bottom: 1px solid rgba(221, 163, 110, 0.24);
+  background: rgba(6, 24, 35, 0.24);
+  color: rgba(240, 230, 206, 0.62);
+  cursor: pointer;
+  font-family: var(--sans);
+  text-align: left;
+}
+
+.inscription-control__button {
+  display: flex;
+  padding: 8px 12px;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.63rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.inscription-control__button span {
+  color: rgba(221, 163, 110, 0.58);
+  font-size: 0.52rem;
+}
+
+.inscription-control__button.is-active,
+.citizen-body-control__button.is-active,
+.civic-path-control__button.is-active,
+.war-timeline-control__button.is-active {
+  border-color: #df945d;
+  background: rgba(215, 130, 78, 0.09);
+  color: #f7e9d1;
+}
+
+.inscription-control__records {
+  min-width: 0;
+  padding: 11px 15px;
+  border-left: 1px solid rgba(221, 163, 110, 0.32);
+}
+
+.inscription-control__records article[hidden],
+.war-timeline-control__records article[hidden],
+.civic-path-control__records article[hidden] {
+  display: none;
+}
+
+.inscription-control__records p {
+  margin: 0;
+  color: #f5e6cf;
+  font-family: var(--serif);
+  font-size: 1.05rem;
+}
+
+.inscription-control__records blockquote {
+  margin: 10px 0;
+  color: #e1a773;
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-style: italic;
+}
+
+.inscription-control__records span {
+  display: block;
+  margin-top: 8px;
+  color: rgba(240, 230, 206, 0.62);
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
+.citizen-body-control {
+  max-width: 980px;
+}
+
+.greece-layer-map {
+  position: relative;
+  overflow: hidden;
+  background: #0b2533;
+}
+
+.greece-layer-map__base {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.greece-layer-map__overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 280ms ease;
+}
+
+.greece-layer-map__overlay.is-active {
+  opacity: 1;
+}
+
+.citizen-body-control__map,
+.war-timeline-control__map {
+  display: none;
+}
+
+.citizen-body-control__choices {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.citizen-body-control__button {
+  display: grid;
+  padding: 9px 12px;
+}
+
+.citizen-body-control__button > span {
+  color: rgba(221, 163, 110, 0.62);
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+}
+
+.citizen-body-control__button strong {
+  margin-top: 2px;
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.citizen-body-control__button small {
+  margin-top: 3px;
+  color: rgba(240, 230, 206, 0.5);
+  font-size: 0.59rem;
+}
+
+.civic-path-control {
+  display: grid;
+  max-width: 1030px;
+  grid-template-columns: minmax(210px, 0.55fr) minmax(480px, 1.45fr);
+  gap: 18px;
+}
+
+.civic-path-control__choices {
+  display: grid;
+}
+
+.civic-path-control__button {
+  display: grid;
+  padding: 9px 13px;
+  font-family: var(--serif);
+  font-size: 1rem;
+}
+
+.civic-path-control__button span {
+  margin-bottom: 2px;
+  color: rgba(221, 163, 110, 0.72);
+  font-family: var(--sans);
+  font-size: 0.52rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.civic-path-control__records article {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(190px, 0.7fr);
+  gap: 18px;
+}
+
+.civic-path-control__records ol {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  list-style: none;
+  counter-reset: civic-step;
+}
+
+.civic-path-control__records li {
+  padding: 9px 10px;
+  border-top: 1px solid rgba(221, 163, 110, 0.34);
+  counter-increment: civic-step;
+}
+
+.civic-path-control__records li span {
+  color: #e3a676;
+  font-size: 0.57rem;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.civic-path-control__records li span::before {
+  margin-right: 6px;
+  content: counter(civic-step, decimal-leading-zero);
+  opacity: 0.5;
+}
+
+.civic-path-control__records li p,
+.civic-path-control__result {
+  margin: 6px 0 0;
+  color: rgba(240, 230, 206, 0.65);
+  font-size: 0.69rem;
+  line-height: 1.4;
+}
+
+.civic-path-control__result {
+  margin: 0;
+  padding: 10px 13px;
+  border-left: 1px solid rgba(221, 163, 110, 0.38);
+  font-family: var(--serif);
+  font-size: 0.82rem;
+}
+
+.civic-path-control__result span {
+  display: block;
+  margin-bottom: 5px;
+  color: #e0a06e;
+  font-family: var(--sans);
+  font-size: 0.52rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.war-timeline-control {
+  max-width: 1100px;
+}
+
+.war-timeline-control__dates {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+}
+
+.war-timeline-control__button {
+  padding: 8px 5px;
+  font-size: 0.58rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.war-timeline-control__records {
+  margin-top: 9px;
+}
+
+.war-timeline-control__records article {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 0.8fr)) minmax(250px, 1.25fr);
+  gap: 8px;
+}
+
+.war-timeline-control__records article > div,
+.war-timeline-control__turn {
+  margin: 0;
+  padding: 9px 11px;
+  border-left: 1px solid rgba(221, 163, 110, 0.29);
+}
+
+.war-timeline-control__records span {
+  display: block;
+  color: #dfa06e;
+  font-size: 0.52rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.war-timeline-control__records p {
+  margin: 4px 0 0;
+  color: rgba(240, 230, 206, 0.68);
+  font-family: var(--serif);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.deep-chapter-page--greece .chapter-ending {
+  background:
+    linear-gradient(90deg, rgba(5, 16, 23, 0.92), rgba(5, 16, 23, 0.42)),
+    var(--ending-image) center / cover;
+}
+
+.deep-chapter-page--greece .chapter-sources {
+  background: #071722;
+}
+
+@media (max-width: 720px) {
+  .deep-chapter-page--greece .chapter-route {
+    background: rgba(5, 18, 27, 0.97);
+  }
+
+  .deep-chapter-page--greece .chapter-route__panel {
+    background: rgba(5, 18, 27, 0.99);
+  }
+
+  .deep-chapter-page--greece .chapter-opening {
+    min-height: 100svh;
+    background:
+      linear-gradient(180deg, rgba(5, 17, 25, 0.03), rgba(5, 17, 25, 0.94)),
+      var(--opening-mobile-image) 54% center / cover;
+  }
+
+  .deep-chapter-page--greece .chapter-opening h1 {
+    font-size: clamp(3.75rem, 17vw, 5.2rem);
+  }
+
+  .deep-chapter-page--greece .chapter-act {
+    background:
+      linear-gradient(140deg, rgba(6, 19, 28, 0.99), rgba(8, 31, 44, 0.94)),
+      radial-gradient(circle at 84% 20%, rgba(207, 129, 73, 0.12), transparent 36%);
+  }
+
+  .deep-chapter-page--greece .chapter-movement {
+    min-height: auto;
+    padding: 0;
+    background: #071722;
+  }
+
+  .deep-chapter-page--greece .chapter-movement__story,
+  .deep-chapter-page--greece .chapter-movement--right .chapter-movement__story {
+    width: auto;
+    max-width: none;
+    background: linear-gradient(180deg, rgba(7, 23, 34, 0.96), #071722 80px);
+  }
+
+  .inscription-control,
+  .civic-path-control {
+    grid-template-columns: 1fr;
+  }
+
+  .inscription-control__surface {
+    min-height: 150px;
+  }
+
+  .inscription-control__button,
+  .citizen-body-control__button,
+  .civic-path-control__button,
+  .war-timeline-control__button {
+    min-height: 44px;
+    font-size: 0.74rem;
+  }
+
+  .inscription-control__records {
+    padding: 13px 2px;
+    border-top: 1px solid rgba(221, 163, 110, 0.3);
+    border-left: 0;
+  }
+
+  .citizen-body-control__map,
+  .war-timeline-control__map {
+    display: block;
+    height: min(70vw, 290px);
+    margin-bottom: 13px;
+  }
+
+  .citizen-body-control__choices {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .civic-path-control__records article {
+    grid-template-columns: 1fr;
+  }
+
+  .civic-path-control__records ol {
+    grid-template-columns: 1fr;
+  }
+
+  .civic-path-control__records li p,
+  .civic-path-control__result {
+    font-size: 0.82rem;
+  }
+
+  .war-timeline-control__dates {
+    display: flex;
+    padding-bottom: 4px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .war-timeline-control__button {
+    min-width: 76px;
+    scroll-snap-align: start;
+  }
+
+  .war-timeline-control__records article {
+    grid-template-columns: 1fr;
+  }
+
+  .war-timeline-control__records article > div,
+  .war-timeline-control__turn {
+    border-top: 1px solid rgba(221, 163, 110, 0.24);
+    border-left: 0;
+  }
+
+  .deep-chapter-page--greece .chapter-ending {
+    background:
+      linear-gradient(180deg, rgba(5, 16, 23, 0.2), rgba(5, 16, 23, 0.96) 55%),
+      var(--ending-mobile-image) center / cover;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chapter-stage__greece-map,
+  .chapter-stage__greece-map-layer,
+  .greece-layer-map__overlay {
+    transition-duration: 0.01ms !important;
+  }
+}

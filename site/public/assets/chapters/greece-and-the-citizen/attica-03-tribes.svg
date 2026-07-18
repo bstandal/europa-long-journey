@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+  <g fill="none" stroke-width="9" opacity=".72">
+    <path d="M317 185 525 500 705 647" stroke="#e4a15e"/>
+    <path d="M384 227 438 443 650 590" stroke="#a9503d"/>
+    <path d="M452 298 358 409 611 680" stroke="#5ca2a7"/>
+    <path d="M295 354 583 545 529 625" stroke="#d2bd6c"/>
+    <path d="M473 367 316 510 596 476" stroke="#8d6eb0"/>
+  </g>
+  <g fill="#fff2d8" stroke="#071d2b" stroke-width="5">
+    <circle cx="525" cy="500" r="15"/><circle cx="438" cy="443" r="11"/><circle cx="358" cy="409" r="11"/>
+    <circle cx="583" cy="545" r="11"/><circle cx="596" cy="476" r="11"/>
+  </g>
+  <text x="220" y="786" fill="#fff2d8" font-family="system-ui, sans-serif" font-size="22" font-weight="700" letter-spacing="3">TEN TRIBES MIX CITY · COAST · INTERIOR</text>
+</svg>
