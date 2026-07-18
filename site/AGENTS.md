@@ -13,6 +13,29 @@ When implementing from a selected generated mock, treat that image as the source
   Neolithic landscape, unboxed editorial copy and historically phrased controls embedded in the
   scene. Its representative title is “The Harvest Had to Last”; avoid the earlier phrase “The year
   closes around the field”.
+- Chapter 02, “The Steppe Comes West”, is organised around four locked contributions: a new
+  mobility built from horses, herds and wagons; a new power order built from armed male groups and
+  patrilineal descent; a new Indo-European language landscape; and a religious inheritance that
+  later appears in European and Indo-Iranian traditions.
+- Tell the steppe migration as a male-led expansion with conquest, demographic asymmetry and the
+  disappearance of many local paternal lines. Household mobility, marriage, animals, graves and
+  ritual explain how that expansion worked; they must not soften it into a neutral story of cultural
+  exchange.
+- Use the Europe–steppe–India relationship to reveal Europe’s inherited religious grammar. Steppe
+  establishes the shared Indo-European source; “Bronze Europe” shows how that inheritance acquired
+  distinct European forms.
+- Chapter 02’s locked visual grammar is “The Sacred Circle”. Develop the circle from camp and solid
+  wagon wheel through kurgan, paternal descent and ritual fire into the sun disc that hands the story
+  to Bronze Europe. The horizon supports this progression but never replaces it.
+- Chapter 02 contains exactly three major interactions, placed in movements 3, 5 and 7: mobility,
+  regional paternal-line turnover and Eurasian inheritance. The four intervening movements remain
+  controlled reading beats so the chapter alternates attention instead of becoming a row of widgets.
+- Show one direct, historically plausible confrontation without gore, heroic battle poses or fantasy
+  invasion imagery. Let graves, weapons, new authority markers and the disappearance of sampled
+  paternal lines carry the long duration of violence.
+- Do not depict the Yamnaya expansion as cavalry. Early movement uses herds, people on foot and
+  ox-drawn wagons with solid wheels. Widespread horse-based mobility becomes securely visible around
+  2200 BC; early scenes contain no saddles, stirrups, armour, swords or chariots.
 - Scope a deep chapter to roughly 8–12 minutes of attentive use, but do not surface that estimate in
   public copy.
 - The site is an English-language, guided approximately 20-minute journey for curious adults.

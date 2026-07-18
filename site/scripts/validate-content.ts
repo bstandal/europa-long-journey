@@ -319,6 +319,9 @@ const allowedChapterInteractions = new Set([
   "lineage",
   "growth",
   "compare",
+  "mobility",
+  "turnover",
+  "inheritance",
 ]);
 
 for (const chapter of chapters) {
@@ -332,6 +335,15 @@ for (const chapter of chapters) {
     { label: "title", value: chapter.title },
     { label: "period", value: chapter.period },
     { label: "claim", value: chapter.claim },
+    { label: "theme id", value: chapter.theme.id },
+    { label: "theme label", value: chapter.theme.label },
+    { label: "openingAction", value: chapter.openingAction },
+    { label: "mapLabel", value: chapter.mapLabel },
+    { label: "sourcesEyebrow", value: chapter.sourcesEyebrow },
+    { label: "ending period", value: chapter.ending.period },
+    { label: "ending title", value: chapter.ending.title },
+    { label: "ending detail", value: chapter.ending.detail },
+    { label: "ending nextPeriod", value: chapter.ending.nextPeriod },
     { label: "returnHash", value: chapter.returnHash },
     { label: "nextHash", value: chapter.nextHash },
     { label: "nextTitle", value: chapter.nextTitle },
@@ -379,13 +391,21 @@ for (const chapter of chapters) {
       { label: `movement "${movement.id}" title`, value: movement.title },
       { label: `movement "${movement.id}" thesis`, value: movement.thesis },
       { label: `movement "${movement.id}" image alt text`, value: movement.imageAlt },
-      { label: `movement "${movement.id}" interaction prompt`, value: movement.interaction.prompt },
-      {
-        label: `movement "${movement.id}" interaction accessible summary`,
-        value: movement.interaction.accessibleSummary,
-      },
     ];
-    for (const field of requiredMovementMetadata) {
+    const interaction = movement.interaction;
+    const interactionMetadata: PublicCopyField[] = interaction
+      ? [
+          {
+            label: `movement "${movement.id}" interaction prompt`,
+            value: interaction.prompt,
+          },
+          {
+            label: `movement "${movement.id}" interaction accessible summary`,
+            value: interaction.accessibleSummary,
+          },
+        ]
+      : [];
+    for (const field of [...requiredMovementMetadata, ...interactionMetadata]) {
       if (!hasPublicText(field.value)) {
         errors.push(`Chapter "${chapter.slug}" ${field.label} must not be empty.`);
       }
@@ -426,12 +446,13 @@ for (const chapter of chapters) {
     }
     validateFiniteRange(`Movement "${qualifiedId}" map position`, "x position", movement.map.x, 0, 100);
     validateFiniteRange(`Movement "${qualifiedId}" map position`, "y position", movement.map.y, 0, 100);
-    if (!allowedChapterInteractions.has(movement.interaction.kind)) {
+    if (interaction && !allowedChapterInteractions.has(interaction.kind)) {
       errors.push(`Movement "${qualifiedId}" has an invalid interaction kind.`);
     }
 
     const interactionCopy: PublicCopyField[] = [
       ...requiredMovementMetadata,
+      ...interactionMetadata,
       ...movement.body.map((paragraph, paragraphIndex) => ({
         label: `movement "${movement.id}" body paragraph ${paragraphIndex + 1}`,
         value: paragraph,
@@ -446,9 +467,9 @@ for (const chapter of chapters) {
       })),
     ];
 
-    switch (movement.interaction.kind) {
+    if (interaction) switch (interaction.kind) {
       case "route": {
-        const { points } = movement.interaction;
+        const { points } = interaction;
         validateInteractionItems(qualifiedId, "route points", points);
         for (const [pointIndex, point] of points.entries()) {
           const pointId = point.id || `item ${pointIndex + 1}`;
@@ -463,7 +484,7 @@ for (const chapter of chapters) {
         break;
       }
       case "seasons": {
-        const { stages, initialIndex } = movement.interaction;
+        const { stages, initialIndex } = interaction;
         validateInteractionItems(qualifiedId, "season stages", stages);
         if (
           initialIndex !== undefined &&
@@ -506,7 +527,7 @@ for (const chapter of chapters) {
         break;
       }
       case "harvest": {
-        const { allocations, total } = movement.interaction;
+        const { allocations, total } = interaction;
         validateInteractionItems(qualifiedId, "harvest allocations", allocations);
         validateFiniteRange(
           `Movement "${qualifiedId}" harvest`,
@@ -555,7 +576,7 @@ for (const chapter of chapters) {
         break;
       }
       case "inspect": {
-        const { items } = movement.interaction;
+        const { items } = interaction;
         validateInteractionItems(qualifiedId, "inspection items", items);
         for (const [itemIndex, item] of items.entries()) {
           const itemId = item.id || `item ${itemIndex + 1}`;
@@ -570,7 +591,7 @@ for (const chapter of chapters) {
         break;
       }
       case "lineage": {
-        const { snapshots } = movement.interaction;
+        const { snapshots } = interaction;
         validateInteractionItems(qualifiedId, "lineage snapshots", snapshots);
         for (const [snapshotIndex, snapshot] of snapshots.entries()) {
           const snapshotId = snapshot.id || `item ${snapshotIndex + 1}`;
@@ -601,7 +622,7 @@ for (const chapter of chapters) {
         break;
       }
       case "growth": {
-        const { stages } = movement.interaction;
+        const { stages } = interaction;
         validateInteractionItems(qualifiedId, "growth stages", stages);
         for (const [stageIndex, stage] of stages.entries()) {
           const stageId = stage.id || `item ${stageIndex + 1}`;
@@ -637,7 +658,7 @@ for (const chapter of chapters) {
         break;
       }
       case "compare": {
-        const { layers, before, after } = movement.interaction;
+        const { layers, before, after } = interaction;
         validateInteractionItems(qualifiedId, "comparison layers", layers);
         for (const [worldLabel, world] of [
           ["before", before],
@@ -679,6 +700,154 @@ for (const chapter of chapters) {
         }
         break;
       }
+      case "mobility": {
+        const { states } = interaction;
+        validateInteractionItems(qualifiedId, "mobility states", states);
+        if (states.length !== 3) {
+          errors.push(`Movement "${qualifiedId}" mobility interaction needs exactly three states.`);
+        }
+        for (const state of states) {
+          if (!hasPublicText(state.reach) || !hasPublicText(state.load)) {
+            errors.push(
+              `Movement "${qualifiedId}" mobility state "${state.id}" needs reach and load text.`,
+            );
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" mobility "${state.id}" label`, value: state.label },
+            { label: `movement "${movement.id}" mobility "${state.id}" detail`, value: state.detail },
+            { label: `movement "${movement.id}" mobility "${state.id}" reach`, value: state.reach },
+            { label: `movement "${movement.id}" mobility "${state.id}" load`, value: state.load },
+          );
+        }
+        break;
+      }
+      case "turnover": {
+        const { regions } = interaction;
+        validateInteractionItems(qualifiedId, "turnover regions", regions);
+        if (regions.length !== 3) {
+          errors.push(`Movement "${qualifiedId}" turnover interaction needs exactly three regions.`);
+        }
+        for (const region of regions) {
+          const measureIds = new Set(region.measures.map((measure) => measure.id));
+          if (
+            region.measures.length !== 3 ||
+            !["ancestry", "local-paternal", "incoming-paternal"].every((id) =>
+              measureIds.has(id as "ancestry" | "local-paternal" | "incoming-paternal"),
+            )
+          ) {
+            errors.push(
+              `Movement "${qualifiedId}" turnover region "${region.id}" must separate ancestry, local paternal and incoming paternal measures.`,
+            );
+          }
+          if (!sourceIds.has(region.sourceId)) {
+            errors.push(
+              `Movement "${qualifiedId}" turnover region "${region.id}" references unknown source "${region.sourceId}".`,
+            );
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" turnover "${region.id}" label`, value: region.label },
+            { label: `movement "${movement.id}" turnover "${region.id}" detail`, value: region.detail },
+            { label: `movement "${movement.id}" turnover "${region.id}" period`, value: region.period },
+          );
+          for (const measure of region.measures) {
+            interactionCopy.push(
+              {
+                label: `movement "${movement.id}" turnover "${region.id}" ${measure.id} label`,
+                value: measure.label,
+              },
+              {
+                label: `movement "${movement.id}" turnover "${region.id}" ${measure.id} value`,
+                value: measure.value,
+              },
+              {
+                label: `movement "${movement.id}" turnover "${region.id}" ${measure.id} note`,
+                value: measure.note,
+              },
+            );
+          }
+        }
+        break;
+      }
+      case "inheritance": {
+        const { layers, mapImage } = interaction;
+        validateInteractionItems(qualifiedId, "inheritance layers", layers);
+        if (
+          layers.length !== 3 ||
+          layers.map((layer) => layer.id).join(",") !== "people,language,religion"
+        ) {
+          errors.push(
+            `Movement "${qualifiedId}" inheritance layers must be people, language and religion in that order.`,
+          );
+        }
+        try {
+          await access(`${root}/${mapImage}`);
+        } catch {
+          errors.push(
+            `Movement "${qualifiedId}" inheritance map is missing at /${mapImage}.`,
+          );
+        }
+        for (const layer of layers) {
+          if (!layer.routes.length) {
+            errors.push(
+              `Movement "${qualifiedId}" inheritance layer "${layer.id}" needs at least one route.`,
+            );
+          }
+          for (const route of layer.routes) {
+            if (!hasPublicText(route.id) || !hasPublicText(route.label) || route.points.length < 2) {
+              errors.push(
+                `Movement "${qualifiedId}" inheritance route "${route.id}" is incomplete.`,
+              );
+            }
+            for (const point of route.points) {
+              validateFiniteRange(
+                `Movement "${qualifiedId}" inheritance route "${route.id}"`,
+                "x position",
+                point.x,
+                0,
+                100,
+              );
+              validateFiniteRange(
+                `Movement "${qualifiedId}" inheritance route "${route.id}"`,
+                "y position",
+                point.y,
+                0,
+                100,
+              );
+            }
+          }
+          interactionCopy.push(
+            {
+              label: `movement "${movement.id}" inheritance "${layer.id}" label`,
+              value: layer.label,
+            },
+            {
+              label: `movement "${movement.id}" inheritance "${layer.id}" detail`,
+              value: layer.detail,
+            },
+          );
+          for (const correspondence of layer.correspondences ?? []) {
+            interactionCopy.push(
+              {
+                label: `movement "${movement.id}" inheritance correspondence reconstructed`,
+                value: correspondence.reconstructed,
+              },
+              {
+                label: `movement "${movement.id}" inheritance correspondence west`,
+                value: correspondence.west,
+              },
+              {
+                label: `movement "${movement.id}" inheritance correspondence east`,
+                value: correspondence.east,
+              },
+              {
+                label: `movement "${movement.id}" inheritance correspondence note`,
+                value: correspondence.note,
+              },
+            );
+          }
+        }
+        break;
+      }
     }
 
     validateChapterCopy(
@@ -702,6 +871,27 @@ for (const chapter of chapters) {
       await access(`${root}/${movement.image}`);
     } catch {
       errors.push(`Movement "${qualifiedId}" is missing its image at /${movement.image}.`);
+    }
+    if (movement.mobileImage) {
+      try {
+        await access(`${root}/${movement.mobileImage}`);
+      } catch {
+        errors.push(
+          `Movement "${qualifiedId}" is missing its mobile image at /${movement.mobileImage}.`,
+        );
+      }
+    }
+  }
+
+  for (const [label, asset] of [
+    ["ending image", chapter.ending.image],
+    ["ending mobile image", chapter.ending.mobileImage],
+  ] as const) {
+    if (!asset) continue;
+    try {
+      await access(`${root}/${asset}`);
+    } catch {
+      errors.push(`Chapter "${chapter.slug}" is missing its ${label} at /${asset}.`);
     }
   }
 }

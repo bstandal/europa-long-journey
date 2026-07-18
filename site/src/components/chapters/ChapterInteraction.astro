@@ -20,9 +20,15 @@ const initialDetail =
           ? interaction.snapshots[0].detail
           : interaction.kind === "inspect"
             ? interaction.items[0].detail
-            : interaction.kind === "growth"
+          : interaction.kind === "growth"
               ? interaction.stages[0].detail
-              : interaction.layers[0].detail;
+              : interaction.kind === "compare"
+                ? interaction.layers[0].detail
+                : interaction.kind === "mobility"
+                  ? interaction.states[0].detail
+                  : interaction.kind === "turnover"
+                    ? interaction.regions[0].detail
+                    : interaction.layers[0].detail;
 ---
 
 <div
@@ -35,7 +41,13 @@ const initialDetail =
       ? interaction.stages[initialSeasonIndex].id
       : interaction.kind === "growth"
         ? interaction.stages[0].id
-        : undefined
+        : interaction.kind === "mobility"
+          ? interaction.states[0].id
+          : interaction.kind === "turnover"
+            ? interaction.regions[0].id
+            : interaction.kind === "inheritance"
+              ? interaction.layers[0].id
+              : undefined
   }
   data-season-tone={
     interaction.kind === "seasons"
@@ -317,6 +329,148 @@ const initialDetail =
             >
               {layer.label}
             </button>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  {
+    interaction.kind === "mobility" && (
+      <div class="mobility-control">
+        <div class="mobility-control__ring" role="group" aria-label={interaction.prompt}>
+          <span class="mobility-control__hub" aria-hidden="true"></span>
+          {interaction.states.map((state, index) => (
+            <button
+              type="button"
+              class:list={["mobility-control__button", { "is-active": index === 0 }]}
+              data-interaction-choice
+              data-choice-index={index}
+              data-state-id={state.id}
+              data-detail={state.detail}
+              aria-pressed={index === 0 ? "true" : "false"}
+            >
+              <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+              {state.label}
+            </button>
+          ))}
+        </div>
+        <div class="mobility-control__record" aria-live="polite">
+          {interaction.states.map((state, index) => (
+            <div data-mobility-record={index} hidden={index !== 0}>
+              <span>
+                <small>Reach</small>
+                <strong>{state.reach}</strong>
+              </span>
+              <span>
+                <small>What moves</small>
+                <strong>{state.load}</strong>
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  {
+    interaction.kind === "turnover" && (
+      <div class="turnover-control">
+        <div class="turnover-control__regions" role="group" aria-label={interaction.prompt}>
+          {interaction.regions.map((region, index) => (
+            <button
+              type="button"
+              class:list={["turnover-control__button", { "is-active": index === 0 }]}
+              data-interaction-choice
+              data-choice-index={index}
+              data-state-id={region.id}
+              data-detail={region.detail}
+              aria-pressed={index === 0 ? "true" : "false"}
+            >
+              <span>{region.period}</span>
+              {region.label}
+            </button>
+          ))}
+        </div>
+        <div class="turnover-control__records" aria-live="polite">
+          {interaction.regions.map((region, index) => (
+            <div data-turnover-record={index} hidden={index !== 0}>
+              {region.measures.map((measure) => (
+                <section data-turnover-measure={measure.id}>
+                  <p>{measure.label}</p>
+                  <strong>{measure.value}</strong>
+                  <small>{measure.note}</small>
+                </section>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  {
+    interaction.kind === "inheritance" && (
+      <div class="inheritance-control">
+        <div class="inheritance-control__map" aria-hidden="true">
+          <img
+            src={`${import.meta.env.BASE_URL}${interaction.mapImage}`}
+            alt=""
+            width="1536"
+            height="1024"
+            loading="lazy"
+            decoding="async"
+          />
+          {interaction.layers.map((layer, index) => (
+            <svg
+              class:list={{ "is-active": index === 0 }}
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              data-inheritance-inline-layer={layer.id}
+            >
+              {layer.routes.map((route) => (
+                <polyline points={route.points.map((point) => `${point.x},${point.y}`).join(" ")} />
+              ))}
+            </svg>
+          ))}
+        </div>
+        <div class="inheritance-control__layers" role="group" aria-label={interaction.prompt}>
+          {interaction.layers.map((layer, index) => (
+            <button
+              type="button"
+              class:list={["inheritance-control__button", { "is-active": index === 0 }]}
+              data-interaction-choice
+              data-choice-index={index}
+              data-state-id={layer.id}
+              data-detail={layer.detail}
+              aria-pressed={index === 0 ? "true" : "false"}
+            >
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              {layer.label}
+            </button>
+          ))}
+        </div>
+        <div class="inheritance-control__records" aria-live="polite">
+          {interaction.layers.map((layer, index) => (
+            <div data-inheritance-record={index} hidden={index !== 0}>
+              {layer.correspondences ? (
+                <ol>
+                  {layer.correspondences.map((item) => (
+                    <li>
+                      <span>{item.reconstructed}</span>
+                      <strong>{item.west}</strong>
+                      <i aria-hidden="true"></i>
+                      <strong>{item.east}</strong>
+                      <small>{item.note}</small>
+                    </li>
+                  ))}
+                </ol>
+              ) : (
+                <ul>
+                  {layer.routes.map((route) => <li>{route.label}</li>)}
+                </ul>
+              )}
+            </div>
           ))}
         </div>
       </div>

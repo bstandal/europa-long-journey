@@ -10,6 +10,9 @@ const stageStateImages = Array.from(
 const compareStages = Array.from(
   document.querySelectorAll<HTMLElement>("[data-compare-stage]"),
 );
+const inheritanceStages = Array.from(
+  document.querySelectorAll<HTMLElement>("[data-inheritance-stage]"),
+);
 const routeMarkers = Array.from(
   document.querySelectorAll<HTMLElement>("[data-route-marker]"),
 );
@@ -99,6 +102,12 @@ function setActiveMovement(index: number, updateHash = true) {
       compareStage.dataset.compareStage === next.dataset.movementId,
     );
   }
+  for (const inheritanceStage of inheritanceStages) {
+    inheritanceStage.classList.toggle(
+      "is-active",
+      inheritanceStage.dataset.inheritanceStage === next.dataset.movementId,
+    );
+  }
 
   const interaction = next.querySelector<HTMLElement>("[data-chapter-interaction]");
   const stateId = interaction?.dataset.stateId ?? "";
@@ -130,6 +139,9 @@ function clearActiveMovement() {
   setInteractionAvailability(null);
   for (const image of stageStateImages) image.classList.remove("is-owner-active");
   for (const compareStage of compareStages) compareStage.classList.remove("is-active");
+  for (const inheritanceStage of inheritanceStages) {
+    inheritanceStage.classList.remove("is-active");
+  }
   document.body.dataset.chapterMovement = "";
   document.body.dataset.chapterInteraction = "";
   document.body.dataset.chapterState = "";
@@ -182,6 +194,54 @@ function chooseButton(button: HTMLButtonElement) {
     }
   }
 
+  if (kind === "mobility") {
+    for (const record of interaction.querySelectorAll<HTMLElement>("[data-mobility-record]")) {
+      record.hidden =
+        Number.parseInt(record.dataset.mobilityRecord ?? "-1", 10) !== choiceIndex;
+    }
+  }
+
+  if (kind === "turnover") {
+    for (const record of interaction.querySelectorAll<HTMLElement>("[data-turnover-record]")) {
+      record.hidden =
+        Number.parseInt(record.dataset.turnoverRecord ?? "-1", 10) !== choiceIndex;
+    }
+  }
+
+  if (kind === "inheritance") {
+    const stateId = button.dataset.stateId ?? "";
+    interaction.dataset.stateId = stateId;
+    for (const record of interaction.querySelectorAll<HTMLElement>(
+      "[data-inheritance-record]",
+    )) {
+      record.hidden =
+        Number.parseInt(record.dataset.inheritanceRecord ?? "-1", 10) !== choiceIndex;
+    }
+    for (const layer of interaction.querySelectorAll<HTMLElement>(
+      "[data-inheritance-inline-layer]",
+    )) {
+      layer.classList.toggle(
+        "is-active",
+        layer.dataset.inheritanceInlineLayer === stateId,
+      );
+    }
+    const movementId = interaction.dataset.movementId;
+    const stage = inheritanceStages.find(
+      (candidate) => candidate.dataset.inheritanceStage === movementId,
+    );
+    for (const layer of stage?.querySelectorAll<HTMLElement>(
+      "[data-inheritance-layer]",
+    ) ?? []) {
+      layer.classList.toggle("is-active", layer.dataset.inheritanceLayer === stateId);
+    }
+  }
+
+  if (button.dataset.stateId) {
+    interaction.dataset.stateId = button.dataset.stateId;
+    if (document.body.dataset.chapterMovement === interaction.dataset.movementId) {
+      document.body.dataset.chapterState = button.dataset.stateId;
+    }
+  }
 }
 
 function setupHarvestControls() {
