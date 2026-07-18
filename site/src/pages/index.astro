@@ -12,8 +12,8 @@ const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
-  title="EUROPA — A Journey Through Nine Thousand Years"
-  description="A twenty-minute interactive journey through nine thousand years of European history, from the first farmers to the present."
+  title="EUROPA — Nine Thousand Years of European History"
+  description="Nine thousand years of European history, from the first farmers to the present."
   bodyClass="journey-page"
 >
   <SiteHeader />
@@ -29,16 +29,16 @@ const base = import.meta.env.BASE_URL;
       />
       <div class="hero__shade"></div>
       <div class="hero__content">
-        <p class="hero__overline">A twenty-minute journey through nine thousand years</p>
+        <p class="hero__overline">Nine thousand years of European history</p>
         <h1 id="hero-title">EUROPA</h1>
         <div class="hero__rule"></div>
         <p class="hero__period">7000 BC <span>—</span> PRESENT</p>
         <a class="hero__cta" href={`#${scenes[0].id}`} data-journey-cta>
-          <span data-journey-cta-label>Begin the journey</span>
+          <span data-journey-cta-label>The First Farmers · 7000 BC</span>
           <Icon name="arrow-down" />
         </a>
         <a class="hero__restart" href={`#${scenes[0].id}`} data-journey-restart hidden>
-          Start again
+          Return to 7000 BC
         </a>
       </div>
       <div class="hero__edge-note hero__edge-note--left">THE AEGEAN</div>

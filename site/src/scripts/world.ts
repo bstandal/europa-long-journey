@@ -100,8 +100,14 @@ const closeMobileExplorerButton =
   document.querySelector<HTMLButtonElement>("[data-close-mobile-explorer]");
 const mobileExplorerCount =
   document.querySelector<HTMLElement>("[data-mobile-explorer-count]");
+const mobileExplorerToggleLabel =
+  document.querySelector<HTMLElement>("[data-mobile-explorer-toggle-label]");
+const mobileExplorerPeriod =
+  document.querySelector<HTMLElement>("[data-mobile-explorer-period]");
 const mobileExplorerTitle =
   document.querySelector<HTMLElement>("[data-mobile-explorer-title]");
+const mobileExplorerFamily =
+  document.querySelector<HTMLElement>("[data-mobile-explorer-family]");
 const mobileExplorerTabs = Array.from(
   document.querySelectorAll<HTMLButtonElement>("[data-mobile-explorer-tab]"),
 );
@@ -181,6 +187,12 @@ function formatRailYear(period: string) {
 
 function eraLabel(eraId: string) {
   return storyEras.find((era) => era.id === eraId)?.label ?? "";
+}
+
+function interactionFamilyLabel(family: InteractionFamily) {
+  if (family === "boundary") return "Boundaries";
+  if (family === "compare") return "Before and after";
+  return family === "route" ? "Route" : "Network";
 }
 
 function updateCenters() {
@@ -391,19 +403,30 @@ function updateMobileControls(index: number) {
     button.hidden = button.dataset.sceneId !== current.id;
   }
   if (mobileSceneCount) {
-    mobileSceneCount.textContent = `${String(current.order).padStart(2, "0")} / ${String(points.length).padStart(2, "0")}`;
+    mobileSceneCount.textContent = scene.period.label;
   }
   if (mobileSceneTitle) mobileSceneTitle.textContent = current.title;
-  if (mobileExplorerCount) {
-    mobileExplorerCount.textContent = `${scene.interaction.steps.length} views · ${scene.hotspots.length} places`;
+  if (mobileExplorerCount) mobileExplorerCount.textContent = scene.landmark;
+  if (mobileExplorerToggleLabel) {
+    mobileExplorerToggleLabel.textContent = scene.interaction.prompt;
   }
+  if (mobileExplorerPeriod) mobileExplorerPeriod.textContent = scene.period.label;
   if (mobileExplorerTitle) mobileExplorerTitle.textContent = scene.interaction.prompt;
+  if (mobileExplorerFamily) {
+    mobileExplorerFamily.textContent = interactionFamilyLabel(scene.interaction.family);
+  }
+  if (mobileExplorer) {
+    mobileExplorer.setAttribute(
+      "aria-label",
+      `${scene.interaction.prompt}: ${scene.landmark}`,
+    );
+  }
   if (mobilePreviousButton) {
     mobilePreviousButton.disabled = index === 0;
     const previous = points[index - 1];
     mobilePreviousButton.setAttribute(
       "aria-label",
-      previous ? `Previous chapter: ${previous.title}` : "Previous chapter",
+      previous ? `Earlier: ${previous.title}` : "Earlier period",
     );
   }
   if (mobileNextButton) {
@@ -411,7 +434,7 @@ function updateMobileControls(index: number) {
     const next = points[index + 1];
     mobileNextButton.setAttribute(
       "aria-label",
-      next ? `Next chapter: ${next.title}` : "Next chapter",
+      next ? `Later: ${next.title}` : "Later period",
     );
   }
 }
@@ -732,7 +755,7 @@ function updateResumeUi(sceneId: string) {
   if (savedIndex <= 0) return;
   const scene = scenes[savedIndex];
   if (journeyCta) journeyCta.href = `#${scene.id}`;
-  if (journeyCtaLabel) journeyCtaLabel.textContent = `Continue at Chapter ${scene.order}`;
+  if (journeyCtaLabel) journeyCtaLabel.textContent = scene.interaction.prompt;
   if (journeyRestart) journeyRestart.hidden = false;
   if (dialogResumeWrap) dialogResumeWrap.hidden = false;
   if (dialogResume) dialogResume.href = `#${scene.id}`;
@@ -747,7 +770,9 @@ function resetResumeUi() {
   const firstScene = scenes[0];
   lastPersistedSceneId = undefined;
   if (journeyCta) journeyCta.href = `#${firstScene.id}`;
-  if (journeyCtaLabel) journeyCtaLabel.textContent = "Begin the journey";
+  if (journeyCtaLabel) {
+    journeyCtaLabel.textContent = `${firstScene.title} · 7000 BC`;
+  }
   if (journeyRestart) journeyRestart.hidden = true;
   if (dialogResumeWrap) dialogResumeWrap.hidden = true;
   if (dialogResume) dialogResume.href = `#${firstScene.id}`;

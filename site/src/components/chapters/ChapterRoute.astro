@@ -1,0 +1,63 @@
+---
+import type { ChapterDefinition } from "../../types/chapter";
+
+type Props = {
+  chapter: ChapterDefinition;
+};
+
+const { chapter } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const routePoints = chapter.movements
+  .map((movement) => `${movement.map.x},${movement.map.y}`)
+  .join(" ");
+const firstMovement = chapter.movements[0];
+---
+
+<aside
+  class="chapter-route"
+  data-chapter-route
+  aria-label="The route from the Iron Gates to the first farming landscapes"
+>
+  <div class="chapter-route__map" aria-hidden="true">
+    <img
+      src={`${base}assets/europe-relief.webp`}
+      alt=""
+      width="1536"
+      height="1024"
+      decoding="async"
+    />
+    <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+      <polyline points={routePoints}></polyline>
+    </svg>
+    {
+      chapter.movements.map((movement, index) => (
+        <span
+          class:list={["chapter-route__marker", { "is-active": index === 0 }]}
+          style={`--route-x:${movement.map.x}%;--route-y:${movement.map.y}%`}
+          data-route-marker={movement.id}
+        ></span>
+      ))
+    }
+  </div>
+  <div class="chapter-route__current" aria-live="polite">
+    <span data-route-period>{firstMovement.period}</span>
+    <strong data-route-place>{firstMovement.place}</strong>
+  </div>
+  <nav aria-label="Places and dates in this history">
+    {
+      chapter.movements.map((movement, index) => (
+        <a
+          href={`#${movement.id}`}
+          class:list={{ "is-active": index === 0 }}
+          data-route-link={movement.id}
+          data-route-period-value={movement.period}
+          data-route-place-value={movement.place}
+          aria-current={index === 0 ? "location" : undefined}
+        >
+          <span>{movement.period}</span>
+          {movement.place}
+        </a>
+      ))
+    }
+  </nav>
+</aside>

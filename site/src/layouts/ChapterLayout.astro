@@ -1,0 +1,18 @@
+---
+import "../styles/chapter.css";
+import BaseLayout from "./BaseLayout.astro";
+
+type Props = {
+  title: string;
+  description: string;
+};
+
+const { title, description } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} bodyClass="deep-chapter-page">
+  <script is:inline slot="head">
+    document.documentElement.classList.add("chapter-js");
+  </script>
+  <slot />
+</BaseLayout>

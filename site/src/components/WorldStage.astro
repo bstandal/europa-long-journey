@@ -2,6 +2,12 @@
 import { scenes } from "../data/scenes";
 import Icon from "./Icon.astro";
 const base = import.meta.env.BASE_URL;
+const interactionFamilyLabels = {
+  route: "Route",
+  network: "Network",
+  boundary: "Boundaries",
+  compare: "Before and after",
+};
 ---
 
 <div
@@ -12,7 +18,7 @@ const base = import.meta.env.BASE_URL;
   data-landmarks={`${base}assets/landmark-panorama.webp`}
   style={`--map-url: url("${base}assets/europe-relief.webp"); --world-map-url: url("${base}assets/world-relief.jpg"); --hero-url: url("${base}assets/hero-europa.webp");`}
   role="region"
-  aria-label="Interactive map for the current chapter"
+  aria-label="Historical map of Europe and connected regions"
 >
   <div class="world-stage__fallback" aria-hidden="true"></div>
   <canvas class="world-stage__canvas" data-world-canvas aria-hidden="true"></canvas>
@@ -24,7 +30,7 @@ const base = import.meta.env.BASE_URL;
     <span data-map-legend>THE LONG ROUTE</span>
   </div>
 
-  <div class="map-hotspots" role="group" aria-label="Places in the current chapter">
+  <div class="map-hotspots" role="group" aria-label="Mapped historical places">
     {
       scenes.flatMap((scene) =>
         scene.hotspots.map((hotspot) => (
@@ -40,7 +46,7 @@ const base = import.meta.env.BASE_URL;
             data-longitude={hotspot.longitude}
             data-label={hotspot.label}
             data-detail={hotspot.detail}
-            aria-label={`Explore ${hotspot.label}`}
+            aria-label={`${hotspot.label} details`}
             aria-expanded="false"
             aria-controls="map-place-detail"
           >
@@ -54,31 +60,35 @@ const base = import.meta.env.BASE_URL;
     }
   </div>
 
-  <nav class="mobile-scene-nav" data-mobile-scene-nav aria-label="Move between chapters">
+  <nav class="mobile-scene-nav" data-mobile-scene-nav aria-label="Move along the chronology">
     <button
       class="mobile-scene-nav__button"
       type="button"
       data-mobile-previous
-      aria-label="Previous chapter"
+      aria-label="Earlier period"
       disabled
     >
       <Icon name="arrow-left" />
     </button>
     <div class="mobile-scene-nav__current" aria-live="polite">
-      <span data-mobile-scene-count>01 / {String(scenes.length).padStart(2, "0")}</span>
+      <span data-mobile-scene-count>{scenes[0].period.label}</span>
       <strong data-mobile-scene-title>{scenes[0].title}</strong>
     </div>
     <button
       class="mobile-scene-nav__button"
       type="button"
       data-mobile-next
-      aria-label="Next chapter"
+      aria-label="Later period"
     >
       <Icon name="arrow-right" />
     </button>
   </nav>
 
-  <aside class="map-interaction-dock" data-map-interaction-dock aria-label="Explore the current map">
+  <aside
+    class="map-interaction-dock"
+    data-map-interaction-dock
+    aria-label="Historical routes, networks, and boundaries"
+  >
     {
       scenes.map((scene) => (
         <section
@@ -128,9 +138,9 @@ const base = import.meta.env.BASE_URL;
   >
     <span>
       <Icon name="map-trifold" />
-      Explore this map
+      <span data-mobile-explorer-toggle-label>{scenes[0].interaction.prompt}</span>
     </span>
-    <small data-mobile-explorer-count>{scenes[0].interaction.steps.length} views · {scenes[0].hotspots.length} places</small>
+    <small data-mobile-explorer-count>{scenes[0].landmark}</small>
     <Icon name="caret-up" />
   </button>
 
@@ -139,18 +149,22 @@ const base = import.meta.env.BASE_URL;
     class="mobile-map-explorer"
     data-mobile-map-explorer
     hidden
-    aria-label="Explore the current chapter map"
+    aria-label={`${scenes[0].interaction.prompt}: ${scenes[0].landmark}`}
   >
     <header class="mobile-map-explorer__header">
       <div>
-        <p>Explore this chapter</p>
+        <p data-mobile-explorer-period>{scenes[0].period.label}</p>
         <strong data-mobile-explorer-title>{scenes[0].interaction.prompt}</strong>
       </div>
-      <button type="button" data-close-mobile-explorer aria-label="Close map explorer">
+      <button type="button" data-close-mobile-explorer aria-label="Close historical map">
         <Icon name="x" />
       </button>
     </header>
-    <div class="mobile-map-explorer__tabs" role="tablist" aria-label="Map explorer sections">
+    <div
+      class="mobile-map-explorer__tabs"
+      role="tablist"
+      aria-label="Historical sequence and places"
+    >
       <button
         id="mobile-explorer-tab-story"
         type="button"
@@ -159,8 +173,9 @@ const base = import.meta.env.BASE_URL;
         aria-controls="mobile-explorer-story"
         tabindex="0"
         data-mobile-explorer-tab="story"
+        data-mobile-explorer-family
       >
-        Story
+        {interactionFamilyLabels[scenes[0].interaction.family]}
       </button>
       <button
         id="mobile-explorer-tab-places"
@@ -227,7 +242,7 @@ const base = import.meta.env.BASE_URL;
                 data-longitude={hotspot.longitude}
                 data-label={hotspot.label}
                 data-detail={hotspot.detail}
-                aria-label={`Explore ${hotspot.label}`}
+                aria-label={`${hotspot.label} details`}
                 aria-expanded="false"
                 aria-controls="map-place-detail"
               >
@@ -254,7 +269,7 @@ const base = import.meta.env.BASE_URL;
     <button class="map-insight__close" type="button" data-close-insight aria-label="Close place detail">
       <Icon name="x" />
     </button>
-    <p class="map-insight__eyebrow">Place in this chapter</p>
+    <p class="map-insight__eyebrow">Historical place</p>
     <h3 id="map-place-detail-title" data-insight-title></h3>
     <p data-insight-detail></p>
     <p class="map-insight__coordinates" data-insight-coordinates></p>

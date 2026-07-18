@@ -1,0 +1,80 @@
+---
+import type { ChapterMovement as ChapterMovementType } from "../../types/chapter";
+import { sourceById } from "../../data/sources";
+import ChapterInteraction from "./ChapterInteraction.astro";
+
+type Props = {
+  movement: ChapterMovementType;
+};
+
+const { movement } = Astro.props;
+const movementSources = movement.sourceIds
+  .map((sourceId) => sourceById.get(sourceId))
+  .filter((source) => source !== undefined);
+---
+
+<section
+  id={movement.id}
+  class:list={["chapter-movement", `chapter-movement--${movement.side}`]}
+  data-chapter-movement
+  data-movement-id={movement.id}
+  data-order={movement.order}
+  data-interaction-kind={movement.interaction.kind}
+>
+  <div class="chapter-movement__mobile-image">
+    <img
+      src={`${import.meta.env.BASE_URL}${movement.image}`}
+      alt={movement.imageAlt}
+      width="1536"
+      height="1024"
+      loading={movement.order === 1 ? "eager" : "lazy"}
+      decoding="async"
+      style={`object-position:${movement.imagePosition ?? "center"}`}
+    />
+    <span>Evidence-led reconstruction</span>
+  </div>
+  <article class="chapter-movement__story">
+    <header>
+      <p class="chapter-movement__meta">
+        <span>{movement.period}</span>
+        <span>{movement.place}</span>
+      </p>
+      <h2>
+        {
+          movement.titleLines
+            ? movement.titleLines.map((line, index) => (
+                <>{index > 0 && <br />}{line}</>
+              ))
+            : movement.title
+        }
+      </h2>
+      <p class="chapter-movement__thesis">{movement.thesis}</p>
+    </header>
+    <div class="chapter-movement__body">
+      {movement.body.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+    <details class="chapter-evidence">
+      <summary>What survived</summary>
+      <div>
+        <ul>
+          {movement.evidence.map((item) => <li>{item}</li>)}
+        </ul>
+        <p>
+          {
+            movementSources.map((source, index) => (
+              <>
+                {index > 0 && <span aria-hidden="true"> · </span>}
+                {
+                  source.url
+                    ? <a href={source.url}>{source.author} ({source.year})</a>
+                    : <span>{source.author} ({source.year})</span>
+                }
+              </>
+            ))
+          }
+        </p>
+      </div>
+    </details>
+    <ChapterInteraction movementId={movement.id} interaction={movement.interaction} />
+  </article>
+</section>

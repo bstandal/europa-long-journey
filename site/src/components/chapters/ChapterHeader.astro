@@ -1,0 +1,23 @@
+---
+import Icon from "../Icon.astro";
+
+type Props = {
+  returnHref: string;
+};
+
+const { returnHref } = Astro.props;
+---
+
+<header class="chapter-header">
+  <a class="chapter-header__wordmark" href={returnHref} aria-label="Return to EUROPA">
+    EUROPA
+  </a>
+  <a
+    class="chapter-header__return"
+    href={returnHref}
+    aria-label="Return to the long road"
+  >
+    <Icon name="arrow-left" />
+    <span aria-hidden="true">The long road</span>
+  </a>
+</header>

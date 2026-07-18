@@ -1,0 +1,329 @@
+---
+import type { ChapterInteraction } from "../../types/chapter";
+
+type Props = {
+  movementId: string;
+  interaction: ChapterInteraction;
+};
+
+const { movementId, interaction } = Astro.props;
+const initialSeasonIndex =
+  interaction.kind === "seasons" ? (interaction.initialIndex ?? 0) : 0;
+const initialDetail =
+  interaction.kind === "seasons"
+    ? interaction.stages[initialSeasonIndex].detail
+    : interaction.kind === "route"
+      ? interaction.points[0].detail
+      : interaction.kind === "harvest"
+        ? "One store has to answer three different futures."
+        : interaction.kind === "lineage"
+          ? interaction.snapshots[0].detail
+          : interaction.kind === "inspect"
+            ? interaction.items[0].detail
+            : interaction.kind === "growth"
+              ? interaction.stages[0].detail
+              : interaction.layers[0].detail;
+---
+
+<div
+  class:list={["chapter-interaction", `chapter-interaction--${interaction.kind}`]}
+  data-chapter-interaction
+  data-interaction-kind={interaction.kind}
+  data-movement-id={movementId}
+  data-state-id={
+    interaction.kind === "seasons"
+      ? interaction.stages[initialSeasonIndex].id
+      : interaction.kind === "growth"
+        ? interaction.stages[0].id
+        : undefined
+  }
+  data-season-tone={
+    interaction.kind === "seasons"
+      ? interaction.stages[initialSeasonIndex].tone
+      : undefined
+  }
+>
+  <p class="chapter-interaction__prompt">{interaction.prompt}</p>
+  <p class="sr-only">{interaction.accessibleSummary}</p>
+
+  {
+    interaction.kind === "seasons" && (
+      <>
+        <div class="season-control" role="group" aria-label={interaction.prompt}>
+          {interaction.stages.map((stage, index) => (
+            <button
+              type="button"
+              class:list={[
+                "season-control__button",
+                { "is-active": index === initialSeasonIndex },
+              ]}
+              data-interaction-choice
+              data-choice-index={index}
+              data-state-id={stage.id}
+              data-tone={stage.tone}
+              data-detail={stage.detail}
+              aria-pressed={index === initialSeasonIndex ? "true" : "false"}
+            >
+              <span aria-hidden="true"></span>
+              {stage.label}
+            </button>
+          ))}
+        </div>
+        <div class="season-control__world" aria-live="polite">
+          {interaction.stages.map((stage, index) => (
+            <div
+              class="season-control__state"
+              data-season-state={stage.id}
+              hidden={index !== initialSeasonIndex}
+            >
+              <p>{stage.landscape}</p>
+              <ul aria-label={`Resources in ${stage.label.toLocaleLowerCase("en")}`}>
+                {stage.resources.map((resource) => <li>{resource}</li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </>
+    )
+  }
+
+  {
+    interaction.kind === "route" && (
+      <div class="route-control" role="group" aria-label={interaction.prompt}>
+        <svg
+          class="route-control__path"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          {interaction.points.slice(1).map((point, index) => {
+            const previous = interaction.points[index];
+            return (
+              <line
+                x1={previous.x}
+                y1={previous.y}
+                x2={point.x}
+                y2={point.y}
+                data-route-segment={index + 1}
+              />
+            );
+          })}
+        </svg>
+        {interaction.points.map((point, index) => (
+          <button
+            type="button"
+            class:list={["route-control__button", { "is-active": index === 0 }]}
+            style={`--point-x:${point.x}%; --point-y:${point.y}%`}
+            data-interaction-choice
+            data-choice-index={index}
+            data-detail={point.detail}
+            aria-pressed={index === 0 ? "true" : "false"}
+          >
+            <span>{point.label}</span>
+          </button>
+        ))}
+      </div>
+    )
+  }
+
+  {
+    interaction.kind === "harvest" && (
+      <div
+        class="harvest-control"
+        data-harvest-control
+        data-harvest-total={interaction.total}
+      >
+        <div class="harvest-control__store" aria-hidden="true">
+          {Array.from({ length: interaction.total }, (_, index) => (
+            <span data-grain-measure={index}></span>
+          ))}
+        </div>
+        <div class="harvest-control__allocations">
+          {interaction.allocations.map((allocation) => (
+            <label class={`harvest-control__row harvest-control__row--${allocation.id}`}>
+              <span>
+                <strong>{allocation.label}</strong>
+                <small>{allocation.detail}</small>
+              </span>
+              <input
+                type="range"
+                min="0"
+                max={interaction.total}
+                value={allocation.initial}
+                step="1"
+                data-harvest-range
+                data-bucket={allocation.id}
+                data-minimum={allocation.minimum}
+                aria-label={`${allocation.label}, share of this illustrative store`}
+              />
+              <output data-harvest-output={allocation.id}>{allocation.initial}</output>
+            </label>
+          ))}
+        </div>
+        <p class="harvest-control__outcome" data-harvest-outcome aria-live="polite">
+          Food, a buffer and spring seed are all protected.
+        </p>
+      </div>
+    )
+  }
+
+  {
+    interaction.kind === "lineage" && (
+      <div class="lineage-control" role="group" aria-label={interaction.prompt}>
+        <div class="lineage-control__choices">
+          {interaction.snapshots.map((snapshot, index) => (
+            <button
+              type="button"
+              class:list={["lineage-control__button", { "is-active": index === 0 }]}
+              data-interaction-choice
+              data-choice-index={index}
+              data-detail={snapshot.detail}
+              aria-pressed={index === 0 ? "true" : "false"}
+            >
+              {snapshot.label}
+            </button>
+          ))}
+        </div>
+        <div class="lineage-control__records" aria-live="polite">
+          {interaction.snapshots.map((snapshot, index) => (
+            <div data-lineage-record={index} hidden={index !== 0}>
+              <span>{snapshot.period}</span>
+              <strong>{snapshot.evidence}</strong>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  {
+    interaction.kind === "inspect" && (
+      <div class="inspect-control" role="group" aria-label={interaction.prompt}>
+        {interaction.items.map((item, index) => (
+          <button
+            type="button"
+            class:list={["inspect-control__button", { "is-active": index === 0 }]}
+            style={`--point-x:${item.x}%; --point-y:${item.y}%`}
+            data-interaction-choice
+            data-choice-index={index}
+            data-detail={item.detail}
+            aria-pressed={index === 0 ? "true" : "false"}
+          >
+            <span aria-hidden="true"></span>
+            <strong>{item.label}</strong>
+          </button>
+        ))}
+      </div>
+    )
+  }
+
+  {
+    interaction.kind === "growth" && (
+      <div class="growth-control">
+        <div class="growth-control__images" aria-hidden="true">
+          {interaction.stages.map((stage, index) => (
+            <img
+              class:list={{ "is-active": index === 0 }}
+              src={`${import.meta.env.BASE_URL}${stage.image}`}
+              alt=""
+              width="1536"
+              height="1024"
+              loading="lazy"
+              decoding="async"
+              data-growth-inline-image={stage.id}
+            />
+          ))}
+        </div>
+        <input
+          type="range"
+          min="0"
+          max={interaction.stages.length - 1}
+          value="0"
+          step="1"
+          aria-label={interaction.prompt}
+          data-growth-range
+        />
+        <div class="growth-control__labels" aria-hidden="true">
+          {interaction.stages.map((stage) => <span>{stage.label}</span>)}
+        </div>
+        <div class="growth-control__measure" data-growth-summary aria-live="polite">
+          <span><strong data-growth-settlement>{interaction.stages[0].settlement}</strong></span>
+          <span data-growth-landscape>{interaction.stages[0].landscape}</span>
+        </div>
+        <div hidden>
+          {interaction.stages.map((stage) => (
+            <span
+              data-growth-stage={stage.id}
+              data-detail={stage.detail}
+              data-settlement={stage.settlement}
+              data-landscape={stage.landscape}
+              data-image={stage.image}
+            />
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  {
+    interaction.kind === "compare" && (
+      <div class="compare-control">
+        <div class="compare-control__images" data-compare-inline style="--compare-progress:50%">
+          <img
+            src={`${import.meta.env.BASE_URL}${interaction.before.image}`}
+            alt=""
+            width="1536"
+            height="1024"
+            loading="lazy"
+            decoding="async"
+          />
+          <div>
+            <img
+              src={`${import.meta.env.BASE_URL}${interaction.after.image}`}
+              alt=""
+              width="1536"
+              height="1024"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        </div>
+        <label class="compare-control__reveal">
+          <span>{interaction.before.label} · {interaction.before.period}</span>
+          <input
+            type="range"
+            min="8"
+            max="92"
+            value="50"
+            step="1"
+            data-compare-range
+            aria-label={`Reveal ${interaction.after.label}, ${interaction.after.period}`}
+          />
+          <span>{interaction.after.label} · {interaction.after.period}</span>
+        </label>
+        <div
+          class="compare-control__themes"
+          role="group"
+          aria-label="Evidence compared between the two landscapes"
+        >
+          {interaction.layers.map((layer, index) => (
+            <button
+              type="button"
+              class:list={["compare-control__button", { "is-active": index === 0 }]}
+              data-interaction-choice
+              data-choice-index={index}
+              data-detail={layer.detail}
+              aria-pressed={index === 0 ? "true" : "false"}
+            >
+              {layer.label}
+            </button>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  <p class="chapter-interaction__detail" data-interaction-detail aria-live="polite">
+    {initialDetail}
+  </p>
+</div>

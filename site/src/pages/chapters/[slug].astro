@@ -1,0 +1,76 @@
+---
+import ChapterHeader from "../../components/chapters/ChapterHeader.astro";
+import ChapterMovement from "../../components/chapters/ChapterMovement.astro";
+import ChapterRoute from "../../components/chapters/ChapterRoute.astro";
+import ChapterSources from "../../components/chapters/ChapterSources.astro";
+import ChapterStage from "../../components/chapters/ChapterStage.astro";
+import { chapters } from "../../data/chapters";
+import ChapterLayout from "../../layouts/ChapterLayout.astro";
+import type { ChapterDefinition } from "../../types/chapter";
+
+export function getStaticPaths() {
+  return chapters.map((chapter) => ({
+    params: { slug: chapter.slug },
+    props: { chapter },
+  }));
+}
+
+type Props = {
+  chapter: ChapterDefinition;
+};
+
+const { chapter } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const returnHref = `${base}#${chapter.returnHash}`;
+const nextHref = `${base}#${chapter.nextHash}`;
+---
+
+<ChapterLayout
+  title={`${chapter.title} — EUROPA`}
+  description={chapter.claim}
+>
+  <ChapterHeader returnHref={returnHref} />
+  <main id="main-content" class="deep-chapter" data-deep-chapter data-chapter-slug={chapter.slug}>
+    <ChapterStage chapter={chapter} />
+    <ChapterRoute chapter={chapter} />
+
+    <section
+      class="chapter-opening"
+      aria-labelledby="chapter-title"
+      style={`--opening-image:url("${base}${chapter.movements[0].image}")`}
+    >
+      <div>
+        <p class="chapter-opening__number">{chapter.number} · {chapter.period}</p>
+        <h1 id="chapter-title">{chapter.title}</h1>
+        <p>{chapter.claim}</p>
+        <a href={`#${chapter.movements[0].id}`}>The river before the fields</a>
+      </div>
+    </section>
+
+    <div class="chapter-flow">
+      {
+        chapter.movements.map((movement) => (
+          <ChapterMovement movement={movement} />
+        ))
+      }
+    </div>
+
+    <footer class="chapter-ending">
+      <div class="chapter-ending__result">
+        <p>By 3300 BC</p>
+        <h2>Europe had become a continent of fields, herds and long-lived settlements.</h2>
+        <p>No text preserves the languages of the people who made it so.</p>
+      </div>
+      <a class="chapter-ending__next" href={nextHref}>
+        <span>3300 BC</span>
+        <strong>{chapter.nextTitle}</strong>
+      </a>
+      <a class="chapter-ending__return" href={returnHref}>Return to the long road</a>
+    </footer>
+
+    <ChapterSources chapter={chapter} />
+  </main>
+  <script>
+    import "../../scripts/chapter-runtime";
+  </script>
+</ChapterLayout>
