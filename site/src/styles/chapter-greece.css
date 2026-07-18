@@ -503,6 +503,69 @@
   background: #071722;
 }
 
+@media (min-width: 721px) {
+  body.deep-chapter-page--greece.chapter-runtime-ready .chapter-interaction,
+  body.deep-chapter-page--greece.chapter-runtime-ready
+    .chapter-movement.is-active
+    .chapter-interaction {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    margin-top: 38px;
+    padding: 18px;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+
+  .inscription-control {
+    grid-template-columns: minmax(140px, 180px) minmax(0, 1fr);
+  }
+
+  .inscription-control__records {
+    grid-column: 1 / -1;
+    padding: 14px 2px 2px;
+    border-top: 1px solid rgba(221, 163, 110, 0.3);
+    border-left: 0;
+  }
+
+  .civic-path-control {
+    grid-template-columns: minmax(150px, 0.4fr) minmax(0, 1fr);
+  }
+
+  .civic-path-control__records article {
+    grid-template-columns: 1fr;
+  }
+
+  .civic-path-control__result {
+    border-top: 1px solid rgba(221, 163, 110, 0.28);
+    border-left: 0;
+  }
+
+  .war-timeline-control__records article {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .war-timeline-control__turn {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 721px) and (max-width: 1200px) {
+  .citizen-body-control__choices {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .civic-path-control {
+    grid-template-columns: 1fr;
+  }
+
+  .war-timeline-control__dates {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 720px) {
   .deep-chapter-page--greece .chapter-route {
     background: rgba(5, 18, 27, 0.97);
