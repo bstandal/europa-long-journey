@@ -193,6 +193,70 @@ export type WarTimelineInteraction = ChapterInteractionBase & {
   })[];
 };
 
+export type RomanConstitutionInteraction = ChapterInteractionBase & {
+  kind: "roman-constitution";
+  institutions: {
+    id: "people" | "magistrates" | "senate";
+    label: string;
+    detail: string;
+    authority: string;
+    limit: string;
+    consequence: string;
+  }[];
+};
+
+export type RomanNetworkInteraction = ChapterInteractionBase & {
+  kind: "roman-network";
+  mapImage: string;
+  states: {
+    id: string;
+    label: string;
+    period: string;
+    detail: string;
+    measure: string;
+    points: ChapterPoint[];
+    links: [number, number][];
+  }[];
+};
+
+export type RomanCommandInteraction = ChapterInteractionBase & {
+  kind: "roman-command";
+  states: {
+    id: string;
+    label: string;
+    period: string;
+    detail: string;
+    commander: string;
+    command: string;
+    institutionalChange: string;
+  }[];
+};
+
+export type RomanCitizenshipInteraction = ChapterInteractionBase & {
+  kind: "roman-citizenship";
+  paths: {
+    id: string;
+    label: string;
+    detail: string;
+    startingStatus: string;
+    route: string;
+    rights: string;
+    limit: string;
+  }[];
+};
+
+export type RomanTraceInteraction = ChapterInteractionBase & {
+  kind: "roman-trace";
+  stops: {
+    id: string;
+    label: string;
+    period: string;
+    detail: string;
+    mechanism: string;
+    consequence: string;
+  }[];
+};
+
 export type ChapterInteraction =
   | RouteInteraction
   | SeasonsInteraction
@@ -207,10 +271,15 @@ export type ChapterInteraction =
   | InscriptionInteraction
   | CitizenBodyInteraction
   | CivicPathInteraction
-  | WarTimelineInteraction;
+  | WarTimelineInteraction
+  | RomanConstitutionInteraction
+  | RomanNetworkInteraction
+  | RomanCommandInteraction
+  | RomanCitizenshipInteraction
+  | RomanTraceInteraction;
 
 export type ChapterTheme = {
-  id: "farmers" | "steppe" | "bronze" | "greece";
+  id: "farmers" | "steppe" | "bronze" | "greece" | "rome";
   label: string;
 };
 

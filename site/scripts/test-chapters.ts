@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { bronzeEurope } from "../src/data/chapters/bronze-europe";
 import { firstFarmers } from "../src/data/chapters/first-farmers";
 import { greeceAndTheCitizen } from "../src/data/chapters/greece-and-the-citizen";
+import { romeGathersEurope } from "../src/data/chapters/rome-gathers-europe";
 import { steppeComesWest } from "../src/data/chapters/steppe-comes-west";
 import { scenes } from "../src/data/scenes";
 import { sources } from "../src/data/sources";
@@ -276,5 +277,130 @@ rejectUnsupportedKeys(firstFarmers);
 rejectUnsupportedKeys(steppeComesWest);
 rejectUnsupportedKeys(bronzeEurope);
 rejectUnsupportedKeys(greeceAndTheCitizen);
+rejectUnsupportedKeys(romeGathersEurope);
 
-console.log("Farmers, Steppe, Bronze and Greece chapter checks passed.");
+await checkCommonChapter(romeGathersEurope, 12);
+assert.deepEqual(
+  romeGathersEurope.acts?.map((act) => act.id),
+  [
+    "power-without-king",
+    "italian-engine",
+    "commands-break-republic",
+    "provinces-enter-name",
+  ],
+  "Rome should preserve the four-act progression.",
+);
+for (const act of romeGathersEurope.acts ?? []) {
+  assert.equal(
+    romeGathersEurope.movements.filter((movement) => movement.actId === act.id).length,
+    3,
+    `Act ${act.id} should contain exactly three movements.`,
+  );
+}
+const principalRomanInteractionKinds = new Set([
+  "roman-constitution",
+  "roman-network",
+  "roman-command",
+  "roman-citizenship",
+]);
+assert.deepEqual(
+  romeGathersEurope.movements
+    .map((movement, index) =>
+      movement.interaction && principalRomanInteractionKinds.has(movement.interaction.kind)
+        ? index + 1
+        : null,
+    )
+    .filter(Boolean),
+  [2, 5, 9, 11],
+  "Rome's principal interactions should remain in movements 2, 5, 9 and 11.",
+);
+assert.deepEqual(
+  romeGathersEurope.movements
+    .map((movement) => movement.interaction?.kind)
+    .filter((kind) => kind && principalRomanInteractionKinds.has(kind)),
+  ["roman-constitution", "roman-network", "roman-command", "roman-citizenship"],
+  "Rome should preserve the constitution, network, command and citizenship sequence.",
+);
+assert.deepEqual(
+  romeGathersEurope.movements
+    .map((movement, index) =>
+      movement.interaction?.kind === "roman-trace" ? index + 1 : null,
+    )
+    .filter(Boolean),
+  [3, 6, 8, 10, 12],
+  "Rome's lighter active traces should appear in movements 3, 6, 8, 10 and 12.",
+);
+for (const movement of romeGathersEurope.movements) {
+  if (movement.interaction?.kind !== "roman-trace") continue;
+  assert.equal(
+    movement.interaction.stops.length,
+    3,
+    `Roman trace ${movement.id} should have three thumb-friendly stops.`,
+  );
+}
+
+const romanConstitution = romeGathersEurope.movements[1].interaction;
+assert.ok(
+  romanConstitution?.kind === "roman-constitution",
+  "Rome needs the republican constitution interaction.",
+);
+assert.deepEqual(
+  romanConstitution.institutions.map((institution) => institution.id),
+  ["people", "magistrates", "senate"],
+  "Republican authority should be divided among people, magistrates and Senate.",
+);
+
+const romanNetwork = romeGathersEurope.movements[4].interaction;
+assert.ok(romanNetwork?.kind === "roman-network", "Rome needs the Italian network interaction.");
+assert.deepEqual(
+  romanNetwork.states.map((state) => state.id),
+  ["settlements-338", "via-appia-312", "peninsula-275", "mobilisation-218"],
+  "The Italian engine should move from settlement to road, peninsula and wartime mobilisation.",
+);
+await access(`${publicRoot}${romanNetwork.mapImage}`);
+
+const romanCommand = romeGathersEurope.movements[8].interaction;
+assert.ok(romanCommand?.kind === "roman-command", "Rome needs the command-crisis interaction.");
+assert.deepEqual(
+  romanCommand.states.map((state) => state.id),
+  ["sulla-88", "caesar-49", "triumvirs-43", "augustus-27"],
+  "The command crisis should end where permanent military pre-eminence settles.",
+);
+
+const romanCitizenship = romeGathersEurope.movements[10].interaction;
+assert.ok(
+  romanCitizenship?.kind === "roman-citizenship",
+  "Rome needs the citizenship-path interaction.",
+);
+assert.deepEqual(
+  romanCitizenship.paths.map((path) => path.id),
+  ["auxiliary", "manumission", "municipal-office", "imperial-grant"],
+  "Citizenship should show four historically distinct routes.",
+);
+
+const romeWords = romeGathersEurope.movements.reduce(
+  (sum, movement) =>
+    sum +
+    movement.body.reduce(
+      (movementSum, paragraph) => movementSum + paragraph.trim().split(/\s+/).length,
+      0,
+    ),
+  0,
+);
+assert.ok(
+  romeWords >= 3200 && romeWords <= 3900,
+  `Rome should contain 3,200–3,900 words of continuous narrative; found ${romeWords}.`,
+);
+const romeScene = scenes.find((scene) => scene.id === "rome-gathers-europe");
+assert.equal(
+  romeScene?.chronicle?.href,
+  "chapters/rome-gathers-europe/",
+  "The main journey needs a working Rome chapter link.",
+);
+assert.equal(
+  romeScene?.chronicle?.label,
+  "Enter the forged road",
+  "The Rome chapter link needs its historical invitation.",
+);
+
+console.log("Farmers, Steppe, Bronze, Greece and Rome chapter checks passed.");

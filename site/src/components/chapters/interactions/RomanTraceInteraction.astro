@@ -1,0 +1,47 @@
+---
+import type { RomanTraceInteraction as RomanTraceInteractionType } from "../../../types/chapter";
+
+type Props = {
+  interaction: RomanTraceInteractionType;
+};
+
+const { interaction } = Astro.props;
+---
+
+<div class="roman-trace">
+  <div class="roman-trace__rail" role="group" aria-label={interaction.prompt}>
+    {
+      interaction.stops.map((stop, index) => (
+        <button
+          type="button"
+          class:list={["roman-trace__button", { "is-active": index === 0 }]}
+          data-interaction-choice
+          data-choice-index={index}
+          data-state-id={stop.id}
+          data-detail={stop.detail}
+          aria-pressed={index === 0 ? "true" : "false"}
+        >
+          <span>{stop.period}</span>
+          {stop.label}
+        </button>
+      ))
+    }
+  </div>
+  <div class="roman-trace__records" aria-live="polite">
+    {
+      interaction.stops.map((stop, index) => (
+        <article data-roman-record={index} hidden={index !== 0}>
+          <p>
+            <span>Mechanism</span>
+            <strong>{stop.mechanism}</strong>
+          </p>
+          <i aria-hidden="true"></i>
+          <p>
+            <span>Consequence</span>
+            <strong>{stop.consequence}</strong>
+          </p>
+        </article>
+      ))
+    }
+  </div>
+</div>

@@ -3,6 +3,11 @@ import type { ChapterInteraction } from "../../types/chapter";
 import CitizenBodyInteraction from "./interactions/CitizenBodyInteraction.astro";
 import CivicPathInteraction from "./interactions/CivicPathInteraction.astro";
 import InscriptionInteraction from "./interactions/InscriptionInteraction.astro";
+import RomanCitizenshipInteraction from "./interactions/RomanCitizenshipInteraction.astro";
+import RomanCommandInteraction from "./interactions/RomanCommandInteraction.astro";
+import RomanConstitutionInteraction from "./interactions/RomanConstitutionInteraction.astro";
+import RomanNetworkInteraction from "./interactions/RomanNetworkInteraction.astro";
+import RomanTraceInteraction from "./interactions/RomanTraceInteraction.astro";
 import WarTimelineInteraction from "./interactions/WarTimelineInteraction.astro";
 
 type Props = {
@@ -36,6 +41,15 @@ const initialDetail =
                       ? interaction.layers[0].detail
                       : interaction.kind === "civic-path"
                         ? interaction.paths[0].detail
+                        : interaction.kind === "roman-constitution"
+                          ? interaction.institutions[0].detail
+                          : interaction.kind === "roman-network" ||
+                              interaction.kind === "roman-command"
+                            ? interaction.states[0].detail
+                            : interaction.kind === "roman-citizenship"
+                              ? interaction.paths[0].detail
+                              : interaction.kind === "roman-trace"
+                                ? interaction.stops[0].detail
                         : interaction.states[0].detail;
 ---
 
@@ -57,6 +71,15 @@ const initialDetail =
               ? interaction.layers[0].id
               : interaction.kind === "civic-path"
                 ? interaction.paths[0].id
+                : interaction.kind === "roman-constitution"
+                  ? interaction.institutions[0].id
+                  : interaction.kind === "roman-network" ||
+                      interaction.kind === "roman-command"
+                    ? interaction.states[0].id
+                    : interaction.kind === "roman-citizenship"
+                      ? interaction.paths[0].id
+                      : interaction.kind === "roman-trace"
+                        ? interaction.stops[0].id
                 : interaction.kind === "inscription" ||
                     interaction.kind === "citizen-body" ||
                     interaction.kind === "war-timeline"
@@ -512,6 +535,36 @@ const initialDetail =
   {
     interaction.kind === "war-timeline" && (
       <WarTimelineInteraction interaction={interaction} />
+    )
+  }
+
+  {
+    interaction.kind === "roman-constitution" && (
+      <RomanConstitutionInteraction interaction={interaction} />
+    )
+  }
+
+  {
+    interaction.kind === "roman-network" && (
+      <RomanNetworkInteraction interaction={interaction} />
+    )
+  }
+
+  {
+    interaction.kind === "roman-command" && (
+      <RomanCommandInteraction interaction={interaction} />
+    )
+  }
+
+  {
+    interaction.kind === "roman-citizenship" && (
+      <RomanCitizenshipInteraction interaction={interaction} />
+    )
+  }
+
+  {
+    interaction.kind === "roman-trace" && (
+      <RomanTraceInteraction interaction={interaction} />
     )
   }
 

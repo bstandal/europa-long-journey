@@ -439,6 +439,10 @@ export const scenes: StoryScene[] = [
         longitude: 4.84,
       },
     ],
+    chronicle: {
+      href: "chapters/rome-gathers-europe/",
+      label: "Enter the forged road",
+    },
   },
   {
     id: "christian-empire",

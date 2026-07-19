@@ -86,6 +86,89 @@
   display: block;
 }
 
+@media (min-width: 721px) {
+  .chapter-route {
+    height: 44px;
+    padding: 0;
+  }
+
+  .chapter-route__toggle {
+    display: flex;
+    width: 100%;
+    min-height: 44px;
+    padding: 0 12px 0 14px;
+    align-items: center;
+    justify-content: space-between;
+    border: 0;
+    background: transparent;
+    color: var(--ivory);
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .chapter-route__toggle > span:first-child {
+    display: flex;
+    min-width: 0;
+    align-items: baseline;
+    gap: 9px;
+  }
+
+  .chapter-route__toggle small {
+    flex: none;
+    color: var(--bronze-bright);
+    font-size: 0.55rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .chapter-route__toggle strong {
+    overflow: hidden;
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    font-weight: 400;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .chapter-route__toggle > span:last-child {
+    flex: none;
+    min-width: 47px;
+    color: rgba(240, 230, 206, 0.58);
+    font-size: 0.55rem;
+    letter-spacing: 0.13em;
+    text-align: right;
+    text-transform: uppercase;
+  }
+
+  .chapter-route__toggle > span:last-child::after {
+    margin-left: 7px;
+    content: "+";
+  }
+
+  .chapter-route__toggle[aria-expanded="true"] > span:last-child::after {
+    content: "−";
+  }
+
+  .chapter-route__panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: -1px;
+    display: none;
+    width: calc(100% + 2px);
+    max-height: calc(100svh - 164px);
+    padding: 10px;
+    overflow: auto;
+    border: 1px solid rgba(224, 189, 115, 0.22);
+    background: rgba(6, 11, 12, 0.97);
+    box-shadow: 0 22px 58px rgba(0, 0, 0, 0.45);
+  }
+
+  .chapter-route__panel.is-open {
+    display: block;
+  }
+}
+
 body[data-chapter-movement="a-continent-remade"] .chapter-route {
   right: auto;
   left: clamp(28px, 3.3vw, 52px);

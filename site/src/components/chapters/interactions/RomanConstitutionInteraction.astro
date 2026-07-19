@@ -1,0 +1,42 @@
+---
+import type { RomanConstitutionInteraction as RomanConstitutionInteractionType } from "../../../types/chapter";
+
+type Props = {
+  interaction: RomanConstitutionInteractionType;
+};
+
+const { interaction } = Astro.props;
+---
+
+<div class="roman-balance">
+  <div class="roman-balance__ring" role="group" aria-label={interaction.prompt}>
+    <span class="roman-balance__centre" aria-hidden="true">SPQR</span>
+    {
+      interaction.institutions.map((institution, index) => (
+        <button
+          type="button"
+          class:list={["roman-balance__button", { "is-active": index === 0 }]}
+          data-interaction-choice
+          data-choice-index={index}
+          data-state-id={institution.id}
+          data-detail={institution.detail}
+          aria-pressed={index === 0 ? "true" : "false"}
+        >
+          <span>{String(index + 1).padStart(2, "0")}</span>
+          {institution.label}
+        </button>
+      ))
+    }
+  </div>
+  <div class="roman-balance__records" aria-live="polite">
+    {
+      interaction.institutions.map((institution, index) => (
+        <article data-roman-record={index} hidden={index !== 0}>
+          <p><span>Authority</span><strong>{institution.authority}</strong></p>
+          <p><span>Limit</span><strong>{institution.limit}</strong></p>
+          <p><span>Result</span><strong>{institution.consequence}</strong></p>
+        </article>
+      ))
+    }
+  </div>
+</div>
