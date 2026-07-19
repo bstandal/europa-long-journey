@@ -316,6 +316,33 @@ function chooseButton(button: HTMLButtonElement) {
     }
   }
 
+  if (
+    kind === "roman-constitution" ||
+    kind === "roman-network" ||
+    kind === "roman-command" ||
+    kind === "roman-citizenship" ||
+    kind === "roman-trace"
+  ) {
+    for (const record of interaction.querySelectorAll<HTMLElement>(
+      "[data-roman-record]",
+    )) {
+      record.hidden =
+        Number.parseInt(record.dataset.romanRecord ?? "-1", 10) !== choiceIndex;
+    }
+  }
+
+  if (kind === "roman-network") {
+    const stateId = button.dataset.stateId ?? "";
+    for (const layer of interaction.querySelectorAll<HTMLElement>(
+      "[data-roman-network-layer]",
+    )) {
+      layer.classList.toggle(
+        "is-active",
+        layer.dataset.romanNetworkLayer === stateId,
+      );
+    }
+  }
+
   if (kind === "citizen-body" || kind === "war-timeline") {
     const stateId = button.dataset.stateId ?? "";
     for (const layer of interaction.querySelectorAll<HTMLElement>(
@@ -550,8 +577,18 @@ function setupRouteExplorer() {
     link.addEventListener("click", () => {
       const actMovementId = link.dataset.routeActMovement;
       if (actMovementId) setRoutePosition(actMovementId);
-      if (compact.matches) setOpen(false);
+      setOpen(false);
     });
+  });
+  document.addEventListener("pointerdown", (event) => {
+    if (
+      routeToggle.getAttribute("aria-expanded") !== "true" ||
+      routeToggle.contains(event.target as Node) ||
+      routePanel.contains(event.target as Node)
+    ) {
+      return;
+    }
+    setOpen(false);
   });
   document.addEventListener("keydown", (event) => {
     if (event.key !== "Escape" || routeToggle.getAttribute("aria-expanded") !== "true") {

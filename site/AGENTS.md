@@ -106,6 +106,53 @@ When implementing from a selected generated mock, treat that image as the source
 - End Chapter 04 in 146 BC without declaring the polis or democracy dead. Rome enters a Mediterranean
   already filled with citizens, councils, assemblies, magistrates and public law, then scales civic
   membership into a different imperial order.
+- Chapter 05, “Rome Gathers Europe”, is the next large level-two profile. Make it the most ambitious
+  chapter yet without changing the project’s editorial discipline: a Roman specialist should find the
+  chronology, institutions, attribution and uncertainty exact, while a new adult reader can follow one
+  irresistible causal story.
+- Organise Chapter 05 around one claim: Rome made conquest durable by extending graded status,
+  citizenship, military obligation and municipal responsibility outwards from one city. The army wins
+  territory; roads, colonies, allied manpower, local councils, law and service explain why the territory
+  can remain Roman.
+- Chapter 05 runs from the early Republic to Caracalla’s grant in AD 212. Its four acts are power
+  without a king, the Italian alliance engine, commands that break the Republic, and provinces entering
+  the Roman name. Emperors and battles appear where they change that mechanism; they do not become a
+  catalogue of rulers or campaigns.
+- Keep the violence structurally visible. Roman incorporation follows defeat, land seizure, tribute,
+  enslavement, census and military compulsion. Do not turn citizenship into benevolence or the empire
+  into a frictionless network; show why rights were desired and how unequal status, slavery and coercion
+  survived every extension.
+- Chapter 05’s locked visual grammar is “The Forged Road”. Move from iron fastenings and the worn Forum
+  through treaty tablets, basalt roads, marching columns, auction yards, civil-war standards, census
+  records, provincial gates and the citizenship papyrus. Repeat the measured line, milestone and arch
+  as structures that carry power across distance.
+- The Chapter 05 palette marks the move from bronze to iron without claiming that Rome invented iron:
+  blue-black iron, charcoal, basalt, fired brick, worn Roman red, porphyry and parchment replace the
+  previous chapter’s Aegean blue and bronze-orange. Keep restrained warm metal only for active routes,
+  legal seals and moments of incorporation.
+- Avoid pristine white-marble Rome, empty ruins, imperial gold, triumphalist battle poses, standardised
+  legionary armour across centuries, fantasy crowds and modern nationalist iconography. The Roman world
+  is painted, smoky, multilingual, repaired, trafficked and materially uneven.
+- Chapter 05 contains twelve movements and exactly four principal interactions, placed in movements 2,
+  5, 9 and 11: the republican distribution of authority, the Italian alliance-and-road system, the
+  transfer of public commands into personal armies and the concrete routes into Roman citizenship.
+- Chapter 05 also carries five lighter “active traces” in movements 3, 6, 8, 10 and 12. Each trace has
+  three large choices that reveal a mechanism and consequence without becoming a quiz, simulation or
+  fifth principal interaction. On desktop the trace occupies a compact panel opposite the story; on
+  mobile it remains inline, thumb-friendly and readable without horizontal precision.
+- Treat the early Republic as a reconstructed and contested history. Attribute the traditional 509 BC
+  break and early constitutional episodes to later Roman memory where the evidence requires it; do not
+  project the fully developed late-Republican constitution backwards unchanged.
+- Treat the Social War as a central constitutional event, not a prelude to Caesar. Italian allies had
+  supplied troops and borne costs without equal Roman rights; the laws of 90–89 BC conceded citizenship
+  during war, while enrolment and effective political integration continued afterward.
+- Augustus ends civil war by concentrating command while preserving republican offices and language.
+  Do not say he restored the Republic or simply replaced it with an openly named monarchy. Show the
+  professional army, divided provinces, census and local civic government that made the Principate work.
+- Present AD 212 precisely: the Constitutio Antoniniana extended Roman citizenship to almost all free
+  inhabitants of the empire. The papyrus is fragmentary, the dediticii clause remains disputed and tax,
+  military, religious and political motives are debated. Citizenship became a common legal floor, not
+  social equality; slavery and graded privilege remained.
 - Show one direct, historically plausible confrontation without gore, heroic battle poses or fantasy
   invasion imagery. Let graves, weapons, new authority markers and the disappearance of sampled
   paternal lines carry the long duration of violence.
@@ -153,4 +200,7 @@ When implementing from a selected generated mock, treat that image as the source
 - Mobile is a first-class interactive experience: every chapter keeps the map visible, exposes all places
   through touch targets of at least 44px, and provides direct previous/next chapter controls.
 - Mobile uses a collapsible map explorer instead of permanently filling the limited map area with controls.
+- Desktop chapter navigation is collapsed by default as a slim route control. Its full map and route panel
+  may overlay the scene only after an explicit click, closes after a destination is chosen or the reader
+  clicks outside it, and must never permanently cover headings, narrative or interactions.
 - No autoplay audio, flags, blackletter, excessive heraldry, or political-poster styling.

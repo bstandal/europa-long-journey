@@ -1,0 +1,41 @@
+---
+import type { RomanCommandInteraction as RomanCommandInteractionType } from "../../../types/chapter";
+
+type Props = {
+  interaction: RomanCommandInteractionType;
+};
+
+const { interaction } = Astro.props;
+---
+
+<div class="roman-command">
+  <div class="roman-command__rail" role="group" aria-label={interaction.prompt}>
+    {
+      interaction.states.map((state, index) => (
+        <button
+          type="button"
+          class:list={["roman-command__button", { "is-active": index === 0 }]}
+          data-interaction-choice
+          data-choice-index={index}
+          data-state-id={state.id}
+          data-detail={state.detail}
+          aria-pressed={index === 0 ? "true" : "false"}
+        >
+          <span>{state.period}</span>
+          {state.label}
+        </button>
+      ))
+    }
+  </div>
+  <div class="roman-command__records" aria-live="polite">
+    {
+      interaction.states.map((state, index) => (
+        <article data-roman-record={index} hidden={index !== 0}>
+          <p><span>Commander</span><strong>{state.commander}</strong></p>
+          <p><span>Command</span><strong>{state.command}</strong></p>
+          <p><span>What moves</span><strong>{state.institutionalChange}</strong></p>
+        </article>
+      ))
+    }
+  </div>
+</div>

@@ -1,0 +1,62 @@
+---
+import type { RomanNetworkInteraction as RomanNetworkInteractionType } from "../../../types/chapter";
+
+type Props = {
+  interaction: RomanNetworkInteractionType;
+};
+
+const { interaction } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+<div class="roman-network">
+  <div class="roman-network__map" aria-hidden="true">
+    <img src={`${base}${interaction.mapImage}`} alt="" width="1200" height="900" loading="lazy" decoding="async" />
+    {
+      interaction.states.map((state, index) => (
+        <svg
+          class:list={{ "is-active": index === 0 }}
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          data-roman-network-layer={state.id}
+        >
+          {state.links.map(([from, to]) => {
+            const start = state.points[from];
+            const end = state.points[to];
+            if (!start || !end) return null;
+            return <line x1={start.x} y1={start.y} x2={end.x} y2={end.y} />;
+          })}
+          {state.points.map((point) => <circle cx={point.x} cy={point.y} r="0.85" />)}
+        </svg>
+      ))
+    }
+  </div>
+  <div class="roman-network__choices" role="group" aria-label={interaction.prompt}>
+    {
+      interaction.states.map((state, index) => (
+        <button
+          type="button"
+          class:list={["roman-network__button", { "is-active": index === 0 }]}
+          data-interaction-choice
+          data-choice-index={index}
+          data-state-id={state.id}
+          data-detail={state.detail}
+          aria-pressed={index === 0 ? "true" : "false"}
+        >
+          <span>{state.period}</span>
+          {state.label}
+        </button>
+      ))
+    }
+  </div>
+  <div class="roman-network__records" aria-live="polite">
+    {
+      interaction.states.map((state, index) => (
+        <article data-roman-record={index} hidden={index !== 0}>
+          <strong>{state.measure}</strong>
+          <ul>{state.points.map((point) => <li><span>{point.label}</span>{point.detail}</li>)}</ul>
+        </article>
+      ))
+    }
+  </div>
+</div>

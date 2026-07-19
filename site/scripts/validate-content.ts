@@ -330,6 +330,11 @@ const allowedChapterInteractions = new Set([
   "citizen-body",
   "civic-path",
   "war-timeline",
+  "roman-constitution",
+  "roman-network",
+  "roman-command",
+  "roman-citizenship",
+  "roman-trace",
 ]);
 
 for (const chapter of chapters) {
@@ -1047,6 +1052,180 @@ for (const chapter of chapters) {
         }
         break;
       }
+      case "roman-constitution": {
+        const { institutions } = interaction;
+        validateInteractionItems(qualifiedId, "Roman constitution institutions", institutions);
+        if (
+          institutions.length !== 3 ||
+          institutions.map((institution) => institution.id).join(",") !==
+            "people,magistrates,senate"
+        ) {
+          errors.push(
+            `Movement "${qualifiedId}" Roman constitution institutions must be people, magistrates and senate in that order.`,
+          );
+        }
+        for (const institution of institutions) {
+          if (
+            !hasPublicText(institution.authority) ||
+            !hasPublicText(institution.limit) ||
+            !hasPublicText(institution.consequence)
+          ) {
+            errors.push(
+              `Movement "${qualifiedId}" Roman institution "${institution.id}" needs authority, limit and consequence text.`,
+            );
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" Roman institution "${institution.id}" label`, value: institution.label },
+            { label: `movement "${movement.id}" Roman institution "${institution.id}" detail`, value: institution.detail },
+            { label: `movement "${movement.id}" Roman institution "${institution.id}" authority`, value: institution.authority },
+            { label: `movement "${movement.id}" Roman institution "${institution.id}" limit`, value: institution.limit },
+            { label: `movement "${movement.id}" Roman institution "${institution.id}" consequence`, value: institution.consequence },
+          );
+        }
+        break;
+      }
+      case "roman-network": {
+        const { mapImage, states } = interaction;
+        validateInteractionItems(qualifiedId, "Roman network states", states);
+        try {
+          await access(`${root}/${mapImage}`);
+        } catch {
+          errors.push(`Movement "${qualifiedId}" Roman network map is missing at /${mapImage}.`);
+        }
+        for (const state of states) {
+          if (!hasPublicText(state.period) || !hasPublicText(state.measure)) {
+            errors.push(
+              `Movement "${qualifiedId}" Roman network state "${state.id}" needs period and measure text.`,
+            );
+          }
+          validateInteractionItems(
+            qualifiedId,
+            `Roman network state "${state.id}" points`,
+            state.points,
+          );
+          for (const point of state.points) {
+            validateFiniteRange(
+              `Movement "${qualifiedId}" Roman network point "${point.id}"`,
+              "x position",
+              point.x,
+              0,
+              100,
+            );
+            validateFiniteRange(
+              `Movement "${qualifiedId}" Roman network point "${point.id}"`,
+              "y position",
+              point.y,
+              0,
+              100,
+            );
+          }
+          for (const [from, to] of state.links) {
+            if (
+              from < 0 ||
+              to < 0 ||
+              from >= state.points.length ||
+              to >= state.points.length
+            ) {
+              errors.push(
+                `Movement "${qualifiedId}" Roman network state "${state.id}" links an unknown point.`,
+              );
+            }
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" Roman network "${state.id}" label`, value: state.label },
+            { label: `movement "${movement.id}" Roman network "${state.id}" detail`, value: state.detail },
+            { label: `movement "${movement.id}" Roman network "${state.id}" period`, value: state.period },
+            { label: `movement "${movement.id}" Roman network "${state.id}" measure`, value: state.measure },
+            ...state.points.flatMap((point) => [
+              { label: `movement "${movement.id}" Roman network point "${point.id}" label`, value: point.label },
+              { label: `movement "${movement.id}" Roman network point "${point.id}" detail`, value: point.detail },
+            ]),
+          );
+        }
+        break;
+      }
+      case "roman-command": {
+        const { states } = interaction;
+        validateInteractionItems(qualifiedId, "Roman command states", states);
+        if (states.length !== 4) {
+          errors.push(`Movement "${qualifiedId}" Roman command interaction needs four states.`);
+        }
+        for (const state of states) {
+          if (
+            !hasPublicText(state.period) ||
+            !hasPublicText(state.commander) ||
+            !hasPublicText(state.command) ||
+            !hasPublicText(state.institutionalChange)
+          ) {
+            errors.push(
+              `Movement "${qualifiedId}" Roman command state "${state.id}" needs period, commander, command and institutional change text.`,
+            );
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" Roman command "${state.id}" label`, value: state.label },
+            { label: `movement "${movement.id}" Roman command "${state.id}" detail`, value: state.detail },
+            { label: `movement "${movement.id}" Roman command "${state.id}" period`, value: state.period },
+            { label: `movement "${movement.id}" Roman command "${state.id}" commander`, value: state.commander },
+            { label: `movement "${movement.id}" Roman command "${state.id}" command`, value: state.command },
+            { label: `movement "${movement.id}" Roman command "${state.id}" change`, value: state.institutionalChange },
+          );
+        }
+        break;
+      }
+      case "roman-citizenship": {
+        const { paths } = interaction;
+        validateInteractionItems(qualifiedId, "Roman citizenship paths", paths);
+        if (paths.length !== 4) {
+          errors.push(`Movement "${qualifiedId}" Roman citizenship interaction needs four paths.`);
+        }
+        for (const path of paths) {
+          if (
+            !hasPublicText(path.startingStatus) ||
+            !hasPublicText(path.route) ||
+            !hasPublicText(path.rights) ||
+            !hasPublicText(path.limit)
+          ) {
+            errors.push(
+              `Movement "${qualifiedId}" Roman citizenship path "${path.id}" needs starting status, route, rights and limit text.`,
+            );
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" Roman citizenship "${path.id}" label`, value: path.label },
+            { label: `movement "${movement.id}" Roman citizenship "${path.id}" detail`, value: path.detail },
+            { label: `movement "${movement.id}" Roman citizenship "${path.id}" starting status`, value: path.startingStatus },
+            { label: `movement "${movement.id}" Roman citizenship "${path.id}" route`, value: path.route },
+            { label: `movement "${movement.id}" Roman citizenship "${path.id}" rights`, value: path.rights },
+            { label: `movement "${movement.id}" Roman citizenship "${path.id}" limit`, value: path.limit },
+          );
+        }
+        break;
+      }
+      case "roman-trace": {
+        const { stops } = interaction;
+        validateInteractionItems(qualifiedId, "Roman trace stops", stops);
+        if (stops.length !== 3) {
+          errors.push(`Movement "${qualifiedId}" Roman trace interaction needs three stops.`);
+        }
+        for (const stop of stops) {
+          if (
+            !hasPublicText(stop.period) ||
+            !hasPublicText(stop.mechanism) ||
+            !hasPublicText(stop.consequence)
+          ) {
+            errors.push(
+              `Movement "${qualifiedId}" Roman trace stop "${stop.id}" needs period, mechanism and consequence text.`,
+            );
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" Roman trace "${stop.id}" label`, value: stop.label },
+            { label: `movement "${movement.id}" Roman trace "${stop.id}" detail`, value: stop.detail },
+            { label: `movement "${movement.id}" Roman trace "${stop.id}" period`, value: stop.period },
+            { label: `movement "${movement.id}" Roman trace "${stop.id}" mechanism`, value: stop.mechanism },
+            { label: `movement "${movement.id}" Roman trace "${stop.id}" consequence`, value: stop.consequence },
+          );
+        }
+        break;
+      }
     }
 
     validateChapterCopy(
@@ -1110,6 +1289,23 @@ for (const chapter of chapters) {
     if (bodyWords < 3200 || bodyWords > 3800) {
       errors.push(
         `Chapter "${chapter.slug}" continuous body should contain 3,200–3,800 words; found ${bodyWords}.`,
+      );
+    }
+  }
+  if (chapter.slug === "rome-gathers-europe") {
+    const bodyWords = chapter.movements.reduce(
+      (sum, movement) =>
+        sum +
+        movement.body.reduce(
+          (movementSum, paragraph) =>
+            movementSum + paragraph.trim().split(/\s+/).length,
+          0,
+        ),
+      0,
+    );
+    if (bodyWords < 3200 || bodyWords > 3900) {
+      errors.push(
+        `Chapter "${chapter.slug}" continuous body should contain 3,200–3,900 words; found ${bodyWords}.`,
       );
     }
   }

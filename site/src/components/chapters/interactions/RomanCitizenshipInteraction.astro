@@ -1,0 +1,44 @@
+---
+import type { RomanCitizenshipInteraction as RomanCitizenshipInteractionType } from "../../../types/chapter";
+
+type Props = {
+  interaction: RomanCitizenshipInteractionType;
+};
+
+const { interaction } = Astro.props;
+---
+
+<div class="roman-citizenship">
+  <div class="roman-citizenship__choices" role="group" aria-label={interaction.prompt}>
+    {
+      interaction.paths.map((path, index) => (
+        <button
+          type="button"
+          class:list={["roman-citizenship__button", { "is-active": index === 0 }]}
+          data-interaction-choice
+          data-choice-index={index}
+          data-state-id={path.id}
+          data-detail={path.detail}
+          aria-pressed={index === 0 ? "true" : "false"}
+        >
+          <span>{String(index + 1).padStart(2, "0")}</span>
+          {path.label}
+        </button>
+      ))
+    }
+  </div>
+  <div class="roman-citizenship__records" aria-live="polite">
+    {
+      interaction.paths.map((path, index) => (
+        <article data-roman-record={index} hidden={index !== 0}>
+          <p><span>Begins as</span><strong>{path.startingStatus}</strong></p>
+          <i aria-hidden="true"></i>
+          <p><span>Passage</span><strong>{path.route}</strong></p>
+          <i aria-hidden="true"></i>
+          <p><span>Roman standing</span><strong>{path.rights}</strong></p>
+          <small>{path.limit}</small>
+        </article>
+      ))
+    }
+  </div>
+</div>
