@@ -1,0 +1,34 @@
+---
+import type { ChristianPolicyInteraction as ChristianPolicyInteractionType } from "../../../types/chapter";
+
+type Props = { interaction: ChristianPolicyInteractionType };
+const { interaction } = Astro.props;
+---
+
+<div class="consecrated-policy">
+  <div class="consecrated-policy__rail" role="group" aria-label={interaction.prompt}>
+    {interaction.states.map((state, index) => (
+      <button
+        type="button"
+        class:list={["consecrated-policy__button", { "is-active": index === 0 }]}
+        data-interaction-choice
+        data-choice-index={index}
+        data-state-id={state.id}
+        data-detail={state.detail}
+        aria-pressed={index === 0 ? "true" : "false"}
+      >
+        <span>{state.period}</span>
+        {state.label}
+      </button>
+    ))}
+  </div>
+  <div class="consecrated-policy__records" aria-live="polite">
+    {interaction.states.map((state, index) => (
+      <article data-christian-record={index} hidden={index !== 0}>
+        <p><span>Imperial act</span><strong>{state.imperialAction}</strong></p>
+        <p><span>Church position</span><strong>{state.churchPosition}</strong></p>
+        <p><span>Public sign</span><strong>{state.publicSign}</strong></p>
+      </article>
+    ))}
+  </div>
+</div>

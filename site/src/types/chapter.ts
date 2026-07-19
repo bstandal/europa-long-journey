@@ -257,6 +257,71 @@ export type RomanTraceInteraction = ChapterInteractionBase & {
   }[];
 };
 
+export type ChristianPolicyInteraction = ChapterInteractionBase & {
+  kind: "christian-policy";
+  states: {
+    id: string;
+    label: string;
+    period: string;
+    detail: string;
+    imperialAction: string;
+    churchPosition: string;
+    publicSign: string;
+  }[];
+};
+
+export type ChristianCouncilInteraction = ChapterInteractionBase & {
+  kind: "christian-council";
+  states: {
+    id: string;
+    label: string;
+    period: string;
+    detail: string;
+    authority: string;
+    act: string;
+    consequence: string;
+  }[];
+};
+
+export type ChristianCityInteraction = ChapterInteractionBase & {
+  kind: "christian-city";
+  mapImage: string;
+  states: {
+    id: string;
+    label: string;
+    period: string;
+    detail: string;
+    reach: string;
+    institution: string;
+    inheritance: string;
+  }[];
+};
+
+export type SacredSpaceInteraction = ChapterInteractionBase & {
+  kind: "sacred-space";
+  states: {
+    id: string;
+    label: string;
+    period: string;
+    detail: string;
+    challenge: string;
+    answer: string;
+    consequence: string;
+  }[];
+};
+
+export type ChristianTraceInteraction = ChapterInteractionBase & {
+  kind: "christian-trace";
+  stops: {
+    id: string;
+    label: string;
+    period: string;
+    detail: string;
+    instrument: string;
+    inheritance: string;
+  }[];
+};
+
 export type ChapterInteraction =
   | RouteInteraction
   | SeasonsInteraction
@@ -276,10 +341,15 @@ export type ChapterInteraction =
   | RomanNetworkInteraction
   | RomanCommandInteraction
   | RomanCitizenshipInteraction
-  | RomanTraceInteraction;
+  | RomanTraceInteraction
+  | ChristianPolicyInteraction
+  | ChristianCouncilInteraction
+  | ChristianCityInteraction
+  | SacredSpaceInteraction
+  | ChristianTraceInteraction;
 
 export type ChapterTheme = {
-  id: "farmers" | "steppe" | "bronze" | "greece" | "rome";
+  id: "farmers" | "steppe" | "bronze" | "greece" | "rome" | "christian";
   label: string;
 };
 

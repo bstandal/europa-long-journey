@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { access } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { bronzeEurope } from "../src/data/chapters/bronze-europe";
+import { empireTakesCross } from "../src/data/chapters/empire-takes-cross";
 import { firstFarmers } from "../src/data/chapters/first-farmers";
 import { greeceAndTheCitizen } from "../src/data/chapters/greece-and-the-citizen";
 import { romeGathersEurope } from "../src/data/chapters/rome-gathers-europe";
@@ -278,6 +279,7 @@ rejectUnsupportedKeys(steppeComesWest);
 rejectUnsupportedKeys(bronzeEurope);
 rejectUnsupportedKeys(greeceAndTheCitizen);
 rejectUnsupportedKeys(romeGathersEurope);
+rejectUnsupportedKeys(empireTakesCross);
 
 await checkCommonChapter(romeGathersEurope, 12);
 assert.deepEqual(
@@ -402,5 +404,136 @@ assert.equal(
   "Enter the forged road",
   "The Rome chapter link needs its historical invitation.",
 );
+assert.equal(
+  romeGathersEurope.ending.nextPeriod,
+  "AD 312–565",
+  "Rome should hand the reader to the actual chronological range of Chapter 06.",
+);
 
-console.log("Farmers, Steppe, Bronze, Greece and Rome chapter checks passed.");
+await checkCommonChapter(empireTakesCross, 14);
+assert.deepEqual(
+  empireTakesCross.acts?.map((act) => act.id),
+  ["sign-and-crown", "imperial-faith", "christian-capital", "stone-and-law"],
+  "The Christian Empire chapter should preserve the four-act progression.",
+);
+assert.deepEqual(
+  (empireTakesCross.acts ?? []).map((act) =>
+    empireTakesCross.movements.filter((movement) => movement.actId === act.id).length
+  ),
+  [4, 3, 4, 3],
+  "The Christian Empire act lengths should remain 4, 3, 4 and 3 movements.",
+);
+const principalChristianInteractionKinds = new Set([
+  "christian-policy",
+  "christian-council",
+  "christian-city",
+  "sacred-space",
+]);
+assert.deepEqual(
+  empireTakesCross.movements
+    .map((movement, index) =>
+      movement.interaction &&
+      principalChristianInteractionKinds.has(movement.interaction.kind)
+        ? index + 1
+        : null,
+    )
+    .filter(Boolean),
+  [2, 5, 8, 13],
+  "The Christian Empire's principal interactions should remain in movements 2, 5, 8 and 13.",
+);
+assert.deepEqual(
+  empireTakesCross.movements
+    .map((movement) => movement.interaction?.kind)
+    .filter((kind) => kind && principalChristianInteractionKinds.has(kind)),
+  ["christian-policy", "christian-council", "christian-city", "sacred-space"],
+  "The Christian Empire should preserve the policy, council, capital and sacred-space sequence.",
+);
+assert.deepEqual(
+  empireTakesCross.movements
+    .map((movement, index) =>
+      movement.interaction?.kind === "christian-trace" ? index + 1 : null
+    )
+    .filter(Boolean),
+  [3, 6, 9, 12, 14],
+  "The Christian Empire's lighter traces should appear in movements 3, 6, 9, 12 and 14.",
+);
+for (const movement of empireTakesCross.movements) {
+  if (movement.interaction?.kind !== "christian-trace") continue;
+  assert.equal(
+    movement.interaction.stops.length,
+    3,
+    `Christian trace ${movement.id} should have three thumb-friendly stops.`,
+  );
+}
+
+const christianPolicy = empireTakesCross.movements[1].interaction;
+assert.ok(christianPolicy?.kind === "christian-policy");
+assert.deepEqual(
+  christianPolicy.states.map((state) => state.id),
+  ["persecution-303", "toleration-313", "council-325", "confession-380"],
+  "Imperial policy should move from persecution to toleration, council and confession.",
+);
+
+const christianCouncil = empireTakesCross.movements[4].interaction;
+assert.ok(christianCouncil?.kind === "christian-council");
+assert.deepEqual(
+  christianCouncil.states.map((state) => state.id),
+  ["summons", "debate", "creed", "reception"],
+  "Nicaea should move from summons through reception.",
+);
+
+const christianCity = empireTakesCross.movements[7].interaction;
+assert.ok(christianCity?.kind === "christian-city");
+await access(`${publicRoot}${christianCity.mapImage}`);
+assert.deepEqual(
+  christianCity.states.map((state) => state.id),
+  ["foundation-324", "dedication-330", "wall-413", "capital-450"],
+  "Constantinople should grow from foundation to mature capital.",
+);
+
+const sacredSpace = empireTakesCross.movements[12].interaction;
+assert.ok(sacredSpace?.kind === "sacred-space");
+assert.deepEqual(
+  sacredSpace.states.map((state) => state.id),
+  ["structure", "material", "liturgy", "emperor"],
+  "Hagia Sophia should reveal structure, material, liturgy and emperor.",
+);
+
+const christianEmpireWords = empireTakesCross.movements.reduce(
+  (sum, movement) =>
+    sum +
+    movement.body.reduce(
+      (movementSum, paragraph) => movementSum + paragraph.trim().split(/\s+/).length,
+      0,
+    ),
+  0,
+);
+assert.ok(
+  christianEmpireWords >= 2500 && christianEmpireWords <= 3100,
+  `The Christian Empire should contain 2,500–3,100 words of continuous narrative; found ${christianEmpireWords}.`,
+);
+const christianEmpireScene = scenes.find((scene) => scene.id === "christian-empire");
+assert.equal(
+  christianEmpireScene?.chronicle?.href,
+  "chapters/empire-takes-cross/",
+  "The main journey needs a working Christian Empire chapter link.",
+);
+assert.equal(
+  christianEmpireScene?.chronicle?.label,
+  "Enter the consecrated city",
+  "The Christian Empire chapter link needs its historical invitation.",
+);
+const europeRebornScene = scenes.find((scene) => scene.id === empireTakesCross.nextHash);
+assert.ok(europeRebornScene, "The Christian Empire ending needs a real next scene.");
+assert.equal(
+  empireTakesCross.nextTitle,
+  europeRebornScene.title,
+  "The Christian Empire ending title must match its actual next scene.",
+);
+assert.equal(
+  empireTakesCross.ending.nextPeriod,
+  `AD ${europeRebornScene.period.label}`,
+  "The Christian Empire ending period must match its actual next scene.",
+);
+
+console.log("Farmers, Steppe, Bronze, Greece, Rome and Christian Empire chapter checks passed.");

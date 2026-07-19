@@ -1,0 +1,889 @@
+.deep-chapter-page--christian {
+  --chapter-earth: #674138;
+  --chapter-ochre: #a9503e;
+  --chapter-forest: #07090a;
+  --chapter-smoke: rgba(226, 216, 197, 0.78);
+  --bronze: #8b3e34;
+  --bronze-bright: #c78a58;
+  --consecrated-iron: #77827f;
+  --consecrated-brick: #a7503d;
+  --consecrated-porphyry: #5e3545;
+  --consecrated-indigo: #30364c;
+  --consecrated-gold: #b89258;
+  --consecrated-gold-bright: #d5b97d;
+  --consecrated-ivory: #e4d8bf;
+  background: #060809;
+}
+
+.deep-chapter-page--christian .deep-chapter,
+.deep-chapter-page--christian .chapter-sources {
+  background: #060809;
+}
+
+.deep-chapter-page--christian .chapter-header {
+  border-bottom-color: rgba(184, 146, 88, 0.24);
+  background: rgba(6, 8, 9, 0.86);
+}
+
+.deep-chapter-page--christian .chapter-header__wordmark span {
+  color: rgba(231, 220, 198, 0.92);
+}
+
+.deep-chapter-page--christian .chapter-header__return {
+  color: rgba(213, 185, 125, 0.72);
+}
+
+.deep-chapter-page--christian .chapter-route {
+  border-color: rgba(184, 146, 88, 0.31);
+  background: rgba(8, 10, 11, 0.91);
+  box-shadow:
+    0 24px 66px rgba(0, 0, 0, 0.54),
+    inset 0 1px rgba(236, 216, 176, 0.035);
+  transition:
+    right 380ms ease,
+    left 380ms ease,
+    opacity 240ms ease;
+}
+
+.deep-chapter-page--christian .chapter-route__panel {
+  border-color: rgba(184, 146, 88, 0.27);
+  background: rgba(7, 9, 10, 0.985);
+}
+
+.deep-chapter-page--christian:not(.chapter-runtime-ready) .chapter-route,
+.deep-chapter-page--christian[data-chapter-region="opening"] .chapter-route,
+.deep-chapter-page--christian[data-chapter-region="ending"] .chapter-route {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (min-width: 721px) {
+  .deep-chapter-page--christian[data-chapter-side="right"] .chapter-route {
+    right: auto;
+    left: clamp(28px, 3.3vw, 52px);
+  }
+}
+
+.deep-chapter-page--christian .chapter-route__map {
+  background: #111416;
+}
+
+.deep-chapter-page--christian .chapter-route__map img {
+  opacity: 0.62;
+  filter: grayscale(0.58) sepia(0.16) hue-rotate(340deg) saturate(0.8) contrast(1.15) brightness(0.68);
+}
+
+.deep-chapter-page--christian .chapter-route__map polyline {
+  stroke: rgba(202, 155, 84, 0.87);
+  filter: drop-shadow(0 0 5px rgba(141, 87, 51, 0.54));
+}
+
+.deep-chapter-page--christian .chapter-route__marker {
+  border-color: rgba(222, 202, 161, 0.86);
+  background: #1e2324;
+}
+
+.deep-chapter-page--christian .chapter-route__marker.is-active {
+  background: #b2864f;
+  box-shadow:
+    0 0 0 5px rgba(178, 134, 79, 0.17),
+    0 0 24px rgba(178, 134, 79, 0.44);
+}
+
+.deep-chapter-page--christian .chapter-route nav a span,
+.deep-chapter-page--christian .chapter-route__current span {
+  color: rgba(207, 162, 92, 0.8);
+}
+
+.deep-chapter-page--christian .chapter-route nav a.is-active {
+  border-color: rgba(202, 155, 84, 0.37);
+  background: linear-gradient(90deg, rgba(116, 62, 51, 0.15), rgba(66, 68, 85, 0.09));
+}
+
+.deep-chapter-page--christian .chapter-stage {
+  background: #080a0b;
+}
+
+.deep-chapter-page--christian .chapter-stage__image {
+  filter: saturate(0.76) contrast(1.08) brightness(0.88);
+}
+
+.deep-chapter-page--christian .chapter-stage__shade {
+  background:
+    radial-gradient(circle at 66% 34%, transparent 0 18%, rgba(4, 5, 7, 0.13) 48%, rgba(4, 5, 7, 0.62) 100%),
+    linear-gradient(90deg, rgba(5, 7, 8, 0.84), rgba(5, 7, 8, 0.47) 35%, rgba(5, 7, 8, 0.05) 70%),
+    linear-gradient(180deg, rgba(72, 52, 74, 0.04), transparent 44%, rgba(3, 4, 5, 0.5));
+}
+
+.deep-chapter-page--christian[data-chapter-movement="wisdom-builds-a-dome"] .chapter-stage__shade {
+  background:
+    radial-gradient(circle at 57% 23%, rgba(206, 166, 92, 0.08), transparent 24%, rgba(5, 6, 8, 0.4) 71%),
+    linear-gradient(90deg, rgba(8, 7, 9, 0.84), rgba(8, 7, 9, 0.18) 64%),
+    linear-gradient(180deg, rgba(79, 59, 83, 0.08), transparent 46%, rgba(4, 5, 6, 0.52));
+}
+
+.deep-chapter-page--christian .chapter-opening {
+  min-height: 116svh;
+  padding: 32svh clamp(34px, 7vw, 110px) 25svh;
+  align-items: flex-end;
+  background:
+    linear-gradient(90deg, rgba(5, 7, 8, 0.89), rgba(5, 7, 8, 0.32) 57%, rgba(5, 7, 8, 0.1)),
+    linear-gradient(180deg, rgba(5, 7, 8, 0.05) 32%, rgba(5, 7, 8, 0.92) 100%),
+    var(--opening-image) center / cover;
+}
+
+.deep-chapter-page--christian .chapter-opening::before {
+  position: absolute;
+  top: 19svh;
+  left: clamp(34px, 7vw, 110px);
+  width: clamp(1px, 9vw, 124px);
+  height: 1px;
+  background: rgba(198, 152, 84, 0.48);
+  box-shadow: 0 0 20px rgba(180, 129, 65, 0.22);
+  content: "";
+}
+
+.deep-chapter-page--christian .chapter-opening > div {
+  position: relative;
+  z-index: 1;
+  width: min(970px, 76vw);
+}
+
+.deep-chapter-page--christian .chapter-opening__number {
+  color: rgba(205, 164, 98, 0.82);
+}
+
+.deep-chapter-page--christian .chapter-opening h1 {
+  max-width: 1020px;
+  font-size: clamp(5.25rem, 9.3vw, 9.6rem);
+  letter-spacing: -0.038em;
+  line-height: 0.82;
+}
+
+.deep-chapter-page--christian .chapter-opening p:not(.chapter-opening__number) {
+  max-width: 790px;
+  color: rgba(231, 221, 201, 0.88);
+}
+
+.deep-chapter-page--christian .chapter-opening a {
+  padding: 8px 0;
+  border-bottom-color: var(--consecrated-gold);
+  color: #d6bd8c;
+}
+
+.deep-chapter-page--christian .chapter-act {
+  overflow: hidden;
+  background:
+    linear-gradient(112deg, rgba(7, 9, 10, 0.995), rgba(19, 19, 21, 0.95)),
+    radial-gradient(circle at 78% 26%, rgba(177, 133, 73, 0.1), transparent 37%);
+}
+
+.deep-chapter-page--christian .chapter-act::before {
+  position: absolute;
+  top: 13%;
+  right: 8vw;
+  width: min(26vw, 370px);
+  height: min(26vw, 370px);
+  border: 1px solid rgba(197, 159, 91, 0.15);
+  border-bottom-color: transparent;
+  border-radius: 50% 50% 0 0;
+  box-shadow:
+    inset 0 0 0 18px rgba(70, 58, 71, 0.025),
+    0 0 46px rgba(0, 0, 0, 0.3);
+  content: "";
+}
+
+.deep-chapter-page--christian .chapter-act::after {
+  position: absolute;
+  right: calc(8vw + min(13vw, 185px));
+  bottom: 16%;
+  width: 1px;
+  height: 34%;
+  background: linear-gradient(180deg, rgba(197, 159, 91, 0.24), transparent);
+  content: "";
+}
+
+.deep-chapter-page--christian .chapter-act__rule::before {
+  color: var(--consecrated-gold);
+  content: "✦";
+}
+
+.deep-chapter-page--christian .chapter-act__rule span {
+  background: linear-gradient(90deg, rgba(194, 148, 78, 0.65), rgba(103, 83, 102, 0.18));
+}
+
+.deep-chapter-page--christian .chapter-movement {
+  min-height: 158svh;
+  padding-top: 18svh;
+  padding-bottom: 47svh;
+}
+
+.deep-chapter-page--christian .chapter-movement__story {
+  width: min(730px, 54vw);
+}
+
+.deep-chapter-page--christian .chapter-movement--right .chapter-movement__story {
+  background:
+    linear-gradient(90deg, rgba(8, 10, 11, 0.74), rgba(8, 10, 11, 0.95)),
+    linear-gradient(180deg, rgba(78, 54, 73, 0.065), transparent 43%);
+  box-shadow:
+    0 30px 76px rgba(0, 0, 0, 0.28),
+    inset 1px 0 rgba(213, 181, 117, 0.055);
+}
+
+.deep-chapter-page--christian .chapter-movement__meta {
+  color: rgba(200, 158, 91, 0.7);
+}
+
+.deep-chapter-page--christian .chapter-movement__body {
+  border-left-color: rgba(173, 126, 68, 0.63);
+}
+
+.deep-chapter-page--christian .chapter-evidence {
+  border-color: rgba(196, 162, 98, 0.22);
+}
+
+.deep-chapter-page--christian .chapter-evidence summary,
+.deep-chapter-page--christian .chapter-evidence a {
+  color: rgba(215, 183, 119, 0.84);
+}
+
+.deep-chapter-page--christian .chapter-interaction {
+  border-color: rgba(194, 159, 94, 0.26);
+  background:
+    linear-gradient(135deg, rgba(17, 19, 21, 0.95), rgba(7, 9, 10, 0.97)),
+    rgba(7, 9, 10, 0.95);
+  box-shadow:
+    0 28px 74px rgba(0, 0, 0, 0.56),
+    inset 0 1px rgba(238, 218, 177, 0.045);
+}
+
+.deep-chapter-page--christian .chapter-interaction__prompt {
+  color: #eadfc9;
+}
+
+.deep-chapter-page--christian .chapter-interaction__detail {
+  border-top: 1px solid rgba(194, 159, 94, 0.17);
+  padding-top: 10px;
+  color: rgba(226, 216, 196, 0.68);
+}
+
+.consecrated-policy__button,
+.consecrated-council__button,
+.consecrated-city__button,
+.sacred-space__button,
+.consecrated-trace__button {
+  min-height: 52px;
+  border: 0;
+  border-top: 1px solid rgba(198, 164, 99, 0.2);
+  background: rgba(79, 63, 74, 0.055);
+  color: rgba(231, 220, 199, 0.62);
+  cursor: pointer;
+  font-family: var(--serif);
+  text-align: left;
+  transition:
+    border-color 180ms ease,
+    background 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.consecrated-policy__button span,
+.consecrated-council__button span,
+.consecrated-city__button span,
+.sacred-space__button span,
+.consecrated-trace__button span {
+  color: rgba(202, 156, 83, 0.78);
+  font-family: var(--sans);
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.consecrated-policy__button.is-active,
+.consecrated-council__button.is-active,
+.consecrated-city__button.is-active,
+.sacred-space__button.is-active,
+.consecrated-trace__button.is-active {
+  border-color: var(--consecrated-gold);
+  background: linear-gradient(120deg, rgba(119, 73, 54, 0.19), rgba(57, 58, 82, 0.11));
+  color: #f0e5d0;
+  transform: translateY(-1px);
+}
+
+.consecrated-policy__rail,
+.sacred-space__rail {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.consecrated-policy__rail::before,
+.sacred-space__rail::before {
+  position: absolute;
+  top: 50%;
+  right: 6%;
+  left: 6%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(93, 68, 83, 0.2), rgba(199, 153, 81, 0.66));
+  content: "";
+}
+
+.consecrated-policy__button,
+.sacred-space__button {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  min-height: 66px;
+  padding: 9px 12px;
+  align-content: center;
+  background: #101315;
+  text-align: center;
+}
+
+.consecrated-policy__records article,
+.sacred-space__records article {
+  display: grid;
+  margin-top: 13px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.consecrated-policy__records p,
+.sacred-space__records p,
+.consecrated-city__records p {
+  margin: 0;
+  padding: 12px;
+  border-left: 1px solid rgba(196, 161, 96, 0.2);
+}
+
+.consecrated-policy__records span,
+.sacred-space__records span,
+.consecrated-city__records span,
+.consecrated-council__records span,
+.consecrated-trace__records span {
+  display: block;
+  margin-bottom: 7px;
+  color: rgba(202, 156, 83, 0.78);
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.consecrated-policy__records strong,
+.sacred-space__records strong,
+.consecrated-city__records strong,
+.consecrated-council__records strong,
+.consecrated-trace__records strong {
+  color: rgba(232, 222, 204, 0.77);
+  font-family: var(--serif);
+  font-size: 0.78rem;
+  font-weight: 400;
+  line-height: 1.42;
+}
+
+.consecrated-policy__records article[hidden],
+.consecrated-council__records article[hidden],
+.consecrated-city__records article[hidden],
+.sacred-space__records article[hidden],
+.consecrated-trace__records article[hidden] {
+  display: none;
+}
+
+.consecrated-council {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.74fr) minmax(540px, 1.26fr);
+  align-items: center;
+  gap: 20px;
+}
+
+.consecrated-council__table {
+  position: relative;
+  display: grid;
+  min-height: 190px;
+  padding: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: space-between;
+  gap: 50px 8px;
+}
+
+.consecrated-council__table::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 128px;
+  height: 128px;
+  border: 1px solid rgba(197, 158, 92, 0.2);
+  border-radius: 50%;
+  box-shadow: 0 0 0 18px rgba(71, 56, 72, 0.03);
+  content: "";
+  transform: translate(-50%, -50%);
+}
+
+.consecrated-council__centre {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: rgba(219, 190, 130, 0.83);
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  letter-spacing: 0.12em;
+  transform: translate(-50%, -50%);
+}
+
+.consecrated-council__button {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  padding: 9px;
+  text-align: center;
+}
+
+.consecrated-council__records article,
+.consecrated-trace__records article {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 18px minmax(0, 1fr) 18px minmax(0, 1fr);
+  align-items: stretch;
+  gap: 7px;
+}
+
+.consecrated-council__records p,
+.consecrated-trace__records p {
+  margin: 0;
+  padding: 11px;
+  border-top: 1px solid rgba(196, 161, 96, 0.19);
+}
+
+.consecrated-council__records i,
+.consecrated-trace__records i {
+  align-self: center;
+  width: 18px;
+  height: 1px;
+  margin: 0 -13px;
+  background: linear-gradient(90deg, rgba(98, 72, 91, 0.3), #b98b4f);
+}
+
+.consecrated-city {
+  display: grid;
+  grid-template-columns: minmax(330px, 0.82fr) minmax(220px, 0.48fr) minmax(360px, 0.9fr);
+  gap: 14px;
+}
+
+.consecrated-city__plan {
+  position: relative;
+  min-height: 230px;
+  overflow: hidden;
+  border: 1px solid rgba(196, 161, 96, 0.15);
+  background: #111416;
+}
+
+.consecrated-city__plan::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(32, 37, 44, 0.08), rgba(91, 58, 76, 0.22));
+  content: "";
+}
+
+.consecrated-city__plan img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.77;
+  filter: grayscale(0.38) sepia(0.18) contrast(1.08) brightness(0.73);
+}
+
+.consecrated-city__plan span {
+  position: absolute;
+  z-index: 1;
+  width: 9px;
+  height: 9px;
+  border: 1px solid #d1ad69;
+  border-radius: 50%;
+  background: #17191b;
+  box-shadow: 0 0 0 5px rgba(180, 134, 70, 0.12);
+}
+
+.consecrated-city__plan span:nth-of-type(1) { top: 53%; left: 26%; }
+.consecrated-city__plan span:nth-of-type(2) { top: 46%; left: 45%; }
+.consecrated-city__plan span:nth-of-type(3) { top: 40%; left: 64%; }
+.consecrated-city__plan span:nth-of-type(4) { top: 34%; left: 79%; }
+
+.consecrated-city__rail {
+  display: grid;
+}
+
+.consecrated-city__button {
+  display: grid;
+  padding: 8px 11px;
+  align-content: center;
+}
+
+.consecrated-city__records article {
+  display: grid;
+  gap: 7px;
+}
+
+.sacred-space {
+  position: relative;
+  padding-left: 154px;
+}
+
+.sacred-space__oculus {
+  position: absolute;
+  top: 50%;
+  left: 6px;
+  display: grid;
+  width: 126px;
+  height: 126px;
+  border: 1px solid rgba(205, 167, 94, 0.3);
+  border-radius: 50%;
+  place-items: center;
+  background:
+    radial-gradient(circle, rgba(200, 157, 80, 0.17), rgba(58, 51, 65, 0.08) 52%, transparent 53%),
+    #0f1213;
+  box-shadow:
+    0 0 0 12px rgba(197, 157, 85, 0.025),
+    inset 0 0 34px rgba(0, 0, 0, 0.45);
+  transform: translateY(-50%);
+}
+
+.sacred-space__oculus span {
+  max-width: 84px;
+  color: rgba(217, 183, 116, 0.7);
+  font-family: var(--serif);
+  font-size: 0.53rem;
+  letter-spacing: 0.1em;
+  text-align: center;
+}
+
+.consecrated-trace {
+  max-width: 560px;
+}
+
+.consecrated-trace__rail {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.consecrated-trace__rail::before {
+  position: absolute;
+  top: 14px;
+  right: 11%;
+  left: 11%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(95, 72, 91, 0.26), rgba(198, 151, 79, 0.68));
+  content: "";
+}
+
+.consecrated-trace__button {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  min-height: 64px;
+  padding: 25px 9px 9px;
+  place-items: start center;
+  background: #101315;
+  font-size: 0.78rem;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.consecrated-trace__button::before {
+  position: absolute;
+  top: 9px;
+  width: 9px;
+  height: 9px;
+  border: 1px solid rgba(198, 151, 79, 0.73);
+  border-radius: 50%;
+  background: #101315;
+  content: "";
+}
+
+.consecrated-trace__button.is-active::before {
+  background: var(--consecrated-gold);
+  box-shadow: 0 0 0 5px rgba(185, 139, 79, 0.14);
+}
+
+.consecrated-trace__records {
+  margin-top: 9px;
+}
+
+.consecrated-trace__records article {
+  grid-template-columns: minmax(0, 1fr) 18px minmax(0, 1fr);
+}
+
+@media (min-width: 721px) {
+  body.chapter-runtime-ready .chapter-interaction--christian-trace {
+    right: clamp(34px, 5.4vw, 84px);
+    left: auto;
+    width: min(540px, 38vw);
+    padding: 14px 16px;
+  }
+
+  body.chapter-runtime-ready[data-chapter-side="right"] .chapter-interaction--christian-trace {
+    right: auto;
+    left: clamp(34px, 5.4vw, 84px);
+  }
+
+  .chapter-interaction--christian-trace .chapter-interaction__prompt {
+    margin-bottom: 9px;
+    font-size: 0.92rem;
+  }
+
+  .chapter-interaction--christian-trace .chapter-interaction__detail {
+    margin-top: 9px;
+    font-size: 0.76rem;
+  }
+}
+
+@media (min-width: 721px) and (max-width: 1100px) {
+  .deep-chapter-page--christian .chapter-movement__story {
+    width: min(760px, 70vw);
+  }
+}
+
+@media (min-width: 721px) and (max-height: 820px) {
+  .deep-chapter-page--christian .chapter-movement {
+    padding-top: 7svh;
+  }
+
+  .deep-chapter-page--christian .chapter-interaction {
+    bottom: 16px;
+    padding: 12px 16px;
+  }
+
+  .deep-chapter-page--christian .chapter-interaction__prompt {
+    margin-bottom: 8px;
+    font-size: 0.92rem;
+  }
+
+  .deep-chapter-page--christian .chapter-interaction__detail {
+    margin-top: 8px;
+    font-size: 0.76rem;
+  }
+}
+
+.deep-chapter-page--christian .chapter-ending {
+  background:
+    linear-gradient(90deg, rgba(6, 8, 9, 0.95), rgba(6, 8, 9, 0.31)),
+    var(--ending-image) center / cover;
+}
+
+.deep-chapter-page--christian .chapter-ending__next {
+  border-color: rgba(194, 150, 78, 0.43);
+}
+
+@media (max-width: 720px) {
+  .deep-chapter-page--christian .chapter-route,
+  .deep-chapter-page--christian .chapter-route__panel {
+    background: rgba(7, 9, 10, 0.99);
+  }
+
+  .deep-chapter-page--christian .chapter-opening {
+    min-height: 100svh;
+    padding: 44svh 20px 8svh;
+    background:
+      linear-gradient(180deg, rgba(5, 7, 8, 0.02) 20%, rgba(5, 7, 8, 0.24) 48%, rgba(5, 7, 8, 0.97) 86%),
+      var(--opening-mobile-image) 52% center / cover;
+  }
+
+  .deep-chapter-page--christian .chapter-opening::before {
+    top: 22svh;
+    left: 20px;
+    width: 62px;
+  }
+
+  .deep-chapter-page--christian .chapter-opening > div {
+    width: 100%;
+  }
+
+  .deep-chapter-page--christian .chapter-opening h1 {
+    max-width: 100%;
+    font-size: clamp(3.75rem, 17.2vw, 5.2rem);
+    line-height: 0.86;
+  }
+
+  .deep-chapter-page--christian .chapter-opening p:not(.chapter-opening__number) {
+    font-size: 0.98rem;
+    line-height: 1.52;
+  }
+
+  .deep-chapter-page--christian .chapter-act::before,
+  .deep-chapter-page--christian .chapter-act::after {
+    display: none;
+  }
+
+  .deep-chapter-page--christian .chapter-movement {
+    min-height: auto;
+    padding: 0;
+    background: #090b0c;
+  }
+
+  .deep-chapter-page--christian .chapter-movement__mobile-image img {
+    filter: saturate(0.76) contrast(1.08) brightness(0.88);
+  }
+
+  .deep-chapter-page--christian .chapter-movement__mobile-image::after {
+    background: linear-gradient(180deg, transparent 36%, #090b0c 100%);
+  }
+
+  .deep-chapter-page--christian .chapter-movement__story,
+  .deep-chapter-page--christian .chapter-movement--right .chapter-movement__story {
+    width: auto;
+    max-width: none;
+    background: linear-gradient(180deg, rgba(9, 11, 12, 0.96), #090b0c 80px);
+  }
+
+  .deep-chapter-page--christian .chapter-interaction {
+    background: #0f1214;
+  }
+
+  .consecrated-policy__rail,
+  .sacred-space__rail {
+    display: flex;
+    padding-bottom: 4px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .consecrated-policy__rail::before,
+  .sacred-space__rail::before {
+    display: none;
+  }
+
+  .consecrated-policy__button,
+  .sacred-space__button {
+    min-width: 118px;
+    min-height: 72px;
+    scroll-snap-align: start;
+  }
+
+  .consecrated-policy__records article,
+  .sacred-space__records article,
+  .consecrated-city__records article {
+    grid-template-columns: 1fr;
+  }
+
+  .consecrated-policy__records p,
+  .sacred-space__records p,
+  .consecrated-city__records p {
+    border-top: 1px solid rgba(196, 161, 96, 0.18);
+    border-left: 0;
+  }
+
+  .consecrated-council,
+  .consecrated-city {
+    grid-template-columns: 1fr;
+  }
+
+  .consecrated-council__table {
+    min-height: 220px;
+  }
+
+  .consecrated-council__records article,
+  .consecrated-trace__records article {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .consecrated-council__records i,
+  .consecrated-trace__records i {
+    width: 1px;
+    height: 14px;
+    margin: -8px 0;
+    justify-self: center;
+    background: linear-gradient(180deg, rgba(98, 72, 91, 0.3), #b98b4f);
+  }
+
+  .consecrated-city__plan {
+    min-height: min(62vw, 280px);
+  }
+
+  .consecrated-city__rail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sacred-space {
+    padding-left: 0;
+  }
+
+  .sacred-space__oculus {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 108px;
+    height: 108px;
+    margin: 2px auto 16px;
+    transform: none;
+  }
+
+  .consecrated-trace__button {
+    min-height: 74px;
+    padding-right: 5px;
+    padding-left: 5px;
+    font-size: 0.86rem;
+  }
+
+  .deep-chapter-page--christian .chapter-ending {
+    background:
+      linear-gradient(180deg, rgba(6, 8, 9, 0.14), rgba(6, 8, 9, 0.98) 60%),
+      var(--ending-mobile-image) center / cover;
+  }
+}
+
+@media (max-width: 720px) and (max-height: 720px) {
+  .deep-chapter-page--christian .chapter-opening {
+    padding: 34svh 20px 5svh;
+  }
+
+  .deep-chapter-page--christian .chapter-opening::before {
+    top: 17svh;
+  }
+
+  .deep-chapter-page--christian .chapter-opening h1 {
+    font-size: clamp(3.35rem, 15.5vw, 4.7rem);
+  }
+
+  .deep-chapter-page--christian .chapter-opening p:not(.chapter-opening__number) {
+    margin-top: 18px;
+  }
+
+  .deep-chapter-page--christian .chapter-opening a {
+    margin-top: 22px;
+  }
+}
+
+@media (max-width: 720px) and (max-height: 600px) {
+  .deep-chapter-page--christian .chapter-opening {
+    padding-top: 26svh;
+    padding-bottom: 4svh;
+  }
+
+  .deep-chapter-page--christian .chapter-opening::before {
+    top: 13svh;
+  }
+
+  .deep-chapter-page--christian .chapter-opening h1 {
+    font-size: clamp(3rem, 15vw, 4rem);
+  }
+
+  .deep-chapter-page--christian .chapter-opening p:not(.chapter-opening__number) {
+    font-size: 0.9rem;
+    line-height: 1.44;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .consecrated-policy__button,
+  .consecrated-council__button,
+  .consecrated-city__button,
+  .sacred-space__button,
+  .consecrated-trace__button {
+    transition-duration: 0.01ms !important;
+  }
+}

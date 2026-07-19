@@ -1,0 +1,34 @@
+---
+import type { ChristianTraceInteraction as ChristianTraceInteractionType } from "../../../types/chapter";
+
+type Props = { interaction: ChristianTraceInteractionType };
+const { interaction } = Astro.props;
+---
+
+<div class="consecrated-trace">
+  <div class="consecrated-trace__rail" role="group" aria-label={interaction.prompt}>
+    {interaction.stops.map((stop, index) => (
+      <button
+        type="button"
+        class:list={["consecrated-trace__button", { "is-active": index === 0 }]}
+        data-interaction-choice
+        data-choice-index={index}
+        data-state-id={stop.id}
+        data-detail={stop.detail}
+        aria-pressed={index === 0 ? "true" : "false"}
+      >
+        <span>{stop.period}</span>
+        {stop.label}
+      </button>
+    ))}
+  </div>
+  <div class="consecrated-trace__records" aria-live="polite">
+    {interaction.stops.map((stop, index) => (
+      <article data-christian-record={index} hidden={index !== 0}>
+        <p><span>Instrument</span><strong>{stop.instrument}</strong></p>
+        <i aria-hidden="true"></i>
+        <p><span>Inheritance</span><strong>{stop.inheritance}</strong></p>
+      </article>
+    ))}
+  </div>
+</div>
