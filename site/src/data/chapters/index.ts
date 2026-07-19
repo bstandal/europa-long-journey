@@ -1,6 +1,7 @@
 import type { ChapterDefinition } from "../../types/chapter";
 import { bronzeEurope } from "./bronze-europe";
 import { empireTakesCross } from "./empire-takes-cross";
+import { europeReborn } from "./europe-reborn";
 import { firstFarmers } from "./first-farmers";
 import { greeceAndTheCitizen } from "./greece-and-the-citizen";
 import { romeGathersEurope } from "./rome-gathers-europe";
@@ -13,6 +14,7 @@ export const chapters: ChapterDefinition[] = [
   greeceAndTheCitizen,
   romeGathersEurope,
   empireTakesCross,
+  europeReborn,
 ];
 
 export const chapterBySlug = new Map(chapters.map((chapter) => [chapter.slug, chapter]));

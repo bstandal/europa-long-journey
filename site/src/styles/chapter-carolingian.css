@@ -1,0 +1,646 @@
+.deep-chapter-page--carolingian {
+  --chapter-earth: #66503a;
+  --chapter-ochre: #b78a46;
+  --chapter-forest: #080d0c;
+  --chapter-smoke: rgba(224, 216, 196, 0.76);
+  --bronze: #8f6a37;
+  --bronze-bright: #c69a54;
+  --commonwealth-ink: #070b0c;
+  --commonwealth-charcoal: #0c1112;
+  --commonwealth-vellum: #d9c9a7;
+  --commonwealth-vellum-dim: rgba(217, 201, 167, 0.72);
+  --commonwealth-green: #536052;
+  --commonwealth-madder: #765047;
+  --commonwealth-gold: #b98b43;
+  background: var(--commonwealth-ink);
+}
+
+.deep-chapter-page--carolingian .deep-chapter,
+.deep-chapter-page--carolingian .chapter-sources {
+  background: var(--commonwealth-ink);
+}
+
+.deep-chapter-page--carolingian .chapter-header {
+  border-bottom-color: rgba(198, 154, 84, 0.23);
+  background: rgba(5, 9, 10, 0.9);
+}
+
+.deep-chapter-page--carolingian .chapter-header__return {
+  color: rgba(198, 154, 84, 0.82);
+}
+
+.deep-chapter-page--carolingian .chapter-route {
+  border-color: rgba(198, 154, 84, 0.28);
+  background: rgba(7, 11, 12, 0.92);
+  box-shadow:
+    0 24px 66px rgba(0, 0, 0, 0.55),
+    inset 0 1px rgba(228, 211, 177, 0.035);
+  transition:
+    right 380ms ease,
+    left 380ms ease,
+    opacity 240ms ease;
+}
+
+.deep-chapter-page--carolingian .chapter-route__panel {
+  border-color: rgba(198, 154, 84, 0.25);
+  background: rgba(7, 11, 12, 0.99);
+}
+
+.deep-chapter-page--carolingian:not(.chapter-runtime-ready) .chapter-route,
+.deep-chapter-page--carolingian[data-chapter-region="opening"] .chapter-route,
+.deep-chapter-page--carolingian[data-chapter-region="ending"] .chapter-route {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (min-width: 721px) {
+  .deep-chapter-page--carolingian[data-chapter-side="right"] .chapter-route {
+    right: auto;
+    left: clamp(28px, 3.3vw, 52px);
+  }
+}
+
+.deep-chapter-page--carolingian .chapter-route__map {
+  background: #121615;
+}
+
+.deep-chapter-page--carolingian .chapter-route__map img {
+  opacity: 0.58;
+  filter: grayscale(0.62) sepia(0.25) hue-rotate(350deg) saturate(0.75)
+    contrast(1.12) brightness(0.66);
+}
+
+.deep-chapter-page--carolingian .chapter-route__map polyline {
+  stroke: rgba(201, 157, 83, 0.9);
+  stroke-dasharray: 1.5 1.1;
+  filter: drop-shadow(0 0 5px rgba(139, 92, 45, 0.52));
+}
+
+.deep-chapter-page--carolingian .chapter-route__marker {
+  border-color: rgba(228, 211, 177, 0.86);
+  background: #252922;
+}
+
+.deep-chapter-page--carolingian .chapter-route__marker.is-active {
+  background: var(--commonwealth-gold);
+  box-shadow:
+    0 0 0 5px rgba(185, 139, 67, 0.18),
+    0 0 24px rgba(185, 139, 67, 0.36);
+}
+
+.deep-chapter-page--carolingian .chapter-route nav a span,
+.deep-chapter-page--carolingian .chapter-route__current span {
+  color: rgba(200, 156, 82, 0.86);
+}
+
+.deep-chapter-page--carolingian .chapter-route nav a.is-active {
+  border-color: rgba(198, 154, 84, 0.34);
+  background: linear-gradient(
+    90deg,
+    rgba(113, 78, 49, 0.19),
+    rgba(73, 86, 73, 0.09)
+  );
+}
+
+.deep-chapter-page--carolingian .chapter-stage {
+  background: #090d0e;
+}
+
+.deep-chapter-page--carolingian .chapter-stage__image {
+  filter: saturate(0.73) contrast(1.08) brightness(0.86);
+}
+
+.deep-chapter-page--carolingian .chapter-stage__shade {
+  background:
+    radial-gradient(
+      circle at 65% 36%,
+      transparent 0 19%,
+      rgba(4, 6, 7, 0.12) 49%,
+      rgba(4, 6, 7, 0.62) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(5, 8, 9, 0.86),
+      rgba(5, 8, 9, 0.48) 34%,
+      rgba(5, 8, 9, 0.06) 70%
+    ),
+    linear-gradient(180deg, rgba(72, 62, 47, 0.04), transparent 45%, rgba(3, 5, 6, 0.55));
+}
+
+.deep-chapter-page--carolingian[data-chapter-side="right"] .chapter-stage__shade {
+  background:
+    radial-gradient(
+      circle at 35% 36%,
+      transparent 0 19%,
+      rgba(4, 6, 7, 0.12) 49%,
+      rgba(4, 6, 7, 0.62) 100%
+    ),
+    linear-gradient(
+      270deg,
+      rgba(5, 8, 9, 0.88),
+      rgba(5, 8, 9, 0.48) 35%,
+      rgba(5, 8, 9, 0.05) 70%
+    ),
+    linear-gradient(180deg, rgba(72, 62, 47, 0.04), transparent 45%, rgba(3, 5, 6, 0.55));
+}
+
+.deep-chapter-page--carolingian .chapter-stage__grain {
+  opacity: 0;
+}
+
+.deep-chapter-page--carolingian .chapter-opening {
+  min-height: 112svh;
+  padding: 22svh clamp(34px, 4.7vw, 72px) 14svh;
+  align-items: center;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(5, 9, 10, 1) 0,
+      rgba(5, 9, 10, 0.995) 35%,
+      rgba(5, 9, 10, 0.86) 42%,
+      rgba(5, 9, 10, 0.05) 66%
+    ),
+    linear-gradient(180deg, rgba(5, 9, 10, 0.12), rgba(5, 9, 10, 0.16)),
+    var(--opening-image) right center / 68% 100% no-repeat,
+    #05090a;
+}
+
+.deep-chapter-page--carolingian .chapter-opening::before {
+  position: absolute;
+  top: 36.5%;
+  right: clamp(34px, 4.7vw, 72px);
+  left: calc(clamp(34px, 4.7vw, 72px) + 230px);
+  width: auto;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(197, 151, 78, 0.56),
+    rgba(197, 151, 78, 0.23) 62%,
+    transparent
+  );
+  content: "";
+}
+
+.deep-chapter-page--carolingian .chapter-opening > div {
+  position: relative;
+  z-index: 1;
+  width: min(600px, 40vw);
+  padding-top: 0;
+  text-shadow: none;
+  transform: translateY(-2svh);
+}
+
+.deep-chapter-page--carolingian .chapter-opening__number {
+  color: rgba(204, 159, 82, 0.9);
+}
+
+.deep-chapter-page--carolingian .chapter-opening h1 {
+  max-width: 590px;
+  font-size: clamp(5.4rem, 9.5vw, 9.4rem);
+  letter-spacing: -0.052em;
+  line-height: 0.8;
+}
+
+.deep-chapter-page--carolingian .chapter-opening p:not(.chapter-opening__number) {
+  max-width: 510px;
+  margin-top: 28px;
+  color: rgba(232, 222, 201, 0.91);
+  font-size: clamp(1.08rem, 1.45vw, 1.3rem);
+  line-height: 1.55;
+}
+
+.deep-chapter-page--carolingian .chapter-opening a {
+  margin-top: 24px;
+  border-bottom-color: var(--commonwealth-gold);
+  color: #d7b36f;
+}
+
+.deep-chapter-page--carolingian .chapter-act {
+  overflow: hidden;
+  background:
+    linear-gradient(112deg, rgba(7, 11, 12, 0.995), rgba(19, 20, 18, 0.96)),
+    radial-gradient(circle at 76% 28%, rgba(185, 139, 67, 0.09), transparent 38%);
+}
+
+.deep-chapter-page--carolingian .chapter-act::before {
+  position: absolute;
+  top: 15%;
+  right: 8vw;
+  width: min(30vw, 430px);
+  height: min(22vw, 310px);
+  border-top: 1px solid rgba(201, 157, 83, 0.14);
+  border-bottom: 1px solid rgba(201, 157, 83, 0.08);
+  background: repeating-linear-gradient(
+    180deg,
+    transparent 0 21px,
+    rgba(206, 183, 139, 0.04) 21px 22px
+  );
+  transform: rotate(-3deg);
+  content: "";
+}
+
+.deep-chapter-page--carolingian .chapter-act__rule::before {
+  color: var(--commonwealth-gold);
+  content: "✣";
+}
+
+.deep-chapter-page--carolingian .chapter-act__rule span {
+  background: linear-gradient(
+    90deg,
+    rgba(198, 154, 84, 0.66),
+    rgba(78, 91, 78, 0.18)
+  );
+}
+
+.deep-chapter-page--carolingian .chapter-movement {
+  min-height: 154svh;
+  padding-top: 18svh;
+  padding-bottom: 46svh;
+}
+
+.deep-chapter-page--carolingian .chapter-movement__story {
+  width: min(710px, 53vw);
+}
+
+.deep-chapter-page--carolingian .chapter-movement--right .chapter-movement__story {
+  background:
+    linear-gradient(90deg, rgba(8, 12, 13, 0.73), rgba(8, 12, 13, 0.96)),
+    repeating-linear-gradient(
+      180deg,
+      transparent 0 26px,
+      rgba(217, 201, 167, 0.025) 26px 27px
+    );
+  box-shadow:
+    0 30px 76px rgba(0, 0, 0, 0.3),
+    inset 1px 0 rgba(206, 183, 139, 0.05);
+}
+
+.deep-chapter-page--carolingian .chapter-movement__meta {
+  color: rgba(204, 159, 82, 0.75);
+}
+
+.deep-chapter-page--carolingian .chapter-movement__body {
+  border-left-color: rgba(177, 128, 63, 0.66);
+}
+
+.deep-chapter-page--carolingian .chapter-evidence {
+  border-color: rgba(198, 154, 84, 0.2);
+}
+
+.deep-chapter-page--carolingian .chapter-evidence summary {
+  color: rgba(204, 159, 82, 0.87);
+}
+
+.deep-chapter-page--carolingian .chapter-interaction {
+  color: rgba(232, 222, 201, 0.82);
+}
+
+.deep-chapter-page--carolingian.chapter-runtime-ready .chapter-interaction {
+  border-color: rgba(198, 154, 84, 0.28);
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(11, 15, 15, 0.95) 0 29px,
+      rgba(211, 189, 147, 0.035) 29px 30px
+    );
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.46),
+    inset 0 1px rgba(228, 211, 177, 0.045);
+}
+
+.deep-chapter-page--carolingian .chapter-interaction__prompt {
+  color: #d2ad69;
+}
+
+.deep-chapter-page--carolingian .chapter-interaction__detail {
+  color: rgba(232, 222, 201, 0.76);
+}
+
+.written-commonwealth {
+  display: grid;
+  max-width: 1120px;
+  grid-template-columns: minmax(370px, 0.9fr) minmax(420px, 1.1fr);
+  gap: 18px 30px;
+}
+
+.written-commonwealth__rail {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+}
+
+.written-commonwealth__rail::before {
+  position: absolute;
+  top: 14px;
+  right: 8%;
+  left: 8%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(198, 154, 84, 0.28),
+    rgba(198, 154, 84, 0.88),
+    rgba(198, 154, 84, 0.28)
+  );
+  content: "";
+}
+
+.written-commonwealth__button {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  min-height: 58px;
+  padding: 29px 7px 7px;
+  place-items: start center;
+  border: 0;
+  background: transparent;
+  color: rgba(232, 222, 201, 0.56);
+  cursor: pointer;
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  line-height: 1.25;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.written-commonwealth__button::before {
+  position: absolute;
+  top: 8px;
+  width: 13px;
+  height: 13px;
+  border: 1px solid rgba(198, 154, 84, 0.86);
+  border-radius: 50%;
+  background: #121715;
+  box-shadow: 0 0 0 4px rgba(9, 13, 13, 0.86);
+  content: "";
+  transition:
+    background 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.written-commonwealth__button span {
+  display: none;
+}
+
+.written-commonwealth__button.is-active {
+  color: #e4d4b3;
+}
+
+.written-commonwealth__button.is-active::before {
+  background: var(--commonwealth-gold);
+  box-shadow:
+    0 0 0 5px rgba(185, 139, 67, 0.17),
+    0 0 16px rgba(185, 139, 67, 0.28);
+  transform: scale(1.12);
+}
+
+.written-commonwealth__records {
+  min-height: 86px;
+  padding-left: 22px;
+  border-left: 1px solid rgba(198, 154, 84, 0.24);
+}
+
+.written-commonwealth__records article {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.written-commonwealth--conversion-roads .written-commonwealth__records article {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.written-commonwealth__records article[hidden] {
+  display: none;
+}
+
+.written-commonwealth__records p {
+  display: grid;
+  margin: 0;
+  align-content: start;
+  gap: 4px;
+}
+
+.written-commonwealth__records span {
+  color: rgba(198, 154, 84, 0.7);
+  font-size: 0.54rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.written-commonwealth__records strong {
+  color: rgba(232, 222, 201, 0.77);
+  font-family: var(--serif);
+  font-size: 0.78rem;
+  font-weight: 400;
+  line-height: 1.36;
+}
+
+.deep-chapter-page--carolingian .chapter-ending {
+  background:
+    linear-gradient(90deg, rgba(5, 9, 10, 0.97), rgba(5, 9, 10, 0.67) 62%, rgba(5, 9, 10, 0.29)),
+    linear-gradient(180deg, rgba(5, 9, 10, 0.2), rgba(5, 9, 10, 0.92)),
+    var(--ending-image) center / cover;
+  backdrop-filter: none;
+}
+
+.deep-chapter-page--carolingian .chapter-ending__result,
+.deep-chapter-page--carolingian .chapter-ending__next {
+  text-shadow: 0 3px 30px rgba(0, 0, 0, 0.92);
+}
+
+.deep-chapter-page--carolingian .chapter-ending__next {
+  border-color: rgba(198, 154, 84, 0.54);
+}
+
+.deep-chapter-page--carolingian .chapter-sources {
+  background:
+    linear-gradient(110deg, #080c0d, #101413),
+    repeating-linear-gradient(
+      180deg,
+      transparent 0 31px,
+      rgba(217, 201, 167, 0.02) 31px 32px
+    );
+}
+
+@media (max-width: 1100px) and (min-width: 721px) {
+  .deep-chapter-page--carolingian .chapter-opening > div {
+    width: min(570px, 48vw);
+  }
+
+  .deep-chapter-page--carolingian .chapter-opening h1 {
+    font-size: clamp(4.8rem, 8.8vw, 7.4rem);
+  }
+
+  .written-commonwealth {
+    grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+    gap: 16px;
+  }
+
+  .written-commonwealth__records {
+    padding-left: 14px;
+  }
+
+  .written-commonwealth__records strong {
+    font-size: 0.72rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .deep-chapter-page--carolingian .chapter-header {
+    background: rgba(5, 9, 10, 0.96);
+  }
+
+  .deep-chapter-page--carolingian .chapter-route {
+    background: rgba(7, 11, 12, 0.98);
+  }
+
+  .deep-chapter-page--carolingian:not(.chapter-runtime-ready) .chapter-route,
+  .deep-chapter-page--carolingian[data-chapter-region="opening"] .chapter-route,
+  .deep-chapter-page--carolingian[data-chapter-region="ending"] .chapter-route {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .deep-chapter-page--carolingian .chapter-opening {
+    min-height: 100svh;
+    padding: 50svh 22px 9svh;
+    align-items: flex-end;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(5, 9, 10, 0.08) 0,
+        rgba(5, 9, 10, 0.16) 37%,
+        rgba(5, 9, 10, 0.92) 62%,
+        #05090a 100%
+      ),
+      var(--opening-mobile-image) center 18% / 100% 62% no-repeat,
+      #05090a;
+  }
+
+  .deep-chapter-page--carolingian .chapter-opening::before {
+    top: 55%;
+    right: 22px;
+    left: 22px;
+    width: auto;
+  }
+
+  .deep-chapter-page--carolingian .chapter-opening > div {
+    width: 100%;
+    padding-top: 0;
+    transform: none;
+  }
+
+  .deep-chapter-page--carolingian .chapter-opening h1 {
+    max-width: 350px;
+    font-size: clamp(4.45rem, 20.5vw, 6rem);
+    line-height: 0.8;
+  }
+
+  .deep-chapter-page--carolingian .chapter-opening p:not(.chapter-opening__number) {
+    max-width: 38ch;
+    font-size: 1.02rem;
+  }
+
+  .deep-chapter-page--carolingian .chapter-act::before {
+    top: 10%;
+    right: -12%;
+    width: 70vw;
+    height: 34vw;
+  }
+
+  .deep-chapter-page--carolingian .chapter-movement {
+    min-height: auto;
+    padding: 0;
+    background: #090e0f;
+  }
+
+  .deep-chapter-page--carolingian .chapter-movement__mobile-image::after {
+    background: linear-gradient(180deg, transparent 36%, #090e0f 100%);
+  }
+
+  .deep-chapter-page--carolingian .chapter-movement__story,
+  .deep-chapter-page--carolingian .chapter-movement--right .chapter-movement__story {
+    width: auto;
+    background: linear-gradient(180deg, rgba(9, 14, 15, 0.96), #090e0f 80px);
+  }
+
+  .deep-chapter-page--carolingian .chapter-movement h2 {
+    font-size: clamp(2.9rem, 13.7vw, 4.2rem);
+  }
+
+  .deep-chapter-page--carolingian .chapter-interaction,
+  .deep-chapter-page--carolingian.chapter-runtime-ready .chapter-interaction {
+    padding: 18px 14px;
+    border-color: rgba(198, 154, 84, 0.23);
+    background:
+      repeating-linear-gradient(
+        180deg,
+        #0d1313 0 30px,
+        rgba(217, 201, 167, 0.04) 30px 31px
+      );
+  }
+
+  .written-commonwealth {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .written-commonwealth__rail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .written-commonwealth__rail::before {
+    display: none;
+  }
+
+  .written-commonwealth__button {
+    min-height: 48px;
+    padding: 8px 8px 8px 30px;
+    place-items: center start;
+    border: 1px solid rgba(198, 154, 84, 0.17);
+    background: rgba(232, 222, 201, 0.025);
+    font-size: 0.69rem;
+    text-align: left;
+  }
+
+  .written-commonwealth__button::before {
+    top: 17px;
+    left: 10px;
+    width: 11px;
+    height: 11px;
+  }
+
+  .written-commonwealth__records {
+    min-height: 0;
+    padding: 14px 0 0;
+    border-top: 1px solid rgba(198, 154, 84, 0.22);
+    border-left: 0;
+  }
+
+  .written-commonwealth__records article,
+  .written-commonwealth--conversion-roads .written-commonwealth__records article {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .written-commonwealth__records strong {
+    font-size: 0.88rem;
+  }
+
+  .deep-chapter-page--carolingian .chapter-ending {
+    background:
+      linear-gradient(180deg, rgba(5, 9, 10, 0.12), rgba(5, 9, 10, 0.94) 58%),
+      var(--ending-mobile-image, var(--ending-image)) center top / cover;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .written-commonwealth__button::before {
+    transition-duration: 0.01ms !important;
+  }
+}

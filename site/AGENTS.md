@@ -149,6 +149,21 @@ When implementing from a selected generated mock, treat that image as the source
   Constantinople becoming New Rome; “New Rome Holds the Line” (565–1025) centres the Persian war,
   Arab conquests, Constantinople’s defence and Roman recovery; “The Last Romans” (1025–1453) follows
   contraction, 1204, restoration, Ottoman encirclement and the catastrophe of 1453.
+- Defer the unfinished eastern Roman arc after 565 while the existing 24-chapter journey is being
+  completed. Do not let “New Rome Holds the Line” or “The Last Romans” interrupt or restructure the
+  current production sequence. Return to their placement and implementation only after all 24
+  existing chapters have been completed.
+- Chapter 07, “Europe Reborn,” uses the selected “Written Commonwealth” visual direction. Preserve
+  the existing EUROPA shell while shifting the opening to an asymmetric editorial split: a matte
+  charcoal field for title and claim beside an evidence-led historical reconstruction of vellum,
+  codices, wax tablets, a travelling royal messenger and reused Roman stone. The ruled manuscript
+  line becomes the chapter’s route motif, showing how writing, liturgy and delegated authority carry
+  civilisation farther than one moving king.
+- Keep Chapter 07 materially early medieval: round late-Roman arches, reused columns, rough
+  limewashed stone, dark oak, iron, vellum, wax, restrained monastic green and localized candlelight.
+  Avoid Gothic arches, high-medieval towns, fantasy libraries, pristine cathedrals and generic gold.
+  Desktop retains the editorial split; mobile stacks the historical scene above the complete claim
+  and action without turning the opening into a card.
 - Chapter 06’s selected visual direction is “The Consecrated City”. Continue the existing EUROPA
   deep-chapter typography, cinematic darkness, material reconstruction and restrained route control.
   Let the measured Roman road rise into procession, arch, apse and dome. Move the Rome palette from

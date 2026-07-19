@@ -1,0 +1,125 @@
+---
+import type {
+  CommonwealthCityInteraction,
+  CommonwealthTraceInteraction,
+  ConversionRoadsInteraction,
+  RealmPartitionInteraction,
+  WrittenNetworkInteraction,
+} from "../../../types/chapter";
+
+type Interaction =
+  | CommonwealthCityInteraction
+  | WrittenNetworkInteraction
+  | RealmPartitionInteraction
+  | ConversionRoadsInteraction
+  | CommonwealthTraceInteraction;
+
+type Props = { interaction: Interaction };
+const { interaction } = Astro.props;
+
+type RecordItem = {
+  id: string;
+  label: string;
+  period: string;
+  detail: string;
+  fields: { label: string; value: string }[];
+};
+
+let records: RecordItem[] = [];
+
+switch (interaction.kind) {
+  case "commonwealth-city":
+    records = interaction.states.map((state) => ({
+      ...state,
+      fields: [
+        { label: "Office", value: state.office },
+        { label: "Instrument", value: state.instrument },
+        { label: "Limit", value: state.limit },
+      ],
+    }));
+    break;
+  case "written-network":
+    records = interaction.states.map((state) => ({
+      ...state,
+      fields: [
+        { label: "Author", value: state.author },
+        { label: "Carrier", value: state.carrier },
+        { label: "Local act", value: state.localAct },
+      ],
+    }));
+    break;
+  case "realm-partition":
+    records = interaction.states.map((state) => ({
+      ...state,
+      fields: [
+        { label: "Share", value: state.share },
+        { label: "Basis", value: state.basis },
+        { label: "Consequence", value: state.consequence },
+      ],
+    }));
+    break;
+  case "conversion-roads":
+    records = interaction.paths.map((path) => ({
+      ...path,
+      fields: [
+        { label: "Patron", value: path.patron },
+        { label: "Language", value: path.language },
+        { label: "Institution", value: path.institution },
+        { label: "Limit", value: path.limit },
+      ],
+    }));
+    break;
+  case "commonwealth-trace":
+    records = interaction.stops.map((stop) => ({
+      ...stop,
+      fields: [
+        { label: "Instrument", value: stop.instrument },
+        { label: "Reach", value: stop.reach },
+        { label: "Inheritance", value: stop.inheritance },
+      ],
+    }));
+    break;
+}
+---
+
+<div class:list={["written-commonwealth", `written-commonwealth--${interaction.kind}`]}>
+  <div
+    class="written-commonwealth__rail"
+    role="group"
+    aria-label={interaction.prompt}
+  >
+    {
+      records.map((record, index) => (
+        <button
+          type="button"
+          class:list={[
+            "written-commonwealth__button",
+            { "is-active": index === 0 },
+          ]}
+          data-interaction-choice
+          data-choice-index={index}
+          data-state-id={record.id}
+          data-detail={record.detail}
+          aria-pressed={index === 0 ? "true" : "false"}
+        >
+          <span>{record.period}</span>
+          {record.label}
+        </button>
+      ))
+    }
+  </div>
+  <div class="written-commonwealth__records" aria-live="polite">
+    {
+      records.map((record, index) => (
+        <article data-commonwealth-record={index} hidden={index !== 0}>
+          {record.fields.map((field) => (
+            <p>
+              <span>{field.label}</span>
+              <strong>{field.value}</strong>
+            </p>
+          ))}
+        </article>
+      ))
+    }
+  </div>
+</div>

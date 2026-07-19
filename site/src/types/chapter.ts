@@ -322,6 +322,72 @@ export type ChristianTraceInteraction = ChapterInteractionBase & {
   }[];
 };
 
+export type CommonwealthCityInteraction = ChapterInteractionBase & {
+  kind: "commonwealth-city";
+  states: {
+    id: string;
+    label: string;
+    period: string;
+    detail: string;
+    office: string;
+    instrument: string;
+    limit: string;
+  }[];
+};
+
+export type WrittenNetworkInteraction = ChapterInteractionBase & {
+  kind: "written-network";
+  states: {
+    id: string;
+    label: string;
+    period: string;
+    detail: string;
+    author: string;
+    carrier: string;
+    localAct: string;
+  }[];
+};
+
+export type RealmPartitionInteraction = ChapterInteractionBase & {
+  kind: "realm-partition";
+  states: {
+    id: string;
+    label: string;
+    period: string;
+    detail: string;
+    share: string;
+    basis: string;
+    consequence: string;
+  }[];
+};
+
+export type ConversionRoadsInteraction = ChapterInteractionBase & {
+  kind: "conversion-roads";
+  paths: {
+    id: string;
+    label: string;
+    period: string;
+    detail: string;
+    patron: string;
+    language: string;
+    institution: string;
+    limit: string;
+  }[];
+};
+
+export type CommonwealthTraceInteraction = ChapterInteractionBase & {
+  kind: "commonwealth-trace";
+  stops: {
+    id: string;
+    label: string;
+    period: string;
+    detail: string;
+    instrument: string;
+    reach: string;
+    inheritance: string;
+  }[];
+};
+
 export type ChapterInteraction =
   | RouteInteraction
   | SeasonsInteraction
@@ -346,10 +412,22 @@ export type ChapterInteraction =
   | ChristianCouncilInteraction
   | ChristianCityInteraction
   | SacredSpaceInteraction
-  | ChristianTraceInteraction;
+  | ChristianTraceInteraction
+  | CommonwealthCityInteraction
+  | WrittenNetworkInteraction
+  | RealmPartitionInteraction
+  | ConversionRoadsInteraction
+  | CommonwealthTraceInteraction;
 
 export type ChapterTheme = {
-  id: "farmers" | "steppe" | "bronze" | "greece" | "rome" | "christian";
+  id:
+    | "farmers"
+    | "steppe"
+    | "bronze"
+    | "greece"
+    | "rome"
+    | "christian"
+    | "carolingian";
   label: string;
 };
 

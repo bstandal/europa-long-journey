@@ -340,6 +340,11 @@ const allowedChapterInteractions = new Set([
   "christian-city",
   "sacred-space",
   "christian-trace",
+  "commonwealth-city",
+  "written-network",
+  "realm-partition",
+  "conversion-roads",
+  "commonwealth-trace",
 ]);
 
 for (const chapter of chapters) {
@@ -1374,6 +1379,148 @@ for (const chapter of chapters) {
         }
         break;
       }
+      case "commonwealth-city": {
+        const { states } = interaction;
+        validateInteractionItems(qualifiedId, "commonwealth city states", states);
+        if (states.length !== 4) {
+          errors.push(`Movement "${qualifiedId}" commonwealth city interaction needs four states.`);
+        }
+        for (const state of states) {
+          if (
+            !hasPublicText(state.period) ||
+            !hasPublicText(state.office) ||
+            !hasPublicText(state.instrument) ||
+            !hasPublicText(state.limit)
+          ) {
+            errors.push(
+              `Movement "${qualifiedId}" commonwealth city state "${state.id}" needs period, office, instrument and limit text.`,
+            );
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" commonwealth city "${state.id}" label`, value: state.label },
+            { label: `movement "${movement.id}" commonwealth city "${state.id}" detail`, value: state.detail },
+            { label: `movement "${movement.id}" commonwealth city "${state.id}" period`, value: state.period },
+            { label: `movement "${movement.id}" commonwealth city "${state.id}" office`, value: state.office },
+            { label: `movement "${movement.id}" commonwealth city "${state.id}" instrument`, value: state.instrument },
+            { label: `movement "${movement.id}" commonwealth city "${state.id}" limit`, value: state.limit },
+          );
+        }
+        break;
+      }
+      case "written-network": {
+        const { states } = interaction;
+        validateInteractionItems(qualifiedId, "written network states", states);
+        if (states.length !== 4) {
+          errors.push(`Movement "${qualifiedId}" written network interaction needs four states.`);
+        }
+        for (const state of states) {
+          if (
+            !hasPublicText(state.period) ||
+            !hasPublicText(state.author) ||
+            !hasPublicText(state.carrier) ||
+            !hasPublicText(state.localAct)
+          ) {
+            errors.push(
+              `Movement "${qualifiedId}" written network state "${state.id}" needs period, author, carrier and local act text.`,
+            );
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" written network "${state.id}" label`, value: state.label },
+            { label: `movement "${movement.id}" written network "${state.id}" detail`, value: state.detail },
+            { label: `movement "${movement.id}" written network "${state.id}" period`, value: state.period },
+            { label: `movement "${movement.id}" written network "${state.id}" author`, value: state.author },
+            { label: `movement "${movement.id}" written network "${state.id}" carrier`, value: state.carrier },
+            { label: `movement "${movement.id}" written network "${state.id}" local act`, value: state.localAct },
+          );
+        }
+        break;
+      }
+      case "realm-partition": {
+        const { states } = interaction;
+        validateInteractionItems(qualifiedId, "realm partition states", states);
+        if (states.length !== 4) {
+          errors.push(`Movement "${qualifiedId}" realm partition interaction needs four states.`);
+        }
+        for (const state of states) {
+          if (
+            !hasPublicText(state.period) ||
+            !hasPublicText(state.share) ||
+            !hasPublicText(state.basis) ||
+            !hasPublicText(state.consequence)
+          ) {
+            errors.push(
+              `Movement "${qualifiedId}" realm partition state "${state.id}" needs period, share, basis and consequence text.`,
+            );
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" realm partition "${state.id}" label`, value: state.label },
+            { label: `movement "${movement.id}" realm partition "${state.id}" detail`, value: state.detail },
+            { label: `movement "${movement.id}" realm partition "${state.id}" period`, value: state.period },
+            { label: `movement "${movement.id}" realm partition "${state.id}" share`, value: state.share },
+            { label: `movement "${movement.id}" realm partition "${state.id}" basis`, value: state.basis },
+            { label: `movement "${movement.id}" realm partition "${state.id}" consequence`, value: state.consequence },
+          );
+        }
+        break;
+      }
+      case "conversion-roads": {
+        const { paths } = interaction;
+        validateInteractionItems(qualifiedId, "conversion roads", paths);
+        if (paths.length !== 4) {
+          errors.push(`Movement "${qualifiedId}" conversion roads interaction needs four paths.`);
+        }
+        for (const path of paths) {
+          if (
+            !hasPublicText(path.period) ||
+            !hasPublicText(path.patron) ||
+            !hasPublicText(path.language) ||
+            !hasPublicText(path.institution) ||
+            !hasPublicText(path.limit)
+          ) {
+            errors.push(
+              `Movement "${qualifiedId}" conversion road "${path.id}" needs period, patron, language, institution and limit text.`,
+            );
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" conversion road "${path.id}" label`, value: path.label },
+            { label: `movement "${movement.id}" conversion road "${path.id}" detail`, value: path.detail },
+            { label: `movement "${movement.id}" conversion road "${path.id}" period`, value: path.period },
+            { label: `movement "${movement.id}" conversion road "${path.id}" patron`, value: path.patron },
+            { label: `movement "${movement.id}" conversion road "${path.id}" language`, value: path.language },
+            { label: `movement "${movement.id}" conversion road "${path.id}" institution`, value: path.institution },
+            { label: `movement "${movement.id}" conversion road "${path.id}" limit`, value: path.limit },
+          );
+        }
+        break;
+      }
+      case "commonwealth-trace": {
+        const { stops } = interaction;
+        validateInteractionItems(qualifiedId, "commonwealth trace stops", stops);
+        if (stops.length !== 3) {
+          errors.push(`Movement "${qualifiedId}" commonwealth trace interaction needs three stops.`);
+        }
+        for (const stop of stops) {
+          if (
+            !hasPublicText(stop.period) ||
+            !hasPublicText(stop.instrument) ||
+            !hasPublicText(stop.reach) ||
+            !hasPublicText(stop.inheritance)
+          ) {
+            errors.push(
+              `Movement "${qualifiedId}" commonwealth trace stop "${stop.id}" needs period, instrument, reach and inheritance text.`,
+            );
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" commonwealth trace "${stop.id}" label`, value: stop.label },
+            { label: `movement "${movement.id}" commonwealth trace "${stop.id}" detail`, value: stop.detail },
+            { label: `movement "${movement.id}" commonwealth trace "${stop.id}" period`, value: stop.period },
+            { label: `movement "${movement.id}" commonwealth trace "${stop.id}" instrument`, value: stop.instrument },
+            { label: `movement "${movement.id}" commonwealth trace "${stop.id}" reach`, value: stop.reach },
+            { label: `movement "${movement.id}" commonwealth trace "${stop.id}" inheritance`, value: stop.inheritance },
+          );
+        }
+        break;
+      }
     }
 
     validateChapterCopy(
@@ -1471,6 +1618,23 @@ for (const chapter of chapters) {
     if (bodyWords < 2500 || bodyWords > 3100) {
       errors.push(
         `Chapter "${chapter.slug}" continuous body should contain 2,500–3,100 words; found ${bodyWords}.`,
+      );
+    }
+  }
+  if (chapter.slug === "europe-reborn") {
+    const bodyWords = chapter.movements.reduce(
+      (sum, movement) =>
+        sum +
+        movement.body.reduce(
+          (movementSum, paragraph) =>
+            movementSum + paragraph.trim().split(/\s+/).length,
+          0,
+        ),
+      0,
+    );
+    if (bodyWords < 2500 || bodyWords > 3300) {
+      errors.push(
+        `Chapter "${chapter.slug}" continuous body should contain 2,500–3,300 words; found ${bodyWords}.`,
       );
     }
   }

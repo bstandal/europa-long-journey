@@ -350,6 +350,25 @@ function chooseButton(button: HTMLButtonElement) {
     }
   }
 
+  if (
+    kind === "commonwealth-city" ||
+    kind === "written-network" ||
+    kind === "realm-partition" ||
+    kind === "conversion-roads" ||
+    kind === "commonwealth-trace"
+  ) {
+    interaction.dataset.stateId = button.dataset.stateId ?? "";
+    for (const record of interaction.querySelectorAll<HTMLElement>(
+      "[data-commonwealth-record]",
+    )) {
+      record.hidden =
+        Number.parseInt(record.dataset.commonwealthRecord ?? "-1", 10) !== choiceIndex;
+    }
+    if (document.body.dataset.chapterMovement === interaction.dataset.movementId) {
+      document.body.dataset.chapterState = interaction.dataset.stateId;
+    }
+  }
+
   if (kind === "roman-network") {
     const stateId = button.dataset.stateId ?? "";
     for (const layer of interaction.querySelectorAll<HTMLElement>(

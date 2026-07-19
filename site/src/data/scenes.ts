@@ -620,6 +620,10 @@ export const scenes: StoryScene[] = [
         longitude: 30.52,
       },
     ],
+    chronicle: {
+      href: "chapters/europe-reborn/",
+      label: "Follow the rebuilt road",
+    },
   },
   {
     id: "papal-revolution",

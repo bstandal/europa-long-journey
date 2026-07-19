@@ -3,6 +3,7 @@ import { access } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { bronzeEurope } from "../src/data/chapters/bronze-europe";
 import { empireTakesCross } from "../src/data/chapters/empire-takes-cross";
+import { europeReborn } from "../src/data/chapters/europe-reborn";
 import { firstFarmers } from "../src/data/chapters/first-farmers";
 import { greeceAndTheCitizen } from "../src/data/chapters/greece-and-the-citizen";
 import { romeGathersEurope } from "../src/data/chapters/rome-gathers-europe";
@@ -280,6 +281,7 @@ rejectUnsupportedKeys(bronzeEurope);
 rejectUnsupportedKeys(greeceAndTheCitizen);
 rejectUnsupportedKeys(romeGathersEurope);
 rejectUnsupportedKeys(empireTakesCross);
+rejectUnsupportedKeys(europeReborn);
 
 await checkCommonChapter(romeGathersEurope, 12);
 assert.deepEqual(
@@ -536,4 +538,98 @@ assert.equal(
   "The Christian Empire ending period must match its actual next scene.",
 );
 
-console.log("Farmers, Steppe, Bronze, Greece, Rome and Christian Empire chapter checks passed.");
+await checkCommonChapter(europeReborn, 14);
+assert.deepEqual(
+  europeReborn.acts?.map((act) => act.id),
+  ["survival", "frankish-order", "imperial-inheritance", "widening-commonwealth"],
+  "Europe Reborn should preserve the four-act progression.",
+);
+assert.deepEqual(
+  (europeReborn.acts ?? []).map((act) =>
+    europeReborn.movements.filter((movement) => movement.actId === act.id).length
+  ),
+  [2, 5, 4, 3],
+  "Europe Reborn act lengths should remain 2, 5, 4 and 3 movements.",
+);
+const principalCommonwealthInteractionKinds = new Set([
+  "commonwealth-city",
+  "written-network",
+  "realm-partition",
+  "conversion-roads",
+]);
+assert.deepEqual(
+  europeReborn.movements
+    .map((movement, index) =>
+      movement.interaction &&
+      principalCommonwealthInteractionKinds.has(movement.interaction.kind)
+        ? index + 1
+        : null
+    )
+    .filter(Boolean),
+  [2, 7, 9, 13],
+  "Europe Reborn principal interactions should remain in movements 2, 7, 9 and 13.",
+);
+assert.deepEqual(
+  europeReborn.movements
+    .map((movement) => movement.interaction?.kind)
+    .filter((kind) => kind && principalCommonwealthInteractionKinds.has(kind)),
+  ["commonwealth-city", "written-network", "realm-partition", "conversion-roads"],
+  "Europe Reborn should preserve its city, writing, partition and conversion sequence.",
+);
+assert.deepEqual(
+  europeReborn.movements
+    .map((movement, index) =>
+      movement.interaction?.kind === "commonwealth-trace" ? index + 1 : null
+    )
+    .filter(Boolean),
+  [3, 4, 6, 10, 14],
+  "Europe Reborn lighter evidence traces should remain in movements 3, 4, 6, 10 and 14.",
+);
+for (const movement of europeReborn.movements) {
+  if (movement.interaction?.kind !== "commonwealth-trace") continue;
+  assert.equal(
+    movement.interaction.stops.length,
+    3,
+    `Commonwealth trace ${movement.id} should have three thumb-friendly stops.`,
+  );
+}
+
+const europeRebornWords = europeReborn.movements.reduce(
+  (sum, movement) =>
+    sum +
+    movement.body.reduce(
+      (movementSum, paragraph) => movementSum + paragraph.trim().split(/\s+/).length,
+      0,
+    ),
+  0,
+);
+assert.ok(
+  europeRebornWords >= 2500 && europeRebornWords <= 3300,
+  `Europe Reborn should contain 2,500–3,300 words of continuous narrative; found ${europeRebornWords}.`,
+);
+assert.equal(
+  europeRebornScene?.chronicle?.href,
+  "chapters/europe-reborn/",
+  "The main journey needs a working Europe Reborn chapter link.",
+);
+assert.equal(
+  europeRebornScene?.chronicle?.label,
+  "Follow the rebuilt road",
+  "The Europe Reborn chapter link needs its historical invitation.",
+);
+const papalRevolutionScene = scenes.find((scene) => scene.id === europeReborn.nextHash);
+assert.ok(papalRevolutionScene, "Europe Reborn ending needs a real next scene.");
+assert.equal(
+  europeReborn.nextTitle,
+  papalRevolutionScene.title,
+  "Europe Reborn ending title must match its actual next scene.",
+);
+assert.equal(
+  europeReborn.ending.nextPeriod,
+  `AD ${papalRevolutionScene.period.label}`,
+  "Europe Reborn ending period must match its actual next scene.",
+);
+
+console.log(
+  "Farmers, Steppe, Bronze, Greece, Rome, Christian Empire and Europe Reborn chapter checks passed.",
+);
