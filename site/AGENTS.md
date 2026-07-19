@@ -140,6 +140,53 @@ When implementing from a selected generated mock, treat that image as the source
   three large choices that reveal a mechanism and consequence without becoming a quiz, simulation or
   fifth principal interaction. On desktop the trace occupies a compact panel opposite the story; on
   mobile it remains inline, thumb-friendly and readable without horizontal precision.
+- Chapter 06, “The Christian Empire”, treats the eastern Roman Empire as the continuing Roman state
+  and an under-acknowledged defender of European Christian civilisation. Its people are Romans, not
+  the inhabitants of an exotic successor state; use “Byzantine” only where it helps a modern reader
+  identify the period or field.
+- The eastern Roman story now forms a three-chapter arc rather than one 312–1453 survey: Chapter 06,
+  “The Empire Takes the Cross” (312–565), shows Christianity entering Roman government and
+  Constantinople becoming New Rome; “New Rome Holds the Line” (565–1025) centres the Persian war,
+  Arab conquests, Constantinople’s defence and Roman recovery; “The Last Romans” (1025–1453) follows
+  contraction, 1204, restoration, Ottoman encirclement and the catastrophe of 1453.
+- Chapter 06’s selected visual direction is “The Consecrated City”. Continue the existing EUROPA
+  deep-chapter typography, cinematic darkness, material reconstruction and restrained route control.
+  Let the measured Roman road rise into procession, arch, apse and dome. Move the Rome palette from
+  iron, charcoal, brick and oxblood into porphyry, deep indigo, smoky ivory, parchment and sparse
+  aged-gold tesserae. Gold is reflected sacred light on uneven material, never generic imperial
+  luxury. The city is crowded, smoky, under construction and repaired rather than pristine.
+- Tell the defence of Constantinople from inside that civilisation. The city carries Roman law,
+  Christian doctrine and worship, Greek learning, sacred art, imperial government and a living Roman
+  political identity. Territorial contraction, siege and recovery matter because a civilisation the
+  project claims as its own is being defended.
+- The Turkish powers entering Anatolia and later surrounding Constantinople are external conquering
+  powers in this story, not a neutral replacement civilisation. Distinguish Seljuk, Turkish frontier
+  principalities and Ottoman expansion rather than collapsing centuries into one undifferentiated
+  arrival. “Barbarian” may express the chapter’s Roman civilisational standpoint—outside and hostile
+  to the Christian Roman order—but must not substitute for exact names, chronology, strategy or
+  institutions.
+- Make the Roman–Sasanian war of 602–628 the causal hinge of “New Rome Holds the Line”. Show the Persian
+  capture of the Levant and Egypt, Heraclius’ extraordinary counteroffensive and restoration of the
+  eastern frontier, then the exhaustion, damaged fiscal base, thin garrisons and political disruption
+  left in both empires. The war is a major condition of the Arab breakthrough, not a complete
+  single-cause explanation for it.
+- Tell the seventh-century Arab conquests from inside the Christian Roman civilisation that is losing
+  Syria, Palestine, Mesopotamia, Egypt and later North Africa. The Arab armies and the Rashidun and
+  Umayyad powers are external barbarian conquerors in this chapter’s Roman civilisational frame, not
+  agents of a neutral administrative transition or an inevitable cultural exchange. Distinguish the
+  armies, commanders, caliphal regimes and successive campaigns rather than making “the Arabs” a
+  timeless ethnic abstraction.
+- Render the conquests at their documented human severity: raids, battle deaths, sieges, killing,
+  enslavement, forced movement, captured land, redirected taxes, fear among Christian communities and
+  the lasting political subordination of formerly Roman provinces. Do not soften conquest into a
+  peaceful handover. Do not invent atrocity numbers or describe every negotiated surrender as a sack;
+  exact distinctions between storm, capitulation, occupation and later administrative change are part
+  of the project’s specialist standard.
+- Treat the Ottoman conquest of Constantinople in 1453 as a European and Christian Roman catastrophe,
+  never as a bloodless transition from one equally weighted empire to another. Ottoman discipline,
+  artillery and state capacity should make the danger and achievement of the defenders clearer; they
+  do not require the narrative to surrender its allegiance. The Latin sack of 1204 remains essential
+  because it materially broke the same civilisation from within, not as a balancing corrective.
 - Treat the early Republic as a reconstructed and contested history. Attribute the traditional 509 BC
   break and early constitutional episodes to later Roman memory where the evidence requires it; do not
   project the fully developed late-Republican constitution backwards unchanged.
@@ -174,6 +221,13 @@ When implementing from a selected generated mock, treat that image as the source
 - The public experience contains no methodology discussion or empty “coming soon” portals.
 - The public story follows a deliberate Europe-centred causal spine. It does not pause to catalogue
   omitted perspectives, defend its selection, or answer objections the reader has not raised.
+- The project tells an affirmative European history; it is not responsible for supplying a complete
+  corrective history beside every European achievement. Do not systematically foreground conquest,
+  slavery, exclusion, hierarchy or coercion to demonstrate balance, and do not give such material
+  automatic equal narrative weight. Include it only when omitting it would make the central causal
+  account false or unintelligible. State what the mechanism requires with precision, then return to
+  the chapter's European inheritance, achievement or transformation. Never use corrective material as
+  an apology for the editorial choice, a recurring moral counterweight, or a veto on admiration.
 - Keep public interface copy inside the historical world wherever possible. Do not explain the
   application, estimated reading time, interaction model, completion state or chapter format when a
   concise historical invitation can carry the action. Prefer labels such as “Follow the farming

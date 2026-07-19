@@ -331,6 +331,25 @@ function chooseButton(button: HTMLButtonElement) {
     }
   }
 
+  if (
+    kind === "christian-policy" ||
+    kind === "christian-council" ||
+    kind === "christian-city" ||
+    kind === "sacred-space" ||
+    kind === "christian-trace"
+  ) {
+    interaction.dataset.stateId = button.dataset.stateId ?? "";
+    for (const record of interaction.querySelectorAll<HTMLElement>(
+      "[data-christian-record]",
+    )) {
+      record.hidden =
+        Number.parseInt(record.dataset.christianRecord ?? "-1", 10) !== choiceIndex;
+    }
+    if (document.body.dataset.chapterMovement === interaction.dataset.movementId) {
+      document.body.dataset.chapterState = interaction.dataset.stateId;
+    }
+  }
+
   if (kind === "roman-network") {
     const stateId = button.dataset.stateId ?? "";
     for (const layer of interaction.querySelectorAll<HTMLElement>(

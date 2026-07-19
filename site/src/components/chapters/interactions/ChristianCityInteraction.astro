@@ -1,0 +1,39 @@
+---
+import type { ChristianCityInteraction as ChristianCityInteractionType } from "../../../types/chapter";
+
+type Props = { interaction: ChristianCityInteractionType };
+const { interaction } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+<div class="consecrated-city">
+  <div class="consecrated-city__plan" aria-hidden="true">
+    <img src={`${base}${interaction.mapImage}`} alt="" width="1200" height="800" loading="lazy" decoding="async" />
+    <span></span><span></span><span></span><span></span>
+  </div>
+  <div class="consecrated-city__rail" role="group" aria-label={interaction.prompt}>
+    {interaction.states.map((state, index) => (
+      <button
+        type="button"
+        class:list={["consecrated-city__button", { "is-active": index === 0 }]}
+        data-interaction-choice
+        data-choice-index={index}
+        data-state-id={state.id}
+        data-detail={state.detail}
+        aria-pressed={index === 0 ? "true" : "false"}
+      >
+        <span>{state.period}</span>
+        {state.label}
+      </button>
+    ))}
+  </div>
+  <div class="consecrated-city__records" aria-live="polite">
+    {interaction.states.map((state, index) => (
+      <article data-christian-record={index} hidden={index !== 0}>
+        <p><span>Reach</span><strong>{state.reach}</strong></p>
+        <p><span>Institution</span><strong>{state.institution}</strong></p>
+        <p><span>Inheritance</span><strong>{state.inheritance}</strong></p>
+      </article>
+    ))}
+  </div>
+</div>

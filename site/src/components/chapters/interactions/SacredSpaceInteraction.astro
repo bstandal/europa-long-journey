@@ -1,0 +1,35 @@
+---
+import type { SacredSpaceInteraction as SacredSpaceInteractionType } from "../../../types/chapter";
+
+type Props = { interaction: SacredSpaceInteractionType };
+const { interaction } = Astro.props;
+---
+
+<div class="sacred-space">
+  <div class="sacred-space__oculus" aria-hidden="true"><span>Η ΑΓΙΑ ΣΟΦΙΑ</span></div>
+  <div class="sacred-space__rail" role="group" aria-label={interaction.prompt}>
+    {interaction.states.map((state, index) => (
+      <button
+        type="button"
+        class:list={["sacred-space__button", { "is-active": index === 0 }]}
+        data-interaction-choice
+        data-choice-index={index}
+        data-state-id={state.id}
+        data-detail={state.detail}
+        aria-pressed={index === 0 ? "true" : "false"}
+      >
+        <span>{String(index + 1).padStart(2, "0")}</span>
+        {state.label}
+      </button>
+    ))}
+  </div>
+  <div class="sacred-space__records" aria-live="polite">
+    {interaction.states.map((state, index) => (
+      <article data-christian-record={index} hidden={index !== 0}>
+        <p><span>Challenge</span><strong>{state.challenge}</strong></p>
+        <p><span>Answer</span><strong>{state.answer}</strong></p>
+        <p><span>Consequence</span><strong>{state.consequence}</strong></p>
+      </article>
+    ))}
+  </div>
+</div>

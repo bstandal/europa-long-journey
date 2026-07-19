@@ -2,12 +2,17 @@
 import type { ChapterInteraction } from "../../types/chapter";
 import CitizenBodyInteraction from "./interactions/CitizenBodyInteraction.astro";
 import CivicPathInteraction from "./interactions/CivicPathInteraction.astro";
+import ChristianCityInteraction from "./interactions/ChristianCityInteraction.astro";
+import ChristianCouncilInteraction from "./interactions/ChristianCouncilInteraction.astro";
+import ChristianPolicyInteraction from "./interactions/ChristianPolicyInteraction.astro";
+import ChristianTraceInteraction from "./interactions/ChristianTraceInteraction.astro";
 import InscriptionInteraction from "./interactions/InscriptionInteraction.astro";
 import RomanCitizenshipInteraction from "./interactions/RomanCitizenshipInteraction.astro";
 import RomanCommandInteraction from "./interactions/RomanCommandInteraction.astro";
 import RomanConstitutionInteraction from "./interactions/RomanConstitutionInteraction.astro";
 import RomanNetworkInteraction from "./interactions/RomanNetworkInteraction.astro";
 import RomanTraceInteraction from "./interactions/RomanTraceInteraction.astro";
+import SacredSpaceInteraction from "./interactions/SacredSpaceInteraction.astro";
 import WarTimelineInteraction from "./interactions/WarTimelineInteraction.astro";
 
 type Props = {
@@ -18,39 +23,68 @@ type Props = {
 const { movementId, interaction } = Astro.props;
 const initialSeasonIndex =
   interaction.kind === "seasons" ? (interaction.initialIndex ?? 0) : 0;
-const initialDetail =
-  interaction.kind === "seasons"
-    ? interaction.stages[initialSeasonIndex].detail
-    : interaction.kind === "route"
-      ? interaction.points[0].detail
-      : interaction.kind === "harvest"
-        ? "One store has to answer three different futures."
-        : interaction.kind === "lineage"
-          ? interaction.snapshots[0].detail
-          : interaction.kind === "inspect"
-            ? interaction.items[0].detail
-          : interaction.kind === "growth"
-              ? interaction.stages[0].detail
-              : interaction.kind === "compare"
-                ? interaction.layers[0].detail
-                : interaction.kind === "mobility"
-                  ? interaction.states[0].detail
-                  : interaction.kind === "turnover"
-                    ? interaction.regions[0].detail
-                    : interaction.kind === "inheritance"
-                      ? interaction.layers[0].detail
-                      : interaction.kind === "civic-path"
-                        ? interaction.paths[0].detail
-                        : interaction.kind === "roman-constitution"
-                          ? interaction.institutions[0].detail
-                          : interaction.kind === "roman-network" ||
-                              interaction.kind === "roman-command"
-                            ? interaction.states[0].detail
-                            : interaction.kind === "roman-citizenship"
-                              ? interaction.paths[0].detail
-                              : interaction.kind === "roman-trace"
-                                ? interaction.stops[0].detail
-                        : interaction.states[0].detail;
+function getInitialDetail(value: ChapterInteraction) {
+  switch (value.kind) {
+    case "route": return value.points[0].detail;
+    case "seasons": return value.stages[initialSeasonIndex].detail;
+    case "harvest": return "One store has to answer three different futures.";
+    case "inspect": return value.items[0].detail;
+    case "lineage": return value.snapshots[0].detail;
+    case "growth": return value.stages[0].detail;
+    case "compare": return value.layers[0].detail;
+    case "mobility":
+    case "roman-network":
+    case "roman-command":
+    case "christian-policy":
+    case "christian-council":
+    case "christian-city":
+    case "sacred-space":
+      return value.states[0].detail;
+    case "turnover": return value.regions[0].detail;
+    case "inheritance": return value.layers[0].detail;
+    case "civic-path": return value.paths[0].detail;
+    case "roman-constitution": return value.institutions[0].detail;
+    case "roman-citizenship": return value.paths[0].detail;
+    case "roman-trace":
+    case "christian-trace":
+      return value.stops[0].detail;
+    default:
+      return value.states[0].detail;
+  }
+}
+
+function getInitialStateId(value: ChapterInteraction) {
+  switch (value.kind) {
+    case "seasons": return value.stages[initialSeasonIndex].id;
+    case "growth": return value.stages[0].id;
+    case "mobility":
+    case "roman-network":
+    case "roman-command":
+    case "christian-policy":
+    case "christian-council":
+    case "christian-city":
+    case "sacred-space":
+      return value.states[0].id;
+    case "turnover": return value.regions[0].id;
+    case "inheritance": return value.layers[0].id;
+    case "civic-path":
+    case "roman-citizenship":
+      return value.paths[0].id;
+    case "roman-constitution": return value.institutions[0].id;
+    case "roman-trace":
+    case "christian-trace":
+      return value.stops[0].id;
+    case "inscription":
+    case "citizen-body":
+    case "war-timeline":
+      return value.states[0].id;
+    default:
+      return undefined;
+  }
+}
+
+const initialDetail = getInitialDetail(interaction);
+const initialStateId = getInitialStateId(interaction);
 ---
 
 <div
@@ -58,34 +92,7 @@ const initialDetail =
   data-chapter-interaction
   data-interaction-kind={interaction.kind}
   data-movement-id={movementId}
-  data-state-id={
-    interaction.kind === "seasons"
-      ? interaction.stages[initialSeasonIndex].id
-      : interaction.kind === "growth"
-        ? interaction.stages[0].id
-        : interaction.kind === "mobility"
-          ? interaction.states[0].id
-          : interaction.kind === "turnover"
-            ? interaction.regions[0].id
-            : interaction.kind === "inheritance"
-              ? interaction.layers[0].id
-              : interaction.kind === "civic-path"
-                ? interaction.paths[0].id
-                : interaction.kind === "roman-constitution"
-                  ? interaction.institutions[0].id
-                  : interaction.kind === "roman-network" ||
-                      interaction.kind === "roman-command"
-                    ? interaction.states[0].id
-                    : interaction.kind === "roman-citizenship"
-                      ? interaction.paths[0].id
-                      : interaction.kind === "roman-trace"
-                        ? interaction.stops[0].id
-                : interaction.kind === "inscription" ||
-                    interaction.kind === "citizen-body" ||
-                    interaction.kind === "war-timeline"
-                  ? interaction.states[0].id
-              : undefined
-  }
+  data-state-id={initialStateId}
   data-season-tone={
     interaction.kind === "seasons"
       ? interaction.stages[initialSeasonIndex].tone
@@ -565,6 +572,36 @@ const initialDetail =
   {
     interaction.kind === "roman-trace" && (
       <RomanTraceInteraction interaction={interaction} />
+    )
+  }
+
+  {
+    interaction.kind === "christian-policy" && (
+      <ChristianPolicyInteraction interaction={interaction} />
+    )
+  }
+
+  {
+    interaction.kind === "christian-council" && (
+      <ChristianCouncilInteraction interaction={interaction} />
+    )
+  }
+
+  {
+    interaction.kind === "christian-city" && (
+      <ChristianCityInteraction interaction={interaction} />
+    )
+  }
+
+  {
+    interaction.kind === "sacred-space" && (
+      <SacredSpaceInteraction interaction={interaction} />
+    )
+  }
+
+  {
+    interaction.kind === "christian-trace" && (
+      <ChristianTraceInteraction interaction={interaction} />
     )
   }
 

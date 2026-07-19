@@ -63,11 +63,11 @@ export const romeGathersEurope: ChapterDefinition = {
       "Caracalla’s grant made almost every free inhabitant a Roman citizen. It left slavery, wealth and legal privilege intact, but gave the empire a shared civic status through which later emperors, bishops and jurists could address people from Britain to Syria as members of one Roman commonwealth.",
     image: `${imageRoot}/ending-faith-enters-empire.avif`,
     mobileImage: `${imageRoot}/ending-faith-enters-empire-mobile.avif`,
-    nextPeriod: "AD 312–1453",
+    nextPeriod: "AD 312–565",
   },
   returnHash: "rome-gathers-europe",
   nextHash: "christian-empire",
-  nextTitle: "The Christian Empire",
+  nextTitle: "The Empire Takes the Cross",
   movements: [
     {
       id: "power-after-the-king",

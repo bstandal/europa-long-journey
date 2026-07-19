@@ -335,6 +335,11 @@ const allowedChapterInteractions = new Set([
   "roman-command",
   "roman-citizenship",
   "roman-trace",
+  "christian-policy",
+  "christian-council",
+  "christian-city",
+  "sacred-space",
+  "christian-trace",
 ]);
 
 for (const chapter of chapters) {
@@ -1226,6 +1231,149 @@ for (const chapter of chapters) {
         }
         break;
       }
+      case "christian-policy": {
+        const { states } = interaction;
+        validateInteractionItems(qualifiedId, "Christian policy states", states);
+        if (states.length !== 4) {
+          errors.push(`Movement "${qualifiedId}" Christian policy interaction needs four states.`);
+        }
+        for (const state of states) {
+          if (
+            !hasPublicText(state.period) ||
+            !hasPublicText(state.imperialAction) ||
+            !hasPublicText(state.churchPosition) ||
+            !hasPublicText(state.publicSign)
+          ) {
+            errors.push(
+              `Movement "${qualifiedId}" Christian policy state "${state.id}" needs period, imperial action, church position and public sign text.`,
+            );
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" Christian policy "${state.id}" label`, value: state.label },
+            { label: `movement "${movement.id}" Christian policy "${state.id}" detail`, value: state.detail },
+            { label: `movement "${movement.id}" Christian policy "${state.id}" period`, value: state.period },
+            { label: `movement "${movement.id}" Christian policy "${state.id}" imperial action`, value: state.imperialAction },
+            { label: `movement "${movement.id}" Christian policy "${state.id}" church position`, value: state.churchPosition },
+            { label: `movement "${movement.id}" Christian policy "${state.id}" public sign`, value: state.publicSign },
+          );
+        }
+        break;
+      }
+      case "christian-council": {
+        const { states } = interaction;
+        validateInteractionItems(qualifiedId, "Christian council states", states);
+        if (states.length !== 4) {
+          errors.push(`Movement "${qualifiedId}" Christian council interaction needs four states.`);
+        }
+        for (const state of states) {
+          if (
+            !hasPublicText(state.period) ||
+            !hasPublicText(state.authority) ||
+            !hasPublicText(state.act) ||
+            !hasPublicText(state.consequence)
+          ) {
+            errors.push(
+              `Movement "${qualifiedId}" Christian council state "${state.id}" needs period, authority, act and consequence text.`,
+            );
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" Christian council "${state.id}" label`, value: state.label },
+            { label: `movement "${movement.id}" Christian council "${state.id}" detail`, value: state.detail },
+            { label: `movement "${movement.id}" Christian council "${state.id}" period`, value: state.period },
+            { label: `movement "${movement.id}" Christian council "${state.id}" authority`, value: state.authority },
+            { label: `movement "${movement.id}" Christian council "${state.id}" act`, value: state.act },
+            { label: `movement "${movement.id}" Christian council "${state.id}" consequence`, value: state.consequence },
+          );
+        }
+        break;
+      }
+      case "christian-city": {
+        const { mapImage, states } = interaction;
+        validateInteractionItems(qualifiedId, "Christian city states", states);
+        if (states.length !== 4) {
+          errors.push(`Movement "${qualifiedId}" Christian city interaction needs four states.`);
+        }
+        try {
+          await access(`${root}/${mapImage}`);
+        } catch {
+          errors.push(`Movement "${qualifiedId}" Christian city map is missing at /${mapImage}.`);
+        }
+        for (const state of states) {
+          if (
+            !hasPublicText(state.period) ||
+            !hasPublicText(state.reach) ||
+            !hasPublicText(state.institution) ||
+            !hasPublicText(state.inheritance)
+          ) {
+            errors.push(
+              `Movement "${qualifiedId}" Christian city state "${state.id}" needs period, reach, institution and inheritance text.`,
+            );
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" Christian city "${state.id}" label`, value: state.label },
+            { label: `movement "${movement.id}" Christian city "${state.id}" detail`, value: state.detail },
+            { label: `movement "${movement.id}" Christian city "${state.id}" period`, value: state.period },
+            { label: `movement "${movement.id}" Christian city "${state.id}" reach`, value: state.reach },
+            { label: `movement "${movement.id}" Christian city "${state.id}" institution`, value: state.institution },
+            { label: `movement "${movement.id}" Christian city "${state.id}" inheritance`, value: state.inheritance },
+          );
+        }
+        break;
+      }
+      case "sacred-space": {
+        const { states } = interaction;
+        validateInteractionItems(qualifiedId, "sacred space states", states);
+        if (states.length !== 4) {
+          errors.push(`Movement "${qualifiedId}" sacred space interaction needs four states.`);
+        }
+        for (const state of states) {
+          if (
+            !hasPublicText(state.period) ||
+            !hasPublicText(state.challenge) ||
+            !hasPublicText(state.answer) ||
+            !hasPublicText(state.consequence)
+          ) {
+            errors.push(
+              `Movement "${qualifiedId}" sacred space state "${state.id}" needs period, challenge, answer and consequence text.`,
+            );
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" sacred space "${state.id}" label`, value: state.label },
+            { label: `movement "${movement.id}" sacred space "${state.id}" detail`, value: state.detail },
+            { label: `movement "${movement.id}" sacred space "${state.id}" period`, value: state.period },
+            { label: `movement "${movement.id}" sacred space "${state.id}" challenge`, value: state.challenge },
+            { label: `movement "${movement.id}" sacred space "${state.id}" answer`, value: state.answer },
+            { label: `movement "${movement.id}" sacred space "${state.id}" consequence`, value: state.consequence },
+          );
+        }
+        break;
+      }
+      case "christian-trace": {
+        const { stops } = interaction;
+        validateInteractionItems(qualifiedId, "Christian trace stops", stops);
+        if (stops.length !== 3) {
+          errors.push(`Movement "${qualifiedId}" Christian trace interaction needs three stops.`);
+        }
+        for (const stop of stops) {
+          if (
+            !hasPublicText(stop.period) ||
+            !hasPublicText(stop.instrument) ||
+            !hasPublicText(stop.inheritance)
+          ) {
+            errors.push(
+              `Movement "${qualifiedId}" Christian trace stop "${stop.id}" needs period, instrument and inheritance text.`,
+            );
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" Christian trace "${stop.id}" label`, value: stop.label },
+            { label: `movement "${movement.id}" Christian trace "${stop.id}" detail`, value: stop.detail },
+            { label: `movement "${movement.id}" Christian trace "${stop.id}" period`, value: stop.period },
+            { label: `movement "${movement.id}" Christian trace "${stop.id}" instrument`, value: stop.instrument },
+            { label: `movement "${movement.id}" Christian trace "${stop.id}" inheritance`, value: stop.inheritance },
+          );
+        }
+        break;
+      }
     }
 
     validateChapterCopy(
@@ -1306,6 +1454,23 @@ for (const chapter of chapters) {
     if (bodyWords < 3200 || bodyWords > 3900) {
       errors.push(
         `Chapter "${chapter.slug}" continuous body should contain 3,200–3,900 words; found ${bodyWords}.`,
+      );
+    }
+  }
+  if (chapter.slug === "empire-takes-cross") {
+    const bodyWords = chapter.movements.reduce(
+      (sum, movement) =>
+        sum +
+        movement.body.reduce(
+          (movementSum, paragraph) =>
+            movementSum + paragraph.trim().split(/\s+/).length,
+          0,
+        ),
+      0,
+    );
+    if (bodyWords < 2500 || bodyWords > 3100) {
+      errors.push(
+        `Chapter "${chapter.slug}" continuous body should contain 2,500–3,100 words; found ${bodyWords}.`,
       );
     }
   }

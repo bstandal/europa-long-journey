@@ -1,101 +1,113 @@
-# Bronze Europe — final design QA
+# Chapter 06 design QA
+
+## Comparison target
 
 - Source visual truth:
-  `/Users/bard/.codex/generated_images/019f7563-067e-77a0-8425-d9a7318ca24f/call_gA2vA7KC3UyuNU4uama8bxWb.png`
-- Browser-rendered implementation:
-  `/Users/bard/Documents/Eurocentric/site/audit/bronze-scroll-qa-2026/01-opening-mobile-390x844.png`
-- Full-view comparison:
-  `/Users/bard/Documents/Eurocentric/site/audit/bronze-scroll-qa-2026/comparison-opening-source-left-implementation-right.png`
-- Flow evidence:
-  `/Users/bard/Documents/Eurocentric/site/audit/bronze-scroll-qa-2026/flow-contact-sheet.png`
-- Viewport: `390 × 844`
-- State: opening and representative movement, interaction and ending states
+  `design/references/chapter-06-consecrated-city.png`
+- Local implementation:
+  `http://127.0.0.1:4323/chapters/empire-takes-cross/`
+- Primary viewport:
+  1440 × 1024 CSS pixels, device scale factor 1
+- Primary state:
+  chapter opening at scroll position 0
+- Final implementation screenshot:
+  `design/qa/chapter-06-desktop-1440x1024.png`
+- Final side-by-side comparison:
+  `design/qa/chapter-06-desktop-comparison-final.png`
+- Mobile responsive evidence:
+  `design/qa/chapter-06-mobile-390x844.png`
+- Focused interaction evidence:
+  `design/qa/chapter-06-policy-interaction-1440x1024.png`
 
 ## Findings
 
-No actionable P0, P1 or P2 issues remain at the target mobile viewport.
+No actionable P0, P1 or P2 findings remain.
 
-- Fonts and typography: Bodoni Moda and Manrope retain the selected display/editorial hierarchy.
-  Every movement title is readable at 390 px, the longest titles wrap deliberately, and prose keeps a
-  comfortable line length and line height.
-- Spacing and layout rhythm: the 62 px header and 198 px opening atlas plate match the selected
-  map-to-sea sequence. During the narrative, the route contracts to 150 px and the document becomes a
-  continuous vertical flow. There is no horizontal overflow.
-- Colors and visual tokens: green-black water, limestone ivory, graphite relief and restrained
-  polished bronze remain consistent from opening through sources. Bronze is used for route, date,
-  focus and evidence accents rather than as a general wash.
-- Image quality and asset fidelity: the opening map, sea scene and nine movement reconstructions are
-  production raster assets with complete natural dimensions. No image failed to load. Crops preserve
-  the principal action on mobile and stay within the selected museum-editorial art direction.
-- Copy and content: the opening claim remains unchanged. The page now contains 2,750 visible words,
-  ten narrative movements, ten evidence disclosures, four optional interactions and a concrete
-  handoff to Greece. No reading-time or application-state copy appears in the public experience.
-- Navigation and interaction: all ten route states update from scrolling alone. The alloy route,
-  Nordic inspection, Uluburun inspection and archive-to-memory comparison work as optional pauses.
-  Opening and ending route states no longer leak into one another.
-- Accessibility: semantic headings, labelled map region, alt text, focus styles, reduced-motion
-  handling and 44 px primary touch targets are present. Inline citation links use the WCAG inline-text
-  target exception. The page has no horizontal overflow at 390 px.
+- **Fonts and typography:** The implementation retains the project’s existing
+  high-contrast display serif, restrained sans-serif metadata and wide-tracked
+  EUROPA wordmark. Title scale, two-line desktop wrap, line-height and optical
+  weight match the selected direction. At 390 pixels the title becomes a
+  controlled three-line composition without clipping.
+- **Spacing and layout rhythm:** Header height, left alignment, opening number,
+  title, claim and action follow the reference hierarchy. The desktop action is
+  fully visible inside the 1024-pixel viewport. The mobile opening preserves
+  readable space between title, claim and action. No document-level horizontal
+  overflow was measured at either viewport.
+- **Colors and tokens:** Iron black, smoky ivory, porphyry shadow, indigo and
+  sparse aged gold map to the selected direction. Gold is restricted to
+  reflected light, rules, metadata and active states rather than used as a
+  generic luxury surface.
+- **Image quality and asset fidelity:** The opening uses a purpose-built,
+  evidence-led Milvian Bridge reconstruction rather than the option mock’s
+  generic construction procession. This is an intentional content correction:
+  the subject now matches movement 01 while preserving the reference’s road,
+  dark field, processional depth and sacred break of light. All fourteen
+  movement scenes and the Constantinople plan are dedicated raster assets; no
+  historical scene is replaced by placeholder or code-drawn art.
+- **Copy and content:** Public copy is coherent as a standalone chapter opening
+  and uses the locked 312–565 claim. The final claim is slightly more exact than
+  the concept mock by naming a “renewed Christian Rome.”
+- **States and interactions:** Policy, council, city and sacred-space controls
+  update their selected button, live detail and corresponding record. Five
+  three-stop trace interactions use the same touch-friendly state system. The
+  mobile route panel opens and closes, stays within 390 pixels and returns focus
+  to normal reading order.
+- **Accessibility and resilience:** Controls are semantic buttons, selected
+  state is exposed through `aria-pressed`, details update in live regions, the
+  map panel has an expanded state, movement images have narrative alt text, and
+  reduced-motion rules remove decorative transition duration. Mobile principal
+  buttons measure 118 × 72 pixels.
 
-## Full-view comparison evidence
+## Focused comparison
 
-The combined source-left/implementation-right image compares the same opening and target mobile
-viewport. The implementation preserves the source’s header, bronze route plate, low ship-level
-horizon, two-line title, thesis and final historical invitation. The live route adds a current place
-line beneath the map so the same component can guide all ten movements.
-
-## Focused-region evidence
-
-The seven-state contact sheet keeps route labels, scene titles, prose measure, act transitions,
-interaction controls and ending copy large enough to judge. A separate pixel crop was unnecessary
-because those surfaces remain legible at half scale in the sheet and were inspected individually in
-the browser at 1:1.
-
-## Primary interactions tested
-
-- Ordinary scrolling activates every movement and updates date, place, route marker and URL hash.
-- `Sword` in the alloy sequence changes the selected point and explanatory consequence.
-- The archive-to-memory slider updates the visual split from 50 to 82 percent.
-- `Memory` changes the selected comparison layer and detail.
-- Returning to scroll position zero restores `c. 2500 BC · Europe · Egypt · Mesopotamia`.
-- Entering the ending preserves the European route map instead of restoring the opening atlas.
-- All movement images load; no horizontal overflow appears; build and content validation pass.
+The opening required a full-view side-by-side comparison because hierarchy,
+crop and the title-to-image relationship are the fidelity-critical surfaces.
+The focused interaction screenshot was reviewed separately because the concept
+mock did not define an interaction state. It confirms that the 44-pixel
+navigation rail occupies the opposite side from the active story and that the
+fixed interaction occupies the lower viewport without horizontal clipping.
 
 ## Comparison history
 
-### Iteration 1 — structural correction
+### Pass 1 — blocked
 
-- P1: the previous act tabs hid two-thirds of the experience and made clicking the primary navigation.
-- P1: 249 visible words and three mobile screens could not sustain the requested chapter depth.
+- **[P2] Opening action fell below the desktop fold.**
+  The first screenshot placed the action at 1000–1044 pixels in a 1024-pixel
+  viewport, making the invitation partly inaccessible above the fold.
+- **[P2] Chapter route added visual competition to the opening.**
+  The route rail appeared over the upper-right image field although the selected
+  source kept the opening free of chapter navigation.
+- Evidence:
+  `design/qa/chapter-06-desktop-1440x1024-pass1.png` and
+  `design/qa/chapter-06-desktop-comparison-pass1.png`.
 
-Fixes:
+### Fixes
 
-- Replaced the standalone tab page with the existing deep-chapter engine.
-- Added ten continuous movements, automatic route progress, ten evidence layers and four optional
-  interactions.
-- Expanded the visible narrative to 2,750 words and the mobile document to 22,091 px.
+- Raised the desktop opening block by changing its top/bottom vertical padding
+  from 39/14 svh to 32/25 svh.
+- Hid the chapter route only while `data-chapter-region="opening"`; it returns as
+  a compact 44-pixel rail after entry and remains hidden at the ending.
 
-### Iteration 2 — route and fidelity correction
+### Pass 2 — passed
 
-- P2: returning to the opening after Homer kept the final Greek place label.
-- P2: the first rebuilt opening compressed the selected 198 px atlas region to 150 px.
-- P2: the comparison slider exposed only a 30 px-high touch target.
+- The action now occupies 888–932 pixels and is fully visible.
+- The route opacity is zero in the opening and returns after the entrance link.
+- Title, claim and action remain within the selected source hierarchy.
+- The desktop and mobile pages measure zero document-level horizontal overflow.
+- Post-fix evidence:
+  `design/qa/chapter-06-desktop-comparison-final.png` and
+  `design/qa/chapter-06-mobile-390x844.png`.
 
-Fixes:
+## Browser verification
 
-- Added explicit opening, movement and ending route regions and reset the opening location.
-- Restored the 198 px mobile opening atlas while keeping the compact movement route.
-- Raised range-input hit areas to 44 px.
-
-Post-fix evidence:
-
-- `/Users/bard/Documents/Eurocentric/site/audit/bronze-scroll-qa-2026/comparison-opening-source-left-implementation-right.png`
-- `/Users/bard/Documents/Eurocentric/site/audit/bronze-scroll-qa-2026/flow-contact-sheet.png`
-
-## Residual test limits
-
-- The target visual is mobile, so the current browser-rendered comparison is limited to `390 × 844`.
-  Desktop uses the already established deep-chapter layout and passed static build validation, but it
-  is not part of this final pixel comparison.
+- Entered the chapter through “Enter the consecrated city.”
+- Opened and closed the mobile route panel.
+- Changed policy to `confession-380`.
+- Changed the council to `reception`.
+- Changed the city to `capital-450`.
+- Changed Hagia Sophia to `emperor`.
+- Checked the in-app browser log after the interactions: no warnings or errors.
+- Ran Astro type diagnostics, content validation, chapter tests and production
+  build with zero errors.
 
 final result: passed

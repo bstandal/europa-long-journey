@@ -1,0 +1,37 @@
+---
+import type { ChristianCouncilInteraction as ChristianCouncilInteractionType } from "../../../types/chapter";
+
+type Props = { interaction: ChristianCouncilInteractionType };
+const { interaction } = Astro.props;
+---
+
+<div class="consecrated-council">
+  <div class="consecrated-council__table" role="group" aria-label={interaction.prompt}>
+    <span class="consecrated-council__centre" aria-hidden="true">325</span>
+    {interaction.states.map((state, index) => (
+      <button
+        type="button"
+        class:list={["consecrated-council__button", { "is-active": index === 0 }]}
+        data-interaction-choice
+        data-choice-index={index}
+        data-state-id={state.id}
+        data-detail={state.detail}
+        aria-pressed={index === 0 ? "true" : "false"}
+      >
+        <span>{String(index + 1).padStart(2, "0")}</span>
+        {state.label}
+      </button>
+    ))}
+  </div>
+  <div class="consecrated-council__records" aria-live="polite">
+    {interaction.states.map((state, index) => (
+      <article data-christian-record={index} hidden={index !== 0}>
+        <p><span>Authority</span><strong>{state.authority}</strong></p>
+        <i aria-hidden="true"></i>
+        <p><span>Act</span><strong>{state.act}</strong></p>
+        <i aria-hidden="true"></i>
+        <p><span>Consequence</span><strong>{state.consequence}</strong></p>
+      </article>
+    ))}
+  </div>
+</div>
