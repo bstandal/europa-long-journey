@@ -17,6 +17,10 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      PUBLIC_UMAMI_WEBSITE_ID: ${{ vars.UMAMI_WEBSITE_ID }}
+      PUBLIC_UMAMI_SCRIPT_URL: ${{ vars.UMAMI_SCRIPT_URL }}
+      PUBLIC_UMAMI_DOMAINS: ${{ vars.UMAMI_DOMAINS }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
