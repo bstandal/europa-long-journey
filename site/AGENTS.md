@@ -325,5 +325,6 @@ When implementing from a selected generated mock, treat that image as the source
   clicks outside it, and must never permanently cover headings, narrative or interactions.
 - Administrative prompts must not interrupt the story. Analytics consent stays a compact, non-modal
   bottom bar with no backdrop or oversized card treatment, keeps the page and navigation fully usable,
-  and disappears after either equally prominent choice. Never stack it with another prompt.
+  and disappears after either equally prominent choice. Never stack it with another prompt. Keep
+  service-provider names in the linked details rather than the primary prompt unless clarity requires them.
 - No autoplay audio, flags, blackletter, excessive heraldry, or political-poster styling.
