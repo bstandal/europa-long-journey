@@ -1,0 +1,241 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+
+const analyticsEnabled = Boolean(import.meta.env.PUBLIC_UMAMI_WEBSITE_ID?.trim());
+---
+
+<BaseLayout
+  title="Privacy — EUROPA"
+  description="How EUROPA handles newsletter subscriptions, consent-based analytics and your privacy choices."
+  bodyClass="privacy-page"
+>
+  <SiteHeader section="privacy" />
+  <main id="main-content" class="privacy-main">
+    <header class="privacy-hero">
+      <p class="eyebrow">EUROPA · Privacy</p>
+      <h1>Your reading stays yours.</h1>
+      <div>
+        <p>
+          EUROPA collects only what is needed to send chapter notifications and
+          understand how the journey is read after you consent. EUROPA does not
+          send subscriber details to its analytics service or join them to reading
+          data.
+        </p>
+        <p class="privacy-updated">Last updated 20 July 2026</p>
+      </div>
+    </header>
+
+    <div class="privacy-content">
+      <section class="privacy-section" aria-labelledby="privacy-controller">
+        <p class="privacy-section__number" aria-hidden="true">01</p>
+        <div>
+          <h2 id="privacy-controller">Who is responsible</h2>
+          <p>
+            Bård Standal is responsible for the personal information described on
+            this page. For questions, requests or privacy concerns, email{" "}
+            <a href="mailto:bard.standal@gmail.com">bard.standal@gmail.com</a>.
+          </p>
+        </div>
+      </section>
+
+      <section class="privacy-section" aria-labelledby="privacy-subscription">
+        <p class="privacy-section__number" aria-hidden="true">02</p>
+        <div>
+          <h2 id="privacy-subscription">Chapter notifications</h2>
+          <p>
+            If you ask to hear about new chapters, your email address is required.
+            It is used only to manage the subscription and send occasional
+            notifications when new chapters are published.
+          </p>
+          <p>
+            The legal basis is your consent. After submitting the form, you must
+            confirm the address through a double opt-in email before the subscription
+            becomes active. The subscription record includes the time and source of
+            the request and confirmation so that the consent can be documented.
+          </p>
+          <p>
+            You can withdraw consent at any time through the unsubscribe link in
+            every notification or by emailing the address above. Withdrawing consent
+            does not affect the lawful use of your details before withdrawal.
+          </p>
+        </div>
+      </section>
+
+      <section
+        class="privacy-section"
+        id="privacy-analytics"
+        aria-labelledby="privacy-analytics-title"
+      >
+        <p class="privacy-section__number" aria-hidden="true">03</p>
+        <div>
+          <h2 id="privacy-analytics-title">Reading analytics</h2>
+          <p>
+            Umami is loaded only after you choose <strong>Accept</strong>. The
+            legal basis for this processing is your consent. If you decline, the
+            Umami script is not loaded and EUROPA does not send analytics data.
+          </p>
+          <p>
+            When enabled, Umami receives page paths and titles, referrers, event
+            names and timestamps, visit duration, browser, operating-system and
+            device categories, screen size, language and approximate geographic
+            categories derived from the connection. EUROPA’s events include reading
+            depth, chapter completion, interactions and non-personal signup-interface
+            actions. They do not include form fields, names or email addresses.
+          </p>
+          <p>
+            Umami keeps individual pageview, event, session and visit records and
+            uses a rotating pseudonymous visitor identifier to estimate returning
+            browsers. Its dashboard can aggregate these records, but the underlying
+            visit data is not anonymous aggregate data. EUROPA does not use session
+            replay, heatmaps or cross-site advertising profiles.
+          </p>
+          <p>
+            Analytics records are retained in Umami Cloud for six months. You can
+            withdraw consent for future collection at any time. Withdrawal does not
+            erase data already processed; contact the address above if you want to
+            request deletion where applicable.
+          </p>
+          {
+            analyticsEnabled && (
+              <button
+                class="privacy-choice-button"
+                type="button"
+                data-analytics-preferences
+              >
+                Review analytics choices
+              </button>
+            )
+          }
+        </div>
+      </section>
+
+      <section class="privacy-section" aria-labelledby="privacy-retention">
+        <p class="privacy-section__number" aria-hidden="true">04</p>
+        <div>
+          <h2 id="privacy-retention">Newsletter retention</h2>
+          <ul>
+            <li>
+              The confirmation link expires after 30 days. An unconfirmed address
+              is not added to the sendable subscriber list. EUROPA’s administrative
+              policy is to review and delete related unconfirmed-request logs within
+              90 days.
+            </li>
+            <li>
+              Active subscriber details are kept until you unsubscribe or ask for
+              deletion.
+            </li>
+            <li>
+              After an unsubscribe request, a minimal suppression record may be kept
+              for as long as needed to honour that choice and prevent accidental
+              re-subscription. It is not used to send messages.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="privacy-section" aria-labelledby="privacy-services">
+        <p class="privacy-section__number" aria-hidden="true">05</p>
+        <div>
+          <h2 id="privacy-services">Services that process information</h2>
+          <p>
+            <strong>Brevo</strong> processes subscriber details, confirmation,
+            delivery and unsubscribe records as a data processor for EUROPA.
+            Brevo processes this information on Bård Standal’s documented
+            instructions under a data processing agreement. You can read{" "}
+            <a href="https://www.brevo.com/legal/privacypolicy/" target="_blank" rel="noreferrer">
+              Brevo’s privacy information
+            </a>.
+          </p>
+          <p>
+            EUROPA does not ask subscribers for separate email-pixel tracking
+            consent. Brevo is therefore configured not to attach recipient-level
+            open or click tracking to contacts whose tracking consent is unknown.
+          </p>
+          <p>
+            <strong>Umami Cloud in the EU region</strong> processes the analytics
+            categories described above after consent. Its reports include aggregated
+            views, but it also stores the individual visit and event records needed
+            to produce them.
+          </p>
+          <p>
+            <strong>GitHub Pages</strong> hosts and delivers the public site. Like
+            any hosting service, it necessarily receives connection and request
+            metadata to deliver and secure the pages. EUROPA does not receive
+            GitHub Pages’ raw server logs. This necessary processing is based on
+            the legitimate interest in operating a secure public website. See the{" "}
+            <a
+              href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub General Privacy Statement
+            </a>.
+          </p>
+          <p>
+            These providers publish information about their subprocessors and
+            international-transfer arrangements. Their current notices and the
+            applicable data processing agreements govern those arrangements.
+          </p>
+        </div>
+      </section>
+
+      <section class="privacy-section" aria-labelledby="privacy-storage">
+        <p class="privacy-section__number" aria-hidden="true">06</p>
+        <div>
+          <h2 id="privacy-storage">Browser preferences</h2>
+          <p>
+            If you dismiss the chapter-notification invitation, EUROPA stores a
+            first-party functional preference in your browser’s local storage for 30
+            days. It records only that the invitation was dismissed, so that it does
+            not interrupt you again during that period. It is not used to identify
+            you, measure your reading or share information with another service.
+          </p>
+          <p>
+            After a form hand-off, a second first-party preference pauses all signup
+            invitations for 30 days while the confirmation is pending. After the
+            email address is confirmed, a third preference records that the
+            invitation should not be shown again. The confirmed preference remains
+            until you clear the site’s browser data. Neither preference contains a
+            name, email address or Brevo identifier.
+          </p>
+          <p>
+            You can remove the preference at any time by clearing site data in your
+            browser. The invitation will then be eligible to appear again.
+          </p>
+          <p>
+            The analytics control stores only <strong>granted</strong> or{" "}
+            <strong>denied</strong> in first-party local storage so that EUROPA can
+            remember your choice. You can replace that choice using the control
+            above or the “Analytics choices” button in the footer.
+          </p>
+        </div>
+      </section>
+
+      <section class="privacy-section" aria-labelledby="privacy-rights">
+        <p class="privacy-section__number" aria-hidden="true">07</p>
+        <div>
+          <h2 id="privacy-rights">Your rights</h2>
+          <p>
+            You may ask for access to the personal information held about you, have
+            inaccurate information corrected, request deletion or restriction, and
+            receive the information you supplied in a portable format where
+            applicable. You may also withdraw consent at any time.
+          </p>
+          <p>
+            Start by contacting{" "}
+            <a href="mailto:bard.standal@gmail.com">bard.standal@gmail.com</a>.
+            You also have the right to{" "}
+            <a
+              href="https://www.datatilsynet.no/en/about-us/contact-us/how-to-complain-to-the-norwegian-dpa/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              complain to the Norwegian Data Protection Authority
+            </a>.
+          </p>
+        </div>
+      </section>
+    </div>
+  </main>
+</BaseLayout>

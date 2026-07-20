@@ -9,6 +9,7 @@ import "../styles/chapter-carolingian.css";
 import "../styles/chapter-papal.css";
 import "../styles/chapter-kin.css";
 import "../styles/chapter-v2.css";
+import NewsletterSignup from "../components/NewsletterSignup.astro";
 import BaseLayout from "./BaseLayout.astro";
 
 type Props = {
@@ -29,4 +30,8 @@ const { title, description, theme } = Astro.props;
     document.documentElement.classList.add("chapter-js");
   </script>
   <slot />
+  <NewsletterSignup variant="floating" />
+  <script>
+    import "../scripts/newsletter-signup";
+  </script>
 </BaseLayout>

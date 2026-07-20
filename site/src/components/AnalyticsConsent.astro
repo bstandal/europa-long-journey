@@ -1,0 +1,56 @@
+---
+const base = import.meta.env.BASE_URL;
+const analyticsWebsiteId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID?.trim();
+const analyticsScriptUrl =
+  import.meta.env.PUBLIC_UMAMI_SCRIPT_URL?.trim() ||
+  "https://cloud.umami.is/script.js";
+const analyticsDomains =
+  import.meta.env.PUBLIC_UMAMI_DOMAINS?.trim() || Astro.url.hostname;
+---
+
+{
+  analyticsWebsiteId && (
+    <>
+      <div
+        data-europa-analytics-config
+        data-script-url={analyticsScriptUrl}
+        data-website-id={analyticsWebsiteId}
+        data-domains={analyticsDomains}
+        hidden
+      />
+      <section
+        class="analytics-consent"
+        data-analytics-consent
+        aria-labelledby="analytics-consent-title"
+        hidden
+      >
+        <div>
+          <p class="analytics-consent__eyebrow">Your privacy choice</p>
+          <h2 id="analytics-consent-title">Allow privacy-minded analytics?</h2>
+          <p>
+            If you accept, EUROPA loads Umami to measure visits, reading progress,
+            interactions and basic device and location categories. No name or email
+            address is sent. You can change this choice at any time.{" "}
+            <a href={`${base}privacy/#privacy-analytics`}>Read the details</a>.
+          </p>
+        </div>
+        <div class="analytics-consent__actions">
+          <button
+            type="button"
+            data-analytics-choice="granted"
+            aria-pressed="false"
+          >
+            Accept
+          </button>
+          <button
+            type="button"
+            data-analytics-choice="denied"
+            aria-pressed="false"
+          >
+            Decline
+          </button>
+        </div>
+      </section>
+    </>
+  )
+}

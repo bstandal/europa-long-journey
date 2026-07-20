@@ -1,0 +1,27 @@
+---
+const base = import.meta.env.BASE_URL;
+const pathname = Astro.url.pathname;
+const isPrivacyPage = pathname.endsWith("/privacy/");
+const isSourcesPage = pathname.endsWith("/sources/");
+const analyticsEnabled = Boolean(import.meta.env.PUBLIC_UMAMI_WEBSITE_ID?.trim());
+---
+
+<footer class="site-footer">
+  <p>EUROPA</p>
+  <nav aria-label="Footer navigation">
+    <a href={base}>The journey</a>
+    <a href={`${base}sources/`} aria-current={isSourcesPage ? "page" : undefined}>
+      Sources
+    </a>
+    <a href={`${base}privacy/`} aria-current={isPrivacyPage ? "page" : undefined}>
+      Privacy
+    </a>
+    {
+      analyticsEnabled && (
+        <button type="button" data-analytics-preferences>
+          Analytics choices
+        </button>
+      )
+    }
+  </nav>
+</footer>

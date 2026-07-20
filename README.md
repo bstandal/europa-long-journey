@@ -20,3 +20,8 @@ npm run dev
 
 `npm run build` validates the story, citations and asset metadata before generating the static
 site. GitHub Pages deployment is configured in `.github/workflows/deploy.yml`.
+
+## Administration
+
+- [Usage analytics](site/docs/admin/analytics.md)
+- [Chapter notifications](site/docs/admin/newsletter.md)
