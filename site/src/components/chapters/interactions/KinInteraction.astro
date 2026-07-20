@@ -1,0 +1,121 @@
+---
+import type {
+  ChosenHouseInteraction,
+  ImmortalBodyInteraction,
+  KinMarriageInteraction,
+  KinTraceInteraction,
+  SwornCommuneInteraction,
+} from "../../../types/chapter";
+
+type Interaction =
+  | KinMarriageInteraction
+  | ChosenHouseInteraction
+  | SwornCommuneInteraction
+  | ImmortalBodyInteraction
+  | KinTraceInteraction;
+
+type Props = { interaction: Interaction };
+const { interaction } = Astro.props;
+
+type RecordItem = {
+  id: string;
+  label: string;
+  period: string;
+  detail: string;
+  fields: { label: string; value: string }[];
+};
+
+let records: RecordItem[] = [];
+
+switch (interaction.kind) {
+  case "kin-marriage":
+    records = interaction.states.map((state) => ({
+      ...state,
+      fields: [
+        { label: "Church rule", value: state.rule },
+        { label: "Closed bond", value: state.oldBond },
+        { label: "Opened reach", value: state.newReach },
+        { label: "Consequence", value: state.consequence },
+      ],
+    }));
+    break;
+  case "chosen-house":
+    records = interaction.states.map((state) => ({
+      ...state,
+      fields: [
+        { label: "Binding act", value: state.act },
+        { label: "Held in common", value: state.commonThing },
+        { label: "Office", value: state.office },
+        { label: "Consequence", value: state.consequence },
+      ],
+    }));
+    break;
+  case "sworn-commune":
+    records = interaction.states.map((state) => ({
+      ...state,
+      fields: [
+        { label: "Instrument", value: state.instrument },
+        { label: "Authority", value: state.authority },
+        { label: "Shared possession", value: state.sharedPossession },
+        { label: "Consequence", value: state.consequence },
+      ],
+    }));
+    break;
+  case "immortal-body":
+    records = interaction.states.map((state) => ({
+      ...state,
+      fields: [
+        { label: "What changes", value: state.memberChanges },
+        { label: "What remains", value: state.bodyKeeps },
+        { label: "How it acts", value: state.actsThrough },
+        { label: "Inheritance", value: state.inheritance },
+      ],
+    }));
+    break;
+  case "kin-trace":
+    records = interaction.stops.map((stop) => ({
+      ...stop,
+      fields: [
+        { label: "Instrument", value: stop.instrument },
+        { label: "Consequence", value: stop.consequence },
+        { label: "What it leaves", value: stop.inheritance },
+      ],
+    }));
+    break;
+}
+---
+
+<div class:list={["blood-to-oath", `blood-to-oath--${interaction.kind}`]}>
+  <div class="blood-to-oath__rail" role="group" aria-label={interaction.prompt}>
+    {
+      records.map((record, index) => (
+        <button
+          type="button"
+          class:list={["blood-to-oath__button", { "is-active": index === 0 }]}
+          data-interaction-choice
+          data-choice-index={index}
+          data-state-id={record.id}
+          data-detail={record.detail}
+          aria-pressed={index === 0 ? "true" : "false"}
+        >
+          <span>{record.period}</span>
+          <strong>{record.label}</strong>
+        </button>
+      ))
+    }
+  </div>
+  <div class="blood-to-oath__records" aria-live="polite">
+    {
+      records.map((record, index) => (
+        <article data-kin-record={index} hidden={index !== 0}>
+          {record.fields.map((field) => (
+            <p>
+              <span>{field.label}</span>
+              <strong>{field.value}</strong>
+            </p>
+          ))}
+        </article>
+      ))
+    }
+  </div>
+</div>

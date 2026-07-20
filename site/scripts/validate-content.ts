@@ -350,6 +350,11 @@ const allowedChapterInteractions = new Set([
   "canossa-sequence",
   "investiture-settlement",
   "papal-trace",
+  "kin-marriage",
+  "chosen-house",
+  "sworn-commune",
+  "immortal-body",
+  "kin-trace",
 ]);
 
 for (const chapter of chapters) {
@@ -1682,6 +1687,160 @@ for (const chapter of chapters) {
           interactionCopy.push(
             { label: `movement "${movement.id}" papal trace "${stop.id}" label`, value: stop.label },
             { label: `movement "${movement.id}" papal trace "${stop.id}" detail`, value: stop.detail },
+          );
+        }
+        break;
+      }
+      case "kin-marriage": {
+        const { states } = interaction;
+        validateInteractionItems(qualifiedId, "kin marriage states", states);
+        if (states.length !== 4) {
+          errors.push(`Movement "${qualifiedId}" kin marriage interaction needs four states.`);
+        }
+        for (const state of states) {
+          for (const [field, value] of [
+            ["period", state.period],
+            ["rule", state.rule],
+            ["old bond", state.oldBond],
+            ["new reach", state.newReach],
+            ["consequence", state.consequence],
+          ] as const) {
+            if (!hasPublicText(value)) {
+              errors.push(
+                `Movement "${qualifiedId}" kin marriage state "${state.id}" needs ${field} text.`,
+              );
+            }
+            interactionCopy.push({
+              label: `movement "${movement.id}" kin marriage "${state.id}" ${field}`,
+              value,
+            });
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" kin marriage "${state.id}" label`, value: state.label },
+            { label: `movement "${movement.id}" kin marriage "${state.id}" detail`, value: state.detail },
+          );
+        }
+        break;
+      }
+      case "chosen-house": {
+        const { states } = interaction;
+        validateInteractionItems(qualifiedId, "chosen house states", states);
+        if (states.length !== 4) {
+          errors.push(`Movement "${qualifiedId}" chosen house interaction needs four states.`);
+        }
+        for (const state of states) {
+          for (const [field, value] of [
+            ["period", state.period],
+            ["act", state.act],
+            ["common thing", state.commonThing],
+            ["office", state.office],
+            ["consequence", state.consequence],
+          ] as const) {
+            if (!hasPublicText(value)) {
+              errors.push(
+                `Movement "${qualifiedId}" chosen house state "${state.id}" needs ${field} text.`,
+              );
+            }
+            interactionCopy.push({
+              label: `movement "${movement.id}" chosen house "${state.id}" ${field}`,
+              value,
+            });
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" chosen house "${state.id}" label`, value: state.label },
+            { label: `movement "${movement.id}" chosen house "${state.id}" detail`, value: state.detail },
+          );
+        }
+        break;
+      }
+      case "sworn-commune": {
+        const { states } = interaction;
+        validateInteractionItems(qualifiedId, "sworn commune states", states);
+        if (states.length !== 4) {
+          errors.push(`Movement "${qualifiedId}" sworn commune interaction needs four states.`);
+        }
+        for (const state of states) {
+          for (const [field, value] of [
+            ["period", state.period],
+            ["instrument", state.instrument],
+            ["authority", state.authority],
+            ["shared possession", state.sharedPossession],
+            ["consequence", state.consequence],
+          ] as const) {
+            if (!hasPublicText(value)) {
+              errors.push(
+                `Movement "${qualifiedId}" sworn commune state "${state.id}" needs ${field} text.`,
+              );
+            }
+            interactionCopy.push({
+              label: `movement "${movement.id}" sworn commune "${state.id}" ${field}`,
+              value,
+            });
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" sworn commune "${state.id}" label`, value: state.label },
+            { label: `movement "${movement.id}" sworn commune "${state.id}" detail`, value: state.detail },
+          );
+        }
+        break;
+      }
+      case "immortal-body": {
+        const { states } = interaction;
+        validateInteractionItems(qualifiedId, "immortal body states", states);
+        if (states.length !== 4) {
+          errors.push(`Movement "${qualifiedId}" immortal body interaction needs four states.`);
+        }
+        for (const state of states) {
+          for (const [field, value] of [
+            ["period", state.period],
+            ["member changes", state.memberChanges],
+            ["body keeps", state.bodyKeeps],
+            ["acts through", state.actsThrough],
+            ["inheritance", state.inheritance],
+          ] as const) {
+            if (!hasPublicText(value)) {
+              errors.push(
+                `Movement "${qualifiedId}" immortal body state "${state.id}" needs ${field} text.`,
+              );
+            }
+            interactionCopy.push({
+              label: `movement "${movement.id}" immortal body "${state.id}" ${field}`,
+              value,
+            });
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" immortal body "${state.id}" label`, value: state.label },
+            { label: `movement "${movement.id}" immortal body "${state.id}" detail`, value: state.detail },
+          );
+        }
+        break;
+      }
+      case "kin-trace": {
+        const { stops } = interaction;
+        validateInteractionItems(qualifiedId, "kin trace stops", stops);
+        if (stops.length !== 3) {
+          errors.push(`Movement "${qualifiedId}" kin trace interaction needs three stops.`);
+        }
+        for (const stop of stops) {
+          for (const [field, value] of [
+            ["period", stop.period],
+            ["instrument", stop.instrument],
+            ["consequence", stop.consequence],
+            ["inheritance", stop.inheritance],
+          ] as const) {
+            if (!hasPublicText(value)) {
+              errors.push(
+                `Movement "${qualifiedId}" kin trace stop "${stop.id}" needs ${field} text.`,
+              );
+            }
+            interactionCopy.push({
+              label: `movement "${movement.id}" kin trace "${stop.id}" ${field}`,
+              value,
+            });
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" kin trace "${stop.id}" label`, value: stop.label },
+            { label: `movement "${movement.id}" kin trace "${stop.id}" detail`, value: stop.detail },
           );
         }
         break;

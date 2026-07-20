@@ -1,0 +1,648 @@
+.deep-chapter-page--kin {
+  --chapter-earth: #4a4037;
+  --chapter-ochre: #b98b43;
+  --chapter-forest: #070b0c;
+  --chapter-smoke: rgba(221, 209, 184, 0.76);
+  --bronze: #9b7138;
+  --bronze-bright: #d0aa68;
+  --kin-ink: #070b0c;
+  --kin-charcoal: #0b1011;
+  --kin-parchment: #ddd1b8;
+  --kin-parchment-bright: #f0e7d2;
+  --kin-gold: #b98b43;
+  --kin-oxblood: #704a43;
+  --kin-limestone: #67635c;
+  background: var(--kin-ink);
+}
+
+.deep-chapter-page--kin .deep-chapter,
+.deep-chapter-page--kin .chapter-sources {
+  background: var(--kin-ink);
+}
+
+.deep-chapter-page--kin .chapter-header {
+  border-bottom-color: rgba(185, 139, 67, 0.22);
+  background: rgba(7, 11, 12, 0.96);
+  backdrop-filter: none;
+}
+
+.deep-chapter-page--kin .chapter-header__return {
+  color: var(--kin-gold);
+}
+
+.deep-chapter-page--kin .chapter-route {
+  border-color: rgba(185, 139, 67, 0.3);
+  background: rgba(7, 11, 12, 0.95);
+  box-shadow:
+    0 24px 66px rgba(0, 0, 0, 0.56),
+    inset 0 1px rgba(221, 209, 184, 0.04);
+}
+
+.deep-chapter-page--kin .chapter-route__panel {
+  border-color: rgba(185, 139, 67, 0.28);
+  background: rgba(7, 11, 12, 0.985);
+}
+
+.deep-chapter-page--kin:not(.chapter-runtime-ready) .chapter-route,
+.deep-chapter-page--kin[data-chapter-region="opening"] .chapter-route,
+.deep-chapter-page--kin[data-chapter-region="ending"] .chapter-route {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (min-width: 721px) {
+  .deep-chapter-page--kin[data-chapter-side="right"] .chapter-route {
+    right: auto;
+    left: clamp(28px, 3.3vw, 52px);
+  }
+}
+
+.deep-chapter-page--kin .chapter-route__map {
+  background: #101311;
+}
+
+.deep-chapter-page--kin .chapter-route__map img {
+  opacity: 0.38;
+  filter: sepia(0.48) saturate(0.48) brightness(0.58) contrast(1.1);
+}
+
+.deep-chapter-page--kin .chapter-route__map polyline {
+  stroke: rgba(185, 139, 67, 0.72);
+}
+
+.deep-chapter-page--kin .chapter-route__marker {
+  border-color: rgba(208, 170, 104, 0.78);
+  background: #141615;
+}
+
+.deep-chapter-page--kin .chapter-route__marker.is-active {
+  background: var(--kin-gold);
+  box-shadow: 0 0 0 5px rgba(185, 139, 67, 0.16);
+}
+
+.deep-chapter-page--kin .chapter-stage {
+  background: #080b0c;
+}
+
+.deep-chapter-page--kin .chapter-stage__image {
+  filter: saturate(0.7) contrast(1.07) brightness(0.8);
+}
+
+.deep-chapter-page--kin .chapter-stage__shade {
+  background:
+    radial-gradient(
+      circle at 69% 43%,
+      transparent 0 20%,
+      rgba(4, 6, 7, 0.15) 48%,
+      rgba(4, 6, 7, 0.64) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(5, 8, 9, 0.92),
+      rgba(5, 8, 9, 0.57) 34%,
+      rgba(5, 8, 9, 0.08) 69%
+    ),
+    linear-gradient(180deg, rgba(7, 8, 8, 0.08), transparent 44%, rgba(3, 5, 6, 0.64));
+}
+
+.deep-chapter-page--kin[data-chapter-side="right"] .chapter-stage__shade {
+  background:
+    radial-gradient(
+      circle at 34% 43%,
+      transparent 0 20%,
+      rgba(4, 6, 7, 0.15) 48%,
+      rgba(4, 6, 7, 0.64) 100%
+    ),
+    linear-gradient(
+      270deg,
+      rgba(5, 8, 9, 0.92),
+      rgba(5, 8, 9, 0.57) 34%,
+      rgba(5, 8, 9, 0.08) 69%
+    ),
+    linear-gradient(180deg, rgba(7, 8, 8, 0.08), transparent 44%, rgba(3, 5, 6, 0.64));
+}
+
+.deep-chapter-page--kin .chapter-stage__grain {
+  opacity: 0;
+}
+
+.deep-chapter-page--kin .chapter-opening {
+  min-height: 100svh;
+  padding: 0;
+  align-items: flex-start;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(5, 8, 9, 0.25) 0%,
+      rgba(5, 8, 9, 0.08) 44%,
+      rgba(5, 8, 9, 0) 68%
+    ),
+    var(--opening-image) center center / cover no-repeat,
+    var(--kin-ink);
+}
+
+.deep-chapter-page--kin .chapter-opening > div {
+  width: min(640px, 45vw);
+  margin: 0 0 0 clamp(58px, 5.2vw, 84px);
+  padding-top: clamp(245px, 31vh, 340px);
+  text-align: left;
+  text-shadow: none;
+}
+
+.deep-chapter-page--kin .chapter-opening__number {
+  margin-bottom: 0;
+  color: var(--bronze-bright);
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+}
+
+.deep-chapter-page--kin .chapter-opening h1 {
+  max-width: 650px;
+  margin-top: 24px;
+  color: var(--kin-parchment-bright);
+  font-size: clamp(5.2rem, 7vw, 7.25rem);
+  letter-spacing: -0.067em;
+  line-height: 0.86;
+}
+
+.deep-chapter-page--kin .chapter-opening h1 span {
+  display: block;
+}
+
+.deep-chapter-page--kin .chapter-opening p:not(.chapter-opening__number) {
+  max-width: 560px;
+  margin: 26px 0 0;
+  color: rgba(221, 209, 184, 0.84);
+  font-size: clamp(1.04rem, 1.28vw, 1.22rem);
+  line-height: 1.5;
+}
+
+.deep-chapter-page--kin .chapter-opening a {
+  min-width: 238px;
+  margin-top: 30px;
+  justify-content: flex-start;
+  border-bottom-color: var(--kin-gold);
+  color: var(--bronze-bright);
+}
+
+.deep-chapter-page--kin .chapter-opening a::after {
+  margin-left: auto;
+}
+
+.deep-chapter-page--kin .chapter-act {
+  overflow: hidden;
+  background:
+    linear-gradient(110deg, rgba(7, 11, 12, 0.995), rgba(16, 16, 14, 0.97)),
+    radial-gradient(circle at 77% 32%, rgba(185, 139, 67, 0.07), transparent 38%);
+}
+
+.deep-chapter-page--kin .chapter-act::after {
+  position: absolute;
+  top: 14%;
+  right: 8vw;
+  width: min(31vw, 450px);
+  height: min(22vw, 310px);
+  border-top: 1px solid rgba(185, 139, 67, 0.18);
+  border-bottom: 1px solid rgba(185, 139, 67, 0.08);
+  background: repeating-linear-gradient(
+    180deg,
+    transparent 0 28px,
+    rgba(221, 209, 184, 0.027) 28px 29px
+  );
+  transform: rotate(-2deg);
+  content: "";
+}
+
+.deep-chapter-page--kin .chapter-act__rule::before {
+  width: 12px;
+  height: 12px;
+  border: 1px solid rgba(208, 170, 104, 0.74);
+  border-radius: 50%;
+  background: transparent;
+  content: "";
+}
+
+.deep-chapter-page--kin .chapter-act__rule span {
+  background: linear-gradient(
+    90deg,
+    rgba(185, 139, 67, 0.76),
+    rgba(103, 99, 92, 0.16)
+  );
+}
+
+.deep-chapter-page--kin .chapter-movement {
+  min-height: 154svh;
+  padding-top: 18svh;
+  padding-bottom: 46svh;
+}
+
+.deep-chapter-page--kin .chapter-movement__story {
+  width: min(710px, 53vw);
+  background:
+    linear-gradient(90deg, rgba(8, 12, 13, 0.97), rgba(8, 12, 13, 0.76)),
+    repeating-linear-gradient(
+      180deg,
+      transparent 0 29px,
+      rgba(221, 209, 184, 0.022) 29px 30px
+    );
+  box-shadow:
+    0 30px 76px rgba(0, 0, 0, 0.32),
+    inset -1px 0 rgba(221, 209, 184, 0.045);
+}
+
+.deep-chapter-page--kin .chapter-movement--right .chapter-movement__story {
+  background:
+    linear-gradient(90deg, rgba(8, 12, 13, 0.75), rgba(8, 12, 13, 0.97)),
+    repeating-linear-gradient(
+      180deg,
+      transparent 0 29px,
+      rgba(221, 209, 184, 0.022) 29px 30px
+    );
+  box-shadow:
+    0 30px 76px rgba(0, 0, 0, 0.32),
+    inset 1px 0 rgba(221, 209, 184, 0.045);
+}
+
+.deep-chapter-page--kin .chapter-movement__meta {
+  color: rgba(208, 170, 104, 0.82);
+}
+
+.deep-chapter-page--kin .chapter-movement__body {
+  border-left-color: rgba(185, 139, 67, 0.7);
+}
+
+.deep-chapter-page--kin .chapter-evidence {
+  border-color: rgba(185, 139, 67, 0.22);
+}
+
+.deep-chapter-page--kin .chapter-evidence summary {
+  color: rgba(208, 170, 104, 0.9);
+}
+
+.deep-chapter-page--kin .chapter-interaction {
+  color: rgba(221, 209, 184, 0.84);
+}
+
+.deep-chapter-page--kin.chapter-runtime-ready .chapter-interaction {
+  border-color: rgba(185, 139, 67, 0.31);
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(10, 14, 14, 0.97) 0 30px,
+      rgba(221, 209, 184, 0.03) 30px 31px
+    );
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    inset 0 1px rgba(221, 209, 184, 0.045);
+  backdrop-filter: none;
+}
+
+.deep-chapter-page--kin .chapter-interaction__prompt {
+  color: var(--bronze-bright);
+}
+
+.deep-chapter-page--kin .chapter-interaction__detail {
+  color: rgba(221, 209, 184, 0.77);
+}
+
+.blood-to-oath {
+  display: grid;
+  max-width: 1180px;
+  grid-template-columns: minmax(360px, 0.85fr) minmax(470px, 1.15fr);
+  gap: 18px 30px;
+}
+
+.blood-to-oath__rail {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+}
+
+.blood-to-oath--kin-trace .blood-to-oath__rail {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.blood-to-oath__rail::before {
+  position: absolute;
+  top: 16px;
+  right: 8%;
+  left: 8%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(185, 139, 67, 0.22),
+    rgba(185, 139, 67, 0.9),
+    rgba(185, 139, 67, 0.22)
+  );
+  content: "";
+}
+
+.blood-to-oath__button {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  min-height: 64px;
+  padding: 31px 7px 7px;
+  place-items: start center;
+  border: 0;
+  background: transparent;
+  color: rgba(221, 209, 184, 0.52);
+  cursor: pointer;
+  text-align: center;
+}
+
+.blood-to-oath__button::before {
+  position: absolute;
+  top: 9px;
+  width: 14px;
+  height: 14px;
+  border: 1px solid rgba(208, 170, 104, 0.84);
+  border-radius: 50%;
+  background: #111514;
+  box-shadow: 0 0 0 4px rgba(8, 12, 12, 0.9);
+  content: "";
+  transition:
+    background 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.blood-to-oath__button > span {
+  display: none;
+}
+
+.blood-to-oath__button > strong {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.blood-to-oath__button.is-active {
+  color: var(--kin-parchment-bright);
+}
+
+.blood-to-oath__button.is-active::before {
+  background: var(--kin-gold);
+  box-shadow:
+    0 0 0 4px rgba(8, 12, 12, 0.9),
+    0 0 0 7px rgba(185, 139, 67, 0.14);
+  transform: scale(1.08);
+}
+
+.blood-to-oath__records {
+  min-height: 166px;
+  padding-left: 28px;
+  border-left: 1px solid rgba(185, 139, 67, 0.25);
+}
+
+.blood-to-oath__records article {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 26px;
+}
+
+.blood-to-oath__records article[hidden] {
+  display: none;
+}
+
+.blood-to-oath__records p {
+  margin: 0;
+}
+
+.blood-to-oath__records span {
+  display: block;
+  margin-bottom: 5px;
+  color: rgba(208, 170, 104, 0.7);
+  font-size: 0.58rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.blood-to-oath__records strong {
+  display: block;
+  color: rgba(221, 209, 184, 0.9);
+  font-family: var(--font-serif);
+  font-size: 0.96rem;
+  font-weight: 400;
+  line-height: 1.36;
+}
+
+.deep-chapter-page--kin .chapter-ending {
+  background:
+    linear-gradient(180deg, rgba(5, 8, 9, 0.08), rgba(5, 8, 9, 0.96) 62%),
+    var(--ending-image) center top / cover;
+}
+
+.deep-chapter-page--kin .chapter-ending__result,
+.deep-chapter-page--kin .chapter-ending__next {
+  border-color: rgba(185, 139, 67, 0.26);
+}
+
+.deep-chapter-page--kin .chapter-ending__next {
+  color: var(--bronze-bright);
+}
+
+.deep-chapter-page--kin .chapter-sources {
+  border-top-color: rgba(185, 139, 67, 0.22);
+}
+
+@media (max-width: 1120px) and (min-width: 721px) {
+  .deep-chapter-page--kin .chapter-opening > div {
+    width: min(580px, 50vw);
+  }
+
+  .deep-chapter-page--kin .chapter-opening h1 {
+    font-size: clamp(4.5rem, 7.2vw, 5.8rem);
+  }
+
+  .blood-to-oath {
+    grid-template-columns: 1fr;
+  }
+
+  .blood-to-oath__records {
+    min-height: 0;
+    padding: 20px 0 0;
+    border-top: 1px solid rgba(185, 139, 67, 0.25);
+    border-left: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .deep-chapter-page--kin .chapter-header {
+    background: rgba(7, 11, 12, 0.98);
+  }
+
+  .deep-chapter-page--kin .chapter-route {
+    display: none;
+  }
+
+  .deep-chapter-page--kin .chapter-opening {
+    min-height: 100svh;
+    padding: 0 20px 34px;
+    align-items: flex-end;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(5, 8, 9, 0.12) 0%,
+        rgba(5, 8, 9, 0.08) 31%,
+        rgba(5, 8, 9, 0.76) 58%,
+        rgba(5, 8, 9, 0.99) 83%
+      ),
+      var(--opening-mobile-image) 66% center / cover no-repeat,
+      var(--kin-ink);
+  }
+
+  .deep-chapter-page--kin .chapter-opening > div {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+  }
+
+  .deep-chapter-page--kin .chapter-opening__number {
+    font-size: 0.61rem;
+  }
+
+  .deep-chapter-page--kin .chapter-opening h1 {
+    max-width: 360px;
+    margin-top: 14px;
+    font-size: clamp(3.45rem, 16.5vw, 4.4rem);
+    line-height: 0.86;
+  }
+
+  .deep-chapter-page--kin .chapter-opening h1 span {
+    display: block;
+  }
+
+  .deep-chapter-page--kin .chapter-opening p:not(.chapter-opening__number) {
+    max-width: 37ch;
+    margin: 17px 0 0;
+    font-size: 0.98rem;
+    line-height: 1.42;
+  }
+
+  .deep-chapter-page--kin .chapter-opening a {
+    min-width: 232px;
+    margin-top: 22px;
+  }
+
+  .deep-chapter-page--kin .chapter-act::after {
+    top: 10%;
+    right: -14%;
+    width: 72vw;
+    height: 36vw;
+  }
+
+  .deep-chapter-page--kin .chapter-movement {
+    min-height: auto;
+    padding: 0;
+    background: #090d0e;
+  }
+
+  .deep-chapter-page--kin .chapter-movement__mobile-image::after {
+    background: linear-gradient(180deg, transparent 36%, #090d0e 100%);
+  }
+
+  .deep-chapter-page--kin .chapter-movement__story,
+  .deep-chapter-page--kin .chapter-movement--right .chapter-movement__story {
+    width: auto;
+    background: linear-gradient(180deg, rgba(9, 13, 14, 0.96), #090d0e 80px);
+  }
+
+  .deep-chapter-page--kin .chapter-movement h2 {
+    font-size: clamp(2.85rem, 13.5vw, 4.1rem);
+  }
+
+  .deep-chapter-page--kin .chapter-interaction,
+  .deep-chapter-page--kin.chapter-runtime-ready .chapter-interaction {
+    padding: 18px 14px;
+    border-color: rgba(185, 139, 67, 0.25);
+    background:
+      repeating-linear-gradient(
+        180deg,
+        #0d1212 0 30px,
+        rgba(221, 209, 184, 0.035) 30px 31px
+      );
+  }
+
+  .blood-to-oath {
+    grid-template-columns: 1fr;
+    gap: 17px;
+  }
+
+  .blood-to-oath__rail,
+  .blood-to-oath--kin-trace .blood-to-oath__rail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .blood-to-oath__rail::before {
+    display: none;
+  }
+
+  .blood-to-oath__button {
+    min-height: 50px;
+    padding: 8px 8px 8px 32px;
+    place-items: center start;
+    border: 1px solid rgba(185, 139, 67, 0.18);
+    background: rgba(221, 209, 184, 0.025);
+    text-align: left;
+  }
+
+  .blood-to-oath__button::before {
+    top: 18px;
+    left: 11px;
+    width: 11px;
+    height: 11px;
+  }
+
+  .blood-to-oath__button > strong {
+    font-size: 0.67rem;
+  }
+
+  .blood-to-oath__records {
+    min-height: 0;
+    padding: 15px 0 0;
+    border-top: 1px solid rgba(185, 139, 67, 0.24);
+    border-left: 0;
+  }
+
+  .blood-to-oath__records article {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .blood-to-oath__records strong {
+    font-size: 0.88rem;
+  }
+
+  .deep-chapter-page--kin .chapter-ending {
+    background:
+      linear-gradient(180deg, rgba(5, 8, 9, 0.12), rgba(5, 8, 9, 0.96) 58%),
+      var(--ending-image) center top / cover;
+  }
+}
+
+@media (max-width: 390px) and (max-height: 760px) {
+  .deep-chapter-page--kin .chapter-opening {
+    min-height: 112svh;
+  }
+
+  .deep-chapter-page--kin .chapter-opening h1 {
+    font-size: 3.25rem;
+  }
+
+  .deep-chapter-page--kin .chapter-opening p:not(.chapter-opening__number) {
+    font-size: 0.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blood-to-oath__button::before {
+    transition-duration: 0.01ms !important;
+  }
+}

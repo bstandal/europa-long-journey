@@ -186,6 +186,27 @@ When implementing from a selected generated mock, treat that image as the source
   later papal or cardinal dress, plate armour, heraldic spectacle, pristine churches and generic
   imperial gold. Desktop is cinematic and spatial; mobile stacks a messenger-centred opening image
   above the complete title, claim and action inside the first viewport.
+- Chapter 09, “A Society Beyond Kin,” uses the selected “The Forbidden Threshold” direction. Preserve
+  the opening’s deep-charcoal editorial field, monumental ivory title, Romanesque church threshold,
+  priest examining a kinship parchment, two family groups held behind the couple and an earthly road
+  opening beyond the door. A thin aged-gold route may connect real records, keys, seals and hands; it
+  is never magical light.
+- Tell Chapter 09 as one causal essay grounded in Joseph Henrich’s account of the Western Church’s
+  marriage and family programme: the Church widened prohibited kin, attacked intensive marriage
+  strategies and made mutual consent decisive; the weakened clan created room for monasteries,
+  fraternities, guilds, communes and universities organised through oath, rule, office and common
+  property. Do not interrupt that story with historiographical balancing or make the chapter its own
+  corrective.
+- Chapter 09 runs from AD 500 to 1300 as four acts and twelve continuous movements. Its principal
+  interactions are in movements 2, 5, 8 and 12: opening the marriage circle, building a chosen
+  monastic house, turning an oath into communal government and showing how membership, office,
+  property and jurisdiction produce a durable body. Lighter active traces appear in movements 3, 6,
+  9 and 11.
+- Keep Chapter 09 materially early/high medieval: round Romanesque arches, rough limestone and brick,
+  dark oak, parchment, wax, iron keys, wool, linen and practical low light. Avoid Gothic spectacle,
+  later academic dress, Renaissance civic interiors, modern wedding conventions, heraldry, plate
+  armour and fantasy symbolism. Every scene must show a concrete institutional act—consent, vow,
+  donation, oath, election, seal, divided custody or handover.
 - Chapter 06’s selected visual direction is “The Consecrated City”. Continue the existing EUROPA
   deep-chapter typography, cinematic darkness, material reconstruction and restrained route control.
   Let the measured Roman road rise into procession, arch, apse and dome. Move the Rome palette from
@@ -258,6 +279,14 @@ When implementing from a selected generated mock, treat that image as the source
 - The public experience contains no methodology discussion or empty “coming soon” portals.
 - The public story follows a deliberate Europe-centred causal spine. It does not pause to catalogue
   omitted perspectives, defend its selection, or answer objections the reader has not raised.
+- EUROPA is a historical essay, not an academic dissertation. Choose the strongest defensible
+  interpretation and tell it as one causal story; keep historiographical qualification, source
+  comparison and methodological self-correction inside editorial research unless uncertainty
+  materially changes what happened.
+- Do not make EUROPA its own running corrective. Public prose must not state the chapter's thesis and
+  then retreat into balancing disclaimers, anticipated objections or scholarly throat-clearing.
+  Accuracy comes from exact scenes, chronology, institutions and language, not from weakening the
+  narrative voice.
 - The project tells an affirmative European history; it is not responsible for supplying a complete
   corrective history beside every European achievement. Do not systematically foreground conquest,
   slavery, exclusion, hierarchy or coercion to demonstrate balance, and do not give such material

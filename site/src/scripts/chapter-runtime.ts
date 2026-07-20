@@ -388,6 +388,25 @@ function chooseButton(button: HTMLButtonElement) {
     }
   }
 
+  if (
+    kind === "kin-marriage" ||
+    kind === "chosen-house" ||
+    kind === "sworn-commune" ||
+    kind === "immortal-body" ||
+    kind === "kin-trace"
+  ) {
+    interaction.dataset.stateId = button.dataset.stateId ?? "";
+    for (const record of interaction.querySelectorAll<HTMLElement>(
+      "[data-kin-record]",
+    )) {
+      record.hidden =
+        Number.parseInt(record.dataset.kinRecord ?? "-1", 10) !== choiceIndex;
+    }
+    if (document.body.dataset.chapterMovement === interaction.dataset.movementId) {
+      document.body.dataset.chapterState = interaction.dataset.stateId;
+    }
+  }
+
   if (kind === "roman-network") {
     const stateId = button.dataset.stateId ?? "";
     for (const layer of interaction.querySelectorAll<HTMLElement>(

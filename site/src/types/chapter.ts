@@ -456,6 +456,75 @@ export type PapalTraceInteraction = ChapterInteractionBase & {
   }[];
 };
 
+export type KinMarriageInteraction = ChapterInteractionBase & {
+  kind: "kin-marriage";
+  states: {
+    id: string;
+    label: string;
+    period: string;
+    detail: string;
+    rule: string;
+    oldBond: string;
+    newReach: string;
+    consequence: string;
+  }[];
+};
+
+export type ChosenHouseInteraction = ChapterInteractionBase & {
+  kind: "chosen-house";
+  states: {
+    id: string;
+    label: string;
+    period: string;
+    detail: string;
+    act: string;
+    commonThing: string;
+    office: string;
+    consequence: string;
+  }[];
+};
+
+export type SwornCommuneInteraction = ChapterInteractionBase & {
+  kind: "sworn-commune";
+  states: {
+    id: string;
+    label: string;
+    period: string;
+    detail: string;
+    instrument: string;
+    authority: string;
+    sharedPossession: string;
+    consequence: string;
+  }[];
+};
+
+export type ImmortalBodyInteraction = ChapterInteractionBase & {
+  kind: "immortal-body";
+  states: {
+    id: string;
+    label: string;
+    period: string;
+    detail: string;
+    memberChanges: string;
+    bodyKeeps: string;
+    actsThrough: string;
+    inheritance: string;
+  }[];
+};
+
+export type KinTraceInteraction = ChapterInteractionBase & {
+  kind: "kin-trace";
+  stops: {
+    id: string;
+    label: string;
+    period: string;
+    detail: string;
+    instrument: string;
+    consequence: string;
+    inheritance: string;
+  }[];
+};
+
 export type ChapterInteraction =
   | RouteInteraction
   | SeasonsInteraction
@@ -490,7 +559,12 @@ export type ChapterInteraction =
   | BishopBurdenInteraction
   | CanossaSequenceInteraction
   | InvestitureSettlementInteraction
-  | PapalTraceInteraction;
+  | PapalTraceInteraction
+  | KinMarriageInteraction
+  | ChosenHouseInteraction
+  | SwornCommuneInteraction
+  | ImmortalBodyInteraction
+  | KinTraceInteraction;
 
 export type ChapterTheme = {
   id:
@@ -501,7 +575,8 @@ export type ChapterTheme = {
     | "rome"
     | "christian"
     | "carolingian"
-    | "papal";
+    | "papal"
+    | "kin";
   label: string;
 };
 

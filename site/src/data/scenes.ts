@@ -800,6 +800,10 @@ export const scenes: StoryScene[] = [
         longitude: 4.66,
       },
     ],
+    chronicle: {
+      href: "chapters/society-beyond-kin/",
+      label: "Cross the forbidden line",
+    },
   },
   {
     id: "commercial-revolution",

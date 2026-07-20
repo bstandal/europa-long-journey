@@ -8,6 +8,7 @@ import { firstFarmers } from "../src/data/chapters/first-farmers";
 import { greeceAndTheCitizen } from "../src/data/chapters/greece-and-the-citizen";
 import { papalRevolution } from "../src/data/chapters/papal-revolution";
 import { romeGathersEurope } from "../src/data/chapters/rome-gathers-europe";
+import { societyBeyondKin } from "../src/data/chapters/society-beyond-kin";
 import { steppeComesWest } from "../src/data/chapters/steppe-comes-west";
 import { scenes } from "../src/data/scenes";
 import { sources } from "../src/data/sources";
@@ -715,6 +716,97 @@ assert.equal(
   "The Papal Revolution ending period must match its actual next scene.",
 );
 
+await checkCommonChapter(societyBeyondKin, 12);
+assert.deepEqual(
+  societyBeyondKin.acts?.map((act) => act.id),
+  ["break-clan", "chosen-brothers", "city-swears", "body-endures"],
+  "A Society Beyond Kin should preserve its four-act blood-to-oath progression.",
+);
+assert.deepEqual(
+  (societyBeyondKin.acts ?? []).map((act) =>
+    societyBeyondKin.movements.filter((movement) => movement.actId === act.id).length
+  ),
+  [3, 3, 3, 3],
+  "A Society Beyond Kin acts should contain three movements each.",
+);
+const principalKinInteractionKinds = new Set([
+  "kin-marriage",
+  "chosen-house",
+  "sworn-commune",
+  "immortal-body",
+]);
+assert.deepEqual(
+  societyBeyondKin.movements
+    .map((movement, index) =>
+      movement.interaction &&
+      principalKinInteractionKinds.has(movement.interaction.kind)
+        ? index + 1
+        : null
+    )
+    .filter(Boolean),
+  [2, 5, 8, 12],
+  "A Society Beyond Kin principal interactions should remain in movements 2, 5, 8 and 12.",
+);
+assert.deepEqual(
+  societyBeyondKin.movements
+    .map((movement) => movement.interaction?.kind)
+    .filter((kind) => kind && principalKinInteractionKinds.has(kind)),
+  ["kin-marriage", "chosen-house", "sworn-commune", "immortal-body"],
+  "A Society Beyond Kin should preserve its marriage, house, commune and corporate-body sequence.",
+);
+assert.deepEqual(
+  societyBeyondKin.movements
+    .map((movement, index) =>
+      movement.interaction?.kind === "kin-trace" ? index + 1 : null
+    )
+    .filter(Boolean),
+  [3, 6, 9, 11],
+  "A Society Beyond Kin lighter traces should remain in movements 3, 6, 9 and 11.",
+);
+for (const movement of societyBeyondKin.movements) {
+  if (movement.interaction?.kind !== "kin-trace") continue;
+  assert.equal(
+    movement.interaction.stops.length,
+    3,
+    `Kin trace ${movement.id} should have three thumb-friendly stops.`,
+  );
+}
+const societyBeyondKinWords = societyBeyondKin.movements.reduce(
+  (sum, movement) =>
+    sum +
+    movement.body.reduce(
+      (movementSum, paragraph) => movementSum + paragraph.trim().split(/\s+/).length,
+      0,
+    ),
+  0,
+);
+assert.ok(
+  societyBeyondKinWords >= 2100 && societyBeyondKinWords <= 3000,
+  `A Society Beyond Kin should contain 2,100–3,000 words of continuous narrative; found ${societyBeyondKinWords}.`,
+);
+assert.equal(
+  societyBeyondKinScene?.chronicle?.href,
+  "chapters/society-beyond-kin/",
+  "The main journey needs a working A Society Beyond Kin chapter link.",
+);
+assert.equal(
+  societyBeyondKinScene?.chronicle?.label,
+  "Cross the forbidden line",
+  "The A Society Beyond Kin chapter link needs its historical invitation.",
+);
+const commercialRevolutionScene = scenes.find((scene) => scene.id === societyBeyondKin.nextHash);
+assert.ok(commercialRevolutionScene, "A Society Beyond Kin ending needs a real next scene.");
+assert.equal(
+  societyBeyondKin.nextTitle,
+  commercialRevolutionScene.title,
+  "A Society Beyond Kin ending title must match its actual next scene.",
+);
+assert.equal(
+  societyBeyondKin.ending.nextPeriod,
+  `AD ${commercialRevolutionScene.period.label}`,
+  "A Society Beyond Kin ending period must match its actual next scene.",
+);
+
 console.log(
-  "Farmers, Steppe, Bronze, Greece, Rome, Christian Empire, Europe Reborn and Papal Revolution chapter checks passed.",
+  "Farmers, Steppe, Bronze, Greece, Rome, Christian Empire, Europe Reborn, Papal Revolution and Society Beyond Kin chapter checks passed.",
 );
