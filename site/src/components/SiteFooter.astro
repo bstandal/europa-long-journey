@@ -18,7 +18,12 @@ const analyticsEnabled = Boolean(import.meta.env.PUBLIC_UMAMI_WEBSITE_ID?.trim()
     </a>
     {
       analyticsEnabled && (
-        <button type="button" data-analytics-preferences>
+        <button
+          type="button"
+          data-analytics-preferences
+          aria-controls="analytics-consent"
+          aria-expanded="false"
+        >
           Analytics choices
         </button>
       )

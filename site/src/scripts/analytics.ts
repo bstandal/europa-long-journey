@@ -38,6 +38,7 @@ if (analyticsConfig) {
   let trackerScript: HTMLScriptElement | null = null;
   let readyTimer: number | null = null;
   let trackerGeneration = 0;
+  let preferencesOpener: HTMLElement | null = null;
 
   const readConsent = (): ConsentChoice | null => {
     try {
@@ -313,8 +314,17 @@ if (analyticsConfig) {
     setupJourneyTracking();
   };
 
-  const showPreferences = () => {
+  const setPreferencesExpanded = (expanded: boolean) => {
+    for (const control of document.querySelectorAll<HTMLElement>(
+      "[data-analytics-preferences]",
+    )) {
+      control.setAttribute("aria-expanded", String(expanded));
+    }
+  };
+
+  const showPreferences = (opener?: HTMLElement) => {
     if (!consentPanel) return;
+    preferencesOpener = opener ?? null;
     for (const button of consentPanel.querySelectorAll<HTMLButtonElement>(
       "[data-analytics-choice]",
     )) {
@@ -324,6 +334,7 @@ if (analyticsConfig) {
       );
     }
     consentPanel.hidden = false;
+    setPreferencesExpanded(true);
   };
 
   const applyConsent = (choice: ConsentChoice) => {
@@ -340,6 +351,11 @@ if (analyticsConfig) {
       }
       consentPanel.hidden = true;
     }
+    setPreferencesExpanded(false);
+    if (preferencesOpener?.isConnected) {
+      preferencesOpener.focus({ preventScroll: true });
+    }
+    preferencesOpener = null;
 
     if (choice === "granted") {
       trackerUnavailable = false;
@@ -365,7 +381,10 @@ if (analyticsConfig) {
       applyConsent(choice);
       return;
     }
-    if (event.target.closest("[data-analytics-preferences]")) showPreferences();
+    const preferencesButton = event.target.closest<HTMLElement>(
+      "[data-analytics-preferences]",
+    );
+    if (preferencesButton) showPreferences(preferencesButton);
   });
 
   consentChoice = readConsent();
