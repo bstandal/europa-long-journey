@@ -19,22 +19,22 @@ const analyticsDomains =
         hidden
       />
       <section
+        id="analytics-consent"
         class="analytics-consent"
         data-analytics-consent
-        aria-labelledby="analytics-consent-title"
+        aria-label="Optional analytics"
         hidden
       >
-        <div>
-          <p class="analytics-consent__eyebrow">Your privacy choice</p>
-          <h2 id="analytics-consent-title">Allow privacy-minded analytics?</h2>
-          <p>
-            If you accept, EUROPA loads Umami to measure visits, reading progress,
-            interactions and basic device and location categories. No name or email
-            address is sent. You can change this choice at any time.{" "}
-            <a href={`${base}privacy/#privacy-analytics`}>Read the details</a>.
-          </p>
-        </div>
-        <div class="analytics-consent__actions">
+        <p class="analytics-consent__copy">
+          May we measure visits, reading progress, interactions, device type and
+          approximate country? No name or email. Change anytime.{" "}
+          <a href={`${base}privacy/#privacy-analytics`}>Details</a>.
+        </p>
+        <div
+          class="analytics-consent__actions"
+          role="group"
+          aria-label="Analytics choice"
+        >
           <button
             type="button"
             data-analytics-choice="granted"
