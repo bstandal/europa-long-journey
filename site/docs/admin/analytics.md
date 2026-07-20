@@ -29,7 +29,7 @@ letting the tracker observe those hash changes would inflate pageviews.
 | --- | --- | --- |
 | How many people visit? | Visitors, visits and views | Visitors are anonymous browser/network estimates, not verified people. |
 | Where do they come from? | Country and referrer | Use country as the default geographic level. Avoid conclusions from tiny city-level samples. |
-| Which chapters are read? | Paths matching `/chapters/` | Compare unique visitors first, pageviews second. |
+| Which chapters are read? | Paths matching `/europa-long-journey/chapters/` | Compare unique visitors first, pageviews second. |
 | How long do they read? | Visit duration plus `reader-engaged` | Active, visible reading sends an event after 15 seconds and a heartbeat at 30 seconds, then once per minute. This makes duration useful for one-page chapters. |
 | How far do they get? | `chapter-depth-25`, `chapter-depth-50`, `chapter-depth-75`, `chapter-complete` | A milestone is sent once per page load when that share of movements has entered the viewport. Completion means the ending entered the viewport. |
 | Do they return? | Retention insight | Umami estimates repeat visitors anonymously. The rotating identifier means this is directional, not a permanent person-level history. |
@@ -39,21 +39,32 @@ letting the tracker observe those hash changes would inflate pageviews.
 The same depth model is used on the long road with `journey-depth-*`,
 `journey-started` and `journey-complete`.
 
-## Recommended admin board
+## Current admin board
 
-Create a board named **EUROPA · Usage** with a default window of the last 28
-days and comparison to the previous 28 days.
+The live [EUROPA · Usage board](https://cloud.umami.is/analytics/eu/boards/3a7cf7e1-c0fb-45c8-9696-fe575ac5ffd1)
+contains:
 
 1. **Audience:** visitors, visits, views, bounce rate and visit duration.
 2. **Movement:** visitors and views over time.
-3. **Reach:** country, referrer and device breakdowns.
-4. **Chapters:** paths filtered to `/chapters/`, ranked by visitors, with visit
-   duration and bounce rate as diagnostics.
-5. **Reading depth:** a funnel from chapter pageview to depth 25, 50, 75 and
-   completion. Filter by chapter path when comparing individual chapters.
-6. **Return:** monthly retention cohorts. Use weekly or monthly patterns; daily
-   percentages will be noisy at low traffic.
-7. **Quality:** Core Web Vitals by device and chapter path.
+3. **Chapters:** paths ranked by views.
+4. **Reach:** a world map of visitor countries.
+5. **Reading engagement:** the tracked reader and chapter-depth events.
+6. **Realtime:** live views, visitors, events and countries.
+7. **Goals:** `Engaged reader (15s)` and `Completed chapter`.
+8. **Reading depth:** the saved `Chapter reading depth` funnel.
+
+The reading-depth funnel has a 120-minute window between successive steps:
+
+1. Viewed `/europa-long-journey/chapters/*`.
+2. Triggered `reader-engaged`.
+3. Triggered `chapter-depth-25`.
+4. Triggered `chapter-depth-50`.
+5. Triggered `chapter-depth-75`.
+6. Triggered `chapter-complete`.
+
+For the monthly review, select the last 28 days and compare with the previous
+28 days. Use the separate **Retention** report for repeat visits and
+**Performance** for Core Web Vitals; those reports are not board components.
 
 ## Operating rules
 
