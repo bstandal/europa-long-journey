@@ -1,113 +1,140 @@
-# Chapter 06 design QA
+# Chapter 08 design QA
 
-## Comparison target
+## Scope
 
-- Source visual truth:
-  `design/references/chapter-06-consecrated-city.png`
-- Local implementation:
-  `http://127.0.0.1:4323/chapters/empire-takes-cross/`
-- Primary viewport:
-  1440 × 1024 CSS pixels, device scale factor 1
-- Primary state:
-  chapter opening at scroll position 0
-- Final implementation screenshot:
-  `design/qa/chapter-06-desktop-1440x1024.png`
-- Final side-by-side comparison:
-  `design/qa/chapter-06-desktop-comparison-final.png`
-- Mobile responsive evidence:
-  `design/qa/chapter-06-mobile-390x844.png`
-- Focused interaction evidence:
-  `design/qa/chapter-06-policy-interaction-1440x1024.png`
+- Chapter: `The Papal Revolution`
+- Route: `http://127.0.0.1:4326/chapters/papal-revolution/`
+- Reference direction: `Two Courts, One Christendom`
+- Reference image: `/Users/bard/.codex/generated_images/019f7b67-8579-73e1-a093-abfce1ef2978/call_rR5CqTLycBDwtkMbF0Oa91mr.png`
+- Browser: Codex in-app browser
+- States reviewed: opening, route drawer, reform-papacy interaction, Worms settlement interaction
+- Viewports reviewed: 1487 × 1058, 900 × 1024, 390 × 844
 
-## Findings
+## Comparison evidence
 
-No actionable P0, P1 or P2 findings remain.
+### Full opening
 
-- **Fonts and typography:** The implementation retains the project’s existing
-  high-contrast display serif, restrained sans-serif metadata and wide-tracked
-  EUROPA wordmark. Title scale, two-line desktop wrap, line-height and optical
-  weight match the selected direction. At 390 pixels the title becomes a
-  controlled three-line composition without clipping.
-- **Spacing and layout rhythm:** Header height, left alignment, opening number,
-  title, claim and action follow the reference hierarchy. The desktop action is
-  fully visible inside the 1024-pixel viewport. The mobile opening preserves
-  readable space between title, claim and action. No document-level horizontal
-  overflow was measured at either viewport.
-- **Colors and tokens:** Iron black, smoky ivory, porphyry shadow, indigo and
-  sparse aged gold map to the selected direction. Gold is restricted to
-  reflected light, rules, metadata and active states rather than used as a
-  generic luxury surface.
-- **Image quality and asset fidelity:** The opening uses a purpose-built,
-  evidence-led Milvian Bridge reconstruction rather than the option mock’s
-  generic construction procession. This is an intentional content correction:
-  the subject now matches movement 01 while preserving the reference’s road,
-  dark field, processional depth and sacred break of light. All fourteen
-  movement scenes and the Constantinople plan are dedicated raster assets; no
-  historical scene is replaced by placeholder or code-drawn art.
-- **Copy and content:** Public copy is coherent as a standalone chapter opening
-  and uses the locked 312–565 claim. The final claim is slightly more exact than
-  the concept mock by naming a “renewed Christian Rome.”
-- **States and interactions:** Policy, council, city and sacred-space controls
-  update their selected button, live detail and corresponding record. Five
-  three-stop trace interactions use the same touch-friendly state system. The
-  mobile route panel opens and closes, stays within 390 pixels and returns focus
-  to normal reading order.
-- **Accessibility and resilience:** Controls are semantic buttons, selected
-  state is exposed through `aria-pressed`, details update in live regions, the
-  map panel has an expanded state, movement images have narrative alt text, and
-  reduced-motion rules remove decorative transition duration. Mobile principal
-  buttons measure 118 × 72 pixels.
+- Production capture: `design/chapter-08-qa/opening-desktop-1487x1058-final.png`
+- Side-by-side reference and production: `design/chapter-08-qa/comparison-desktop-final.png`
+- Mobile production capture: `design/chapter-08-qa/opening-mobile-390x844.png`
 
-## Focused comparison
+The final desktop opening preserves the reference triptych, central title field, aged-gold procedural route, restrained serif hierarchy and low-key Romanesque palette. The compact public opening claim restores the reference's line length and vertical rhythm while the fuller historical thesis remains the chapter's canonical claim.
 
-The opening required a full-view side-by-side comparison because hierarchy,
-crop and the title-to-image relationship are the fidelity-critical surfaces.
-The focused interaction screenshot was reviewed separately because the concept
-mock did not define an interaction state. It confirms that the 44-pixel
-navigation rail occupies the opposite side from the active story and that the
-fixed interaction occupies the lower viewport without horizontal clipping.
+### Focused chapter regions
+
+- Final Worms movement, desktop: `design/chapter-08-qa/movement-worms-desktop.png`
+- Final Worms interaction, mobile: `design/chapter-08-qa/movement-worms-mobile-390x844.png`
+
+The focused comparison confirms that the opening grammar carries into the long-form chapter: dark archival surfaces, parchment typography, fine gold rules, documentary imagery and legible state changes remain coherent in the final movement.
 
 ## Comparison history
 
-### Pass 1 — blocked
+1. Pass 1 found a P2 visual mismatch: the full editorial thesis occupied about twice the reference's vertical space and displaced the opening action.
+2. The opening now uses a concise public claim matching the approved reference density. The canonical chapter claim retains the historically precise account of spiritual investiture, temporal regalia and two organised jurisdictions.
+3. The final side-by-side comparison shows no remaining P1 or P2 visual mismatch.
 
-- **[P2] Opening action fell below the desktop fold.**
-  The first screenshot placed the action at 1000–1044 pixels in a 1024-pixel
-  viewport, making the invitation partly inaccessible above the fold.
-- **[P2] Chapter route added visual competition to the opening.**
-  The route rail appeared over the upper-right image field although the selected
-  source kept the opening free of chapter navigation.
-- Evidence:
-  `design/qa/chapter-06-desktop-1440x1024-pass1.png` and
-  `design/qa/chapter-06-desktop-comparison-pass1.png`.
+## Visual findings
 
-### Fixes
+- Typography: display scale, line breaks, tracking and serif/sans contrast match the approved direction.
+- Spacing: title, claim and action retain the reference's central rhythm; all three remain visible in the first mobile viewport.
+- Colour: charcoal, parchment, aged gold and muted madder remain consistent through opening, movements and interactions.
+- Images: thirteen production AVIF assets have period-specific subjects, coherent crops and a shared early-Romanesque visual language.
+- Copy: the full chapter contains four acts and twelve movements, with the concise opening claim used only where visual density requires it.
+- Icons and controls: controls use the project's existing marks and interaction grammar; no placeholder, emoji or improvised vector art is present.
 
-- Raised the desktop opening block by changing its top/bottom vertical padding
-  from 39/14 svh to 32/25 svh.
-- Hid the chapter route only while `data-chapter-region="opening"`; it returns as
-  a compact 44-pixel rail after entry and remains hidden at the ending.
+## Responsive and accessibility findings
 
-### Pass 2 — passed
+- No horizontal overflow at 1487 px, 900 px or 390 px.
+- At 390 × 844, the opening title, claim and primary action end above the first viewport fold.
+- The final four Worms choice controls measure 155 × 50 px on mobile.
+- Active interaction choices update `aria-pressed`, reveal the matching record and preserve an `aria-live` detail region.
+- The route toggle updates `aria-expanded` from `false` to `true` and back.
+- Headings, landmarks, skip link and native buttons/links remain present in the accessibility snapshot.
 
-- The action now occupies 888–932 pixels and is fully visible.
-- The route opacity is zero in the opening and returns after the entrance link.
-- Title, claim and action remain within the selected source hierarchy.
-- The desktop and mobile pages measure zero document-level horizontal overflow.
-- Post-fix evidence:
-  `design/qa/chapter-06-desktop-comparison-final.png` and
-  `design/qa/chapter-06-mobile-390x844.png`.
+## Functional findings
 
-## Browser verification
+- Reform-papacy state tested: `synod` → `legate`.
+- Worms settlement state tested: `elect` → `enfeoff`.
+- Route drawer open and close tested.
+- Browser console checked after desktop, mobile and tablet navigation: no warnings or errors.
+- `npm run check`: 0 errors, 0 warnings, 0 hints.
+- `npm run build`: passed content validation, chapter tests and static production build.
+- Validated corpus: 24 scenes, 8 deep chapters, 63 interactive places, 146 sources.
+- Chapter narrative reported by the validator: 2,781 words.
 
-- Entered the chapter through “Enter the consecrated city.”
-- Opened and closed the mobile route panel.
-- Changed policy to `confession-380`.
-- Changed the council to `reception`.
-- Changed the city to `capital-450`.
-- Changed Hagia Sophia to `emperor`.
-- Checked the in-app browser log after the interactions: no warnings or errors.
-- Ran Astro type diagnostics, content validation, chapter tests and production
-  build with zero errors.
+## Final assessment
+
+No P1 or P2 issues remain. The implementation is visually faithful to the approved prototype, responsive, interactive and production-build clean.
+
+final result: passed
+
+# Chapter 09 design QA
+
+## Scope
+
+- Chapter: `A Society Beyond Kin`
+- Route: `http://127.0.0.1:4326/chapters/society-beyond-kin/`
+- Reference direction: `The Forbidden Threshold`
+- Reference image: `/Users/bard/.codex/generated_images/019f7b67-8579-73e1-a093-abfce1ef2978/call_sQ9Q46Orp91spIg9RWafNtQM.png`
+- Browser: Codex in-app browser
+- States reviewed: opening, marriage interaction, commune interaction, final corporate-body interaction and ending
+- Viewports reviewed: 1487 × 1058 and 390 × 844
+
+## Comparison evidence
+
+- Final desktop opening: `design/chapter-09-qa/opening-desktop-final.png`
+- Side-by-side reference and production: `design/chapter-09-qa/opening-comparison.png`
+- Mobile opening: `design/chapter-09-qa/opening-mobile-390x844.png`
+- Mobile marriage interaction: `design/chapter-09-qa/interaction-mobile-390x844.png`
+- Desktop commune movement: `design/chapter-09-qa/movement-08-desktop-final.png`
+- Desktop ending: `design/chapter-09-qa/ending-desktop-final.png`
+- Mobile ending: `design/chapter-09-qa/ending-mobile-390x844-final.png`
+
+The desktop opening preserves the approved deep-charcoal editorial field, monumental ivory title,
+Romanesque threshold, inspected kinship parchment, separated family groups and open road. The mobile
+opening retains the same causal image while fitting period, full title, claim and primary action
+inside the first viewport.
+
+## Visual findings
+
+- Typography: the two-line Bodoni title, compact period line and restrained small-cap action match
+  the selected direction’s hierarchy.
+- Composition: the opening keeps copy in the dark left field while the priest, couple, parchment and
+  road carry the visual argument on the right.
+- Colour: near-black, smoky parchment, aged gold, oxblood, limestone and dark oak remain consistent
+  through all thirteen generated scenes and the interaction surfaces.
+- Long-form continuity: each movement depicts a concrete institutional act—prohibition, consent,
+  donation, vow, oath, election, divided custody, legal recognition or succession.
+- No placeholder imagery, improvised vector art, modern wedding conventions, Gothic spectacle or
+  later medieval armour appears.
+
+## Responsive and accessibility findings
+
+- No horizontal overflow at 1487 px or 390 px.
+- The 390 × 844 opening contains the title, claim and primary action in the first viewport.
+- Mobile interaction choices remain at least 50 px high and use a two-column layout.
+- Every interaction keeps exactly one `aria-pressed` choice and one visible matching record.
+- All twelve movement images have descriptive alt text and load at their intended 1536 px source
+  width.
+- The chapter retains headings, regions, skip navigation, native links and native buttons in the
+  accessibility tree.
+
+## Functional findings
+
+- Marriage interaction tested from `Blood kin` to `Consent`; record and `aria-live` detail update.
+- Eight chapter interactions render with the expected four or three choices and one visible record.
+- The chapter ending links to the existing `The Medieval Commercial Revolution` scene.
+- Browser console: no warnings or errors.
+- `npm run check`: 0 errors, 0 warnings, 0 hints.
+- `npm run validate:content`: passed with 24 scenes, 9 deep chapters, 63 interactive places and 155
+  sources.
+- `npm run test:chapter`: passed all chapter assertions.
+- `npm run build`: passed and generated `/chapters/society-beyond-kin/`.
+
+## Final assessment
+
+No P1 or P2 issues remain. Chapter 09 is a complete, responsive and production-build-clean
+historical essay whose visual system remains faithful to the approved prototype across the full
+chapter.
 
 final result: passed
