@@ -24,9 +24,11 @@ const trackerScript = document.querySelector<HTMLScriptElement>(
 if (trackerScript) {
   const queuedEvents: Array<[string, AnalyticsData | undefined]> = [];
   let trackerReady = false;
+  let trackerUnavailable = false;
   let pageviewSent = false;
 
   const send = (eventName: string, data?: AnalyticsData) => {
+    if (trackerUnavailable) return;
     if (!trackerReady || !window.umami) {
       queuedEvents.push([eventName, data]);
       return;
@@ -54,7 +56,13 @@ if (trackerScript) {
   if (!startTracker()) {
     const startedAt = performance.now();
     const readyTimer = window.setInterval(() => {
-      if (startTracker() || performance.now() - startedAt > 10_000) {
+      if (startTracker()) {
+        window.clearInterval(readyTimer);
+        return;
+      }
+      if (performance.now() - startedAt > 10_000) {
+        trackerUnavailable = true;
+        queuedEvents.length = 0;
         window.clearInterval(readyTimer);
       }
     }, 100);
