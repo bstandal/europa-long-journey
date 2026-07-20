@@ -102,6 +102,8 @@ const analyticsEnabled = Boolean(import.meta.env.PUBLIC_UMAMI_WEBSITE_ID?.trim()
                 class="privacy-choice-button"
                 type="button"
                 data-analytics-preferences
+                aria-controls="analytics-consent"
+                aria-expanded="false"
               >
                 Review analytics choices
               </button>
