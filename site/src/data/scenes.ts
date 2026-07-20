@@ -632,14 +632,14 @@ export const scenes: StoryScene[] = [
     period: { start: 1049, end: 1122, label: "1049–1122" },
     title: "The Papal Revolution",
     kicker: "Power Divides",
-    thesis: "The quarrel over bishops forced popes and emperors to define where sacred authority ended.",
+    thesis: "The quarrel over bishops divided spiritual investiture from temporal government without removing either power from the Christian order.",
     body:
-      "In the winter of 1077, Emperor Henry IV waited outside Canossa while Pope Gregory VII decided whether to lift his excommunication. Their quarrel concerned bishops, men who held sacred office and governed valuable lands. Gregory claimed the Church alone could invest them; Henry treated their appointment as an instrument of royal government. The Concordat of Worms divided the ceremony in 1122, separating spiritual office from temporal authority. Popes and emperors now faced one another as organised powers, each armed with law, courts and loyal officials. Their long contest opened political space in which cities, universities and corporations could secure jurisdictions of their own.",
+      "In the winter of 1077, Henry IV reached Canossa before German princes could assemble under papal judgment. Gregory VII absolved a penitent king without deciding the kingship, and civil war continued. Their quarrel concerned bishops who carried sacramental office, landed regalia, justice and royal service in one person. Reformers claimed canonical election and spiritual investiture for the Church; rulers defended the government attached to episcopal lands. At Worms in 1122, reciprocal promises separated ring and staff from the sceptre while preserving royal presence and influence. Papal and imperial courts remained inside one Christian world as organised jurisdictions that neither side could absorb.",
     focus: { latitude: 44.58, longitude: 10.45 },
     camera: { x: 0.372, y: 0.566, scale: 1.62, rotation: 0.008 },
     palette: "imperial",
     layers: ["terrain", "papacy", "empire", "route"],
-    sourceIds: ["black-1992", "berman-1983"],
+    sourceIds: ["cushing-2005", "blumenthal-1991", "investiture-documents"],
     landmark: "Canossa and Worms",
     side: "right",
     interaction: {
@@ -707,6 +707,10 @@ export const scenes: StoryScene[] = [
         longitude: 8.36,
       },
     ],
+    chronicle: {
+      href: "chapters/papal-revolution/",
+      label: "Enter the contested order",
+    },
   },
   {
     id: "society-beyond-kin",

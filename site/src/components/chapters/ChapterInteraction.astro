@@ -8,6 +8,7 @@ import ChristianPolicyInteraction from "./interactions/ChristianPolicyInteractio
 import ChristianTraceInteraction from "./interactions/ChristianTraceInteraction.astro";
 import CommonwealthInteraction from "./interactions/CommonwealthInteraction.astro";
 import InscriptionInteraction from "./interactions/InscriptionInteraction.astro";
+import PapalInteraction from "./interactions/PapalInteraction.astro";
 import RomanCitizenshipInteraction from "./interactions/RomanCitizenshipInteraction.astro";
 import RomanCommandInteraction from "./interactions/RomanCommandInteraction.astro";
 import RomanConstitutionInteraction from "./interactions/RomanConstitutionInteraction.astro";
@@ -57,6 +58,13 @@ function getInitialDetail(value: ChapterInteraction) {
       return value.paths[0].detail;
     case "commonwealth-trace":
       return value.stops[0].detail;
+    case "papal-court":
+    case "bishop-burden":
+    case "canossa-sequence":
+    case "investiture-settlement":
+      return value.states[0].detail;
+    case "papal-trace":
+      return value.stops[0].detail;
     default:
       return value.states[0].detail;
   }
@@ -90,6 +98,13 @@ function getInitialStateId(value: ChapterInteraction) {
     case "conversion-roads":
       return value.paths[0].id;
     case "commonwealth-trace":
+      return value.stops[0].id;
+    case "papal-court":
+    case "bishop-burden":
+    case "canossa-sequence":
+    case "investiture-settlement":
+      return value.states[0].id;
+    case "papal-trace":
       return value.stops[0].id;
     case "inscription":
     case "citizen-body":
@@ -630,6 +645,16 @@ const initialStateId = getInitialStateId(interaction);
       interaction.kind === "conversion-roads" ||
       interaction.kind === "commonwealth-trace"
     ) && <CommonwealthInteraction interaction={interaction} />
+  }
+
+  {
+    (
+      interaction.kind === "papal-court" ||
+      interaction.kind === "bishop-burden" ||
+      interaction.kind === "canossa-sequence" ||
+      interaction.kind === "investiture-settlement" ||
+      interaction.kind === "papal-trace"
+    ) && <PapalInteraction interaction={interaction} />
   }
 
   <p class="chapter-interaction__detail" data-interaction-detail aria-live="polite">

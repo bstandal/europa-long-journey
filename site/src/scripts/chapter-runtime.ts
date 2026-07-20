@@ -369,6 +369,25 @@ function chooseButton(button: HTMLButtonElement) {
     }
   }
 
+  if (
+    kind === "papal-court" ||
+    kind === "bishop-burden" ||
+    kind === "canossa-sequence" ||
+    kind === "investiture-settlement" ||
+    kind === "papal-trace"
+  ) {
+    interaction.dataset.stateId = button.dataset.stateId ?? "";
+    for (const record of interaction.querySelectorAll<HTMLElement>(
+      "[data-papal-record]",
+    )) {
+      record.hidden =
+        Number.parseInt(record.dataset.papalRecord ?? "-1", 10) !== choiceIndex;
+    }
+    if (document.body.dataset.chapterMovement === interaction.dataset.movementId) {
+      document.body.dataset.chapterState = interaction.dataset.stateId;
+    }
+  }
+
   if (kind === "roman-network") {
     const stateId = button.dataset.stateId ?? "";
     for (const layer of interaction.querySelectorAll<HTMLElement>(

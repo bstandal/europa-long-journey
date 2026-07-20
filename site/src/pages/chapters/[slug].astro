@@ -46,8 +46,14 @@ const nextHref = `${base}#${chapter.nextHash}`;
     >
       <div>
         <p class="chapter-opening__number">{chapter.number} · {chapter.period}</p>
-        <h1 id="chapter-title">{chapter.title}</h1>
-        <p>{chapter.claim}</p>
+        <h1 id="chapter-title">
+          {
+            chapter.openingTitleLines
+              ? chapter.openingTitleLines.map((line) => <span>{line}</span>)
+              : chapter.title
+          }
+        </h1>
+        <p>{chapter.openingClaim ?? chapter.claim}</p>
         <a href={`#${chapter.movements[0].id}`}>{chapter.openingAction}</a>
       </div>
     </section>

@@ -6,6 +6,7 @@ import { empireTakesCross } from "../src/data/chapters/empire-takes-cross";
 import { europeReborn } from "../src/data/chapters/europe-reborn";
 import { firstFarmers } from "../src/data/chapters/first-farmers";
 import { greeceAndTheCitizen } from "../src/data/chapters/greece-and-the-citizen";
+import { papalRevolution } from "../src/data/chapters/papal-revolution";
 import { romeGathersEurope } from "../src/data/chapters/rome-gathers-europe";
 import { steppeComesWest } from "../src/data/chapters/steppe-comes-west";
 import { scenes } from "../src/data/scenes";
@@ -630,6 +631,90 @@ assert.equal(
   "Europe Reborn ending period must match its actual next scene.",
 );
 
+await checkCommonChapter(papalRevolution, 12);
+assert.deepEqual(
+  papalRevolution.acts?.map((act) => act.id),
+  ["reform-rome", "two-burdens", "broken-communion", "divided-ceremony"],
+  "The Papal Revolution should preserve its four-act jurisdictional progression.",
+);
+assert.deepEqual(
+  (papalRevolution.acts ?? []).map((act) =>
+    papalRevolution.movements.filter((movement) => movement.actId === act.id).length
+  ),
+  [3, 3, 3, 3],
+  "The Papal Revolution acts should contain three movements each.",
+);
+const principalPapalInteractionKinds = new Set([
+  "papal-court",
+  "bishop-burden",
+  "canossa-sequence",
+  "investiture-settlement",
+]);
+assert.deepEqual(
+  papalRevolution.movements
+    .map((movement, index) =>
+      movement.interaction &&
+      principalPapalInteractionKinds.has(movement.interaction.kind)
+        ? index + 1
+        : null
+    )
+    .filter(Boolean),
+  [2, 5, 8, 12],
+  "The Papal Revolution principal interactions should remain in movements 2, 5, 8 and 12.",
+);
+assert.deepEqual(
+  papalRevolution.movements
+    .map((movement, index) =>
+      movement.interaction?.kind === "papal-trace" ? index + 1 : null
+    )
+    .filter(Boolean),
+  [3, 4, 6, 9, 11],
+  "The Papal Revolution lighter traces should remain in movements 3, 4, 6, 9 and 11.",
+);
+for (const movement of papalRevolution.movements) {
+  if (movement.interaction?.kind !== "papal-trace") continue;
+  assert.equal(
+    movement.interaction.stops.length,
+    3,
+    `Papal trace ${movement.id} should have three thumb-friendly stops.`,
+  );
+}
+const papalRevolutionWords = papalRevolution.movements.reduce(
+  (sum, movement) =>
+    sum +
+    movement.body.reduce(
+      (movementSum, paragraph) => movementSum + paragraph.trim().split(/\s+/).length,
+      0,
+    ),
+  0,
+);
+assert.ok(
+  papalRevolutionWords >= 2000 && papalRevolutionWords <= 2500,
+  `The Papal Revolution should contain 2,000–2,500 words of continuous narrative; found ${papalRevolutionWords}.`,
+);
+assert.equal(
+  papalRevolutionScene?.chronicle?.href,
+  "chapters/papal-revolution/",
+  "The main journey needs a working Papal Revolution chapter link.",
+);
+assert.equal(
+  papalRevolutionScene?.chronicle?.label,
+  "Enter the contested order",
+  "The Papal Revolution chapter link needs its historical invitation.",
+);
+const societyBeyondKinScene = scenes.find((scene) => scene.id === papalRevolution.nextHash);
+assert.ok(societyBeyondKinScene, "The Papal Revolution ending needs a real next scene.");
+assert.equal(
+  papalRevolution.nextTitle,
+  societyBeyondKinScene.title,
+  "The Papal Revolution ending title must match its actual next scene.",
+);
+assert.equal(
+  papalRevolution.ending.nextPeriod,
+  `AD ${societyBeyondKinScene.period.label}`,
+  "The Papal Revolution ending period must match its actual next scene.",
+);
+
 console.log(
-  "Farmers, Steppe, Bronze, Greece, Rome, Christian Empire and Europe Reborn chapter checks passed.",
+  "Farmers, Steppe, Bronze, Greece, Rome, Christian Empire, Europe Reborn and Papal Revolution chapter checks passed.",
 );

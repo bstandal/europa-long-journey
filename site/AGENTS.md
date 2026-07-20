@@ -164,6 +164,28 @@ When implementing from a selected generated mock, treat that image as the source
   Avoid Gothic arches, high-medieval towns, fantasy libraries, pristine cathedrals and generic gold.
   Desktop retains the editorial split; mobile stacks the historical scene above the complete claim
   and action without turning the opening into a card.
+- Chapter 08, “The Papal Revolution,” uses the selected “Two Courts, One Christendom” direction.
+  Preserve the desktop triptych: a papal reform synod on the left, a dark central title pier with a
+  travelling messenger, and a royal-princely court on the right. The aged-gold document route joins
+  records and seals as a procedural line, never magical light.
+- Keep Chapter 08 institution-led. Bishops, princes, clerics, chancellors, cathedral chapters,
+  messengers, registers, privileges and reciprocal instruments carry the conflict; never reduce the
+  chapter to a personal duel between pope and emperor or a loyalty test for the reader.
+- Chapter 08 runs from Sutri in 1046 to the First Lateran Council in 1123 as four acts and twelve
+  continuous movements. Its four principal interactions are in movements 2, 5, 8 and 12: building a
+  reform papacy, opening the burdens held by one bishop, separating the acts and consequences at
+  Canossa, and dividing canonical election, spiritual investiture and temporal regalia at Worms.
+  Lighter active traces appear in movements 3, 4, 6, 9 and 11.
+- Treat eleventh-century reform as a movement with local, monastic, clerical, urban and papal roots
+  before Gregory VII. The Dictatus papae is a register entry rather than a promulgated constitution;
+  excommunication requires political reception; Canossa restores communion without settling
+  kingship; Gregory dies in exile after Henry IV enters Rome; and Worms is a reciprocal, regionally
+  varied settlement rather than modern separation of church and state.
+- Keep Chapter 08 materially early Romanesque: round arches, rough reused stone, dark oak, vellum,
+  lead, wax, wool, linen, sparse period mail and smoky practical light. Avoid Gothic architecture,
+  later papal or cardinal dress, plate armour, heraldic spectacle, pristine churches and generic
+  imperial gold. Desktop is cinematic and spatial; mobile stacks a messenger-centred opening image
+  above the complete title, claim and action inside the first viewport.
 - Chapter 06’s selected visual direction is “The Consecrated City”. Continue the existing EUROPA
   deep-chapter typography, cinematic darkness, material reconstruction and restrained route control.
   Let the measured Roman road rise into procession, arch, apse and dome. Move the Rome palette from

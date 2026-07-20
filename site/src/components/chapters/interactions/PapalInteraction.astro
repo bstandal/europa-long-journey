@@ -1,0 +1,120 @@
+---
+import type {
+  BishopBurdenInteraction,
+  CanossaSequenceInteraction,
+  InvestitureSettlementInteraction,
+  PapalCourtInteraction,
+  PapalTraceInteraction,
+} from "../../../types/chapter";
+
+type Interaction =
+  | PapalCourtInteraction
+  | BishopBurdenInteraction
+  | CanossaSequenceInteraction
+  | InvestitureSettlementInteraction
+  | PapalTraceInteraction;
+
+type Props = { interaction: Interaction };
+const { interaction } = Astro.props;
+
+type RecordItem = {
+  id: string;
+  label: string;
+  period: string;
+  detail: string;
+  fields: { label: string; value: string }[];
+};
+
+let records: RecordItem[] = [];
+
+switch (interaction.kind) {
+  case "papal-court":
+    records = interaction.states.map((state) => ({
+      ...state,
+      fields: [
+        { label: "Office", value: state.office },
+        { label: "Instrument", value: state.instrument },
+        { label: "Consequence", value: state.consequence },
+      ],
+    }));
+    break;
+  case "bishop-burden":
+    records = interaction.states.map((state) => ({
+      ...state,
+      fields: [
+        { label: "What he holds", value: state.possession },
+        { label: "Church claim", value: state.churchClaim },
+        { label: "Royal claim", value: state.royalClaim },
+        { label: "Consequence", value: state.consequence },
+      ],
+    }));
+    break;
+  case "canossa-sequence":
+    records = interaction.states.map((state) => ({
+      ...state,
+      fields: [
+        { label: "Actor", value: state.actor },
+        { label: "Act", value: state.act },
+        { label: "Political effect", value: state.politicalEffect },
+        { label: "Still unsettled", value: state.unsettled },
+      ],
+    }));
+    break;
+  case "investiture-settlement":
+    records = interaction.states.map((state) => ({
+      ...state,
+      fields: [
+        { label: "Election", value: state.election },
+        { label: "Ring and staff", value: state.spiritualAct },
+        { label: "Sceptre and regalia", value: state.temporalAct },
+        { label: "Limit", value: state.limit },
+      ],
+    }));
+    break;
+  case "papal-trace":
+    records = interaction.stops.map((stop) => ({
+      ...stop,
+      fields: [
+        { label: "Instrument", value: stop.instrument },
+        { label: "Consequence", value: stop.consequence },
+        { label: "Inheritance", value: stop.inheritance },
+      ],
+    }));
+    break;
+}
+---
+
+<div class:list={["two-courts", `two-courts--${interaction.kind}`]}>
+  <div class="two-courts__rail" role="group" aria-label={interaction.prompt}>
+    {
+      records.map((record, index) => (
+        <button
+          type="button"
+          class:list={["two-courts__button", { "is-active": index === 0 }]}
+          data-interaction-choice
+          data-choice-index={index}
+          data-state-id={record.id}
+          data-detail={record.detail}
+          aria-pressed={index === 0 ? "true" : "false"}
+        >
+          <span>{record.period}</span>
+          <strong>{record.label}</strong>
+        </button>
+      ))
+    }
+  </div>
+  <div class="two-courts__records" aria-live="polite">
+    {
+      records.map((record, index) => (
+        <article data-papal-record={index} hidden={index !== 0}>
+          {record.fields.map((field) => (
+            <p>
+              <span>{field.label}</span>
+              <strong>{field.value}</strong>
+            </p>
+          ))}
+        </article>
+      ))
+    }
+  </div>
+</div>

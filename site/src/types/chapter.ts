@@ -388,6 +388,74 @@ export type CommonwealthTraceInteraction = ChapterInteractionBase & {
   }[];
 };
 
+export type PapalCourtInteraction = ChapterInteractionBase & {
+  kind: "papal-court";
+  states: {
+    id: string;
+    label: string;
+    period: string;
+    detail: string;
+    office: string;
+    instrument: string;
+    consequence: string;
+  }[];
+};
+
+export type BishopBurdenInteraction = ChapterInteractionBase & {
+  kind: "bishop-burden";
+  states: {
+    id: string;
+    label: string;
+    period: string;
+    detail: string;
+    possession: string;
+    churchClaim: string;
+    royalClaim: string;
+    consequence: string;
+  }[];
+};
+
+export type CanossaSequenceInteraction = ChapterInteractionBase & {
+  kind: "canossa-sequence";
+  states: {
+    id: string;
+    label: string;
+    period: string;
+    detail: string;
+    actor: string;
+    act: string;
+    politicalEffect: string;
+    unsettled: string;
+  }[];
+};
+
+export type InvestitureSettlementInteraction = ChapterInteractionBase & {
+  kind: "investiture-settlement";
+  states: {
+    id: string;
+    label: string;
+    period: string;
+    detail: string;
+    election: string;
+    spiritualAct: string;
+    temporalAct: string;
+    limit: string;
+  }[];
+};
+
+export type PapalTraceInteraction = ChapterInteractionBase & {
+  kind: "papal-trace";
+  stops: {
+    id: string;
+    label: string;
+    period: string;
+    detail: string;
+    instrument: string;
+    consequence: string;
+    inheritance: string;
+  }[];
+};
+
 export type ChapterInteraction =
   | RouteInteraction
   | SeasonsInteraction
@@ -417,7 +485,12 @@ export type ChapterInteraction =
   | WrittenNetworkInteraction
   | RealmPartitionInteraction
   | ConversionRoadsInteraction
-  | CommonwealthTraceInteraction;
+  | CommonwealthTraceInteraction
+  | PapalCourtInteraction
+  | BishopBurdenInteraction
+  | CanossaSequenceInteraction
+  | InvestitureSettlementInteraction
+  | PapalTraceInteraction;
 
 export type ChapterTheme = {
   id:
@@ -427,7 +500,8 @@ export type ChapterTheme = {
     | "greece"
     | "rome"
     | "christian"
-    | "carolingian";
+    | "carolingian"
+    | "papal";
   label: string;
 };
 
@@ -479,8 +553,10 @@ export type ChapterDefinition = {
   slug: string;
   number: string;
   title: string;
+  openingTitleLines?: string[];
   period: string;
   claim: string;
+  openingClaim?: string;
   theme: ChapterTheme;
   openingAction: string;
   mapLabel: string;

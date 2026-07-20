@@ -345,6 +345,11 @@ const allowedChapterInteractions = new Set([
   "realm-partition",
   "conversion-roads",
   "commonwealth-trace",
+  "papal-court",
+  "bishop-burden",
+  "canossa-sequence",
+  "investiture-settlement",
+  "papal-trace",
 ]);
 
 for (const chapter of chapters) {
@@ -371,6 +376,13 @@ for (const chapter of chapters) {
     { label: "nextHash", value: chapter.nextHash },
     { label: "nextTitle", value: chapter.nextTitle },
   ];
+
+  if (chapter.openingClaim !== undefined) {
+    requiredChapterMetadata.push({
+      label: "openingClaim",
+      value: chapter.openingClaim,
+    });
+  }
   for (const field of requiredChapterMetadata) {
     if (!hasPublicText(field.value)) {
       errors.push(`Chapter "${chapter.slug}" needs a nonempty ${field.label}.`);
@@ -1517,6 +1529,159 @@ for (const chapter of chapters) {
             { label: `movement "${movement.id}" commonwealth trace "${stop.id}" instrument`, value: stop.instrument },
             { label: `movement "${movement.id}" commonwealth trace "${stop.id}" reach`, value: stop.reach },
             { label: `movement "${movement.id}" commonwealth trace "${stop.id}" inheritance`, value: stop.inheritance },
+          );
+        }
+        break;
+      }
+      case "papal-court": {
+        const { states } = interaction;
+        validateInteractionItems(qualifiedId, "papal court states", states);
+        if (states.length !== 4) {
+          errors.push(`Movement "${qualifiedId}" papal court interaction needs four states.`);
+        }
+        for (const state of states) {
+          for (const [field, value] of [
+            ["period", state.period],
+            ["office", state.office],
+            ["instrument", state.instrument],
+            ["consequence", state.consequence],
+          ] as const) {
+            if (!hasPublicText(value)) {
+              errors.push(
+                `Movement "${qualifiedId}" papal court state "${state.id}" needs ${field} text.`,
+              );
+            }
+            interactionCopy.push({
+              label: `movement "${movement.id}" papal court "${state.id}" ${field}`,
+              value,
+            });
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" papal court "${state.id}" label`, value: state.label },
+            { label: `movement "${movement.id}" papal court "${state.id}" detail`, value: state.detail },
+          );
+        }
+        break;
+      }
+      case "bishop-burden": {
+        const { states } = interaction;
+        validateInteractionItems(qualifiedId, "bishop burden states", states);
+        if (states.length !== 4) {
+          errors.push(`Movement "${qualifiedId}" bishop burden interaction needs four states.`);
+        }
+        for (const state of states) {
+          for (const [field, value] of [
+            ["period", state.period],
+            ["possession", state.possession],
+            ["church claim", state.churchClaim],
+            ["royal claim", state.royalClaim],
+            ["consequence", state.consequence],
+          ] as const) {
+            if (!hasPublicText(value)) {
+              errors.push(
+                `Movement "${qualifiedId}" bishop burden state "${state.id}" needs ${field} text.`,
+              );
+            }
+            interactionCopy.push({
+              label: `movement "${movement.id}" bishop burden "${state.id}" ${field}`,
+              value,
+            });
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" bishop burden "${state.id}" label`, value: state.label },
+            { label: `movement "${movement.id}" bishop burden "${state.id}" detail`, value: state.detail },
+          );
+        }
+        break;
+      }
+      case "canossa-sequence": {
+        const { states } = interaction;
+        validateInteractionItems(qualifiedId, "Canossa sequence states", states);
+        if (states.length !== 4) {
+          errors.push(`Movement "${qualifiedId}" Canossa sequence interaction needs four states.`);
+        }
+        for (const state of states) {
+          for (const [field, value] of [
+            ["period", state.period],
+            ["actor", state.actor],
+            ["act", state.act],
+            ["political effect", state.politicalEffect],
+            ["unsettled result", state.unsettled],
+          ] as const) {
+            if (!hasPublicText(value)) {
+              errors.push(
+                `Movement "${qualifiedId}" Canossa state "${state.id}" needs ${field} text.`,
+              );
+            }
+            interactionCopy.push({
+              label: `movement "${movement.id}" Canossa state "${state.id}" ${field}`,
+              value,
+            });
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" Canossa state "${state.id}" label`, value: state.label },
+            { label: `movement "${movement.id}" Canossa state "${state.id}" detail`, value: state.detail },
+          );
+        }
+        break;
+      }
+      case "investiture-settlement": {
+        const { states } = interaction;
+        validateInteractionItems(qualifiedId, "investiture settlement states", states);
+        if (states.length !== 4) {
+          errors.push(`Movement "${qualifiedId}" investiture settlement interaction needs four states.`);
+        }
+        for (const state of states) {
+          for (const [field, value] of [
+            ["period", state.period],
+            ["election", state.election],
+            ["spiritual act", state.spiritualAct],
+            ["temporal act", state.temporalAct],
+            ["limit", state.limit],
+          ] as const) {
+            if (!hasPublicText(value)) {
+              errors.push(
+                `Movement "${qualifiedId}" investiture settlement state "${state.id}" needs ${field} text.`,
+              );
+            }
+            interactionCopy.push({
+              label: `movement "${movement.id}" investiture settlement "${state.id}" ${field}`,
+              value,
+            });
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" investiture settlement "${state.id}" label`, value: state.label },
+            { label: `movement "${movement.id}" investiture settlement "${state.id}" detail`, value: state.detail },
+          );
+        }
+        break;
+      }
+      case "papal-trace": {
+        const { stops } = interaction;
+        validateInteractionItems(qualifiedId, "papal trace stops", stops);
+        if (stops.length !== 3) {
+          errors.push(`Movement "${qualifiedId}" papal trace interaction needs three stops.`);
+        }
+        for (const stop of stops) {
+          for (const [field, value] of [
+            ["period", stop.period],
+            ["instrument", stop.instrument],
+            ["consequence", stop.consequence],
+            ["inheritance", stop.inheritance],
+          ] as const) {
+            if (!hasPublicText(value)) {
+              errors.push(
+                `Movement "${qualifiedId}" papal trace stop "${stop.id}" needs ${field} text.`,
+              );
+            }
+            interactionCopy.push({
+              label: `movement "${movement.id}" papal trace "${stop.id}" ${field}`,
+              value,
+            });
+          }
+          interactionCopy.push(
+            { label: `movement "${movement.id}" papal trace "${stop.id}" label`, value: stop.label },
+            { label: `movement "${movement.id}" papal trace "${stop.id}" detail`, value: stop.detail },
           );
         }
         break;
