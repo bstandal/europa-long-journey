@@ -111,3 +111,50 @@ fixed interaction occupies the lower viewport without horizontal clipping.
   build with zero errors.
 
 final result: passed
+
+---
+
+# Chapter 10 design QA
+
+## Current release scope
+
+Chapter 10, “The Medieval Commercial Revolution.”
+
+Reference:
+
+- `source-assets/chapters/medieval-commercial-revolution/01-ledger-road.png`
+
+Matched implementation:
+
+- `design/qa/chapter-10-desktop-1536x1024.png`
+- `design/qa/chapter-10-desktop-comparison-final.png`
+- `design/qa/chapter-10-mobile-390x844.png`
+- `design/qa/chapter-10-voyage-interaction-1536x1024.png`
+- `design/qa/chapter-10-mobile-route-panel-390x844.png`
+
+Tested viewports:
+
+- Desktop: 1536 × 1024 and 1440 × 1024
+- Mobile: 390 × 844
+
+## Visible comparison
+
+The production hero preserves the generated source composition, tonal range, harbour architecture, ledger table and human focal group. The page uses the source’s dark negative space for the title and keeps the working merchants visible on both desktop and mobile. The dedicated mobile source maintains the subject rather than relying on a destructive desktop crop.
+
+## Findings and resolutions
+
+- P1 — The first title treatment concatenated title lines and overflowed the right edge. Resolved by restoring semantic spaces, block-level title lines and a bounded responsive type scale.
+- P1 — The voyage allocation grid reserved a third empty column and repeated the active outcome description. Resolved with a two-party grid and one live outcome description.
+- P2 — The sixth Champagne fair wrapped onto an isolated row. Resolved by fitting all six dated stops on one desktop rail while retaining the two-column mobile rail.
+- P2 — The chapter’s limited-liability passage read as a modern legal disclaimer. Resolved as affirmative narrative: Europe discovers the commercial power of a voyage-bound form, then enlarges the principle in later corporate law.
+
+## Interaction and responsive checks
+
+- “Finance the voyage” updates from safe return to total loss, including loss, household exposure and accessible value text.
+- “Keep the fair cycle” changes pressed state, visible record, outcome and chapter state.
+- The mobile route panel opens, closes with Escape and returns focus to its toggle.
+- Main-journey entry and chapter-ending handoff navigate to the intended destinations.
+- No horizontal overflow at 390 px.
+- No browser console warnings or errors.
+
+final result: passed

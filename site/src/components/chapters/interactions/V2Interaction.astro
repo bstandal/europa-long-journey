@@ -1,0 +1,104 @@
+---
+import type { ChapterV2Interaction } from "../../../types/chapter";
+
+type Props = {
+  interaction: ChapterV2Interaction;
+};
+
+const { interaction } = Astro.props;
+const initialId = interaction.initialId ?? interaction.records[0]?.id;
+---
+
+<div
+  class:list={[
+    "v2-sequence",
+    `v2-sequence--${interaction.family}`,
+    `v2-sequence--${interaction.variant}`,
+  ]}
+  data-v2-sequence
+  data-v2-family={interaction.family}
+  data-v2-variant={interaction.variant}
+>
+  {
+    interaction.mapImage && (
+      <div class="v2-sequence__map" aria-hidden="true">
+        <img
+          src={`${import.meta.env.BASE_URL}${interaction.mapImage}`}
+          alt=""
+          width="1536"
+          height="1024"
+          loading="lazy"
+          decoding="async"
+        />
+        {
+          interaction.records.map((record) => (
+            <svg
+              class:list={{ "is-active": record.id === initialId }}
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              data-v2-map-layer={record.id}
+            >
+              {
+                record.links?.map(([from, to]) => {
+                  const start = record.points?.[from];
+                  const end = record.points?.[to];
+                  if (!start || !end) return null;
+                  return <line x1={start.x} y1={start.y} x2={end.x} y2={end.y} />;
+                })
+              }
+              {
+                record.points?.map((point) => (
+                  <>
+                    <circle cx={point.x} cy={point.y} r="0.8" />
+                    <text x={point.x} y={point.y - 2}>{point.label}</text>
+                  </>
+                ))
+              }
+            </svg>
+          ))
+        }
+      </div>
+    )
+  }
+
+  <div class="v2-sequence__rail" role="group" aria-label={interaction.prompt}>
+    {
+      interaction.records.map((record, index) => (
+        <button
+          type="button"
+          class:list={{ "is-active": record.id === initialId }}
+          data-interaction-choice
+          data-choice-index={index}
+          data-state-id={record.id}
+          data-detail={record.detail}
+          aria-pressed={record.id === initialId ? "true" : "false"}
+        >
+          <span>{String(index + 1).padStart(2, "0")}</span>
+          <strong>{record.label}</strong>
+          {record.period && <small>{record.period}</small>}
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="v2-sequence__records" aria-live="polite">
+    {
+      interaction.records.map((record) => (
+        <section data-v2-record={record.id} hidden={record.id !== initialId}>
+          {record.kicker && <p>{record.kicker}</p>}
+          <dl>
+            {
+              record.fields.map((field) => (
+                <div>
+                  <dt>{field.label}</dt>
+                  <dd>{field.value}</dd>
+                </div>
+              ))
+            }
+          </dl>
+          {record.outcome && <strong class="v2-sequence__outcome">{record.outcome}</strong>}
+        </section>
+      ))
+    }
+  </div>
+</div>

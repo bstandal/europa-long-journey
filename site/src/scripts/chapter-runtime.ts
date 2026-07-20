@@ -35,6 +35,7 @@ const routeToggle = document.querySelector<HTMLButtonElement>("[data-route-toggl
 const routePanel = document.querySelector<HTMLElement>("[data-route-panel]");
 const routeToggleAct = document.querySelector<HTMLElement>("[data-route-toggle-act]");
 const routeTogglePlace = document.querySelector<HTMLElement>("[data-route-toggle-place]");
+const stageNote = document.querySelector<HTMLElement>("[data-stage-note]");
 const opening = document.querySelector<HTMLElement>(".chapter-opening");
 const ending = document.querySelector<HTMLElement>(".chapter-ending");
 const sources = document.querySelector<HTMLElement>(".chapter-sources");
@@ -183,6 +184,10 @@ function setActiveMovement(index: number, updateHash = true) {
   document.body.dataset.chapterSide = next.dataset.movementSide ?? "";
   document.body.dataset.chapterInteraction = next.dataset.interactionKind ?? "";
   document.body.dataset.chapterState = stateId;
+  if (stageNote) {
+    stageNote.textContent =
+      next.dataset.visualLabel ?? "Evidence-led reconstruction";
+  }
 
   if (updateHash && next.id && window.location.hash !== `#${next.id}`) {
     window.history.replaceState(window.history.state, "", `#${next.id}`);
@@ -407,6 +412,21 @@ function chooseButton(button: HTMLButtonElement) {
     }
   }
 
+  if (kind === "chapter-v2") {
+    const stateId = button.dataset.stateId ?? "";
+    interaction.dataset.stateId = stateId;
+    for (const record of interaction.querySelectorAll<HTMLElement>("[data-v2-record]")) {
+      record.hidden = record.dataset.v2Record !== stateId;
+    }
+    for (const layer of interaction.querySelectorAll<HTMLElement>("[data-v2-map-layer]")) {
+      layer.classList.toggle("is-active", layer.dataset.v2MapLayer === stateId);
+    }
+    setStageState(interaction.dataset.movementId ?? "", stateId);
+    if (document.body.dataset.chapterMovement === interaction.dataset.movementId) {
+      document.body.dataset.chapterState = stateId;
+    }
+  }
+
   if (kind === "roman-network") {
     const stateId = button.dataset.stateId ?? "";
     for (const layer of interaction.querySelectorAll<HTMLElement>(
@@ -564,6 +584,7 @@ function setupInteractions() {
     });
 
   setupHarvestControls();
+  setupLedgerVoyages();
 
   document.querySelectorAll<HTMLInputElement>("[data-growth-range]").forEach((range) => {
     const updateGrowthState = () => {
@@ -635,6 +656,39 @@ function setupInteractions() {
 
     range.addEventListener("input", updateCompare);
     updateCompare();
+  });
+}
+
+function setupLedgerVoyages() {
+  document.querySelectorAll<HTMLElement>("[data-ledger-voyage]").forEach((ledger) => {
+    const range = ledger.querySelector<HTMLInputElement>("[data-ledger-outcome-range]");
+    const loss = ledger.querySelector<HTMLElement>("[data-ledger-loss]");
+    const household = ledger.querySelector<HTMLElement>("[data-ledger-household]");
+    const detail = ledger.querySelector<HTMLElement>("[data-ledger-detail]");
+    const interaction = ledger.closest<HTMLElement>("[data-chapter-interaction]");
+    if (!range) return;
+
+    const update = () => {
+      const record = ledger.querySelector<HTMLElement>(
+        `[data-ledger-outcome="${range.value}"]`,
+      );
+      if (!record) return;
+      const lossValue = Number.parseInt(record.dataset.loss ?? "0", 10);
+      if (loss) loss.textContent = `${lossValue.toLocaleString("en-GB")} florins`;
+      if (household) household.textContent = record.dataset.household ?? "";
+      if (detail) detail.textContent = record.dataset.detail ?? "";
+      const outerDetail = interaction?.querySelector<HTMLElement>(
+        "[data-interaction-detail]",
+      );
+      if (outerDetail) outerDetail.textContent = record.dataset.detail ?? "";
+      range.setAttribute(
+        "aria-valuetext",
+        `${record.dataset.label ?? "Outcome"}. ${record.dataset.detail ?? ""}`,
+      );
+    };
+
+    range.addEventListener("input", update);
+    update();
   });
 }
 

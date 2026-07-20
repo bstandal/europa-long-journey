@@ -23,7 +23,17 @@ type Props = {
 const { chapter } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const returnHref = `${base}#${chapter.returnHash}`;
-const nextHref = `${base}#${chapter.nextHash}`;
+const nextHref = chapter.nextSlug
+  ? `${base}chapters/${chapter.nextSlug}/`
+  : chapter.nextHash
+    ? `${base}#${chapter.nextHash}`
+    : undefined;
+const openingImage = chapter.hero?.image ?? chapter.movements[0].image;
+const openingMobileImage =
+  chapter.hero?.mobileImage ??
+  chapter.hero?.image ??
+  chapter.movements[0].mobileImage ??
+  chapter.movements[0].image;
 ---
 
 <ChapterLayout
@@ -40,8 +50,10 @@ const nextHref = `${base}#${chapter.nextHash}`;
       class="chapter-opening"
       aria-labelledby="chapter-title"
       style={[
-        `--opening-image:url("${base}${chapter.movements[0].image}")`,
-        `--opening-mobile-image:url("${base}${chapter.movements[0].mobileImage ?? chapter.movements[0].image}")`,
+        `--opening-image:url("${base}${openingImage}")`,
+        `--opening-mobile-image:url("${base}${openingMobileImage}")`,
+        `--opening-position:${chapter.hero?.imagePosition ?? chapter.movements[0].imagePosition ?? "center"}`,
+        `--opening-mobile-position:${chapter.hero?.mobileImagePosition ?? chapter.movements[0].mobileImagePosition ?? chapter.hero?.imagePosition ?? chapter.movements[0].imagePosition ?? "center"}`,
       ].join(";")}
     >
       <div>
@@ -49,7 +61,7 @@ const nextHref = `${base}#${chapter.nextHash}`;
         <h1 id="chapter-title">
           {
             chapter.openingTitleLines
-              ? chapter.openingTitleLines.map((line) => <span>{line}</span>)
+              ? chapter.openingTitleLines.map((line) => <span>{line} </span>)
               : chapter.title
           }
         </h1>
@@ -90,10 +102,14 @@ const nextHref = `${base}#${chapter.nextHash}`;
         <h2>{chapter.ending.title}</h2>
         <p>{chapter.ending.detail}</p>
       </div>
-      <a class="chapter-ending__next" href={nextHref}>
-        <span>{chapter.ending.nextPeriod}</span>
-        <strong>{chapter.nextTitle}</strong>
-      </a>
+      {
+        nextHref && chapter.nextTitle && (
+          <a class="chapter-ending__next" href={nextHref}>
+            {chapter.ending.nextPeriod && <span>{chapter.ending.nextPeriod}</span>}
+            <strong>{chapter.nextTitle}</strong>
+          </a>
+        )
+      }
       <a class="chapter-ending__return" href={returnHref}>Return to the long road</a>
     </footer>
 

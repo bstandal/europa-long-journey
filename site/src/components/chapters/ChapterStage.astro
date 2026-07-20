@@ -56,6 +56,39 @@ const base = import.meta.env.BASE_URL;
       )
     }
     {
+      chapter.movements.flatMap((movement) =>
+        movement.interaction?.kind === "chapter-v2"
+          ? movement.interaction.records
+              .filter((state) => state.stageImage)
+              .map((state) => (
+                <img
+                  class:list={[
+                    "chapter-stage__image",
+                    "chapter-stage__state-image",
+                    {
+                      "is-state-active":
+                        state.id ===
+                        (movement.interaction?.kind === "chapter-v2"
+                          ? movement.interaction.initialId ??
+                            movement.interaction.records[0]?.id
+                          : undefined),
+                    },
+                  ]}
+                  src={`${base}${state.stageImage}`}
+                  alt=""
+                  width="1536"
+                  height="1024"
+                  loading="lazy"
+                  decoding="async"
+                  data-stage-state-owner={movement.id}
+                  data-stage-state-id={state.id}
+                  style={`object-position:${movement.imagePosition ?? "center"}`}
+                />
+              ))
+          : [],
+      )
+    }
+    {
       chapter.movements
         .filter((movement) => movement.interaction?.kind === "compare")
         .map((movement) => {
@@ -209,5 +242,7 @@ const base = import.meta.env.BASE_URL;
   </div>
   <div class="chapter-stage__shade"></div>
   <div class="chapter-stage__grain"></div>
-  <p class="chapter-stage__note">Evidence-led reconstruction</p>
+  <p class="chapter-stage__note" data-stage-note>
+    {chapter.movements[0]?.visualLabel ?? "Evidence-led reconstruction"}
+  </p>
 </div>

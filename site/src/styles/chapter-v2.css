@@ -1,0 +1,539 @@
+.deep-chapter-page--ledger,
+.deep-chapter-page--harbour,
+.deep-chapter-page--imperial-diet,
+.deep-chapter-page--frontier,
+.deep-chapter-page--ocean,
+.deep-chapter-page--burned-empire,
+.deep-chapter-page--danube,
+.deep-chapter-page--measured-page,
+.deep-chapter-page--exchange,
+.deep-chapter-page--conversation,
+.deep-chapter-page--capital-line,
+.deep-chapter-page--switchboard,
+.deep-chapter-page--split-open,
+.deep-chapter-page--two-roads,
+.deep-chapter-page--eastern-line {
+  --chapter-accent: #caa869;
+  --chapter-accent-bright: #f0cf8d;
+  --chapter-panel: rgba(13, 16, 15, 0.9);
+  --chapter-paper: #b9a276;
+  --chapter-line: rgba(218, 187, 123, 0.42);
+  --bronze: var(--chapter-accent);
+  --bronze-bright: var(--chapter-accent-bright);
+}
+
+.deep-chapter-page--ledger {
+  --chapter-accent: #bda66e;
+  --chapter-accent-bright: #ead39a;
+  --chapter-panel: rgba(18, 17, 13, 0.91);
+  --chapter-paper: #c7b489;
+  --chapter-line: rgba(208, 185, 126, 0.48);
+}
+
+.deep-chapter-page--harbour {
+  --chapter-accent: #96a99d;
+  --chapter-accent-bright: #cad8cc;
+  --chapter-panel: rgba(9, 19, 20, 0.9);
+  --chapter-paper: #aaa17e;
+  --chapter-line: rgba(151, 185, 176, 0.42);
+}
+
+.deep-chapter-page--imperial-diet {
+  --chapter-accent: #c2a258;
+  --chapter-accent-bright: #efd785;
+  --chapter-panel: rgba(24, 16, 12, 0.9);
+  --chapter-paper: #c3a978;
+  --chapter-line: rgba(211, 169, 86, 0.47);
+}
+
+.deep-chapter-page--frontier,
+.deep-chapter-page--burned-empire,
+.deep-chapter-page--split-open {
+  --chapter-accent: #ad6854;
+  --chapter-accent-bright: #e0a18c;
+  --chapter-panel: rgba(22, 12, 11, 0.92);
+  --chapter-paper: #ad977d;
+  --chapter-line: rgba(186, 104, 78, 0.5);
+}
+
+.deep-chapter-page--ocean,
+.deep-chapter-page--switchboard,
+.deep-chapter-page--eastern-line {
+  --chapter-accent: #82a6ad;
+  --chapter-accent-bright: #b8d6d8;
+  --chapter-panel: rgba(8, 17, 20, 0.92);
+  --chapter-paper: #9f9a7c;
+  --chapter-line: rgba(112, 167, 177, 0.48);
+}
+
+.deep-chapter-page--danube,
+.deep-chapter-page--two-roads {
+  --chapter-accent: #b59a72;
+  --chapter-accent-bright: #dcc8a5;
+  --chapter-panel: rgba(18, 15, 15, 0.92);
+  --chapter-paper: #b4a27d;
+  --chapter-line: rgba(190, 154, 108, 0.46);
+}
+
+.deep-chapter-page--measured-page,
+.deep-chapter-page--conversation {
+  --chapter-accent: #9caa96;
+  --chapter-accent-bright: #d1d8bb;
+  --chapter-panel: rgba(13, 17, 15, 0.92);
+  --chapter-paper: #b9ae8a;
+  --chapter-line: rgba(159, 176, 148, 0.46);
+}
+
+.deep-chapter-page--exchange,
+.deep-chapter-page--capital-line {
+  --chapter-accent: #b7935b;
+  --chapter-accent-bright: #e0c182;
+  --chapter-panel: rgba(16, 15, 13, 0.92);
+  --chapter-paper: #b6a67c;
+  --chapter-line: rgba(190, 151, 88, 0.48);
+}
+
+.deep-chapter-page--ledger .chapter-opening > div,
+.deep-chapter-page--harbour .chapter-opening > div,
+.deep-chapter-page--imperial-diet .chapter-opening > div,
+.deep-chapter-page--frontier .chapter-opening > div,
+.deep-chapter-page--ocean .chapter-opening > div,
+.deep-chapter-page--burned-empire .chapter-opening > div,
+.deep-chapter-page--danube .chapter-opening > div,
+.deep-chapter-page--measured-page .chapter-opening > div,
+.deep-chapter-page--exchange .chapter-opening > div,
+.deep-chapter-page--conversation .chapter-opening > div,
+.deep-chapter-page--capital-line .chapter-opening > div,
+.deep-chapter-page--switchboard .chapter-opening > div,
+.deep-chapter-page--split-open .chapter-opening > div,
+.deep-chapter-page--two-roads .chapter-opening > div,
+.deep-chapter-page--eastern-line .chapter-opening > div {
+  width: min(900px, 72vw);
+}
+
+.deep-chapter-page--ledger .chapter-opening h1,
+.deep-chapter-page--harbour .chapter-opening h1,
+.deep-chapter-page--imperial-diet .chapter-opening h1,
+.deep-chapter-page--frontier .chapter-opening h1,
+.deep-chapter-page--ocean .chapter-opening h1,
+.deep-chapter-page--burned-empire .chapter-opening h1,
+.deep-chapter-page--danube .chapter-opening h1,
+.deep-chapter-page--measured-page .chapter-opening h1,
+.deep-chapter-page--exchange .chapter-opening h1,
+.deep-chapter-page--conversation .chapter-opening h1,
+.deep-chapter-page--capital-line .chapter-opening h1,
+.deep-chapter-page--switchboard .chapter-opening h1,
+.deep-chapter-page--split-open .chapter-opening h1,
+.deep-chapter-page--two-roads .chapter-opening h1,
+.deep-chapter-page--eastern-line .chapter-opening h1 {
+  font-size: clamp(4.2rem, 7.4vw, 7.2rem);
+  letter-spacing: -0.01em;
+  line-height: 0.84;
+}
+
+.deep-chapter-page--ledger .chapter-opening h1 span,
+.deep-chapter-page--harbour .chapter-opening h1 span,
+.deep-chapter-page--imperial-diet .chapter-opening h1 span,
+.deep-chapter-page--frontier .chapter-opening h1 span,
+.deep-chapter-page--ocean .chapter-opening h1 span,
+.deep-chapter-page--burned-empire .chapter-opening h1 span,
+.deep-chapter-page--danube .chapter-opening h1 span,
+.deep-chapter-page--measured-page .chapter-opening h1 span,
+.deep-chapter-page--exchange .chapter-opening h1 span,
+.deep-chapter-page--conversation .chapter-opening h1 span,
+.deep-chapter-page--capital-line .chapter-opening h1 span,
+.deep-chapter-page--switchboard .chapter-opening h1 span,
+.deep-chapter-page--split-open .chapter-opening h1 span,
+.deep-chapter-page--two-roads .chapter-opening h1 span,
+.deep-chapter-page--eastern-line .chapter-opening h1 span {
+  display: block;
+  white-space: nowrap;
+}
+
+.v2-sequence {
+  display: grid;
+  grid-template-columns: minmax(330px, 0.9fr) minmax(350px, 1.1fr);
+  gap: 14px 22px;
+}
+
+.v2-sequence__map {
+  position: relative;
+  min-height: 170px;
+  overflow: hidden;
+  grid-column: 1 / -1;
+  border: 1px solid var(--chapter-line);
+  background: #0b1111;
+}
+
+.v2-sequence__map > img,
+.v2-sequence__map > svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.v2-sequence__map > img {
+  object-fit: cover;
+  filter: saturate(0.48) contrast(1.04) brightness(0.67);
+}
+
+.v2-sequence__map > svg {
+  opacity: 0;
+  overflow: visible;
+  transition: opacity 300ms ease;
+}
+
+.v2-sequence__map > svg.is-active {
+  opacity: 1;
+}
+
+.v2-sequence__map line {
+  stroke: var(--chapter-accent-bright);
+  stroke-width: 0.32;
+  vector-effect: non-scaling-stroke;
+}
+
+.v2-sequence__map circle {
+  fill: #101615;
+  stroke: var(--chapter-accent-bright);
+  stroke-width: 0.28;
+  vector-effect: non-scaling-stroke;
+}
+
+.v2-sequence__map text {
+  fill: #f0e6ce;
+  font-family: var(--sans);
+  font-size: 2.25px;
+  letter-spacing: 0.08em;
+  paint-order: stroke;
+  stroke: rgba(5, 9, 9, 0.92);
+  stroke-width: 0.7px;
+  text-anchor: middle;
+  text-transform: uppercase;
+}
+
+.v2-sequence__rail {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+  align-content: start;
+  border-top: 1px solid var(--chapter-line);
+}
+
+.v2-sequence__rail button {
+  min-height: 74px;
+  padding: 10px 12px;
+  border: 0;
+  border-right: 1px solid rgba(240, 230, 206, 0.12);
+  border-bottom: 1px solid rgba(240, 230, 206, 0.12);
+  background: transparent;
+  color: rgba(240, 230, 206, 0.58);
+  cursor: pointer;
+  text-align: left;
+}
+
+.v2-sequence__rail button.is-active {
+  background: color-mix(in srgb, var(--chapter-accent) 14%, transparent);
+  color: var(--ivory);
+}
+
+.v2-sequence__rail button > span,
+.v2-sequence__rail button > small {
+  display: block;
+  color: var(--chapter-accent-bright);
+  font-size: 0.52rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.v2-sequence__rail button > strong {
+  display: block;
+  margin: 4px 0 2px;
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.v2-sequence__records section {
+  padding: 4px 0;
+}
+
+.v2-sequence__records section > p {
+  margin: 0 0 10px;
+  color: var(--chapter-accent-bright);
+  font-size: 0.56rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.v2-sequence__records dl {
+  display: grid;
+  margin: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: rgba(240, 230, 206, 0.1);
+}
+
+.v2-sequence__records dl > div {
+  padding: 9px 11px;
+  background: var(--chapter-panel);
+}
+
+.v2-sequence__records dt {
+  color: rgba(240, 230, 206, 0.5);
+  font-size: 0.5rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.v2-sequence__records dd {
+  margin: 3px 0 0;
+  color: rgba(240, 230, 206, 0.9);
+  font-family: var(--serif);
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.v2-sequence__outcome {
+  display: block;
+  margin-top: 10px;
+  color: var(--chapter-accent-bright);
+  font-family: var(--serif);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.ledger-voyage {
+  display: grid;
+  grid-template-columns: minmax(175px, 0.42fr) minmax(420px, 1fr);
+  gap: 14px 22px;
+}
+
+.ledger-voyage__heading {
+  display: grid;
+  align-content: start;
+  padding: 12px 14px;
+  border-left: 2px solid var(--chapter-accent);
+  background: rgba(240, 230, 206, 0.045);
+}
+
+.ledger-voyage__heading span,
+.ledger-voyage__heading output {
+  color: var(--chapter-accent-bright);
+  font-size: 0.52rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.ledger-voyage__heading strong {
+  margin: 4px 0 14px;
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.ledger-voyage__allocations {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--chapter-line);
+}
+
+.ledger-voyage__allocations article {
+  padding: 10px 12px;
+  background: var(--chapter-panel);
+}
+
+.ledger-voyage__allocations header span,
+.ledger-voyage__allocations small {
+  display: block;
+  color: rgba(240, 230, 206, 0.52);
+  font-size: 0.5rem;
+  line-height: 1.35;
+}
+
+.ledger-voyage__allocations header strong {
+  display: block;
+  color: var(--ivory);
+  font-family: var(--serif);
+  font-size: 0.92rem;
+  font-weight: 400;
+}
+
+.ledger-voyage__allocations p {
+  margin: 7px 0;
+  color: var(--chapter-accent-bright);
+  font-size: 0.63rem;
+}
+
+.ledger-voyage__allocations article > div {
+  height: 2px;
+  margin-top: 9px;
+  background: rgba(240, 230, 206, 0.1);
+}
+
+.ledger-voyage__allocations article > div span {
+  display: block;
+  width: var(--ledger-share);
+  height: 100%;
+  background: var(--chapter-accent-bright);
+}
+
+.ledger-voyage__outcome {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(150px, 0.42fr) minmax(280px, 1fr);
+  align-items: center;
+  gap: 5px 22px;
+}
+
+.ledger-voyage__outcome > span:first-child {
+  color: rgba(240, 230, 206, 0.7);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ledger-voyage__outcome input {
+  width: 100%;
+  accent-color: var(--chapter-accent-bright);
+}
+
+.ledger-voyage__outcome > span:last-child {
+  display: flex;
+  grid-column: 2;
+  justify-content: space-between;
+  color: rgba(240, 230, 206, 0.46);
+  font-size: 0.48rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ledger-voyage__result {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--chapter-line);
+}
+
+.ledger-voyage__result p {
+  margin: 0;
+  padding: 9px 12px;
+  background: var(--chapter-panel);
+}
+
+.ledger-voyage__result p > span {
+  display: block;
+  color: rgba(240, 230, 206, 0.48);
+  font-size: 0.48rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ledger-voyage__result p > strong {
+  font-family: var(--serif);
+  font-size: 0.92rem;
+  font-weight: 400;
+}
+
+.ledger-voyage__result > p:last-child {
+  grid-column: 1 / -1;
+  color: rgba(240, 230, 206, 0.72);
+  font-size: 0.7rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 900px) and (min-width: 721px) {
+  .v2-sequence {
+    grid-template-columns: 1fr;
+  }
+
+  .ledger-voyage {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .deep-chapter-page--ledger .chapter-opening > div,
+  .deep-chapter-page--harbour .chapter-opening > div,
+  .deep-chapter-page--imperial-diet .chapter-opening > div,
+  .deep-chapter-page--frontier .chapter-opening > div,
+  .deep-chapter-page--ocean .chapter-opening > div,
+  .deep-chapter-page--burned-empire .chapter-opening > div,
+  .deep-chapter-page--danube .chapter-opening > div,
+  .deep-chapter-page--measured-page .chapter-opening > div,
+  .deep-chapter-page--exchange .chapter-opening > div,
+  .deep-chapter-page--conversation .chapter-opening > div,
+  .deep-chapter-page--capital-line .chapter-opening > div,
+  .deep-chapter-page--switchboard .chapter-opening > div,
+  .deep-chapter-page--split-open .chapter-opening > div,
+  .deep-chapter-page--two-roads .chapter-opening > div,
+  .deep-chapter-page--eastern-line .chapter-opening > div {
+    width: 100%;
+  }
+
+  .deep-chapter-page--ledger .chapter-opening h1,
+  .deep-chapter-page--harbour .chapter-opening h1,
+  .deep-chapter-page--imperial-diet .chapter-opening h1,
+  .deep-chapter-page--frontier .chapter-opening h1,
+  .deep-chapter-page--ocean .chapter-opening h1,
+  .deep-chapter-page--burned-empire .chapter-opening h1,
+  .deep-chapter-page--danube .chapter-opening h1,
+  .deep-chapter-page--measured-page .chapter-opening h1,
+  .deep-chapter-page--exchange .chapter-opening h1,
+  .deep-chapter-page--conversation .chapter-opening h1,
+  .deep-chapter-page--capital-line .chapter-opening h1,
+  .deep-chapter-page--switchboard .chapter-opening h1,
+  .deep-chapter-page--split-open .chapter-opening h1,
+  .deep-chapter-page--two-roads .chapter-opening h1,
+  .deep-chapter-page--eastern-line .chapter-opening h1 {
+    font-size: clamp(3.35rem, 14.4vw, 4.6rem);
+  }
+
+  .chapter-opening {
+    background:
+      linear-gradient(180deg, rgba(5, 10, 12, 0.08), rgba(5, 10, 12, 0.92)),
+      var(--opening-mobile-image) var(--opening-mobile-position, center) / cover;
+  }
+
+  .v2-sequence,
+  .ledger-voyage {
+    grid-template-columns: 1fr;
+  }
+
+  .v2-sequence__map {
+    min-height: 210px;
+  }
+
+  .v2-sequence__rail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .v2-sequence__records dl {
+    grid-template-columns: 1fr;
+  }
+
+  .ledger-voyage__allocations {
+    grid-template-columns: 1fr;
+  }
+
+  .ledger-voyage__outcome {
+    grid-template-columns: 1fr;
+  }
+
+  .ledger-voyage__outcome > span:last-child {
+    grid-column: 1;
+  }
+
+  .ledger-voyage__result {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v2-sequence__map > svg {
+    transition: none;
+  }
+}

@@ -1,0 +1,87 @@
+---
+import type { LedgerVoyageInteraction } from "../../../types/chapter";
+
+type Props = {
+  interaction: LedgerVoyageInteraction;
+};
+
+const { interaction } = Astro.props;
+const initialOutcome = interaction.outcomes[0];
+---
+
+<div
+  class="ledger-voyage"
+  data-ledger-voyage
+  data-ledger-capital={interaction.capital}
+>
+  <div class="ledger-voyage__heading">
+    <span>Venture account</span>
+    <strong>{interaction.ventureLabel}</strong>
+    <output data-ledger-total>{interaction.capital.toLocaleString("en-GB")} florins</output>
+  </div>
+
+  <div class="ledger-voyage__allocations">
+    {
+      interaction.allocations.map((allocation) => (
+        <article
+          data-ledger-allocation
+          data-ledger-amount={allocation.amount}
+        >
+          <header>
+            <span>{allocation.role}</span>
+            <strong>{allocation.label}</strong>
+          </header>
+          <p>{allocation.amount.toLocaleString("en-GB")} florins committed</p>
+          <small>{allocation.liability}</small>
+          <div aria-hidden="true">
+            <span
+              style={`--ledger-share:${(allocation.amount / interaction.capital) * 100}%`}
+            ></span>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+
+  <label class="ledger-voyage__outcome">
+    <span>Move the ship from profit to total loss</span>
+    <input
+      type="range"
+      min="0"
+      max={interaction.outcomes.length - 1}
+      value="0"
+      step="1"
+      data-ledger-outcome-range
+      aria-label="Choose the commercial outcome of the voyage"
+    />
+    <span aria-hidden="true">
+      {interaction.outcomes.map((outcome) => <small>{outcome.label}</small>)}
+    </span>
+  </label>
+
+  <div class="ledger-voyage__result" aria-live="polite">
+    <p>
+      <span>Venture loss</span>
+      <strong data-ledger-loss>{initialOutcome.loss.toLocaleString("en-GB")} florins</strong>
+    </p>
+    <p>
+      <span>Household exposure</span>
+      <strong data-ledger-household>{initialOutcome.householdEffect}</strong>
+    </p>
+    <p data-ledger-detail>{initialOutcome.detail}</p>
+  </div>
+
+  <div hidden>
+    {
+      interaction.outcomes.map((outcome, index) => (
+        <span
+          data-ledger-outcome={index}
+          data-loss={outcome.loss}
+          data-detail={outcome.detail}
+          data-household={outcome.householdEffect}
+          data-label={outcome.label}
+        ></span>
+      ))
+    }
+  </div>
+</div>

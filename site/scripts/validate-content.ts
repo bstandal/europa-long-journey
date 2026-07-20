@@ -355,6 +355,8 @@ const allowedChapterInteractions = new Set([
   "sworn-commune",
   "immortal-body",
   "kin-trace",
+  "chapter-v2",
+  "ledger-voyage",
 ]);
 
 for (const chapter of chapters) {
@@ -376,11 +378,24 @@ for (const chapter of chapters) {
     { label: "ending period", value: chapter.ending.period },
     { label: "ending title", value: chapter.ending.title },
     { label: "ending detail", value: chapter.ending.detail },
-    { label: "ending nextPeriod", value: chapter.ending.nextPeriod },
     { label: "returnHash", value: chapter.returnHash },
-    { label: "nextHash", value: chapter.nextHash },
-    { label: "nextTitle", value: chapter.nextTitle },
   ];
+
+  if (chapter.ending.nextPeriod !== undefined) {
+    requiredChapterMetadata.push({
+      label: "ending nextPeriod",
+      value: chapter.ending.nextPeriod,
+    });
+  }
+  if (chapter.nextHash !== undefined) {
+    requiredChapterMetadata.push({ label: "nextHash", value: chapter.nextHash });
+  }
+  if (chapter.nextTitle !== undefined) {
+    requiredChapterMetadata.push({ label: "nextTitle", value: chapter.nextTitle });
+  }
+  if ((chapter.nextHash || chapter.nextSlug) && !hasPublicText(chapter.nextTitle)) {
+    errors.push(`Chapter "${chapter.slug}" needs nextTitle when it has a next destination.`);
+  }
 
   if (chapter.openingClaim !== undefined) {
     requiredChapterMetadata.push({
@@ -1845,6 +1860,161 @@ for (const chapter of chapters) {
         }
         break;
       }
+      case "chapter-v2": {
+        const { records, mapImage, initialId } = interaction;
+        validateInteractionItems(qualifiedId, "chapter V2 records", records);
+        if (initialId && !records.some((record) => record.id === initialId)) {
+          errors.push(
+            `Movement "${qualifiedId}" chapter V2 initialId "${initialId}" does not match a record.`,
+          );
+        }
+        if (mapImage) {
+          try {
+            await access(`${root}/${mapImage}`);
+          } catch {
+            errors.push(
+              `Movement "${qualifiedId}" chapter V2 map is missing at /${mapImage}.`,
+            );
+          }
+        }
+        for (const record of records) {
+          if (!record.fields.length) {
+            errors.push(
+              `Movement "${qualifiedId}" chapter V2 record "${record.id}" needs fields.`,
+            );
+          }
+          interactionCopy.push(
+            {
+              label: `movement "${movement.id}" chapter V2 "${record.id}" label`,
+              value: record.label,
+            },
+            {
+              label: `movement "${movement.id}" chapter V2 "${record.id}" detail`,
+              value: record.detail,
+            },
+            ...record.fields.flatMap((field, fieldIndex) => [
+              {
+                label: `movement "${movement.id}" chapter V2 "${record.id}" field ${fieldIndex + 1} label`,
+                value: field.label,
+              },
+              {
+                label: `movement "${movement.id}" chapter V2 "${record.id}" field ${fieldIndex + 1} value`,
+                value: field.value,
+              },
+            ]),
+          );
+          for (const point of record.points ?? []) {
+            validateFiniteRange(
+              `Movement "${qualifiedId}" chapter V2 record "${record.id}" point "${point.id}"`,
+              "x position",
+              point.x,
+              0,
+              100,
+            );
+            validateFiniteRange(
+              `Movement "${qualifiedId}" chapter V2 record "${record.id}" point "${point.id}"`,
+              "y position",
+              point.y,
+              0,
+              100,
+            );
+          }
+          for (const [from, to] of record.links ?? []) {
+            const pointCount = record.points?.length ?? 0;
+            if (from < 0 || to < 0 || from >= pointCount || to >= pointCount) {
+              errors.push(
+                `Movement "${qualifiedId}" chapter V2 record "${record.id}" links an unknown point.`,
+              );
+            }
+          }
+          for (const [label, asset] of [
+            ["stage image", record.stageImage],
+            ["mobile stage image", record.mobileStageImage],
+            ["overlay image", record.overlayImage],
+          ] as const) {
+            if (!asset) continue;
+            try {
+              await access(`${root}/${asset}`);
+            } catch {
+              errors.push(
+                `Movement "${qualifiedId}" chapter V2 record "${record.id}" is missing its ${label} at /${asset}.`,
+              );
+            }
+          }
+        }
+        break;
+      }
+      case "ledger-voyage": {
+        const { capital, allocations, outcomes } = interaction;
+        validateFiniteRange(
+          `Movement "${qualifiedId}" ledger voyage`,
+          "capital",
+          capital,
+          1,
+          Number.MAX_SAFE_INTEGER,
+          true,
+        );
+        validateInteractionItems(qualifiedId, "ledger outcomes", outcomes);
+        const allocationIds = new Set<string>();
+        for (const allocation of allocations) {
+          if (!hasPublicText(allocation.id) || allocationIds.has(allocation.id)) {
+            errors.push(
+              `Movement "${qualifiedId}" ledger allocations need unique nonempty ids.`,
+            );
+          }
+          allocationIds.add(allocation.id);
+        }
+        const allocated = allocations.reduce(
+          (total, allocation) => total + allocation.amount,
+          0,
+        );
+        if (allocated !== capital) {
+          errors.push(
+            `Movement "${qualifiedId}" ledger allocations total ${allocated}; expected ${capital}.`,
+          );
+        }
+        for (const allocation of allocations) {
+          interactionCopy.push(
+            {
+              label: `movement "${movement.id}" ledger allocation "${allocation.id}" label`,
+              value: allocation.label,
+            },
+            {
+              label: `movement "${movement.id}" ledger allocation "${allocation.id}" role`,
+              value: allocation.role,
+            },
+            {
+              label: `movement "${movement.id}" ledger allocation "${allocation.id}" liability`,
+              value: allocation.liability,
+            },
+          );
+        }
+        for (const outcome of outcomes) {
+          validateFiniteRange(
+            `Movement "${qualifiedId}" ledger outcome "${outcome.id}"`,
+            "loss",
+            outcome.loss,
+            0,
+            capital,
+            true,
+          );
+          interactionCopy.push(
+            {
+              label: `movement "${movement.id}" ledger outcome "${outcome.id}" label`,
+              value: outcome.label,
+            },
+            {
+              label: `movement "${movement.id}" ledger outcome "${outcome.id}" detail`,
+              value: outcome.detail,
+            },
+            {
+              label: `movement "${movement.id}" ledger outcome "${outcome.id}" household effect`,
+              value: outcome.householdEffect,
+            },
+          );
+        }
+        break;
+      }
     }
 
     validateChapterCopy(
@@ -1885,6 +2055,8 @@ for (const chapter of chapters) {
     ["opening route image", chapter.openingRouteImage],
     ["ending image", chapter.ending.image],
     ["ending mobile image", chapter.ending.mobileImage],
+    ["hero image", chapter.hero?.image],
+    ["hero mobile image", chapter.hero?.mobileImage],
   ] as const) {
     if (!asset) continue;
     try {

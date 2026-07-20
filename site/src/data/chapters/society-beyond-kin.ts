@@ -71,6 +71,7 @@ export const societyBeyondKin: ChapterDefinition = {
   returnHash: "society-beyond-kin",
   nextHash: "commercial-revolution",
   nextTitle: "The Medieval Commercial Revolution",
+  nextSlug: "medieval-commercial-revolution",
   movements: [
     {
       id: "marriage-is-forbidden",
@@ -140,7 +141,8 @@ export const societyBeyondKin: ChapterDefinition = {
             detail:
               "A cousin is an obvious alliance inside a dense lineage. The prohibition makes the household search beyond its inherited circle.",
             rule: "Marriage within prohibited degrees of blood relationship is unlawful",
-            oldBond: "Land and alliance are folded back into the same descent group",
+            oldBond:
+              "Land and alliance are folded back into the same descent group",
             newReach: "A spouse must be sought among less familiar households",
             consequence: "Marriage extends cooperation beyond the clan",
           },
@@ -151,9 +153,12 @@ export const societyBeyondKin: ChapterDefinition = {
             detail:
               "The Church treats a spouse’s relatives as a barrier to later unions, closing the route by which one lineage repeatedly absorbs another.",
             rule: "Affinity bars unions with a spouse’s close relatives",
-            oldBond: "Widows and alliances remain available inside the same compact network",
-            newReach: "Remarriage creates a connection outside the former alliance",
-            consequence: "Marriage ties stop circulating inside one closed bloc",
+            oldBond:
+              "Widows and alliances remain available inside the same compact network",
+            newReach:
+              "Remarriage creates a connection outside the former alliance",
+            consequence:
+              "Marriage ties stop circulating inside one closed bloc",
           },
           {
             id: "spiritual-kin",
@@ -162,9 +167,12 @@ export const societyBeyondKin: ChapterDefinition = {
             detail:
               "Baptism creates a relationship the Church treats as real enough to forbid marriage, placing its own ritual bond across lineage strategy.",
             rule: "Spiritual kinship created at baptism can impede marriage",
-            oldBond: "Ritual alliance is recruited as another route for family consolidation",
-            newReach: "The Church defines a field of obligation not made by blood",
-            consequence: "Institutional kinship begins to rival natural kinship",
+            oldBond:
+              "Ritual alliance is recruited as another route for family consolidation",
+            newReach:
+              "The Church defines a field of obligation not made by blood",
+            consequence:
+              "Institutional kinship begins to rival natural kinship",
           },
           {
             id: "consent",
@@ -173,7 +181,8 @@ export const societyBeyondKin: ChapterDefinition = {
             detail:
               "When the present consent of woman and man makes the bond, their spoken will becomes the act the court must hear.",
             rule: "Mutual present consent creates a valid marriage",
-            oldBond: "The lineage treats marriage as an exchange it can arrange",
+            oldBond:
+              "The lineage treats marriage as an exchange it can arrange",
             newReach: "The couple can make a binding union before witnesses",
             consequence: "The household loses exclusive command of the bond",
           },
@@ -220,8 +229,10 @@ export const societyBeyondKin: ChapterDefinition = {
             detail:
               "Woman and man exchange words in the present tense and create the bond between them.",
             instrument: "Mutual spoken consent",
-            consequence: "No family member can speak the marriage into being for them",
-            inheritance: "The individual appears as a maker of binding obligation",
+            consequence:
+              "No family member can speak the marriage into being for them",
+            inheritance:
+              "The individual appears as a maker of binding obligation",
           },
           {
             id: "witness",
@@ -231,7 +242,8 @@ export const societyBeyondKin: ChapterDefinition = {
               "Neighbors, kin or clergy carry the words into public memory when a union is challenged.",
             instrument: "Testimony and public solemnisation",
             consequence: "A private exchange becomes socially enforceable",
-            inheritance: "Trust begins to rest on witnessed acts as well as status",
+            inheritance:
+              "Trust begins to rest on witnessed acts as well as status",
           },
           {
             id: "judge",
@@ -240,8 +252,10 @@ export const societyBeyondKin: ChapterDefinition = {
             detail:
               "An ecclesiastical judge asks what was said, whether it was free and what bond the words created.",
             instrument: "Procedure, testimony and sentence",
-            consequence: "Marriage enters an impersonal forum beyond the lineage",
-            inheritance: "A court can defend an obligation against family pressure",
+            consequence:
+              "Marriage enters an impersonal forum beyond the lineage",
+            inheritance:
+              "A court can defend an obligation against family pressure",
           },
         ],
       },
@@ -326,7 +340,8 @@ export const societyBeyondKin: ChapterDefinition = {
               "Land and tools cease to belong to individual monks and remain with the house through every death.",
             act: "Renunciation and donation",
             commonThing: "Fields, mills, books, workshops and stores",
-            office: "Cellarer, sacrist and estate officers administer defined goods",
+            office:
+              "Cellarer, sacrist and estate officers administer defined goods",
             consequence: "Property can endure without passing to children",
           },
           {
@@ -336,7 +351,8 @@ export const societyBeyondKin: ChapterDefinition = {
             detail:
               "The abbot and officers can be replaced while the authority and duties of their positions remain.",
             act: "Election, appointment and handover",
-            commonThing: "Keys, archives, jurisdiction and institutional memory",
+            commonThing:
+              "Keys, archives, jurisdiction and institutional memory",
             office: "Abbot, prior, cellarer, sacrist and guest master",
             consequence: "Authority separates from the person who carries it",
           },
@@ -414,7 +430,8 @@ export const societyBeyondKin: ChapterDefinition = {
             detail:
               "The guild accompanies the body, supports survivors and keeps the dead inside its liturgical memory.",
             instrument: "Burial cloth, candle, procession and memorial prayer",
-            consequence: "The association performs the work once monopolised by kin",
+            consequence:
+              "The association performs the work once monopolised by kin",
             inheritance: "Chosen fraternity reaches beyond an individual life",
           },
         ],
@@ -615,7 +632,11 @@ export const societyBeyondKin: ChapterDefinition = {
       mobileImagePosition: "50% center",
       visualTone: "legal-body",
       side: "right",
-      sourceIds: ["berman-1983", "winroth-reynolds-2022", "ridder-symoens-1992"],
+      sourceIds: [
+        "berman-1983",
+        "winroth-reynolds-2022",
+        "ridder-symoens-1992",
+      ],
       evidence: [
         "Medieval canonists used the language of universitas, chapter, office and representation to distinguish a collective body from its members.",
         "Rules for election, majority action, common property and succession gave institutions a legal life through personnel change.",
@@ -672,7 +693,8 @@ export const societyBeyondKin: ChapterDefinition = {
             detail:
               "Students of a broad geographic origin elect officers and discipline members as one sworn group.",
             instrument: "Membership roll, oath, dues and counsellors",
-            consequence: "Foreigners acquire bargaining power through combination",
+            consequence:
+              "Foreigners acquire bargaining power through combination",
             inheritance: "Origin becomes the basis of a chosen legal body",
           },
           {
@@ -683,7 +705,8 @@ export const societyBeyondKin: ChapterDefinition = {
               "The nations join in a larger corporation able to elect a rector and negotiate in its own name.",
             instrument: "Rector, statute, seal and recognised privilege",
             consequence: "A temporary population gains durable government",
-            inheritance: "Knowledge receives an institution that outlives its students",
+            inheritance:
+              "Knowledge receives an institution that outlives its students",
           },
         ],
       },
@@ -709,7 +732,12 @@ export const societyBeyondKin: ChapterDefinition = {
       mobileImagePosition: "54% center",
       visualTone: "durable-body",
       side: "right",
-      sourceIds: ["henrich-2020", "berman-1983", "reynolds-1997", "rosser-2015"],
+      sourceIds: [
+        "henrich-2020",
+        "berman-1983",
+        "reynolds-1997",
+        "rosser-2015",
+      ],
       evidence: [
         "Across religious houses, guilds, communes and universities, entry, election, office, common property and archives recur as instruments of continuity.",
         "The corporation’s decisive achievement was succession without inheritance: persons changed while the body’s rights and obligations remained.",
@@ -763,7 +791,8 @@ export const societyBeyondKin: ChapterDefinition = {
             memberChanges: "Litigants, councillors and judges",
             bodyKeeps: "Its forum, privileges and remembered decisions",
             actsThrough: "Statute, council, court, sentence and appeal",
-            inheritance: "A made community becomes a recognised part of public order",
+            inheritance:
+              "A made community becomes a recognised part of public order",
           },
         ],
       },

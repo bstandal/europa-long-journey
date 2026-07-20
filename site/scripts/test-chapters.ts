@@ -6,6 +6,7 @@ import { empireTakesCross } from "../src/data/chapters/empire-takes-cross";
 import { europeReborn } from "../src/data/chapters/europe-reborn";
 import { firstFarmers } from "../src/data/chapters/first-farmers";
 import { greeceAndTheCitizen } from "../src/data/chapters/greece-and-the-citizen";
+import { medievalCommercialRevolution } from "../src/data/chapters/medieval-commercial-revolution";
 import { papalRevolution } from "../src/data/chapters/papal-revolution";
 import { romeGathersEurope } from "../src/data/chapters/rome-gathers-europe";
 import { societyBeyondKin } from "../src/data/chapters/society-beyond-kin";
@@ -33,10 +34,23 @@ async function checkCommonChapter(
   );
 
   for (const [index, movement] of chapter.movements.entries()) {
-    assert.equal(movement.order, index + 1, `Movement ${movement.id} is out of order.`);
-    assert.ok(movement.body.length >= 2, `Movement ${movement.id} needs developed narrative copy.`);
-    assert.ok(movement.evidence.length > 0, `Movement ${movement.id} needs evidence statements.`);
-    assert.ok(movement.sourceIds.length > 0, `Movement ${movement.id} needs source references.`);
+    assert.equal(
+      movement.order,
+      index + 1,
+      `Movement ${movement.id} is out of order.`,
+    );
+    assert.ok(
+      movement.body.length >= 2,
+      `Movement ${movement.id} needs developed narrative copy.`,
+    );
+    assert.ok(
+      movement.evidence.length > 0,
+      `Movement ${movement.id} needs evidence statements.`,
+    );
+    assert.ok(
+      movement.sourceIds.length > 0,
+      `Movement ${movement.id} needs source references.`,
+    );
     for (const sourceId of movement.sourceIds) {
       assert.ok(
         sourceIds.has(sourceId),
@@ -44,12 +58,18 @@ async function checkCommonChapter(
       );
     }
     await access(`${publicRoot}${movement.image}`);
-    if (movement.mobileImage) await access(`${publicRoot}${movement.mobileImage}`);
+    if (movement.mobileImage)
+      await access(`${publicRoot}${movement.mobileImage}`);
   }
 
-  if (chapter.ending.image) await access(`${publicRoot}${chapter.ending.image}`);
+  if (chapter.ending.image)
+    await access(`${publicRoot}${chapter.ending.image}`);
   if (chapter.ending.mobileImage) {
     await access(`${publicRoot}${chapter.ending.mobileImage}`);
+  }
+  if (chapter.hero?.image) await access(`${publicRoot}${chapter.hero.image}`);
+  if (chapter.hero?.mobileImage) {
+    await access(`${publicRoot}${chapter.hero.mobileImage}`);
   }
   if (chapter.routeImage) await access(`${publicRoot}${chapter.routeImage}`);
   if (chapter.openingRouteImage) {
@@ -75,7 +95,10 @@ const harvestMovement = firstFarmers.movements.find(
 );
 assert.ok(harvestMovement, "The Farmers harvest movement is missing.");
 const harvest = harvestMovement?.interaction;
-assert.ok(harvest?.kind === "harvest", "The Farmers harvest interaction is missing.");
+assert.ok(
+  harvest?.kind === "harvest",
+  "The Farmers harvest interaction is missing.",
+);
 assert.equal(
   harvest.allocations.reduce((sum, allocation) => sum + allocation.initial, 0),
   harvest.total,
@@ -87,7 +110,9 @@ assert.deepEqual(
   "The store must preserve food, reserve and seed choices.",
 );
 assert.ok(
-  harvestMovement.body.some((paragraph) => paragraph.includes("Georgian qvevri")),
+  harvestMovement.body.some((paragraph) =>
+    paragraph.includes("Georgian qvevri"),
+  ),
   "The harvest movement should connect Georgian Neolithic wine to the qvevri tradition.",
 );
 assert.ok(
@@ -99,8 +124,15 @@ assert.ok(
 const growth = firstFarmers.movements.find(
   (movement) => movement.interaction?.kind === "growth",
 )?.interaction;
-assert.ok(growth?.kind === "growth", "The Farmers growth interaction is missing.");
-assert.equal(growth.stages.length, 3, "Growth needs three distinct landscape states.");
+assert.ok(
+  growth?.kind === "growth",
+  "The Farmers growth interaction is missing.",
+);
+assert.equal(
+  growth.stages.length,
+  3,
+  "Growth needs three distinct landscape states.",
+);
 assert.equal(
   new Set(growth.stages.map((stage) => stage.image)).size,
   growth.stages.length,
@@ -132,7 +164,10 @@ assert.deepEqual(
 const mobility = steppeComesWest.movements.find(
   (movement) => movement.interaction?.kind === "mobility",
 )?.interaction;
-assert.ok(mobility?.kind === "mobility", "The mobility interaction is missing.");
+assert.ok(
+  mobility?.kind === "mobility",
+  "The mobility interaction is missing.",
+);
 assert.deepEqual(
   mobility.states.map((state) => state.id),
   ["herd", "wagon", "westward-household"],
@@ -142,7 +177,10 @@ assert.deepEqual(
 const turnover = steppeComesWest.movements.find(
   (movement) => movement.interaction?.kind === "turnover",
 )?.interaction;
-assert.ok(turnover?.kind === "turnover", "The turnover interaction is missing.");
+assert.ok(
+  turnover?.kind === "turnover",
+  "The turnover interaction is missing.",
+);
 assert.deepEqual(
   turnover.regions.map((region) => region.id),
   ["central-europe", "bohemia", "iberia"],
@@ -159,7 +197,10 @@ for (const region of turnover.regions) {
 const inheritance = steppeComesWest.movements.find(
   (movement) => movement.interaction?.kind === "inheritance",
 )?.interaction;
-assert.ok(inheritance?.kind === "inheritance", "The inheritance interaction is missing.");
+assert.ok(
+  inheritance?.kind === "inheritance",
+  "The inheritance interaction is missing.",
+);
 assert.deepEqual(
   inheritance.layers.map((layer) => layer.id),
   ["people", "language", "religion"],
@@ -177,7 +218,9 @@ assert.deepEqual(
 );
 for (const act of greeceAndTheCitizen.acts ?? []) {
   assert.equal(
-    greeceAndTheCitizen.movements.filter((movement) => movement.actId === act.id).length,
+    greeceAndTheCitizen.movements.filter(
+      (movement) => movement.actId === act.id,
+    ).length,
     3,
     `Act ${act.id} should contain exactly three movements.`,
   );
@@ -198,8 +241,15 @@ assert.deepEqual(
 );
 
 const inscription = greeceAndTheCitizen.movements[1].interaction;
-assert.ok(inscription?.kind === "inscription", "Greece needs the inscription interaction.");
-assert.equal(inscription.states.length, 3, "The inscription needs three states.");
+assert.ok(
+  inscription?.kind === "inscription",
+  "Greece needs the inscription interaction.",
+);
+assert.equal(
+  inscription.states.length,
+  3,
+  "The inscription needs three states.",
+);
 assert.deepEqual(
   inscription.states.map((state) => state.id),
   ["surface", "reading", "consequence"],
@@ -207,16 +257,30 @@ assert.deepEqual(
 );
 
 const citizenBody = greeceAndTheCitizen.movements[4].interaction;
-assert.ok(citizenBody?.kind === "citizen-body", "Greece needs the Attic citizen-body interaction.");
-assert.equal(citizenBody.states.length, 4, "The Attic citizen body needs four layers.");
+assert.ok(
+  citizenBody?.kind === "citizen-body",
+  "Greece needs the Attic citizen-body interaction.",
+);
+assert.equal(
+  citizenBody.states.length,
+  4,
+  "The Attic citizen body needs four layers.",
+);
 await access(`${publicRoot}${citizenBody.mapImage}`);
 for (const state of citizenBody.states) {
   await access(`${publicRoot}${state.overlayImage}`);
 }
 
 const civicPath = greeceAndTheCitizen.movements[7].interaction;
-assert.ok(civicPath?.kind === "civic-path", "Greece needs the civic-path interaction.");
-assert.equal(civicPath.paths.length, 3, "The civic path needs three public responsibilities.");
+assert.ok(
+  civicPath?.kind === "civic-path",
+  "Greece needs the civic-path interaction.",
+);
+assert.equal(
+  civicPath.paths.length,
+  3,
+  "The civic path needs three public responsibilities.",
+);
 assert.deepEqual(
   civicPath.paths.map((path) => path.id),
   ["council", "jury", "assembly"],
@@ -224,8 +288,15 @@ assert.deepEqual(
 );
 
 const warTimeline = greeceAndTheCitizen.movements[10].interaction;
-assert.ok(warTimeline?.kind === "war-timeline", "Greece needs the war timeline.");
-assert.equal(warTimeline.states.length, 9, "The war timeline needs nine dated states.");
+assert.ok(
+  warTimeline?.kind === "war-timeline",
+  "Greece needs the war timeline.",
+);
+assert.equal(
+  warTimeline.states.length,
+  9,
+  "The war timeline needs nine dated states.",
+);
 assert.equal(warTimeline.states[0].period, "431 BC");
 assert.equal(warTimeline.states.at(-1)?.period, "403 BC");
 await access(`${publicRoot}${warTimeline.mapImage}`);
@@ -247,7 +318,9 @@ assert.ok(
   greeceWords >= 3200 && greeceWords <= 3800,
   `Greece should contain 3,200–3,800 words of continuous narrative; found ${greeceWords}.`,
 );
-const greeceScene = scenes.find((scene) => scene.id === "greece-and-the-citizen");
+const greeceScene = scenes.find(
+  (scene) => scene.id === "greece-and-the-citizen",
+);
 assert.equal(
   greeceScene?.chronicle?.href,
   "chapters/greece-and-the-citizen/",
@@ -298,7 +371,8 @@ assert.deepEqual(
 );
 for (const act of romeGathersEurope.acts ?? []) {
   assert.equal(
-    romeGathersEurope.movements.filter((movement) => movement.actId === act.id).length,
+    romeGathersEurope.movements.filter((movement) => movement.actId === act.id)
+      .length,
     3,
     `Act ${act.id} should contain exactly three movements.`,
   );
@@ -312,7 +386,8 @@ const principalRomanInteractionKinds = new Set([
 assert.deepEqual(
   romeGathersEurope.movements
     .map((movement, index) =>
-      movement.interaction && principalRomanInteractionKinds.has(movement.interaction.kind)
+      movement.interaction &&
+      principalRomanInteractionKinds.has(movement.interaction.kind)
         ? index + 1
         : null,
     )
@@ -357,7 +432,10 @@ assert.deepEqual(
 );
 
 const romanNetwork = romeGathersEurope.movements[4].interaction;
-assert.ok(romanNetwork?.kind === "roman-network", "Rome needs the Italian network interaction.");
+assert.ok(
+  romanNetwork?.kind === "roman-network",
+  "Rome needs the Italian network interaction.",
+);
 assert.deepEqual(
   romanNetwork.states.map((state) => state.id),
   ["settlements-338", "via-appia-312", "peninsula-275", "mobilisation-218"],
@@ -366,7 +444,10 @@ assert.deepEqual(
 await access(`${publicRoot}${romanNetwork.mapImage}`);
 
 const romanCommand = romeGathersEurope.movements[8].interaction;
-assert.ok(romanCommand?.kind === "roman-command", "Rome needs the command-crisis interaction.");
+assert.ok(
+  romanCommand?.kind === "roman-command",
+  "Rome needs the command-crisis interaction.",
+);
 assert.deepEqual(
   romanCommand.states.map((state) => state.id),
   ["sulla-88", "caesar-49", "triumvirs-43", "augustus-27"],
@@ -388,7 +469,8 @@ const romeWords = romeGathersEurope.movements.reduce(
   (sum, movement) =>
     sum +
     movement.body.reduce(
-      (movementSum, paragraph) => movementSum + paragraph.trim().split(/\s+/).length,
+      (movementSum, paragraph) =>
+        movementSum + paragraph.trim().split(/\s+/).length,
       0,
     ),
   0,
@@ -421,8 +503,10 @@ assert.deepEqual(
   "The Christian Empire chapter should preserve the four-act progression.",
 );
 assert.deepEqual(
-  (empireTakesCross.acts ?? []).map((act) =>
-    empireTakesCross.movements.filter((movement) => movement.actId === act.id).length
+  (empireTakesCross.acts ?? []).map(
+    (act) =>
+      empireTakesCross.movements.filter((movement) => movement.actId === act.id)
+        .length,
   ),
   [4, 3, 4, 3],
   "The Christian Empire act lengths should remain 4, 3, 4 and 3 movements.",
@@ -455,7 +539,7 @@ assert.deepEqual(
 assert.deepEqual(
   empireTakesCross.movements
     .map((movement, index) =>
-      movement.interaction?.kind === "christian-trace" ? index + 1 : null
+      movement.interaction?.kind === "christian-trace" ? index + 1 : null,
     )
     .filter(Boolean),
   [3, 6, 9, 12, 14],
@@ -507,7 +591,8 @@ const christianEmpireWords = empireTakesCross.movements.reduce(
   (sum, movement) =>
     sum +
     movement.body.reduce(
-      (movementSum, paragraph) => movementSum + paragraph.trim().split(/\s+/).length,
+      (movementSum, paragraph) =>
+        movementSum + paragraph.trim().split(/\s+/).length,
       0,
     ),
   0,
@@ -516,7 +601,9 @@ assert.ok(
   christianEmpireWords >= 2500 && christianEmpireWords <= 3100,
   `The Christian Empire should contain 2,500–3,100 words of continuous narrative; found ${christianEmpireWords}.`,
 );
-const christianEmpireScene = scenes.find((scene) => scene.id === "christian-empire");
+const christianEmpireScene = scenes.find(
+  (scene) => scene.id === "christian-empire",
+);
 assert.equal(
   christianEmpireScene?.chronicle?.href,
   "chapters/empire-takes-cross/",
@@ -527,8 +614,13 @@ assert.equal(
   "Enter the consecrated city",
   "The Christian Empire chapter link needs its historical invitation.",
 );
-const europeRebornScene = scenes.find((scene) => scene.id === empireTakesCross.nextHash);
-assert.ok(europeRebornScene, "The Christian Empire ending needs a real next scene.");
+const europeRebornScene = scenes.find(
+  (scene) => scene.id === empireTakesCross.nextHash,
+);
+assert.ok(
+  europeRebornScene,
+  "The Christian Empire ending needs a real next scene.",
+);
 assert.equal(
   empireTakesCross.nextTitle,
   europeRebornScene.title,
@@ -543,12 +635,19 @@ assert.equal(
 await checkCommonChapter(europeReborn, 14);
 assert.deepEqual(
   europeReborn.acts?.map((act) => act.id),
-  ["survival", "frankish-order", "imperial-inheritance", "widening-commonwealth"],
+  [
+    "survival",
+    "frankish-order",
+    "imperial-inheritance",
+    "widening-commonwealth",
+  ],
   "Europe Reborn should preserve the four-act progression.",
 );
 assert.deepEqual(
-  (europeReborn.acts ?? []).map((act) =>
-    europeReborn.movements.filter((movement) => movement.actId === act.id).length
+  (europeReborn.acts ?? []).map(
+    (act) =>
+      europeReborn.movements.filter((movement) => movement.actId === act.id)
+        .length,
   ),
   [2, 5, 4, 3],
   "Europe Reborn act lengths should remain 2, 5, 4 and 3 movements.",
@@ -565,7 +664,7 @@ assert.deepEqual(
       movement.interaction &&
       principalCommonwealthInteractionKinds.has(movement.interaction.kind)
         ? index + 1
-        : null
+        : null,
     )
     .filter(Boolean),
   [2, 7, 9, 13],
@@ -575,13 +674,18 @@ assert.deepEqual(
   europeReborn.movements
     .map((movement) => movement.interaction?.kind)
     .filter((kind) => kind && principalCommonwealthInteractionKinds.has(kind)),
-  ["commonwealth-city", "written-network", "realm-partition", "conversion-roads"],
+  [
+    "commonwealth-city",
+    "written-network",
+    "realm-partition",
+    "conversion-roads",
+  ],
   "Europe Reborn should preserve its city, writing, partition and conversion sequence.",
 );
 assert.deepEqual(
   europeReborn.movements
     .map((movement, index) =>
-      movement.interaction?.kind === "commonwealth-trace" ? index + 1 : null
+      movement.interaction?.kind === "commonwealth-trace" ? index + 1 : null,
     )
     .filter(Boolean),
   [3, 4, 6, 10, 14],
@@ -600,7 +704,8 @@ const europeRebornWords = europeReborn.movements.reduce(
   (sum, movement) =>
     sum +
     movement.body.reduce(
-      (movementSum, paragraph) => movementSum + paragraph.trim().split(/\s+/).length,
+      (movementSum, paragraph) =>
+        movementSum + paragraph.trim().split(/\s+/).length,
       0,
     ),
   0,
@@ -619,8 +724,13 @@ assert.equal(
   "Follow the rebuilt road",
   "The Europe Reborn chapter link needs its historical invitation.",
 );
-const papalRevolutionScene = scenes.find((scene) => scene.id === europeReborn.nextHash);
-assert.ok(papalRevolutionScene, "Europe Reborn ending needs a real next scene.");
+const papalRevolutionScene = scenes.find(
+  (scene) => scene.id === europeReborn.nextHash,
+);
+assert.ok(
+  papalRevolutionScene,
+  "Europe Reborn ending needs a real next scene.",
+);
 assert.equal(
   europeReborn.nextTitle,
   papalRevolutionScene.title,
@@ -639,8 +749,10 @@ assert.deepEqual(
   "The Papal Revolution should preserve its four-act jurisdictional progression.",
 );
 assert.deepEqual(
-  (papalRevolution.acts ?? []).map((act) =>
-    papalRevolution.movements.filter((movement) => movement.actId === act.id).length
+  (papalRevolution.acts ?? []).map(
+    (act) =>
+      papalRevolution.movements.filter((movement) => movement.actId === act.id)
+        .length,
   ),
   [3, 3, 3, 3],
   "The Papal Revolution acts should contain three movements each.",
@@ -657,7 +769,7 @@ assert.deepEqual(
       movement.interaction &&
       principalPapalInteractionKinds.has(movement.interaction.kind)
         ? index + 1
-        : null
+        : null,
     )
     .filter(Boolean),
   [2, 5, 8, 12],
@@ -666,7 +778,7 @@ assert.deepEqual(
 assert.deepEqual(
   papalRevolution.movements
     .map((movement, index) =>
-      movement.interaction?.kind === "papal-trace" ? index + 1 : null
+      movement.interaction?.kind === "papal-trace" ? index + 1 : null,
     )
     .filter(Boolean),
   [3, 4, 6, 9, 11],
@@ -684,7 +796,8 @@ const papalRevolutionWords = papalRevolution.movements.reduce(
   (sum, movement) =>
     sum +
     movement.body.reduce(
-      (movementSum, paragraph) => movementSum + paragraph.trim().split(/\s+/).length,
+      (movementSum, paragraph) =>
+        movementSum + paragraph.trim().split(/\s+/).length,
       0,
     ),
   0,
@@ -703,8 +816,13 @@ assert.equal(
   "Enter the contested order",
   "The Papal Revolution chapter link needs its historical invitation.",
 );
-const societyBeyondKinScene = scenes.find((scene) => scene.id === papalRevolution.nextHash);
-assert.ok(societyBeyondKinScene, "The Papal Revolution ending needs a real next scene.");
+const societyBeyondKinScene = scenes.find(
+  (scene) => scene.id === papalRevolution.nextHash,
+);
+assert.ok(
+  societyBeyondKinScene,
+  "The Papal Revolution ending needs a real next scene.",
+);
 assert.equal(
   papalRevolution.nextTitle,
   societyBeyondKinScene.title,
@@ -723,8 +841,10 @@ assert.deepEqual(
   "A Society Beyond Kin should preserve its four-act blood-to-oath progression.",
 );
 assert.deepEqual(
-  (societyBeyondKin.acts ?? []).map((act) =>
-    societyBeyondKin.movements.filter((movement) => movement.actId === act.id).length
+  (societyBeyondKin.acts ?? []).map(
+    (act) =>
+      societyBeyondKin.movements.filter((movement) => movement.actId === act.id)
+        .length,
   ),
   [3, 3, 3, 3],
   "A Society Beyond Kin acts should contain three movements each.",
@@ -741,7 +861,7 @@ assert.deepEqual(
       movement.interaction &&
       principalKinInteractionKinds.has(movement.interaction.kind)
         ? index + 1
-        : null
+        : null,
     )
     .filter(Boolean),
   [2, 5, 8, 12],
@@ -757,7 +877,7 @@ assert.deepEqual(
 assert.deepEqual(
   societyBeyondKin.movements
     .map((movement, index) =>
-      movement.interaction?.kind === "kin-trace" ? index + 1 : null
+      movement.interaction?.kind === "kin-trace" ? index + 1 : null,
     )
     .filter(Boolean),
   [3, 6, 9, 11],
@@ -775,7 +895,8 @@ const societyBeyondKinWords = societyBeyondKin.movements.reduce(
   (sum, movement) =>
     sum +
     movement.body.reduce(
-      (movementSum, paragraph) => movementSum + paragraph.trim().split(/\s+/).length,
+      (movementSum, paragraph) =>
+        movementSum + paragraph.trim().split(/\s+/).length,
       0,
     ),
   0,
@@ -794,8 +915,13 @@ assert.equal(
   "Cross the forbidden line",
   "The A Society Beyond Kin chapter link needs its historical invitation.",
 );
-const commercialRevolutionScene = scenes.find((scene) => scene.id === societyBeyondKin.nextHash);
-assert.ok(commercialRevolutionScene, "A Society Beyond Kin ending needs a real next scene.");
+const commercialRevolutionScene = scenes.find(
+  (scene) => scene.id === societyBeyondKin.nextHash,
+);
+assert.ok(
+  commercialRevolutionScene,
+  "A Society Beyond Kin ending needs a real next scene.",
+);
 assert.equal(
   societyBeyondKin.nextTitle,
   commercialRevolutionScene.title,
@@ -807,6 +933,103 @@ assert.equal(
   "A Society Beyond Kin ending period must match its actual next scene.",
 );
 
+await checkCommonChapter(medievalCommercialRevolution, 12);
+assert.deepEqual(
+  medievalCommercialRevolution.acts?.map((act) => act.id),
+  [
+    "market-keeps-appointment",
+    "risk-acquires-boundary",
+    "promise-travels",
+    "enterprise-remembers",
+  ],
+  "The Medieval Commercial Revolution should preserve its four-act progression.",
+);
+for (const act of medievalCommercialRevolution.acts ?? []) {
+  assert.equal(
+    medievalCommercialRevolution.movements.filter(
+      (movement) => movement.actId === act.id,
+    ).length,
+    3,
+    `Act ${act.id} should contain exactly three movements.`,
+  );
+}
+assert.deepEqual(
+  medievalCommercialRevolution.movements
+    .map((movement, index) => (movement.interaction ? index + 1 : null))
+    .filter(Boolean),
+  [3, 6, 9, 11],
+  "The Medieval Commercial Revolution interactions should appear in movements 3, 6, 9 and 11.",
+);
+assert.deepEqual(
+  medievalCommercialRevolution.movements
+    .map((movement) => movement.interaction?.kind)
+    .filter(Boolean),
+  ["chapter-v2", "ledger-voyage", "chapter-v2", "chapter-v2"],
+  "The Medieval Commercial Revolution should preserve its fair, voyage, settlement and insurance sequence.",
+);
+const ledgerVoyage = medievalCommercialRevolution.movements[5].interaction;
+assert.ok(
+  ledgerVoyage?.kind === "ledger-voyage",
+  "The Medieval Commercial Revolution needs its financed-voyage interaction.",
+);
+assert.equal(
+  ledgerVoyage.allocations.reduce(
+    (sum, allocation) => sum + allocation.amount,
+    0,
+  ),
+  ledgerVoyage.capital,
+  "The voyage allocations must equal subscribed capital.",
+);
+for (const outcome of ledgerVoyage.outcomes) {
+  assert.ok(
+    outcome.loss >= 0 && outcome.loss <= ledgerVoyage.capital,
+    `Voyage loss ${outcome.id} must stay within subscribed capital.`,
+  );
+}
+const medievalCommercialRevolutionWords =
+  medievalCommercialRevolution.movements.reduce(
+    (sum, movement) =>
+      sum +
+      movement.body.reduce(
+        (movementSum, paragraph) =>
+          movementSum + paragraph.trim().split(/\s+/).length,
+        0,
+      ),
+    0,
+  );
+assert.ok(
+  medievalCommercialRevolutionWords >= 2800 &&
+    medievalCommercialRevolutionWords <= 3400,
+  `The Medieval Commercial Revolution should contain 2,800–3,400 words of continuous narrative; found ${medievalCommercialRevolutionWords}.`,
+);
+assert.equal(
+  commercialRevolutionScene?.chronicle?.href,
+  "chapters/medieval-commercial-revolution/",
+  "The main journey needs a working Medieval Commercial Revolution chapter link.",
+);
+assert.equal(
+  commercialRevolutionScene?.chronicle?.label,
+  "Follow the written road",
+  "The Medieval Commercial Revolution chapter link needs its historical invitation.",
+);
+const hanseaticNorthScene = scenes.find(
+  (scene) => scene.id === medievalCommercialRevolution.nextHash,
+);
+assert.ok(
+  hanseaticNorthScene,
+  "The Medieval Commercial Revolution ending needs a real next scene.",
+);
+assert.equal(
+  medievalCommercialRevolution.nextTitle,
+  hanseaticNorthScene.title,
+  "The Medieval Commercial Revolution ending title must match its actual next scene.",
+);
+assert.equal(
+  medievalCommercialRevolution.ending.nextPeriod,
+  `AD ${hanseaticNorthScene.period.label}`,
+  "The Medieval Commercial Revolution ending period must match its actual next scene.",
+);
+
 console.log(
-  "Farmers, Steppe, Bronze, Greece, Rome, Christian Empire, Europe Reborn, Papal Revolution and Society Beyond Kin chapter checks passed.",
+  "Farmers, Steppe, Bronze, Greece, Rome, Christian Empire, Europe Reborn, Papal Revolution, Society Beyond Kin and Medieval Commercial Revolution chapter checks passed.",
 );

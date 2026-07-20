@@ -11,6 +11,49 @@ type ChapterInteractionBase = {
   accessibleSummary: string;
 };
 
+export type ChapterRecordField = {
+  label: string;
+  value: string;
+};
+
+export type ChapterSequenceRecord = ChapterStageState & {
+  period?: string;
+  kicker?: string;
+  fields: ChapterRecordField[];
+  outcome?: string;
+  points?: ChapterPoint[];
+  links?: [number, number][];
+};
+
+export type ChapterV2Interaction = ChapterInteractionBase & {
+  kind: "chapter-v2";
+  family: "record" | "flow" | "network" | "atlas" | "assembly" | "split";
+  variant: string;
+  initialId?: string;
+  mapImage?: string;
+  records: ChapterSequenceRecord[];
+};
+
+export type LedgerVoyageInteraction = ChapterInteractionBase & {
+  kind: "ledger-voyage";
+  capital: number;
+  ventureLabel: string;
+  allocations: {
+    id: string;
+    label: string;
+    amount: number;
+    role: string;
+    liability: string;
+  }[];
+  outcomes: {
+    id: string;
+    label: string;
+    loss: number;
+    detail: string;
+    householdEffect: string;
+  }[];
+};
+
 export type ChapterStageState = {
   id: string;
   label: string;
@@ -564,7 +607,9 @@ export type ChapterInteraction =
   | ChosenHouseInteraction
   | SwornCommuneInteraction
   | ImmortalBodyInteraction
-  | KinTraceInteraction;
+  | KinTraceInteraction
+  | ChapterV2Interaction
+  | LedgerVoyageInteraction;
 
 export type ChapterTheme = {
   id:
@@ -576,7 +621,22 @@ export type ChapterTheme = {
     | "christian"
     | "carolingian"
     | "papal"
-    | "kin";
+    | "kin"
+    | "ledger"
+    | "harbour"
+    | "imperial-diet"
+    | "frontier"
+    | "ocean"
+    | "burned-empire"
+    | "danube"
+    | "measured-page"
+    | "exchange"
+    | "conversation"
+    | "capital-line"
+    | "switchboard"
+    | "split-open"
+    | "two-roads"
+    | "eastern-line";
   label: string;
 };
 
@@ -595,7 +655,16 @@ export type ChapterEnding = {
   detail: string;
   image?: string;
   mobileImage?: string;
-  nextPeriod: string;
+  nextPeriod?: string;
+};
+
+export type ChapterHero = {
+  image: string;
+  mobileImage?: string;
+  imageAlt: string;
+  imagePosition?: string;
+  mobileImagePosition?: string;
+  visualLabel?: string;
 };
 
 export type ChapterMovement = {
@@ -613,6 +682,7 @@ export type ChapterMovement = {
   imageAlt: string;
   imagePosition?: string;
   mobileImagePosition?: string;
+  visualLabel?: string;
   visualTone?: string;
   side: "left" | "right";
   sourceIds: string[];
@@ -632,6 +702,7 @@ export type ChapterDefinition = {
   period: string;
   claim: string;
   openingClaim?: string;
+  hero?: ChapterHero;
   theme: ChapterTheme;
   openingAction: string;
   mapLabel: string;
@@ -640,8 +711,9 @@ export type ChapterDefinition = {
   sourcesEyebrow: string;
   ending: ChapterEnding;
   returnHash: string;
-  nextHash: string;
-  nextTitle: string;
+  nextHash?: string;
+  nextTitle?: string;
+  nextSlug?: string;
   acts?: ChapterAct[];
   movements: ChapterMovement[];
 };

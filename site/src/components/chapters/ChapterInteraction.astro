@@ -9,6 +9,7 @@ import ChristianTraceInteraction from "./interactions/ChristianTraceInteraction.
 import CommonwealthInteraction from "./interactions/CommonwealthInteraction.astro";
 import InscriptionInteraction from "./interactions/InscriptionInteraction.astro";
 import KinInteraction from "./interactions/KinInteraction.astro";
+import LedgerVoyageInteraction from "./interactions/LedgerVoyageInteraction.astro";
 import PapalInteraction from "./interactions/PapalInteraction.astro";
 import RomanCitizenshipInteraction from "./interactions/RomanCitizenshipInteraction.astro";
 import RomanCommandInteraction from "./interactions/RomanCommandInteraction.astro";
@@ -17,6 +18,7 @@ import RomanNetworkInteraction from "./interactions/RomanNetworkInteraction.astr
 import RomanTraceInteraction from "./interactions/RomanTraceInteraction.astro";
 import SacredSpaceInteraction from "./interactions/SacredSpaceInteraction.astro";
 import WarTimelineInteraction from "./interactions/WarTimelineInteraction.astro";
+import V2Interaction from "./interactions/V2Interaction.astro";
 
 type Props = {
   movementId: string;
@@ -73,6 +75,11 @@ function getInitialDetail(value: ChapterInteraction) {
       return value.states[0].detail;
     case "kin-trace":
       return value.stops[0].detail;
+    case "chapter-v2":
+      return value.records.find((record) => record.id === value.initialId)?.detail ??
+        value.records[0].detail;
+    case "ledger-voyage":
+      return value.outcomes[0].detail;
     default:
       return value.states[0].detail;
   }
@@ -121,6 +128,8 @@ function getInitialStateId(value: ChapterInteraction) {
       return value.states[0].id;
     case "kin-trace":
       return value.stops[0].id;
+    case "chapter-v2":
+      return value.initialId ?? value.records[0].id;
     case "inscription":
     case "citizen-body":
     case "war-timeline":
@@ -682,7 +691,21 @@ const initialStateId = getInitialStateId(interaction);
     ) && <KinInteraction interaction={interaction} />
   }
 
-  <p class="chapter-interaction__detail" data-interaction-detail aria-live="polite">
-    {initialDetail}
-  </p>
+  {
+    interaction.kind === "chapter-v2" && <V2Interaction interaction={interaction} />
+  }
+
+  {
+    interaction.kind === "ledger-voyage" && (
+      <LedgerVoyageInteraction interaction={interaction} />
+    )
+  }
+
+  {
+    interaction.kind !== "ledger-voyage" && (
+      <p class="chapter-interaction__detail" data-interaction-detail aria-live="polite">
+        {initialDetail}
+      </p>
+    )
+  }
 </div>
