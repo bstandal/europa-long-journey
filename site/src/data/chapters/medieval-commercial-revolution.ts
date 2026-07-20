@@ -80,6 +80,7 @@ export const medievalCommercialRevolution: ChapterDefinition = {
   returnHash: "commercial-revolution",
   nextHash: "hanseatic-north",
   nextTitle: "The Hanseatic North",
+  nextSlug: "hanseatic-north",
   movements: [
     {
       id: "ports-wake-before-kingdoms",

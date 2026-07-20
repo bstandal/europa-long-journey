@@ -4,6 +4,7 @@ import { empireTakesCross } from "./empire-takes-cross";
 import { europeReborn } from "./europe-reborn";
 import { firstFarmers } from "./first-farmers";
 import { greeceAndTheCitizen } from "./greece-and-the-citizen";
+import { hanseaticNorth } from "./hanseatic-north";
 import { medievalCommercialRevolution } from "./medieval-commercial-revolution";
 import { papalRevolution } from "./papal-revolution";
 import { romeGathersEurope } from "./rome-gathers-europe";
@@ -21,6 +22,7 @@ export const chapters: ChapterDefinition[] = [
   papalRevolution,
   societyBeyondKin,
   medievalCommercialRevolution,
+  hanseaticNorth,
 ];
 
 export const chapterBySlug = new Map(

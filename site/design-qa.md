@@ -114,6 +114,80 @@ final result: passed
 
 ---
 
+# Chapter 11 design QA
+
+## Current release scope
+
+Chapter 11, “The Hanseatic North.”
+
+Reference:
+
+- `source-assets/chapters/hanseatic-north/01-bryggen-before-sunrise.png`
+- `source-assets/chapters/hanseatic-north/01-bryggen-before-sunrise-mobile.png`
+
+Matched implementation:
+
+- `design/qa/chapter-11-desktop-1536x1024.png`
+- `design/qa/chapter-11-desktop-comparison-final.png`
+- `design/qa/chapter-11-mobile-390x844.png`
+- `design/qa/chapter-11-mobile-comparison-final.png`
+- `design/qa/chapter-11-mobile-signature-state.png`
+
+Tested viewports:
+
+- Desktop: 1536 × 1024
+- Mobile: 390 × 844
+
+## Visible comparison
+
+The production opening preserves the generated Bryggen composition, including
+the receding timber fronts, wet quay, working boat, stockfish cargo and the
+human group around the scales. The desktop treatment retains the image’s
+harbour depth beneath a restrained reading gradient. The dedicated mobile
+source keeps both the Bryggen roofline and the weighing scene legible instead of
+forcing the landscape source into a destructive crop. The title, claim and
+entry action remain fully inside the first 844 mobile pixels.
+
+## Findings and resolutions
+
+- The chapter title and opening claim fit without clipping at both tested
+  viewports, with zero document-level horizontal overflow at 390 pixels.
+- The fourth movement’s architectural interaction remains readable as a
+  two-column mobile control and exposes the communal hall without displacing
+  its explanation.
+- The covenant map uses its dedicated portrait source on mobile. The full
+  four-town field remains visible above the selected council state rather than
+  being cropped into an illegible fragment.
+- All twelve movement images use dedicated raster assets and descriptive alt
+  text. Loaded desktop and mobile sources report their expected intrinsic
+  dimensions; no requested asset returns a failed image.
+
+## Interaction and navigation checks
+
+- “Carry the northern year” changes to “Return cargo,” updates
+  `aria-pressed`, and replaces the cargo, season and outcome record.
+- “Open a Bryggen yard” changes to “Schøtstue” and exposes its communal task,
+  rule and explanatory record.
+- “Raise the covenant” changes to “Consenting action” and reveals the final
+  locally authorized coalition state.
+- “Hold the four Kontore” changes to “Novgorod” and replaces the goods, office,
+  dependency and intelligence record.
+- The mobile route panel opens, closes with Escape and restores focus to its
+  toggle.
+- Chapter 10 hands off to `/chapters/hanseatic-north/`; Chapter 11 hands off to
+  `/#empire-many-liberties`.
+- The in-app browser log contains no warnings or errors after the complete
+  interaction and navigation pass.
+
+## Build verification
+
+Astro diagnostics, content validation, chapter structure tests and the
+production build complete without errors.
+
+final result: passed
+
+---
+
 # Chapter 10 design QA
 
 ## Current release scope

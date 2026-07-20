@@ -6,6 +6,7 @@ import { empireTakesCross } from "../src/data/chapters/empire-takes-cross";
 import { europeReborn } from "../src/data/chapters/europe-reborn";
 import { firstFarmers } from "../src/data/chapters/first-farmers";
 import { greeceAndTheCitizen } from "../src/data/chapters/greece-and-the-citizen";
+import { hanseaticNorth } from "../src/data/chapters/hanseatic-north";
 import { medievalCommercialRevolution } from "../src/data/chapters/medieval-commercial-revolution";
 import { papalRevolution } from "../src/data/chapters/papal-revolution";
 import { romeGathersEurope } from "../src/data/chapters/rome-gathers-europe";
@@ -1029,7 +1030,87 @@ assert.equal(
   `AD ${hanseaticNorthScene.period.label}`,
   "The Medieval Commercial Revolution ending period must match its actual next scene.",
 );
+assert.equal(
+  medievalCommercialRevolution.nextSlug,
+  hanseaticNorth.slug,
+  "The Medieval Commercial Revolution ending should continue into the Hanseatic chapter.",
+);
+
+await checkCommonChapter(hanseaticNorth, 12);
+assert.deepEqual(
+  hanseaticNorth.acts?.map((act) => act.id),
+  [
+    "harbour-feeds-north",
+    "privilege-builds-house",
+    "cities-act-together",
+    "edges-hold-league",
+  ],
+  "The Hanseatic North should preserve its harbour-to-league progression.",
+);
+for (const act of hanseaticNorth.acts ?? []) {
+  assert.equal(
+    hanseaticNorth.movements.filter((movement) => movement.actId === act.id)
+      .length,
+    3,
+    `Act ${act.id} should contain exactly three movements.`,
+  );
+}
+assert.deepEqual(
+  hanseaticNorth.movements
+    .map((movement, index) => (movement.interaction ? index + 1 : null))
+    .filter(Boolean),
+  [2, 5, 8, 11],
+  "The Hanseatic North interactions should appear in movements 2, 5, 8 and 11.",
+);
+assert.deepEqual(
+  hanseaticNorth.movements
+    .map((movement) => movement.interaction?.kind)
+    .filter(Boolean),
+  ["chapter-v2", "chapter-v2", "chapter-v2", "chapter-v2"],
+  "The Hanseatic North should use the northern year, Bryggen yard, covenant and Kontor sequence.",
+);
+const hanseaticNorthWords = hanseaticNorth.movements.reduce(
+  (sum, movement) =>
+    sum +
+    movement.body.reduce(
+      (movementSum, paragraph) =>
+        movementSum + paragraph.trim().split(/\s+/).length,
+      0,
+    ),
+  0,
+);
+assert.ok(
+  hanseaticNorthWords >= 2800 && hanseaticNorthWords <= 3400,
+  `The Hanseatic North should contain 2,800–3,400 words of continuous narrative; found ${hanseaticNorthWords}.`,
+);
+assert.equal(
+  hanseaticNorthScene?.chronicle?.href,
+  "chapters/hanseatic-north/",
+  "The main journey needs a working Hanseatic North chapter link.",
+);
+assert.equal(
+  hanseaticNorthScene?.chronicle?.label,
+  "Enter the northern harbour",
+  "The Hanseatic North chapter link needs its historical invitation.",
+);
+const empireManyLibertiesScene = scenes.find(
+  (scene) => scene.id === hanseaticNorth.nextHash,
+);
+assert.ok(
+  empireManyLibertiesScene,
+  "The Hanseatic North ending needs a real next scene.",
+);
+assert.equal(
+  hanseaticNorth.nextTitle,
+  empireManyLibertiesScene.title,
+  "The Hanseatic North ending title must match its actual next scene.",
+);
+assert.equal(
+  hanseaticNorth.ending.nextPeriod,
+  `AD ${empireManyLibertiesScene.period.label}`,
+  "The Hanseatic North ending period must match its actual next scene.",
+);
 
 console.log(
-  "Farmers, Steppe, Bronze, Greece, Rome, Christian Empire, Europe Reborn, Papal Revolution, Society Beyond Kin and Medieval Commercial Revolution chapter checks passed.",
+  "Farmers, Steppe, Bronze, Greece, Rome, Christian Empire, Europe Reborn, Papal Revolution, Society Beyond Kin, Medieval Commercial Revolution and Hanseatic North chapter checks passed.",
 );

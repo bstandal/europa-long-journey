@@ -1043,6 +1043,10 @@ export const scenes: StoryScene[] = [
         longitude: 31.28,
       },
     ],
+    chronicle: {
+      href: "chapters/hanseatic-north/",
+      label: "Enter the northern harbour",
+    },
   },
   {
     id: "empire-many-liberties",
