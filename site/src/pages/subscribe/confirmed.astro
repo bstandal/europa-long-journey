@@ -1,0 +1,107 @@
+---
+import SiteHeader from "../../components/SiteHeader.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+  title="Address confirmed — EUROPA"
+  description="Your address is confirmed for new EUROPA chapter notices."
+  bodyClass="subscription-status-page"
+>
+  <meta slot="head" name="robots" content="noindex, nofollow" />
+  <SiteHeader section="sources" />
+  <script is:inline>
+    try {
+      window.localStorage.setItem("europa:newsletter:submitted:v1", "1");
+      window.localStorage.removeItem("europa:newsletter:pending:v1");
+      window.localStorage.removeItem("europa:newsletter:dismissed:v1");
+    } catch {}
+    window.addEventListener(
+      "load",
+      () => {
+        const trackedKey =
+          "europa:newsletter:confirmation-returned-tracked:v1";
+        try {
+          if (window.sessionStorage.getItem(trackedKey) === "1") return;
+          window.europaAnalytics?.track("signup-confirmation-returned");
+          window.sessionStorage.setItem(trackedKey, "1");
+        } catch {
+          window.europaAnalytics?.track("signup-confirmation-returned");
+        }
+      },
+      { once: true },
+    );
+  </script>
+  <main id="main-content" class="subscription-status">
+    <p class="subscription-status__overline">ADDRESS CONFIRMED</p>
+    <h1>You are on the road.</h1>
+    <p>
+      I will send a short note when a new EUROPA chapter is published. Nothing
+      else, and you can leave from the link in any message.
+    </p>
+    <a href={`${base}#top`}>Continue the journey</a>
+  </main>
+</BaseLayout>
+
+<style>
+  :global(.subscription-status-page) {
+    min-height: 100svh;
+    background:
+      radial-gradient(circle at 70% 20%, rgba(184, 149, 85, 0.11), transparent 38%),
+      #11181e;
+  }
+
+  .subscription-status {
+    width: min(760px, calc(100% - 48px));
+    min-height: 100svh;
+    margin: 0 auto;
+    padding: clamp(150px, 22svh, 230px) 0 90px;
+  }
+
+  .subscription-status__overline {
+    margin: 0 0 18px;
+    color: var(--bronze-bright);
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+  }
+
+  h1 {
+    max-width: 720px;
+    margin: 0 0 28px;
+    font-family: var(--serif);
+    font-size: clamp(3.7rem, 10vw, 7rem);
+    font-weight: 400;
+    line-height: 0.95;
+    text-wrap: balance;
+  }
+
+  p {
+    max-width: 650px;
+    margin: 0;
+    color: rgba(240, 230, 206, 0.82);
+    font-family: var(--serif);
+    font-size: clamp(1.15rem, 2vw, 1.42rem);
+  }
+
+  a {
+    display: inline-flex;
+    min-height: 44px;
+    margin-top: 52px;
+    align-items: center;
+    border-bottom: 1px solid rgba(224, 189, 115, 0.55);
+    color: var(--ivory);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--bronze-bright);
+    outline-offset: 5px;
+  }
+</style>
