@@ -6,6 +6,8 @@ import "@fontsource/manrope/500.css";
 import "@fontsource/manrope/600.css";
 import "../styles/global.css";
 import IconSprite from "../components/IconSprite.astro";
+import AnalyticsConsent from "../components/AnalyticsConsent.astro";
+import SiteFooter from "../components/SiteFooter.astro";
 
 type Props = {
   title: string;
@@ -19,12 +21,6 @@ const socialImage = new URL(
   `${import.meta.env.BASE_URL}assets/social-europa.jpg`,
   Astro.site,
 );
-const analyticsWebsiteId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID?.trim();
-const analyticsScriptUrl =
-  import.meta.env.PUBLIC_UMAMI_SCRIPT_URL?.trim() ||
-  "https://cloud.umami.is/script.js";
-const analyticsDomains =
-  import.meta.env.PUBLIC_UMAMI_DOMAINS?.trim() || canonical.hostname;
 ---
 
 <!doctype html>
@@ -69,23 +65,6 @@ const analyticsDomains =
       name="twitter:image:alt"
       content="A luminous route crossing a landscape of European history"
     />
-    {
-      analyticsWebsiteId && (
-        <script
-          is:inline
-          defer
-          src={analyticsScriptUrl}
-          data-europa-analytics
-          data-website-id={analyticsWebsiteId}
-          data-domains={analyticsDomains}
-          data-auto-track="false"
-          data-exclude-search="true"
-          data-exclude-hash="true"
-          data-do-not-track="true"
-          data-performance="true"
-        />
-      )
-    }
     <title>{title}</title>
     <slot name="head" />
   </head>
@@ -93,6 +72,8 @@ const analyticsDomains =
     <IconSprite />
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <slot />
+    <SiteFooter />
+    <AnalyticsConsent />
     <script>
       import "../scripts/analytics";
     </script>

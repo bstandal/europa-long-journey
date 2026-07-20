@@ -21,6 +21,7 @@ jobs:
       PUBLIC_UMAMI_WEBSITE_ID: ${{ vars.UMAMI_WEBSITE_ID }}
       PUBLIC_UMAMI_SCRIPT_URL: ${{ vars.UMAMI_SCRIPT_URL }}
       PUBLIC_UMAMI_DOMAINS: ${{ vars.UMAMI_DOMAINS }}
+      PUBLIC_BREVO_FORM_ACTION: ${{ vars.BREVO_FORM_ACTION }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4

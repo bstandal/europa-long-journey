@@ -1,0 +1,129 @@
+---
+import Icon from "./Icon.astro";
+
+type Props = {
+  variant: "inline" | "floating";
+};
+
+const { variant } = Astro.props;
+const action = import.meta.env.PUBLIC_BREVO_FORM_ACTION?.trim();
+const emailField = import.meta.env.PUBLIC_BREVO_EMAIL_FIELD?.trim() || "EMAIL";
+const consentField =
+  import.meta.env.PUBLIC_BREVO_CONSENT_FIELD?.trim() ||
+  "CHAPTER_UPDATES_CONSENT";
+const base = import.meta.env.BASE_URL;
+const titleId = `newsletter-${variant}-title`;
+const noteId = `newsletter-${variant}-note`;
+const formId = `newsletter-${variant}-form`;
+---
+
+{
+  action && (
+    <>
+      <aside
+        class:list={["newsletter-signup", `newsletter-signup--${variant}`]}
+        data-newsletter-signup
+        data-newsletter-variant={variant}
+        aria-labelledby={titleId}
+        hidden={variant === "floating"}
+      >
+        {variant === "floating" && (
+          <button
+            class="newsletter-signup__dismiss"
+            type="button"
+            data-newsletter-dismiss
+            aria-label="Not now"
+          >
+            <span>Not now</span>
+            <Icon name="x" />
+          </button>
+        )}
+
+        <div class="newsletter-signup__intro">
+          <p class="newsletter-signup__eyebrow">The journey continues</p>
+          <h2 id={titleId}>A new chapter, when it is ready.</h2>
+          <p>
+            {
+              variant === "floating"
+                ? "One note when it is published."
+                : "Leave your email and I’ll send one quiet note when a new chapter is published."
+            }
+          </p>
+        </div>
+
+        {variant === "floating" && (
+          <button
+            class="newsletter-signup__expand"
+            type="button"
+            data-newsletter-expand
+            aria-expanded="false"
+            aria-controls={formId}
+          >
+            Tell me when it is ready
+          </button>
+        )}
+
+        <form
+          id={formId}
+          class="newsletter-signup__form"
+          method="post"
+          action={action}
+          accept-charset="UTF-8"
+          data-newsletter-form
+          aria-describedby={noteId}
+          hidden={variant === "floating"}
+        >
+          <div class="newsletter-signup__fields">
+            <label>
+              <span>Email address</span>
+              <input
+                type="email"
+                name={emailField}
+                autocomplete="email"
+                inputmode="email"
+                maxlength="254"
+                required
+              />
+            </label>
+          </div>
+          <label class="newsletter-signup__consent">
+            <input type="checkbox" name={consentField} value="1" required />
+            <span>
+              I consent to Bård Standal using my email address only to notify me
+              when new EUROPA chapters are published. I can unsubscribe at any
+              time.{" "}
+              <a href={`${base}privacy/`}>Privacy</a>.
+            </span>
+          </label>
+          <input
+            class="newsletter-signup__honeypot"
+            type="text"
+            name="email_address_check"
+            value=""
+            tabindex="-1"
+            autocomplete="off"
+            aria-hidden="true"
+          />
+          <input type="hidden" name="locale" value="en" />
+          <input type="hidden" name="html_type" value="simple" />
+          <button class="newsletter-signup__submit" type="submit" data-newsletter-submit>
+            Notify me
+          </button>
+          <p class="newsletter-signup__note" id={noteId}>
+            Brevo processes the signup for EUROPA. Only chapter notices; unsubscribe
+            at any time.
+          </p>
+        </form>
+      </aside>
+      {variant === "floating" && (
+        <p
+          class="sr-only"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          data-newsletter-announcement
+        />
+      )}
+    </>
+  )
+}
