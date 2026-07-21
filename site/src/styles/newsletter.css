@@ -1,0 +1,211 @@
+.newsletter-signup[hidden] {
+  display: none !important;
+}
+
+.newsletter-signup--floating {
+  position: fixed;
+  z-index: 60;
+  right: clamp(18px, 3.3vw, 52px);
+  bottom: max(18px, env(safe-area-inset-bottom));
+  width: min(400px, calc(100vw - 36px));
+  max-height: calc(100dvh - 36px);
+  padding: 22px 22px 20px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 1px solid rgba(224, 189, 115, 0.3);
+  background: rgba(7, 13, 14, 0.96);
+  box-shadow: 0 22px 64px rgba(0, 0, 0, 0.44);
+  color: var(--ivory);
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 220ms ease,
+    transform 240ms ease;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.newsletter-signup--floating.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.newsletter-signup__intro h2 {
+  max-width: calc(100% - 90px);
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.72rem;
+  font-weight: 400;
+  line-height: 1.08;
+}
+
+.newsletter-signup__dismiss {
+  position: absolute;
+  top: 9px;
+  right: 8px;
+  display: inline-flex;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 8px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 0;
+  background: transparent;
+  color: rgba(240, 230, 206, 0.62);
+  cursor: pointer;
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.newsletter-signup__dismiss .icon {
+  font-size: 0.9rem;
+}
+
+.newsletter-signup__dismiss:hover {
+  color: var(--ivory);
+}
+
+.newsletter-signup__form {
+  display: grid;
+  margin-top: 18px;
+  gap: 12px;
+}
+
+.newsletter-signup__controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 9px;
+}
+
+.newsletter-signup__controls label {
+  display: grid;
+  min-width: 0;
+  gap: 6px;
+  color: rgba(240, 230, 206, 0.7);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.newsletter-signup__controls input {
+  width: 100%;
+  min-height: 46px;
+  padding: 9px 11px;
+  border: 1px solid rgba(240, 230, 206, 0.22);
+  border-radius: 0;
+  background: rgba(240, 230, 206, 0.04);
+  color: var(--ivory);
+  font: 400 0.88rem/1.3 var(--sans);
+}
+
+.newsletter-signup__controls input::placeholder {
+  color: rgba(240, 230, 206, 0.38);
+}
+
+.newsletter-signup__controls input:hover {
+  border-color: rgba(224, 189, 115, 0.42);
+}
+
+.newsletter-signup__submit {
+  min-height: 46px;
+  padding: 9px 15px;
+  border: 1px solid rgba(224, 189, 115, 0.56);
+  border-radius: 0;
+  background: rgba(224, 189, 115, 0.1);
+  color: var(--ivory);
+  cursor: pointer;
+  font-size: 0.59rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.newsletter-signup__submit:hover {
+  background: rgba(224, 189, 115, 0.17);
+}
+
+.newsletter-signup__submit:disabled {
+  cursor: wait;
+  opacity: 0.58;
+}
+
+.newsletter-signup__note {
+  margin: 0;
+  color: rgba(240, 230, 206, 0.56);
+  font-size: 0.68rem;
+  line-height: 1.5;
+}
+
+.newsletter-signup__note a {
+  color: rgba(240, 230, 206, 0.82);
+  text-decoration-color: rgba(224, 189, 115, 0.55);
+  text-underline-offset: 3px;
+}
+
+.newsletter-signup__honeypot {
+  position: absolute !important;
+  left: -10000px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.newsletter-signup__announcement {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.newsletter-signup__dismiss:focus-visible,
+.newsletter-signup__controls input:focus-visible,
+.newsletter-signup__submit:focus-visible,
+.newsletter-signup__note a:focus-visible {
+  outline: 2px solid var(--bronze-bright);
+  outline-offset: 4px;
+}
+
+@media (max-width: 480px) {
+  .newsletter-signup--floating {
+    right: 12px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    left: 12px;
+    width: auto;
+    max-height: calc(100dvh - 24px);
+    padding: 17px 18px 16px;
+  }
+
+  .newsletter-signup__intro h2 {
+    font-size: 1.52rem;
+  }
+
+  .newsletter-signup__form {
+    margin-top: 14px;
+  }
+
+  .newsletter-signup__controls {
+    grid-template-columns: 1fr;
+  }
+
+  .newsletter-signup__submit {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .newsletter-signup--floating {
+    transition-duration: 0.01ms !important;
+  }
+}

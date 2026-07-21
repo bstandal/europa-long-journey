@@ -51,7 +51,7 @@ letting the tracker observe those hash changes would inflate pageviews.
 | How far do they get? | `chapter-depth-25`, `chapter-depth-50`, `chapter-depth-75`, `chapter-complete` | A milestone is sent once per page load when that share of movements has entered the viewport. Completion means the ending entered the viewport. |
 | Do they return? | Retention insight | Umami estimates repeat browsers with a rotating pseudonymous identifier. This is directional, not a permanent person-level history. |
 | Do interactions help? | Events prefixed `interaction-` | Sent once per interaction type per page load after the reader first uses it. |
-| Do readers ask for updates? | `signup-prompt-shown`, `signup-prompt-dismissed`, `signup-inline-submitted`, `signup-prompt-submitted`, `signup-confirmation-returned` | Counts the two form placements separately without sending form fields. Submission events are attempts. `signup-confirmation-returned` means that a consenting browser reached the return page; it is not proof that Brevo confirmed or retained the contact. |
+| Do readers ask for updates? | `signup-prompt-shown`, `signup-prompt-dismissed`, `signup-prompt-submitted`, `signup-confirmation-returned` | Counts popup activity without sending form fields. The page path distinguishes homepage and chapter prompts. Submission events are attempts. `signup-confirmation-returned` means that a consenting browser reached the return page; it is not proof that Brevo confirmed or retained the contact. |
 
 The same depth model is used on the long road with `journey-depth-*`,
 `journey-started` and `journey-complete`.
@@ -126,8 +126,8 @@ the positive test. Confirm that:
 - scrolling produces the depth milestones once each;
 - reaching the ending produces `chapter-complete`;
 - using one chapter interaction produces one matching `interaction-*` event;
-- showing, dismissing and submitting each chapter-notification placement produces
-  only the non-personal `signup-*` events above, never an email address or name;
+- showing, dismissing and submitting the email popup produces only the
+  non-personal `signup-*` events above, never an email address or name;
 - a return to the confirmation page may produce `signup-confirmation-returned`
-  only when analytics consent is already active. The Brevo chapter-update list
+  only when analytics consent is already active. The Brevo updates list
   and its double-opt-in record remain authoritative for subscription status.

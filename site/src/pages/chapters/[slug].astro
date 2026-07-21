@@ -5,7 +5,6 @@ import ChapterMovement from "../../components/chapters/ChapterMovement.astro";
 import ChapterRoute from "../../components/chapters/ChapterRoute.astro";
 import ChapterSources from "../../components/chapters/ChapterSources.astro";
 import ChapterStage from "../../components/chapters/ChapterStage.astro";
-import NewsletterSignup from "../../components/NewsletterSignup.astro";
 import { chapters } from "../../data/chapters";
 import ChapterLayout from "../../layouts/ChapterLayout.astro";
 import type { ChapterDefinition } from "../../types/chapter";
@@ -111,7 +110,6 @@ const openingMobileImage =
           </a>
         )
       }
-      <NewsletterSignup variant="inline" />
       <a class="chapter-ending__return" href={returnHref}>Return to the long road</a>
     </footer>
 
