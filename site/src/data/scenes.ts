@@ -1329,6 +1329,10 @@ export const scenes: StoryScene[] = [
         longitude: -5.99,
       },
     ],
+    chronicle: {
+      href: "chapters/europe-turns-seaward/",
+      label: "Unroll the ocean",
+    },
   },
   {
     id: "reformation",

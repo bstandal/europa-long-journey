@@ -81,6 +81,7 @@ export const europeHoldsTheLine: ChapterDefinition = {
   returnHash: "frontiers-hold",
   nextHash: "europe-turns-seaward",
   nextTitle: "Europe Turns Seaward",
+  nextSlug: "europe-turns-seaward",
   movements: [
     {
       id: "kingdom-falls-one-campaign",

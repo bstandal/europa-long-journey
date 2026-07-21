@@ -6,6 +6,7 @@ import { empireManyLiberties } from "../src/data/chapters/empire-many-liberties"
 import { empireTakesCross } from "../src/data/chapters/empire-takes-cross";
 import { europeHoldsTheLine } from "../src/data/chapters/europe-holds-the-line";
 import { europeReborn } from "../src/data/chapters/europe-reborn";
+import { europeTurnsSeaward } from "../src/data/chapters/europe-turns-seaward";
 import { firstFarmers } from "../src/data/chapters/first-farmers";
 import { greeceAndTheCitizen } from "../src/data/chapters/greece-and-the-citizen";
 import { hanseaticNorth } from "../src/data/chapters/hanseatic-north";
@@ -1276,7 +1277,88 @@ assert.equal(
   `AD ${europeTurnsSeawardScene.period.label}`,
   "The Frontiers Hold ending period must match its actual next scene.",
 );
+assert.equal(
+  europeHoldsTheLine.nextSlug,
+  europeTurnsSeaward.slug,
+  "The Frontiers Hold ending should continue into Europe Turns Seaward.",
+);
+
+await checkCommonChapter(europeTurnsSeaward, 12);
+assert.deepEqual(
+  europeTurnsSeaward.acts?.map((act) => act.id),
+  [
+    "atlantic-becomes-school",
+    "coast-opens-ocean",
+    "routes-enclose-earth",
+    "voyages-become-systems",
+  ],
+  "Europe Turns Seaward should preserve its Atlantic-school-to-ocean-system progression.",
+);
+for (const act of europeTurnsSeaward.acts ?? []) {
+  assert.equal(
+    europeTurnsSeaward.movements.filter(
+      (movement) => movement.actId === act.id,
+    ).length,
+    3,
+    `Act ${act.id} should contain exactly three movements.`,
+  );
+}
+assert.deepEqual(
+  europeTurnsSeaward.movements
+    .map((movement, index) => (movement.interaction ? index + 1 : null))
+    .filter(Boolean),
+  [3, 6, 8, 10],
+  "Europe Turns Seaward interactions should appear in movements 3, 6, 8 and 10.",
+);
+assert.deepEqual(
+  europeTurnsSeaward.movements
+    .map((movement) => movement.interaction?.kind)
+    .filter(Boolean),
+  ["chapter-v2", "chapter-v2", "chapter-v2", "chapter-v2"],
+  "Europe Turns Seaward should use four ocean-route interactions.",
+);
+const europeTurnsSeawardWords = europeTurnsSeaward.movements.reduce(
+  (sum, movement) =>
+    sum +
+    movement.body.reduce(
+      (movementSum, paragraph) =>
+        movementSum + paragraph.trim().split(/\s+/).length,
+      0,
+    ),
+  0,
+);
+assert.ok(
+  europeTurnsSeawardWords >= 2900 && europeTurnsSeawardWords <= 3400,
+  `Europe Turns Seaward should contain 2,900–3,400 words of continuous narrative; found ${europeTurnsSeawardWords}.`,
+);
+assert.equal(
+  europeTurnsSeawardScene?.chronicle?.href,
+  "chapters/europe-turns-seaward/",
+  "The main journey needs a working Europe Turns Seaward chapter link.",
+);
+assert.equal(
+  europeTurnsSeawardScene?.chronicle?.label,
+  "Unroll the ocean",
+  "The Europe Turns Seaward chapter link needs its historical invitation.",
+);
+const reformationScene = scenes.find(
+  (scene) => scene.id === europeTurnsSeaward.nextHash,
+);
+assert.ok(
+  reformationScene,
+  "Europe Turns Seaward ending needs a real next scene.",
+);
+assert.equal(
+  europeTurnsSeaward.nextTitle,
+  reformationScene.title,
+  "Europe Turns Seaward ending title must match its actual next scene.",
+);
+assert.equal(
+  europeTurnsSeaward.ending.nextPeriod,
+  `AD ${reformationScene.period.label}`,
+  "Europe Turns Seaward ending period must match its actual next scene.",
+);
 
 console.log(
-  "Farmers, Steppe, Bronze, Greece, Rome, Christian Empire, Europe Reborn, Papal Revolution, Society Beyond Kin, Medieval Commercial Revolution, Hanseatic North, Empire of Many Liberties and The Frontiers Hold chapter checks passed.",
+  "Farmers, Steppe, Bronze, Greece, Rome, Christian Empire, Europe Reborn, Papal Revolution, Society Beyond Kin, Medieval Commercial Revolution, Hanseatic North, Empire of Many Liberties, The Frontiers Hold and Europe Turns Seaward chapter checks passed.",
 );

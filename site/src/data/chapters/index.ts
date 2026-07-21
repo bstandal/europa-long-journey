@@ -4,6 +4,7 @@ import { empireManyLiberties } from "./empire-many-liberties";
 import { empireTakesCross } from "./empire-takes-cross";
 import { europeHoldsTheLine } from "./europe-holds-the-line";
 import { europeReborn } from "./europe-reborn";
+import { europeTurnsSeaward } from "./europe-turns-seaward";
 import { firstFarmers } from "./first-farmers";
 import { greeceAndTheCitizen } from "./greece-and-the-citizen";
 import { hanseaticNorth } from "./hanseatic-north";
@@ -27,6 +28,7 @@ export const chapters: ChapterDefinition[] = [
   hanseaticNorth,
   empireManyLiberties,
   europeHoldsTheLine,
+  europeTurnsSeaward,
 ];
 
 export const chapterBySlug = new Map(
