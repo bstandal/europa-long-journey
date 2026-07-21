@@ -1,5 +1,6 @@
 import type { ChapterDefinition } from "../../types/chapter";
 import { bronzeEurope } from "./bronze-europe";
+import { empireManyLiberties } from "./empire-many-liberties";
 import { empireTakesCross } from "./empire-takes-cross";
 import { europeReborn } from "./europe-reborn";
 import { firstFarmers } from "./first-farmers";
@@ -23,6 +24,7 @@ export const chapters: ChapterDefinition[] = [
   societyBeyondKin,
   medievalCommercialRevolution,
   hanseaticNorth,
+  empireManyLiberties,
 ];
 
 export const chapterBySlug = new Map(

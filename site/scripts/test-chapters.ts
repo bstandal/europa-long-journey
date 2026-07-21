@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { access } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { bronzeEurope } from "../src/data/chapters/bronze-europe";
+import { empireManyLiberties } from "../src/data/chapters/empire-many-liberties";
 import { empireTakesCross } from "../src/data/chapters/empire-takes-cross";
 import { europeReborn } from "../src/data/chapters/europe-reborn";
 import { firstFarmers } from "../src/data/chapters/first-farmers";
@@ -1110,7 +1111,89 @@ assert.equal(
   `AD ${empireManyLibertiesScene.period.label}`,
   "The Hanseatic North ending period must match its actual next scene.",
 );
+assert.equal(
+  hanseaticNorth.nextSlug,
+  empireManyLiberties.slug,
+  "The Hanseatic North ending should continue into the Empire of Many Liberties chapter.",
+);
+
+await checkCommonChapter(empireManyLiberties, 12);
+assert.deepEqual(
+  empireManyLiberties.acts?.map((act) => act.id),
+  [
+    "crown-travels",
+    "liberty-becomes-right",
+    "realm-reforms-itself",
+    "difference-inside-peace",
+  ],
+  "The Empire of Many Liberties should preserve its crown-to-constitutional-peace progression.",
+);
+assert.deepEqual(
+  empireManyLiberties.acts?.map(
+    (act) =>
+      empireManyLiberties.movements.filter(
+        (movement) => movement.actId === act.id,
+      ).length,
+  ),
+  [2, 4, 3, 3],
+  "The Empire of Many Liberties should move from the travelling crown through an expanded account of accumulated rights, then into reform and constitutional peace.",
+);
+assert.deepEqual(
+  empireManyLiberties.movements
+    .map((movement, index) => (movement.interaction ? index + 1 : null))
+    .filter(Boolean),
+  [2, 6, 8, 11],
+  "The Empire of Many Liberties interactions should appear in movements 2, 6, 8 and 11.",
+);
+assert.deepEqual(
+  empireManyLiberties.movements
+    .map((movement) => movement.interaction?.kind)
+    .filter(Boolean),
+  ["chapter-v2", "chapter-v2", "chapter-v2", "chapter-v2"],
+  "The Empire of Many Liberties should use the itinerary, election, Diet and Westphalian-constitution sequence.",
+);
+const empireManyLibertiesWords = empireManyLiberties.movements.reduce(
+  (sum, movement) =>
+    sum +
+    movement.body.reduce(
+      (movementSum, paragraph) =>
+        movementSum + paragraph.trim().split(/\s+/).length,
+      0,
+    ),
+  0,
+);
+assert.ok(
+  empireManyLibertiesWords >= 3000 && empireManyLibertiesWords <= 3500,
+  `The Empire of Many Liberties should contain 3,000–3,500 words of continuous narrative; found ${empireManyLibertiesWords}.`,
+);
+assert.equal(
+  empireManyLibertiesScene?.chronicle?.href,
+  "chapters/empire-many-liberties/",
+  "The main journey needs a working Empire of Many Liberties chapter link.",
+);
+assert.equal(
+  empireManyLibertiesScene?.chronicle?.label,
+  "Enter the imperial assembly",
+  "The Empire of Many Liberties chapter link needs its historical invitation.",
+);
+const frontiersHoldScene = scenes.find(
+  (scene) => scene.id === empireManyLiberties.nextHash,
+);
+assert.ok(
+  frontiersHoldScene,
+  "The Empire of Many Liberties ending needs a real next scene.",
+);
+assert.equal(
+  empireManyLiberties.nextTitle,
+  frontiersHoldScene.title,
+  "The Empire of Many Liberties ending title must match its actual next scene.",
+);
+assert.equal(
+  empireManyLiberties.ending.nextPeriod,
+  `AD ${frontiersHoldScene.period.label}`,
+  "The Empire of Many Liberties ending period must match its actual next scene.",
+);
 
 console.log(
-  "Farmers, Steppe, Bronze, Greece, Rome, Christian Empire, Europe Reborn, Papal Revolution, Society Beyond Kin, Medieval Commercial Revolution and Hanseatic North chapter checks passed.",
+  "Farmers, Steppe, Bronze, Greece, Rome, Christian Empire, Europe Reborn, Papal Revolution, Society Beyond Kin, Medieval Commercial Revolution, Hanseatic North and Empire of Many Liberties chapter checks passed.",
 );

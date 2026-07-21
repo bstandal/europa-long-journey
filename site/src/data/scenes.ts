@@ -1140,6 +1140,10 @@ export const scenes: StoryScene[] = [
         longitude: 8.36,
       },
     ],
+    chronicle: {
+      href: "chapters/empire-many-liberties/",
+      label: "Enter the imperial assembly",
+    },
   },
   {
     id: "frontiers-hold",

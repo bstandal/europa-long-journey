@@ -80,6 +80,7 @@ export const hanseaticNorth: ChapterDefinition = {
   returnHash: "hanseatic-north",
   nextHash: "empire-many-liberties",
   nextTitle: "The Empire of Many Liberties",
+  nextSlug: "empire-many-liberties",
   movements: [
     {
       id: "dawn-comes-to-bryggen",
