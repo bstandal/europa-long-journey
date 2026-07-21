@@ -1,13 +1,14 @@
-const signupRoots = Array.from(
-  document.querySelectorAll<HTMLElement>("[data-newsletter-signup]"),
+const floatingRoot = document.querySelector<HTMLElement>(
+  "[data-newsletter-signup]",
 );
 
-if (signupRoots.length > 0) {
+if (floatingRoot) {
   const submittedKey = "europa:newsletter:submitted:v1";
   const pendingKey = "europa:newsletter:pending:v1";
   const dismissedKey = "europa:newsletter:dismissed:v1";
   const shownKey = "europa:newsletter:shown:v1";
-  const dismissalDuration = 30 * 24 * 60 * 60 * 1_000;
+  const dismissalDuration = 7 * 24 * 60 * 60 * 1_000;
+  const pendingDuration = 30 * 24 * 60 * 60 * 1_000;
 
   const readStorage = (storage: Storage, key: string) => {
     try {
@@ -40,12 +41,16 @@ if (signupRoots.length > 0) {
     return false;
   };
 
-  const readCurrentTimestamp = (storage: Storage, key: string) => {
+  const readCurrentTimestamp = (
+    storage: Storage,
+    key: string,
+    maximumAge: number,
+  ) => {
     const stored = readStorage(storage, key);
     if (stored === null) return null;
     const timestamp = Number.parseInt(stored, 10);
     const age = Date.now() - timestamp;
-    if (!Number.isFinite(timestamp) || age < 0 || age >= dismissalDuration) {
+    if (!Number.isFinite(timestamp) || age < 0 || age >= maximumAge) {
       removeStorage(storage, key);
       return null;
     }
@@ -57,70 +62,49 @@ if (signupRoots.length > 0) {
   };
 
   let pageSubmitted = readFlag(window.localStorage, submittedKey);
-  let pendingAt = readCurrentTimestamp(window.localStorage, pendingKey);
-  let pendingIsCurrent = pendingAt !== null;
-  let promptDismissed = false;
+  let pendingIsCurrent =
+    readCurrentTimestamp(window.localStorage, pendingKey, pendingDuration) !==
+    null;
 
-  const inlineRoots = signupRoots.filter(
-    (root) => root.dataset.newsletterVariant === "inline",
+  if (pageSubmitted || pendingIsCurrent) floatingRoot.hidden = true;
+
+  const form = floatingRoot.querySelector<HTMLFormElement>(
+    "[data-newsletter-form]",
   );
-  const floatingRoot = signupRoots.find(
-    (root) => root.dataset.newsletterVariant === "floating",
+  const submit = floatingRoot.querySelector<HTMLButtonElement>(
+    "[data-newsletter-submit]",
   );
 
-  if (pageSubmitted || pendingIsCurrent) {
-    for (const root of signupRoots) root.hidden = true;
-  } else {
-    for (const root of inlineRoots) root.hidden = false;
-  }
-
-  for (const root of signupRoots) {
-    const form = root.querySelector<HTMLFormElement>("[data-newsletter-form]");
-    const submit = root.querySelector<HTMLButtonElement>("[data-newsletter-submit]");
-    if (!form || !submit) continue;
-
-    const expand = root.querySelector<HTMLButtonElement>("[data-newsletter-expand]");
-    expand?.addEventListener("click", () => {
-      expand.setAttribute("aria-expanded", "true");
-      expand.hidden = true;
-      form.hidden = false;
-      root.classList.add("is-expanded");
-      window.requestAnimationFrame(() => {
-        form.querySelector<HTMLInputElement>("input[type='email']")?.focus();
-      });
-    });
-
-    form.addEventListener("submit", () => {
+  form?.addEventListener("submit", () => {
+    if (submit) {
       submit.disabled = true;
       submit.setAttribute("aria-busy", "true");
-      track(
-        root.dataset.newsletterVariant === "inline"
-          ? "signup-inline-submitted"
-          : "signup-prompt-submitted",
-      );
-    });
-  }
+    }
+    track("signup-prompt-submitted");
+  });
 
   window.addEventListener("pageshow", () => {
     pageSubmitted = readFlag(window.localStorage, submittedKey);
-    pendingAt = readCurrentTimestamp(window.localStorage, pendingKey);
-    pendingIsCurrent = pendingAt !== null;
+    pendingIsCurrent =
+      readCurrentTimestamp(window.localStorage, pendingKey, pendingDuration) !==
+      null;
     if (pageSubmitted || pendingIsCurrent) {
-      for (const root of signupRoots) root.hidden = true;
+      floatingRoot.hidden = true;
       return;
     }
-    for (const root of inlineRoots) root.hidden = false;
-    for (const submit of document.querySelectorAll<HTMLButtonElement>(
-      "[data-newsletter-submit]",
-    )) {
+    if (submit) {
       submit.disabled = false;
       submit.removeAttribute("aria-busy");
     }
   });
 
-  if (floatingRoot && !pageSubmitted && !pendingIsCurrent) {
+  if (!pageSubmitted && !pendingIsCurrent) {
     const dismissalIsCurrent =
-      readCurrentTimestamp(window.localStorage, dismissedKey) !== null;
+      readCurrentTimestamp(
+        window.localStorage,
+        dismissedKey,
+        dismissalDuration,
+      ) !== null;
     const shownThisSession = readFlag(window.sessionStorage, shownKey);
     const announcement = document.querySelector<HTMLElement>(
       "[data-newsletter-announcement]",
@@ -128,17 +112,31 @@ if (signupRoots.length > 0) {
     let activeSeconds = 0;
     let lastTick = performance.now();
     let lastScrollAt = performance.now();
+    let lastBlockedAt = Number.NEGATIVE_INFINITY;
+    let lastChapterInteractionAt = Number.NEGATIVE_INFINITY;
     let depthQualified = false;
     let promptRevealed = false;
+    let promptDismissed = false;
+    let focusBeforeReveal: HTMLElement | null = null;
 
     const dismissPrompt = () => {
       if (promptDismissed || pageSubmitted) return;
+      const restoreFocus = floatingRoot.contains(document.activeElement);
       promptDismissed = true;
       floatingRoot.hidden = true;
       floatingRoot.classList.remove("is-visible");
       if (announcement) announcement.textContent = "";
       writeStorage(window.localStorage, dismissedKey, String(Date.now()));
       track("signup-prompt-dismissed");
+      if (restoreFocus) {
+        window.requestAnimationFrame(() => {
+          if (focusBeforeReveal?.isConnected) {
+            focusBeforeReveal.focus({ preventScroll: true });
+            return;
+          }
+          (document.activeElement as HTMLElement | null)?.blur();
+        });
+      }
     };
 
     floatingRoot
@@ -156,56 +154,90 @@ if (signupRoots.length > 0) {
       }
     });
 
-    const movements = Array.from(
+    const chapterSections = Array.from(
       document.querySelectorAll<HTMLElement>("[data-chapter-movement]"),
     );
-    let furthestMovement = -1;
+    const journeySections = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-story-scene]"),
+    );
+    const depthSections =
+      chapterSections.length > 0 ? chapterSections : journeySections;
+    const requiredSections =
+      chapterSections.length > 0
+        ? Math.max(1, Math.ceil(chapterSections.length * 0.25))
+        : Math.min(2, journeySections.length);
+    let furthestSection = -1;
+
     const depthObserver = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (!entry.isIntersecting) continue;
-          const index = movements.indexOf(entry.target as HTMLElement);
-          furthestMovement = Math.max(furthestMovement, index);
+          const index = depthSections.indexOf(entry.target as HTMLElement);
+          furthestSection = Math.max(furthestSection, index);
         }
         depthQualified =
-          movements.length > 0 &&
-          (furthestMovement + 1) / movements.length >= 0.5;
+          requiredSections > 0 && furthestSection + 1 >= requiredSections;
         if (depthQualified) depthObserver.disconnect();
       },
       { threshold: 0.15 },
     );
-    for (const movement of movements) depthObserver.observe(movement);
+    for (const section of depthSections) depthObserver.observe(section);
+
+    const markChapterInteraction = (event: Event) => {
+      if (
+        event.target instanceof HTMLElement &&
+        event.target.closest(".chapter-interaction")
+      ) {
+        lastChapterInteractionAt = performance.now();
+      }
+    };
+    document.addEventListener("pointerdown", markChapterInteraction, true);
+    document.addEventListener("input", markChapterInteraction, true);
+    document.addEventListener("keydown", markChapterInteraction, true);
 
     const blockingUiIsOpen = () => {
       const chapterRegion = document.body.dataset.chapterRegion;
       const activeElement = document.activeElement;
+      const activeInsideChapterInteraction =
+        activeElement instanceof HTMLElement &&
+        Boolean(activeElement.closest(".chapter-interaction"));
       const anotherFieldHasFocus =
         activeElement instanceof HTMLElement &&
         !floatingRoot.contains(activeElement) &&
-        activeElement.matches("input, textarea, select, [contenteditable='true']");
+        !activeInsideChapterInteraction &&
+        activeElement.matches(
+          "input, textarea, select, [contenteditable='true']",
+        );
 
       return (
         document.body.classList.contains("chapter-route-open") ||
-        Boolean(document.body.dataset.chapterInteraction?.trim()) ||
         chapterRegion === "act" ||
         chapterRegion === "ending" ||
         Boolean(document.querySelector("dialog[open]")) ||
         Boolean(document.querySelector("[role='dialog']:not([hidden])")) ||
-        Boolean(document.querySelector("[data-analytics-consent]:not([hidden])")) ||
+        Boolean(
+          document.querySelector("[data-analytics-consent]:not([hidden])"),
+        ) ||
         anotherFieldHasFocus
       );
     };
 
     const revealPrompt = () => {
+      focusBeforeReveal =
+        document.activeElement instanceof HTMLElement &&
+        document.activeElement !== document.body
+          ? document.activeElement
+          : null;
       promptRevealed = true;
       floatingRoot.hidden = false;
       writeStorage(window.sessionStorage, shownKey, "1");
       track("signup-prompt-shown");
       if (announcement) {
-        announcement.textContent =
-          "A chapter update signup invitation is available.";
+        announcement.textContent = "EUROPA email signup is available.";
       }
-      window.requestAnimationFrame(() => floatingRoot.classList.add("is-visible"));
+      window.requestAnimationFrame(() =>
+        floatingRoot.classList.add("is-visible"),
+      );
     };
 
     const updatePrompt = () => {
@@ -220,14 +252,17 @@ if (signupRoots.length > 0) {
         return;
       }
 
+      const now = performance.now();
+      const blockingUiOpen = blockingUiIsOpen();
+      if (blockingUiOpen) lastBlockedAt = now;
       const blocked =
-        blockingUiIsOpen() || performance.now() - lastScrollAt < 900;
+        blockingUiOpen ||
+        now - lastScrollAt < 900 ||
+        now - lastChapterInteractionAt < 8_000 ||
+        now - lastBlockedAt < 8_000;
 
       if (promptRevealed) {
-        if (
-          floatingRoot.classList.contains("is-expanded") ||
-          floatingRoot.contains(document.activeElement)
-        ) {
+        if (floatingRoot.contains(document.activeElement)) {
           floatingRoot.hidden = false;
           return;
         }
@@ -235,7 +270,7 @@ if (signupRoots.length > 0) {
         return;
       }
 
-      if (activeSeconds >= 60 && depthQualified && !blocked) revealPrompt();
+      if (activeSeconds >= 35 && depthQualified && !blocked) revealPrompt();
     };
 
     window.addEventListener(

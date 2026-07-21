@@ -327,4 +327,9 @@ When implementing from a selected generated mock, treat that image as the source
   bottom bar with no backdrop or oversized card treatment, keeps the page and navigation fully usable,
   and disappears after either equally prominent choice. Never stack it with another prompt. Keep
   service-provider names in the linked details rather than the primary prompt unless clarity requires them.
+- Email signup appears only as a compact, non-modal popup on the long-road homepage and deep chapters.
+  Show the email field directly after 35 seconds of active reading and meaningful progress: two homepage
+  scenes or 25 percent of a chapter. Keep the page usable, never stack it with another prompt, and suppress
+  it for one week after “Not now”. The signup purpose covers EUROPA and new work on European history;
+  provider and retention details belong on the linked privacy page.
 - No autoplay audio, flags, blackletter, excessive heraldry, or political-poster styling.
