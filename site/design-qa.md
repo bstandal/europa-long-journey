@@ -114,6 +114,156 @@ final result: passed
 
 ---
 
+# Chapter 12 design QA
+
+## Current release scope
+
+Chapter 12, “The Empire of Many Liberties.”
+
+Reference:
+
+- `source-assets/chapters/empire-many-liberties/08-diet-in-session.png`
+- `source-assets/chapters/empire-many-liberties/08-diet-in-session-mobile.png`
+
+Matched implementation:
+
+- `design/qa/chapter-12-desktop-hero-v2.png`
+- `design/qa/chapter-12-source-vs-desktop-hero-v2.jpg`
+- `design/qa/chapter-12-mobile-hero-v3.png`
+- `design/qa/chapter-12-desktop-crown-final-v3.png`
+- `design/qa/chapter-12-mobile-crown-interaction-v2.png`
+- `design/qa/chapter-12-mobile-ending.png`
+
+Tested viewports:
+
+- Desktop: 1536 × 1024
+- Mobile: 390 × 844
+
+## Visible comparison
+
+The opening uses the selected Diet chamber on desktop and its dedicated portrait
+source on mobile. The final side-by-side comparison confirms the same assembly,
+central document, chamber depth and subdued brown-black palette in the source
+and implementation. The reading gradient preserves the officials and table
+while giving the title a stable dark field.
+
+Typography, rules, spacing and active states use the chapter system’s ivory,
+aged gold, display serif and compact sans-serif metadata. The opening title,
+claim and entry action fit inside both tested viewports. The mobile page reports
+390 pixels for both document width and viewport width.
+
+## Findings and resolutions
+
+- P1 — The desktop opening initially inherited movement 01 and showed Otto’s
+  coronation instead of the selected Diet source. The chapter-v2 opening now
+  uses its declared desktop and mobile opening images at the specified crop.
+- P1 — The mobile title’s final line was clipped at 390 pixels. A bounded
+  chapter-specific title size keeps all three lines within the viewport without
+  changing the desktop hierarchy.
+- P2 — The four place labels in “Carry the crown” were distorted by the
+  non-proportional SVG map and collided around the Rhine–Danube corridor.
+  Responsive HTML markers now retain the route coordinates while setting the
+  labels on four clear sides of the cluster. The final desktop and mobile
+  screenshots show Aachen, Goslar, Regensburg and Frankfurt without overlap.
+- All twelve movement scenes load their intended 1536-pixel landscape source or
+  1024-pixel portrait source. No requested movement image fails to decode.
+- The ending and next-chapter handoff remain inside the mobile viewport.
+
+## Interaction and navigation checks
+
+- “Carry the crown” reaches “Frankfurt · Realm assembly” and changes the record
+  to “The circuit closes in law.”
+- “Elect without a dynasty” reaches “Proclaim King of the Romans” and returns
+  the chosen office.
+- “Pass an imperial decision” reaches “Confirm Imperial recess” and returns
+  consent to the crown.
+- “Keep the peace in many laws” reaches “Remain · Regensburg · 1663” and makes
+  the continuous assembly visible.
+- Each interaction exposes four or more distinct states through semantic
+  buttons and `aria-pressed`.
+- The chapter route opens, closes with Escape and restores focus to its toggle.
+- The in-app browser log contains no warnings or errors after the interaction
+  pass.
+
+## Build verification
+
+Astro diagnostics complete with zero errors, warnings or hints.
+
+final result: passed
+
+---
+
+# Chapter 14 design QA
+
+## Current release scope
+
+Chapter 14, “Europe Turns Seaward.”
+
+Reference:
+
+- `source-assets/chapters/europe-turns-seaward/01-portugal-takes-african-gate.png`
+- `source-assets/chapters/europe-turns-seaward/01-portugal-takes-african-gate-mobile.png`
+
+Matched implementation:
+
+- `design/qa/chapter-14-desktop-hero.png`
+- `design/qa/chapter-14-source-vs-desktop-hero.jpg`
+- `design/qa/chapter-14-mobile-hero.png`
+- `design/qa/chapter-14-mobile-unrolled-ocean.png`
+- `design/qa/chapter-14-mobile-ending.png`
+
+Tested viewports:
+
+- Desktop: 1536 × 1024
+- Mobile: 390 × 844
+
+## Visible comparison
+
+The source and implementation retain the same open portolan, compass, Ceuta
+harbour, Portuguese shipping and dark western field. The title sits in the
+source’s negative space while the ship, city and chart remain visible. The
+mobile opening uses its portrait source and keeps the ship, fortress and chart
+inside the first screen.
+
+The two-line title, claim and action fit at both viewports. At 390 pixels the
+document has no horizontal overflow. The slate-blue ocean, parchment, iron and
+brass palette is carried through existing chapter tokens and state borders.
+
+## Findings and resolutions
+
+No actionable P0, P1 or P2 findings remain.
+
+- The desktop and mobile openings use their declared source assets and crops.
+- The final “Unroll the ocean” state keeps Lisbon, the Guinea coast, the Cape of
+  Good Hope, Malindi and Calicut legible over the chart. The responsive marker
+  treatment removes the distortion present in the earlier SVG labels.
+- All twelve movement scenes load with non-zero intrinsic width. The ending
+  hands directly to `/chapters/reformation/`.
+- The account places Ceuta in 1415 and describes the eastern trade problem as
+  strategic cost and intermediary dependence rather than claiming that one
+  event simply closed the land route.
+
+## Interaction and navigation checks
+
+- “Read the Atlantic wind” reaches “Enter the Tagus” and preserves the return
+  observation.
+- “Unroll the ocean” reaches Calicut through six cumulative states.
+- “Divide an unmeasured ocean” reaches the post-1500 survey state.
+- “Arm the sea road” reaches the inspected Hormuz–Goa–Malacca circuit.
+- The interactions expose 4, 6, 4 and 5 distinct button states.
+- The route panel opens within 390 pixels, closes with Escape and restores focus
+  to its toggle.
+- No failed chapter image or horizontal overflow was measured during the full
+  mobile pass.
+
+## Build verification
+
+Astro diagnostics complete with zero errors, warnings or hints.
+
+final result: passed
+
+---
+
 # Chapter 11 design QA
 
 ## Current release scope
@@ -230,5 +380,218 @@ The production hero preserves the generated source composition, tonal range, har
 - Main-journey entry and chapter-ending handoff navigate to the intended destinations.
 - No horizontal overflow at 390 px.
 - No browser console warnings or errors.
+
+final result: passed
+
+---
+
+# Chapter 13 design QA
+
+## Current release scope
+
+Chapter 13, “The Frontiers Hold.”
+
+Reference:
+
+- `source-assets/chapters/europe-holds-the-line/01-kingdom-falls-one-campaign.png`
+- `source-assets/chapters/europe-holds-the-line/01-kingdom-falls-one-campaign-mobile.png`
+
+Matched implementation:
+
+- `design/qa/chapter-13-desktop-hero.png`
+- `design/qa/chapter-13-source-vs-desktop-hero.jpg`
+- `design/qa/chapter-13-mobile-hero.png`
+- `design/qa/chapter-13-mobile-frontier-turn.png`
+- `design/qa/chapter-13-mobile-ending.png`
+
+Tested viewports:
+
+- Desktop: 1536 × 1024
+- Mobile: 390 × 844
+
+## Visible comparison
+
+The opening preserves the source’s long column, exposed coastal road, distant
+city and discarded royal seal. Its reading gradient follows the empty western
+field and leaves the advancing force legible. The desktop source and rendered
+opening match at the same 1536 × 1024 viewport. The portrait source keeps the
+road, city and forward standard inside the mobile frame.
+
+The title, claim and action fit without clipping. At 390 pixels the title forms
+three deliberate lines, the action remains above the fold and document width
+equals viewport width. The frontier palette uses iron black, ash, old bronze
+and restrained alarm red through existing chapter tokens.
+
+## Findings and resolutions
+
+No actionable P0, P1 or P2 findings remain.
+
+- The shared chapter-v2 opening correction selects the declared frontier hero
+  rather than movement-stage state.
+- The responsive map-marker correction keeps the final Vienna–Karlowitz hinge
+  legible on desktop and mobile. The four final labels do not collide.
+- All fourteen movement sections and the ending use dedicated raster scenes.
+  Every requested frontier image completes with a non-zero intrinsic width.
+- The final link resolves to `/chapters/europe-turns-seaward/`.
+
+## Interaction and navigation checks
+
+- “Hold the northern valleys” reaches “Move the line” and turns refuge into a
+  kingdom capable of recovery.
+- “Answer the eastern call” reaches Jerusalem and updates the expedition’s
+  final record.
+- “Feed the military frontier” reaches “Extend the watch” and joins village,
+  beacon and fortress.
+- “Turn the frontier” reaches Karlowitz and moves the recognised frontier
+  beyond most of Hungary.
+- The four interactions expose 4, 5, 5 and 5 distinct button states.
+- The route panel opens to the full 390-pixel width, closes with Escape and
+  restores focus to the route toggle.
+- No horizontal overflow or failed chapter image was measured after the full
+  mobile pass.
+
+## Build verification
+
+Astro diagnostics complete with zero errors, warnings or hints.
+
+final result: passed
+
+---
+
+# Chapter 15 design QA
+
+## Current release scope
+
+Chapter 15, “The Reformation.”
+
+Reference:
+
+- `source-assets/chapters/reformation/opening-burned-empire.png`
+- `source-assets/chapters/reformation/opening-burned-empire-mobile.png`
+
+Matched implementation:
+
+- `design/qa/chapter-15-desktop-hero.png`
+- `design/qa/chapter-15-source-vs-desktop-hero.jpg`
+- `design/qa/chapter-15-mobile-hero-v2.png`
+- `design/qa/chapter-15-mobile-war-table.png`
+- `design/qa/chapter-15-mobile-ending.png`
+
+Tested viewports:
+
+- Desktop: 1536 × 1024
+- Mobile: 390 × 844
+
+## Visible comparison
+
+The rendered opening preserves the source’s burned imperial map, abandoned
+counters, congress papers, dividers and waiting diplomats. The title occupies
+the dark left field while the map’s burned edge remains the visual hinge. The
+portrait source retains the full table depth and scorched centre on mobile.
+
+The single-line desktop title, claim and action fit inside the first viewport.
+On mobile the final title is scaled to the available 346-pixel reading width.
+The page now reports 390 pixels for both viewport and document width.
+
+## Findings and resolutions
+
+- P1 — The first mobile pass rendered “The Reformation” at 56.16 pixels inside
+  a no-wrap title line, widening the document to 455 pixels and clipping the
+  word. A bounded 44.07-pixel chapter title restores the full word and removes
+  horizontal overflow.
+- P2 — Münster and Osnabrück collided in the final war-table map. The two
+  congress cities now take opposite label positions, while “Imperial estates”
+  sits below the connecting line. All three labels remain clear at 390 pixels.
+- Fourteen movement scenes, the dedicated opening sources and the ending use
+  raster assets matched to the Burned Empire direction. No requested chapter
+  image fails to decode.
+- The ending hands directly to `/chapters/habsburg-europe/`.
+
+## Interaction and navigation checks
+
+- “Pull the print run” reaches “Fold and carry” and leaves copies beyond any
+  single seizure.
+- “Build a confessional territory” reaches the standing court.
+- “Read the war table” exposes seven dated states and ends with law remaining
+  after the counters withdraw.
+- “Make the peace” binds the three settlements into one guaranteed peace.
+- The interactions expose 4, 4, 7 and 4 distinct button states.
+- The route panel opens within 390 pixels, closes with Escape and restores focus
+  to its toggle.
+- No failed chapter image or horizontal overflow remains after the full mobile
+  pass.
+
+## Build verification
+
+Astro diagnostics complete with zero errors, warnings or hints.
+
+final result: passed
+
+---
+
+# Chapter 16 design QA
+
+## Current release scope
+
+Chapter 16, “Habsburg Europe.”
+
+Reference:
+
+- `source-assets/chapters/habsburg-europe/opening-braided-danube.png`
+- `source-assets/chapters/habsburg-europe/opening-braided-danube-mobile.png`
+
+Matched implementation:
+
+- `design/qa/chapter-16-desktop-hero.png`
+- `design/qa/chapter-16-source-vs-desktop-hero.jpg`
+- `design/qa/chapter-16-mobile-hero.png`
+- `design/qa/chapter-16-mobile-imperial-journey.png`
+- `design/qa/chapter-16-mobile-ending.png`
+
+Tested viewports:
+
+- Desktop: 1536 × 1024
+- Mobile: 390 × 844
+
+## Visible comparison
+
+The opening preserves the source’s Danube, Vienna skyline, bridge, railway and
+four braided documentary colours. The seals, telegraph register and common map
+remain visible beneath the reading gradient. The portrait source keeps the
+bridge and braid aligned behind the mobile title.
+
+The two-line title, claim and action fit at both viewports. The mobile document
+width equals the 390-pixel viewport. Gold is limited to fine rules and active
+states while burgundy, blue, green and black-gold carry the composite monarchy
+through the existing theme tokens.
+
+## Findings and resolutions
+
+No actionable P0, P1 or P2 findings remain.
+
+- The desktop source and rendered opening match at the same 1536 × 1024
+  viewport.
+- The final imperial-journey map keeps Zagreb/Agram, Lake Balaton and Budapest
+  readable over the timetable and route board.
+- All fourteen movement scenes complete with non-zero intrinsic width. The
+  dedicated portrait source appears for the railway movement on mobile.
+- The ending hands directly to `/chapters/scientific-revolution/`.
+
+## Interaction and navigation checks
+
+- “Assemble the three crowns” reaches “Join without merging.”
+- “Put the realm into service” reaches the school that reproduces its skills.
+- “Balance the Dual Monarchy” adds the Croatian constitutional layer.
+- “Follow one imperial journey” reaches Zagreb–Budapest and preserves the
+  documented constitutional difference along the shared route.
+- The interactions expose 4, 4, 5 and 4 distinct button states.
+- The route panel opens within 390 pixels, closes with Escape and restores focus
+  to its toggle.
+- No failed chapter image or horizontal overflow was measured during the full
+  mobile pass.
+
+## Build verification
+
+Astro diagnostics complete with zero errors, warnings or hints.
 
 final result: passed

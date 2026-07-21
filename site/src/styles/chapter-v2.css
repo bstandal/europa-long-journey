@@ -22,6 +22,27 @@
   --bronze-bright: var(--chapter-accent-bright);
 }
 
+.deep-chapter-page--ledger .chapter-opening,
+.deep-chapter-page--harbour .chapter-opening,
+.deep-chapter-page--imperial-diet .chapter-opening,
+.deep-chapter-page--frontier .chapter-opening,
+.deep-chapter-page--ocean .chapter-opening,
+.deep-chapter-page--burned-empire .chapter-opening,
+.deep-chapter-page--danube .chapter-opening,
+.deep-chapter-page--measured-page .chapter-opening,
+.deep-chapter-page--exchange .chapter-opening,
+.deep-chapter-page--conversation .chapter-opening,
+.deep-chapter-page--capital-line .chapter-opening,
+.deep-chapter-page--switchboard .chapter-opening,
+.deep-chapter-page--split-open .chapter-opening,
+.deep-chapter-page--two-roads .chapter-opening,
+.deep-chapter-page--eastern-line .chapter-opening {
+  background:
+    linear-gradient(90deg, rgba(3, 8, 9, 0.78), rgba(3, 8, 9, 0.12) 68%),
+    linear-gradient(180deg, rgba(3, 8, 9, 0.12), rgba(3, 8, 9, 0.46)),
+    var(--opening-image) var(--opening-position, center) / cover no-repeat;
+}
+
 .deep-chapter-page--ledger {
   --chapter-accent: #bda66e;
   --chapter-accent-bright: #ead39a;
@@ -186,6 +207,76 @@
 
 .v2-sequence__map > svg.is-active {
   opacity: 1;
+}
+
+.v2-sequence__markers {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms ease;
+}
+
+.v2-sequence__markers.is-active {
+  opacity: 1;
+}
+
+.v2-sequence__marker {
+  position: absolute;
+  top: var(--point-y);
+  left: var(--point-x);
+  width: 0;
+  height: 0;
+}
+
+.v2-sequence__marker i {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border: 1px solid var(--chapter-accent-bright);
+  border-radius: 50%;
+  background: #101615;
+  transform: translate(-50%, -50%);
+}
+
+.v2-sequence__marker b {
+  position: absolute;
+  color: #f0e6ce;
+  font-family: var(--sans);
+  font-size: 0.64rem;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow: 0 1px 3px #050909, 0 0 8px #050909;
+}
+
+.v2-sequence__marker--middle-up b {
+  right: 0;
+  bottom: 9px;
+  transform: translateX(50%);
+}
+
+.v2-sequence__marker--end-up b {
+  right: 8px;
+  bottom: 8px;
+}
+
+.v2-sequence__marker--start-up b {
+  bottom: 8px;
+  left: 8px;
+}
+
+.v2-sequence__marker--start-down b {
+  top: 8px;
+  left: 8px;
+}
+
+.v2-sequence__marker--end-down b {
+  top: 8px;
+  right: 8px;
 }
 
 .v2-sequence__map line {
@@ -492,7 +583,29 @@
     font-size: clamp(3.35rem, 14.4vw, 4.6rem);
   }
 
-  .chapter-opening {
+  .deep-chapter-page--imperial-diet .chapter-opening h1 {
+    font-size: clamp(2.55rem, 11vw, 2.8rem);
+  }
+
+  .deep-chapter-page--burned-empire .chapter-opening h1 {
+    font-size: clamp(2.45rem, 11.3vw, 2.8rem);
+  }
+
+  .deep-chapter-page--ledger .chapter-opening,
+  .deep-chapter-page--harbour .chapter-opening,
+  .deep-chapter-page--imperial-diet .chapter-opening,
+  .deep-chapter-page--frontier .chapter-opening,
+  .deep-chapter-page--ocean .chapter-opening,
+  .deep-chapter-page--burned-empire .chapter-opening,
+  .deep-chapter-page--danube .chapter-opening,
+  .deep-chapter-page--measured-page .chapter-opening,
+  .deep-chapter-page--exchange .chapter-opening,
+  .deep-chapter-page--conversation .chapter-opening,
+  .deep-chapter-page--capital-line .chapter-opening,
+  .deep-chapter-page--switchboard .chapter-opening,
+  .deep-chapter-page--split-open .chapter-opening,
+  .deep-chapter-page--two-roads .chapter-opening,
+  .deep-chapter-page--eastern-line .chapter-opening {
     background:
       linear-gradient(180deg, rgba(5, 10, 12, 0.08), rgba(5, 10, 12, 0.92)),
       var(--opening-mobile-image) var(--opening-mobile-position, center) / cover;
@@ -533,7 +646,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .v2-sequence__map > svg {
+  .v2-sequence__map > svg,
+  .v2-sequence__markers {
     transition: none;
   }
 }

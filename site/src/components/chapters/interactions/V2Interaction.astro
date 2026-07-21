@@ -7,6 +7,44 @@ type Props = {
 
 const { interaction } = Astro.props;
 const initialId = interaction.initialId ?? interaction.records[0]?.id;
+
+const imperialItineraryLabels = {
+  aachen: "end-up",
+  goslar: "start-up",
+  regensburg: "start-down",
+  frankfurt: "end-down",
+} as const;
+
+const warTableLabels = {
+  prague: "start-up",
+  vienna: "start-down",
+  lutter: "end-down",
+  mecklenburg: "end-up",
+  stralsund: "start-up",
+  magdeburg: "end-up",
+  breitenfeld: "start-down",
+  munich: "end-down",
+  lutzen: "start-up",
+  rhine: "end-up",
+  munster: "end-down",
+  osnabruck: "start-up",
+  empire: "start-down",
+} as const;
+
+const getPointLabelLayout = (pointId: string) => {
+  if (interaction.variant !== "imperial-itinerary") {
+    if (interaction.variant === "war-table") {
+      return warTableLabels[pointId as keyof typeof warTableLabels] ?? "middle-up";
+    }
+
+    return "middle-up";
+  }
+
+  return (
+    imperialItineraryLabels[pointId as keyof typeof imperialItineraryLabels] ??
+    "middle-up"
+  );
+};
 ---
 
 <div
@@ -46,15 +84,31 @@ const initialId = interaction.initialId ?? interaction.records[0]?.id;
                   return <line x1={start.x} y1={start.y} x2={end.x} y2={end.y} />;
                 })
               }
-              {
-                record.points?.map((point) => (
-                  <>
-                    <circle cx={point.x} cy={point.y} r="0.8" />
-                    <text x={point.x} y={point.y - 2}>{point.label}</text>
-                  </>
-                ))
-              }
             </svg>
+          ))
+        }
+        {
+          interaction.records.map((record) => (
+            <div
+              class:list={[
+                "v2-sequence__markers",
+                { "is-active": record.id === initialId },
+              ]}
+              data-v2-map-layer={record.id}
+            >
+              {record.points?.map((point) => (
+                <span
+                  class:list={[
+                    "v2-sequence__marker",
+                    `v2-sequence__marker--${getPointLabelLayout(point.id)}`,
+                  ]}
+                  style={`--point-x:${point.x}%;--point-y:${point.y}%`}
+                >
+                  <i aria-hidden="true"></i>
+                  <b>{point.label}</b>
+                </span>
+              ))}
+            </div>
           ))
         }
       </div>
