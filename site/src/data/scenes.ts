@@ -1657,6 +1657,10 @@ export const scenes: StoryScene[] = [
         longitude: -0.13,
       },
     ],
+    chronicle: {
+      href: "chapters/scientific-revolution/",
+      label: "Set the measuring line",
+    },
   },
   {
     id: "dutch-republic",

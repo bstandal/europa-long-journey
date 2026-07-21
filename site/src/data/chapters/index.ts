@@ -13,6 +13,7 @@ import { medievalCommercialRevolution } from "./medieval-commercial-revolution";
 import { papalRevolution } from "./papal-revolution";
 import { reformation } from "./reformation";
 import { romeGathersEurope } from "./rome-gathers-europe";
+import { scientificRevolution } from "./scientific-revolution";
 import { societyBeyondKin } from "./society-beyond-kin";
 import { steppeComesWest } from "./steppe-comes-west";
 
@@ -33,6 +34,7 @@ export const chapters: ChapterDefinition[] = [
   europeTurnsSeaward,
   reformation,
   habsburgEurope,
+  scientificRevolution,
 ];
 
 export const chapterBySlug = new Map(

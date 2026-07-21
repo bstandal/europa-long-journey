@@ -43,6 +43,27 @@
     var(--opening-image) var(--opening-position, center) / cover no-repeat;
 }
 
+.deep-chapter-page--ledger .chapter-ending,
+.deep-chapter-page--harbour .chapter-ending,
+.deep-chapter-page--imperial-diet .chapter-ending,
+.deep-chapter-page--frontier .chapter-ending,
+.deep-chapter-page--ocean .chapter-ending,
+.deep-chapter-page--burned-empire .chapter-ending,
+.deep-chapter-page--danube .chapter-ending,
+.deep-chapter-page--measured-page .chapter-ending,
+.deep-chapter-page--exchange .chapter-ending,
+.deep-chapter-page--conversation .chapter-ending,
+.deep-chapter-page--capital-line .chapter-ending,
+.deep-chapter-page--switchboard .chapter-ending,
+.deep-chapter-page--split-open .chapter-ending,
+.deep-chapter-page--two-roads .chapter-ending,
+.deep-chapter-page--eastern-line .chapter-ending {
+  background:
+    linear-gradient(90deg, rgba(5, 10, 12, 0.94), rgba(5, 10, 12, 0.7) 58%, rgba(5, 10, 12, 0.34)),
+    linear-gradient(180deg, rgba(5, 10, 12, 0.12), rgba(5, 10, 12, 0.82)),
+    var(--ending-image) center / cover no-repeat;
+}
+
 .deep-chapter-page--ledger {
   --chapter-accent: #bda66e;
   --chapter-accent-bright: #ead39a;
@@ -609,6 +630,26 @@
     background:
       linear-gradient(180deg, rgba(5, 10, 12, 0.08), rgba(5, 10, 12, 0.92)),
       var(--opening-mobile-image) var(--opening-mobile-position, center) / cover;
+  }
+
+  .deep-chapter-page--ledger .chapter-ending,
+  .deep-chapter-page--harbour .chapter-ending,
+  .deep-chapter-page--imperial-diet .chapter-ending,
+  .deep-chapter-page--frontier .chapter-ending,
+  .deep-chapter-page--ocean .chapter-ending,
+  .deep-chapter-page--burned-empire .chapter-ending,
+  .deep-chapter-page--danube .chapter-ending,
+  .deep-chapter-page--measured-page .chapter-ending,
+  .deep-chapter-page--exchange .chapter-ending,
+  .deep-chapter-page--conversation .chapter-ending,
+  .deep-chapter-page--capital-line .chapter-ending,
+  .deep-chapter-page--switchboard .chapter-ending,
+  .deep-chapter-page--split-open .chapter-ending,
+  .deep-chapter-page--two-roads .chapter-ending,
+  .deep-chapter-page--eastern-line .chapter-ending {
+    background:
+      linear-gradient(180deg, rgba(8, 15, 16, 0.36), #080f10 70%),
+      var(--ending-mobile-image, var(--ending-image)) center top / cover no-repeat;
   }
 
   .v2-sequence,

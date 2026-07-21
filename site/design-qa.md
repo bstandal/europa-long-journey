@@ -114,6 +114,83 @@ final result: passed
 
 ---
 
+# Chapter 17 design QA
+
+## Current release scope
+
+Chapter 17, “The Scientific Revolution.”
+
+Reference:
+
+- `source-assets/chapters/scientific-revolution/opening-measured-page.png`
+- `source-assets/chapters/scientific-revolution/opening-measured-page-mobile.png`
+- `source-assets/chapters/scientific-revolution/ending-europe-makes-knowledge-cumulative.png`
+
+Matched implementation:
+
+- `design/qa/chapter-17-desktop-hero-v2.png`
+- `design/qa/chapter-17-source-vs-desktop-hero.jpg`
+- `design/qa/chapter-17-mobile-hero.png`
+- `design/qa/chapter-17-mobile-public-circuit.png`
+- `design/qa/chapter-17-mobile-ending-with-art-v2.png`
+- `design/qa/chapter-17-mobile-ending-top.png`
+- `design/qa/chapter-17-desktop-ending-v2.png`
+
+Tested viewports:
+
+- Desktop: 1440 × 900
+- Mobile: 390 × 844
+
+## Visible comparison
+
+The rendered opening preserves the measured-page source: ruled folios, brass
+dividers, anatomical plate, astronomical tables and the red line joining
+observation to proof. The desktop source and implementation were compared at
+the same crop. The dedicated portrait source keeps the instruments, page edge
+and title field inside the mobile frame.
+
+The closing scene places ledgers, instruments, correspondence and Amsterdam's
+harbour behind the conclusion. The desktop gradient leaves the working table
+legible while holding a quiet field for the title and paragraph. The mobile
+crop follows the table's centre and darkens toward the chapter handoff.
+
+## Findings and resolutions
+
+- P1 — Chapter-v2 endings declared a closing image in chapter data but the
+  shared footer style never rendered it. The footer now composes the declared
+  desktop and mobile image variables beneath responsive reading gradients.
+- Regression checks on chapters 10 and 11 confirm their existing closing
+  images, titles, prose and chapter handoffs remain legible at desktop and
+  mobile widths.
+- All twelve movement images, the two opening sources and the ending complete
+  with non-zero intrinsic dimensions. The corrected Hooke scene uses an adult
+  flea, and the Newton–Halley scene addresses Newton at Trinity College.
+- The ending hands directly to `/chapters/dutch-republic/`.
+
+## Interaction and navigation checks
+
+- “Open the two books of 1543” reaches “Rule the gutter” and makes the ruled
+  line the chapter's measuring spine.
+- “Carry the measure into law” reaches the common operation of measurement,
+  comparison and mathematical form.
+- “Make the invisible visible” reaches the focused microscope and expands the
+  scale of observable fact.
+- “Send a result into public” completes the answerable circuit through a
+  received reply.
+- The interactions expose 4, 4, 3 and 5 distinct button states.
+- The route panel opens within 390 pixels, closes with Escape and restores
+  focus to its toggle.
+- Document and viewport widths both measure 390 pixels on mobile. No requested
+  chapter image fails to load.
+
+## Build verification
+
+Astro diagnostics complete with zero errors, warnings or hints.
+
+final result: passed
+
+---
+
 # Chapter 12 design QA
 
 ## Current release scope
