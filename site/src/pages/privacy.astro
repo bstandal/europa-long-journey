@@ -49,10 +49,9 @@ const analyticsEnabled = Boolean(import.meta.env.PUBLIC_UMAMI_WEBSITE_ID?.trim()
             history.
           </p>
           <p>
-            The legal basis is your consent. After submitting the form, you must
-            confirm the address through a double opt-in email before the subscription
-            becomes active. The subscription record includes the time and source of
-            the request and confirmation so that the consent can be documented.
+            The legal basis is your consent. When you submit the form, the address
+            is added to EUROPA’s update list. The subscription record includes the
+            time, source and recorded consent field.
           </p>
           <p>
             You can withdraw consent at any time through the unsubscribe link in
@@ -118,12 +117,6 @@ const analyticsEnabled = Boolean(import.meta.env.PUBLIC_UMAMI_WEBSITE_ID?.trim()
           <h2 id="privacy-retention">Email-list retention</h2>
           <ul>
             <li>
-              The confirmation link expires after 30 days. An unconfirmed address
-              is not added to the sendable subscriber list. EUROPA’s administrative
-              policy is to review and delete related unconfirmed-request logs within
-              90 days.
-            </li>
-            <li>
               Active subscriber details are kept until you unsubscribe or ask for
               deletion.
             </li>
@@ -141,7 +134,7 @@ const analyticsEnabled = Boolean(import.meta.env.PUBLIC_UMAMI_WEBSITE_ID?.trim()
         <div>
           <h2 id="privacy-services">Services that process information</h2>
           <p>
-            <strong>Brevo</strong> processes subscriber details, confirmation,
+            <strong>Brevo</strong> processes subscriber details, subscription,
             delivery and unsubscribe records as a data processor for EUROPA.
             Brevo processes this information on Bård Standal’s documented
             instructions under a data processing agreement. You can read{" "}
@@ -194,12 +187,10 @@ const analyticsEnabled = Boolean(import.meta.env.PUBLIC_UMAMI_WEBSITE_ID?.trim()
             you, measure your reading or share information with another service.
           </p>
           <p>
-            After a form hand-off, a second first-party preference pauses all signup
-            invitations for 30 days while the confirmation is pending. After the
-            email address is confirmed, a third preference records that the
-            invitation should not be shown again. The confirmed preference remains
-            until you clear the site’s browser data. Neither preference contains a
-            name, email address or Brevo identifier.
+            After a successful signup, a second functional preference records that
+            the invitation should not be shown again. It remains until you clear the
+            site’s browser data. Neither preference contains a name, email address or
+            Brevo identifier.
           </p>
           <p>
             You can remove the preference at any time by clearing site data in your

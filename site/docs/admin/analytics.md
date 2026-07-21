@@ -51,7 +51,7 @@ letting the tracker observe those hash changes would inflate pageviews.
 | How far do they get? | `chapter-depth-25`, `chapter-depth-50`, `chapter-depth-75`, `chapter-complete` | A milestone is sent once per page load when that share of movements has entered the viewport. Completion means the ending entered the viewport. |
 | Do they return? | Retention insight | Umami estimates repeat browsers with a rotating pseudonymous identifier. This is directional, not a permanent person-level history. |
 | Do interactions help? | Events prefixed `interaction-` | Sent once per interaction type per page load after the reader first uses it. |
-| Do readers ask for updates? | `signup-prompt-shown`, `signup-prompt-dismissed`, `signup-prompt-submitted`, `signup-confirmation-returned` | Counts popup activity without sending form fields. The page path distinguishes homepage and chapter prompts. Submission events are attempts. `signup-confirmation-returned` means that a consenting browser reached the return page; it is not proof that Brevo confirmed or retained the contact. |
+| Do readers ask for updates? | `signup-prompt-shown`, `signup-prompt-dismissed`, `signup-prompt-submitted` | Counts popup activity without sending form fields. The page path distinguishes homepage and chapter prompts. Use Brevo's list for the subscriber count. |
 
 The same depth model is used on the long road with `journey-depth-*`,
 `journey-started` and `journey-complete`.
@@ -67,10 +67,10 @@ contains:
 4. **Reach:** a world map of visitor countries.
 5. **Reading engagement:** the tracked reader and chapter-depth events.
 6. **Realtime:** live views, visitors, events and countries.
-7. **Goals:** `Engaged reader (15s)`, `Completed chapter`, `Inline signup
-   attempt`, `Prompt signup attempt` and `Confirmed signup return`.
-8. **Funnels:** the saved `Chapter reading depth` and `Prompt to confirmed
-   signup` funnels.
+7. **Goals:** `Engaged reader (15s)`, `Completed chapter` and `Prompt signup
+   attempt`.
+8. **Funnels:** the saved `Chapter reading depth` and `Prompt to signup`
+   funnels.
 
 The reading-depth funnel has a 120-minute window between successive steps:
 
@@ -81,15 +81,12 @@ The reading-depth funnel has a 120-minute window between successive steps:
 5. Triggered `chapter-depth-75`.
 6. Triggered `chapter-complete`.
 
-The signup funnel uses a 43,200-minute (30-day) window, matching the lifetime
-of Brevo's double-opt-in link:
+The signup funnel uses a 60-minute window:
 
 1. Triggered `signup-prompt-shown`.
 2. Triggered `signup-prompt-submitted`.
-3. Triggered `signup-confirmation-returned`.
 
-The final step remains a browser-side signal only. Use Brevo's confirmed list
-and double-opt-in log as the authoritative subscriber count.
+Use Brevo's subscriber list as the authoritative subscriber count.
 
 For the monthly review, select the last 28 days and compare with the previous
 28 days. Use the separate **Retention** report for repeat visits.
@@ -128,6 +125,4 @@ the positive test. Confirm that:
 - using one chapter interaction produces one matching `interaction-*` event;
 - showing, dismissing and submitting the email popup produces only the
   non-personal `signup-*` events above, never an email address or name;
-- a return to the confirmation page may produce `signup-confirmation-returned`
-  only when analytics consent is already active. The Brevo updates list
-  and its double-opt-in record remain authoritative for subscription status.
+- Brevo's updates list remains authoritative for subscription status.
