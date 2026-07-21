@@ -28,6 +28,7 @@ const base = import.meta.env.BASE_URL;
           decoding="async"
           data-stage-image={movement.id}
           data-stage-src={`${base}${movement.image}`}
+          data-visual-tone={movement.visualTone}
           style={`object-position:${movement.imagePosition ?? "center"}`}
         />
       ))
@@ -243,6 +244,6 @@ const base = import.meta.env.BASE_URL;
   <div class="chapter-stage__shade"></div>
   <div class="chapter-stage__grain"></div>
   <p class="chapter-stage__note" data-stage-note>
-    {chapter.movements[0]?.visualLabel ?? "Evidence-led reconstruction"}
+    {chapter.movements[0]?.visualLabel ?? "Place, date and surviving record"}
   </p>
 </div>

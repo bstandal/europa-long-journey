@@ -1977,12 +1977,16 @@ export const scenes: StoryScene[] = [
         longitude: 4.35,
       },
     ],
+    chronicle: {
+      href: "chapters/rivalry-industrial-breakthrough/",
+      label: "Set power in motion",
+    },
   },
   {
     id: "european-world",
     order: 21,
     era: "industrial",
-    period: { start: 1815, end: 1914, label: "1815–1914" },
+    period: { start: 1802, end: 1914, label: "1802–1914" },
     title: "The European World",
     kicker: "Continental Ascendancy",
     thesis:
@@ -2084,13 +2088,17 @@ export const scenes: StoryScene[] = [
         longitude: -0.13,
       },
     ],
+    chronicle: {
+      href: "chapters/european-world/",
+      label: "Open the Atlantic circuit",
+    },
   },
   {
     id: "europe-at-war",
     order: 22,
     era: "catastrophe",
     period: { start: 1914, end: 1945, label: "1914–1945" },
-    title: "Europe at War with Itself",
+    title: "The European Civil War",
     kicker: "The Catastrophe",
     thesis:
       "Two world wars turned Europe’s industrial and administrative strength against its own societies.",
@@ -2179,12 +2187,16 @@ export const scenes: StoryScene[] = [
         longitude: 13.41,
       },
     ],
+    chronicle: {
+      href: "chapters/europe-at-war/",
+      label: "Open the fault lines",
+    },
   },
   {
     id: "continent-rebuilt",
     order: 23,
     era: "catastrophe",
-    period: { start: 1945, end: 1991, label: "1945–1991" },
+    period: { start: 1945, end: 1989, label: "1945–1989" },
     title: "The Continent Rebuilt",
     kicker: "Recovery",
     thesis:
@@ -2294,12 +2306,16 @@ export const scenes: StoryScene[] = [
         longitude: 12.5,
       },
     ],
+    chronicle: {
+      href: "chapters/continent-rebuilt/",
+      label: "Walk the two roads",
+    },
   },
   {
     id: "europe-returns",
     order: 24,
     era: "catastrophe",
-    period: { start: 1991, label: "1991–PRESENT" },
+    period: { start: 1989, label: "1989–PRESENT" },
     title: "Europe Returns",
     kicker: "The Unfinished Journey",
     thesis:
@@ -2415,6 +2431,10 @@ export const scenes: StoryScene[] = [
         longitude: 30.52,
       },
     ],
+    chronicle: {
+      href: "chapters/europe-returns/",
+      label: "Carry the line east",
+    },
   },
 ];
 

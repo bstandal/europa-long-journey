@@ -19,7 +19,7 @@ export const scientificRevolution: ChapterDefinition = {
       "Two books printed in 1543 lie open on a dark worktable, with Copernicus’s planetary diagram facing Vesalius’s anatomy and brass dividers spanning the gutter.",
     imagePosition: "center center",
     mobileImagePosition: "59% center",
-    visualLabel: "The Measured Page · evidence-led reconstruction",
+    visualLabel: "The Measured Page · instrument, table and result",
   },
   theme: {
     id: "measured-page",

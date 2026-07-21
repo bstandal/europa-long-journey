@@ -114,6 +114,123 @@ final result: passed
 
 ---
 
+# Chapter 20 design QA
+
+## Current release scope
+
+Chapter 20, “Rivalry and the Industrial Breakthrough.”
+
+Reference and matched implementation:
+
+- `source-assets/chapters/rivalry-industrial-breakthrough/opening-capital-line.png`
+- `design/qa/chapter-20-source-vs-desktop-hero.jpg`
+- `design/qa/chapter-20-desktop-hero.png`
+- `design/qa/chapter-20-mobile-hero.png`
+- `design/qa/chapter-20-mobile-ending.png`
+
+Tested at 1536 × 1024 and 390 × 844. The black industrial drawing, copper
+capital line, railway prospectus and signal lamps remain legible behind the
+opening copy. The portrait composition retains the railway and legal line
+without widening the document beyond 390 pixels.
+
+Twelve movements and sixteen dedicated raster scenes load without decode
+failure. “Turn the shaft”, “Drive the whole floor”, “Release scheduled train”
+and “Close liability boundary” reach their final states. The final interaction
+keeps the registered company, transferable share and limited-liability boundary
+distinct. The ending resolves to `/chapters/european-world/`.
+
+Local result: passed.
+
+---
+
+# Chapter 21 design QA
+
+## Current release scope
+
+Chapter 21, “The European World.”
+
+Reference and matched implementation:
+
+- `source-assets/chapters/european-world/01-the-sea-acquires-a-law.png`
+- `design/qa/chapter-21-source-vs-desktop-hero.jpg`
+- `design/qa/chapter-21-desktop-hero.png`
+- `design/qa/chapter-21-mobile-hero.png`
+- `design/qa/chapter-21-mobile-ending-v3.png`
+
+Tested at 1536 × 1024 and 390 × 844. The opening holds the Atlantic patrol,
+Admiralty chart and switchboard in one readable field. Fourteen movements and
+the dedicated portrait ending load at their declared dimensions. “Join
+timetable”, “Keep protocol”, “Receive inheritance” and “Complete circuit” reach
+their final states. The route panel closes with Escape and returns focus to its
+toggle. The ending resolves to `/chapters/europe-at-war/`.
+
+Local result: passed.
+
+---
+
+# Chapter 22 design QA
+
+## Current release scope
+
+Chapter 22, “The European Civil War.”
+
+Reference and matched implementation:
+
+- `source-assets/chapters/europe-at-war/01-an-empire-is-proclaimed-in-a-conquered-palace.png`
+- `design/qa/chapter-22-source-vs-desktop-hero.jpg`
+- `design/qa/chapter-22-desktop-hero.png`
+- `design/qa/chapter-22-mobile-hero.png`
+- `design/qa/chapter-22-mobile-holocaust-archival-static.png`
+- `design/qa/chapter-22-mobile-ending.png`
+
+Tested at 1536 × 1024 and 390 × 844. The opening preserves the split atlas,
+Versailles interior and vermilion fracture. Fourteen movements load without
+horizontal overflow or failed assets. “France moves east and north”, “People
+without a state”, “Citizenship stripped” and “The continent lies open” reach
+their final states.
+
+Movements 11–14 use the declared archival treatment. The Holocaust sequence is
+a set of separate, still 3:2 plates above the prose on mobile. Its images have
+no transform, transition, parallax, button, hover reveal or text overlay. Named
+family, deportation record, perpetrator map and survivor record retain their
+source captions. Provenance is recorded in
+`source-assets/chapters/europe-at-war/PROVENANCE.md`.
+
+The route panel opens, closes with Escape and returns focus to its toggle. The
+ending resolves to `/chapters/continent-rebuilt/`. Browser warnings and errors:
+none.
+
+Local result: passed.
+
+---
+
+# Chapter 23 design QA
+
+## Current release scope
+
+Chapter 23, “The Continent Rebuilt.”
+
+Reference and matched implementation:
+
+- `source-assets/chapters/continent-rebuilt/opening-two-roads-to-1989.png`
+- `design/qa/chapter-23-source-vs-desktop-hero.jpg`
+- `design/qa/chapter-23-desktop-hero.png`
+- `design/qa/chapter-23-mobile-hero.png`
+- `design/qa/chapter-23-mobile-polish-pope.png`
+- `design/qa/chapter-23-mobile-ending.png`
+
+Tested at 1536 × 1024 and 390 × 844. The paired postwar roads remain distinct
+through twelve movements. The Polish pope movement keeps the public gathering,
+pilgrimage route and documentary restraint visible on mobile. “Multiply the
+shipment”, “Keep the rule operative”, “Let the nation appear” and “Survive
+martial law” reach their final states. The route panel returns focus after
+Escape, the console remains clean and the ending resolves to
+`/chapters/europe-returns/`.
+
+Local result: passed.
+
+---
+
 # Chapter 17 design QA
 
 ## Current release scope
@@ -338,6 +455,49 @@ No actionable P0, P1 or P2 findings remain.
 Astro diagnostics complete with zero errors, warnings or hints.
 
 final result: passed
+
+---
+
+# Chapter 24 design QA
+
+## Current release scope
+
+Chapter 24, “Europe Returns.”
+
+Reference and matched implementation:
+
+- `source-assets/chapters/europe-returns/opening-the-eastern-line.png`
+- `design/qa/chapter-24-source-vs-desktop-hero.jpg`
+- `design/qa/chapter-24-desktop-hero.png`
+- `design/qa/chapter-24-mobile-hero.png`
+- `design/qa/chapter-24-mobile-ending.png`
+
+Tested at 1536 × 1024 and 390 × 844. The opening keeps European Union law in
+cobalt, NATO collective defence in ice blue and Russian aggression in iron red.
+The desktop composition preserves the source atlas at the same viewport. The
+portrait source retains separate legal and defensive lines behind the title,
+claim and first action without horizontal overflow.
+
+Twelve movements and twenty-four raster variants load at their declared
+dimensions. “Ratify accession”, “Full-scale invasion”, “Connect lawful support”
+and “Record the receipt” reach their final states. EU candidacy and NATO Article
+5 status remain separate in the interaction copy. The route panel opens,
+closes with Escape and restores focus to its toggle. Browser warnings and
+errors: none.
+
+The ending uses its dedicated portrait asset and states the status date as 20
+July 2026. Cluster 1 and Cluster 6, total EU support, the nine eastern-flank
+battlegroups and the Ankara support pledge were checked against current Council,
+Commission and NATO records on 21 July 2026.
+
+## Build verification
+
+Astro diagnostics complete with zero errors, warnings or hints. Content
+validation covers 24 scenes, 24 deep chapters, 63 interactive places, 412
+sources and 17 asset records. All twenty-four chapter checks pass and the static
+build emits all 29 routes.
+
+Local result: passed.
 
 ---
 

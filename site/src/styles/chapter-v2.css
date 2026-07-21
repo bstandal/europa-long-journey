@@ -616,6 +616,31 @@
     font-size: clamp(2.35rem, 12.8vw, 3.15rem);
   }
 
+  .deep-chapter-page--harbour .chapter-opening h1,
+  .deep-chapter-page--split-open .chapter-opening h1 {
+    font-size: clamp(3rem, 13.7vw, 3.4rem);
+  }
+
+  .deep-chapter-page--measured-page .chapter-opening h1 {
+    font-size: clamp(3rem, 14vw, 3.4rem);
+  }
+
+  .deep-chapter-page--capital-line .chapter-opening h1 {
+    font-size: clamp(3rem, 12.7vw, 3.1rem);
+  }
+
+  .deep-chapter-page--capital-line .chapter-opening h1 span {
+    white-space: normal;
+  }
+
+  .deep-chapter-page--switchboard .chapter-opening h1 {
+    font-size: clamp(3rem, 13.7vw, 3.4rem);
+  }
+
+  .deep-chapter-page--two-roads .chapter-opening h1 {
+    font-size: clamp(3rem, 13.4vw, 3.3rem);
+  }
+
   .deep-chapter-page--ledger .chapter-opening,
   .deep-chapter-page--harbour .chapter-opening,
   .deep-chapter-page--imperial-diet .chapter-opening,

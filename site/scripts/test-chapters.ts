@@ -2,11 +2,20 @@ import assert from "node:assert/strict";
 import { access } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { bronzeEurope } from "../src/data/chapters/bronze-europe";
+import { continentRebuilt } from "../src/data/chapters/continent-rebuilt";
+import { dutchRepublic } from "../src/data/chapters/dutch-republic";
 import { empireManyLiberties } from "../src/data/chapters/empire-many-liberties";
 import { empireTakesCross } from "../src/data/chapters/empire-takes-cross";
+import { enlightenmentPublicOpinion } from "../src/data/chapters/enlightenment-public-opinion";
 import { europeHoldsTheLine } from "../src/data/chapters/europe-holds-the-line";
 import { europeReborn } from "../src/data/chapters/europe-reborn";
+import {
+  europeAtWar,
+  europeAtWarAssetContract,
+} from "../src/data/chapters/europe-at-war";
+import { europeReturns } from "../src/data/chapters/europe-returns";
 import { europeTurnsSeaward } from "../src/data/chapters/europe-turns-seaward";
+import { europeanWorld } from "../src/data/chapters/european-world";
 import { firstFarmers } from "../src/data/chapters/first-farmers";
 import { greeceAndTheCitizen } from "../src/data/chapters/greece-and-the-citizen";
 import { habsburgEurope } from "../src/data/chapters/habsburg-europe";
@@ -14,7 +23,9 @@ import { hanseaticNorth } from "../src/data/chapters/hanseatic-north";
 import { medievalCommercialRevolution } from "../src/data/chapters/medieval-commercial-revolution";
 import { papalRevolution } from "../src/data/chapters/papal-revolution";
 import { reformation } from "../src/data/chapters/reformation";
+import { rivalryIndustrialBreakthrough } from "../src/data/chapters/rivalry-industrial-breakthrough";
 import { romeGathersEurope } from "../src/data/chapters/rome-gathers-europe";
+import { scientificRevolution } from "../src/data/chapters/scientific-revolution";
 import { societyBeyondKin } from "../src/data/chapters/society-beyond-kin";
 import { steppeComesWest } from "../src/data/chapters/steppe-comes-west";
 import { scenes } from "../src/data/scenes";
@@ -1532,6 +1543,760 @@ assert.equal(
   "Habsburg Europe ending period must match its actual next scene.",
 );
 
+await checkCommonChapter(scientificRevolution, 12);
+assert.deepEqual(
+  scientificRevolution.acts?.map((act) => act.id),
+  [
+    "ancient-page-on-trial",
+    "nature-mathematical-voice",
+    "experiment-becomes-instrument",
+    "knowledge-learns-to-accumulate",
+  ],
+  "The Scientific Revolution should preserve its measured-page progression from inherited authority to cumulative knowledge.",
+);
+for (const act of scientificRevolution.acts ?? []) {
+  assert.equal(
+    scientificRevolution.movements.filter(
+      (movement) => movement.actId === act.id,
+    ).length,
+    3,
+    `Act ${act.id} should contain exactly three movements.`,
+  );
+}
+assert.deepEqual(
+  scientificRevolution.movements
+    .map((movement, index) => (movement.interaction ? index + 1 : null))
+    .filter(Boolean),
+  [1, 4, 7, 10],
+  "The Scientific Revolution interactions should appear in movements 1, 4, 7 and 10.",
+);
+assert.deepEqual(
+  scientificRevolution.movements
+    .map((movement) => movement.interaction?.kind)
+    .filter(Boolean),
+  ["chapter-v2", "chapter-v2", "chapter-v2", "chapter-v2"],
+  "The Scientific Revolution should use four measured-page interactions.",
+);
+const scientificRevolutionWords = scientificRevolution.movements.reduce(
+  (sum, movement) =>
+    sum +
+    movement.body.reduce(
+      (movementSum, paragraph) =>
+        movementSum + paragraph.trim().split(/\s+/).length,
+      0,
+    ),
+  0,
+);
+assert.ok(
+  scientificRevolutionWords >= 2900 && scientificRevolutionWords <= 3350,
+  `The Scientific Revolution should contain 2,900–3,350 words of continuous narrative; found ${scientificRevolutionWords}.`,
+);
+const scientificRevolutionPublicCopy = JSON.stringify(scientificRevolution);
+assert.doesNotMatch(
+  scientificRevolutionPublicCopy,
+  /\bchurch(?:es)?\b/i,
+  "The Scientific Revolution should keep the Church outside the chapter's foreground.",
+);
+assert.match(
+  scientificRevolution.claim,
+  /no earlier intellectual system|cumulative/i,
+  "The Scientific Revolution should state the unmatched scale of Europe's cumulative achievement.",
+);
+assert.equal(
+  scientificRevolutionScene?.chronicle?.href,
+  "chapters/scientific-revolution/",
+  "The main journey needs a working Scientific Revolution chapter link.",
+);
+assert.equal(
+  scientificRevolutionScene?.chronicle?.label,
+  "Set the measuring line",
+  "The Scientific Revolution chapter link needs its historical invitation.",
+);
+const dutchRepublicScene = scenes.find(
+  (scene) => scene.id === scientificRevolution.nextHash,
+);
+assert.ok(
+  dutchRepublicScene,
+  "The Scientific Revolution ending needs a real next scene.",
+);
+assert.equal(
+  scientificRevolution.nextTitle,
+  dutchRepublicScene.title,
+  "The Scientific Revolution ending title must match its actual next scene.",
+);
+assert.equal(
+  scientificRevolution.ending.nextPeriod,
+  `AD ${dutchRepublicScene.period.label}`,
+  "The Scientific Revolution ending period must match its actual next scene.",
+);
+
+await checkCommonChapter(dutchRepublic, 12);
+assert.deepEqual(
+  dutchRepublic.acts?.map((act) => act.id),
+  [
+    "republic-rises",
+    "water-ships-system",
+    "trust-machinery",
+    "republic-commands-distance",
+  ],
+  "The Dutch Republic should preserve its exchange-hall progression from revolt to a system that commands distance.",
+);
+for (const act of dutchRepublic.acts ?? []) {
+  assert.equal(
+    dutchRepublic.movements.filter((movement) => movement.actId === act.id)
+      .length,
+    3,
+    `Act ${act.id} should contain exactly three movements.`,
+  );
+}
+assert.deepEqual(
+  dutchRepublic.movements
+    .map((movement, index) => (movement.interaction ? index + 1 : null))
+    .filter(Boolean),
+  [2, 5, 8, 11],
+  "The Dutch Republic interactions should appear in movements 2, 5, 8 and 11.",
+);
+assert.deepEqual(
+  dutchRepublic.movements
+    .map((movement) => movement.interaction?.kind)
+    .filter(Boolean),
+  ["chapter-v2", "chapter-v2", "chapter-v2", "chapter-v2"],
+  "The Dutch Republic should use four exchange-hall interactions.",
+);
+const dutchRepublicWords = dutchRepublic.movements.reduce(
+  (sum, movement) =>
+    sum +
+    movement.body.reduce(
+      (movementSum, paragraph) =>
+        movementSum + paragraph.trim().split(/\s+/).length,
+      0,
+    ),
+  0,
+);
+assert.ok(
+  dutchRepublicWords >= 3050 && dutchRepublicWords <= 3500,
+  `The Dutch Republic should contain 3,050–3,500 words of continuous narrative; found ${dutchRepublicWords}.`,
+);
+assert.match(
+  `${dutchRepublic.claim} ${dutchRepublic.ending.detail}`,
+  /ships|credit|exchange|capital/i,
+  "The Dutch Republic should keep its great commercial and institutional achievements in the foreground.",
+);
+assert.equal(
+  dutchRepublicScene?.chronicle?.href,
+  "chapters/dutch-republic/",
+  "The main journey needs a working Dutch Republic chapter link.",
+);
+assert.equal(
+  dutchRepublicScene?.chronicle?.label,
+  "Ring the exchange bell",
+  "The Dutch Republic chapter link needs its historical invitation.",
+);
+const enlightenmentScene = scenes.find(
+  (scene) => scene.id === dutchRepublic.nextHash,
+);
+assert.ok(
+  enlightenmentScene,
+  "The Dutch Republic ending needs a real next scene.",
+);
+assert.equal(
+  dutchRepublic.nextTitle,
+  enlightenmentScene.title,
+  "The Dutch Republic ending title must match its actual next scene.",
+);
+assert.equal(
+  dutchRepublic.ending.nextPeriod,
+  `AD ${enlightenmentScene.period.label}`,
+  "The Dutch Republic ending period must match its actual next scene.",
+);
+
+await checkCommonChapter(enlightenmentPublicOpinion, 12);
+assert.deepEqual(
+  enlightenmentPublicOpinion.acts?.map((act) => act.id),
+  [
+    "news-daily-appetite",
+    "public-learns-to-judge",
+    "continent-thinks-in-company",
+    "opinion-enters-government",
+  ],
+  "The Enlightenment should preserve its continent-in-conversation progression from news to public authority.",
+);
+for (const act of enlightenmentPublicOpinion.acts ?? []) {
+  assert.equal(
+    enlightenmentPublicOpinion.movements.filter(
+      (movement) => movement.actId === act.id,
+    ).length,
+    3,
+    `Act ${act.id} should contain exactly three movements.`,
+  );
+}
+assert.deepEqual(
+  enlightenmentPublicOpinion.movements
+    .map((movement, index) => (movement.interaction ? index + 1 : null))
+    .filter(Boolean),
+  [1, 5, 7, 10],
+  "The Enlightenment interactions should appear in movements 1, 5, 7 and 10.",
+);
+assert.deepEqual(
+  enlightenmentPublicOpinion.movements
+    .map((movement) => movement.interaction?.kind)
+    .filter(Boolean),
+  ["chapter-v2", "chapter-v2", "chapter-v2", "chapter-v2"],
+  "The Enlightenment should use four continent-in-conversation interactions.",
+);
+const enlightenmentWords = enlightenmentPublicOpinion.movements.reduce(
+  (sum, movement) =>
+    sum +
+    movement.body.reduce(
+      (movementSum, paragraph) =>
+        movementSum + paragraph.trim().split(/\s+/).length,
+      0,
+    ),
+  0,
+);
+assert.ok(
+  enlightenmentWords >= 2750 && enlightenmentWords <= 3200,
+  `The Enlightenment should contain 2,750–3,200 words of continuous narrative; found ${enlightenmentWords}.`,
+);
+const russianEnlightenmentMovement = enlightenmentPublicOpinion.movements.find(
+  (movement) => movement.id === "the-letter-stops-at-the-palace",
+);
+assert.ok(
+  russianEnlightenmentMovement,
+  "The Enlightenment needs its discreet Catherine–Novikov contrast.",
+);
+assert.match(
+  russianEnlightenmentMovement.body.join(" "),
+  /No comparably durable constellation of independent presses, corporate bodies and representative institutions/i,
+  "The Russian passage should show why no equivalent independent public sphere became durable there.",
+);
+assert.equal(
+  enlightenmentScene?.chronicle?.href,
+  "chapters/enlightenment-public-opinion/",
+  "The main journey needs a working Enlightenment chapter link.",
+);
+assert.equal(
+  enlightenmentScene?.chronicle?.label,
+  "Send the marked sentence",
+  "The Enlightenment chapter link needs its historical invitation.",
+);
+const industrialBreakthroughScene = scenes.find(
+  (scene) => scene.id === enlightenmentPublicOpinion.nextHash,
+);
+assert.ok(
+  industrialBreakthroughScene,
+  "The Enlightenment ending needs a real next scene.",
+);
+assert.equal(
+  enlightenmentPublicOpinion.nextTitle,
+  industrialBreakthroughScene.title,
+  "The Enlightenment ending title must match its actual next scene.",
+);
+assert.equal(
+  enlightenmentPublicOpinion.ending.nextPeriod,
+  `AD ${industrialBreakthroughScene.period.label}`,
+  "The Enlightenment ending period must match its actual next scene.",
+);
+
+await checkCommonChapter(rivalryIndustrialBreakthrough, 12);
+assert.deepEqual(
+  rivalryIndustrialBreakthrough.acts?.map((act) => act.id),
+  [
+    "power-from-stone",
+    "machine-learns-to-multiply",
+    "line-conquers-distance",
+    "capital-becomes-institution",
+  ],
+  "The Industrial Breakthrough should preserve its capital-line progression from coal to the registered company.",
+);
+for (const act of rivalryIndustrialBreakthrough.acts ?? []) {
+  assert.equal(
+    rivalryIndustrialBreakthrough.movements.filter(
+      (movement) => movement.actId === act.id,
+    ).length,
+    3,
+    `Act ${act.id} should contain exactly three movements.`,
+  );
+}
+assert.deepEqual(
+  rivalryIndustrialBreakthrough.movements
+    .map((movement, index) => (movement.interaction ? index + 1 : null))
+    .filter(Boolean),
+  [2, 5, 8, 11],
+  "The Industrial Breakthrough interactions should appear in movements 2, 5, 8 and 11.",
+);
+assert.deepEqual(
+  rivalryIndustrialBreakthrough.movements
+    .map((movement) => movement.interaction?.kind)
+    .filter(Boolean),
+  ["chapter-v2", "chapter-v2", "chapter-v2", "chapter-v2"],
+  "The Industrial Breakthrough should use four capital-line interactions.",
+);
+const industrialBreakthroughWords =
+  rivalryIndustrialBreakthrough.movements.reduce(
+    (sum, movement) =>
+      sum +
+      movement.body.reduce(
+        (movementSum, paragraph) =>
+          movementSum + paragraph.trim().split(/\s+/).length,
+        0,
+      ),
+    0,
+  );
+assert.ok(
+  industrialBreakthroughWords >= 2850 &&
+    industrialBreakthroughWords <= 3250,
+  `The Industrial Breakthrough should contain 2,850–3,250 words of continuous narrative; found ${industrialBreakthroughWords}.`,
+);
+const industrialBreakthroughPublicCopy = JSON.stringify(
+  rivalryIndustrialBreakthrough,
+);
+for (const statutoryYear of ["1855", "1856", "1862"]) {
+  assert.match(
+    industrialBreakthroughPublicCopy,
+    new RegExp(`\\b${statutoryYear}\\b`),
+    `The limited-liability sequence must preserve the ${statutoryYear} statutory milestone.`,
+  );
+}
+assert.match(
+  rivalryIndustrialBreakthrough.claim,
+  /limited-liability company/i,
+  "The Industrial Breakthrough must make Europe's limited-liability invention part of its central claim.",
+);
+assert.equal(
+  industrialBreakthroughScene?.chronicle?.href,
+  "chapters/rivalry-industrial-breakthrough/",
+  "The main journey needs a working Industrial Breakthrough chapter link.",
+);
+assert.equal(
+  industrialBreakthroughScene?.chronicle?.label,
+  "Set power in motion",
+  "The Industrial Breakthrough chapter link needs its historical invitation.",
+);
+const europeanWorldScene = scenes.find(
+  (scene) => scene.id === rivalryIndustrialBreakthrough.nextHash,
+);
+assert.ok(
+  europeanWorldScene,
+  "The Industrial Breakthrough ending needs a real next scene.",
+);
+assert.equal(
+  rivalryIndustrialBreakthrough.nextTitle,
+  europeanWorldScene.title,
+  "The Industrial Breakthrough ending title must match its actual next scene.",
+);
+assert.equal(
+  rivalryIndustrialBreakthrough.ending.nextPeriod,
+  `AD ${europeanWorldScene.period.label}`,
+  "The Industrial Breakthrough ending period must match its actual next scene.",
+);
+
+await checkCommonChapter(europeanWorld, 14);
+assert.deepEqual(
+  europeanWorld.acts?.map((act) => act.id),
+  [
+    "oceans-obey-schedule",
+    "world-learns-protocols",
+    "steel-enters-continents",
+    "europe-takes-central-desk",
+  ],
+  "The European World should preserve its switchboard progression from scheduled oceans to the central desk.",
+);
+assert.deepEqual(
+  europeanWorld.acts?.map(
+    (act) =>
+      europeanWorld.movements.filter(
+        (movement) => movement.actId === act.id,
+      ).length,
+  ),
+  [4, 3, 4, 3],
+  "The European World should give the oceanic system and its inland institutional inheritance full structural weight.",
+);
+assert.deepEqual(
+  europeanWorld.movements
+    .map((movement, index) => (movement.interaction ? index + 1 : null))
+    .filter(Boolean),
+  [2, 5, 8, 14],
+  "The European World interactions should appear in movements 2, 5, 8 and 14.",
+);
+assert.deepEqual(
+  europeanWorld.movements
+    .map((movement) => movement.interaction?.kind)
+    .filter(Boolean),
+  ["chapter-v2", "chapter-v2", "chapter-v2", "chapter-v2"],
+  "The European World should use four world-switchboard interactions.",
+);
+const europeanWorldWords = europeanWorld.movements.reduce(
+  (sum, movement) =>
+    sum +
+    movement.body.reduce(
+      (movementSum, paragraph) =>
+        movementSum + paragraph.trim().split(/\s+/).length,
+      0,
+    ),
+  0,
+);
+assert.ok(
+  europeanWorldWords >= 3450 && europeanWorldWords <= 3950,
+  `The European World should contain 3,450–3,950 words of continuous narrative; found ${europeanWorldWords}.`,
+);
+const europeanWorldPublicCopy = JSON.stringify(europeanWorld);
+for (const achievement of [
+  "abolition",
+  "railway",
+  "sanitary",
+  "administrative",
+]) {
+  assert.match(
+    europeanWorldPublicCopy,
+    new RegExp(achievement, "i"),
+    `The European World should preserve ${achievement} as part of Europe's enduring institutional work.`,
+  );
+}
+assert.doesNotMatch(
+  europeanWorldPublicCopy,
+  /\b(?:our narrative|this chapter|critics? (?:say|argue)|accused? of racism)\b/i,
+  "The European World should tell its story directly without a defensive or meta-historical aside.",
+);
+assert.equal(
+  europeanWorldScene?.chronicle?.href,
+  "chapters/european-world/",
+  "The main journey needs a working European World chapter link.",
+);
+assert.equal(
+  europeanWorldScene?.chronicle?.label,
+  "Open the Atlantic circuit",
+  "The European World chapter link needs its historical invitation.",
+);
+const europeanCivilWarScene = scenes.find(
+  (scene) => scene.id === europeanWorld.nextHash,
+);
+assert.ok(
+  europeanCivilWarScene,
+  "The European World ending needs a real next scene.",
+);
+assert.equal(
+  europeanWorld.nextTitle,
+  europeanCivilWarScene.title,
+  "The European World ending title must match its actual next scene.",
+);
+assert.equal(
+  europeanWorld.ending.nextPeriod,
+  `AD ${europeanCivilWarScene.period.label}`,
+  "The European World ending period must match its actual next scene.",
+);
+
+await checkCommonChapter(europeAtWar, 14);
+assert.equal(
+  europeAtWar.title,
+  "The European Civil War",
+  "Chapter 22 should keep its selected public title.",
+);
+assert.deepEqual(
+  europeAtWar.acts?.map((act) => act.id),
+  [
+    "armed-peace",
+    "industry-enters-battlefield",
+    "peace-loses-authority",
+    "total-dominion",
+  ],
+  "The European Civil War should preserve its split-continent progression from armed peace to total dominion.",
+);
+assert.deepEqual(
+  europeAtWar.acts?.map(
+    (act) =>
+      europeAtWar.movements.filter((movement) => movement.actId === act.id)
+        .length,
+  ),
+  [4, 3, 3, 4],
+  "The European Civil War should frame the two wars through their political origins and totalitarian culmination.",
+);
+assert.deepEqual(
+  europeAtWar.movements
+    .map((movement, index) => (movement.interaction ? index + 1 : null))
+    .filter(Boolean),
+  [3, 8, 11, 14],
+  "The European Civil War interactions should appear in movements 3, 8, 11 and 14.",
+);
+assert.deepEqual(
+  europeAtWar.movements
+    .map((movement) => movement.interaction?.kind)
+    .filter(Boolean),
+  ["chapter-v2", "chapter-v2", "chapter-v2", "chapter-v2"],
+  "The European Civil War should use four continent-split interactions.",
+);
+const europeanCivilWarWords = europeAtWar.movements.reduce(
+  (sum, movement) =>
+    sum +
+    movement.body.reduce(
+      (movementSum, paragraph) =>
+        movementSum + paragraph.trim().split(/\s+/).length,
+      0,
+    ),
+  0,
+);
+assert.ok(
+  europeanCivilWarWords >= 3900 && europeanCivilWarWords <= 4400,
+  `The European Civil War should contain 3,900–4,400 words of continuous narrative; found ${europeanCivilWarWords}.`,
+);
+const arendtMovements = europeAtWar.movements.filter((movement) =>
+  movement.sourceIds.includes("arendt-totalitarianism-1951"),
+);
+assert.ok(
+  arendtMovements.length >= 3,
+  "Arendt's account of statelessness, ideology and total domination should structure more than one isolated passage.",
+);
+assert.equal(
+  europeAtWarAssetContract.holocaust.generated,
+  false,
+  "The Holocaust sequence must never use generated imagery.",
+);
+assert.equal(
+  europeAtWarAssetContract.holocaust.static,
+  true,
+  "The Holocaust sequence must remain static.",
+);
+assert.equal(
+  europeAtWarAssetContract.holocaust.interactive,
+  false,
+  "The Holocaust sequence must not turn documentary evidence into an interaction.",
+);
+assert.deepEqual(
+  europeAtWarAssetContract.holocaust.requiredProvenance,
+  [
+    "institution",
+    "source URL",
+    "date",
+    "location",
+    "subject",
+    "rights decision",
+  ],
+  "Every Holocaust asset must retain the full archival provenance record.",
+);
+const holocaustMovement = europeAtWar.movements.find(
+  (movement) => movement.id === "european-jewry-is-marked-for-murder",
+);
+assert.equal(
+  holocaustMovement?.visualTone,
+  "archival-only-static",
+  "The Holocaust movement must retain its archival-only static treatment.",
+);
+assert.equal(
+  holocaustMovement?.interaction,
+  undefined,
+  "The Holocaust movement must not contain an interaction.",
+);
+assert.equal(
+  europeanCivilWarScene?.chronicle?.href,
+  "chapters/europe-at-war/",
+  "The main journey needs a working European Civil War chapter link.",
+);
+assert.equal(
+  europeanCivilWarScene?.chronicle?.label,
+  "Open the fault lines",
+  "The European Civil War chapter link needs its historical invitation.",
+);
+const rebuiltContinentScene = scenes.find(
+  (scene) => scene.id === europeAtWar.nextHash,
+);
+assert.ok(
+  rebuiltContinentScene,
+  "The European Civil War ending needs a real next scene.",
+);
+assert.equal(
+  europeAtWar.nextTitle,
+  rebuiltContinentScene.title,
+  "The European Civil War ending title must match its actual next scene.",
+);
+assert.equal(
+  europeAtWar.ending.nextPeriod,
+  `AD ${rebuiltContinentScene.period.label}`,
+  "The European Civil War ending period must match its actual next scene.",
+);
+
+await checkCommonChapter(continentRebuilt, 12);
+assert.deepEqual(
+  continentRebuilt.acts?.map((act) => act.id),
+  [
+    "two-orders-rise",
+    "west-binds-power",
+    "east-keeps-nations-alive",
+    "roads-meet",
+  ],
+  "The Continent Rebuilt should preserve its paired-road progression from 1945 to 1989.",
+);
+assert.deepEqual(
+  continentRebuilt.acts?.map(
+    (act) =>
+      continentRebuilt.movements.filter(
+        (movement) => movement.actId === act.id,
+      ).length,
+  ),
+  [3, 3, 4, 2],
+  "The Continent Rebuilt should give the eastern nations and the approach to 1989 the required narrative weight.",
+);
+assert.deepEqual(
+  continentRebuilt.movements
+    .map((movement, index) => (movement.interaction ? index + 1 : null))
+    .filter(Boolean),
+  [2, 5, 8, 11],
+  "The Continent Rebuilt interactions should appear in movements 2, 5, 8 and 11.",
+);
+assert.deepEqual(
+  continentRebuilt.movements
+    .map((movement) => movement.interaction?.kind)
+    .filter(Boolean),
+  ["chapter-v2", "chapter-v2", "chapter-v2", "chapter-v2"],
+  "The Continent Rebuilt should use four paired-road interactions.",
+);
+const continentRebuiltWords = continentRebuilt.movements.reduce(
+  (sum, movement) =>
+    sum +
+    movement.body.reduce(
+      (movementSum, paragraph) =>
+        movementSum + paragraph.trim().split(/\s+/).length,
+      0,
+    ),
+  0,
+);
+assert.ok(
+  continentRebuiltWords >= 2950 && continentRebuiltWords <= 3400,
+  `The Continent Rebuilt should contain 2,950–3,400 words of continuous narrative; found ${continentRebuiltWords}.`,
+);
+const polishPopeMovement = continentRebuilt.movements.find(
+  (movement) => movement.id === "the-polish-pope-calls-a-nation-into-view",
+);
+assert.ok(
+  polishPopeMovement,
+  "The Continent Rebuilt must preserve the Polish pope as a full movement.",
+);
+assert.match(
+  polishPopeMovement.body.join(" "),
+  /John Paul II|Karol Wojtyła/,
+  "The Polish road to 1989 must name John Paul II and his Polish identity.",
+);
+const solidarityMovement = continentRebuilt.movements.find(
+  (movement) => movement.id === "solidarity-builds-a-public-body",
+);
+assert.ok(
+  solidarityMovement,
+  "The Continent Rebuilt must carry the papal opening into Solidarity's independent public body.",
+);
+assert.equal(
+  rebuiltContinentScene?.chronicle?.href,
+  "chapters/continent-rebuilt/",
+  "The main journey needs a working Continent Rebuilt chapter link.",
+);
+assert.equal(
+  rebuiltContinentScene?.chronicle?.label,
+  "Walk the two roads",
+  "The Continent Rebuilt chapter link needs its historical invitation.",
+);
+const europeReturnsScene = scenes.find(
+  (scene) => scene.id === continentRebuilt.nextHash,
+);
+assert.ok(
+  europeReturnsScene,
+  "The Continent Rebuilt ending needs a real next scene.",
+);
+assert.equal(
+  continentRebuilt.nextTitle,
+  europeReturnsScene.title,
+  "The Continent Rebuilt ending title must match its actual next scene.",
+);
+assert.equal(
+  continentRebuilt.ending.nextPeriod,
+  `AD ${europeReturnsScene.period.label.replace("PRESENT", "20 July 2026")}`,
+  "The Continent Rebuilt ending period must match the current chapter's fact-lock range.",
+);
+
+await checkCommonChapter(europeReturns, 12);
+assert.deepEqual(
+  europeReturns.acts?.map((act) => act.id),
+  [
+    "return-made-by-choice",
+    "russia-tests-settlement",
+    "war-returns",
+    "europe-holds-line",
+  ],
+  "Europe Returns should preserve its eastern-line progression from voluntary return to defended order.",
+);
+assert.deepEqual(
+  europeReturns.acts?.map(
+    (act) =>
+      europeReturns.movements.filter((movement) => movement.actId === act.id)
+        .length,
+  ),
+  [4, 3, 3, 2],
+  "Europe Returns should give Russia's challenge from Georgia onward and Europe's institutional response full structural weight.",
+);
+assert.deepEqual(
+  europeReturns.movements
+    .map((movement, index) => (movement.interaction ? index + 1 : null))
+    .filter(Boolean),
+  [2, 7, 10, 12],
+  "Europe Returns interactions should appear in movements 2, 7, 10 and 12.",
+);
+assert.deepEqual(
+  europeReturns.movements
+    .map((movement) => movement.interaction?.kind)
+    .filter(Boolean),
+  ["chapter-v2", "chapter-v2", "chapter-v2", "chapter-v2"],
+  "Europe Returns should use four eastern-line interactions.",
+);
+const europeReturnsWords = europeReturns.movements.reduce(
+  (sum, movement) =>
+    sum +
+    movement.body.reduce(
+      (movementSum, paragraph) =>
+        movementSum + paragraph.trim().split(/\s+/).length,
+      0,
+    ),
+  0,
+);
+assert.ok(
+  europeReturnsWords >= 3150 && europeReturnsWords <= 3600,
+  `Europe Returns should contain 3,150–3,600 words of continuous narrative; found ${europeReturnsWords}.`,
+);
+assert.equal(
+  europeReturns.ending.period,
+  "As of 20 July 2026",
+  "The final chapter must state its exact fact-lock date.",
+);
+const georgiaMovement = europeReturns.movements.find(
+  (movement) => movement.id === "russia-crosses-into-georgia",
+);
+assert.ok(
+  georgiaMovement,
+  "Europe Returns must begin Russia's antagonist role with Georgia in 2008.",
+);
+assert.match(
+  georgiaMovement.body.join(" "),
+  /Georgia|Tskhinvali|Russia/i,
+  "The Georgia passage must preserve the immediate fighting sequence while identifying Russia's larger revisionist project.",
+);
+assert.match(
+  `${europeReturns.claim} ${europeReturns.mapLabel}`,
+  /European Union[\s\S]*NATO|NATO[\s\S]*European Union/i,
+  "Europe Returns must keep European Union accession and NATO collective defence distinct.",
+);
+const europeReturnsPublicCopy = JSON.stringify(europeReturns);
+assert.match(
+  europeReturnsPublicCopy,
+  /full-scale invasion/i,
+  "Europe Returns must identify Russia's full-scale invasion of Ukraine.",
+);
+assert.equal(
+  europeReturnsScene?.chronicle?.href,
+  "chapters/europe-returns/",
+  "The main journey needs a working Europe Returns chapter link.",
+);
+assert.equal(
+  europeReturnsScene?.chronicle?.label,
+  "Carry the line east",
+  "Europe Returns needs its historical invitation in the main journey.",
+);
+
 console.log(
-  "Farmers, Steppe, Bronze, Greece, Rome, Christian Empire, Europe Reborn, Papal Revolution, Society Beyond Kin, Medieval Commercial Revolution, Hanseatic North, Empire of Many Liberties, The Frontiers Hold, Europe Turns Seaward, The Reformation and Habsburg Europe chapter checks passed.",
+  "All twenty-four chapter checks passed.",
 );

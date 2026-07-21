@@ -22,7 +22,7 @@ const movementSources = movement.sourceIds
   data-order={movement.order}
   data-interaction-kind={movement.interaction?.kind}
   data-visual-tone={movement.visualTone}
-  data-visual-label={movement.visualLabel ?? "Evidence-led reconstruction"}
+  data-visual-label={movement.visualLabel ?? "Place, date and surviving record"}
 >
   <div class="chapter-movement__mobile-image">
     <img
@@ -34,7 +34,7 @@ const movementSources = movement.sourceIds
       decoding="async"
       style={`object-position:${movement.mobileImagePosition ?? movement.imagePosition ?? "center"}`}
     />
-    <span>{movement.visualLabel ?? "Evidence-led reconstruction"}</span>
+    <span>{movement.visualLabel ?? "Place, date and surviving record"}</span>
   </div>
   <article class="chapter-movement__story">
     <header>

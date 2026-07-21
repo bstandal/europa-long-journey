@@ -19,7 +19,7 @@ export const habsburgEurope: ChapterDefinition = {
       "At dawn beside Vienna, blue, burgundy, black-gold and green documentary ribbons enter the Danube and braid beneath a bridge carrying crown seals, post routes and rails.",
     imagePosition: "57% center",
     mobileImagePosition: "63% center",
-    visualLabel: "The Braided Danube · evidence-led reconstruction",
+    visualLabel: "The Braided Danube · crown, charter and frontier road",
   },
   theme: {
     id: "danube",

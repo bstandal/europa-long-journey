@@ -19,7 +19,7 @@ export const dutchRepublic: ChapterDefinition = {
       "Amsterdam's brick exchange court before the bell, with clerks opening ledgers, messengers pinning shipping notices and routes converging on the flagstones.",
     imagePosition: "center center",
     mobileImagePosition: "57% center",
-    visualLabel: "The Exchange Hall · evidence-led reconstruction",
+    visualLabel: "The Exchange Hall · ledger, bell and public price",
   },
   theme: {
     id: "exchange",

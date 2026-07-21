@@ -2982,6 +2982,265 @@ export const sources: SourceRecord[] = [
     url: "https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A11951K",
     note: "Signed in Paris on 18 April 1951; entered into force on 23 July 1952.",
   },
+  {
+    id: "spohr-2020",
+    author: "Kristina Spohr",
+    title: "Post Wall, Post Square: Rebuilding the World after 1989",
+    publication: "William Collins",
+    year: "2020",
+  },
+  {
+    id: "lieven-baltic-1993",
+    author: "Anatol Lieven",
+    title:
+      "The Baltic Revolution: Estonia, Latvia, Lithuania and the Path to Independence",
+    publication: "Yale University Press",
+    year: "1993",
+  },
+  {
+    id: "copenhagen-conclusions-1993",
+    author: "European Council",
+    title:
+      "Conclusions of the Presidency, Copenhagen European Council, 21–22 June 1993",
+    publication: "European Council historical conclusions archive",
+    year: "1993",
+    url: "https://www.consilium.europa.eu/en/european-council/conclusions/",
+    note: "Established the political and economic Copenhagen criteria and the capacity to assume the obligations of EU membership.",
+  },
+  {
+    id: "grabbe-2006",
+    author: "Heather Grabbe",
+    title:
+      "The EU’s Transformative Power: Europeanization through Conditionality in Central and Eastern Europe",
+    publication: "Palgrave Macmillan",
+    year: "2006",
+  },
+  {
+    id: "nato-madrid-1997",
+    author: "North Atlantic Treaty Organization",
+    title: "Madrid Declaration on Euro-Atlantic Security and Cooperation",
+    publication: "NATO Official Texts",
+    year: "1997",
+    url: "https://www.nato.int/cps/en/natohq/official_texts_25460.htm",
+    note: "Invited Czechia, Hungary and Poland to begin accession talks.",
+  },
+  {
+    id: "asmus-2002",
+    author: "Ronald D. Asmus",
+    title: "Opening NATO’s Door: How the Alliance Remade Itself for a New Era",
+    publication: "Columbia University Press",
+    year: "2002",
+  },
+  {
+    id: "eu-enlargement-2004",
+    author: "Council of the European Union",
+    title: "2004 Enlargement: Facts and Figures",
+    publication: "Consilium",
+    year: "2025",
+    url: "https://www.consilium.europa.eu/en/infographics/2004-enlargement-facts-and-figures/",
+    note: "Lists the ten states that joined the European Union on 1 May 2004.",
+  },
+  {
+    id: "tagliavini-georgia-2009",
+    author:
+      "Independent International Fact-Finding Mission on the Conflict in Georgia",
+    title: "Report, Volume I",
+    publication:
+      "Council of the European Union independent mission led by Heidi Tagliavini",
+    year: "2009",
+    url: "https://www.mpil.de/files/pdf4/IIFFMCG_Volume_I2.pdf",
+    note: "Establishes the sequence into open hostilities and assesses the legality and proportionality of subsequent military operations.",
+  },
+  {
+    id: "eumm-georgia-history",
+    author: "European Union Monitoring Mission in Georgia",
+    title: "Historical Context of EUMM in Georgia",
+    publication: "European External Action Service",
+    year: "2026",
+    url: "https://www.eeas.europa.eu/eumm-georgia/historical-context-eumm-georgia_en?s=335",
+    note: "Covers the Six-Point Agreement, EUMM deployment and the mission’s lack of access to Abkhazia and South Ossetia.",
+  },
+  {
+    id: "echr-georgia-russia-ii-2021",
+    author: "European Court of Human Rights",
+    title:
+      "Georgia v. Russia (II), Application no. 38263/08, Grand Chamber Judgment",
+    publication: "HUDOC",
+    year: "2021",
+    url: "https://hudoc.echr.coe.int/eng?i=001-207757",
+  },
+  {
+    id: "eu-ukraine-association-2014",
+    author: "European Union, Euratom and their Member States, and Ukraine",
+    title: "Association Agreement between the European Union and Ukraine",
+    publication: "Official Journal of the European Union; EUR-Lex",
+    year: "2014",
+    url: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A22014A0529%2801%29",
+  },
+  {
+    id: "wilson-ukraine-crisis-2014",
+    author: "Andrew Wilson",
+    title: "Ukraine Crisis: What It Means for the West",
+    publication: "Yale University Press",
+    year: "2014",
+  },
+  {
+    id: "osce-ukraine-election-2014",
+    author: "OSCE Office for Democratic Institutions and Human Rights",
+    title: "Ukraine Early Presidential Election, 25 May 2014: Final Report",
+    publication: "OSCE/ODIHR Election Observation Mission",
+    year: "2014",
+    url: "https://www.osce.org/files/f/documents/a/b/120549.pdf",
+  },
+  {
+    id: "unga-68-262",
+    author: "United Nations General Assembly",
+    title: "Resolution 68/262: Territorial Integrity of Ukraine",
+    publication: "United Nations Digital Library",
+    year: "2014",
+    url: "https://digitallibrary.un.org/record/767883/files/A_RES_68_262-EN.pdf",
+    note: "Affirmed Ukraine’s territorial integrity and stated that the 16 March referendum in Crimea had no validity.",
+  },
+  {
+    id: "ohchr-ukraine-reports",
+    author: "Office of the United Nations High Commissioner for Human Rights",
+    title: "Reports on the Human Rights Situation in Ukraine",
+    publication: "United Nations Human Rights Monitoring Mission in Ukraine",
+    year: "2014–2026",
+    url: "https://www.ohchr.org/en/countries/ukraine",
+  },
+  {
+    id: "freedman-ukraine-strategy-2019",
+    author: "Lawrence Freedman",
+    title: "Ukraine and the Art of Strategy",
+    publication: "Oxford University Press",
+    year: "2019",
+  },
+  {
+    id: "minsk-package-2015",
+    author: "Trilateral Contact Group",
+    title: "Package of Measures for the Implementation of the Minsk Agreements",
+    publication: "Organization for Security and Co-operation in Europe",
+    year: "2015",
+    url: "https://www.osce.org/cio/140156",
+  },
+  {
+    id: "osce-smm-ukraine",
+    author: "Organization for Security and Co-operation in Europe",
+    title: "OSCE Special Monitoring Mission to Ukraine",
+    publication: "Closed field mission archive",
+    year: "2014–2022",
+    url: "https://www.osce.org/special-monitoring-mission-to-ukraine-closed",
+  },
+  {
+    id: "unga-es11-1",
+    author: "United Nations General Assembly",
+    title: "Resolution ES-11/1: Aggression against Ukraine",
+    publication: "United Nations Digital Library",
+    year: "2022",
+    url: "https://digitallibrary.un.org/record/3965290/files/A_RES_ES-11_1-EN.pdf",
+    note: "Adopted 2 March 2022; demanded Russia’s immediate, complete and unconditional withdrawal from Ukraine.",
+  },
+  {
+    id: "ohchr-northern-ukraine-2022",
+    author: "Office of the United Nations High Commissioner for Human Rights",
+    title:
+      "Killings of Civilians: Summary Executions and Attacks on Individual Civilians in Kyiv, Chernihiv, and Sumy Regions",
+    publication: "United Nations Human Rights Monitoring Mission in Ukraine",
+    year: "2022",
+    url: "https://www.ohchr.org/sites/default/files/2022-12/2022-12-07-OHCHR-Thematic-Report-Killings-EN.pdf",
+  },
+  {
+    id: "eu-ukraine-candidate-2022",
+    author: "European Council",
+    title:
+      "Conclusions on Ukraine, the Membership Applications of Ukraine, the Republic of Moldova and Georgia, Western Balkans and External Relations",
+    publication: "Consilium",
+    year: "2022",
+    url: "https://www.consilium.europa.eu/en/press/press-releases/2022/06/23/european-council-conclusions-on-ukraine-the-membership-applications-of-ukraine-the-republic-of-moldova-and-georgia-western-balkans-and-external-relations-23-june-2022/",
+    note: "Granted Ukraine European Union candidate status on 23 June 2022.",
+  },
+  {
+    id: "nato-member-countries-2026",
+    author: "North Atlantic Treaty Organization",
+    title: "NATO Member Countries",
+    publication: "NATO",
+    year: "2026",
+    url: "https://www.nato.int/en/about-us/organization/nato-member-countries",
+    note: "Records Finland’s accession on 4 April 2023 and Sweden’s on 7 March 2024, bringing the alliance to 32 members.",
+  },
+  {
+    id: "nato-ukraine-relations-2026",
+    author: "North Atlantic Treaty Organization",
+    title: "Relations with Ukraine",
+    publication: "NATO",
+    year: "2026",
+    url: "https://www.nato.int/en/what-we-do/partnerships-and-cooperation/relations-with-ukraine",
+    note: "Updated 9 July 2026; distinguishes deep partnership and support from allied membership under Article 5.",
+  },
+  {
+    id: "eu-ukraine-accession-2024",
+    author: "Council of the European Union",
+    title: "EU Opens Accession Negotiations with Ukraine",
+    publication: "Consilium",
+    year: "2024",
+    url: "https://www.consilium.europa.eu/en/press/press-releases/2024/06/25/eu-opens-accession-negotiations-with-ukraine/",
+  },
+  {
+    id: "eu-ukraine-cluster1-2026",
+    author: "Council of the European Union",
+    title: "EU and Ukraine Open First Accession Negotiations Cluster",
+    publication: "Consilium",
+    year: "2026",
+    url: "https://www.consilium.europa.eu/en/press/press-releases/2026/06/15/eu-and-ukraine-open-first-accession-negotiations-cluster/",
+    note: "Opened Cluster 1, Fundamentals, on 15 June 2026.",
+  },
+  {
+    id: "eu-ukraine-cluster6-2026",
+    author:
+      "European Commission, Directorate-General for Enlargement and Eastern Neighbourhood",
+    title:
+      "EU Opens Accession Negotiations with Ukraine on External Relations Policies",
+    publication: "European Commission",
+    year: "2026",
+    url: "https://enlargement.ec.europa.eu/news/enlargement-eu-opens-accession-negotiations-ukraine-external-relations-policies-2026-07-14_en",
+    note: "Opened Cluster 6, External Relations, on 14 July 2026.",
+  },
+  {
+    id: "eu-assistance-ukraine-2026",
+    author: "European Commission",
+    title: "EU Assistance to Ukraine",
+    publication: "European Commission",
+    year: "2026",
+    url: "https://commission.europa.eu/topics/eu-solidarity-ukraine/eu-assistance-ukraine_en",
+    note: "Page updated 15 July 2026; reported total EU support of €216.7 billion, including amounts made available or committed across several categories.",
+  },
+  {
+    id: "nato-hague-2025",
+    author: "North Atlantic Treaty Organization",
+    title: "The Hague Summit Declaration",
+    publication: "NATO Official Texts",
+    year: "2025",
+    url: "https://www.nato.int/en/about-us/official-texts-and-resources/official-texts/2025/06/25/the-hague-summit-declaration",
+  },
+  {
+    id: "nato-eastern-flank-2026",
+    author: "North Atlantic Treaty Organization",
+    title: "Strengthening NATO’s Eastern Flank",
+    publication: "NATO",
+    year: "2026",
+    url: "https://www.nato.int/en/what-we-do/deterrence-and-defence/strengthening-natos-eastern-flank",
+    note: "Listed nine multinational battlegroups as of June 2026.",
+  },
+  {
+    id: "nato-ankara-2026",
+    author: "North Atlantic Treaty Organization",
+    title: "The Ankara Summit Declaration",
+    publication: "NATO Official Texts",
+    year: "2026",
+    url: "https://www.nato.int/en/about-us/official-texts-and-resources/official-texts/2026/07/08/the-ankara-summit-declaration",
+    note: "Allies pledged €70 billion in military equipment, assistance and training for Ukraine in 2026 and affirmed sovereign commitments to at least equivalent support in 2027.",
+  },
 ];
 
 export const assetRecords: AssetRecord[] = [
@@ -3005,6 +3264,167 @@ export const assetRecords: AssetRecord[] = [
     license: "Public domain",
     requiredCredit: "Made with Natural Earth",
     localPath: "/assets/world-relief.jpg",
+  },
+  {
+    id: "nuremberg-racial-chart-1935",
+    title: "Official chart explaining the Nuremberg racial laws",
+    creator: "German government",
+    institution: "United States Holocaust Memorial Museum collection",
+    sourceUrl:
+      "https://commons.wikimedia.org/wiki/File:Nuremberg_laws_Racial_Chart.jpg",
+    license: "Public domain",
+    requiredCredit: "United States Holocaust Memorial Museum collection",
+    localPath:
+      "/assets/chapters/europe-at-war/11-archival-law-and-terror-reclassify-human-being.avif",
+  },
+  {
+    id: "nkvd-order-00447-image",
+    title: "NKVD Order No. 00447",
+    creator: "NKVD of the USSR",
+    institution: "History of Russia Documents Library",
+    sourceUrl:
+      "https://docs.historyrussia.org/ru/nodes/170642-operativnyy-prikaz-nkvd-sssr-locale-nil-00447-locale-nil-ob-operatsii-po-repressirovaniyu-byvshih-kulakov-ugolovnikov-i-drugih-antisovetskih-elementov-locale-nil-30-iyulya-1937-goda",
+    license: "Public-domain official document",
+    requiredCredit: "NKVD Order No. 00447, 30 July 1937",
+    localPath:
+      "/assets/chapters/europe-at-war/11-archival-law-and-terror-reclassify-human-being.avif",
+  },
+  {
+    id: "molotov-ribbentrop-secret-protocol-image",
+    title: "Secret additional protocol to the Molotov–Ribbentrop Pact",
+    creator: "German and Soviet governments",
+    institution: "Archival document introduced at Nuremberg",
+    sourceUrl:
+      "https://commons.wikimedia.org/wiki/File:Tajny_protoko%C5%82_23.08.jpg",
+    license: "Public-domain official document",
+    requiredCredit: "Secret additional protocol, Moscow, 23 August 1939",
+    localPath:
+      "/assets/chapters/europe-at-war/12-archival-the-pact-opens-poland.avif",
+  },
+  {
+    id: "poland-1939-german-plan-map",
+    title: "German campaign plan for Poland",
+    creator: "United States Military Academy",
+    institution: "United States Military Academy",
+    sourceUrl:
+      "https://commons.wikimedia.org/wiki/File:Poland1939_GermanPlanMap.jpg",
+    license: "Public-domain United States government work",
+    requiredCredit: "United States Military Academy",
+    localPath:
+      "/assets/chapters/europe-at-war/12-archival-the-pact-opens-poland.avif",
+  },
+  {
+    id: "german-troops-sopot-1939",
+    title: "German troops removing the Polish border barrier at Sopot",
+    creator: "Unknown photographer",
+    institution: "Imperial War Museums, HU 56131",
+    sourceUrl:
+      "https://commons.wikimedia.org/wiki/File:The_German-soviet_Invasion_of_Poland,_1939_HU56131.jpg",
+    license: "Public domain; expired United Kingdom Crown copyright",
+    requiredCredit: "Imperial War Museums, HU 56131",
+    localPath:
+      "/assets/chapters/europe-at-war/12-archival-the-pact-opens-poland.avif",
+  },
+  {
+    id: "soviet-invasion-poland-1939-image",
+    title: "Soviet troops crossing the Polish border",
+    creator: "Unknown photographer",
+    institution: "Museum of Polish History / Jan Karski archive",
+    sourceUrl:
+      "https://commons.wikimedia.org/wiki/File:Polishborder17091939.jpg",
+    license: "Public domain",
+    requiredCredit: "Museum of Polish History / Jan Karski archive",
+    localPath:
+      "/assets/chapters/europe-at-war/12-archival-the-pact-opens-poland.avif",
+  },
+  {
+    id: "munzer-family-photo",
+    title: "The Münzer family before persecution",
+    creator: "Münzer family collection",
+    institution: "United States Holocaust Memorial Museum",
+    sourceUrl:
+      "https://commons.wikimedia.org/wiki/File:Munzer_family_photo.jpg",
+    license: "CC0",
+    requiredCredit:
+      "Gisele, Eva, Leah and Simcha Münzer · Alfred Münzer collection, USHMM",
+    localPath:
+      "/assets/chapters/europe-at-war/13-archival-european-jewry-marked-for-murder.avif",
+  },
+  {
+    id: "drancy-auschwitz-deportation-list",
+    title: "Drancy–Auschwitz deportation list",
+    creator: "Document photographed by Willie Glaser",
+    institution: "Centre de Documentation Juive Contemporaine",
+    sourceUrl:
+      "https://commons.wikimedia.org/wiki/File:Deportationsliste_Drancy_Auschwitz2.jpg",
+    license: "Unrestricted free use documented by source repository",
+    requiredCredit: "CDJC · Willie Glaser",
+    localPath:
+      "/assets/chapters/europe-at-war/13-archival-european-jewry-marked-for-murder.avif",
+  },
+  {
+    id: "stahlecker-shootings-map-1942",
+    title: "Stahlecker perpetrator report map",
+    creator: "Einsatzgruppe A",
+    institution:
+      "Latvian State Historical Archives / United States Holocaust Memorial Museum",
+    sourceUrl:
+      "https://commons.wikimedia.org/wiki/File:Map_used_to_illustrate_Stahlecker%27s_report_to_Heydrich_on_January_31,_1942.jpg",
+    license: "Public-domain official document",
+    requiredCredit:
+      "Latvian State Historical Archives, Riga / United States Holocaust Memorial Museum",
+    localPath:
+      "/assets/chapters/europe-at-war/13-archival-european-jewry-marked-for-murder.avif",
+  },
+  {
+    id: "auschwitz-protocols-map-1944",
+    title: "Auschwitz Protocols camp map",
+    creator: "United States War Refugee Board, after the Vrba–Wetzler report",
+    institution: "United States War Refugee Board",
+    sourceUrl:
+      "https://commons.wikimedia.org/wiki/File:AuschwitzProtocolsmap.jpg",
+    license: "Public-domain United States government publication",
+    requiredCredit: "United States War Refugee Board, 25 November 1944",
+    localPath:
+      "/assets/chapters/europe-at-war/13-archival-european-jewry-marked-for-murder.avif",
+  },
+  {
+    id: "named-child-survivors-auschwitz-1945",
+    title: "Named child survivors of Auschwitz",
+    creator: "Unknown photographer",
+    institution:
+      "United States Holocaust Memorial Museum / Belarussian State Archive",
+    sourceUrl:
+      "https://commons.wikimedia.org/wiki/File:Child_survivors_of_Auschwitz.jpeg",
+    license: "Public domain",
+    requiredCredit: "USHMM photograph 66935A / Belarussian State Archive",
+    localPath:
+      "/assets/chapters/europe-at-war/13-archival-european-jewry-marked-for-murder.avif",
+  },
+  {
+    id: "donath-berlin-ruins-1945",
+    title: "Ruined Brandenburg Gate and Reichstag",
+    creator: "Otto Donath",
+    institution: "German Federal Archives, Bild 183-M1015-331",
+    sourceUrl:
+      "https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_183-M1015-331,_Berlin,_zerst%C3%B6rtes_Brandenburger_Tor_und_Reichstagsgeb%C3%A4ude.jpg",
+    license: "CC BY-SA 3.0 DE",
+    requiredCredit:
+      "Otto Donath / Bundesarchiv, Bild 183-M1015-331 / CC BY-SA 3.0 DE; adapted crop and monochrome treatment",
+    localPath:
+      "/assets/chapters/europe-at-war/14-archival-berlin-falls-and-europe-is-divided.avif",
+  },
+  {
+    id: "us-army-germany-occupation-zones-map",
+    title: "Germany zones of occupation, 1945",
+    creator: "United States Army",
+    institution: "United States Army",
+    sourceUrl:
+      "https://commons.wikimedia.org/wiki/File:US_Army_Germany_occupation_zones_1945.jpg",
+    license: "Public-domain United States government work",
+    requiredCredit: "United States Army",
+    localPath:
+      "/assets/chapters/europe-at-war/14-archival-berlin-falls-and-europe-is-divided.avif",
   },
   {
     id: "generated-hero",

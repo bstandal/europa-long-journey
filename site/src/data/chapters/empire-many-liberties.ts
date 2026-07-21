@@ -19,7 +19,7 @@ export const empireManyLiberties: ChapterDefinition = {
       "Electors, princes, prelates and city envoys deliberate from ranked benches around a document table in an imperial Diet.",
     imagePosition: "68% center",
     mobileImagePosition: "70% center",
-    visualLabel: "Evidence-led reconstruction · the Diet in session",
+    visualLabel: "The Diet in Session · estate, vote and recorded law",
   },
   theme: {
     id: "imperial-diet",
@@ -101,7 +101,7 @@ export const empireManyLiberties: ChapterDefinition = {
       imageAlt:
         "Otto I and Adelaide receive the imperial crowns in the lamplit nave of Old St Peter’s as a road-worn Saxon retinue looks on.",
       imagePosition: "57% center",
-      visualLabel: "Evidence-led reconstruction",
+      visualLabel: "Place, date and surviving record",
       visualTone: "crown-and-smoke",
       side: "left",
       sourceIds: ["wilson-2016", "stollberg-rilinger-2018"],
@@ -129,7 +129,7 @@ export const empireManyLiberties: ChapterDefinition = {
       imageAlt:
         "An imperial household with clerks, seal chests and pack animals leaves a royal hall for the next city on the ruler’s itinerary.",
       imagePosition: "56% center",
-      visualLabel: "Evidence-led reconstruction",
+      visualLabel: "Place, date and surviving record",
       visualTone: "charter-road",
       side: "right",
       sourceIds: ["wilson-2016", "stollberg-rilinger-2018"],
@@ -363,7 +363,7 @@ export const empireManyLiberties: ChapterDefinition = {
       imageAlt:
         "Clerks copy a Magdeburg law book as its ruled margin extends toward distinct town gates and seals across central and eastern Europe.",
       imagePosition: "58% center",
-      visualLabel: "Evidence-led reconstruction",
+      visualLabel: "Place, date and surviving record",
       visualTone: "law-road-east",
       side: "right",
       sourceIds: ["wilson-2016", "stollberg-rilinger-2018", "luck-2014"],
@@ -391,7 +391,7 @@ export const empireManyLiberties: ChapterDefinition = {
       imageAlt:
         "Frederick II presents a sealed charter to spiritual and temporal princes beside a mint die, toll book, court staff and fortification plan.",
       imagePosition: "58% center",
-      visualLabel: "Evidence-led reconstruction",
+      visualLabel: "Place, date and surviving record",
       visualTone: "granted-command",
       side: "left",
       sourceIds: ["wilson-2016", "stollberg-rilinger-2018", "whaley-2012"],
@@ -419,7 +419,7 @@ export const empireManyLiberties: ChapterDefinition = {
       imageAlt:
         "Three archbishops and four temporal electors occupy ranked places around a horseshoe table with the Golden Bull open before them.",
       imagePosition: "60% center",
-      visualLabel: "Evidence-led reconstruction",
+      visualLabel: "Place, date and surviving record",
       visualTone: "golden-procedure",
       side: "right",
       sourceIds: ["golden-bull-1356", "stollberg-rilinger-2018", "wilson-2016"],
@@ -540,7 +540,7 @@ export const empireManyLiberties: ChapterDefinition = {
       imageAlt:
         "Electors, princes, prelates and city envoys take their unequal places on stepped oak benches as document bundles reach the central table.",
       imagePosition: "68% center",
-      visualLabel: "Evidence-led reconstruction",
+      visualLabel: "Place, date and surviving record",
       visualTone: "benches-before-consent",
       side: "left",
       sourceIds: ["wilson-2016", "stollberg-rilinger-2018", "brady-2009"],
@@ -570,7 +570,7 @@ export const empireManyLiberties: ChapterDefinition = {
         "The 1495 Diet deliberates around the Perpetual Public Peace while separate estate papers converge on a central table and weapons remain at the door.",
       imagePosition: "68% center",
       mobileImagePosition: "70% center",
-      visualLabel: "Evidence-led reconstruction · Worms, 1495",
+      visualLabel: "Place, date and surviving record · Worms, 1495",
       visualTone: "agreement-in-session",
       side: "right",
       sourceIds: ["westphal-2018", "wilson-2016", "imperial-reform-1495"],
@@ -760,7 +760,7 @@ export const empireManyLiberties: ChapterDefinition = {
       imageAlt:
         "Catholic and Lutheran worship remain distinct behind the signed Peace of Augsburg as one guarded civic road continues between them.",
       imagePosition: "52% center",
-      visualLabel: "Evidence-led reconstruction",
+      visualLabel: "Place, date and surviving record",
       visualTone: "two-confessions-one-peace",
       side: "right",
       sourceIds: ["whaley-2012", "wilson-2016", "brady-2009"],

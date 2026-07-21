@@ -19,7 +19,7 @@ export const enlightenmentPublicOpinion: ChapterDefinition = {
       "A London coffeehouse table holds a marked newspaper, shipping list, folded letter and steaming cup while a postal route carries the marked sentence toward continental reading rooms.",
     imagePosition: "center center",
     mobileImagePosition: "58% center",
-    visualLabel: "The Continent in Conversation · evidence-led reconstruction",
+    visualLabel: "The Continent in Conversation · press, letter and public judgment",
   },
   theme: {
     id: "conversation",

@@ -186,7 +186,7 @@ function setActiveMovement(index: number, updateHash = true) {
   document.body.dataset.chapterState = stateId;
   if (stageNote) {
     stageNote.textContent =
-      next.dataset.visualLabel ?? "Evidence-led reconstruction";
+      next.dataset.visualLabel ?? "Place, date and surviving record";
   }
 
   if (updateHash && next.id && window.location.hash !== `#${next.id}`) {

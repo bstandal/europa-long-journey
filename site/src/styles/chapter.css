@@ -356,6 +356,12 @@ body[data-chapter-movement="a-continent-remade"] .chapter-route {
   transform: scale(1);
 }
 
+.chapter-stage__image[data-visual-tone="archival-only-static"],
+.chapter-stage__image[data-visual-tone="archival-only-static"].is-active {
+  transform: none;
+  transition: none;
+}
+
 .chapter-stage__state-image {
   z-index: 1;
   opacity: 0;
@@ -1884,6 +1890,33 @@ body.chapter-runtime-ready .chapter-movement.is-active .chapter-interaction {
     height: 100%;
     object-fit: cover;
     filter: saturate(0.78) contrast(1.03);
+  }
+
+  .chapter-movement[data-visual-tone="archival-only-static"]
+    .chapter-movement__mobile-image img {
+    object-fit: contain;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+
+  .chapter-movement[data-visual-tone="archival-only-static"]
+    .chapter-movement__mobile-image {
+    position: relative;
+    top: auto;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    background: #050809;
+  }
+
+  .chapter-movement[data-visual-tone="archival-only-static"]
+    .chapter-movement__mobile-image::after {
+    display: none;
+  }
+
+  .chapter-movement[data-visual-tone="archival-only-static"]
+    .chapter-movement__story {
+    margin-top: 0;
   }
 
   .chapter-movement__story {
