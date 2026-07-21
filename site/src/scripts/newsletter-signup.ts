@@ -96,12 +96,20 @@ if (floatingRoot) {
         dismissalDuration,
       ) !== null;
     const shownThisSession = readFlag(window.sessionStorage, shownKey);
+    const chapterSections = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-chapter-movement]"),
+    );
+    const journeySections = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-story-scene]"),
+    );
+    const isChapterPage = chapterSections.length > 0;
+    const requiredActiveSeconds = isChapterPage ? 10 : 35;
     let activeSeconds = 0;
     let lastTick = performance.now();
     let lastScrollAt = performance.now();
     let lastBlockedAt = Number.NEGATIVE_INFINITY;
     let lastChapterInteractionAt = Number.NEGATIVE_INFINITY;
-    let depthQualified = false;
+    let depthQualified = isChapterPage;
     let promptRevealed = false;
     let promptDismissed = false;
     let focusBeforeReveal: HTMLElement | null = null;
@@ -220,34 +228,24 @@ if (floatingRoot) {
       }
     });
 
-    const chapterSections = Array.from(
-      document.querySelectorAll<HTMLElement>("[data-chapter-movement]"),
-    );
-    const journeySections = Array.from(
-      document.querySelectorAll<HTMLElement>("[data-story-scene]"),
-    );
-    const depthSections =
-      chapterSections.length > 0 ? chapterSections : journeySections;
-    const requiredSections =
-      chapterSections.length > 0
-        ? Math.max(1, Math.ceil(chapterSections.length * 0.25))
-        : Math.min(2, journeySections.length);
-    let furthestSection = -1;
-
-    const depthObserver = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          const index = depthSections.indexOf(entry.target as HTMLElement);
-          furthestSection = Math.max(furthestSection, index);
-        }
-        depthQualified =
-          requiredSections > 0 && furthestSection + 1 >= requiredSections;
-        if (depthQualified) depthObserver.disconnect();
-      },
-      { threshold: 0.15 },
-    );
-    for (const section of depthSections) depthObserver.observe(section);
+    if (!isChapterPage) {
+      const requiredSections = Math.min(2, journeySections.length);
+      let furthestSection = -1;
+      const depthObserver = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            const index = journeySections.indexOf(entry.target as HTMLElement);
+            furthestSection = Math.max(furthestSection, index);
+          }
+          depthQualified =
+            requiredSections > 0 && furthestSection + 1 >= requiredSections;
+          if (depthQualified) depthObserver.disconnect();
+        },
+        { threshold: 0.15 },
+      );
+      for (const section of journeySections) depthObserver.observe(section);
+    }
 
     const markChapterInteraction = (event: Event) => {
       if (
@@ -335,7 +333,13 @@ if (floatingRoot) {
         return;
       }
 
-      if (activeSeconds >= 35 && depthQualified && !blocked) revealPrompt();
+      if (
+        activeSeconds >= requiredActiveSeconds &&
+        depthQualified &&
+        !blocked
+      ) {
+        revealPrompt();
+      }
     };
 
     window.addEventListener(
