@@ -12,6 +12,7 @@ import { greeceAndTheCitizen } from "../src/data/chapters/greece-and-the-citizen
 import { hanseaticNorth } from "../src/data/chapters/hanseatic-north";
 import { medievalCommercialRevolution } from "../src/data/chapters/medieval-commercial-revolution";
 import { papalRevolution } from "../src/data/chapters/papal-revolution";
+import { reformation } from "../src/data/chapters/reformation";
 import { romeGathersEurope } from "../src/data/chapters/rome-gathers-europe";
 import { societyBeyondKin } from "../src/data/chapters/society-beyond-kin";
 import { steppeComesWest } from "../src/data/chapters/steppe-comes-west";
@@ -1358,7 +1359,96 @@ assert.equal(
   `AD ${reformationScene.period.label}`,
   "Europe Turns Seaward ending period must match its actual next scene.",
 );
+assert.equal(
+  europeTurnsSeaward.nextSlug,
+  reformation.slug,
+  "Europe Turns Seaward ending should continue into The Reformation.",
+);
+
+await checkCommonChapter(reformation, 14);
+assert.deepEqual(
+  reformation.acts?.map((act) => act.id),
+  [
+    "argument-escapes",
+    "confessions-build-worlds",
+    "empire-burns",
+    "peace-in-ruins",
+  ],
+  "The Reformation should preserve its printed-argument-to-Westphalian-peace progression.",
+);
+assert.deepEqual(
+  reformation.acts?.map(
+    (act) =>
+      reformation.movements.filter((movement) => movement.actId === act.id)
+        .length,
+  ),
+  [3, 4, 4, 3],
+  "The Reformation should give at least equal structural weight to the Thirty Years' War and its settlement.",
+);
+assert.deepEqual(
+  reformation.movements
+    .map((movement, index) => (movement.interaction ? index + 1 : null))
+    .filter(Boolean),
+  [1, 5, 9, 13],
+  "The Reformation interactions should appear in movements 1, 5, 9 and 13.",
+);
+assert.deepEqual(
+  reformation.movements
+    .map((movement) => movement.interaction?.kind)
+    .filter(Boolean),
+  ["chapter-v2", "chapter-v2", "chapter-v2", "chapter-v2"],
+  "The Reformation should use four burned-Empire interactions.",
+);
+const reformationMovementWords = reformation.movements.map((movement) =>
+  movement.body.reduce(
+    (sum, paragraph) => sum + paragraph.trim().split(/\s+/).length,
+    0,
+  ),
+);
+const reformationWords = reformationMovementWords.reduce(
+  (sum, words) => sum + words,
+  0,
+);
+assert.ok(
+  reformationWords >= 3500 && reformationWords <= 4000,
+  `The Reformation should contain 3,500–4,000 words of continuous narrative; found ${reformationWords}.`,
+);
+assert.ok(
+  reformationMovementWords.slice(7).reduce((sum, words) => sum + words, 0) >=
+    reformationMovementWords.slice(0, 7).reduce(
+      (sum, words) => sum + words,
+      0,
+    ),
+  "The Thirty Years' War and the peace must receive at least as much narrative space as the Reformation's first century.",
+);
+assert.equal(
+  reformationScene?.chronicle?.href,
+  "chapters/reformation/",
+  "The main journey needs a working Reformation chapter link.",
+);
+assert.equal(
+  reformationScene?.chronicle?.label,
+  "Read the burned Empire",
+  "The Reformation chapter link needs its historical invitation.",
+);
+const habsburgEuropeScene = scenes.find(
+  (scene) => scene.id === reformation.nextHash,
+);
+assert.ok(
+  habsburgEuropeScene,
+  "The Reformation ending needs a real next scene.",
+);
+assert.equal(
+  reformation.nextTitle,
+  habsburgEuropeScene.title,
+  "The Reformation ending title must match its actual next scene.",
+);
+assert.equal(
+  reformation.ending.nextPeriod,
+  `AD ${habsburgEuropeScene.period.label}`,
+  "The Reformation ending period must match its actual next scene.",
+);
 
 console.log(
-  "Farmers, Steppe, Bronze, Greece, Rome, Christian Empire, Europe Reborn, Papal Revolution, Society Beyond Kin, Medieval Commercial Revolution, Hanseatic North, Empire of Many Liberties, The Frontiers Hold and Europe Turns Seaward chapter checks passed.",
+  "Farmers, Steppe, Bronze, Greece, Rome, Christian Empire, Europe Reborn, Papal Revolution, Society Beyond Kin, Medieval Commercial Revolution, Hanseatic North, Empire of Many Liberties, The Frontiers Hold, Europe Turns Seaward and The Reformation chapter checks passed.",
 );

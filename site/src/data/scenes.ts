@@ -1433,6 +1433,10 @@ export const scenes: StoryScene[] = [
         longitude: 7.63,
       },
     ],
+    chronicle: {
+      href: "chapters/reformation/",
+      label: "Read the burned Empire",
+    },
   },
   {
     id: "habsburg-europe",

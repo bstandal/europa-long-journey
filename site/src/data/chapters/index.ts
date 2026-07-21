@@ -10,6 +10,7 @@ import { greeceAndTheCitizen } from "./greece-and-the-citizen";
 import { hanseaticNorth } from "./hanseatic-north";
 import { medievalCommercialRevolution } from "./medieval-commercial-revolution";
 import { papalRevolution } from "./papal-revolution";
+import { reformation } from "./reformation";
 import { romeGathersEurope } from "./rome-gathers-europe";
 import { societyBeyondKin } from "./society-beyond-kin";
 import { steppeComesWest } from "./steppe-comes-west";
@@ -29,6 +30,7 @@ export const chapters: ChapterDefinition[] = [
   empireManyLiberties,
   europeHoldsTheLine,
   europeTurnsSeaward,
+  reformation,
 ];
 
 export const chapterBySlug = new Map(

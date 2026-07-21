@@ -80,6 +80,7 @@ export const europeTurnsSeaward: ChapterDefinition = {
   returnHash: "europe-turns-seaward",
   nextHash: "reformation",
   nextTitle: "The Reformation",
+  nextSlug: "reformation",
   movements: [
     {
       id: "portugal-takes-african-gate",
