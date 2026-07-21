@@ -7,6 +7,7 @@ import { europeReborn } from "./europe-reborn";
 import { europeTurnsSeaward } from "./europe-turns-seaward";
 import { firstFarmers } from "./first-farmers";
 import { greeceAndTheCitizen } from "./greece-and-the-citizen";
+import { habsburgEurope } from "./habsburg-europe";
 import { hanseaticNorth } from "./hanseatic-north";
 import { medievalCommercialRevolution } from "./medieval-commercial-revolution";
 import { papalRevolution } from "./papal-revolution";
@@ -31,6 +32,7 @@ export const chapters: ChapterDefinition[] = [
   europeHoldsTheLine,
   europeTurnsSeaward,
   reformation,
+  habsburgEurope,
 ];
 
 export const chapterBySlug = new Map(

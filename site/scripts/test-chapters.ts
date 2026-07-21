@@ -9,6 +9,7 @@ import { europeReborn } from "../src/data/chapters/europe-reborn";
 import { europeTurnsSeaward } from "../src/data/chapters/europe-turns-seaward";
 import { firstFarmers } from "../src/data/chapters/first-farmers";
 import { greeceAndTheCitizen } from "../src/data/chapters/greece-and-the-citizen";
+import { habsburgEurope } from "../src/data/chapters/habsburg-europe";
 import { hanseaticNorth } from "../src/data/chapters/hanseatic-north";
 import { medievalCommercialRevolution } from "../src/data/chapters/medieval-commercial-revolution";
 import { papalRevolution } from "../src/data/chapters/papal-revolution";
@@ -1449,6 +1450,88 @@ assert.equal(
   "The Reformation ending period must match its actual next scene.",
 );
 
+await checkCommonChapter(habsburgEurope, 14);
+assert.deepEqual(
+  habsburgEurope.acts?.map((act) => act.id),
+  [
+    "three-crowns",
+    "monarchy-learns-scale",
+    "liberty-enters",
+    "common-home",
+  ],
+  "Habsburg Europe should preserve its three-crowns-to-common-home progression.",
+);
+assert.deepEqual(
+  habsburgEurope.acts?.map(
+    (act) =>
+      habsburgEurope.movements.filter(
+        (movement) => movement.actId === act.id,
+      ).length,
+  ),
+  [4, 4, 3, 3],
+  "Habsburg Europe should build the composite monarchy fully before following liberty and common life into 1918.",
+);
+assert.deepEqual(
+  habsburgEurope.movements
+    .map((movement, index) => (movement.interaction ? index + 1 : null))
+    .filter(Boolean),
+  [1, 6, 10, 12],
+  "Habsburg Europe interactions should appear in movements 1, 6, 10 and 12.",
+);
+assert.deepEqual(
+  habsburgEurope.movements
+    .map((movement) => movement.interaction?.kind)
+    .filter(Boolean),
+  ["chapter-v2", "chapter-v2", "chapter-v2", "chapter-v2"],
+  "Habsburg Europe should use four braided-Danube interactions.",
+);
+const habsburgEuropeWords = habsburgEurope.movements.reduce(
+  (sum, movement) =>
+    sum +
+    movement.body.reduce(
+      (movementSum, paragraph) =>
+        movementSum + paragraph.trim().split(/\s+/).length,
+      0,
+    ),
+  0,
+);
+assert.ok(
+  habsburgEuropeWords >= 4200 && habsburgEuropeWords <= 4700,
+  `Habsburg Europe should contain 4,200–4,700 words of continuous narrative; found ${habsburgEuropeWords}.`,
+);
+assert.match(
+  `${habsburgEurope.claim} ${habsburgEurope.ending.title} ${habsburgEurope.ending.detail}`,
+  /common (?:political )?home|common home/i,
+  "Habsburg Europe should leave the lost common home at the centre of its final memory.",
+);
+assert.equal(
+  habsburgEuropeScene?.chronicle?.href,
+  "chapters/habsburg-europe/",
+  "The main journey needs a working Habsburg Europe chapter link.",
+);
+assert.equal(
+  habsburgEuropeScene?.chronicle?.label,
+  "Enter the braided current",
+  "The Habsburg Europe chapter link needs its historical invitation.",
+);
+const scientificRevolutionScene = scenes.find(
+  (scene) => scene.id === habsburgEurope.nextHash,
+);
+assert.ok(
+  scientificRevolutionScene,
+  "Habsburg Europe ending needs a real next scene.",
+);
+assert.equal(
+  habsburgEurope.nextTitle,
+  scientificRevolutionScene.title,
+  "Habsburg Europe ending title must match its actual next scene.",
+);
+assert.equal(
+  habsburgEurope.ending.nextPeriod,
+  `AD ${scientificRevolutionScene.period.label}`,
+  "Habsburg Europe ending period must match its actual next scene.",
+);
+
 console.log(
-  "Farmers, Steppe, Bronze, Greece, Rome, Christian Empire, Europe Reborn, Papal Revolution, Society Beyond Kin, Medieval Commercial Revolution, Hanseatic North, Empire of Many Liberties, The Frontiers Hold, Europe Turns Seaward and The Reformation chapter checks passed.",
+  "Farmers, Steppe, Bronze, Greece, Rome, Christian Empire, Europe Reborn, Papal Revolution, Society Beyond Kin, Medieval Commercial Revolution, Hanseatic North, Empire of Many Liberties, The Frontiers Hold, Europe Turns Seaward, The Reformation and Habsburg Europe chapter checks passed.",
 );

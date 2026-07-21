@@ -1550,6 +1550,10 @@ export const scenes: StoryScene[] = [
         longitude: 24.03,
       },
     ],
+    chronicle: {
+      href: "chapters/habsburg-europe/",
+      label: "Enter the braided current",
+    },
   },
   {
     id: "scientific-revolution",
