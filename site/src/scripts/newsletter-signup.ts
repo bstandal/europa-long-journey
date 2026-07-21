@@ -4,11 +4,9 @@ const floatingRoot = document.querySelector<HTMLElement>(
 
 if (floatingRoot) {
   const submittedKey = "europa:newsletter:submitted:v1";
-  const pendingKey = "europa:newsletter:pending:v1";
   const dismissedKey = "europa:newsletter:dismissed:v1";
   const shownKey = "europa:newsletter:shown:v1";
   const dismissalDuration = 7 * 24 * 60 * 60 * 1_000;
-  const pendingDuration = 30 * 24 * 60 * 60 * 1_000;
 
   const readStorage = (storage: Storage, key: string) => {
     try {
@@ -62,11 +60,8 @@ if (floatingRoot) {
   };
 
   let pageSubmitted = readFlag(window.localStorage, submittedKey);
-  let pendingIsCurrent =
-    readCurrentTimestamp(window.localStorage, pendingKey, pendingDuration) !==
-    null;
 
-  if (pageSubmitted || pendingIsCurrent) floatingRoot.hidden = true;
+  if (pageSubmitted) floatingRoot.hidden = true;
 
   const form = floatingRoot.querySelector<HTMLFormElement>(
     "[data-newsletter-form]",
@@ -74,31 +69,26 @@ if (floatingRoot) {
   const submit = floatingRoot.querySelector<HTMLButtonElement>(
     "[data-newsletter-submit]",
   );
+  const content = floatingRoot.querySelector<HTMLElement>(
+    "[data-newsletter-content]",
+  );
+  const success = floatingRoot.querySelector<HTMLElement>(
+    "[data-newsletter-success]",
+  );
+  const target = document.querySelector<HTMLIFrameElement>(
+    "[data-newsletter-target]",
+  );
+  const dismiss = floatingRoot.querySelector<HTMLButtonElement>(
+    "[data-newsletter-dismiss]",
+  );
+  const announcement = document.querySelector<HTMLElement>(
+    "[data-newsletter-announcement]",
+  );
+  const error = floatingRoot.querySelector<HTMLElement>(
+    "[data-newsletter-error]",
+  );
 
-  form?.addEventListener("submit", () => {
-    if (submit) {
-      submit.disabled = true;
-      submit.setAttribute("aria-busy", "true");
-    }
-    track("signup-prompt-submitted");
-  });
-
-  window.addEventListener("pageshow", () => {
-    pageSubmitted = readFlag(window.localStorage, submittedKey);
-    pendingIsCurrent =
-      readCurrentTimestamp(window.localStorage, pendingKey, pendingDuration) !==
-      null;
-    if (pageSubmitted || pendingIsCurrent) {
-      floatingRoot.hidden = true;
-      return;
-    }
-    if (submit) {
-      submit.disabled = false;
-      submit.removeAttribute("aria-busy");
-    }
-  });
-
-  if (!pageSubmitted && !pendingIsCurrent) {
+  if (!pageSubmitted) {
     const dismissalIsCurrent =
       readCurrentTimestamp(
         window.localStorage,
@@ -106,9 +96,6 @@ if (floatingRoot) {
         dismissalDuration,
       ) !== null;
     const shownThisSession = readFlag(window.sessionStorage, shownKey);
-    const announcement = document.querySelector<HTMLElement>(
-      "[data-newsletter-announcement]",
-    );
     let activeSeconds = 0;
     let lastTick = performance.now();
     let lastScrollAt = performance.now();
@@ -118,6 +105,93 @@ if (floatingRoot) {
     let promptRevealed = false;
     let promptDismissed = false;
     let focusBeforeReveal: HTMLElement | null = null;
+    let submissionStarted = false;
+    let submissionTimeout: number | undefined;
+    let promptInterval: number | undefined;
+
+    const restorePromptFocus = (restoreFocus: boolean) => {
+      if (!restoreFocus) return;
+      window.requestAnimationFrame(() => {
+        if (focusBeforeReveal?.isConnected) {
+          focusBeforeReveal.focus({ preventScroll: true });
+          return;
+        }
+        (document.activeElement as HTMLElement | null)?.blur();
+      });
+    };
+
+    const resetSubmit = () => {
+      if (!submit) return;
+      submit.disabled = false;
+      submit.removeAttribute("aria-busy");
+    };
+
+    form?.addEventListener("submit", () => {
+      submissionStarted = true;
+      if (error) error.hidden = true;
+      if (submit) {
+        submit.disabled = true;
+        submit.setAttribute("aria-busy", "true");
+      }
+      if (submissionTimeout !== undefined) {
+        window.clearTimeout(submissionTimeout);
+      }
+      submissionTimeout = window.setTimeout(() => {
+        if (!submissionStarted) return;
+        submissionStarted = false;
+        target?.setAttribute("src", "about:blank");
+        resetSubmit();
+        if (error) error.hidden = false;
+        if (announcement) announcement.textContent = "Couldn’t send. Try again.";
+      }, 15_000);
+      track("signup-prompt-submitted");
+    });
+
+    target?.addEventListener("load", () => {
+      if (!submissionStarted || !target) return;
+      let loadedPath: string;
+      try {
+        loadedPath = target.contentWindow?.location.pathname ?? "";
+      } catch {
+        return;
+      }
+      if (loadedPath !== target.dataset.newsletterReceiptPath) return;
+
+      submissionStarted = false;
+      if (submissionTimeout !== undefined) {
+        window.clearTimeout(submissionTimeout);
+      }
+      if (promptInterval !== undefined) window.clearInterval(promptInterval);
+      const restoreFocus = floatingRoot.contains(document.activeElement);
+      pageSubmitted = true;
+      writeStorage(window.localStorage, submittedKey, "1");
+      removeStorage(window.localStorage, dismissedKey);
+      if (content) content.hidden = true;
+      if (dismiss) dismiss.hidden = true;
+      if (success) success.hidden = false;
+      floatingRoot.classList.add("is-sent");
+      if (announcement) announcement.textContent = "You’re on the list.";
+      restorePromptFocus(restoreFocus);
+      window.setTimeout(() => {
+        floatingRoot.classList.remove("is-visible");
+        window.setTimeout(() => {
+          floatingRoot.hidden = true;
+        }, 240);
+      }, 1_600);
+    });
+
+    window.addEventListener("pageshow", () => {
+      pageSubmitted = readFlag(window.localStorage, submittedKey);
+      if (pageSubmitted) {
+        floatingRoot.hidden = true;
+        return;
+      }
+      submissionStarted = false;
+      if (submissionTimeout !== undefined) {
+        window.clearTimeout(submissionTimeout);
+      }
+      resetSubmit();
+    });
 
     const dismissPrompt = () => {
       if (promptDismissed || pageSubmitted) return;
@@ -128,15 +202,7 @@ if (floatingRoot) {
       if (announcement) announcement.textContent = "";
       writeStorage(window.localStorage, dismissedKey, String(Date.now()));
       track("signup-prompt-dismissed");
-      if (restoreFocus) {
-        window.requestAnimationFrame(() => {
-          if (focusBeforeReveal?.isConnected) {
-            focusBeforeReveal.focus({ preventScroll: true });
-            return;
-          }
-          (document.activeElement as HTMLElement | null)?.blur();
-        });
-      }
+      restorePromptFocus(restoreFocus);
     };
 
     floatingRoot
@@ -243,7 +309,6 @@ if (floatingRoot) {
     const updatePrompt = () => {
       if (
         pageSubmitted ||
-        pendingIsCurrent ||
         promptDismissed ||
         dismissalIsCurrent ||
         shownThisSession
@@ -281,7 +346,7 @@ if (floatingRoot) {
       { passive: true },
     );
 
-    window.setInterval(() => {
+    promptInterval = window.setInterval(() => {
       const now = performance.now();
       const elapsed = Math.min((now - lastTick) / 1_000, 2);
       lastTick = now;

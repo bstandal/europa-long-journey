@@ -10,6 +10,8 @@ const consentField =
 const base = import.meta.env.BASE_URL;
 const titleId = "newsletter-title";
 const noteId = "newsletter-note";
+const targetName = "newsletter-signup-target";
+const receiptPath = `${base}subscribe/received/`;
 ---
 
 {
@@ -31,58 +33,74 @@ const noteId = "newsletter-note";
           <Icon name="x" />
         </button>
 
-        <div class="newsletter-signup__intro">
-          <h2 id={titleId}>EUROPA by email</h2>
-        </div>
-
-        <form
-          class="newsletter-signup__form"
-          method="post"
-          action={action}
-          accept-charset="UTF-8"
-          data-newsletter-form
-          aria-describedby={noteId}
-        >
-          <div class="newsletter-signup__controls">
-            <label>
-              <span>Email address</span>
-              <input
-                type="email"
-                name={emailField}
-                autocomplete="email"
-                inputmode="email"
-                maxlength="254"
-                placeholder="you@example.com"
-                required
-              />
-            </label>
-            <button
-              class="newsletter-signup__submit"
-              type="submit"
-              data-newsletter-submit
-            >
-              Send me updates
-            </button>
+        <div data-newsletter-content>
+          <div class="newsletter-signup__intro">
+            <h2 id={titleId}>EUROPA by email</h2>
           </div>
-          <input type="hidden" name={consentField} value="1" />
-          <input
-            class="newsletter-signup__honeypot"
-            type="text"
-            name="email_address_check"
-            value=""
-            tabindex="-1"
-            autocomplete="off"
-            aria-hidden="true"
-          />
-          <input type="hidden" name="locale" value="en" />
-          <input type="hidden" name="html_type" value="simple" />
-          <p class="newsletter-signup__note" id={noteId}>
-            By subscribing, you agree to emails from Bård Standal about EUROPA
-            and new work on European history. Unsubscribe at any time.{" "}
-            <a href={`${base}privacy/`}>Privacy</a>.
-          </p>
-        </form>
+
+          <form
+            class="newsletter-signup__form"
+            method="post"
+            action={action}
+            target={targetName}
+            accept-charset="UTF-8"
+            data-newsletter-form
+            aria-describedby={noteId}
+          >
+            <div class="newsletter-signup__controls">
+              <label>
+                <span>Email address</span>
+                <input
+                  type="email"
+                  name={emailField}
+                  autocomplete="email"
+                  inputmode="email"
+                  maxlength="254"
+                  placeholder="you@example.com"
+                  required
+                />
+              </label>
+              <button
+                class="newsletter-signup__submit"
+                type="submit"
+                data-newsletter-submit
+              >
+                Send me updates
+              </button>
+            </div>
+            <input type="hidden" name={consentField} value="1" />
+            <input
+              class="newsletter-signup__honeypot"
+              type="text"
+              name="email_address_check"
+              value=""
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+            />
+            <input type="hidden" name="locale" value="en" />
+            <input type="hidden" name="html_type" value="simple" />
+            <p class="newsletter-signup__error" data-newsletter-error hidden>
+              Couldn’t send. Try again.
+            </p>
+            <p class="newsletter-signup__note" id={noteId}>
+              By subscribing, you agree to emails from Bård Standal about EUROPA
+              and new work on European history. Unsubscribe at any time.{" "}
+              <a href={`${base}privacy/`}>Privacy</a>.
+            </p>
+          </form>
+        </div>
+        <p class="newsletter-signup__success" data-newsletter-success hidden>
+          You’re on the list.
+        </p>
       </aside>
+      <iframe
+        name={targetName}
+        title="Email signup response"
+        data-newsletter-target
+        data-newsletter-receipt-path={receiptPath}
+        hidden
+      />
       <p
         class="newsletter-signup__announcement"
         role="status"

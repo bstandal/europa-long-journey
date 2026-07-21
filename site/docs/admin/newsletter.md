@@ -30,8 +30,7 @@ and an optional `Upgrade now` control.
 3. Keep the data model minimal: collect only the required email address. Do not
    add a name, inferred interests, location or reading history to contact
    records. Keep Brevo's standard `EMAIL` field, the existing
-   `CHAPTER_UPDATES_CONSENT` Boolean and Brevo's automatically maintained
-   `DOUBLE_OPT-IN` status.
+   `CHAPTER_UPDATES_CONSENT` Boolean.
 4. Keep the existing **Full page/embedded** signup form assigned only to that
    list.
 5. In the setup/design step, turn on **Enable GDPR fields** so Brevo adds both
@@ -41,27 +40,20 @@ and an optional `Upgrade now` control.
    you agree to emails from Bård Standal about EUROPA and new work on European
    history. Unsubscribe at any time.” Link `Privacy` to EUROPA's published
    privacy notice.
-6. Enable **Double confirmation email**. State what will be sent and how often.
-   Do not add a contact to the list until the confirmation link is clicked.
-   Include the consent wording above in the double-opt-in template so the text
-   accepted by the reader can be documented with the confirmation event.
-7. Customize the double-opt-in email and messages in English. Redirect a
-   submitted form to
-   `https://bstandal.github.io/europa-long-journey/subscribe/check-email/` and
-   the confirmation link to
-   `https://bstandal.github.io/europa-long-journey/subscribe/confirmed/`. The
-   native site owns immediate field validation because Simple HTML does not
-   carry Brevo's JavaScript messages. Do not enable a final confirmation email
-   or a welcome automation; the double-opt-in email is the only automatic
-   message before an editorial update.
-8. In Brevo's share step, choose **Simple HTML** and copy the exact public URL
+6. Select **No confirmation email**. Enable **Confirmation page after submitting
+   the form**, choose the custom URL
+   `https://bstandal.github.io/europa-long-journey/subscribe/received/`, and do
+   not enable a welcome message or automation. EUROPA loads that empty receipt
+   route only inside the hidden form target; it is the success signal for the
+   brief “You’re on the list.” message. The reader stays on the same scene.
+7. In Brevo's share step, choose **Simple HTML** and copy the exact public URL
    from the generated form's `action` attribute. Do not copy an API key, SMTP
    key or account secret. Brevo CAPTCHA requires its JavaScript embed and is not
-   available in Simple HTML; double opt-in is the primary bot control for this
-   deliberately script-free integration.
-9. In GitHub, open **Settings → Secrets and variables → Actions → Variables**
+   available in Simple HTML; keep the generated honeypot field in EUROPA's
+   native form.
+8. In GitHub, open **Settings → Secrets and variables → Actions → Variables**
    and add `BREVO_FORM_ACTION` with that action URL.
-10. Deploy from `main`. To disable signup without a code change, delete or empty
+9. Deploy from `main`. To disable signup without a code change, delete or empty
    `BREVO_FORM_ACTION` and redeploy.
 
 The workflow exposes the value as `PUBLIC_BREVO_FORM_ACTION`. This URL is public
@@ -103,15 +95,8 @@ variables.
   Signup UI events may contain only non-personal values such as the page path and
   whether the prompt was shown, dismissed or submitted.
 - Use `signup-prompt-submitted` for the popup. The page path distinguishes the
-  homepage from a chapter. A
-  `signup-confirmation-returned` event records only that a consenting browser
-  reached EUROPA's return page. Analytics may be declined or blocked, and the
-  return URL may be revisited, so the Brevo list and double-opt-in record are the
-  sole authoritative source for confirmed subscription status.
-- Brevo's double-opt-in link expires after 30 days. An unconfirmed address is not
-  added to the subscriber list, but the attempt remains in transactional logs.
-  Review and delete unconfirmed-request logs no later than 90 days after
-  submission.
+  homepage from a chapter. Analytics may be declined or blocked, so Brevo's
+  subscriber list and stored consent field remain authoritative.
 
 ## Routine operations
 
@@ -126,7 +111,7 @@ Before each email update:
    prevent arbitrary values from entering analytics.
 4. Send tests to desktop and mobile inboxes, then verify the chapter link,
    double-check dark mode and proofread the plain-text version.
-5. Keep the free plan's 300-emails-per-day limit in mind. If the confirmed list
+5. Keep the free plan's 300-emails-per-day limit in mind. If the subscriber list
    exceeds 300, do not silently omit readers and do not upgrade automatically.
    Requeue the remaining recipients in daily batches, recording which batch was
    sent on each day.
@@ -136,13 +121,10 @@ campaign, automation or transactional send resets the inactivity period. Brevo
 sends warnings before deletion, but the account owner should still verify the
 account at least quarterly while no chapters are being released.
 
-Export the confirmed list and its subscription status from **CRM → Contacts →
+Export the subscriber list and its consent field from **CRM → Contacts →
 More actions → Export** on a regular schedule and before material account
-changes. Export double-opt-in event and transactional logs often enough to
-retain proof of consent, while deleting logs for requests that were never
-confirmed within the 90-day limit above. Store exports encrypted outside the
-repository with access limited to the account owner; never commit subscriber
-data.
+changes. Store exports encrypted outside the repository with access limited to
+the account owner; never commit subscriber data.
 
 An unsubscribe should remain blocklisted so it cannot be accidentally reimported
 and mailed. For a verified erasure request, open the contact in **CRM → Contacts**
@@ -159,11 +141,11 @@ Use a fresh test address and verify the complete production flow:
 - dismissing the prompt is immediate and keyboard-accessible;
 - invalid and empty fields stay on the site with a clear error;
 - a valid submission reaches Brevo without exposing data to Umami;
-- the address remains unconfirmed and outside the sendable list until the
-  double-opt-in link is clicked;
-- confirming once adds exactly one contact without a welcome sequence;
-- with analytics consent already active, the confirmation return records one
-  non-personal `signup-confirmation-returned` event in that browser session;
+- submitting keeps the reader on the same scene, shows one brief success line
+  and sends no automatic email;
+- a failed or hanging request shows a short retry message and does not suppress
+  the popup permanently;
+- submitting once adds exactly one contact;
 - resubmitting an existing address does not duplicate the contact;
 - the unsubscribe link blocklists the test contact;
 - a permanent-delete test removes the contact and its Brevo history;
@@ -180,7 +162,6 @@ admin record. Do not put subscriber data in that record.
 - [Free-plan limits](https://help.brevo.com/hc/en-us/articles/208580669-FAQs-What-are-the-limits-of-the-Free-plan)
 - [Inactive Free-account deletion](https://help.brevo.com/hc/en-us/articles/4410311028626-About-the-deletion-of-inactive-Free-plan-accounts)
 - [Create and share a signup form](https://help.brevo.com/hc/en-us/articles/208771869-Create-a-sign-up-form-in-Brevo)
-- [Double opt-in logs and proof of consent](https://help.brevo.com/hc/en-us/articles/208733449-Double-opt-in-DOI-What-it-is-and-how-to-track-user-sign-ups)
 - [Per-contact pixel-tracking consent](https://help.brevo.com/hc/en-us/articles/37114679474706-About-email-tracking-pixels-and-the-CNIL-recommendation-in-Brevo)
 - [Export contacts](https://help.brevo.com/hc/en-us/articles/5310065850642-Export-your-contacts-from-Brevo)
 - [Permanently delete contacts](https://help.brevo.com/hc/en-us/articles/5313915904914-Delete-contacts)

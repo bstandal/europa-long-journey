@@ -30,6 +30,19 @@
   transform: translateY(0);
 }
 
+.newsletter-signup--floating.is-sent {
+  width: min(240px, calc(100vw - 36px));
+  padding: 18px 20px;
+  overflow: hidden;
+}
+
+.newsletter-signup__success {
+  margin: 0;
+  color: var(--ivory);
+  font-family: var(--serif);
+  font-size: 1.18rem;
+}
+
 .newsletter-signup__intro h2 {
   max-width: calc(100% - 90px);
   margin: 0;
@@ -139,6 +152,12 @@
   color: rgba(240, 230, 206, 0.56);
   font-size: 0.68rem;
   line-height: 1.5;
+}
+
+.newsletter-signup__error {
+  margin: 0;
+  color: #e9b8a8;
+  font-size: 0.7rem;
 }
 
 .newsletter-signup__note a {
