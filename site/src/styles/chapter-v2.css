@@ -612,6 +612,10 @@
     font-size: clamp(2.45rem, 11.3vw, 2.8rem);
   }
 
+  .deep-chapter-page--conversation .chapter-opening h1 {
+    font-size: clamp(2.35rem, 12.8vw, 3.15rem);
+  }
+
   .deep-chapter-page--ledger .chapter-opening,
   .deep-chapter-page--harbour .chapter-opening,
   .deep-chapter-page--imperial-diet .chapter-opening,

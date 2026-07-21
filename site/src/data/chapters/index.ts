@@ -1,7 +1,9 @@
 import type { ChapterDefinition } from "../../types/chapter";
 import { bronzeEurope } from "./bronze-europe";
+import { dutchRepublic } from "./dutch-republic";
 import { empireManyLiberties } from "./empire-many-liberties";
 import { empireTakesCross } from "./empire-takes-cross";
+import { enlightenmentPublicOpinion } from "./enlightenment-public-opinion";
 import { europeHoldsTheLine } from "./europe-holds-the-line";
 import { europeReborn } from "./europe-reborn";
 import { europeTurnsSeaward } from "./europe-turns-seaward";
@@ -35,6 +37,8 @@ export const chapters: ChapterDefinition[] = [
   reformation,
   habsburgEurope,
   scientificRevolution,
+  dutchRepublic,
+  enlightenmentPublicOpinion,
 ];
 
 export const chapterBySlug = new Map(

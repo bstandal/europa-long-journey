@@ -341,6 +341,149 @@ final result: passed
 
 ---
 
+# Chapter 18 design QA
+
+## Current release scope
+
+Chapter 18, “The Dutch Republic.”
+
+Reference:
+
+- `source-assets/chapters/dutch-republic/opening-exchange-hall.png`
+- `source-assets/chapters/dutch-republic/opening-exchange-hall-mobile.png`
+- `source-assets/chapters/dutch-republic/ending-exchange-keeps-speaking-mobile.png`
+
+Matched implementation:
+
+- `design/qa/chapter-18-desktop-hero.png`
+- `design/qa/chapter-18-source-vs-desktop-hero.jpg`
+- `design/qa/chapter-18-mobile-hero.png`
+- `design/qa/chapter-18-mobile-exchange-news.png`
+- `design/qa/chapter-18-mobile-ending-v2.png`
+
+Tested viewports:
+
+- Desktop: 1536 × 1024
+- Mobile: 390 × 844
+
+## Visible comparison
+
+The opening preserves the exchange-hall source: rain-dark brick arcades,
+public notices, ledgers, coin packets and the harbour map entering the table.
+The desktop title uses the source's empty western field while clerks, traders
+and the active courtyard remain visible. The portrait source keeps the arcade,
+central gate and working desk behind the mobile title.
+
+The chapter carries the same slate, brick, black wool and restrained brass
+palette through assembly rooms, shipyards, polders, the bank and the bourse.
+The closing image joins the exchange bell, newspapers and the road to London
+without breaking the established documentary realism.
+
+## Findings and resolutions
+
+No actionable P0, P1 or P2 findings remain.
+
+- The desktop source and implementation were compared at the same
+  1536 × 1024 crop; the reading gradient preserves the source composition.
+- All twelve movement images, both opening sources and both ending sources
+  decode at their intended dimensions. The two lazy-loaded scenes omitted by
+  the first scroll pass were opened through the chapter route and completed at
+  1536 × 1024.
+- The mobile document width and viewport width both measure 390 pixels.
+- The ending hands directly to `/chapters/enlightenment-public-opinion/`.
+
+## Interaction and navigation checks
+
+- “Assemble the provinces” reaches unanimous provincial consent.
+- “Make capital permanent” transfers an investor's claim while the common
+  enterprise continues.
+- “Clear the exchange” turns delayed shipping news into a contested price.
+- “Command the common water” joins the Water Line to the sea perimeter.
+- The interactions expose 4, 4, 4 and 4 distinct button states.
+- The route panel fills the 390-pixel viewport, closes with Escape and restores
+  focus to its toggle.
+- The browser console reports no warnings or errors.
+
+## Build verification
+
+Astro diagnostics complete with zero errors, warnings or hints.
+
+final result: passed
+
+---
+
+# Chapter 19 design QA
+
+## Current release scope
+
+Chapter 19, “The Enlightenment.”
+
+Reference:
+
+- `source-assets/chapters/enlightenment-public-opinion/opening-continent-in-conversation.png`
+- `source-assets/chapters/enlightenment-public-opinion/opening-continent-in-conversation-mobile.png`
+- `source-assets/chapters/enlightenment-public-opinion/ending-europe-learns-to-judge-aloud-mobile.png`
+
+Matched implementation:
+
+- `design/qa/chapter-19-desktop-hero.png`
+- `design/qa/chapter-19-source-vs-desktop-hero.jpg`
+- `design/qa/chapter-19-mobile-hero-v2.png`
+- `design/qa/chapter-19-mobile-cross-reference.png`
+- `design/qa/chapter-19-mobile-ending-v2.png`
+
+Tested viewports:
+
+- Desktop: 1536 × 1024
+- Mobile: 390 × 844
+
+## Visible comparison
+
+The opening preserves the source's London coffeehouse table, marked papers,
+bundled correspondence and open street. The desktop gradient follows the dark
+wall at left while the carrier, readers and active table remain legible. The
+portrait source keeps the paper circuit behind the title and places the action
+above the first fold.
+
+The chapter maintains one document-led visual language through presses,
+libraries, workshops, ministries and assemblies. The closing image gathers
+marked pages around a working table while the Paris street and early iron
+structure remain visible beyond it.
+
+## Findings and resolutions
+
+- P1 — The initial mobile title used the shared 56.16-pixel size; the word
+  “Enlightenment” widened the document to 396 pixels and clipped its final
+  letters. A chapter-specific responsive size now fits the 346-pixel reading
+  field and restores the 390-pixel document width.
+- Interaction copy no longer speaks about “the reader” as an interface actor.
+  Subjects, objects and cross-references now carry each result directly.
+- All twelve movement images, both opening sources and both ending sources
+  decode at their intended dimensions. Lazy-loaded movement images 03 and 04
+  were brought into view and completed at 1536 × 1024.
+- The ending hands directly to
+  `/chapters/rivalry-industrial-breakthrough/`.
+
+## Interaction and navigation checks
+
+- “Make the coffeehouse paper” reaches the evening essay and its recurring
+  examination of public manners.
+- “Compare the laws” reaches the Habsburg administrative route.
+- “Cross-reference the world” reaches the redrawn tree of knowledge.
+- “Follow one argument” reaches proportionate punishment and Tuscan reform.
+- The interactions expose 4, 4, 4 and 3 distinct button states.
+- The route panel fills the 390-pixel viewport, closes with Escape and restores
+  focus to its toggle.
+- Document and viewport widths both measure 390 pixels after the title fix.
+
+## Build verification
+
+Astro diagnostics complete with zero errors, warnings or hints.
+
+final result: passed
+
+---
+
 # Chapter 11 design QA
 
 ## Current release scope

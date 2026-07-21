@@ -1765,6 +1765,10 @@ export const scenes: StoryScene[] = [
         longitude: 4.31,
       },
     ],
+    chronicle: {
+      href: "chapters/dutch-republic/",
+      label: "Ring the exchange bell",
+    },
   },
   {
     id: "enlightenment-public-opinion",
@@ -1869,6 +1873,10 @@ export const scenes: StoryScene[] = [
         longitude: -3.19,
       },
     ],
+    chronicle: {
+      href: "chapters/enlightenment-public-opinion/",
+      label: "Send the marked sentence",
+    },
   },
   {
     id: "rivalry-industrial-breakthrough",
