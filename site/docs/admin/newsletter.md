@@ -138,6 +138,8 @@ Use a fresh test address and verify the complete production flow:
 
 - with `BREVO_FORM_ACTION` empty, no signup prompt or form is rendered;
 - with it configured, no API/SMTP key appears in page source or built assets;
+- the homepage requires 35 active seconds and two scenes, while a chapter
+  requires 10 active seconds and no reading-depth threshold;
 - dismissing the prompt is immediate and keyboard-accessible;
 - invalid and empty fields stay on the site with a clear error;
 - a valid submission reaches Brevo without exposing data to Umami;
