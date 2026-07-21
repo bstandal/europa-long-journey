@@ -81,6 +81,7 @@ export const empireManyLiberties: ChapterDefinition = {
   returnHash: "empire-many-liberties",
   nextHash: "frontiers-hold",
   nextTitle: "The Frontiers Hold",
+  nextSlug: "europe-holds-the-line",
   movements: [
     {
       id: "rome-crowns-saxon",

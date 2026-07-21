@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { bronzeEurope } from "../src/data/chapters/bronze-europe";
 import { empireManyLiberties } from "../src/data/chapters/empire-many-liberties";
 import { empireTakesCross } from "../src/data/chapters/empire-takes-cross";
+import { europeHoldsTheLine } from "../src/data/chapters/europe-holds-the-line";
 import { europeReborn } from "../src/data/chapters/europe-reborn";
 import { firstFarmers } from "../src/data/chapters/first-farmers";
 import { greeceAndTheCitizen } from "../src/data/chapters/greece-and-the-citizen";
@@ -1193,7 +1194,89 @@ assert.equal(
   `AD ${frontiersHoldScene.period.label}`,
   "The Empire of Many Liberties ending period must match its actual next scene.",
 );
+assert.equal(
+  empireManyLiberties.nextSlug,
+  europeHoldsTheLine.slug,
+  "The Empire of Many Liberties ending should continue into The Frontiers Hold chapter.",
+);
+
+await checkCommonChapter(europeHoldsTheLine, 14);
+assert.deepEqual(
+  europeHoldsTheLine.acts?.map((act) => act.id),
+  [
+    "western-edge-survives",
+    "eastern-wall-calls",
+    "europe-becomes-fortress",
+    "coalition-turns-line",
+  ],
+  "The Frontiers Hold should preserve its Iberian-survival-to-coalition-recovery progression.",
+);
+assert.deepEqual(
+  europeHoldsTheLine.acts?.map(
+    (act) =>
+      europeHoldsTheLine.movements.filter(
+        (movement) => movement.actId === act.id,
+      ).length,
+  ),
+  [4, 4, 3, 3],
+  "The Frontiers Hold should give full weight to the western and eastern frontiers before the coalition turns the line.",
+);
+assert.deepEqual(
+  europeHoldsTheLine.movements
+    .map((movement, index) => (movement.interaction ? index + 1 : null))
+    .filter(Boolean),
+  [2, 6, 10, 14],
+  "The Frontiers Hold interactions should appear in movements 2, 6, 10 and 14.",
+);
+assert.deepEqual(
+  europeHoldsTheLine.movements
+    .map((movement) => movement.interaction?.kind)
+    .filter(Boolean),
+  ["chapter-v2", "chapter-v2", "chapter-v2", "chapter-v2"],
+  "The Frontiers Hold should use four frontier-hinge interactions.",
+);
+const europeHoldsTheLineWords = europeHoldsTheLine.movements.reduce(
+  (sum, movement) =>
+    sum +
+    movement.body.reduce(
+      (movementSum, paragraph) =>
+        movementSum + paragraph.trim().split(/\s+/).length,
+      0,
+    ),
+  0,
+);
+assert.ok(
+  europeHoldsTheLineWords >= 3300 && europeHoldsTheLineWords <= 3800,
+  `The Frontiers Hold should contain 3,300–3,800 words of continuous narrative; found ${europeHoldsTheLineWords}.`,
+);
+assert.equal(
+  frontiersHoldScene?.chronicle?.href,
+  "chapters/europe-holds-the-line/",
+  "The main journey needs a working Frontiers Hold chapter link.",
+);
+assert.equal(
+  frontiersHoldScene?.chronicle?.label,
+  "Hold the line",
+  "The Frontiers Hold chapter link needs its historical invitation.",
+);
+const europeTurnsSeawardScene = scenes.find(
+  (scene) => scene.id === europeHoldsTheLine.nextHash,
+);
+assert.ok(
+  europeTurnsSeawardScene,
+  "The Frontiers Hold ending needs a real next scene.",
+);
+assert.equal(
+  europeHoldsTheLine.nextTitle,
+  europeTurnsSeawardScene.title,
+  "The Frontiers Hold ending title must match its actual next scene.",
+);
+assert.equal(
+  europeHoldsTheLine.ending.nextPeriod,
+  `AD ${europeTurnsSeawardScene.period.label}`,
+  "The Frontiers Hold ending period must match its actual next scene.",
+);
 
 console.log(
-  "Farmers, Steppe, Bronze, Greece, Rome, Christian Empire, Europe Reborn, Papal Revolution, Society Beyond Kin, Medieval Commercial Revolution, Hanseatic North and Empire of Many Liberties chapter checks passed.",
+  "Farmers, Steppe, Bronze, Greece, Rome, Christian Empire, Europe Reborn, Papal Revolution, Society Beyond Kin, Medieval Commercial Revolution, Hanseatic North, Empire of Many Liberties and The Frontiers Hold chapter checks passed.",
 );

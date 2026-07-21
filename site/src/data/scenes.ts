@@ -1244,6 +1244,10 @@ export const scenes: StoryScene[] = [
         longitude: 19.93,
       },
     ],
+    chronicle: {
+      href: "chapters/europe-holds-the-line/",
+      label: "Hold the line",
+    },
   },
   {
     id: "europe-turns-seaward",
