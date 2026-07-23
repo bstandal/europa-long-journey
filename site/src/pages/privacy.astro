@@ -1,28 +1,24 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
-
-const analyticsEnabled = Boolean(import.meta.env.PUBLIC_UMAMI_WEBSITE_ID?.trim());
 ---
 
 <BaseLayout
   title="Privacy — EUROPA"
-  description="How EUROPA handles newsletter subscriptions, consent-based analytics and your privacy choices."
+  description="EUROPA email subscriptions, hosting and browser preferences."
   bodyClass="privacy-page"
 >
   <SiteHeader section="privacy" />
   <main id="main-content" class="privacy-main">
     <header class="privacy-hero">
-      <p class="eyebrow">EUROPA · Privacy</p>
-      <h1>Your reading stays yours.</h1>
+      <p class="eyebrow">EUROPA</p>
+      <h1>Privacy</h1>
       <div>
         <p>
-          EUROPA collects only what is needed to send email updates and
-          understand how the journey is read after you consent. EUROPA does not
-          send subscriber details to its analytics service or join them to reading
-          data.
+          If you subscribe, Bård Standal and Brevo use your email address to
+          manage the subscription and send the updates you requested.
         </p>
-        <p class="privacy-updated">Last updated 21 July 2026</p>
+        <p class="privacy-updated">Last updated 23 July 2026</p>
       </div>
     </header>
 
@@ -61,58 +57,8 @@ const analyticsEnabled = Boolean(import.meta.env.PUBLIC_UMAMI_WEBSITE_ID?.trim()
         </div>
       </section>
 
-      <section
-        class="privacy-section"
-        id="privacy-analytics"
-        aria-labelledby="privacy-analytics-title"
-      >
-        <p class="privacy-section__number" aria-hidden="true">03</p>
-        <div>
-          <h2 id="privacy-analytics-title">Reading analytics</h2>
-          <p>
-            Umami is loaded only after you choose <strong>Accept</strong>. The
-            legal basis for this processing is your consent. If you decline, the
-            Umami script is not loaded and EUROPA does not send analytics data.
-          </p>
-          <p>
-            When enabled, Umami receives page paths and titles, referrers, event
-            names and timestamps, visit duration, browser, operating-system and
-            device categories, screen size, language and approximate geographic
-            categories derived from the connection. EUROPA’s events include reading
-            depth, chapter completion, interactions and non-personal signup-interface
-            actions. They do not include form fields, names or email addresses.
-          </p>
-          <p>
-            Umami keeps individual pageview, event, session and visit records and
-            uses a rotating pseudonymous visitor identifier to estimate returning
-            browsers. Its dashboard can aggregate these records, but the underlying
-            visit data is not anonymous aggregate data. EUROPA does not use session
-            replay, heatmaps or cross-site advertising profiles.
-          </p>
-          <p>
-            Analytics records are retained in Umami Cloud for six months. You can
-            withdraw consent for future collection at any time. Withdrawal does not
-            erase data already processed; contact the address above if you want to
-            request deletion where applicable.
-          </p>
-          {
-            analyticsEnabled && (
-              <button
-                class="privacy-choice-button"
-                type="button"
-                data-analytics-preferences
-                aria-controls="analytics-consent"
-                aria-expanded="false"
-              >
-                Review analytics choices
-              </button>
-            )
-          }
-        </div>
-      </section>
-
       <section class="privacy-section" aria-labelledby="privacy-retention">
-        <p class="privacy-section__number" aria-hidden="true">04</p>
+        <p class="privacy-section__number" aria-hidden="true">03</p>
         <div>
           <h2 id="privacy-retention">Email-list retention</h2>
           <ul>
@@ -130,7 +76,7 @@ const analyticsEnabled = Boolean(import.meta.env.PUBLIC_UMAMI_WEBSITE_ID?.trim()
       </section>
 
       <section class="privacy-section" aria-labelledby="privacy-services">
-        <p class="privacy-section__number" aria-hidden="true">05</p>
+        <p class="privacy-section__number" aria-hidden="true">04</p>
         <div>
           <h2 id="privacy-services">Services that process information</h2>
           <p>
@@ -146,12 +92,6 @@ const analyticsEnabled = Boolean(import.meta.env.PUBLIC_UMAMI_WEBSITE_ID?.trim()
             EUROPA does not ask subscribers for separate email-pixel tracking
             consent. Brevo is therefore configured not to attach recipient-level
             open or click tracking to contacts whose tracking consent is unknown.
-          </p>
-          <p>
-            <strong>Umami Cloud in the EU region</strong> processes the analytics
-            categories described above after consent. Its reports include aggregated
-            views, but it also stores the individual visit and event records needed
-            to produce them.
           </p>
           <p>
             <strong>GitHub Pages</strong> hosts and delivers the public site. Like
@@ -176,7 +116,7 @@ const analyticsEnabled = Boolean(import.meta.env.PUBLIC_UMAMI_WEBSITE_ID?.trim()
       </section>
 
       <section class="privacy-section" aria-labelledby="privacy-storage">
-        <p class="privacy-section__number" aria-hidden="true">06</p>
+        <p class="privacy-section__number" aria-hidden="true">05</p>
         <div>
           <h2 id="privacy-storage">Browser preferences</h2>
           <p>
@@ -196,17 +136,11 @@ const analyticsEnabled = Boolean(import.meta.env.PUBLIC_UMAMI_WEBSITE_ID?.trim()
             You can remove the preference at any time by clearing site data in your
             browser. The invitation will then be eligible to appear again.
           </p>
-          <p>
-            The analytics control stores only <strong>granted</strong> or{" "}
-            <strong>denied</strong> in first-party local storage so that EUROPA can
-            remember your choice. You can replace that choice using the control
-            above or the “Analytics choices” button in the footer.
-          </p>
         </div>
       </section>
 
       <section class="privacy-section" aria-labelledby="privacy-rights">
-        <p class="privacy-section__number" aria-hidden="true">07</p>
+        <p class="privacy-section__number" aria-hidden="true">06</p>
         <div>
           <h2 id="privacy-rights">Your rights</h2>
           <p>
