@@ -55,10 +55,6 @@ if (floatingRoot) {
     return timestamp;
   };
 
-  const track = (eventName: string) => {
-    window.europaAnalytics?.track(eventName);
-  };
-
   let pageSubmitted = readFlag(window.localStorage, submittedKey);
 
   if (pageSubmitted) floatingRoot.hidden = true;
@@ -152,7 +148,6 @@ if (floatingRoot) {
         if (error) error.hidden = false;
         if (announcement) announcement.textContent = "Couldn’t send. Try again.";
       }, 15_000);
-      track("signup-prompt-submitted");
     });
 
     target?.addEventListener("load", () => {
@@ -209,7 +204,6 @@ if (floatingRoot) {
       floatingRoot.classList.remove("is-visible");
       if (announcement) announcement.textContent = "";
       writeStorage(window.localStorage, dismissedKey, String(Date.now()));
-      track("signup-prompt-dismissed");
       restorePromptFocus(restoreFocus);
     };
 
@@ -279,9 +273,6 @@ if (floatingRoot) {
         chapterRegion === "ending" ||
         Boolean(document.querySelector("dialog[open]")) ||
         Boolean(document.querySelector("[role='dialog']:not([hidden])")) ||
-        Boolean(
-          document.querySelector("[data-analytics-consent]:not([hidden])"),
-        ) ||
         anotherFieldHasFocus
       );
     };
@@ -295,7 +286,6 @@ if (floatingRoot) {
       promptRevealed = true;
       floatingRoot.hidden = false;
       writeStorage(window.sessionStorage, shownKey, "1");
-      track("signup-prompt-shown");
       if (announcement) {
         announcement.textContent = "EUROPA email signup is available.";
       }

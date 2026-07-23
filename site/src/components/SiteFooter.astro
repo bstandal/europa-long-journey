@@ -3,7 +3,6 @@ const base = import.meta.env.BASE_URL;
 const pathname = Astro.url.pathname;
 const isPrivacyPage = pathname.endsWith("/privacy/");
 const isSourcesPage = pathname.endsWith("/sources/");
-const analyticsEnabled = Boolean(import.meta.env.PUBLIC_UMAMI_WEBSITE_ID?.trim());
 ---
 
 <footer class="site-footer">
@@ -16,17 +15,5 @@ const analyticsEnabled = Boolean(import.meta.env.PUBLIC_UMAMI_WEBSITE_ID?.trim()
     <a href={`${base}privacy/`} aria-current={isPrivacyPage ? "page" : undefined}>
       Privacy
     </a>
-    {
-      analyticsEnabled && (
-        <button
-          type="button"
-          data-analytics-preferences
-          aria-controls="analytics-consent"
-          aria-expanded="false"
-        >
-          Analytics choices
-        </button>
-      )
-    }
   </nav>
 </footer>

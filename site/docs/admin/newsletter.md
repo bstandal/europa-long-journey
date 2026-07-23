@@ -91,12 +91,8 @@ variables.
 - Include Brevo's revoke-pixel-tracking link as well as the unsubscribe link in
   future email footers, even though EUROPA does not enable tracking for unknown
   contacts.
-- Never send a name, email address, Brevo contact ID or consent text to Umami.
-  Signup UI events may contain only non-personal values such as the page path and
-  whether the prompt was shown, dismissed or submitted.
-- Use `signup-prompt-submitted` for the popup. The page path distinguishes the
-  homepage from a chapter. Analytics may be declined or blocked, so Brevo's
-  subscriber list and stored consent field remain authoritative.
+- Do not connect subscriber records to reading activity. Brevo's subscriber
+  list and stored consent field are authoritative for the email subscription.
 
 ## Routine operations
 
@@ -107,8 +103,7 @@ Before each email update:
 2. Check sender name/address, subject, preview text, destination URL, English
    unsubscribe text and required footer details.
 3. Link directly to the chapter's canonical URL. Do not add campaign query
-   parameters: EUROPA deliberately excludes all URL query strings from Umami to
-   prevent arbitrary values from entering analytics.
+   parameters.
 4. Send tests to desktop and mobile inboxes, then verify the chapter link,
    double-check dark mode and proofread the plain-text version.
 5. Keep the free plan's 300-emails-per-day limit in mind. If the subscriber list
@@ -142,7 +137,7 @@ Use a fresh test address and verify the complete production flow:
   requires 10 active seconds and no reading-depth threshold;
 - dismissing the prompt is immediate and keyboard-accessible;
 - invalid and empty fields stay on the site with a clear error;
-- a valid submission reaches Brevo without exposing data to Umami;
+- a valid submission reaches Brevo without sending the address to another service;
 - submitting keeps the reader on the same scene, shows one brief success line
   and sends no automatic email;
 - a failed or hanging request shows a short retry message and does not suppress
