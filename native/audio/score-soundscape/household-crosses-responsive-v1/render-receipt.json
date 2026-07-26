@@ -1,0 +1,1411 @@
+{
+  "schemaVersion": 1,
+  "id": "household-crosses-responsive-audio-render-v1",
+  "status": "PROVISIONAL_NON_SHIPPING",
+  "shippingState": "PROHIBITED",
+  "productionInputs": [
+    {
+      "id": "household-crosses-responsive-score-source",
+      "path": "native/audio/score-soundscape/household-crosses-responsive-v1/score-source.json",
+      "bytes": 11867,
+      "sha256": "a3f9eac30f6694a73ced5d0be8809d8daa859b8c22834838b90974d7c008fca4"
+    },
+    {
+      "id": "household-crosses-responsive-soundscape-source",
+      "path": "native/audio/score-soundscape/household-crosses-responsive-v1/soundscape-source.json",
+      "bytes": 11406,
+      "sha256": "3ace4bf5ed0d367083db236e3c2c1f18e94a032c89ce7d217e5aa0ad8d6021fc"
+    },
+    {
+      "id": "first-farmers-manuscript-source",
+      "path": "native/phase2/editor-review/first-farmers/first-farmers-native-draft-v1.json",
+      "bytes": 42780,
+      "sha256": "4c3a0a2a4f9a3ec5361d2e34c2f6dd21072f27176e60c881f013c93f76e4a5dd"
+    },
+    {
+      "id": "native-audio-bible",
+      "path": "native/bibles/audio-bible.md",
+      "bytes": 3346,
+      "sha256": "726849cc80da30d8e8bce4c884f9765f431474901da53a2c195663a8ab177954"
+    },
+    {
+      "id": "responsive-audio-program-spec",
+      "path": "native/ios/Sources/ContentKit/ResponsiveAudioProgramSpec.swift",
+      "bytes": 26686,
+      "sha256": "8c513b05114484f4d31614ae49267f9fc5d00a3ec2e2276073b576c390b59564"
+    },
+    {
+      "id": "responsive-audio-program-runtime",
+      "path": "native/ios/Sources/DramaticAudio/ResponsiveAudioProgramRuntime.swift",
+      "bytes": 25968,
+      "sha256": "b5239a3c7bb1f1c55578cd9944fdf56144a421d644ea9b9022f4f9148254e870"
+    },
+    {
+      "id": "responsive-audio-program-controller",
+      "path": "native/ios/Sources/DramaticAudio/ResponsiveAudioProgramController.swift",
+      "bytes": 33867,
+      "sha256": "743305b7f890c4c4ea51a69e6551d611f6849fbff627af764753e05508972241"
+    },
+    {
+      "id": "responsive-audio-timeline-planner",
+      "path": "native/ios/Sources/DramaticAudio/TimelinePlaybackPlan.swift",
+      "bytes": 8229,
+      "sha256": "6c621630e28e5be375871046997d6963ede24c621f2d235f00491a75e481b9e0"
+    },
+    {
+      "id": "responsive-audio-transport-contract",
+      "path": "native/ios/Sources/DramaticAudio/OfflineAudioAssetResolver.swift",
+      "bytes": 26432,
+      "sha256": "277eb7e1f9dfcceda0ce28d10e692f456f99d9e94a998efe58dbeece4904275d"
+    },
+    {
+      "id": "native-timeline-transport",
+      "path": "native/ios/Sources/DramaticAudio/NativeTimelineTransport.swift",
+      "bytes": 156660,
+      "sha256": "bd97001ddf65824eaa84be7c5466cad67af526dbc02353e0ae79f33e6f4199b9"
+    },
+    {
+      "id": "durable-audio-completion-runtime",
+      "path": "native/ios/Sources/DramaticAudio/DurableInteractionAudioCompletion.swift",
+      "bytes": 9029,
+      "sha256": "f9110ec847d031c776bfb39ee5782d3821f45d508bf7295a2a7a2adf25e81f81"
+    },
+    {
+      "id": "semantic-haptic-runtime",
+      "path": "native/ios/Sources/DramaticAudio/SemanticHapticTransport.swift",
+      "bytes": 12256,
+      "sha256": "b699e5ab9fab77aa81a343b66a013a73eb693a3ce41a676fc886a042917b3636"
+    },
+    {
+      "id": "audio-production-renderer",
+      "path": "native/tooling/src/audio-production.mjs",
+      "bytes": 49751,
+      "sha256": "d997f68ffb75150bf5cff0aea537891bccaf45d630e46b3e2698498b58e44439"
+    },
+    {
+      "id": "household-crosses-responsive-renderer",
+      "path": "native/tooling/src/household-crosses-responsive-audio.mjs",
+      "bytes": 57266,
+      "sha256": "feb8921ba51ba24f9fce84755f4b6dd99bdaebe7a7d215a80948f74815094ade"
+    },
+    {
+      "id": "score-soundscape-toolchain",
+      "path": "native/audio/score-soundscape/toolchain.json",
+      "bytes": 1963,
+      "sha256": "1a1a94ed56652f37681b9d74154c78741e53b280e80bab3f18b1db3fddef8ddd"
+    },
+    {
+      "id": "required-mit-notice",
+      "path": "native/audio/score-soundscape/licenses/MS-Basic-0.2.0-LICENSE.md",
+      "bytes": 3320,
+      "sha256": "bf7db123b5d6c0beb1a37f6e1b11c6f4dfd8fb6abd5d59ff282ea24a5cd932e5"
+    },
+    {
+      "id": "zero-cost-license-registry",
+      "path": "native/tooling/registries/cost-license.json",
+      "bytes": 17842,
+      "sha256": "9a0e7ae2f9af9288c1e761864d13c5ead85b2241cb981024ee6f42a314c74c7e"
+    }
+  ],
+  "toolchain": {
+    "fluidSynth": {
+      "version": "2.5.6",
+      "binarySHA256": "eaec07113cbbac0899368788a9597eddae6ac0db30c1a5c1bbe8b19ee6c6a567"
+    },
+    "soundFont": {
+      "version": "MS Basic 0.2.0",
+      "bytes": 51278610,
+      "sha256": "5ea2375e8bd7d8e71def1036978c1621e85b66934169b6a2744b27b9b3c2d99c",
+      "license": "MIT",
+      "noticeSHA256": "bf7db123b5d6c0beb1a37f6e1b11c6f4dfd8fb6abd5d59ff282ea24a5cd932e5"
+    },
+    "ffmpeg": {
+      "version": "8.1.2",
+      "binarySHA256": "dad4b30b36a1a999bfa4b6ffbde138bd17ee496c69e12eef638227dff2c6415c"
+    },
+    "node": {
+      "version": "v26.3.1",
+      "executable": {
+        "bytes": 68384,
+        "sha256": "56694c81b093cc8da273fa017cf91765b3653e5f64f16727976ffaa87b2b6b31"
+      }
+    }
+  },
+  "outputs": [
+    {
+      "regionID": "approach",
+      "role": "program-preview",
+      "sourceID": "approach-offline-preview",
+      "path": "approach/program-preview.wav",
+      "packageAssetPath": null,
+      "bytes": 17280044,
+      "sha256": "1eb338911269832ef8b8546b17c7337202afa5325a726bbab39f0d5d02ea3749",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2880000
+      },
+      "lineage": "PROJECT_AUTHORED_OFFLINE_MIX",
+      "commercialRights": "SCORE_NOTICE_REQUIRED; PROCEDURAL_AUDIO_PROJECT_OWNED",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "score-stem-midi",
+      "sourceID": "carried-work",
+      "path": "approach/score-carried-work.mid",
+      "packageAssetPath": null,
+      "bytes": 184,
+      "sha256": "78582e5d3a90cdce8d8795a0f33fd6542b4f1eee4eba75258454cc73c65a2c3c",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "score-stem-master",
+      "sourceID": "carried-work",
+      "path": "approach/score-carried-work.wav",
+      "packageAssetPath": null,
+      "bytes": 17280044,
+      "sha256": "18e42a91853583a5c8d31c5e0289d67ec2d391eff287fb71cc4c6123412403d0",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2880000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "score-stem-midi",
+      "sourceID": "ground",
+      "path": "approach/score-ground.mid",
+      "packageAssetPath": null,
+      "bytes": 209,
+      "sha256": "963470514fccd08ea7fc9d74c3f7593f34836b9ca4a1f7f3c9e585ba7c1888fe",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "score-stem-master",
+      "sourceID": "ground",
+      "path": "approach/score-ground.wav",
+      "packageAssetPath": null,
+      "bytes": 17280044,
+      "sha256": "195ffe1fad2c96be5bcb5466f45416194f9d999305719d1fab623c977a839817",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2880000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "score-stem-midi",
+      "sourceID": "household",
+      "path": "approach/score-household.mid",
+      "packageAssetPath": null,
+      "bytes": 181,
+      "sha256": "271c525c2e28a3813b0ffa7c59e2700c74d28d9e5d62fb7978f7b14049d790ec",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "score-stem-master",
+      "sourceID": "household",
+      "path": "approach/score-household.wav",
+      "packageAssetPath": null,
+      "bytes": 17280044,
+      "sha256": "06e6b01dace8607260ec4c68e1947f0f17865d1036cdc65f84b56cd03a23ba59",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2880000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "score-master",
+      "sourceID": "four-parts-gather-at-waterline",
+      "path": "approach/score-master.wav",
+      "packageAssetPath": "audio/first-farmers/household-crosses-responsive-v1/approach/score-master.wav",
+      "bytes": 17280044,
+      "sha256": "63c06bd017d9fbd400483986f96ea8985d6a6d97166560efd307fe5f34cb9a06",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2880000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "soundscape-layer-master",
+      "sourceID": "animal-weight",
+      "path": "approach/sound-animal-weight.wav",
+      "packageAssetPath": null,
+      "bytes": 17280044,
+      "sha256": "3782353102d152068c113de6cbf1c1f7d6f7015973de199760238ee713f66dc3",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2880000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "spatial-layer-master",
+      "sourceID": "carrying-fibre",
+      "path": "approach/sound-carrying-fibre.wav",
+      "packageAssetPath": null,
+      "bytes": 17280044,
+      "sha256": "71d0dcd7a9ba70f33fa42fffa7e15c17e69946324faaab951cc9905e92a53a68",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2880000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "soundscape-layer-master",
+      "sourceID": "close-water",
+      "path": "approach/sound-close-water.wav",
+      "packageAssetPath": null,
+      "bytes": 17280044,
+      "sha256": "ac5073f64eb92d2af7bca4ad6a8a13048cf81be01ce8ffa6e517ec16e884a536",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2880000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "soundscape-layer-master",
+      "sourceID": "hull-and-tools",
+      "path": "approach/sound-hull-and-tools.wav",
+      "packageAssetPath": null,
+      "bytes": 17280044,
+      "sha256": "62776fe013532e8740c64ae4d8908b9af8ba0cbb437a8830b03143612630d185",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2880000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "spatial-layer-master",
+      "sourceID": "seed-sacks",
+      "path": "approach/sound-seed-sacks.wav",
+      "packageAssetPath": null,
+      "bytes": 17280044,
+      "sha256": "0cdcf74e828a8b1710af42334e08371634b6c48f7742787833d2fa61b68b8b89",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2880000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "soundscape-master",
+      "sourceID": "loaded-eastern-shore",
+      "path": "approach/soundscape-master.wav",
+      "packageAssetPath": "audio/first-farmers/household-crosses-responsive-v1/approach/soundscape-master.wav",
+      "bytes": 17280044,
+      "sha256": "0195a024f8a05e1d06e865689c8d71ae0f133812b6d21fbc6fc0e8d475cea215",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2880000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "spatial-detail-master",
+      "sourceID": "loaded-eastern-shore-near-material",
+      "path": "approach/spatial-detail-master.wav",
+      "packageAssetPath": "audio/first-farmers/household-crosses-responsive-v1/approach/spatial-detail-master.wav",
+      "bytes": 17280044,
+      "sha256": "ee72f77f07e16f42007359a311f998a50168b1992f146ed76f8809dc9aabaf92",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2880000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "program-preview",
+      "sourceID": "consequence-offline-preview",
+      "path": "consequence/program-preview.wav",
+      "packageAssetPath": null,
+      "bytes": 15840044,
+      "sha256": "296b77cb0542a6491307c7fcd0c2121dac4f41cbfa9fa56d0f23b68b2aedd636",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2640000
+      },
+      "lineage": "PROJECT_AUTHORED_OFFLINE_MIX",
+      "commercialRights": "SCORE_NOTICE_REQUIRED; PROCEDURAL_AUDIO_PROJECT_OWNED",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "score-stem-midi",
+      "sourceID": "carried-work",
+      "path": "consequence/score-carried-work.mid",
+      "packageAssetPath": null,
+      "bytes": 267,
+      "sha256": "008bcd06997e153578d087acd8898a59cc1e882c73c116333d24e86875baa102",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "score-stem-master",
+      "sourceID": "carried-work",
+      "path": "consequence/score-carried-work.wav",
+      "packageAssetPath": null,
+      "bytes": 15840044,
+      "sha256": "4a2741d1ed24933d099ca7dac484111a273bd97aab052a5fbe3dc21c1afacc43",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2640000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "score-stem-midi",
+      "sourceID": "ground",
+      "path": "consequence/score-ground.mid",
+      "packageAssetPath": null,
+      "bytes": 212,
+      "sha256": "4d9c5f72ccd57d5bf8e418041c58cfb6166f5f6e2647da24579a377845ea70cb",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "score-stem-master",
+      "sourceID": "ground",
+      "path": "consequence/score-ground.wav",
+      "packageAssetPath": null,
+      "bytes": 15840044,
+      "sha256": "97e8285d4f4e82a17939437e9c6da7dee63a61625394e8862810dbd44cdb16f4",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2640000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "score-stem-midi",
+      "sourceID": "household",
+      "path": "consequence/score-household.mid",
+      "packageAssetPath": null,
+      "bytes": 184,
+      "sha256": "ab9e6a2678e42b66e19b78a2253db86271c03fa5ae4b04dfa63d902b16ebcf76",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "score-stem-master",
+      "sourceID": "household",
+      "path": "consequence/score-household.wav",
+      "packageAssetPath": null,
+      "bytes": 15840044,
+      "sha256": "c2c3d859f3525e71b454d43a343af4eb2b97badc7809565c532e33ba309dfbcd",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2640000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "score-master",
+      "sourceID": "four-parts-join-as-practice",
+      "path": "consequence/score-master.wav",
+      "packageAssetPath": "audio/first-farmers/household-crosses-responsive-v1/consequence/score-master.wav",
+      "bytes": 15840044,
+      "sha256": "f75cc71b4d009ac6074d344cd6862922fb75cf4a4ab4cb04e0630895fbb6a393",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2640000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "soundscape-layer-master",
+      "sourceID": "animal-weight",
+      "path": "consequence/sound-animal-weight.wav",
+      "packageAssetPath": null,
+      "bytes": 15840044,
+      "sha256": "2e013c6f36c975052bb3b33324a6e43e51bc50b2e41bde2ed9478153465e662c",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2640000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "spatial-layer-master",
+      "sourceID": "carrying-fibre",
+      "path": "consequence/sound-carrying-fibre.wav",
+      "packageAssetPath": null,
+      "bytes": 15840044,
+      "sha256": "6c0bc519178a27e30b97eff209be9c3c6eea47de870fdaf0e0aa3d40e216972e",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2640000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "soundscape-layer-master",
+      "sourceID": "close-water",
+      "path": "consequence/sound-close-water.wav",
+      "packageAssetPath": null,
+      "bytes": 15840044,
+      "sha256": "cbf3f73622e8dbeaa21c7e1d02d5431f4bf72d18b261759b1f4a8c77564b3f09",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2640000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "soundscape-layer-master",
+      "sourceID": "hull-and-tools",
+      "path": "consequence/sound-hull-and-tools.wav",
+      "packageAssetPath": null,
+      "bytes": 15840044,
+      "sha256": "798c45f3258bbc193b5de158d5ceaea586008b9e50d47ae9a4218583f641b919",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2640000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "spatial-layer-master",
+      "sourceID": "seed-sacks",
+      "path": "consequence/sound-seed-sacks.wav",
+      "packageAssetPath": null,
+      "bytes": 15840044,
+      "sha256": "99a3f47f1bfba6d755f0cab79abdd62e76c5a6c28a4e442975bccc9f3445fed6",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2640000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "soundscape-master",
+      "sourceID": "riverbank-receives-system",
+      "path": "consequence/soundscape-master.wav",
+      "packageAssetPath": "audio/first-farmers/household-crosses-responsive-v1/consequence/soundscape-master.wav",
+      "bytes": 15840044,
+      "sha256": "169e3c259739523d837752f10580d628ac57beeabe584c591da3ef87c174fb32",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2640000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "spatial-detail-master",
+      "sourceID": "riverbank-receives-system-near-material",
+      "path": "consequence/spatial-detail-master.wav",
+      "packageAssetPath": "audio/first-farmers/household-crosses-responsive-v1/consequence/spatial-detail-master.wav",
+      "bytes": 15840044,
+      "sha256": "648815a314924eb8719b5d227b91b13af7791027e8ab28ebb9cb4501a7c5d8dc",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2640000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "program-preview",
+      "sourceID": "engaged-offline-preview",
+      "path": "engaged/program-preview.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "0858a5b2a06f5d595de013748bda4bc1a26ccbeb9148df1aa3297d0cfabebf56",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_OFFLINE_MIX",
+      "commercialRights": "SCORE_NOTICE_REQUIRED; PROCEDURAL_AUDIO_PROJECT_OWNED",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "score-stem-midi",
+      "sourceID": "carried-work",
+      "path": "engaged/score-carried-work.mid",
+      "packageAssetPath": null,
+      "bytes": 163,
+      "sha256": "7e116ff6d17bc9408fe0325e8015593f027dac78313c57cd8c823e1bc0ab1594",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "score-stem-master",
+      "sourceID": "carried-work",
+      "path": "engaged/score-carried-work.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "f4b5c0af2425981b2c347b2ef1ba68be94cc47148b0e2ae16b71e12b957d026a",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "score-stem-midi",
+      "sourceID": "ground",
+      "path": "engaged/score-ground.mid",
+      "packageAssetPath": null,
+      "bytes": 172,
+      "sha256": "969461135233d4756dc651355079016cad9b0a2692e7e35b6f78e570efc415a8",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "score-stem-master",
+      "sourceID": "ground",
+      "path": "engaged/score-ground.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "4e511d14c1c51cf6bbfd09bc5b43f9973ca866578d7e2506e249baccb33730ee",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "score-stem-midi",
+      "sourceID": "household",
+      "path": "engaged/score-household.mid",
+      "packageAssetPath": null,
+      "bytes": 170,
+      "sha256": "1873d4303f61ab55fe9c8723c8bd132aeffce4984b04f1de652a05128f51138d",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "score-stem-master",
+      "sourceID": "household",
+      "path": "engaged/score-household.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "9a56a33f9846008cfa2c3e8abbd1be593b810ccd9c1aeed0ea3c4da81243488c",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "score-master",
+      "sourceID": "four-parts-cross-together",
+      "path": "engaged/score-master.wav",
+      "packageAssetPath": "audio/first-farmers/household-crosses-responsive-v1/engaged/score-master.wav",
+      "bytes": 4320044,
+      "sha256": "221e5c6234b8f0935cb58c1a3bcfaf30767335741de9ad1325e7b50eeff0df02",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "soundscape-layer-master",
+      "sourceID": "animal-weight",
+      "path": "engaged/sound-animal-weight.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "b2c12350001c69ea7da7b1553e1f68ec4949f917d73bdc69bf961e7e2c3af7b8",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "spatial-layer-master",
+      "sourceID": "carrying-fibre",
+      "path": "engaged/sound-carrying-fibre.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "d362ec6049ad6ff7e70bb1100a3123fd3a90d60dfb4b609d89cd07c92e81789f",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "soundscape-layer-master",
+      "sourceID": "close-water",
+      "path": "engaged/sound-close-water.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "bc8c1c3e94123284eb29f0a6bc7cb62cb945ba8bb06c19e5054a71a1cc1d45ed",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "soundscape-layer-master",
+      "sourceID": "hull-and-tools",
+      "path": "engaged/sound-hull-and-tools.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "cb6d4e5b2ac32e31488d8e722c744538d6c7e243e2901fceb9c28009f350c36c",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "spatial-layer-master",
+      "sourceID": "seed-sacks",
+      "path": "engaged/sound-seed-sacks.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "d142192c62bb410db5d3229b13125aff8f6f73800109e84af4edafa2ceee3ab6",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "soundscape-master",
+      "sourceID": "wake-carries-household",
+      "path": "engaged/soundscape-master.wav",
+      "packageAssetPath": "audio/first-farmers/household-crosses-responsive-v1/engaged/soundscape-master.wav",
+      "bytes": 4320044,
+      "sha256": "f94dff4a6b9392a406bfb502d923523c84bf2623335dc43ecc2655baba6a1137",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "spatial-detail-master",
+      "sourceID": "wake-carries-household-near-material",
+      "path": "engaged/spatial-detail-master.wav",
+      "packageAssetPath": "audio/first-farmers/household-crosses-responsive-v1/engaged/spatial-detail-master.wav",
+      "bytes": 4320044,
+      "sha256": "dbdf8fb899403b654a5759435d8ff5b43b602c3f20b99c359abf65d894c054f1",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "program-preview",
+      "sourceID": "resistance-offline-preview",
+      "path": "resistance/program-preview.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "1ac7b4b153af9691b76fda610f001db3c516ae2f8bdc18fe7c12044f665bef9d",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_OFFLINE_MIX",
+      "commercialRights": "SCORE_NOTICE_REQUIRED; PROCEDURAL_AUDIO_PROJECT_OWNED",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "score-stem-midi",
+      "sourceID": "carried-work",
+      "path": "resistance/score-carried-work.mid",
+      "packageAssetPath": null,
+      "bytes": 166,
+      "sha256": "728706dd2177357e83486b45f59a8b40b483d6ea92d43a98cc7735166aa0a3b2",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "score-stem-master",
+      "sourceID": "carried-work",
+      "path": "resistance/score-carried-work.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "3980251e7f1d4d68f1214a3585e983c656ce74688a85469847cbeb1e08e3d151",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "score-stem-midi",
+      "sourceID": "ground",
+      "path": "resistance/score-ground.mid",
+      "packageAssetPath": null,
+      "bytes": 175,
+      "sha256": "823a642e1116b34d81ec9ac4bb126c541662bb4800dd8f07f608800ae160f7fc",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "score-stem-master",
+      "sourceID": "ground",
+      "path": "resistance/score-ground.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "3e12aeefe6fabc4d9a199e96598b4fdf8c128310857a54e864a69326b519784d",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "score-stem-midi",
+      "sourceID": "household",
+      "path": "resistance/score-household.mid",
+      "packageAssetPath": null,
+      "bytes": 183,
+      "sha256": "9148c96a19fd13aadc0a0bad8268579906518d08b9b077bee846dafc4c5d5d50",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "score-stem-master",
+      "sourceID": "household",
+      "path": "resistance/score-household.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "eea35ccf9270381c169d75143d1b6217dd5504e51216583a4b40103cd4cde3fc",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "score-master",
+      "sourceID": "route-does-not-take",
+      "path": "resistance/score-master.wav",
+      "packageAssetPath": "audio/first-farmers/household-crosses-responsive-v1/resistance/score-master.wav",
+      "bytes": 4320044,
+      "sha256": "e0a08a616ef2e68946e048b8d131e4238392c89d6dc19b902100242e3289012a",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "soundscape-layer-master",
+      "sourceID": "animal-weight",
+      "path": "resistance/sound-animal-weight.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "e1faee9f6e91a30bfe5a680dc786b2eefd1736cf33d7791ba585783b5dfa798d",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "spatial-layer-master",
+      "sourceID": "carrying-fibre",
+      "path": "resistance/sound-carrying-fibre.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "b2395a4c4db629e81bb8b00250b60a815e2c9500c79a6619b3585752d9f65b66",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "soundscape-layer-master",
+      "sourceID": "close-water",
+      "path": "resistance/sound-close-water.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "ef6c4540966b83c85efac829b8cb1b4d3427fa1881215a14b52d3bd1643d2c04",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "soundscape-layer-master",
+      "sourceID": "hull-and-tools",
+      "path": "resistance/sound-hull-and-tools.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "805d78edd0195c56454d9e2e8f0e5c55b06ca7fedb5da8f81b1aa727c59d8be6",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "spatial-layer-master",
+      "sourceID": "seed-sacks",
+      "path": "resistance/sound-seed-sacks.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "606ab18ff8090b1fcb66c4af5f590704f438dc6e81e1fee011c9ffe2adacded1",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "soundscape-master",
+      "sourceID": "off-route-water-holds",
+      "path": "resistance/soundscape-master.wav",
+      "packageAssetPath": "audio/first-farmers/household-crosses-responsive-v1/resistance/soundscape-master.wav",
+      "bytes": 4320044,
+      "sha256": "d8d141e54ff628c35b2160909d23b1c444bc9cbef45b9231b6e8009687826e8f",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "spatial-detail-master",
+      "sourceID": "off-route-water-holds-near-material",
+      "path": "resistance/spatial-detail-master.wav",
+      "packageAssetPath": "audio/first-farmers/household-crosses-responsive-v1/resistance/spatial-detail-master.wav",
+      "bytes": 4320044,
+      "sha256": "ec8d362e234d7f06e5ab63ce8dfe4648e575269585e569c5a93885ab851caa6a",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "program-preview",
+      "sourceID": "waiting-offline-preview",
+      "path": "waiting/program-preview.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "e814550d79981f587cf5b4c885180d339c953e103711b462b72ca50ab098d971",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_OFFLINE_MIX",
+      "commercialRights": "SCORE_NOTICE_REQUIRED; PROCEDURAL_AUDIO_PROJECT_OWNED",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "score-stem-midi",
+      "sourceID": "carried-work",
+      "path": "waiting/score-carried-work.mid",
+      "packageAssetPath": null,
+      "bytes": 153,
+      "sha256": "4cbd33089fb92a647185f3f42e7ff1acb9c1910a7ceccc4b979b8d847e94b10e",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "score-stem-master",
+      "sourceID": "carried-work",
+      "path": "waiting/score-carried-work.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "3788de7c12d864dcf3eb6ff05f61428c365ec9d7362770b6b6f80b7d477e7818",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "score-stem-midi",
+      "sourceID": "ground",
+      "path": "waiting/score-ground.mid",
+      "packageAssetPath": null,
+      "bytes": 172,
+      "sha256": "3afe132dce46b8c00d7d155ca59a9fe2edd60242daf0732901ae3eeed747c930",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "score-stem-master",
+      "sourceID": "ground",
+      "path": "waiting/score-ground.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "fece4314ff497cdaca23ce89942185681fcb6d8ab240034f4c4743a2b2387151",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "score-stem-midi",
+      "sourceID": "household",
+      "path": "waiting/score-household.mid",
+      "packageAssetPath": null,
+      "bytes": 160,
+      "sha256": "834cc3725649235ea54ab880aecf17fdda276eeb01edf8c61bda2c4c5dcb5db0",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "score-stem-master",
+      "sourceID": "household",
+      "path": "waiting/score-household.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "9edb99a6da854642e04512cd6d55fc43455b94db6a233cf0303c0ac6d284d059",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "score-master",
+      "sourceID": "household-held-at-shore",
+      "path": "waiting/score-master.wav",
+      "packageAssetPath": "audio/first-farmers/household-crosses-responsive-v1/waiting/score-master.wav",
+      "bytes": 4320044,
+      "sha256": "ca16a0fbc856ac2dcb48f209bea368ab770593f00fff1bed384a323caf132545",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "soundscape-layer-master",
+      "sourceID": "animal-weight",
+      "path": "waiting/sound-animal-weight.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "6ec820beea75b4ebba4e927a8d441fe9c0560607d9b783f9cc08f324d868809c",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "spatial-layer-master",
+      "sourceID": "carrying-fibre",
+      "path": "waiting/sound-carrying-fibre.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "5fa2679b6a4bf25faafc67ac637ade9ef76691ba0bd2f3d871a039316d856e0f",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "soundscape-layer-master",
+      "sourceID": "close-water",
+      "path": "waiting/sound-close-water.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "f4e3d0489c4db13cb2a02fd56e79de6c246712536a9669e1fffccb4157cf8c95",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "soundscape-layer-master",
+      "sourceID": "hull-and-tools",
+      "path": "waiting/sound-hull-and-tools.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "43874d6e0cb2b195cff7756aaef8e84ea37a46f9e2b06ba836b706e1f650889f",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "spatial-layer-master",
+      "sourceID": "seed-sacks",
+      "path": "waiting/sound-seed-sacks.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "11ed4b59b5cb833e4ab55a23c42b9dfbabe292363ca0fdfa514ad2933487a8e0",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "soundscape-master",
+      "sourceID": "craft-held-in-shallows",
+      "path": "waiting/soundscape-master.wav",
+      "packageAssetPath": "audio/first-farmers/household-crosses-responsive-v1/waiting/soundscape-master.wav",
+      "bytes": 4320044,
+      "sha256": "0c2a479cd58931e1baffb93079cd10b7fe2ef12e2b3d6b9f78a2066ed0607463",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "spatial-detail-master",
+      "sourceID": "craft-held-in-shallows-near-material",
+      "path": "waiting/spatial-detail-master.wav",
+      "packageAssetPath": "audio/first-farmers/household-crosses-responsive-v1/waiting/spatial-detail-master.wav",
+      "bytes": 4320044,
+      "sha256": "7bdf65818efb02059ff9f1864d7397b5e055c98ca8893906e6a6cdcb0aa41836",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    }
+  ],
+  "reproducibility": "PASS_SECOND_COMPLETE_OFFLINE_RENDER",
+  "gates": {
+    "sourceValidation": "PASS",
+    "exactPCMFormat": "PASS_48000_HZ_24_BIT_STEREO",
+    "editableScoreMIDISourceAndStems": "PASS",
+    "sourceBoundSoundscapeAndSpatialLayers": "PASS",
+    "loopSeams": "PASS_LOCAL_NUMERIC_GATE",
+    "authoredSilence": "PASS_SAMPLE_ZERO_WINDOWS",
+    "truePeak": "PASS_ALL_PREVIEWS_AT_OR_BELOW_MINUS_1_DBTP",
+    "narration": "OPEN_MISSING_EDITOR_SELECTED_MASTER",
+    "narrationF5SowingSeason": "OPEN_EDITOR_DECISION_SHIPPING_BLOCK",
+    "artisticApproval": "OPEN",
+    "editorApproval": "OPEN",
+    "shippingApproval": "PROHIBITED"
+  }
+}

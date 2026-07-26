@@ -1,0 +1,364 @@
+{
+  "policyVersion": 1,
+  "entries": [
+    {
+      "id": "apple-xcode",
+      "category": "tool",
+      "version": "26.6",
+      "costModel": "free-local",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "Apple Xcode and SDK Agreement",
+      "source": "Installed locally"
+    },
+    {
+      "id": "apple-developer-services",
+      "category": "service",
+      "version": "existing-membership",
+      "costModel": "included-membership",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "Apple Developer Program License Agreement",
+      "source": "Existing paid membership; no new project cost"
+    },
+    {
+      "id": "xcodegen",
+      "category": "tool",
+      "version": "2.46.0",
+      "costModel": "open-license",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "MIT",
+      "source": "Homebrew core formula; installed locally"
+    },
+    {
+      "id": "codex-existing-access",
+      "category": "tool",
+      "version": "session-provided",
+      "costModel": "existing",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "Existing user access",
+      "source": "Current Codex environment"
+    },
+    {
+      "id": "bodoni-moda",
+      "category": "font",
+      "version": "5.2.7",
+      "costModel": "open-license",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "SIL Open Font License 1.1",
+      "source": "Existing website dependency"
+    },
+    {
+      "id": "manrope",
+      "category": "font",
+      "version": "5.2.8",
+      "costModel": "open-license",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "SIL Open Font License 1.1",
+      "source": "Existing website dependency"
+    },
+    {
+      "id": "nodejs-local",
+      "category": "tool",
+      "version": "26.3.1",
+      "costModel": "free-local",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "MIT",
+      "source": "Installed local Node.js runtime used by every native validator and compiler"
+    },
+    {
+      "id": "npm-cli-local",
+      "category": "tool",
+      "version": "11.16.0",
+      "costModel": "free-local",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "Artistic License 2.0",
+      "source": "Installed local npm CLI; no downloaded native runtime dependencies"
+    },
+    {
+      "id": "apple-native-sdks",
+      "category": "sdk",
+      "version": "26.6",
+      "costModel": "free-local",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "Apple Xcode and SDK Agreement",
+      "source": "Installed Swift, SwiftUI, Metal, AVFAudio, Core Haptics, CryptoKit, StoreKit, CloudKit, Background Assets, ImageIO and CoreGraphics SDKs"
+    },
+    {
+      "id": "ffmpeg-local",
+      "category": "tool",
+      "version": "8.1.2",
+      "costModel": "open-license",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "GPL-3.0-or-later local command-line tool; outputs are not linked to or derived from FFmpeg code",
+      "source": "FFmpeg official 8.1.2 release (https://ffmpeg.org/download.html); installed Homebrew binary /opt/homebrew/Cellar/ffmpeg/8.1.2_1/bin/ffmpeg is 426224 bytes with SHA-256 dad4b30b36a1a999bfa4b6ffbde138bd17ee496c69e12eef638227dff2c6415c"
+    },
+    {
+      "id": "apple-sips",
+      "category": "tool",
+      "version": "316",
+      "costModel": "free-local",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "Apple macOS Software License Agreement",
+      "source": "Apple Scriptable Image Processing System documented at https://developer.apple.com/library/archive/technotes/tn2313/_index.html; installed /usr/bin/sips is 505616 bytes with SHA-256 df1c90df20dcc48bcd03c84e80eec3594ad6c0b6478efac83da6153fc793ecc5"
+    },
+    {
+      "id": "fluid-synth-local",
+      "category": "tool",
+      "version": "2.5.6; source e5b11058a619246cea42976dacb76ca54be3d45d; source archive SHA-256 0825f024c9cf7a18073739b83612d46542ecbfb349ae9147a1e9f08e2d524407; installed binary SHA-256 eaec07113cbbac0899368788a9597eddae6ac0db30c1a5c1bbe8b19ee6c6a567",
+      "costModel": "open-license",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "LGPL-2.1-or-later; unmodified local command-line renderer, not shipped in the app",
+      "source": "FluidSynth/fluidsynth official tag v2.5.6; Homebrew arm64 Tahoe bottle SHA-256 bb83ba28a62468b0791ef1b52889cf55230d53e99d325c48d60fc4ef053f0169"
+    },
+    {
+      "id": "musescore-ms-basic-sf3",
+      "category": "audio",
+      "version": "0.2.0; repository commit 03c4afd5c9ae72b2698f6716e9e244ce53550495; blob 5be56b2fafa5eee347256cbe0d2fbfacd01702b6; 51278610 bytes; SHA-256 5ea2375e8bd7d8e71def1036978c1621e85b66934169b6a2744b27b9b3c2d99c; notice SHA-256 bf7db123b5d6c0beb1a37f6e1b11c6f4dfd8fb6abd5d59ff282ea24a5cd932e5",
+      "costModel": "open-license",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "MIT; upstream copyright acknowledgements and permission notice must accompany a substantial redistributed derivative",
+      "source": "MuseScore/MuseScore official repository file share/sound/MS Basic.sf3 and its adjacent MS Basic_License.md at the pinned commit"
+    },
+    {
+      "id": "audio-production-local",
+      "category": "tool",
+      "version": "1; renderer SHA-256 d997f68ffb75150bf5cff0aea537891bccaf45d630e46b3e2698498b58e44439; authoring schema SHA-256 7d681658c6d934e0e7a362c819bd3dee8339d1ff0c0c9cc2bce520dd1cd9335c; Node v26.3.1 executable SHA-256 56694c81b093cc8da273fa017cf91765b3653e5f64f16727976ffaa87b2b6b31",
+      "costModel": "free-local",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "Project-owned production source; Node.js MIT runtime",
+      "source": "native/tooling/src/audio-production.mjs and native/schemas/audio-production-plan.schema.json"
+    },
+    {
+      "id": "harvest-responsive-audio-production",
+      "category": "tool",
+      "version": "1; renderer SHA-256 8e5b3495367c0a1f2e3f8ec1205d79677c7c7ba2aa5953feaac7184e356786a5",
+      "costModel": "free-local",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "Project-owned production source; Node.js MIT runtime",
+      "source": "native/tooling/src/harvest-responsive-audio.mjs; deterministic offline assembly of project-authored symbolic score and procedural sound with no live runtime generation"
+    },
+    {
+      "id": "authored-score-rendering",
+      "category": "audio",
+      "version": "symbolic-midi-stems-v1; technical receipt SHA-256 5085b05930ae958dea04fdfe33b228477831e83e925c95c9ffb78f2ef7e78671",
+      "costModel": "open-license",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "Project-owned symbolic score rendered through FluidSynth LGPL-2.1-or-later with the MIT-licensed MS Basic source bank",
+      "source": "Pinned local P1.09 score technique; motifs, notes, tempo, dynamics, articulation and stems remain editable before rendering"
+    },
+    {
+      "id": "soundscape-generation",
+      "category": "audio",
+      "version": "procedural-material-layers-v1; technical receipt SHA-256 5085b05930ae958dea04fdfe33b228477831e83e925c95c9ffb78f2ef7e78671",
+      "costModel": "free-local",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "Project-owned procedural synthesis and edits; exact CC0-1.0 or MIT lineage remains mandatory for any imported source",
+      "source": "Pinned local P1.09 generators for rain, fire, grain, textile and source-bound work; herd-ground-movement-v1 adds clustered hoof contact, group weight shifts and restrained breath/body movement without animal calls or species identification; close-water-movement-v1 adds filtered flow, irregular lap and bounded stereo drift without rain, storm, propulsion, rigging or engines; distant-human-presence-v1 adds non-lexical group presence without text, phoneme input, reconstructed speech, song, chant, cries, laughter, distress or attributed identity; artistic approval remains a separate open gate"
+    },
+    {
+      "id": "uv-local-narration",
+      "category": "tool",
+      "version": "0.11.22",
+      "costModel": "open-license",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "Apache-2.0 OR MIT",
+      "source": "Astral uv installed locally through Homebrew; resolves the hash-locked narration environment without a hosted service"
+    },
+    {
+      "id": "python-local-narration",
+      "category": "tool",
+      "version": "3.14.6",
+      "costModel": "open-license",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "Python Software Foundation License Version 2",
+      "source": "Homebrew CPython runtime installed locally and isolated by the narration uv project"
+    },
+    {
+      "id": "mlx-audio-local",
+      "category": "tool",
+      "version": "0.4.5",
+      "costModel": "open-license",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "MIT",
+      "source": "Blaizzy/mlx-audio official GitHub release commit 04151c6abb74b886f879a4457ccdc96761f10102; PyPI wheel SHA-256 1c5aae197285ecfda39cc3048f19f3c56ab22c8ac2dfa21d79ca6c7f37418ca7"
+    },
+    {
+      "id": "qwen3-tts-voice-design-mlx-bf16",
+      "category": "model",
+      "version": "7d3824abff87e49756bb0f83fb5411de75d160c4",
+      "costModel": "open-license",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "Apache License 2.0",
+      "source": "mlx-community/Qwen3-TTS-12Hz-1.7B-VoiceDesign-bf16 pinned MLX conversion of Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign upstream revision 5ecdb67327fd37bb2e042aab12ff7391903235d3; model SHA-256 96ae28bec2205ec0b5e0c750bea2b8a5deac4f14d33a8a25a5f753299486b70e; tokenizer SHA-256 836b7b357f5ea43e889936a3709af68dfe3751881acefe4ecf0dbd30ba571258"
+    },
+    {
+      "id": "qwen3-tts-base-mlx-bf16",
+      "category": "model",
+      "version": "a6eb4f68e4b056f1215157bb696209bc82a6db48",
+      "costModel": "open-license",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "Apache License 2.0",
+      "source": "mlx-community/Qwen3-TTS-12Hz-1.7B-Base-bf16 pinned MLX conversion of Qwen/Qwen3-TTS-12Hz-1.7B-Base upstream revision fd4b254389122332181a7c3db7f27e918eec64e3; model SHA-256 81fb76175ff74e69be25fef2cc3e54f016df3034f1514c8e1c89da06a3510cff; tokenizer SHA-256 836b7b357f5ea43e889936a3709af68dfe3751881acefe4ecf0dbd30ba571258"
+    },
+    {
+      "id": "openvoice-v2-narration",
+      "category": "model",
+      "version": "source 74a1d147b17a8c3092dd5430504bd83ef6c7eb23; weights f36e7edfe1684461a8343844af60babc2efbb727",
+      "costModel": "open-license",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "MIT",
+      "source": "myshell-ai/OpenVoice official source and OpenVoiceV2 model repository; exact primary-source receipt SHA-256 c68515bcb328040585c9fa6e43a51580986979092fdc56086d471211c40e5924 and snapshot receipt SHA-256 4d46640d7b653305a686cbf64b040807a95843d4fba13b0a6bd5766eeb26c765"
+    },
+    {
+      "id": "melotts-english-narration",
+      "category": "model",
+      "version": "source 209145371cff8fc3bd60d7be902ea69cbdb7965a; weights bb4fb7346d566d277ba8c8c7dbfdf6786139b8ef",
+      "costModel": "open-license",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "MIT",
+      "source": "myshell-ai/MeloTTS official source and MeloTTS-English model repository; selected for the stopped V10 offline comparison"
+    },
+    {
+      "id": "bert-base-uncased-narration",
+      "category": "model",
+      "version": "86b5e0934494bd15c9632b12f734a8a67f723594",
+      "costModel": "open-license",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "Apache License 2.0",
+      "source": "google-bert/bert-base-uncased official Hugging Face repository; exact local tokenizer and model snapshot used only by the stopped V10 offline comparison"
+    },
+    {
+      "id": "openvoice-v2-offline-runtime",
+      "category": "tool",
+      "version": "CPython 3.9.25; 44 exact macOS arm64 wheels; runtime receipt SHA-256 4d643d6c4494d0e599e290ac4099a431aae2e49527bd1a3c3601fa4a1407a8cc",
+      "costModel": "open-license",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "PSF-2.0 CPython; MPL-2.0 python-build-standalone distribution; permissive package licences recorded in the exact runtime receipt; no unavoidable copyleft dependency",
+      "source": "Hash-locked local CPU runtime for the stopped V10 comparison; no hosted runtime, network synthesis or billing credential"
+    },
+    {
+      "id": "voxcpm2-narration-preflight",
+      "category": "model",
+      "version": "source tag 2.0.3 commit 19b6bf7590025418821a86dcb817504e0ad7e5df; weights bffb3df5a29440629464e5e839f4d214c8714c3d",
+      "costModel": "open-license",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "Apache License 2.0",
+      "source": "OpenBMB official VoxCPM source and VoxCPM2 model repository; the exact 4960731703 model-file bytes and 59-package macOS-arm64 runtime are locally locked. The R5 offline MPS/float32 model-load gate passed with zero network attempts. The representative run stopped at its first runtime-cache deviation with zero completed job receipts and no retry or resume authority. Publisher-specific training-dataset details remain undisclosed, and no completed comparison, synthesis-master or shipping approval exists."
+    },
+    {
+      "id": "openai-imagegen-codex",
+      "category": "model",
+      "version": "session-provided",
+      "costModel": "existing",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "OpenAI terms applicable to the user's existing Codex access and generated output",
+      "source": "Codex image-generation capability; every accepted output still requires its own prompt, transformation and SHA-256 record"
+    },
+    {
+      "id": "mflux-local",
+      "category": "tool",
+      "version": "0.18.0",
+      "costModel": "open-license",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "MIT",
+      "source": "filipstrand/mflux official repository (https://github.com/filipstrand/mflux), version 0.18.0 installed locally with uv; MLX-native image generation and editing on Apple Silicon"
+    },
+    {
+      "id": "flux2-klein-4b",
+      "category": "model",
+      "version": "e7b7dc27f91deacad38e78976d1f2b499d76a294",
+      "costModel": "open-license",
+      "incrementalCostNOK": 0,
+      "billingCredentialRequired": false,
+      "commercialUse": "allowed",
+      "license": "Apache License 2.0",
+      "source": "black-forest-labs/FLUX.2-klein-4B official Hugging Face repository; locally pinned snapshot"
+    }
+  ],
+  "unresolvedCapabilities": [
+    {
+      "id": "final-narration-synthesis",
+      "category": "audio",
+      "status": "BLOCKED_UNTIL_ZERO_COST_COMMERCIAL_TOOL_PASSES",
+      "incrementalCostNOKMaximum": 0,
+      "billingCredentialPermitted": false,
+      "requiredOutcome": "One pre-produced English narration method that passes the frozen two-reference identity, word, pronunciation, silence and duration gates with clear offline redistribution rights.",
+      "releaseGate": "No narration asset enters the vertical slice until voice quality, pronunciation, consistency and commercial rights pass."
+    },
+    {
+      "id": "native-image-layer-production",
+      "category": "image",
+      "status": "BLOCKED_UNTIL_ZERO_COST_COMMERCIAL_TOOL_PASSES",
+      "incrementalCostNOKMaximum": 0,
+      "billingCredentialPermitted": false,
+      "requiredOutcome": "Repeatable portrait master, depth separation, masks, clean edges and period-specific revision using existing Codex and local tools.",
+      "releaseGate": "The complete First Farmers layer set must pass halo, provenance and 60-fps scene tests before image production scales."
+    },
+    {
+      "id": "web-source-asset-provenance",
+      "category": "image",
+      "status": "BLOCKED_UNTIL_ZERO_COST_COMMERCIAL_TOOL_PASSES",
+      "incrementalCostNOKMaximum": 0,
+      "billingCredentialPermitted": false,
+      "requiredOutcome": "A source and rights record for every existing web plate selected as native raw material.",
+      "releaseGate": "Any file marked BLOCKED_PROVENANCE_MISSING in source-asset-provenance.json is excluded from native production."
+    }
+  ]
+}

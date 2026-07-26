@@ -1,0 +1,33 @@
+{
+  "name": "@the-long-west/native-tooling",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "validate:audio": "node src/audio-production-cli.mjs validate",
+    "render:audio-probe": "node src/audio-production-cli.mjs render",
+    "validate:harvest-audio": "node src/harvest-responsive-audio-cli.mjs validate",
+    "render:harvest-audio": "node src/harvest-responsive-audio-cli.mjs render",
+    "validate:longhouse-audio": "node src/longhouse-responsive-audio-cli.mjs validate",
+    "render:longhouse-audio": "node src/longhouse-responsive-audio-cli.mjs render",
+    "validate:continent-remade-audio": "node src/continent-remade-responsive-audio-cli.mjs validate",
+    "render:continent-remade-audio": "node src/continent-remade-responsive-audio-cli.mjs render",
+    "validate:more-mouths-audio": "node src/more-mouths-responsive-audio-cli.mjs validate",
+    "render:more-mouths-audio": "node src/more-mouths-responsive-audio-cli.mjs render",
+    "validate:household-crosses-audio": "node src/household-crosses-responsive-audio-cli.mjs validate",
+    "render:household-crosses-audio": "node src/household-crosses-responsive-audio-cli.mjs render",
+    "validate:three-records-audio": "node src/three-records-responsive-audio-cli.mjs validate",
+    "render:three-records-audio": "node src/three-records-responsive-audio-cli.mjs render",
+    "validate:blueprint": "node src/cli.mjs validate-blueprint ../blueprint",
+    "validate:costs": "node src/cli.mjs validate-costs registries/cost-license.json",
+    "validate:ios": "node src/cli.mjs validate-ios ../ios",
+    "validate:public": "node src/cli.mjs validate-public ../content/public",
+    "validate:launch-assembly": "node src/launch-assembly-cli.mjs",
+    "package:background-assets": "node src/background-assets-cli.mjs",
+    "validate:release": "node src/cli.mjs validate-release",
+    "compile:launch-set": "node src/cli.mjs compile-launch-set",
+    "compile:vertical-slice": "node src/vertical-slice-cli.mjs",
+    "compile:release": "node src/cli.mjs compile-release"
+  }
+}

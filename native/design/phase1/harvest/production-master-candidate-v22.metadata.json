@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "candidateID": "harvest-production-master-candidate-v22-hearth-local-composite",
+  "status": "NON_SHIPPING_LOCAL_CORRECTION_REFERENCE",
+  "shippingAllowed": false,
+  "parent": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v10-grain-edit.png",
+    "sha256": "01b60b1627fa125a0b37c606eb8a3113820d9494b539b4f5a7c2d655b0f62080"
+  },
+  "localEditSource": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v21-hearth-edit.png",
+    "sha256": "7976863cd01f61badb287d5af985961987b1acdf2365de5faefb4983f9cc87f6"
+  },
+  "authorizedMask": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v22-hearth-local-mask.png",
+    "sha256": "113dd952717af5384ba7387bed06e228dfe6bf3927a40826a10ef728139ad574",
+    "bytes": 8791,
+    "construction": "853x1844 grayscale ellipse centred at (87,1058), radii (55,42), Gaussian sigma 2"
+  },
+  "compositor": {
+    "id": "ffmpeg-maskedmerge",
+    "pixelFormat": "gbrp-to-rgb24-png",
+    "authorizedBoundingRectangle": {
+      "x": 20,
+      "y": 1010,
+      "width": 136,
+      "height": 100
+    }
+  },
+  "output": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v22-hearth-local-composite.png",
+    "sha256": "11dc4dd55d7fe25341de1962af625834ffd5b153090c0f6fe9ce1a3227918d66",
+    "bytes": 2432058,
+    "width": 853,
+    "height": 1844
+  },
+  "audit": {
+    "materialResult": "PASS_LOCAL_REFERENCE_ONLY",
+    "outsideAuthorizedBoundingRectangle": "PIXEL_IDENTICAL_TO_PARENT",
+    "outsideRegionRawFrameHashes": {
+      "above": "17013bc6088ccb2e44f6b88acbae991faa3f36f8f34ba3f1833ee2ee911505ff",
+      "below": "a8c265cb8dcb566de62382aaa6c81371ab02faf804622528887a5ebcd4d5e737",
+      "left": "c0fb5c3d124d9ff2e3ceb2123166229c43621339591d3f006fc63901312e2349",
+      "right": "5611f27a6841faba56ceb3e6d7832eade4849803d6f5403c9f43ec8e3f1056c4"
+    },
+    "psnrAverageDecibelsAgainstParent": 39.417161,
+    "ssimAgainstParent": 0.998102,
+    "productionMasterResult": "REJECT_BELOW_DIMENSION_FLOOR",
+    "reason": "The local fired-clay correction no longer redraws the composition. These bytes remain a correction reference because 853x1844 is below the required 1290x2796 production-master floor."
+  }
+}

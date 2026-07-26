@@ -1,0 +1,509 @@
+{
+  "schemaVersion": 1,
+  "status": "CODEX_PROVISIONAL_NON_SHIPPING_TECHNICAL_FIXTURE",
+  "authorityShape": "SINGLE_ATOMIC_FIVE_GRAMMAR_LAB_PACKAGE_WITH_UNREFERENCED_V26_PARTIAL_PASS_PROOF",
+  "chapterIDs": [
+    "first-farmers",
+    "europe-holds-the-line",
+    "european-world"
+  ],
+  "labSceneIDs": [
+    "lab-first-farmers-harvest-allocation",
+    "lab-first-farmers-house-assembly",
+    "lab-first-farmers-land-transformation",
+    "lab-frontiers-northern-valleys-pressure",
+    "lab-european-world-ocean-schedule"
+  ],
+  "interactionIDs": [
+    "interaction-first-farmers-the-harvest-had-to-last",
+    "interaction-first-farmers-the-house-outlives",
+    "interaction-first-farmers-more-mouths-more-land",
+    "interaction-europe-holds-the-line-northern-valleys-keep-crown",
+    "interaction-european-world-steam-keeps-the-appointment"
+  ],
+  "requiredGrammars": [
+    "trace",
+    "allocate",
+    "assemble",
+    "pressure",
+    "transform"
+  ],
+  "incrementalCostNOK": 0,
+  "trustDomain": "the-long-west-vertical-slice-development-v1",
+  "packageID": "vertical-slice-development-v1",
+  "keyID": "vertical-slice-development-key-v1",
+  "projectionAuthorityKind": "DEVELOPMENT_BLUEPRINT_PROJECTION_AUTHORITY",
+  "projectionAuthorityStatus": "CODEX_PROVISIONAL_NON_SHIPPING_BLUEPRINT_PROJECTION",
+  "projectionAuthority": "codex-local-production",
+  "shippingState": "PROHIBITED",
+  "visualSources": [
+    {
+      "labSceneID": "lab-first-farmers-harvest-allocation",
+      "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+      "bytes": 5860864,
+      "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca"
+    },
+    {
+      "labSceneID": "lab-first-farmers-house-assembly",
+      "path": "site/assets/source/first-farmers/house-outlives-builders.png",
+      "bytes": 2581919,
+      "sha256": "a289e25e3e2d532db0627b66977bcd58f64794c449ca8d47de4df319b68d782b"
+    },
+    {
+      "labSceneID": "lab-first-farmers-land-transformation",
+      "path": "site/public/assets/chapters/first-farmers/more-mouths-more-land-v2.webp",
+      "bytes": 150000,
+      "sha256": "591d7ce5579fc964fbb98e110aae8f6395e613618165e9f20e1346a59226f840"
+    },
+    {
+      "labSceneID": "lab-frontiers-northern-valleys-pressure",
+      "path": "site/public/assets/chapters/europe-holds-the-line/02-northern-valleys-keep-crown.avif",
+      "bytes": 271177,
+      "sha256": "f8565a0de4889e77e12f666a11e5301bd1a4d0693163b9d14e42e94bf5c32a87"
+    },
+    {
+      "labSceneID": "lab-european-world-ocean-schedule",
+      "path": "site/public/assets/chapters/european-world/02-steam-keeps-the-appointment.avif",
+      "bytes": 223411,
+      "sha256": "e247e47721954e07162720c3e65ef6ec2ebfeb7ef37d8c69c38b01c976365e90"
+    }
+  ],
+  "visualSourceStatus": "CODEX_PROVISIONAL_NON_SHIPPING_TECHNICAL_INPUT",
+  "runtimeVisualProof": {
+    "sceneID": "lab-first-farmers-harvest-v26-parallax-proof",
+    "status": "CODEX_PROVISIONAL_NON_SHIPPING_V26_PARTIAL_PASS_RUNTIME_PROOF",
+    "shippingState": "PROHIBITED",
+    "source": {
+      "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+      "bytes": 5860864,
+      "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca"
+    },
+    "diagnosticUnderlay": {
+      "path": "native/content/backstage/harvest/parallax-halo-qa-v26.provisional/diagnostic-clean-base.png",
+      "bytes": 5366597,
+      "sha256": "5459f14eac91f170ff8daa1ffdba75ba456c78a4799bf0ca0f2d4aa8db14f20a"
+    },
+    "alphaMasksBackToFront": [
+      {
+        "layerID": "people",
+        "path": "native/content/backstage/harvest/parallax-halo-qa-v26.provisional/alpha-people.png",
+        "bytes": 36079,
+        "sha256": "eb60fffa4ad4bd8a87ebe7165117423a7d6a7baa7c57e873cd9a37671cf4bc59"
+      },
+      {
+        "layerID": "grain",
+        "path": "native/content/backstage/harvest/parallax-halo-qa-v26.provisional/alpha-grain.png",
+        "bytes": 11198,
+        "sha256": "972e9e1f867c9d8e178c7ed1b38b4629b7175c609a30f1ac11d8014f68d810a6"
+      },
+      {
+        "layerID": "foreground",
+        "path": "native/content/backstage/harvest/parallax-halo-qa-v26.provisional/alpha-foreground.png",
+        "bytes": 17818,
+        "sha256": "8f6332a7ee341e6075c05493e37f5fae68fa5950eef55a0b3727fce659542b58"
+      }
+    ],
+    "reduceMotionStatic": {
+      "path": "native/content/backstage/harvest/parallax-halo-qa-v26.provisional/reduce-motion-static-crop.png",
+      "bytes": 2334663,
+      "sha256": "64bb283bbd37e66502fef198d508af8618f6032fa6edac9558bcb34e7c6199a8"
+    },
+    "frozenReview": {
+      "path": "native/content/backstage/harvest/parallax-halo-qa-v26.review.json",
+      "bytes": 6618,
+      "sha256": "416848fed0d504fcdc2e2b823725e1f6f8190e3899e7f101a68481cab4c4f8e9"
+    },
+    "segmentationReceipt": {
+      "path": "native/content/backstage/harvest/semantic-masks-v26.provisional/segmentation-receipt.json",
+      "bytes": 53101,
+      "sha256": "4c378ffe243bdafd85b9c0476147d14b023389e9ea88d5f9884fcba3f3d75191"
+    },
+    "packageAssetPaths": {
+      "source": "assets/harvest-v26-parallax-development-source.png",
+      "diagnosticUnderlay": "assets/harvest-v26-parallax-diagnostic-underlay.png",
+      "peopleAlpha": "assets/harvest-v26-parallax-alpha-people.png",
+      "grainAlpha": "assets/harvest-v26-parallax-alpha-grain.png",
+      "foregroundAlpha": "assets/harvest-v26-parallax-alpha-foreground.png",
+      "reduceMotionStatic": "assets/harvest-v26-parallax-reduce-motion-static.png"
+    },
+    "passedScope": [
+      "people",
+      "grain",
+      "foreground"
+    ],
+    "excludedLayers": [
+      "winter-food-vessel",
+      "protected-reserve-bin",
+      "spring-seed-store",
+      "settlement-shelter",
+      "allocation-cloth"
+    ]
+  },
+  "audioSource": {
+    "path": "native/audio/score-soundscape/cache/harvest-responsive-v1/approach/soundscape-master.wav",
+    "bytes": 17280044,
+    "sha256": "90238e0f73145e3da986f2b5e0df5a1f5a847c16bf110bdb8c038c0c69176330"
+  },
+  "audioRights": "PROJECT_OWNED_PROCEDURAL_AUDIO",
+  "audioDerivations": [
+    {
+      "labSceneID": "lab-first-farmers-harvest-allocation",
+      "path": "source/audio/lab-first-farmers-harvest-allocation-soundscape.m4a"
+    },
+    {
+      "labSceneID": "lab-first-farmers-house-assembly",
+      "path": "source/audio/lab-first-farmers-house-assembly-soundscape.m4a"
+    },
+    {
+      "labSceneID": "lab-first-farmers-land-transformation",
+      "path": "source/audio/lab-first-farmers-land-transformation-soundscape.m4a"
+    },
+    {
+      "labSceneID": "lab-frontiers-northern-valleys-pressure",
+      "path": "source/audio/lab-frontiers-northern-valleys-pressure-soundscape.m4a"
+    },
+    {
+      "labSceneID": "lab-european-world-ocean-schedule",
+      "path": "source/audio/lab-european-world-ocean-schedule-soundscape.m4a"
+    }
+  ],
+  "sourcePayload": {
+    "path": "native/phase2/generated/first-farmers.content-package.json",
+    "bytes": 405688,
+    "sha256": "4a97922988430702f964d14902350892a7b90c565d1d41db9990869d1a6e4399"
+  },
+  "experienceLab": {
+    "path": "native/phase1/experience-lab.json",
+    "bytes": 3957,
+    "sha256": "02b8ea56805415f5144dbfa18445302ce97b560525a1c6b4d375ed4f0478b3ba"
+  },
+  "payloadSHA256": "43466b3c669a2f4d8ace0877faef4589a0d4cc7b6a49de2475c34c55709d0ee4",
+  "manifestDigest": "2635c2f5b98e7bba0dff076f748dca195fa1c5c5fdd700b72903a507b52c4560",
+  "compiledFiles": [
+    {
+      "path": "assets/harvest-v26-parallax-alpha-foreground.png",
+      "bytes": 17818,
+      "sha256": "8f6332a7ee341e6075c05493e37f5fae68fa5950eef55a0b3727fce659542b58"
+    },
+    {
+      "path": "assets/harvest-v26-parallax-alpha-grain.png",
+      "bytes": 11198,
+      "sha256": "972e9e1f867c9d8e178c7ed1b38b4629b7175c609a30f1ac11d8014f68d810a6"
+    },
+    {
+      "path": "assets/harvest-v26-parallax-alpha-people.png",
+      "bytes": 36079,
+      "sha256": "eb60fffa4ad4bd8a87ebe7165117423a7d6a7baa7c57e873cd9a37671cf4bc59"
+    },
+    {
+      "path": "assets/harvest-v26-parallax-development-source.png",
+      "bytes": 5860864,
+      "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca"
+    },
+    {
+      "path": "assets/harvest-v26-parallax-diagnostic-underlay.png",
+      "bytes": 5366597,
+      "sha256": "5459f14eac91f170ff8daa1ffdba75ba456c78a4799bf0ca0f2d4aa8db14f20a"
+    },
+    {
+      "path": "assets/harvest-v26-parallax-reduce-motion-static.png",
+      "bytes": 2334663,
+      "sha256": "64bb283bbd37e66502fef198d508af8618f6032fa6edac9558bcb34e7c6199a8"
+    },
+    {
+      "path": "assets/lab-european-world-ocean-schedule-alpha.png",
+      "bytes": 2098,
+      "sha256": "3db6842eed4fbcd2780902acf4bc0824bfbe764aadc4985c8cddd5f5ded86e89"
+    },
+    {
+      "path": "assets/lab-european-world-ocean-schedule-base.png",
+      "bytes": 442316,
+      "sha256": "b589eeea37bee676cc5b993606a428333d4c791422ae74d8bacef4f0f8d52bf4"
+    },
+    {
+      "path": "assets/lab-european-world-ocean-schedule-depth.png",
+      "bytes": 195715,
+      "sha256": "5088b03a1816935200b7196d8ab5206c8aaca052a57475eed4912d6c0e195f39"
+    },
+    {
+      "path": "assets/lab-european-world-ocean-schedule-light.png",
+      "bytes": 157881,
+      "sha256": "731db53c526d6b339beeddb460e3f00cdb446ddb3ec141c0d32577418e944c9c"
+    },
+    {
+      "path": "assets/lab-european-world-ocean-schedule-occlusion.png",
+      "bytes": 181657,
+      "sha256": "6f29b1ebee5259a0e9843ad78cd9e94e42ad1fe1907a420b059409310ebe823e"
+    },
+    {
+      "path": "assets/lab-european-world-ocean-schedule-reduce-motion-foreground.png",
+      "bytes": 351843,
+      "sha256": "2c0d82016f5f5bea727b48a3e77ab03d7b47877b6b5a30a83ab216d031900338"
+    },
+    {
+      "path": "assets/lab-european-world-ocean-schedule-reduce-motion-underlay.png",
+      "bytes": 424644,
+      "sha256": "cb623d077965c5b3a429fb4e7980ee468a9b173d10f009d2504da9d9b57ccb02"
+    },
+    {
+      "path": "assets/lab-european-world-ocean-schedule-state-active.png",
+      "bytes": 455757,
+      "sha256": "4e83243d143407ce72a65816de581e48b8e1ace1dc219040990f6f60d78ddf9f"
+    },
+    {
+      "path": "assets/lab-european-world-ocean-schedule-state-before.png",
+      "bytes": 379724,
+      "sha256": "c5128f88932abb2371af6d7fb5fca5f68c15bd35ccd106122f0f05e0f8df271e"
+    },
+    {
+      "path": "assets/lab-european-world-ocean-schedule-state-completed.png",
+      "bytes": 462326,
+      "sha256": "bfdf68143fc9b151189071f221354684517d2937553f24e8b1dc06a2e0c55f38"
+    },
+    {
+      "path": "assets/lab-first-farmers-harvest-allocation-alpha.png",
+      "bytes": 5249,
+      "sha256": "f3c15086fe32ecc7a8819c874f68a9b14247d8fbc5f4984f9102709ac0847c08"
+    },
+    {
+      "path": "assets/lab-first-farmers-harvest-allocation-base.png",
+      "bytes": 553548,
+      "sha256": "fbce73e0a5787d5a757540b5554b10ac55c6aab3c223a644c63253e7d8b88f1e"
+    },
+    {
+      "path": "assets/lab-first-farmers-harvest-allocation-depth.png",
+      "bytes": 185579,
+      "sha256": "8497f4170d4f545796a421a39cd1f02a8738eebf35bda704094d5af8cba9584c"
+    },
+    {
+      "path": "assets/lab-first-farmers-harvest-allocation-light.png",
+      "bytes": 64440,
+      "sha256": "fcd43312f3ee1b10668230ba42d04dea891cfef01b5a1b96b22b8ac03c3861d3"
+    },
+    {
+      "path": "assets/lab-first-farmers-harvest-allocation-occlusion.png",
+      "bytes": 171715,
+      "sha256": "cab9f41437e518eb9e1b070fbc2568d008a325fde375d8e63e83391cef2e510d"
+    },
+    {
+      "path": "assets/lab-first-farmers-harvest-allocation-reduce-motion-foreground.png",
+      "bytes": 158524,
+      "sha256": "53c0fa850a9b6e644272b351f7598021b32ce25c6e76a9d5d7b1bbdb55c915f3"
+    },
+    {
+      "path": "assets/lab-first-farmers-harvest-allocation-reduce-motion-underlay.png",
+      "bytes": 534872,
+      "sha256": "94b1a72434479fcb6e44d27351d55918d752ac8cb5172da9d8fc86d509869662"
+    },
+    {
+      "path": "assets/lab-first-farmers-harvest-allocation-state-active.png",
+      "bytes": 566243,
+      "sha256": "2d580b98b2ce1dee376424fa24235f5fbd695edf155f1af07c4c6016be25d0b7"
+    },
+    {
+      "path": "assets/lab-first-farmers-harvest-allocation-state-before.png",
+      "bytes": 403092,
+      "sha256": "44f1c9f1ffb9a60ba67e0fea4e4d4a775f3dc78248be4203ad108094045ddf09"
+    },
+    {
+      "path": "assets/lab-first-farmers-harvest-allocation-state-completed.png",
+      "bytes": 578497,
+      "sha256": "707d6c73d4003c23ecb845ad4be399c83e17d56d36bf3ebfaf6f5284693427f4"
+    },
+    {
+      "path": "assets/lab-first-farmers-house-assembly-alpha.png",
+      "bytes": 2025,
+      "sha256": "8ad83b8b573abc1e42650302384141593096a4d24fb7553292d973717edfc0e4"
+    },
+    {
+      "path": "assets/lab-first-farmers-house-assembly-base.png",
+      "bytes": 517844,
+      "sha256": "07bae9b52986cfe726916e466140651390cb35679ed11e8d37cedc65c6fd346e"
+    },
+    {
+      "path": "assets/lab-first-farmers-house-assembly-depth.png",
+      "bytes": 173324,
+      "sha256": "e5b583f891ca20123b45a3f498654521662e891f1cdac7a559f212a42bb7bc86"
+    },
+    {
+      "path": "assets/lab-first-farmers-house-assembly-light.png",
+      "bytes": 61772,
+      "sha256": "e530bfb3dcdb3774e86d7b7faa3d005f255ef061895f2a4c6bad4ef310392f77"
+    },
+    {
+      "path": "assets/lab-first-farmers-house-assembly-occlusion.png",
+      "bytes": 159440,
+      "sha256": "47404a64a2dc2a4651ab7c670df83f2394d81c24b90af14d14d8351cbc4f87a7"
+    },
+    {
+      "path": "assets/lab-first-farmers-house-assembly-reduce-motion-foreground.png",
+      "bytes": 152939,
+      "sha256": "1d98581bf44aa9c9a67f0940d4da87159f436e3c4b37f9dd9a3edf4bd7a43a86"
+    },
+    {
+      "path": "assets/lab-first-farmers-house-assembly-reduce-motion-underlay.png",
+      "bytes": 493514,
+      "sha256": "c314d77204686df6b1c99da1341801bab80ded6ab87acd6dec6428d02e55cdea"
+    },
+    {
+      "path": "assets/lab-first-farmers-house-assembly-state-active.png",
+      "bytes": 526854,
+      "sha256": "57c98b32d4269638ba4273b1cf99cb510c36343ba43e8793dfceef81605a3cf3"
+    },
+    {
+      "path": "assets/lab-first-farmers-house-assembly-state-before.png",
+      "bytes": 355262,
+      "sha256": "c78fa5ec225504bb258fac566a75a759f8ac77677d0e45092ee793e248f6aa5d"
+    },
+    {
+      "path": "assets/lab-first-farmers-house-assembly-state-completed.png",
+      "bytes": 539338,
+      "sha256": "d3ff7c0b55ce4e06a86409d2ae054e13342b41970106798167aa656cfe79a159"
+    },
+    {
+      "path": "assets/lab-first-farmers-land-transformation-alpha.png",
+      "bytes": 2025,
+      "sha256": "8ad83b8b573abc1e42650302384141593096a4d24fb7553292d973717edfc0e4"
+    },
+    {
+      "path": "assets/lab-first-farmers-land-transformation-base.png",
+      "bytes": 356819,
+      "sha256": "14418c3079183ff969abc3620fbd1c925ea9b0607208fb7d754917ad7856ce40"
+    },
+    {
+      "path": "assets/lab-first-farmers-land-transformation-depth.png",
+      "bytes": 137777,
+      "sha256": "74d1a39c4bebecec74f98502fb89c902116ec20e1f93c6ac86c89cc3b9c93755"
+    },
+    {
+      "path": "assets/lab-first-farmers-land-transformation-light.png",
+      "bytes": 43133,
+      "sha256": "bdce9943eaf5d1c7c75a7080452c4cc0bc2c8b881120f2e15134f4e5172575c0"
+    },
+    {
+      "path": "assets/lab-first-farmers-land-transformation-occlusion.png",
+      "bytes": 125397,
+      "sha256": "7e56c8aae43113e7a73cfd30ae9be2c83dbf415a13dc4b0307a8aadb43835c73"
+    },
+    {
+      "path": "assets/lab-first-farmers-land-transformation-reduce-motion-foreground.png",
+      "bytes": 84901,
+      "sha256": "083e77d7772e54abe02e91dbbe282e2f62996a8082d1b0c948976a1a28489423"
+    },
+    {
+      "path": "assets/lab-first-farmers-land-transformation-reduce-motion-underlay.png",
+      "bytes": 343442,
+      "sha256": "b019188d38951f8847c5034e35a645e656704716d470d873af1b89f5fce7c240"
+    },
+    {
+      "path": "assets/lab-first-farmers-land-transformation-state-active.png",
+      "bytes": 362390,
+      "sha256": "e01616d05e3adf679b99b3c1bca2c3d003721f9318cd1e7a294fc3095ea57113"
+    },
+    {
+      "path": "assets/lab-first-farmers-land-transformation-state-before.png",
+      "bytes": 228221,
+      "sha256": "e8fdf8ee53c6bb65753b337762604951172e03dd635963af1f2c45e465acbf73"
+    },
+    {
+      "path": "assets/lab-first-farmers-land-transformation-state-completed.png",
+      "bytes": 369680,
+      "sha256": "51e8c1bf47b5ea70679b1f699c33ff610a34d31f86e89a51faf7b990b2fab044"
+    },
+    {
+      "path": "assets/lab-frontiers-northern-valleys-pressure-alpha.png",
+      "bytes": 2098,
+      "sha256": "3db6842eed4fbcd2780902acf4bc0824bfbe764aadc4985c8cddd5f5ded86e89"
+    },
+    {
+      "path": "assets/lab-frontiers-northern-valleys-pressure-base.png",
+      "bytes": 440712,
+      "sha256": "05b32fcc72efe1f97660820c2aa4bb63247deb11aef73da0a3150353df431f97"
+    },
+    {
+      "path": "assets/lab-frontiers-northern-valleys-pressure-depth.png",
+      "bytes": 178915,
+      "sha256": "8c79bebe7a05fa430d3c1c7441071563fa63b63c56ae8af1fd510985a8d5ad6c"
+    },
+    {
+      "path": "assets/lab-frontiers-northern-valleys-pressure-light.png",
+      "bytes": 61359,
+      "sha256": "cef014f8104557c8405b08df5ba148cf1afd5836f36a1a7a866fed1f9c14bdcc"
+    },
+    {
+      "path": "assets/lab-frontiers-northern-valleys-pressure-occlusion.png",
+      "bytes": 165208,
+      "sha256": "2304cc1312877bb5b8ecc75f6f8f129c27a3dbea26b2cc3d8091c55618ef9aa6"
+    },
+    {
+      "path": "assets/lab-frontiers-northern-valleys-pressure-reduce-motion-foreground.png",
+      "bytes": 205862,
+      "sha256": "f6c44f5fb7671a592a24176c1f8bf9c678792911fb3da8379839fb3d448ed239"
+    },
+    {
+      "path": "assets/lab-frontiers-northern-valleys-pressure-reduce-motion-underlay.png",
+      "bytes": 421462,
+      "sha256": "ed5b4c160337db75751fe00e6a5101c60dfc6cd0bfa0e0d3c9ac38eb299d59b0"
+    },
+    {
+      "path": "assets/lab-frontiers-northern-valleys-pressure-state-active.png",
+      "bytes": 447784,
+      "sha256": "03b1988f2038e81f4580d81e80585bf2a96c9d413975f2fd28cececee724e7ed"
+    },
+    {
+      "path": "assets/lab-frontiers-northern-valleys-pressure-state-before.png",
+      "bytes": 339282,
+      "sha256": "d02abb43101b486bcc63a21b5a56af8464b9f9dc3df941e75ad11d89594f8d47"
+    },
+    {
+      "path": "assets/lab-frontiers-northern-valleys-pressure-state-completed.png",
+      "bytes": 457695,
+      "sha256": "32d932f907e3af300a03c1488537b9c23816bb8dba30cc752acece30eeb81b4d"
+    },
+    {
+      "path": "audio/lab-european-world-ocean-schedule-soundscape.m4a",
+      "bytes": 935512,
+      "sha256": "334e5d3b58f33b1ed24c95f9b0468eeb6f734aec0ff8e116a5e87d1139212478"
+    },
+    {
+      "path": "audio/lab-first-farmers-harvest-allocation-soundscape.m4a",
+      "bytes": 934048,
+      "sha256": "d981e12a2ce6c77e2d74d3e36bf19c0096b5bdc65873645746b6212ebb980fa6"
+    },
+    {
+      "path": "audio/lab-first-farmers-house-assembly-soundscape.m4a",
+      "bytes": 934418,
+      "sha256": "6f8234eec7baf1d11bb739ba015618615795a61a041f45e24909fc4f937fd279"
+    },
+    {
+      "path": "audio/lab-first-farmers-land-transformation-soundscape.m4a",
+      "bytes": 934803,
+      "sha256": "c302773717bf49506dd88b23c82907bd8b924714aa48b140515278df24851ade"
+    },
+    {
+      "path": "audio/lab-frontiers-northern-valleys-pressure-soundscape.m4a",
+      "bytes": 934200,
+      "sha256": "c2d9c54f5b9439557fec68203b515c2fc6fb3ac476304512dd22d642bf8d4ce3"
+    },
+    {
+      "path": "chapters/vertical-slice-development-v1.json",
+      "bytes": 171349,
+      "sha256": "43466b3c669a2f4d8ace0877faef4589a0d4cc7b6a49de2475c34c55709d0ee4"
+    }
+  ],
+  "claimsExcluded": [
+    "editor approval",
+    "shipping approval",
+    "production visual approval",
+    "production audio approval",
+    "chapter completion",
+    "physical-device approval",
+    "clean-plate approval",
+    "complete layer DAG",
+    "state-variant approval",
+    "production-master approval",
+    "complete-scene approval",
+    "artistic approval",
+    "shipping asset approval"
+  ]
+}

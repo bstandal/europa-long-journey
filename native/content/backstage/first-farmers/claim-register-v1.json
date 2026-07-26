@@ -1,0 +1,806 @@
+{
+  "schemaVersion": 1,
+  "registryID": "first-farmers-claim-register-v1",
+  "chapterID": "first-farmers",
+  "locale": "en",
+  "shippingBoundary": "BACKSTAGE_ONLY_DO_NOT_PACKAGE",
+  "sourceDraft": {
+    "path": "native/phase2/editor-review/first-farmers/first-farmers-native-draft-v1.json",
+    "sha256": "4c3a0a2a4f9a3ec5361d2e34c2f6dd21072f27176e60c881f013c93f76e4a5dd"
+  },
+  "verification": {
+    "verifiedAt": "2026-07-24",
+    "publicMutationAuthorized": false,
+    "verifierMayWritePublicProse": false,
+    "editorialContractRemainsAuthoritative": true,
+    "allowedResults": [
+      "PASS",
+      "NARROW",
+      "REPLACE",
+      "REMOVE",
+      "EDITOR_DECISION"
+    ],
+    "allowedDefects": [
+      "F1",
+      "F2",
+      "F3",
+      "F4",
+      "F5",
+      "F6",
+      "F7"
+    ]
+  },
+  "sources": [
+    {
+      "id": "boric-vlasac-2014",
+      "kind": "PRIMARY_ARCHAEOLOGICAL_STUDY",
+      "citation": "Borić et al., Late Mesolithic lifeways and deathways at Vlasac (Serbia), Journal of Field Archaeology 39 (2014), 4–31.",
+      "doi": "10.1179/0093469013Z.00000000070",
+      "url": "https://www.tandfonline.com/doi/abs/10.1179/0093469013Z.00000000070",
+      "usedFor": "Late Mesolithic dwelling, burial and occupation chronology at Vlasac."
+    },
+    {
+      "id": "boric-vlasac-2015",
+      "kind": "PRIMARY_CHRONOLOGICAL_STUDY",
+      "citation": "Borić, The Living and The Dead, Memory and Transition, Oxford Journal of Archaeology 34 (2015), 343–364.",
+      "doi": "10.1111/ojoa.12063",
+      "url": "https://onlinelibrary.wiley.com/doi/10.1111/ojoa.12063",
+      "usedFor": "Bayesian chronology of Vlasac occupation features and superimposed burials."
+    },
+    {
+      "id": "boric-et-al-lepenski-vir-2018",
+      "kind": "PRIMARY_CHRONOLOGICAL_STUDY",
+      "citation": "Borić et al., High-Resolution AMS Dating of Architecture, Boulder Artworks and the Transition to Farming at Lepenski Vir, Scientific Reports 8 (2018).",
+      "doi": "10.1038/s41598-018-31884-7",
+      "url": "https://www.nature.com/articles/s41598-018-31884-7",
+      "usedFor": "Dates the main trapezoidal-building sequence at Lepenski Vir to the transition beginning after about 6200 BC."
+    },
+    {
+      "id": "dimitrijevic-et-al-2016",
+      "kind": "PRIMARY_ZOOARCHAEOLOGICAL_STUDY",
+      "citation": "Dimitrijević, Živaljević and Stefanović, Becoming sedentary? The seasonality of food resource exploitation in the Mesolithic–Neolithic Danube Gorges, Documenta Praehistorica 43 (2016), 103–122.",
+      "doi": "10.4312/dp.43.4",
+      "url": "https://doi.org/10.4312/DP.43.4",
+      "usedFor": "Year-round resource use and substantial sedentism in the Danube Gorges before farming."
+    },
+    {
+      "id": "boroneant-bonsall-2018",
+      "kind": "AUTHORITATIVE_SYNTHESIS",
+      "citation": "Boroneanț and Bonsall, Burial practices in the Iron Gates Mesolithic, in Prehistoric Human Remains: Law, Ethics and Politics (2018).",
+      "url": "https://www.research.ed.ac.uk/en/publications/burial-practices-in-the-iron-gates-mesolithic/",
+      "usedFor": "Formal burial areas and varied mortuary practices across Iron Gates sites."
+    },
+    {
+      "id": "gurova-et-al-2016",
+      "kind": "PRIMARY_MATERIAL_ANALYSIS",
+      "citation": "Gurova et al., Flint raw material transfers in the prehistoric Lower Danube Basin, Journal of Archaeological Science: Reports 5 (2016), 422–441.",
+      "doi": "10.1016/j.jasrep.2015.12.014",
+      "url": "https://orca.cardiff.ac.uk/id/eprint/85824/",
+      "usedFor": "Pre-farming and Neolithic stone-transfer networks in the Lower Danube and Danube Gorges."
+    },
+    {
+      "id": "perles-2001",
+      "kind": "AUTHORITATIVE_SYNTHESIS",
+      "citation": "Catherine Perlès, The Early Neolithic in Greece: The First Farming Communities in Europe, Cambridge University Press (2001).",
+      "doi": "10.1017/CBO9780511612855",
+      "url": "https://www.cambridge.org/core/books/early-neolithic-in-greece/3ED5D52377926FF2BD47B8E526E26924",
+      "usedFor": "Early Greek farming, maritime colonisation and the ordinary autumn sowing calendar; the sowing discussion is on page 165."
+    },
+    {
+      "id": "hofmanova-et-al-2016",
+      "kind": "PRIMARY_GENOMIC_STUDY",
+      "citation": "Hofmanová et al., Early farmers from across Europe directly descended from Neolithic Aegeans, PNAS 113 (2016), 6886–6891.",
+      "doi": "10.1073/pnas.1523951113",
+      "url": "https://discovery.ucl.ac.uk/id/eprint/1496921/",
+      "usedFor": "Direct genetic chain from Aegean and Anatolian farmers to early farmers in Mediterranean and Central Europe."
+    },
+    {
+      "id": "zeder-2008",
+      "kind": "AUTHORITATIVE_SYNTHESIS",
+      "citation": "Zeder, Domestication and early agriculture in the Mediterranean Basin, PNAS 105 (2008), 11597–11604.",
+      "doi": "10.1073/pnas.0801317105",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2575338/",
+      "usedFor": "The coupled crop, herd and colonist expansion around the Mediterranean."
+    },
+    {
+      "id": "urem-kotsou-2017",
+      "kind": "AUTHORITATIVE_REGIONAL_SYNTHESIS",
+      "citation": "Urem-Kotsou, Storage of food in the Neolithic communities of northern Greece, World Archaeology 49 (2017).",
+      "doi": "10.1080/00438243.2016.1276853",
+      "url": "https://www.tandfonline.com/doi/full/10.1080/00438243.2016.1276853",
+      "usedFor": "Household crop storage and normal surplus from the beginning of the northern Greek Neolithic."
+    },
+    {
+      "id": "boric-price-2013",
+      "kind": "PRIMARY_ISOTOPE_STUDY",
+      "citation": "Borić and Price, Strontium isotopes document greater human mobility at the start of the Balkan Neolithic, PNAS 110 (2013), 3298–3303.",
+      "doi": "10.1073/pnas.1211474110",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3587252/",
+      "usedFor": "Several waves of non-local people entering the Danube Gorges from about 6200 BC."
+    },
+    {
+      "id": "mathieson-et-al-2018",
+      "kind": "PRIMARY_GENOMIC_STUDY",
+      "citation": "Mathieson et al., The genomic history of southeastern Europe, Nature 555 (2018), 197–203.",
+      "doi": "10.1038/nature25778",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6091220/",
+      "usedFor": "Migration, farmer ancestry and mixed individuals at the Mesolithic–Neolithic frontier."
+    },
+    {
+      "id": "brami-et-al-2022",
+      "kind": "AUTHORITATIVE_MULTI_METHOD_REASSESSMENT",
+      "citation": "Brami et al., Was the Fishing Village of Lepenski Vir Built by Europe’s First Farmers?, Journal of World Prehistory 35 (2022), 109–133.",
+      "doi": "10.1007/s10963-022-09169-9",
+      "url": "https://link.springer.com/article/10.1007/s10963-022-09169-9",
+      "usedFor": "Aegean migration, local ancestry, fishing, settlement and household formation at Lepenski Vir."
+    },
+    {
+      "id": "carter-2006",
+      "kind": "PRIMARY_MARITIME_ARCHAEOLOGY",
+      "citation": "Carter, Boat remains and maritime trade in the Persian Gulf during the sixth and fifth millennia BC, Antiquity 80 (2006), 52–63.",
+      "doi": "10.1017/S0003598X0009325X",
+      "url": "https://www.cambridge.org/core/journals/antiquity/article/abs/boat-remains-and-maritime-trade-in-the-persian-gulf-during-the-sixth-and-fifth-millennia-bc/98224B03E778DE5C9D3EAA806A5ABCF8",
+      "usedFor": "The earliest presently identified mast-and-sail evidence, from the Persian Gulf around 5300–4900 BC rather than the seventh-millennium Aegean."
+    },
+    {
+      "id": "gibaja-et-al-2024",
+      "kind": "PRIMARY_MARITIME_ARCHAEOLOGY",
+      "citation": "Gibaja et al., The first Neolithic boats in the Mediterranean: The settlement of La Marmotta, PLOS ONE 19 (2024).",
+      "doi": "10.1371/journal.pone.0299765",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10954169/",
+      "usedFor": "Known Neolithic Mediterranean watercraft and the evidence boundary for propulsion and hull form."
+    },
+    {
+      "id": "meadows-et-al-2019",
+      "kind": "PRIMARY_CHRONOLOGICAL_STUDY",
+      "citation": "Meadows et al., Temporal dynamics of Linearbandkeramik houses and settlements, The Holocene 29 (2019), 1653–1670.",
+      "doi": "10.1177/0959683619857239",
+      "url": "https://journals.sagepub.com/doi/10.1177/0959683619857239",
+      "usedFor": "A median individual LBK house use-life of about 20–30 years at Vráble."
+    },
+    {
+      "id": "pavlu-2016",
+      "kind": "AUTHORITATIVE_ARCHITECTURAL_ANALYSIS",
+      "citation": "Pavlů, Linear Pottery Houses and Their Inhabitants, Open Archaeology 2 (2016), 382–397.",
+      "doi": "10.1515/opar-2016-0027",
+      "url": "https://www.degruyter.com/document/doi/10.1515/opar-2016-0027/html",
+      "usedFor": "The evidential limits and explicitly hypothetical character of above-ground and internal LBK house reconstructions."
+    },
+    {
+      "id": "gelabert-et-al-2024",
+      "kind": "PRIMARY_GENOMIC_STUDY",
+      "citation": "Gelabert et al., Social and genetic diversity in first farmers of central Europe, Nature Human Behaviour 9 (2025), 53–64.",
+      "doi": "10.1038/s41562-024-02034-z",
+      "url": "https://www.nature.com/articles/s41562-024-02034-z",
+      "usedFor": "Patrilocality across LBK sites, with stronger male local structure and more within-site male relatives."
+    },
+    {
+      "id": "rivollat-et-al-2023",
+      "kind": "PRIMARY_GENOMIC_STUDY",
+      "citation": "Rivollat et al., Extensive pedigrees reveal the social organization of a Neolithic community, Nature 620 (2023), 600–606.",
+      "doi": "10.1038/s41586-023-06350-8",
+      "url": "https://www.nature.com/articles/s41586-023-06350-8",
+      "usedFor": "Patrilineal pedigrees, patrilocality and female exogamy with neighbouring groups."
+    },
+    {
+      "id": "shennan-et-al-2013",
+      "kind": "PRIMARY_DEMOGRAPHIC_STUDY",
+      "citation": "Shennan et al., Regional population collapse followed initial agriculture booms in mid-Holocene Europe, Nature Communications 4 (2013), 2486.",
+      "doi": "10.1038/ncomms3486",
+      "url": "https://www.nature.com/articles/ncomms3486",
+      "usedFor": "Regional population boom-and-bust patterns after the arrival of farming."
+    },
+    {
+      "id": "bocquet-appel-2011",
+      "kind": "AUTHORITATIVE_DEMOGRAPHIC_SYNTHESIS",
+      "citation": "Bocquet-Appel, When the World’s Population Took Off: The Springboard of the Neolithic Demographic Transition, Science 333 (2011), 560–561.",
+      "doi": "10.1126/science.1208880",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/21798934/",
+      "usedFor": "The sustained fertility increase associated with the transition to settled farming."
+    },
+    {
+      "id": "shennan-2018",
+      "kind": "AUTHORITATIVE_CONTINENTAL_SYNTHESIS",
+      "citation": "Stephen Shennan, The First Farmers of Europe: An Evolutionary Perspective, Cambridge University Press (2018).",
+      "doi": "10.1017/9781108386029",
+      "url": "https://www.cambridge.org/core/books/first-farmers-of-europe/7F3B7991A3527EFB8A43FDF89D98A9D1",
+      "usedFor": "Continental spread, household transmission, internal expansion, adaptation and settlement."
+    },
+    {
+      "id": "iversen-kroonen-2017",
+      "kind": "AUTHORITATIVE_LINGUISTIC_ARCHAEOLOGICAL_STUDY",
+      "citation": "Iversen and Kroonen, Talking Neolithic: Linguistic and Archaeological Perspectives on How Indo-European Was Implemented in Southern Scandinavia, American Journal of Archaeology 121 (2017), 511–525.",
+      "doi": "10.3764/aja.121.4.0511",
+      "url": "https://www.journals.uchicago.edu/doi/10.3764/aja.121.4.0511",
+      "usedFor": "Survival of vocabulary from a non-Indo-European farmer language as substrate in later Indo-European speech."
+    },
+    {
+      "id": "lazaridis-et-al-2025",
+      "kind": "PRIMARY_GENOMIC_STUDY",
+      "citation": "Lazaridis et al., The genetic origin of the Indo-Europeans, Nature 639 (2025), 117–126.",
+      "doi": "10.1038/s41586-024-08531-5",
+      "url": "https://www.nature.com/articles/s41586-024-08531-5",
+      "usedFor": "Appearance of the Yamnaya archaeological complex around 3300 BC across the Black and Caspian steppe."
+    }
+  ],
+  "findings": [
+    {
+      "id": "ff-pass-iron-gates-world",
+      "result": "PASS",
+      "defectCode": null,
+      "locations": [
+        {
+          "beatID": "beat-first-farmers-river-world",
+          "segmentID": "ff-river-world-01",
+          "fieldPath": "/narrative/segments/0/text",
+          "exactClaim": "The gorge is no empty passage. It has paths, landing places, fishing grounds and remembered ground."
+        },
+        {
+          "beatID": "beat-first-farmers-river-world",
+          "segmentID": "ff-river-world-02",
+          "fieldPath": "/narrative/segments/1/text",
+          "exactClaim": "The river sets the year. Spring runs fill the narrows. Summer opens the banks. Autumn draws food from forest and water. Winter pulls people back towards dependable channels and what earlier seasons preserved. Long before a field reaches the Danube, its people know how to return, store, exchange and endure."
+        }
+      ],
+      "sourceIDs": [
+        "boric-vlasac-2014",
+        "dimitrijevic-et-al-2016",
+        "boroneant-bonsall-2018",
+        "gurova-et-al-2016"
+      ],
+      "sourceBasis": "Iron Gates sites preserve long-lived riverbank occupation, formal mortuary areas, fishing economies, seasonal resource use consistent with year-round residence, and exchange networks predating agriculture.",
+      "factualConflict": null,
+      "smallestCorrection": null
+    },
+    {
+      "id": "ff-pass-aegean-package",
+      "result": "PASS",
+      "defectCode": null,
+      "locations": [
+        {
+          "beatID": "beat-first-farmers-household-crosses",
+          "segmentID": "ff-crossing-01",
+          "fieldPath": "/narrative/segments/0/text",
+          "exactClaim": "On the eastern Aegean shore, a household gathers a world small enough to move. Emmer and einkorn wait in sacks. Sheep and goats crowd the waterline. Grinding stones, pots and cutting tools carry the work that stands between seed and bread."
+        },
+        {
+          "beatID": "beat-first-farmers-household-crosses",
+          "segmentID": "ff-crossing-02",
+          "fieldPath": "/narrative/segments/1/text",
+          "exactClaim": "The knowledge travels inside people."
+        },
+        {
+          "beatID": "beat-first-farmers-living-system",
+          "segmentID": "ff-system-01",
+          "fieldPath": "/narrative/segments/0/text",
+          "exactClaim": "The sacks do not make a farm. Seed requires cleared ground and a season of labour. Animals require water, breeding and winter care. Grain requires cutting, drying, threshing, grinding and a store that can defeat damp, insects and hunger. The household carries the links together."
+        },
+        {
+          "beatID": "beat-first-farmers-living-system",
+          "segmentID": "ff-system-02",
+          "fieldPath": "/narrative/segments/1/text",
+          "exactClaim": "Children learn by working beside adults. No written manual crosses the sea. Skill lives in hands, timing and repetition. When new houses rise in Thessaly, the field has arrived as a living system: people, plants, animals, tools and memory bound into one practice."
+        },
+        {
+          "beatID": "beat-first-farmers-european-ground",
+          "segmentID": "ff-ground-01",
+          "fieldPath": "/narrative/segments/0/text",
+          "exactClaim": "A roof closes against rain. Hooves mark the same enclosure night after night. A strip of earth darkens under the digging stick."
+        },
+        {
+          "beatID": "beat-first-farmers-european-ground",
+          "segmentID": "ff-ground-02",
+          "fieldPath": "/narrative/segments/1/text",
+          "exactClaim": "Other households follow. Some routes turn through the Balkans and up the Danube; others run along Mediterranean coasts and islands. The journeys differ. The cargo remains joined. Farming spreads because people move with the complete practice and make it durable wherever they settle."
+        }
+      ],
+      "sourceIDs": [
+        "perles-2001",
+        "hofmanova-et-al-2016",
+        "zeder-2008",
+        "shennan-2018"
+      ],
+      "sourceBasis": "Archaeology and ancient DNA support a maritime and overland movement of Aegean–Anatolian farming populations whose crops, livestock, tools and learned routines travelled as a coupled system.",
+      "factualConflict": null,
+      "smallestCorrection": null
+    },
+    {
+      "id": "ff-pass-inhabited-frontier",
+      "result": "PASS",
+      "defectCode": null,
+      "locations": [
+        {
+          "beatID": "beat-first-farmers-inhabited-frontier",
+          "segmentID": "ff-frontier-01",
+          "fieldPath": "/narrative/segments/0/text",
+          "exactClaim": "Its newcomers do not meet wilderness. River communities already possess houses, graves, boats and exchange roads older than the field. They know the current, the forest and distant stone."
+        },
+        {
+          "beatID": "beat-first-farmers-inhabited-frontier",
+          "segmentID": "ff-frontier-02",
+          "fieldPath": "/narrative/segments/1/text",
+          "exactClaim": "What grows in one season must carry a household through the next."
+        }
+      ],
+      "sourceIDs": [
+        "boric-vlasac-2014",
+        "boroneant-bonsall-2018",
+        "gurova-et-al-2016",
+        "urem-kotsou-2017"
+      ],
+      "sourceBasis": "The Danube Gorges were inhabited, mobile-networked landscapes before the arrival of farming, while cereal farming created delayed obligations across the harvest cycle.",
+      "factualConflict": null,
+      "smallestCorrection": null
+    },
+    {
+      "id": "ff-pass-harvest-storage",
+      "result": "PASS",
+      "defectCode": null,
+      "locations": [
+        {
+          "beatID": "beat-first-farmers-harvest-allocation",
+          "segmentID": "ff-harvest-01",
+          "fieldPath": "/narrative/segments/0/text",
+          "exactClaim": "A field changed the shape of the year. The grain before you has been cut, dried and threshed. Nothing more will grow before winter. This store must answer three claims."
+        },
+        {
+          "beatID": "beat-first-farmers-harvest-allocation",
+          "segmentID": "ff-harvest-02",
+          "fieldPath": "/narrative/segments/1/text",
+          "exactClaim": "Part will be eaten. Grain carried to the hearth becomes winter food. Once consumed, it cannot answer a longer season or return to the soil."
+        },
+        {
+          "beatID": "beat-first-farmers-harvest-allocation",
+          "segmentID": "ff-harvest-03",
+          "fieldPath": "/narrative/segments/2/text",
+          "exactClaim": "Part must be kept against loss. Dry grain is lifted from the earth and closed away from damp, insects and hungry animals."
+        },
+        {
+          "beatID": "beat-first-farmers-harvest-allocation",
+          "segmentID": "ff-harvest-04",
+          "fieldPath": "/narrative/segments/3/text",
+          "exactClaim": "And part must remain untouched."
+        },
+        {
+          "beatID": "beat-first-farmers-harvest-allocation",
+          "segmentID": "ff-harvest-05",
+          "fieldPath": "/narrative/segments/4/text",
+          "exactClaim": "Meet every obligation."
+        },
+        {
+          "beatID": "beat-first-farmers-stored-future",
+          "segmentID": "ff-stored-future-01",
+          "fieldPath": "/narrative/segments/0/text",
+          "exactClaim": "Nothing has been created. The harvest has been divided across present hunger, future loss and the field to come."
+        },
+        {
+          "beatID": "beat-first-farmers-stored-future",
+          "segmentID": "ff-stored-future-02",
+          "fieldPath": "/narrative/segments/1/text",
+          "exactClaim": "A missed fishing day can be answered by another current. A failed agricultural season reaches months ahead. The store turns memory into discipline. It makes survival depend on work already done and restraint maintained long after the field has gone dark."
+        }
+      ],
+      "sourceIDs": [
+        "perles-2001",
+        "urem-kotsou-2017"
+      ],
+      "sourceBasis": "Early northern Greek farming households stored cereal surplus; consumption, loss protection and sowing stock draw on the same finite harvest. The interaction's twelve equal shares explicitly make no historical measurement claim.",
+      "factualConflict": null,
+      "smallestCorrection": null
+    },
+    {
+      "id": "ff-pass-iron-gates-contact",
+      "result": "PASS",
+      "defectCode": null,
+      "locations": [
+        {
+          "beatID": "beat-first-farmers-gorge-contact",
+          "segmentID": "ff-contact-01",
+          "fieldPath": "/narrative/segments/0/text",
+          "exactClaim": "At the gorge, fish and hides move towards the newcomers. Pottery, grain and domestic animals move towards the river settlements. Stone already travels through networks the farmers did not create. Boats carry every exchange more easily than the forest."
+        },
+        {
+          "beatID": "beat-first-farmers-gorge-contact",
+          "segmentID": "ff-contact-02",
+          "fieldPath": "/narrative/segments/1/text",
+          "exactClaim": "The meeting enters daily life. Some river people take selected practices. Some join farming settlements. Some farming households include partners raised on the Danube. Goods, skills and people cross at different speeds, until neither bank contains the world it held before."
+        },
+        {
+          "beatID": "beat-first-farmers-three-records",
+          "segmentID": "ff-records-01",
+          "fieldPath": "/narrative/segments/0/text",
+          "exactClaim": "Move the same riverbank through three states: the gorge before local farming, the generations of contact, and the later settlements in which farming has taken hold while river food and local ancestry remain."
+        },
+        {
+          "beatID": "beat-first-farmers-three-records",
+          "segmentID": "ff-records-02",
+          "fieldPath": "/narrative/segments/1/text",
+          "exactClaim": "A settlement can receive grain before every household farms. A person can move before a practice does. A river route can survive while its cargo changes."
+        },
+        {
+          "beatID": "beat-first-farmers-frontier-consequence",
+          "segmentID": "ff-frontier-consequence-01",
+          "fieldPath": "/narrative/segments/0/text",
+          "exactClaim": "The river frontier does not vanish. It moves inside the new settlements. Local knowledge joins imported seed. Older routes carry new cargo. Households combine people whose childhoods began in different worlds."
+        }
+      ],
+      "sourceIDs": [
+        "boric-price-2013",
+        "mathieson-et-al-2018",
+        "brami-et-al-2022",
+        "gurova-et-al-2016"
+      ],
+      "sourceBasis": "Objects, food practices and people moved at different rates; ancient DNA, isotopes and settlement evidence document migrants, local ancestry, admixture, continuing fishing and enduring river routes during the transition.",
+      "factualConflict": null,
+      "smallestCorrection": null
+    },
+    {
+      "id": "ff-pass-longhouse-continuity",
+      "result": "PASS",
+      "defectCode": null,
+      "locations": [
+        {
+          "beatID": "beat-first-farmers-frontier-consequence",
+          "segmentID": "ff-frontier-consequence-02",
+          "fieldPath": "/narrative/segments/1/text",
+          "exactClaim": "Upstream, the route reaches deep loess: ground that yields to cultivation and timber that can raise a house. Grain can now outlast a season."
+        },
+        {
+          "beatID": "beat-first-farmers-raise-longhouse",
+          "segmentID": "ff-house-01",
+          "fieldPath": "/narrative/segments/0/text",
+          "exactClaim": "The plot begins as cuts in the soil. Posts must carry the frame. The hearth must sit where work, food and warmth can return each day. Storage must remain dry and close enough to guard. A roof must bind the parts into shelter."
+        },
+        {
+          "beatID": "beat-first-farmers-raise-longhouse",
+          "segmentID": "ff-house-02",
+          "fieldPath": "/narrative/segments/1/text",
+          "exactClaim": "Every piece changes what the household can preserve, repair and pass forward."
+        },
+        {
+          "beatID": "beat-first-farmers-plot-remains",
+          "segmentID": "ff-plot-01",
+          "fieldPath": "/narrative/segments/0/text",
+          "exactClaim": "Posts rot. Walls crack. Thatch gives way. Yet the path still reaches the threshold. The well remains. Worked ground surrounds the house, and old postholes hold its shape beneath the floor."
+        },
+        {
+          "beatID": "beat-first-farmers-plot-remains",
+          "segmentID": "ff-plot-02",
+          "fieldPath": "/narrative/segments/1/text",
+          "exactClaim": "New timbers rise beside the old marks. The rebuilt house inherits more than a footprint. Cleared soil, stored grain, animal enclosures and neighbourly obligations make one generation's labour part of the life awaiting the next."
+        }
+      ],
+      "sourceIDs": [
+        "meadows-et-al-2019",
+        "pavlu-2016",
+        "shennan-2018"
+      ],
+      "sourceBasis": "Earthfast posts, roof-bearing frames, successive house plans and durable settlement infrastructure support the material continuity of a worked plot even when an individual timber house decays.",
+      "factualConflict": null,
+      "smallestCorrection": null
+    },
+    {
+      "id": "ff-pass-patrilocal-descent",
+      "result": "PASS",
+      "defectCode": null,
+      "locations": [
+        {
+          "beatID": "beat-first-farmers-paternal-lines",
+          "segmentID": "ff-descent-01",
+          "fieldPath": "/narrative/segments/0/text",
+          "exactClaim": "In some farming communities, continuity runs strongly through fathers and sons. Women arrive from neighbouring groups and bind settlements to one another. The house plot, its dead and its worked ground give descent a durable address."
+        },
+        {
+          "beatID": "beat-first-farmers-paternal-lines",
+          "segmentID": "ff-descent-02",
+          "fieldPath": "/narrative/segments/1/text",
+          "exactClaim": "A family line can now inherit a store, a field and obligations fixed to place. Long before law writes property down, repeated work makes possession visible in the earth."
+        }
+      ],
+      "sourceIDs": [
+        "gelabert-et-al-2024",
+        "rivollat-et-al-2023"
+      ],
+      "sourceBasis": "Large ancient-DNA datasets support patrilocality in LBK communities, and later Neolithic pedigrees directly show patrilineal continuity with women entering from genetically close neighbouring groups. The draft correctly limits the claim to some communities.",
+      "factualConflict": null,
+      "smallestCorrection": null
+    },
+    {
+      "id": "ff-pass-demographic-expansion-contraction",
+      "result": "PASS",
+      "defectCode": null,
+      "locations": [
+        {
+          "beatID": "beat-first-farmers-more-mouths",
+          "segmentID": "ff-growth-01",
+          "fieldPath": "/narrative/segments/0/text",
+          "exactClaim": "Stored harvests and settled care allow households to grow. One roof becomes several. New hearths require new fields. New herds cut lanes between water, pasture and enclosure. The settlement begins to press beyond its first clearing."
+        },
+        {
+          "beatID": "beat-first-farmers-more-mouths",
+          "segmentID": "ff-growth-02",
+          "fieldPath": "/narrative/segments/1/text",
+          "exactClaim": "Open the ground. Every new household carries seed and animals outward, but leaves roads, field edges and daughter settlements behind."
+        },
+        {
+          "beatID": "beat-first-farmers-growth-breaks",
+          "segmentID": "ff-contraction-01",
+          "fieldPath": "/narrative/segments/0/text",
+          "exactClaim": "Expansion carries its own exposure. A failed harvest, disease, conflict or exhausted local ground can break a settlement's growth. Smoke disappears from some roofs. Grass closes paths. Young trees enter worked soil."
+        },
+        {
+          "beatID": "beat-first-farmers-growth-breaks",
+          "segmentID": "ff-contraction-02",
+          "fieldPath": "/narrative/segments/1/text",
+          "exactClaim": "The farming system survives by moving again. Households take seed, animals and learned routines to another clearing. Population rises and falls by region, yet every renewed settlement extends the world of fields and stores."
+        }
+      ],
+      "sourceIDs": [
+        "bocquet-appel-2011",
+        "shennan-et-al-2013",
+        "shennan-2018"
+      ],
+      "sourceBasis": "The farming transition raised fertility and population density while radiocarbon-demographic evidence shows repeated regional booms and contractions rather than unbroken growth. The listed stresses are framed as possible mechanisms, not a claimed single cause.",
+      "factualConflict": null,
+      "smallestCorrection": null
+    },
+    {
+      "id": "ff-pass-continent-and-steppe-handoff",
+      "result": "PASS",
+      "defectCode": null,
+      "locations": [
+        {
+          "beatID": "beat-first-farmers-continent-remade",
+          "segmentID": "ff-continent-01",
+          "fieldPath": "/narrative/segments/0/text",
+          "exactClaim": "The first traced household has become a continental pattern. Fields break woodland along river valleys and fertile plains. Herds move between enclosure, water and pasture. Longhouses, wells and inherited plots hold growing communities to ground."
+        },
+        {
+          "beatID": "beat-first-farmers-continent-remade",
+          "segmentID": "ff-continent-02",
+          "fieldPath": "/narrative/segments/1/text",
+          "exactClaim": "The new landscape does not erase what came before; it makes fields, stores and permanent settlement the dominant structure through which later powers must move."
+        },
+        {
+          "beatID": "beat-first-farmers-before-steppe",
+          "segmentID": "ff-ending-01",
+          "fieldPath": "/narrative/segments/0/text",
+          "exactClaim": "a store raised from damp, a field cleared for another year and a house rebuilt beside its dead have fixed growing populations to inherited ground."
+        },
+        {
+          "beatID": "beat-first-farmers-before-steppe",
+          "segmentID": "ff-ending-02",
+          "fieldPath": "/narrative/segments/1/text",
+          "exactClaim": "East of this settled continent, another order is gathering power across open grass. It will not meet an empty Europe. It will meet fields to seize, stores to command, houses to inherit and paternal lines to reorder."
+        }
+      ],
+      "sourceIDs": [
+        "shennan-2018",
+        "lazaridis-et-al-2025"
+      ],
+      "sourceBasis": "By the late fourth millennium farming settlement covered most of mainland Europe, and the Yamnaya complex appeared across the Pontic–Caspian steppe around 3300 BC. The ending correctly presents a handoff before the main westward transformation.",
+      "factualConflict": null,
+      "smallestCorrection": null
+    },
+    {
+      "id": "ff-finding-c7000-subfloor-burial",
+      "result": "NARROW",
+      "defectCode": "F5",
+      "locations": [
+        {
+          "beatID": "beat-first-farmers-river-world",
+          "segmentID": "ff-river-world-01",
+          "fieldPath": "/narrative/segments/0/text",
+          "exactClaim": "Beside the settlement, the dead hold this bank to generations already gone."
+        }
+      ],
+      "sourceIDs": [
+        "boric-vlasac-2014",
+        "boric-vlasac-2015",
+        "boric-et-al-lepenski-vir-2018"
+      ],
+      "sourceBasis": "At Vlasac, the c.7000 sequence supports dwellings and a long-used burial place, but the securely described relation is burial superimposed on or around an abandoned dwelling. The best-dated Lepenski Vir floor-and-burial architecture belongs to the later transition beginning after about 6200 BC.",
+      "factualConflict": "The c.7000 opening fuses a valid nearby burial ground with a later or differently stratified subfloor-burial relationship.",
+      "smallestCorrection": "Remove the subfloor association from the c.7000 state. Preserve the house, nearby graves and generational attachment to the bank.",
+      "resolution": {
+        "status": "CLOSED",
+        "appliedAt": "2026-07-24",
+        "appliedBy": "NARRATIVE_WRITER",
+        "repairKind": "NARROW",
+        "originalClaim": "Beneath the floor and beside the settlement, the dead hold this bank to generations already gone.",
+        "editorialFrameChanged": false
+      }
+    },
+    {
+      "id": "ff-finding-aegean-sailcloth",
+      "result": "REMOVE",
+      "defectCode": "F2",
+      "locations": [
+        {
+          "beatID": "beat-first-farmers-household-crosses",
+          "fieldPath": "/sceneDirection/livingMotion",
+          "exactValue": [
+            "shallow water",
+            "animal weight shifts",
+            "grain dust",
+            "wake"
+          ],
+          "exactClaim": "Post-repair living motion with the unsupported sail-specific cue absent."
+        }
+      ],
+      "sourceIDs": [
+        "carter-2006",
+        "gibaja-et-al-2024"
+      ],
+      "sourceBasis": "Seafaring in the early Aegean is secure, but the propulsion technology is not. Known Neolithic Mediterranean craft are dugout canoes, while the earliest identified mast-and-sail evidence is later and outside the Aegean, at H3 in the Persian Gulf around 5300–4900 BC.",
+      "factualConflict": "A visible sail makes an unsupported technological claim for a 7000–6500 BC Aegean crossing.",
+      "smallestCorrection": "Remove the sail-specific motion cue. Retain the crossing, watercraft, wake, hull, animal movement and cloth that is not functioning as propulsion.",
+      "resolution": {
+        "status": "CLOSED",
+        "appliedAt": "2026-07-24",
+        "appliedBy": "NARRATIVE_WRITER",
+        "repairKind": "REMOVE",
+        "originalClaim": "sailcloth",
+        "editorialFrameChanged": false
+      }
+    },
+    {
+      "id": "ff-finding-thessaly-sowing-season",
+      "result": "EDITOR_DECISION",
+      "defectCode": "F5",
+      "locations": [
+        {
+          "beatID": "beat-first-farmers-household-crosses",
+          "segmentID": "ff-crossing-02",
+          "fieldPath": "/narrative/segments/1/text",
+          "exactClaim": "what must remain untouched for spring"
+        },
+        {
+          "beatID": "beat-first-farmers-european-ground",
+          "segmentID": "ff-ground-01",
+          "fieldPath": "/narrative/segments/0/text",
+          "exactClaim": "A household has placed next spring inside European ground."
+        },
+        {
+          "beatID": "beat-first-farmers-harvest-allocation",
+          "segmentID": "ff-harvest-04",
+          "fieldPath": "/narrative/segments/3/text",
+          "exactClaim": "Spring seed is food refused in winter: the next field held inside the present harvest."
+        },
+        {
+          "beatID": "beat-first-farmers-harvest-allocation",
+          "segmentID": "ff-harvest-05",
+          "fieldPath": "/narrative/segments/4/text",
+          "exactClaim": "enlarge the spring sowing"
+        },
+        {
+          "beatID": "beat-first-farmers-harvest-allocation",
+          "fieldPath": "/interaction/destinations/2/title",
+          "exactValue": "Spring seed",
+          "exactClaim": "Spring seed"
+        },
+        {
+          "beatID": "beat-first-farmers-stored-future",
+          "segmentID": "ff-stored-future-01",
+          "fieldPath": "/narrative/segments/0/text",
+          "exactClaim": "winter consumption must stop before it consumes spring"
+        },
+        {
+          "beatID": "beat-first-farmers-stored-future",
+          "fieldPath": "/sceneDirection/livingMotion/0",
+          "exactValue": "snow then thaw outside",
+          "exactClaim": "snow then thaw outside"
+        },
+        {
+          "beatID": "beat-first-farmers-stored-future",
+          "fieldPath": "/sceneDirection/mechanismLight",
+          "exactClaim": "on the first thaw"
+        },
+        {
+          "beatID": "beat-first-farmers-before-steppe",
+          "segmentID": "ff-ending-01",
+          "fieldPath": "/narrative/segments/0/text",
+          "exactClaim": "A seed withheld in winter"
+        }
+      ],
+      "sourceIDs": [
+        "perles-2001"
+      ],
+      "sourceBasis": "For Early Neolithic Greece's Mediterranean cereal regime, Perlès identifies autumn as the probable sowing season. Spring sowing is possible in special wet or floodplain conditions, but the draft presents it as the governing Thessalian cereal calendar without such a setting.",
+      "factualConflict": "The Harvest interaction, its visual season change and the chapter refrain make spring sowing the ordinary rule for emmer and einkorn in Thessaly.",
+      "smallestCorrection": "Preserve the causal triad of consumption, protected reserve and next sowing. Change only the seasonal identity and all linked thaw or spring cues to a defensible post-harvest-to-autumn-rain cycle. This touches an editor-approved interaction and requires the editor-in-chief's decision."
+    },
+    {
+      "id": "ff-finding-physical-house-outlives-builders",
+      "result": "EDITOR_DECISION",
+      "defectCode": "F3",
+      "locations": [
+        {
+          "beatID": "beat-first-farmers-frontier-consequence",
+          "segmentID": "ff-frontier-consequence-02",
+          "fieldPath": "/narrative/segments/1/text",
+          "exactClaim": "The next structure must outlast its builders."
+        }
+      ],
+      "sourceIDs": [
+        "meadows-et-al-2019"
+      ],
+      "sourceBasis": "Radiocarbon modelling at Vráble gives individual LBK houses a median use-life of about 20–30 years. Settlement and plot continuity can span generations, but the physical timber building cannot be made to carry a general requirement that it outlive its builders.",
+      "factualConflict": "The line assigns documented multi-generational continuity to the individual structure rather than to the house plot, rebuilding sequence or household institution.",
+      "smallestCorrection": "Move the outliving mechanism from the first timber structure to the worked plot and repeated rebuilding. Keep the arc's inheritance mechanism and title only if their referent is the house-as-continuity rather than one building. This is part of the approved causal spine and requires the editor-in-chief's decision."
+    },
+    {
+      "id": "ff-finding-longhouse-universal-build-order",
+      "result": "EDITOR_DECISION",
+      "defectCode": "F2",
+      "locations": [
+        {
+          "beatID": "beat-first-farmers-raise-longhouse",
+          "segmentID": "ff-house-02",
+          "fieldPath": "/narrative/segments/1/text",
+          "exactClaim": "Assemble the house in causal order."
+        },
+        {
+          "beatID": "beat-first-farmers-raise-longhouse",
+          "fieldPath": "/interaction/components/3/prerequisites",
+          "exactValue": [
+            "posts",
+            "hearth",
+            "storage"
+          ],
+          "exactClaim": "The roof is locked behind posts, hearth and storage."
+        }
+      ],
+      "sourceIDs": [
+        "pavlu-2016"
+      ],
+      "sourceBasis": "Postholes establish the load-bearing frame, but the above-ground form, internal functions and actual sequence of fitting hearth, storage and roofing are reconstructed. Pavlů explicitly treats these functional readings as hypotheses rather than a recovered universal building order.",
+      "factualConflict": "The interaction turns a designed gameplay dependency—hearth and storage must precede the roof—into a materially resisted historical order that the evidence cannot establish.",
+      "smallestCorrection": "Ground mandatory resistance only in structural dependencies supported by the post pattern. Do not claim a recovered universal order for hearth, storage and roof. Preserve the Assemble grammar and inheritance consequence. Because this changes an approved core interaction, it requires the editor-in-chief's decision."
+    },
+    {
+      "id": "ff-finding-first-farmer-languages-gone",
+      "result": "EDITOR_DECISION",
+      "defectCode": "F3",
+      "locations": [
+        {
+          "beatID": "beat-first-farmers-before-steppe",
+          "segmentID": "ff-ending-01",
+          "fieldPath": "/narrative/segments/0/text",
+          "exactClaim": "The languages of the first farming households are gone."
+        }
+      ],
+      "sourceIDs": [
+        "iversen-kroonen-2017"
+      ],
+      "sourceBasis": "The first farmers' languages are unattested. Linguistic work can identify non-Indo-European farmer substrate vocabulary surviving in later Indo-European languages, but cannot demonstrate that every language lineage of the first farming households disappeared without descendants.",
+      "factualConflict": "The categorical extinction claim exceeds what the linguistic record can establish and disregards demonstrable substrate survival.",
+      "smallestCorrection": "Retain the contrast between lost speech and enduring material structure without asserting complete extinction of every linguistic lineage. The claim opens the approved ending and therefore requires the editor-in-chief's decision."
+    }
+  ],
+  "summary": {
+    "PASS": 9,
+    "NARROW": 1,
+    "REPLACE": 0,
+    "REMOVE": 1,
+    "EDITOR_DECISION": 4,
+    "openDefects": {
+      "F1": 0,
+      "F2": 1,
+      "F3": 2,
+      "F4": 0,
+      "F5": 1,
+      "F6": 0,
+      "F7": 0
+    },
+    "closedDefects": {
+      "F1": 0,
+      "F2": 1,
+      "F3": 0,
+      "F4": 0,
+      "F5": 1,
+      "F6": 0,
+      "F7": 0
+    }
+  }
+}

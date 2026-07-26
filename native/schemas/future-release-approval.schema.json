@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thelongwest.invalid/schemas/future-release-approval.schema.json",
+  "title": "Backstage editor approval for a future native release",
+  "description": "This record remains backstage. Its SHA-256 fields bind the exact public Release, ContentPackagePayload, publication placement, canonical world authority, save-migration graph and transform-descriptor inventory approved by the editor-in-chief.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "status",
+    "authority",
+    "approvedAt",
+    "decisionReference",
+    "releaseID",
+    "contentID",
+    "packageID",
+    "releaseSHA256",
+    "payloadSHA256",
+    "publicationSHA256",
+    "worldAuthoritySHA256",
+    "saveMigrationGraphSHA256",
+    "saveMigrationDescriptorInventorySHA256",
+    "releasePayloadPublicationAuthoritySHA256"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 3 },
+    "status": { "const": "APPROVED_BY_EDITOR_IN_CHIEF" },
+    "authority": { "const": "editor-in-chief" },
+    "approvedAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "decisionReference": { "type": "string", "minLength": 12 },
+    "releaseID": { "$ref": "#/$defs/StableID" },
+    "contentID": { "$ref": "#/$defs/StableID" },
+    "packageID": { "$ref": "#/$defs/StableID" },
+    "releaseSHA256": { "$ref": "#/$defs/SHA256" },
+    "payloadSHA256": { "$ref": "#/$defs/SHA256" },
+    "publicationSHA256": { "$ref": "#/$defs/SHA256" },
+    "worldAuthoritySHA256": { "$ref": "#/$defs/SHA256" },
+    "saveMigrationGraphSHA256": { "$ref": "#/$defs/SHA256" },
+    "saveMigrationDescriptorInventorySHA256": { "$ref": "#/$defs/SHA256" },
+    "releasePayloadPublicationAuthoritySHA256": { "$ref": "#/$defs/SHA256" }
+  },
+  "$defs": {
+    "StableID": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    },
+    "SHA256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

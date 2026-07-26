@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "candidateID": "harvest-production-master-candidate-v25-grain-local-composite",
+  "status": "NON_SHIPPING_EXACT_CANVAS_MATERIAL_CORRECTION_CANDIDATE",
+  "shippingAllowed": false,
+  "parent": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v24-canvas-normalized.png",
+    "sha256": "bfc3ea276fa2d63857381e31845d25716dc7c71b82cf38afd734a021dff8b7c1",
+    "bytes": 5805477,
+    "width": 1290,
+    "height": 2796
+  },
+  "inputCrop": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v25-grain-input-crop.png",
+    "sha256": "78915e91a3892e997de916ece03178b710cf29d25077acd0329ac5de161d1ed8",
+    "bytes": 1451619,
+    "width": 900,
+    "height": 900,
+    "construction": "Exact parent crop at x=190,y=1750,width=900,height=900 without resampling."
+  },
+  "prompt": {
+    "path": "native/design/phase1/harvest/openai-v25-grain-crop-edit-prompt.txt",
+    "sha256": "bdb7061563456c14ca5dc31034f3a43e61439c32e1d8459b020f0f95b062dcc3",
+    "bytes": 1085
+  },
+  "localEditSource": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v25-grain-crop-edit-source.png",
+    "sha256": "4ee2f086008b03526f4afe38717ca1cb1cd97f4e78fa71727968ea89b310cd23",
+    "bytes": 2663916,
+    "width": 1254,
+    "height": 1254,
+    "tool": "Codex built-in image edit",
+    "modelVersionExposed": false,
+    "seedExposed": false,
+    "directEditUse": "REJECTED_GLOBAL_REDRAW_RETAINED_ONLY_AS_LOCAL_MATERIAL_SOURCE"
+  },
+  "authorizedMask": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v25-grain-local-mask.png",
+    "sha256": "ceea23587af1bc95987110fa40845103ff4a3daa19ad7a7bdd297c3156347d40",
+    "bytes": 37554,
+    "construction": "1290x2796 grayscale ellipse centred at (655,2395), radii (365,245), Gaussian sigma 10",
+    "nonZeroBoundingRectangle": {
+      "x": 260,
+      "y": 2120,
+      "width": 791,
+      "height": 551
+    }
+  },
+  "compositor": {
+    "id": "ffmpeg-maskedmerge",
+    "pixelFormat": "gbrp-to-rgb24-png",
+    "editPlacement": "Scale the 1254x1254 local source to 900x900 with Lanczos and place at x=190,y=1750 over the unchanged exact-canvas parent."
+  },
+  "output": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v25-grain-local-composite.png",
+    "sha256": "5ddcef3511e0b29dd0ace635a26135290bcf50402531b7d55b60e30422873762",
+    "bytes": 5879816,
+    "width": 1290,
+    "height": 2796
+  },
+  "codexPreflight": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v25-codex-preflight.md",
+    "sha256": "bd323a45aa76e82879bb348c0e0ed863c76ab6a2735d14454bcec6de62571059",
+    "bytes": 2553,
+    "status": "CODEX_PROVISIONAL_NON_SHIPPING_REVIEW"
+  },
+  "audit": {
+    "materialResult": "PASS_PROVISIONAL_CEREAL_SCALE_AND_MORPHOLOGY",
+    "outsideAuthorizedBoundingRectangle": "PIXEL_IDENTICAL_TO_PARENT",
+    "outsideRegionRawFrameHashes": {
+      "above": "e3e8b24e2282de694f7afd63f7f0cfaf40ecdba29f4bbda0fd969b95f45fcc9e",
+      "below": "a6673dc4b83d33e99141489311966fc3de25c24b2179557c8025c72641e9104e",
+      "left": "1900712fd39bb618287af7e3fb15c5c49b2a6810046ded6420f5c27a30fa2bb5",
+      "right": "f7f291ccc824f738a0e0f58b179a4a936b092e24f131540d8ea3979467fd79d3"
+    },
+    "psnrAverageDecibelsAgainstParent": 33.083717,
+    "ssimAgainstParent": 0.959403,
+    "sceneCanvasResult": "PASS_EXACT_1290_X_2796",
+    "productionMasterResult": "PENDING_ARTISTIC_GATE",
+    "layerDAGAuthority": "NOT_GRANTED",
+    "reason": "The finite mound now reads as thousands of small hulled cereal kernels rather than oversized bean-like pieces. Every pixel outside the byte-audited mound rectangle remains unchanged. The exact-canvas raster remains a non-shipping candidate and grants no layer-DAG authority before the artistic gate."
+  }
+}

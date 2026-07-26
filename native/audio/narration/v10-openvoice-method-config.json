@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "status": "CODEX_V10_OPENVOICE_REPRESENTATIVE_METHOD_FROZEN",
+  "trustDomain": "CODEX_V8_DIAGNOSTIC_NON_SHIPPING",
+  "candidateID": "openvoice-v2-melotts-english-en-br",
+  "language": "English",
+  "locale": "en-GB",
+  "device": "cpu",
+  "speaker": {
+    "baseModel": "MeloTTS-English",
+    "baseSpeaker": "EN-BR",
+    "speakerID": 1,
+    "toneColourConverter": "OpenVoice V2",
+    "referenceIDs": ["voice-candidate-05", "voice-candidate-06"]
+  },
+  "generation": {
+    "speed": 1.0,
+    "sdpRatio": 0.2,
+    "noiseScale": 0.6,
+    "noiseScaleW": 0.8,
+    "lengthScale": 1.0,
+    "converterTau": 0.3,
+    "seedBase": 10000000,
+    "seedCandidateStride": 100000,
+    "seedUtteranceStride": 10,
+    "threadCount": 1,
+    "oneDeterministicAttemptPerUtterance": true,
+    "parameterSelectionAfterListeningPermitted": false,
+    "automaticSentenceSplittingPermitted": false,
+    "publicTtsToFilePermitted": false,
+    "g2pFallbackPermitted": false
+  },
+  "audio": {
+    "meloSampleRate": 44100,
+    "converterSampleRate": 22050,
+    "frozenAuditSampleRate": 24000,
+    "auditSampleRateUpFactor": 160,
+    "auditSampleRateDownFactor": 147,
+    "rawConverterOutputMustRemainUnchanged": true,
+    "auditDerivativePurpose": "Sample-rate compatibility with the unchanged V8 identity, ASR and silence gate only.",
+    "auditDerivativeMayApplyOnlyDeterministicPolyphaseResampling": true,
+    "activityCropPermitted": false,
+    "edgeFadePermitted": false,
+    "loudnessNormalizationPermitted": false,
+    "internalSilenceRemovalPermitted": false,
+    "speechTimeStretchPermitted": false,
+    "durationPaddingPermitted": false,
+    "authoredIntraParagraphPauseMilliseconds": 30,
+    "authoredParagraphPauseMilliseconds": 120,
+    "authoredFinalPauseMilliseconds": 0
+  },
+  "comparison": {
+    "utteranceCountPerReference": 14,
+    "referenceCount": 2,
+    "requiredSynthesisCount": 28,
+    "exactTextManifestSHA256": "822786bfaa942aec932686929d2ece3a7122d5215db654862cad3e28d9a8cb62",
+    "maximumInputPhoneCount": 384,
+    "sameFrozenV8ThresholdsForBothReferences": true,
+    "fullGenerationPermittedBeforeBothPass": false
+  }
+}

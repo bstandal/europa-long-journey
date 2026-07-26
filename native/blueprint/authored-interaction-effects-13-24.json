@@ -1,0 +1,467 @@
+{
+  "schemaVersion": 2,
+  "status": "AUTHORED_APPROVED_BY_EDITOR_IN_CHIEF",
+  "scope": {
+    "ordinalStart": 13,
+    "ordinalEnd": 24,
+    "chapters": 12
+  },
+  "counts": {
+    "interactiveEffects": 48,
+    "beatEffects": 4,
+    "totalWorldEffects": 52,
+    "principalInteractions": 48,
+    "mappingPromotionsRequired": 0,
+    "worldTraces": 24,
+    "byOperation": {
+      "prepare": 14,
+      "establish": 24,
+      "transform": 14
+    },
+    "interactiveByOperation": {
+      "prepare": 13,
+      "establish": 21,
+      "transform": 14
+    },
+    "beatByOperation": {
+      "prepare": 1,
+      "establish": 3,
+      "transform": 0
+    },
+    "interactiveByChapter": {
+      "europe-holds-the-line": 4,
+      "europe-turns-seaward": 4,
+      "reformation": 4,
+      "habsburg-europe": 4,
+      "scientific-revolution": 4,
+      "dutch-republic": 4,
+      "enlightenment-public-opinion": 4,
+      "rivalry-industrial-breakthrough": 4,
+      "european-world": 4,
+      "europe-at-war": 4,
+      "continent-rebuilt": 4,
+      "europe-returns": 4
+    }
+  },
+  "requiredMappingPromotions": [],
+  "effects": [
+    {
+      "sourceInteractionID": "europe-holds-the-line/northern-valleys-keep-crown",
+      "nativeInteractionID": "interaction-europe-holds-the-line-northern-valleys-keep-crown",
+      "worldTraceID": "trace-christian-frontier",
+      "operation": "prepare",
+      "beforeState": "Cantabrian passes shelter separate bands and settlements, but no durable Christian crown yet carries defence beyond the mountain refuge.",
+      "afterState": "Held passes, the court at Oviedo, monastic stores and defended fields leave an inhabited Christian corridor reaching León and the Duero."
+    },
+    {
+      "sourceInteractionID": "europe-holds-the-line/europe-answers-clermont",
+      "nativeInteractionID": "interaction-europe-holds-the-line-europe-answers-clermont",
+      "worldTraceID": "trace-coalition-defence",
+      "operation": "prepare",
+      "beforeState": "Western contingents hold separate vows, lords and roads, while the eastern appeal has no common force able to cross the imperial frontier.",
+      "afterState": "Four western roads converge at Constantinople; Roman passage and supply join crusader manpower through Nicaea and Antioch to captured Jerusalem."
+    },
+    {
+      "sourceInteractionID": "europe-holds-the-line/living-wall-guards-croatia",
+      "nativeInteractionID": "interaction-europe-holds-the-line-living-wall-guards-croatia",
+      "worldTraceID": "trace-christian-frontier",
+      "operation": "establish",
+      "beforeState": "Held passes, the court at Oviedo, monastic stores and defended fields leave an inhabited Christian corridor reaching León and the Duero.",
+      "afterState": "Fortified cities and permanent frontier communities hold a recovered Christian European line from Iberia to the Danube."
+    },
+    {
+      "sourceInteractionID": "europe-holds-the-line/frontier-turns",
+      "nativeInteractionID": "interaction-europe-holds-the-line-frontier-turns",
+      "worldTraceID": "trace-coalition-defence",
+      "operation": "establish",
+      "beforeState": "Four western roads converge at Constantinople; Roman passage and supply join crusader manpower through Nicaea and Antioch to captured Jerusalem.",
+      "afterState": "Cities, kingdoms, orders, fleets and relief armies combine different capacities against a common threat."
+    },
+    {
+      "sourceInteractionID": "europe-turns-seaward/way-home-bends-west",
+      "nativeInteractionID": "interaction-europe-turns-seaward-way-home-bends-west",
+      "worldTraceID": "trace-atlantic-sea-road",
+      "operation": "establish",
+      "beforeState": "A vessel clings to the African coast against wind and current, and the shortest line home remains an unreliable road.",
+      "afterState": "The westward volta reaches Atlantic westerlies and returns to the Tagus, leaving a repeatable open-ocean route for the next voyage."
+    },
+    {
+      "sourceInteractionID": "europe-turns-seaward/chart-reaches-calicut",
+      "nativeInteractionID": "interaction-europe-turns-seaward-chart-reaches-calicut",
+      "worldTraceID": "trace-atlantic-sea-road",
+      "operation": "transform",
+      "beforeState": "The westward volta reaches Atlantic westerlies and returns to the Tagus, leaving a repeatable open-ocean route for the next voyage.",
+      "afterState": "The unrolled chart joins Bojador, Guinea and the Cape to East African pilotage and a monsoon crossing that reaches Calicut, but the route still lacks supplied bases and armed control of narrow water."
+    },
+    {
+      "sourceInteractionID": "europe-turns-seaward/meridian-divides-unknown-world",
+      "nativeInteractionID": "interaction-europe-turns-seaward-meridian-divides-unknown-world",
+      "worldTraceID": "trace-atlantic-sea-road",
+      "operation": "transform",
+      "beforeState": "The unrolled chart joins Bojador, Guinea and the Cape to East African pilotage and a monsoon crossing that reaches Calicut, but the route still lacks supplied bases and armed control of narrow water.",
+      "afterState": "The Tordesillas meridian, uncertain longitude, Cabral's landfall and repeated surveys leave royal claims and measured coastline written across the same expanding Atlantic chart."
+    },
+    {
+      "sourceInteractionID": "europe-turns-seaward/cannon-holds-narrow-water",
+      "nativeInteractionID": "interaction-europe-turns-seaward-cannon-holds-narrow-water",
+      "worldTraceID": "trace-atlantic-sea-road",
+      "operation": "transform",
+      "beforeState": "The Tordesillas meridian, uncertain longitude, Cabral's landfall and repeated surveys leave royal claims and measured coastline written across the same expanding Atlantic chart.",
+      "afterState": "Known winds, islands, capes and supplied ports turn the Atlantic and Cape passage into repeatable European roads."
+    },
+    {
+      "sourceInteractionID": "reformation/indulgence-enters-print",
+      "nativeInteractionID": "interaction-reformation-indulgence-enters-print",
+      "worldTraceID": "trace-confessional-print-network",
+      "operation": "establish",
+      "beforeState": "A Latin university dispute remains in manuscript and local speech, still recoverable by the authorities that control its first audience.",
+      "afterState": "Composed type, inked forms, repeated sheets and vernacular pamphlets leave the indulgence dispute running through several commercial presses and cities."
+    },
+    {
+      "sourceInteractionID": "reformation/prince-builds-a-church",
+      "nativeInteractionID": "interaction-reformation-prince-builds-a-church",
+      "worldTraceID": "trace-confessional-print-network",
+      "operation": "transform",
+      "beforeState": "Composed type, inked forms, repeated sheets and vernacular pamphlets leave the indulgence dispute running through several commercial presses and cities.",
+      "afterState": "Print, translation, school and territorial church make confession reproducible across European states."
+    },
+    {
+      "sourceInteractionID": "reformation/army-learns-to-feed-itself",
+      "nativeInteractionID": "interaction-reformation-army-learns-to-feed-itself",
+      "worldTraceID": "trace-westphalian-settlement",
+      "operation": "prepare",
+      "beforeState": "Confessional revolt, dynastic allegiance and army supply lie on separate tables while occupied households bear a war with no agreed constitutional exit.",
+      "afterState": "The war table leaves contribution routes, occupied households, confessional claims and surviving estate rights exposed together while armies still stand in the field."
+    },
+    {
+      "sourceInteractionID": "reformation/envoys-negotiate-under-arms",
+      "nativeInteractionID": "interaction-reformation-envoys-negotiate-under-arms",
+      "worldTraceID": "trace-westphalian-settlement",
+      "operation": "establish",
+      "beforeState": "The war table leaves contribution routes, occupied households, confessional claims and surviving estate rights exposed together while armies still stand in the field.",
+      "afterState": "Permanent confessional plurality and estate rights remain inside a preserved constitutional order."
+    },
+    {
+      "sourceInteractionID": "habsburg-europe/three-crowns-seek-a-king",
+      "nativeInteractionID": "interaction-habsburg-europe-three-crowns-seek-a-king",
+      "worldTraceID": "trace-danube-common-home",
+      "operation": "establish",
+      "beforeState": "Austria, Bohemia and a contested Hungary retain separate crowns, diets and claims after Mohács, with no ruler yet binding their defence.",
+      "afterState": "Ferdinand holds three crowns through different oaths and bargains; their diets, laws and tax grants remain visible inside one defensive monarchy."
+    },
+    {
+      "sourceInteractionID": "habsburg-europe/school-road-post",
+      "nativeInteractionID": "interaction-habsburg-europe-school-road-post",
+      "worldTraceID": "trace-danube-common-home",
+      "operation": "transform",
+      "beforeState": "Ferdinand holds three crowns through different oaths and bargains; their diets, laws and tax grants remain visible inside one defensive monarchy.",
+      "afterState": "Surveyed districts, responsible offices, regular post and elementary schools carry common service deeper into crownlands that retain local law and language."
+    },
+    {
+      "sourceInteractionID": "habsburg-europe/two-governments-share-a-crown",
+      "nativeInteractionID": "interaction-habsburg-europe-two-governments-share-a-crown",
+      "worldTraceID": "trace-danube-common-home",
+      "operation": "transform",
+      "beforeState": "Surveyed districts, responsible offices, regular post and elementary schools carry common service deeper into crownlands that retain local law and language.",
+      "afterState": "Several crowns, laws and peoples inhabit one dynastic state through common defence and service."
+    },
+    {
+      "sourceInteractionID": "habsburg-europe/rails-braid-the-crownlands",
+      "nativeInteractionID": "interaction-habsburg-europe-rails-braid-the-crownlands",
+      "worldTraceID": "trace-habsburg-rail-braid",
+      "operation": "establish",
+      "beforeState": "Prague, Lviv, Trieste and Zagreb belong to one monarchy, but their journeys still expose separate systems without one practical route between them.",
+      "afterState": "Rail, post, telegraph, customs and municipal institutions braid the crownlands into one practical geography."
+    },
+    {
+      "sourceInteractionID": "scientific-revolution/earth-becomes-a-planet",
+      "nativeInteractionID": "interaction-scientific-revolution-earth-becomes-a-planet",
+      "worldTraceID": "trace-measured-page",
+      "operation": "prepare",
+      "beforeState": "Astronomical and anatomical authority remains fixed in inherited diagrams whose errors can be repeated without confronting one ordered field of observation.",
+      "afterState": "Facing folios reorder Earth among the planets and correct the pictured body at the dissection table; printed comparison leaves both claims open to distant readers."
+    },
+    {
+      "sourceInteractionID": "scientific-revolution/mars-refuses-the-circle",
+      "nativeInteractionID": "interaction-scientific-revolution-mars-refuses-the-circle",
+      "worldTraceID": "trace-measured-page",
+      "operation": "prepare",
+      "beforeState": "Facing folios reorder Earth among the planets and correct the pictured body at the dissection table; printed comparison leaves both claims open to distant readers.",
+      "afterState": "Tycho's dated observations, Kepler's failed circle, the ellipse and equal-area law remain aligned in a ruled register that preserves how measure defeated perfection, but the record is not yet joined to calibrated instruments or portable geometry."
+    },
+    {
+      "sourceInteractionID": "scientific-revolution/geometry-takes-the-page",
+      "nativeInteractionID": "interaction-scientific-revolution-geometry-takes-the-page",
+      "worldTraceID": "trace-measured-page",
+      "operation": "establish",
+      "beforeState": "Tycho's dated observations, Kepler's failed circle, the ellipse and equal-area law remain aligned in a ruled register that preserves how measure defeated perfection, but the record is not yet joined to calibrated instruments or portable geometry.",
+      "afterState": "Measurement, calibrated instrument and mathematical proof make observation portable and cumulative on the page."
+    },
+    {
+      "sourceInteractionID": "scientific-revolution/observation-enters-the-register",
+      "nativeInteractionID": "interaction-scientific-revolution-observation-enters-the-register",
+      "worldTraceID": "trace-republic-of-letters",
+      "operation": "establish",
+      "beforeState": "An observation sits in a private letter without a public address, witnessed repetition or stable route by which another city can answer it.",
+      "afterState": "Correspondence, journals and societies carry reproducible claims between cities and generations."
+    },
+    {
+      "sourceInteractionID": "dutch-republic/provinces-make-a-union",
+      "nativeInteractionID": "interaction-dutch-republic-provinces-make-a-union",
+      "worldTraceID": "trace-water-government",
+      "operation": "prepare",
+      "beforeState": "Town councils and provincial estates can raise money and men, but no common procedure yet carries their consent into federal defence.",
+      "afterState": "Town councils, provincial States and the States General remain linked on one consent board; a common decision can return to its constituent governments without erasing them."
+    },
+    {
+      "sourceInteractionID": "dutch-republic/capital-outlives-the-voyage",
+      "nativeInteractionID": "interaction-dutch-republic-capital-outlives-the-voyage",
+      "worldTraceID": "trace-dutch-credit-machine",
+      "operation": "prepare",
+      "beforeState": "Separate voyage subscriptions dissolve after each return, forcing ships, command and capital to be assembled again for the next expedition.",
+      "afterState": "Six chambers feed one continuing VOC fund, while a transferable share lets an investor leave without recalling fleet, factories or company property."
+    },
+    {
+      "sourceInteractionID": "dutch-republic/the-bourse-prices-the-world",
+      "nativeInteractionID": "interaction-dutch-republic-the-bourse-prices-the-world",
+      "worldTraceID": "trace-dutch-credit-machine",
+      "operation": "establish",
+      "beforeState": "Six chambers feed one continuing VOC fund, while a transferable share lets an investor leave without recalling fleet, factories or company property.",
+      "afterState": "Bank, exchange, public accounts and transferable claims turn trust into governed financial capacity."
+    },
+    {
+      "sourceInteractionID": "dutch-republic/water-line-saves-the-republic",
+      "nativeInteractionID": "interaction-dutch-republic-water-line-saves-the-republic",
+      "worldTraceID": "trace-water-government",
+      "operation": "establish",
+      "beforeState": "Town councils, provincial States and the States General remain linked on one consent board; a common decision can return to its constituent governments without erasing them.",
+      "afterState": "Measured land, audited maintenance and distributed authority govern water in peace and reverse it for defence."
+    },
+    {
+      "sourceInteractionID": "enlightenment-public-opinion/coffeehouse-makes-a-present",
+      "nativeInteractionID": "interaction-enlightenment-public-opinion-coffeehouse-makes-a-present",
+      "worldTraceID": "trace-european-public-opinion",
+      "operation": "prepare",
+      "beforeState": "Shipping reports, parliamentary conduct, advertisements and essays reach London separately, without one dated sheet around which strangers share a present.",
+      "afterState": "One composed paper places shipping, Parliament, market and criticism on coffeehouse tables; recurring issues leave strangers judging the same public day."
+    },
+    {
+      "sourceInteractionID": "enlightenment-public-opinion/voltaire-returns-with-england",
+      "nativeInteractionID": "interaction-enlightenment-public-opinion-voltaire-returns-with-england",
+      "worldTraceID": "trace-comparative-law",
+      "operation": "establish",
+      "beforeState": "English, French, Dutch and Habsburg institutions sit in separate descriptions, with no common folio exposing how executive, legislature, court, tax and print relate.",
+      "afterState": "European institutions can be placed beside one another and judged through power, law and liberty."
+    },
+    {
+      "sourceInteractionID": "enlightenment-public-opinion/encyclopedie-opens-the-workshop",
+      "nativeInteractionID": "interaction-enlightenment-public-opinion-encyclopedie-opens-the-workshop",
+      "worldTraceID": "trace-european-public-opinion",
+      "operation": "establish",
+      "beforeState": "One composed paper places shipping, Parliament, market and criticism on coffeehouse tables; recurring issues leave strangers judging the same public day.",
+      "afterState": "Articles, definitions, cross-references and engraved operations leave craft and argument joined in an addressable public network whose routes remain open on the page."
+    },
+    {
+      "sourceInteractionID": "enlightenment-public-opinion/rulers-answer-the-page",
+      "nativeInteractionID": "interaction-enlightenment-public-opinion-rulers-answer-the-page",
+      "worldTraceID": "trace-european-public-opinion",
+      "operation": "transform",
+      "beforeState": "Articles, definitions, cross-references and engraved operations leave craft and argument joined in an addressable public network whose routes remain open on the page.",
+      "afterState": "Press, club, academy, market and assembly give public judgment institutional force beyond the palace."
+    },
+    {
+      "sourceInteractionID": "rivalry-industrial-breakthrough/the-mine-breathes",
+      "nativeInteractionID": "interaction-rivalry-industrial-breakthrough-the-mine-breathes",
+      "worldTraceID": "trace-industrial-power-system",
+      "operation": "establish",
+      "beforeState": "Flood closes deeper coal workings, while an atmospheric engine wastes enough heat to remain tied to cheap fuel at the mine.",
+      "afterState": "The working stroke drains deeper coal, a separate condenser saves fuel and rotary motion leaves a shaft able to drive machinery beyond the pump."
+    },
+    {
+      "sourceInteractionID": "rivalry-industrial-breakthrough/the-building-becomes-a-machine",
+      "nativeInteractionID": "interaction-rivalry-industrial-breakthrough-the-building-becomes-a-machine",
+      "worldTraceID": "trace-industrial-power-system",
+      "operation": "transform",
+      "beforeState": "The working stroke drains deeper coal, a separate condenser saves fuel and rotary motion leaves a shaft able to drive machinery beyond the pump.",
+      "afterState": "Spindles multiply under continuous power as preparation, machines, workers and drive shafts remain ordered through one reproducible factory building."
+    },
+    {
+      "sourceInteractionID": "rivalry-industrial-breakthrough/the-railway-takes-time",
+      "nativeInteractionID": "interaction-rivalry-industrial-breakthrough-the-railway-takes-time",
+      "worldTraceID": "trace-industrial-power-system",
+      "operation": "transform",
+      "beforeState": "Spindles multiply under continuous power as preparation, machines, workers and drive shafts remain ordered through one reproducible factory building.",
+      "afterState": "Coal, iron, steam, precision machinery, factory and railway multiply one another as a connected productive system."
+    },
+    {
+      "sourceInteractionID": "rivalry-industrial-breakthrough/liability-finds-a-boundary",
+      "nativeInteractionID": "interaction-rivalry-industrial-breakthrough-liability-finds-a-boundary",
+      "worldTraceID": "trace-limited-company",
+      "operation": "establish",
+      "beforeState": "A proposed railway needs capital beyond one partnership, while each subscriber's private estate remains exposed to an enterprise no individual can command.",
+      "afterState": "Registration, corporate continuity, transferable shares and limited exposure give large capital a durable legal body."
+    },
+    {
+      "sourceInteractionID": "european-world/steam-keeps-the-appointment",
+      "nativeInteractionID": "interaction-european-world-steam-keeps-the-appointment",
+      "worldTraceID": "trace-global-schedule",
+      "operation": "establish",
+      "beforeState": "Wind still decides a North Atlantic ship's departure and arrival, forcing mail, merchants and onward carriers to wait on an estimate.",
+      "afterState": "Published packet departures, machinery watches, coal supply and connected mail routes leave the ocean carrying an appointment beyond either shore, while survey archives, rail, cable, port and common time remain separate layers."
+    },
+    {
+      "sourceInteractionID": "european-world/twenty-states-agree-on-the-signal",
+      "nativeInteractionID": "interaction-european-world-twenty-states-agree-on-the-signal",
+      "worldTraceID": "trace-common-protocols",
+      "operation": "prepare",
+      "beforeState": "National telegraph systems meet at the frontier with different alphabets, tariffs and accounts, forcing each message to be rebuilt at the border.",
+      "afterState": "A shared alphabet, tariff, settlement method and permanent revision office let one telegram cross several sovereign systems without losing its words."
+    },
+    {
+      "sourceInteractionID": "european-world/the-survey-gives-the-state-a-map",
+      "nativeInteractionID": "interaction-european-world-the-survey-gives-the-state-a-map",
+      "worldTraceID": "trace-global-schedule",
+      "operation": "transform",
+      "beforeState": "Published packet departures, machinery watches, coal supply and connected mail routes leave the ocean carrying an appointment beyond either shore, while survey archives, rail, cable, port and common time remain separate layers.",
+      "afterState": "Steam routes, cables, postal territory and common time connect distant action to European schedules."
+    },
+    {
+      "sourceInteractionID": "european-world/the-world-reaches-london-before-dawn",
+      "nativeInteractionID": "interaction-european-world-the-world-reaches-london-before-dawn",
+      "worldTraceID": "trace-common-protocols",
+      "operation": "establish",
+      "beforeState": "A shared telegraph protocol now stands beside sanitary conventions, standardised outbreak notification and a permanent public-health office through which sovereign states coordinate across borders.",
+      "afterState": "Permanent technical and public-health agreements let states operate one connected system across borders."
+    },
+    {
+      "sourceInteractionID": "europe-at-war/the-continent-is-written-as-a-schedule",
+      "nativeInteractionID": "interaction-europe-at-war-the-continent-is-written-as-a-schedule",
+      "worldTraceID": "trace-continent-split-open",
+      "operation": "establish",
+      "beforeState": "Alliance obligations, conscript armies and strategic railways remain prepared in cabinets, while civilian timetables and political choice still govern the continental map.",
+      "afterState": "Mobilisation orders seize the railways, empty cities and carry deliberate violations into industrial fronts whose schedules now outrun diplomacy."
+    },
+    {
+      "sourceInteractionID": "europe-at-war/the-peace-creates-the-stateless",
+      "nativeInteractionID": "interaction-europe-at-war-the-peace-creates-the-stateless",
+      "worldTraceID": "trace-continent-split-open",
+      "operation": "transform",
+      "beforeState": "Mobilisation orders seize the railways, empty cities and carry deliberate violations into industrial fronts whose schedules now outrun diplomacy.",
+      "afterState": "Four imperial fields disappear beneath treaty borders; new states, exposed minorities and refugee documents remain fixed on a Europe whose former political frame has broken."
+    },
+    {
+      "sourceInteractionID": "europe-at-war/law-and-terror-reclassify-the-human-being",
+      "nativeInteractionID": "interaction-europe-at-war-law-and-terror-reclassify-the-human-being",
+      "worldTraceID": "trace-european-jewry-destroyed",
+      "operation": "prepare",
+      "beforeState": "A recognised passport still binds a citizen to legal protection, before statelessness and Nazi racial records turn membership into exposure controlled by the persecuting state.",
+      "afterState": "Nazi racial law and citizenship records leave German Jews classified, stripped of protection and exposed to a state that controls identity, property and movement."
+    },
+    {
+      "sourceInteractionID": "europe-at-war/berlin-falls-and-europe-is-divided",
+      "nativeInteractionID": "interaction-europe-at-war-berlin-falls-and-europe-is-divided",
+      "worldTraceID": "trace-continent-split-open",
+      "operation": "transform",
+      "beforeState": "Four imperial fields disappear beneath treaty borders; new states, exposed minorities and refugee documents remain fixed on a Europe whose former political frame has broken.",
+      "afterState": "Berlin lies in ruins beneath American, British, French and Soviet occupation; Europe has lost its old primacy and the continent now opens into rival western and Soviet orders."
+    },
+    {
+      "sourceInteractionID": "continent-rebuilt/the-atlantic-sends-machines",
+      "nativeInteractionID": "interaction-continent-rebuilt-the-atlantic-sends-machines",
+      "worldTraceID": "trace-western-legal-order",
+      "operation": "prepare",
+      "beforeState": "Western European states count ruined transport, scarce dollars and competing national needs without a common allocation capable of turning American authority into recovery.",
+      "afterState": "American authorization, joint European allocation, a cleared port and an inland rail route leave one shipment multiplying through restored power and factory output."
+    },
+    {
+      "sourceInteractionID": "continent-rebuilt/the-treaty-acquires-a-court",
+      "nativeInteractionID": "interaction-continent-rebuilt-the-treaty-acquires-a-court",
+      "worldTraceID": "trace-western-legal-order",
+      "operation": "establish",
+      "beforeState": "American authorization, joint European allocation, a cleared port and an inland rail route leave one shipment multiplying through restored power and factory output.",
+      "afterState": "Atlantic protection, democratic states, market, treaty and court bind western European power inside agreed rules."
+    },
+    {
+      "sourceInteractionID": "continent-rebuilt/the-wall-confesses-the-system",
+      "nativeInteractionID": "interaction-continent-rebuilt-the-wall-confesses-the-system",
+      "worldTraceID": "trace-eastern-civic-memory",
+      "operation": "establish",
+      "beforeState": "The same 1945 rubble lies under two occupations, before western institutions and eastern national records begin taking visibly different roads.",
+      "afterState": "Concrete closes the eastern road at Berlin, while church records, duplicated pages and remembered national institutions remain lit beneath the public architecture of Soviet rule."
+    },
+    {
+      "sourceInteractionID": "continent-rebuilt/solidarity-builds-a-public-body",
+      "nativeInteractionID": "interaction-continent-rebuilt-solidarity-builds-a-public-body",
+      "worldTraceID": "trace-eastern-civic-memory",
+      "operation": "transform",
+      "beforeState": "Concrete closes the eastern road at Berlin, while church records, duplicated pages and remembered national institutions remain lit beneath the public architecture of Soviet rule.",
+      "afterState": "Churches, workshops, homes, theatres and duplicated pages preserve national truth and public organisation under Soviet rule."
+    },
+    {
+      "sourceInteractionID": "europe-returns/copenhagen-writes-the-doorway",
+      "nativeInteractionID": "interaction-europe-returns-copenhagen-writes-the-doorway",
+      "worldTraceID": "trace-eastern-return",
+      "operation": "prepare",
+      "beforeState": "Restored eastern states have recovered sovereign government, but the European promise still lacks a published route through law into Union membership and allied defence.",
+      "afterState": "Published criteria, legal screening, negotiated chapters and ratification leave a sovereign route into European Union law open to the restored eastern states."
+    },
+    {
+      "sourceInteractionID": "europe-returns/russia-seizes-crimea-and-opens-the-donbas-war",
+      "nativeInteractionID": "interaction-europe-returns-russia-seizes-crimea-and-opens-the-donbas-war",
+      "worldTraceID": "trace-held-eastern-line",
+      "operation": "prepare",
+      "beforeState": "Georgia's occupied breakaway regions, Crimea, the Donbas and the approaching invasion remain separated as incidents rather than one repeated challenge to sovereign European choice.",
+      "afterState": "The warning atlas aligns Georgia in 2008, occupied Crimea and the Donbas in 2014, and the 2022 invasion; the eastern line now requires organised defence as well as declared law."
+    },
+    {
+      "sourceInteractionID": "europe-returns/the-invasion-enlarges-european-resolve",
+      "nativeInteractionID": "interaction-europe-returns-the-invasion-enlarges-european-resolve",
+      "worldTraceID": "trace-held-eastern-line",
+      "operation": "establish",
+      "beforeState": "The warning atlas aligns Georgia in 2008, occupied Crimea and the Donbas in 2014, and the 2022 invasion; the eastern line now requires organised defence as well as declared law.",
+      "afterState": "Union candidacy reaches Kyiv, allied support reaches Ukraine and collective defence closes around Finland and Sweden, while every legal boundary remains visibly distinct."
+    },
+    {
+      "sourceInteractionID": "europe-returns/europe-builds-the-power-to-endure",
+      "nativeInteractionID": "interaction-europe-returns-europe-builds-the-power-to-endure",
+      "worldTraceID": "trace-held-eastern-line",
+      "operation": "transform",
+      "beforeState": "Union candidacy reaches Kyiv, allied support reaches Ukraine and collective defence closes around Finland and Sweden, while every legal boundary remains visibly distinct.",
+      "afterState": "Ukrainian sovereignty, European accession work, allied logistics and collective defence remain distinct systems joined in organised endurance."
+    }
+  ],
+  "beatEffects": [
+    {
+      "sourceMovementID": "europe-turns-seaward/voyage-enters-archive",
+      "effectID": "effect-europe-turns-seaward-voyage-enters-archive",
+      "worldTraceID": "trace-pilot-archive",
+      "operation": "establish",
+      "beforeState": "Returning logs, damaged charts and numerical observations reach Lisbon and Seville as separate testimony, while no crown office yet turns them into a controlled master record.",
+      "afterState": "Returning pilots place soundings, latitudes, winds and harbour knowledge into state-held charts for the next voyage."
+    },
+    {
+      "sourceMovementID": "european-world/disease-enters-a-common-conference",
+      "effectID": "effect-european-world-disease-enters-a-common-conference",
+      "worldTraceID": "trace-common-protocols",
+      "operation": "prepare",
+      "beforeState": "A shared alphabet, tariff, settlement method and permanent revision office let one telegram cross several sovereign systems without losing its words.",
+      "afterState": "A shared telegraph protocol now stands beside sanitary conventions, standardised outbreak notification and a permanent public-health office through which sovereign states coordinate across borders."
+    },
+    {
+      "sourceMovementID": "europe-at-war/european-jewry-is-marked-for-murder",
+      "effectID": "effect-europe-at-war-european-jewry-is-marked-for-murder",
+      "worldTraceID": "trace-european-jewry-destroyed",
+      "operation": "establish",
+      "beforeState": "Nazi racial law and citizenship records leave German Jews classified, stripped of protection and exposed to a state that controls identity, property and movement.",
+      "afterState": "Nazi Germany murders European Jewish communities through occupation, shooting, deportation and killing centres; the absence remains permanent and non-interactive."
+    },
+    {
+      "sourceMovementID": "europe-returns/the-great-enlargement-rejoins-the-continent",
+      "effectID": "effect-europe-returns-the-great-enlargement-rejoins-the-continent",
+      "worldTraceID": "trace-eastern-return",
+      "operation": "establish",
+      "beforeState": "Published criteria, legal screening, negotiated chapters and ratification leave a sovereign route into European Union law open to the restored eastern states.",
+      "afterState": "Restored nations enter European Union law and NATO defence through separate acts of sovereign choice."
+    }
+  ]
+}

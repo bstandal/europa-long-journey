@@ -1,0 +1,194 @@
+{
+  "schemaVersion": 1,
+  "kind": "responsive-symbolic-score",
+  "id": "three-records-responsive-score-v1",
+  "status": "PROVISIONAL_NON_SHIPPING",
+  "shippingState": "PROHIBITED",
+  "output": { "sampleRate": 48000, "bitDepth": 24, "channels": 2, "container": "wav" },
+  "ppq": 960,
+  "meter": { "numerator": 5, "denominator": 4 },
+  "tempoBPM": 60,
+  "direction": "The earth fifth and returning river remain continuous while three separated record tones enter without pretending that their thresholds have exact calendar meaning. The returning-field figure appears only after farming enters the river settlement. No pseudo-Neolithic reconstruction, primitive colour, triumph or martial pulse is permitted.",
+  "prohibitedClaims": [
+    "pseudo-Neolithic musical reconstruction",
+    "primitive drums, flutes or chanting",
+    "martial or triumphal scoring",
+    "identical timing for all three records",
+    "exact calendar meaning for interaction thresholds",
+    "score tones represented as archaeological evidence"
+  ],
+  "motifs": [
+    {
+      "id": "earth-fifth",
+      "notes": [
+        { "pitch": "D2", "atBeat": 0, "durationBeats": 4.2, "dynamic": "pp", "articulation": "tenuto" },
+        { "pitch": "A2", "atBeat": 0, "durationBeats": 4.2, "dynamic": "pp", "articulation": "tenuto" }
+      ]
+    },
+    {
+      "id": "river-return",
+      "notes": [
+        { "pitch": "D3", "atBeat": 0, "durationBeats": 1.3, "dynamic": "pp", "articulation": "tenuto" },
+        { "pitch": "E3", "atBeat": 2, "durationBeats": 1.1, "dynamic": "p", "articulation": "legato" },
+        { "pitch": "D3", "atBeat": 4, "durationBeats": 1.3, "dynamic": "pp", "articulation": "tenuto" }
+      ]
+    },
+    { "id": "river-record", "notes": [{ "pitch": "D4", "atBeat": 0, "durationBeats": 0.8, "dynamic": "pp", "articulation": "detached" }] },
+    { "id": "contact-record", "notes": [{ "pitch": "F4", "atBeat": 0, "durationBeats": 0.8, "dynamic": "p", "articulation": "detached" }] },
+    { "id": "settlement-record", "notes": [{ "pitch": "A4", "atBeat": 0, "durationBeats": 1.2, "dynamic": "p", "articulation": "tenuto" }] },
+    {
+      "id": "resistance-knot",
+      "notes": [
+        { "pitch": "Eb3", "atBeat": 0, "durationBeats": 1, "dynamic": "mp", "articulation": "accent" },
+        { "pitch": "D3", "atBeat": 1.25, "durationBeats": 2.75, "dynamic": "p", "articulation": "tenuto" }
+      ]
+    },
+    {
+      "id": "returning-field",
+      "notes": [
+        { "pitch": "D4", "atBeat": 0, "durationBeats": 0.8, "dynamic": "pp", "articulation": "tenuto" },
+        { "pitch": "E4", "atBeat": 2, "durationBeats": 0.8, "dynamic": "p", "articulation": "tenuto" },
+        { "pitch": "F4", "atBeat": 4, "durationBeats": 0.8, "dynamic": "p", "articulation": "tenuto" },
+        { "pitch": "A4", "atBeat": 7, "durationBeats": 2, "dynamic": "mp", "articulation": "tenuto" }
+      ]
+    }
+  ],
+  "regions": [
+    {
+      "id": "approach", "timelineID": "three-records-approach-v1", "scoreStateID": "river-and-records-gather", "durationSeconds": 45, "loop": false,
+      "stems": [
+        {
+          "id": "ground", "role": "Contrabass holds the same gorge ground beneath records that do not share one instant", "instrument": { "bank": 0, "program": 43, "label": "Contrabass" }, "gainDB": -18, "pan": -0.2,
+          "phrases": [
+            { "motifID": "earth-fifth", "atBeat": 3, "transposeSemitones": 0, "dynamicOffset": -9 },
+            { "motifID": "earth-fifth", "atBeat": 15, "transposeSemitones": 0, "dynamicOffset": -8 },
+            { "motifID": "earth-fifth", "atBeat": 27, "transposeSemitones": 0, "dynamicOffset": -7 },
+            { "motifID": "earth-fifth", "atBeat": 39, "transposeSemitones": 0, "dynamicOffset": -6 }
+          ]
+        },
+        {
+          "id": "river-route", "role": "Cello returns from D through E to D as the gorge keeps one route through changing settlements", "instrument": { "bank": 0, "program": 42, "label": "Cello" }, "gainDB": -21, "pan": -0.04,
+          "phrases": [
+            { "motifID": "river-return", "atBeat": 5, "transposeSemitones": 0, "dynamicOffset": -10 },
+            { "motifID": "river-return", "atBeat": 18, "transposeSemitones": 0, "dynamicOffset": -9 },
+            { "motifID": "river-return", "atBeat": 31, "transposeSemitones": 0, "dynamicOffset": -8 }
+          ]
+        },
+        {
+          "id": "record", "role": "Dulcimer places the river, contact and later-settlement records as separated D, F and A tones", "instrument": { "bank": 0, "program": 15, "label": "Dulcimer" }, "gainDB": -24, "pan": 0.28,
+          "phrases": [
+            { "motifID": "river-record", "atBeat": 9, "transposeSemitones": 0, "dynamicOffset": -12 },
+            { "motifID": "contact-record", "atBeat": 23, "transposeSemitones": 0, "dynamicOffset": -11 },
+            { "motifID": "settlement-record", "atBeat": 37, "transposeSemitones": 0, "dynamicOffset": -10 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "waiting", "timelineID": "three-records-waiting-bed-v1", "scoreStateID": "river-record-held", "durationSeconds": 15, "loop": true,
+      "stems": [
+        {
+          "id": "ground", "role": "The same gorge ground waits beneath the first record", "instrument": { "bank": 0, "program": 43, "label": "Contrabass" }, "gainDB": -19, "pan": -0.2,
+          "phrases": [
+            { "motifID": "earth-fifth", "atBeat": 0.4, "transposeSemitones": 0, "dynamicOffset": -10 },
+            { "motifID": "earth-fifth", "atBeat": 9, "transposeSemitones": 0, "dynamicOffset": -9 }
+          ]
+        },
+        {
+          "id": "river-route", "role": "The D-E-D river figure keeps returning without advancing the time layer", "instrument": { "bank": 0, "program": 42, "label": "Cello" }, "gainDB": -22, "pan": -0.04,
+          "phrases": [
+            { "motifID": "river-return", "atBeat": 1.2, "transposeSemitones": 0, "dynamicOffset": -11 },
+            { "motifID": "river-return", "atBeat": 8.5, "transposeSemitones": 0, "dynamicOffset": -10 }
+          ]
+        },
+        {
+          "id": "record", "role": "One restrained D record remains separate before transformation", "instrument": { "bank": 0, "program": 15, "label": "Dulcimer" }, "gainDB": -27, "pan": 0.28,
+          "phrases": [{ "motifID": "river-record", "atBeat": 6.8, "transposeSemitones": 0, "dynamicOffset": -14 }]
+        }
+      ]
+    },
+    {
+      "id": "engaged", "timelineID": "three-records-engaged-bed-v1", "scoreStateID": "records-move-through-time", "durationSeconds": 15, "loop": true,
+      "stems": [
+        {
+          "id": "ground", "role": "Gorge ground remains while the same shore changes", "instrument": { "bank": 0, "program": 43, "label": "Contrabass" }, "gainDB": -17, "pan": -0.2,
+          "phrases": [
+            { "motifID": "earth-fifth", "atBeat": 0.4, "transposeSemitones": 0, "dynamicOffset": -8 },
+            { "motifID": "earth-fifth", "atBeat": 9, "transposeSemitones": 0, "dynamicOffset": -7 }
+          ]
+        },
+        {
+          "id": "river-route", "role": "The returning river figure stays independent of the transforming record layers", "instrument": { "bank": 0, "program": 42, "label": "Cello" }, "gainDB": -20, "pan": -0.04,
+          "phrases": [
+            { "motifID": "river-return", "atBeat": 1, "transposeSemitones": 0, "dynamicOffset": -9 },
+            { "motifID": "river-return", "atBeat": 8.5, "transposeSemitones": 0, "dynamicOffset": -8 }
+          ]
+        },
+        {
+          "id": "record", "role": "Separated D, F and A tones reveal three records without assigning them equal duration", "instrument": { "bank": 0, "program": 15, "label": "Dulcimer" }, "gainDB": -23, "pan": 0.28,
+          "phrases": [
+            { "motifID": "river-record", "atBeat": 2.2, "transposeSemitones": 0, "dynamicOffset": -10 },
+            { "motifID": "contact-record", "atBeat": 6.4, "transposeSemitones": 0, "dynamicOffset": -9 },
+            { "motifID": "settlement-record", "atBeat": 11, "transposeSemitones": 0, "dynamicOffset": -8 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "resistance", "timelineID": "three-records-resistance-bed-v1", "scoreStateID": "time-layer-does-not-take", "durationSeconds": 15, "loop": true,
+      "stems": [
+        {
+          "id": "ground", "role": "The gorge remains fixed when the time layer stops between authored records", "instrument": { "bank": 0, "program": 43, "label": "Contrabass" }, "gainDB": -17, "pan": -0.2,
+          "phrases": [
+            { "motifID": "earth-fifth", "atBeat": 0.4, "transposeSemitones": 0, "dynamicOffset": -8 },
+            { "motifID": "earth-fifth", "atBeat": 9, "transposeSemitones": 0, "dynamicOffset": -7 }
+          ]
+        },
+        {
+          "id": "river-route", "role": "The river return continues while the visual time layer refuses a false intermediate state", "instrument": { "bank": 0, "program": 42, "label": "Cello" }, "gainDB": -20, "pan": -0.04,
+          "phrases": [
+            { "motifID": "river-return", "atBeat": 1, "transposeSemitones": 0, "dynamicOffset": -9 },
+            { "motifID": "river-return", "atBeat": 8.5, "transposeSemitones": 0, "dynamicOffset": -8 }
+          ]
+        },
+        {
+          "id": "record", "role": "Bassoon carries only the narrow resistance knot and makes no primitive or martial claim", "instrument": { "bank": 0, "program": 70, "label": "Bassoon" }, "gainDB": -22, "pan": 0.18,
+          "phrases": [
+            { "motifID": "resistance-knot", "atBeat": 2, "transposeSemitones": -12, "dynamicOffset": -8 },
+            { "motifID": "resistance-knot", "atBeat": 9, "transposeSemitones": -12, "dynamicOffset": -7 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "consequence", "timelineID": "three-records-consequence-v1", "scoreStateID": "farming-enters-river-route", "durationSeconds": 45, "loop": false,
+      "stems": [
+        {
+          "id": "ground", "role": "The gorge ground remains beneath households that now carry river and farming practice together", "instrument": { "bank": 0, "program": 43, "label": "Contrabass" }, "gainDB": -18, "pan": -0.2,
+          "phrases": [
+            { "motifID": "earth-fifth", "atBeat": 4, "transposeSemitones": 0, "dynamicOffset": -9 },
+            { "motifID": "earth-fifth", "atBeat": 17, "transposeSemitones": 0, "dynamicOffset": -8 },
+            { "motifID": "earth-fifth", "atBeat": 30, "transposeSemitones": 0, "dynamicOffset": -7 },
+            { "motifID": "earth-fifth", "atBeat": 40, "transposeSemitones": 0, "dynamicOffset": -6 }
+          ]
+        },
+        {
+          "id": "river-route", "role": "The D-E-D river figure persists as older routes carry new cargo", "instrument": { "bank": 0, "program": 42, "label": "Cello" }, "gainDB": -21, "pan": -0.04,
+          "phrases": [
+            { "motifID": "river-return", "atBeat": 5, "transposeSemitones": 0, "dynamicOffset": -10 },
+            { "motifID": "river-return", "atBeat": 18, "transposeSemitones": 0, "dynamicOffset": -9 },
+            { "motifID": "river-return", "atBeat": 31, "transposeSemitones": 0, "dynamicOffset": -8 }
+          ]
+        },
+        {
+          "id": "record", "role": "Dulcimer introduces a restrained returning-field figure only after farming enters the river settlement", "instrument": { "bank": 0, "program": 15, "label": "Dulcimer" }, "gainDB": -24, "pan": 0.28,
+          "phrases": [
+            { "motifID": "returning-field", "atBeat": 6, "transposeSemitones": -12, "dynamicOffset": -12 },
+            { "motifID": "returning-field", "atBeat": 22, "transposeSemitones": -12, "dynamicOffset": -11 },
+            { "motifID": "returning-field", "atBeat": 35, "transposeSemitones": -12, "dynamicOffset": -10 }
+          ]
+        }
+      ]
+    }
+  ]
+}

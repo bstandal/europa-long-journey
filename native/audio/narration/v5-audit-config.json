@@ -1,0 +1,249 @@
+{
+  "schemaVersion": 1,
+  "status": "CODEX_V5_METHOD_FROZEN_WITH_BOUND_GENERATOR",
+  "trustDomain": "CODEX_V5_DIAGNOSTIC_NON_SHIPPING",
+  "language": "English",
+  "locale": "en-GB",
+  "paths": {
+    "workRoot": "native/audio/narration/work/provisional-audit-v5",
+    "candidateSetRoot": "native/audio/narration/work/cast-v1-2026-07-24",
+    "candidateSetReceipt": "native/audio/narration/work/cast-v1-2026-07-24/candidate-set.receipt.json",
+    "v4CandidateAuditReceipt": "native/audio/narration/work/provisional-audit-v4/candidate-audit.provisional.receipt.json",
+    "v4CandidateTranscriptReceipt": "native/audio/narration/work/provisional-audit-v2/transcripts/transcript-run.receipt.json"
+  },
+  "parentChain": {
+    "candidateSetReceiptBytes": 13518,
+    "candidateSetReceiptSHA256": "91135c02541fe8c2f7a040146a0785a61fda761cf7d5afc65f66fa77cf49bac7",
+    "v4CandidateAuditReceiptBytes": 158619,
+    "v4CandidateAuditReceiptSHA256": "dcca5411c1a88e77fec889ad5ff8b22e50baad5ce372a3528d5a9df896ed90c1",
+    "v4CandidateTranscriptReceiptBytes": 6770,
+    "v4CandidateTranscriptReceiptSHA256": "ce16eea692a7f86db494423dd3348244ec2e00131bbdb85f5019b9b5c41c6a28",
+    "v4PipelineBytes": 85152,
+    "v4PipelineSHA256": "1b0260a85bd2eb56169bc9ecdfd5fcb2e7659da7ebd17e63d9ea43fb11818f31",
+    "v4ConfigBytes": 9564,
+    "v4ConfigSHA256": "f99cc46d6d49a545548283b5edf6e5bee1df7af6386699d87b34aed130ac95e3",
+    "productionPipelineBytes": 53756,
+    "productionPipelineSHA256": "3255f7c7283cc5e71b1717cff5546d91d0c09618a67225cf03095870fa7f1ae2",
+    "productionConfigBytes": 8887,
+    "productionConfigSHA256": "046fdae34d649301ea298996469c9d670ac8068c41892f134420be44fbf31028",
+    "uvLockBytes": 98280,
+    "uvLockSHA256": "db9a1340d7b9fbdb943d791aad3162e020c66a8212f2e4c129722e2dcd4535dc",
+    "provisionalFinalistIDs": [
+      "voice-candidate-05",
+      "voice-candidate-06"
+    ]
+  },
+  "v4DiagnosticEvidence": {
+    "status": "REJECTED_DIAGNOSTIC_ONLY_NEVER_A_V5_PARENT",
+    "stressSetReceiptBytes": 38533,
+    "stressSetReceiptSHA256": "d213e928e25df178e2448ca10c12de42f2e3b786c6da2b6e3b9c7f172aab6f69",
+    "transcriptReceiptBytes": 3509,
+    "transcriptReceiptSHA256": "38a5f9a0aa47529e7792d6e7e52fdaed6d39e7586efd4daf8fd2878edb9bd6fa",
+    "auditReceiptBytes": 120465,
+    "auditReceiptSHA256": "02a82c851adefe7e9bfa0037fbdec7c8c451be5388a1c737509b5e0ca5391d01",
+    "recommendedVoiceID": null,
+    "passingCandidateCount": 0
+  },
+  "offlineASR": {
+    "engine": "whisper.cpp",
+    "version": "1.9.1",
+    "executablePath": "/opt/homebrew/Cellar/whisper-cpp/1.9.1/bin/whisper-cli",
+    "executableBytes": 658608,
+    "executableSHA256": "1fbabb51a45906bd36684695de9025eab63618a6eedc26971c47fa5affc5fe49",
+    "modelName": "Whisper large-v3",
+    "modelPath": "/Users/bard/.cache/hyperframes/whisper/models/ggml-large-v3.bin",
+    "modelBytes": 3095033483,
+    "modelSHA256": "64d182b440b98d5203c4f9bd541544d84c605196c4f7b845dfa11fb23594d1e2",
+    "arguments": [
+      "--language", "en",
+      "--threads", "8",
+      "--processors", "1",
+      "--beam-size", "5",
+      "--best-of", "5",
+      "--split-on-word",
+      "--output-json-full",
+      "--no-prints"
+    ],
+    "answerPromptProhibited": true,
+    "externalTranscriptReceiptProhibited": true
+  },
+  "stressText": {
+    "sourcePath": "native/blueprint/chapter-contracts.json",
+    "sourceBytes": 65444,
+    "sourceSHA256": "1db83d0791460ba2dab6459c6cc300020fb0658bf70e1fb7f386c52c9903193e",
+    "sourceStatus": "APPROVED_BY_EDITOR_IN_CHIEF",
+    "completeContractIDs": [
+      "contract-01", "contract-02", "contract-03", "contract-04",
+      "contract-05", "contract-06", "contract-07", "contract-08",
+      "contract-09", "contract-10", "contract-11", "contract-12",
+      "contract-13", "contract-14", "contract-15", "contract-16"
+    ],
+    "fieldsInOrder": [
+      "thesis",
+      "causalSpine",
+      "governingJudgement",
+      "ending.periodAndTitle",
+      "ending.consequence",
+      "handoff"
+    ],
+    "wordCount": 3400,
+    "textSHA256": "b375fe2c3ea7658c4cab28f68812dc58a50b0bcb026466e0f777118de2eb8a28",
+    "minimumActualMinutes": 18,
+    "maximumActualMinutes": 22,
+    "segments": [
+      {
+        "segmentID": "cue-01",
+        "contractIDs": ["contract-01", "contract-02", "contract-03"],
+        "wordCount": 483,
+        "textSHA256": "2da594d20592406e0eb1ecd31c43dc56168643104e5e875aceaf4074a9880f11",
+        "sourceCharacterStartInclusive": 0,
+        "sourceCharacterEndExclusive": 3272,
+        "separatorAfter": "\n\n",
+        "boundaryAfter": "AUTHORED_PARAGRAPH",
+        "seedOffset": 100,
+        "maxTokens": 3140
+      },
+      {
+        "segmentID": "cue-02",
+        "contractIDs": ["contract-04", "contract-05", "contract-06"],
+        "wordCount": 579,
+        "textSHA256": "0edf57dd780fb51ee1f073bb4e95b7df90da3caee94191caccf5efa058908d16",
+        "sourceCharacterStartInclusive": 3274,
+        "sourceCharacterEndExclusive": 7246,
+        "separatorAfter": "\n\n",
+        "boundaryAfter": "AUTHORED_PARAGRAPH",
+        "seedOffset": 200,
+        "maxTokens": 3764
+      },
+      {
+        "segmentID": "cue-03",
+        "contractIDs": ["contract-07", "contract-08", "contract-09", "contract-10"],
+        "wordCount": 670,
+        "textSHA256": "70ac2b9b22bb8cc5392a0c7c6fcdf489087d56f26cb76c97c673fbb6ca7f08bb",
+        "sourceCharacterStartInclusive": 7248,
+        "sourceCharacterEndExclusive": 12018,
+        "separatorAfter": " ",
+        "boundaryAfter": "AUTHORED_SENTENCE",
+        "seedOffset": 300,
+        "maxTokens": 4355
+      },
+      {
+        "segmentID": "cue-04",
+        "contractIDs": ["contract-10", "contract-11", "contract-12"],
+        "wordCount": 637,
+        "textSHA256": "1fd8379f93413127444ef067cf61f3512a84d22b05f5c37cbeb9ad64046b0a7b",
+        "sourceCharacterStartInclusive": 12019,
+        "sourceCharacterEndExclusive": 16356,
+        "separatorAfter": "\n\n",
+        "boundaryAfter": "AUTHORED_PARAGRAPH",
+        "seedOffset": 400,
+        "maxTokens": 4141
+      },
+      {
+        "segmentID": "cue-05",
+        "contractIDs": ["contract-13", "contract-14"],
+        "wordCount": 523,
+        "textSHA256": "55691c57f86cb4dd22d4cf836a79eef4093e5f662ff3efe4313790b62ffe7a21",
+        "sourceCharacterStartInclusive": 16358,
+        "sourceCharacterEndExclusive": 20000,
+        "separatorAfter": "\n\n",
+        "boundaryAfter": "AUTHORED_PARAGRAPH",
+        "seedOffset": 500,
+        "maxTokens": 3400
+      },
+      {
+        "segmentID": "cue-06",
+        "contractIDs": ["contract-15", "contract-16"],
+        "wordCount": 508,
+        "textSHA256": "88e9fa8073b5cc73205c5c23cf8b9d6b3dc55ada08d922856081aef0c7bb987f",
+        "sourceCharacterStartInclusive": 20002,
+        "sourceCharacterEndExclusive": 23622,
+        "separatorAfter": "",
+        "boundaryAfter": "END_OF_TEXT",
+        "seedOffset": 600,
+        "maxTokens": 3302
+      }
+    ],
+    "tokenCeilingFailsAtOrAboveMaxTokens": true
+  },
+  "master": {
+    "nativeSampleRate": 24000,
+    "nativeChannels": 1,
+    "nativeRepresentation": "float32",
+    "nativeAssemblyPeakDBFS": -3.0,
+    "masterSampleRate": 48000,
+    "masterChannels": 1,
+    "masterBitDepth": 24,
+    "masterCodec": "pcm_s24le",
+    "ffmpegPath": "/opt/homebrew/Cellar/ffmpeg/8.1.2_1/bin/ffmpeg",
+    "ffmpegBytes": 426224,
+    "ffmpegSHA256": "dad4b30b36a1a999bfa4b6ffbde138bd17ee496c69e12eef638227dff2c6415c",
+    "ffprobePath": "/opt/homebrew/Cellar/ffmpeg/8.1.2_1/bin/ffprobe",
+    "ffprobeBytes": 236912,
+    "ffprobeSHA256": "cfeefcc9207eb3fa424679228fe3848db2921b15537d26c1ccc4a7a61de95d00",
+    "conversionArguments": [
+      "-nostdin",
+      "-y",
+      "-loglevel", "error",
+      "-i", "{native}",
+      "-map_metadata", "-1",
+      "-fflags", "+bitexact",
+      "-flags:a", "+bitexact",
+      "-af", "aresample=48000:resampler=swr:filter_size=32:phase_shift=10:exact_rational=1:dither_method=none",
+      "-ar", "48000",
+      "-ac", "1",
+      "-c:a", "pcm_s24le",
+      "{master}"
+    ],
+    "deterministicByteEqualityRequired": true,
+    "decodedDurationToleranceSamples": 0
+  },
+  "identity": {
+    "method": "Qwen3-TTS Base ECAPA-TDNN speaker encoder from the pinned voice-clone snapshot",
+    "windowSeconds": 20,
+    "hopSeconds": 10,
+    "minimumWholeCueToReferenceCosine": 0.97,
+    "minimumWindowToReferenceCosine": 0.96,
+    "minimumWindowToWholeCueCosine": 0.985,
+    "minimumAdjacentWindowCosine": 0.995,
+    "minimumPairwiseWholeCueCosine": 0.98,
+    "minimumAllWindowPairCosine": 0.975
+  },
+  "alignment": {
+    "normalizationVersion": 1,
+    "algorithm": "Hirschberg global Levenshtein with deterministic monotone backtrace",
+    "anchorWords": 8,
+    "minimumExactReferenceCoveragePerCue": 0.98,
+    "minimumExactHypothesisCoveragePerCue": 0.98,
+    "maximumNonmatchingReferenceRunWordsPerCue": 6,
+    "maximumNonmatchingHypothesisRunWordsPerCue": 12,
+    "boundaryToleranceMilliseconds": 750,
+    "ambiguousAnchorFails": true
+  },
+  "repetition": {
+    "ngramSize": 6,
+    "minimumHypothesisOccurrences": 2,
+    "maximumExcessOccurrenceFraction": 0.005,
+    "referenceMultisetSubtracted": true
+  },
+  "tempo": {
+    "minimumWordsPerMinute": 110,
+    "maximumWordsPerMinute": 210,
+    "maximumRelativeDeviationFromCueMedian": 0.25
+  },
+  "silence": {
+    "thresholdDBFS": -45,
+    "frameMilliseconds": 20,
+    "hopMilliseconds": 10,
+    "maximumTotalSilenceFraction": 0.12,
+    "maximumCueBoundarySilenceMilliseconds": 1250,
+    "maximumLeadingOrTrailingCueSilenceMilliseconds": 750
+  },
+  "claimsExcluded": [
+    "editor voice selection",
+    "final word-accuracy approval",
+    "final pronunciation approval",
+    "artistic approval",
+    "shipping approval"
+  ]
+}

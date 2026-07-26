@@ -1,0 +1,260 @@
+{
+  "schemaVersion": 1,
+  "status": "CODEX_V10_OPENVOICE_NEGATIVE_EVIDENCE_FROZEN",
+  "trustDomain": "CODEX_V8_DIAGNOSTIC_NON_SHIPPING",
+  "recordedAt": "2026-07-25",
+  "candidateID": "openvoice-v2-melotts-english-en-br",
+  "decision": {
+    "passesFrozenRepresentativeGate": false,
+    "full203By2GenerationPermitted": false,
+    "parameterTuningPermitted": false,
+    "retryPermitted": false,
+    "candidatePromoted": false,
+    "masterParentPermitted": false,
+    "shippingPermitted": false
+  },
+  "receiptChain": [
+    {
+      "stage": "primarySource",
+      "status": "CODEX_V10_OPENVOICE_V2_PRIMARY_SOURCE_GATE_PASSED",
+      "path": "native/audio/narration/work/provisional-audit-v8/openvoice-v2-primary-source-gate-r1-2026-07-25/openvoice-v2-primary-source-gate.v10.receipt.json",
+      "bytes": 130799,
+      "sha256": "c68515bcb328040585c9fa6e43a51580986979092fdc56086d471211c40e5924"
+    },
+    {
+      "stage": "exactSnapshot",
+      "status": "CODEX_V10_OPENVOICE_V2_EXACT_SNAPSHOT_VERIFIED",
+      "path": "native/audio/narration/work/provisional-audit-v8/openvoice-v2-exact-snapshot-r1-2026-07-25/openvoice-v2-exact-snapshot.v10.receipt.json",
+      "bytes": 15463,
+      "sha256": "4d46640d7b653305a686cbf64b040807a95843d4fba13b0a6bd5766eeb26c765"
+    },
+    {
+      "stage": "runtime",
+      "status": "CODEX_V10_OPENVOICE_V2_CPU_RUNTIME_AND_LICENCES_VERIFIED",
+      "path": "native/audio/narration/work/provisional-audit-v8/openvoice-v2-runtime-r1-2026-07-25/openvoice-v2-runtime-audit.v10.receipt.json",
+      "bytes": 141772,
+      "sha256": "4d643d6c4494d0e599e290ac4099a431aae2e49527bd1a3c3601fa4a1407a8cc"
+    },
+    {
+      "stage": "pronunciation",
+      "status": "CODEX_V10_OPENVOICE_PRONUNCIATION_GATE_PASSED",
+      "path": "native/audio/narration/work/provisional-audit-v8/openvoice-v2-pronunciation-gate-r1-2026-07-25/openvoice-v2-pronunciation-gate.v10.receipt.json",
+      "bytes": 115760,
+      "sha256": "985a15b5660bc92bf69df34beb223fd59635e30479379e7caf7568bf207ae828"
+    },
+    {
+      "stage": "modelLoad",
+      "status": "CODEX_V10_OPENVOICE_EXACT_CPU_MODEL_LOAD_PASSED",
+      "path": "native/audio/narration/work/provisional-audit-v8/openvoice-v2-model-load-r1-2026-07-25/openvoice-v2-model-load.v10.receipt.json",
+      "bytes": 8031,
+      "sha256": "cece9edc56cffc49ba95d842561143a54708c48263f4a6653d9ce296e57be97c"
+    },
+    {
+      "stage": "generation",
+      "status": "CODEX_V10_OPENVOICE_FROZEN_14_BY_2_SYNTHESISED_NON_SHIPPING",
+      "path": "native/audio/narration/work/provisional-audit-v8/openvoice-v2-comparison-generation-r1-2026-07-25/openvoice-v2-generation.v10.receipt.json",
+      "bytes": 415917,
+      "sha256": "a82ef6a4da63f741fb2c371fbd5b8f3d16d7d96548f8b1820d0a1702977941c5"
+    },
+    {
+      "stage": "audit",
+      "status": "CODEX_V10_OPENVOICE_UNCHANGED_14_BY_2_GATE_BLOCKED",
+      "path": "native/audio/narration/work/provisional-audit-v8/openvoice-v2-comparison-audit-r1-2026-07-25/openvoice-v2-comparison-audit.v10.receipt.json",
+      "bytes": 229314,
+      "sha256": "91e92cc683bacc4c6d3c83db2161b6d9ad261b308358ae5f4764563f8fe01418"
+    }
+  ],
+  "sourceBindings": [
+    {
+      "path": "native/audio/narration/v10_openvoice_v2_preflight.py",
+      "bytes": 28992,
+      "sha256": "30f2fdba8cc3316f9af160aff96e25ce28fc77f9c73f786392dea382f433ce55"
+    },
+    {
+      "path": "native/audio/narration/v10_openvoice_v2_snapshot.py",
+      "bytes": 7695,
+      "sha256": "05e5ca1d42096808120a1041adb2c7ed34e3fee83795c2b5eeb3335c34964edd"
+    },
+    {
+      "path": "native/audio/narration/v10-openvoice-runtime-requirements.in",
+      "bytes": 369,
+      "sha256": "2c98a17f4bc7e4c1040a563959d02e4cea2a97ebfd1a344e1c3cf99d28170de5"
+    },
+    {
+      "path": "native/audio/narration/v10-openvoice-runtime-requirements.lock",
+      "bytes": 81934,
+      "sha256": "9551473de973eca87b0c05503199dbf0db42cf957eefa1c1279ec289905f761e"
+    },
+    {
+      "path": "native/audio/narration/v10-openvoice-runtime-macos-arm64.lock",
+      "bytes": 4235,
+      "sha256": "a85d007aa0bb8ef5aa636b18d09955caac452610445559e03f6064528f08e2e3"
+    },
+    {
+      "path": "native/audio/narration/v10_openvoice_v2_runtime_audit.py",
+      "bytes": 17840,
+      "sha256": "d54fff9b4fbcb3951c036daa6fc9431b3e1ddfa59b01713408a64a4d63c49af3"
+    },
+    {
+      "path": "native/audio/narration/v10-openvoice-pronunciations.json",
+      "bytes": 3152,
+      "sha256": "4902f69058c79b5274b3ee9cb879d6ff5f9d8d8b09413e19052cea3e32762cc6"
+    },
+    {
+      "path": "native/audio/narration/v10_openvoice_v2_pronunciation_gate.py",
+      "bytes": 14434,
+      "sha256": "35e5f70aac3e700ddd27be7acf749b35889215c2cd2a88056f38824369680d32"
+    },
+    {
+      "path": "native/audio/narration/v10_openvoice_v2_model_load_probe.py",
+      "bytes": 13705,
+      "sha256": "ef7976c9a3b38fb24a756aefa75b2c81d1cb40d3a39e4388fee9d09c2b5f563a"
+    },
+    {
+      "path": "native/audio/narration/v10-openvoice-method-config.json",
+      "bytes": 2142,
+      "sha256": "0dde10f3a0474f19ed7df87a1b832f68545cfaaeb3bb153b5c52a85b00635679"
+    },
+    {
+      "path": "native/audio/narration/v10_openvoice_v2_adapter.py",
+      "bytes": 13122,
+      "sha256": "1bfaac4965c5a155a0e971257e53d7a7b64c69bdcd02d4eaf5cea67e06bdcedb"
+    },
+    {
+      "path": "native/audio/narration/v10_openvoice_v2_generate_comparison.py",
+      "bytes": 12296,
+      "sha256": "ff202dfb7eab0ae4e4fb8db30f414978b0d3103e60a628cc5ba103b8cce40079"
+    },
+    {
+      "path": "native/audio/narration/v10_openvoice_v2_audit_comparison.py",
+      "bytes": 11903,
+      "sha256": "c75df3bfb58b9d294a068c647e1d9506d5230019fe7a18be27e49d8ad4afc9ed"
+    },
+    {
+      "path": "native/audio/narration/v8_chatterbox_comparison.py",
+      "bytes": 33424,
+      "sha256": "a96c8ce1576c17d1ca944ee221bba4dcd1d0090e5ad4db7852a1e3db583341f6"
+    },
+    {
+      "path": "native/audio/narration/v8-method-config.json",
+      "bytes": 7879,
+      "sha256": "43c436765f5d82ed8a9175e57c1c41bc66e0b6d5c51bb4e90ee4a2661997d4fc"
+    },
+    {
+      "path": "native/audio/narration/v6_pipeline.py",
+      "bytes": 150416,
+      "sha256": "293f1a77cc1ef007b2257500a3d4672b6230c4add4d3fa2284f98c9c86e0dc32"
+    },
+    {
+      "path": "native/audio/narration/v6-audit-config.json",
+      "bytes": 11951,
+      "sha256": "c7eeb28602fc46fb2538aee770d31302955bacefc7888f85cbf58ee2038bcc13"
+    }
+  ],
+  "snapshot": {
+    "fileCount": 16,
+    "totalBytes": 789435291,
+    "allFilesSHA256VerifiedBeforeLoad": true,
+    "mutableRevisionAliasUsed": false
+  },
+  "runtime": {
+    "pythonVersion": "3.9.25",
+    "packageCount": 44,
+    "oneSelectedMacOSArm64WheelHashPerPackage": true,
+    "allDependencyLicencesPermitInternalCommercialProduction": true,
+    "unavoidableCopyleftDependencyCount": 0,
+    "offlineImportPassed": true,
+    "allRequiredWeightsLoadedOnCPU": true,
+    "bothExactReferencesExtractedDirectly": true
+  },
+  "pronunciation": {
+    "representativeUtteranceCount": 14,
+    "exactTextManifestSHA256": "822786bfaa942aec932686929d2ece3a7122d5215db654862cad3e28d9a8cb62",
+    "normalizedTokenOccurrenceCount": 280,
+    "uniqueNormalizedTokenCount": 185,
+    "unknownTokenCount": 0,
+    "criticalWordCount": 15,
+    "g2pEnImported": false,
+    "nltkImported": false,
+    "networkFallbackUsed": false
+  },
+  "generation": {
+    "referenceCount": 2,
+    "utteranceCountPerReference": 14,
+    "synthesisCount": 28,
+    "audioFileCount": 84,
+    "attemptsPerUtterance": 1,
+    "speed": 1.0,
+    "adaptiveParameterChoiceUsed": false,
+    "rawConverterOutputsRetainedUnmodified": true,
+    "auditDerivativesAreNonShipping": true,
+    "postConversionRepairUsed": false,
+    "full203By2GenerationCount": 0
+  },
+  "unchangedGate": {
+    "thresholds": {
+      "minimumUtteranceIdentityCosine": 0.98,
+      "maximumAggregateWordErrorRate": 0.03,
+      "maximumModelRetainedSilenceFraction": 0.1,
+      "maximumRepresentativeMontageSilenceFraction": 0.115,
+      "minimumProjectedFullDurationSeconds": 1080,
+      "maximumProjectedFullDurationSeconds": 1320
+    },
+    "candidateResults": [
+      {
+        "candidateID": "voice-candidate-05",
+        "passes": false,
+        "allUtteranceGates": true,
+        "minimumUtteranceIdentityCosine": 0.9802075624465942,
+        "aggregateWordErrorRate": 0.05627705627705628,
+        "missingCriticalWords": ["habsburg", "polis", "roman"],
+        "modelRetainedSilenceFraction": 0.1596847781003733,
+        "representativeMontageSilenceFraction": 0.17179356157383752,
+        "projectedFullDurationSeconds": 1449.0737525252525,
+        "failedGates": [
+          "maximumAggregateWordErrorRate",
+          "criticalPronunciationWords",
+          "maximumModelRetainedSilenceFraction",
+          "maximumRepresentativeMontageSilenceFraction",
+          "maximumProjectedFullDuration"
+        ]
+      },
+      {
+        "candidateID": "voice-candidate-06",
+        "passes": false,
+        "allUtteranceGates": false,
+        "minimumUtteranceIdentityCosine": 0.9783645868301392,
+        "aggregateWordErrorRate": 0.030303030303030304,
+        "missingCriticalWords": ["roman"],
+        "modelRetainedSilenceFraction": 0.16654560547888347,
+        "representativeMontageSilenceFraction": 0.17856412354264675,
+        "projectedFullDurationSeconds": 1448.0429552669555,
+        "failedGates": [
+          "allUtteranceGates",
+          "minimumUtteranceIdentity",
+          "maximumAggregateWordErrorRate",
+          "criticalPronunciationWords",
+          "maximumModelRetainedSilenceFraction",
+          "maximumRepresentativeMontageSilenceFraction",
+          "maximumProjectedFullDuration"
+        ]
+      }
+    ],
+    "sameThresholdsAppliedToBothReferences": true,
+    "thresholdOrGateModificationApplied": false,
+    "bothReferencesPassEveryGate": false
+  },
+  "licenceAndCost": {
+    "openVoiceCodeAndWeights": "MIT",
+    "meloTTSCodeAndWeights": "MIT",
+    "bertBaseUncased": "Apache-2.0",
+    "cpython": "PSF-2.0",
+    "pythonBuildStandaloneDistribution": "MPL-2.0",
+    "publishedCommercialUsePermitted": true,
+    "completeTrainingCorpusAndBaseSpeakerIdentityDisclosed": false,
+    "externalHumanReferenceSpeakerAdded": false,
+    "hostedSynthesisUsed": false,
+    "billingCredentialUsed": false,
+    "incrementalCostNOK": 0
+  }
+}

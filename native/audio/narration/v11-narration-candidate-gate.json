@@ -1,0 +1,706 @@
+{
+  "schemaVersion": 1,
+  "status": "CODEX_V11_PRIMARY_SOURCE_CANDIDATE_GATE_PASSED",
+  "trustDomain": "CODEX_V8_DIAGNOSTIC_NON_SHIPPING",
+  "recordedAt": "2026-07-25",
+  "scope": {
+    "officialPublisherSourcesOnly": true,
+    "minimumCandidatesIncluded": [
+      "kokoro-82m",
+      "parler-tts-mini-v1",
+      "styletts2-libritts"
+    ],
+    "additionalCandidatesIncluded": [
+      "pocket-tts",
+      "voxcpm2"
+    ],
+    "retrievedModelOrVoiceBytes": false,
+    "installedRuntime": false,
+    "generatedAudio": false,
+    "changedFrozenThreshold": false
+  },
+  "frozenInputs": {
+    "referenceTranscript": {
+      "path": "native/audio/narration/identity-reference-v1.txt",
+      "bytes": 202,
+      "sha256": "a7ccefaf433c8998c1556ba5465c49031a8210e903d32542f8c6aa5a525cc011"
+    },
+    "references": [
+      {
+        "candidateID": "voice-candidate-05",
+        "path": "native/audio/narration/work/cast-v1-2026-07-24/references/voice-candidate-05-reference.wav",
+        "bytes": 2119782,
+        "sha256": "a832c5fd5ac65d5b7392f69a93f14ed0b1dfbb3ba88bb7b2d34328b215acab04",
+        "durationSeconds": 14.72,
+        "sampleRate": 48000,
+        "channels": 1,
+        "bitsPerSample": 24
+      },
+      {
+        "candidateID": "voice-candidate-06",
+        "path": "native/audio/narration/work/cast-v1-2026-07-24/references/voice-candidate-06-reference.wav",
+        "bytes": 2165862,
+        "sha256": "2301a67a760681c64952123683ba61283a622c00fb991b62460563b605e68386",
+        "durationSeconds": 15.04,
+        "sampleRate": 48000,
+        "channels": 1,
+        "bitsPerSample": 24
+      }
+    ],
+    "representativeUtteranceCountPerReference": 14,
+    "thresholds": {
+      "minimumUtteranceIdentityCosine": 0.98,
+      "maximumAggregateWordErrorRate": 0.03,
+      "maximumModelRetainedSilenceFraction": 0.1,
+      "maximumRepresentativeMontageSilenceFraction": 0.115,
+      "minimumProjectedFullDurationSeconds": 1080,
+      "maximumProjectedFullDurationSeconds": 1320
+    }
+  },
+  "primaryDocuments": [
+    {
+      "documentID": "kokoro-code-licence",
+      "candidateID": "kokoro-82m",
+      "url": "https://raw.githubusercontent.com/hexgrad/kokoro/dfb907a02bba8152ca444717ca5d78747ccb4bec/LICENSE",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "requiredPhrases": [
+        "Apache License",
+        "Version 2.0"
+      ]
+    },
+    {
+      "documentID": "kokoro-code-readme",
+      "candidateID": "kokoro-82m",
+      "url": "https://raw.githubusercontent.com/hexgrad/kokoro/dfb907a02bba8152ca444717ca5d78747ccb4bec/README.md",
+      "bytes": 8355,
+      "sha256": "b50b84220668f8247a2405b249c34c7083acc24114279ff1429fd79f46a2c04b",
+      "requiredPhrases": [
+        "voice='af_heart'",
+        "speed=1",
+        "MacOS Apple Silicon GPU Acceleration"
+      ]
+    },
+    {
+      "documentID": "kokoro-model-readme",
+      "candidateID": "kokoro-82m",
+      "url": "https://huggingface.co/hexgrad/Kokoro-82M/resolve/f3ff3571791e39611d31c381e3a41a3af07b4987/README.md",
+      "bytes": 6348,
+      "sha256": "91dcabced89db6f109b8786642f50402d3ee87450e8189589b6f85520e7f4d78",
+      "requiredPhrases": [
+        "license: apache-2.0",
+        "Few hundred hrs",
+        "permissive/non-copyrighted audio data"
+      ]
+    },
+    {
+      "documentID": "parler-code-licence",
+      "candidateID": "parler-tts-mini-v1",
+      "url": "https://raw.githubusercontent.com/huggingface/parler-tts/d108732cd57788ec86bc857d99a6cabd66663d68/LICENSE",
+      "bytes": 11359,
+      "sha256": "5ee13882fce0975f0ad3c3d5c2042af4896c2a669be2d6df5b3d256811267c85",
+      "requiredPhrases": [
+        "Apache License",
+        "Version 2.0"
+      ]
+    },
+    {
+      "documentID": "parler-code-readme",
+      "candidateID": "parler-tts-mini-v1",
+      "url": "https://raw.githubusercontent.com/huggingface/parler-tts/d108732cd57788ec86bc857d99a6cabd66663d68/README.md",
+      "bytes": 9645,
+      "sha256": "9fbf192af31078bb58a0bbf980586ee837fc58639c9ac60fba8e94c1eb475b69",
+      "requiredPhrases": [
+        "trained on 34 speakers",
+        "speaking rate, pitch and reverberation",
+        "Apple Silicon users"
+      ]
+    },
+    {
+      "documentID": "parler-model-readme",
+      "candidateID": "parler-tts-mini-v1",
+      "url": "https://huggingface.co/parler-tts/parler-tts-mini-v1/resolve/0392b9451a601e528fd863bbb0598431fee810d9/README.md",
+      "bytes": 6677,
+      "sha256": "c5fdea7e1d315372c681be0e6b156d23f359f3b0c999ff8badd2b3953863b829",
+      "requiredPhrases": [
+        "license: apache-2.0",
+        "trained on 45K hours of audio data",
+        "34 speakers, characterized by name"
+      ]
+    },
+    {
+      "documentID": "styletts2-code-licence",
+      "candidateID": "styletts2-libritts",
+      "url": "https://raw.githubusercontent.com/yl4579/StyleTTS2/5cedc71c333f8d8b8551ca59378bdcc7af4c9529/LICENSE",
+      "bytes": 1075,
+      "sha256": "7f023c12a1d6b25583506f6fc77f5287c7c71b65c0f886922f14153bcc07dfa9",
+      "requiredPhrases": [
+        "MIT License",
+        "Permission is hereby granted"
+      ]
+    },
+    {
+      "documentID": "styletts2-code-readme",
+      "candidateID": "styletts2-libritts",
+      "url": "https://raw.githubusercontent.com/yl4579/StyleTTS2/5cedc71c333f8d8b8551ca59378bdcc7af4c9529/README.md",
+      "bytes": 14167,
+      "sha256": "315453e3ec0ec5b5dc2cd63b83398c317225f90e1d3c6d95777dc68446071003",
+      "requiredPhrases": [
+        "zero-shot speaker adaptation",
+        "inference depends on a GPL-licensed package",
+        "Before using these pre-trained models"
+      ]
+    },
+    {
+      "documentID": "pocket-tts-code-licence",
+      "candidateID": "pocket-tts",
+      "url": "https://raw.githubusercontent.com/kyutai-labs/pocket-tts/058886528d0b6f2f2d4022de2e244a5260729e6e/LICENSE",
+      "bytes": 1023,
+      "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+      "requiredPhrases": [
+        "Permission is hereby granted",
+        "sell copies"
+      ]
+    },
+    {
+      "documentID": "pocket-tts-code-readme",
+      "candidateID": "pocket-tts",
+      "url": "https://raw.githubusercontent.com/kyutai-labs/pocket-tts/058886528d0b6f2f2d4022de2e244a5260729e6e/README.md",
+      "bytes": 15528,
+      "sha256": "7ae8fb6fca5961aefcc8e3d651cf8f80503fcbc00189ae92cb8bdf27155dcebb",
+      "requiredPhrases": [
+        "~6x real-time on a CPU of MacBook Air M4",
+        "plain wav file as input for voice cloning",
+        "Adding silence in the text input to generate pauses"
+      ]
+    },
+    {
+      "documentID": "pocket-tts-model-readme",
+      "candidateID": "pocket-tts",
+      "url": "https://huggingface.co/kyutai/pocket-tts/resolve/4c8ad48f8a003909bc4f1122cbe88a4252124621/README.md",
+      "bytes": 11187,
+      "sha256": "ae2ebac6f8039d761ca90e2b742136dce9d7872ec8dd2105e3b2de1e3021e3aa",
+      "requiredPhrases": [
+        "license: cc-by-4.0",
+        "extra_gated_prompt",
+        "plain wav file as input for voice cloning"
+      ]
+    },
+    {
+      "documentID": "voxcpm2-code-licence",
+      "candidateID": "voxcpm2",
+      "url": "https://raw.githubusercontent.com/OpenBMB/VoxCPM/19b6bf7590025418821a86dcb817504e0ad7e5df/LICENSE",
+      "bytes": 11298,
+      "sha256": "4f10acc209addacfad28293315c74c4cd648f771ee1263a748f1781d1e0265e4",
+      "requiredPhrases": [
+        "Apache License",
+        "Version 2.0"
+      ]
+    },
+    {
+      "documentID": "voxcpm2-code-readme",
+      "candidateID": "voxcpm2",
+      "url": "https://raw.githubusercontent.com/OpenBMB/VoxCPM/19b6bf7590025418821a86dcb817504e0ad7e5df/README.md",
+      "bytes": 28815,
+      "sha256": "3baf789669d46aa706ca2f2e7056182dc0756f71a7af3c438978a9297ea2cb4e",
+      "requiredPhrases": [
+        "Controllable Cloning",
+        "reference audio and its transcript",
+        "style guidance to steer emotion, pace, and expression",
+        "try to generate 1~3 times"
+      ]
+    },
+    {
+      "documentID": "voxcpm2-core-api",
+      "candidateID": "voxcpm2",
+      "url": "https://raw.githubusercontent.com/OpenBMB/VoxCPM/19b6bf7590025418821a86dcb817504e0ad7e5df/src/voxcpm/core.py",
+      "bytes": 15544,
+      "sha256": "aa8965af33ebbbc611b2bad18c67b99cfffac7b7b87900f49efa8d454f2755d2",
+      "requiredPhrases": [
+        "reference_wav_path: str = None",
+        "retry_badcase: bool = True",
+        "explicit value such as ``\"cpu\"``, ``\"mps\"``"
+      ]
+    },
+    {
+      "documentID": "voxcpm2-pyproject",
+      "candidateID": "voxcpm2",
+      "url": "https://raw.githubusercontent.com/OpenBMB/VoxCPM/19b6bf7590025418821a86dcb817504e0ad7e5df/pyproject.toml",
+      "bytes": 2100,
+      "sha256": "4ee48db6243be2a2eedff52843f5573c4d82179a7d47483d595889cdfc564b0d",
+      "requiredPhrases": [
+        "requires-python = \">=3.10\"",
+        "license = \"Apache-2.0\""
+      ]
+    },
+    {
+      "documentID": "voxcpm2-model-readme",
+      "candidateID": "voxcpm2",
+      "url": "https://huggingface.co/openbmb/VoxCPM2/resolve/bffb3df5a29440629464e5e839f4d214c8714c3d/README.md",
+      "bytes": 7776,
+      "sha256": "7384fad93ce2d98f47d5c3170597f3b31d414c12c92e7fdf3121fa90f19fe29d",
+      "requiredPhrases": [
+        "license: apache-2.0",
+        "trained on over **2 million hours**",
+        "48kHz Studio-Quality Output",
+        "free for commercial use"
+      ]
+    }
+  ],
+  "modelMetadata": [
+    {
+      "candidateID": "kokoro-82m",
+      "modelID": "hexgrad/Kokoro-82M",
+      "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
+      "gated": false,
+      "licence": "apache-2.0",
+      "apiURL": "https://huggingface.co/api/models/hexgrad/Kokoro-82M/revision/f3ff3571791e39611d31c381e3a41a3af07b4987?blobs=true",
+      "selectedFileCount": 3,
+      "selectedFileBytes": 327220925,
+      "selectedFiles": [
+        {
+          "path": "README.md",
+          "bytes": 6348,
+          "blobID": "d6dc124205ad567631d14cd8700f1af77a861c3f",
+          "sha256": null
+        },
+        {
+          "path": "config.json",
+          "bytes": 2351,
+          "blobID": "14a726edd3718279eac426630879ff743955b16a",
+          "sha256": null
+        },
+        {
+          "path": "kokoro-v1_0.pth",
+          "bytes": 327212226,
+          "blobID": "15769c415594dcb424579ba3dfae3085578aac4e",
+          "sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4"
+        }
+      ]
+    },
+    {
+      "candidateID": "parler-tts-mini-v1",
+      "modelID": "parler-tts/parler-tts-mini-v1",
+      "revision": "0392b9451a601e528fd863bbb0598431fee810d9",
+      "gated": false,
+      "licence": "apache-2.0",
+      "apiURL": "https://huggingface.co/api/models/parler-tts/parler-tts-mini-v1/revision/0392b9451a601e528fd863bbb0598431fee810d9?blobs=true",
+      "selectedFileCount": 5,
+      "selectedFileBytes": 3514718057,
+      "selectedFiles": [
+        {
+          "path": "README.md",
+          "bytes": 6677,
+          "blobID": "eb45766ffa1fbc2ec21b2ee1ca795e150e9be8fe",
+          "sha256": null
+        },
+        {
+          "path": "config.json",
+          "bytes": 6930,
+          "blobID": "d2f9d789ac92fdb73b5be24635fdffb959343389",
+          "sha256": null
+        },
+        {
+          "path": "model.safetensors",
+          "bytes": 3511490560,
+          "blobID": "bc401b9ecf0a270858907f59f4da295b6e0bad72",
+          "sha256": "bc430eb6752b96ffb3f67036d1a6e207fbd031575a775716ffa64ef1eeb03692"
+        },
+        {
+          "path": "spiece.model",
+          "bytes": 791656,
+          "blobID": "317a5ccbde45300f5d1d970d4d449af2108b147e",
+          "sha256": "d60acb128cf7b7f2536e8f38a5b18a05535c9e14c7a355904270e15b0945ea86"
+        },
+        {
+          "path": "tokenizer.json",
+          "bytes": 2422234,
+          "blobID": "41a5ffa2657f77be129f7d2f791e45aab6c145ae",
+          "sha256": null
+        }
+      ]
+    },
+    {
+      "candidateID": "styletts2-libritts",
+      "modelID": "yl4579/StyleTTS2-LibriTTS",
+      "revision": "3aa7ba7f8f275ec13dce21682a61494c35089e2a",
+      "gated": false,
+      "licence": null,
+      "apiURL": "https://huggingface.co/api/models/yl4579/StyleTTS2-LibriTTS/revision/3aa7ba7f8f275ec13dce21682a61494c35089e2a?blobs=true",
+      "selectedFileCount": 3,
+      "selectedFileBytes": 774310007,
+      "selectedFiles": [
+        {
+          "path": "Models/LibriTTS/config.yml",
+          "bytes": 1859,
+          "blobID": "6a382d987b7a40467d0ef3d34f8c619f6ae37c3c",
+          "sha256": null
+        },
+        {
+          "path": "Models/LibriTTS/epochs_2nd_00020.pth",
+          "bytes": 771390526,
+          "blobID": "b1508d92da82e15837d59ff8c2c9d63b591dd61e",
+          "sha256": "1164ffe19a17449d2c722234cecaf2836b35a698fb8ffd42562d2663657dca0a"
+        },
+        {
+          "path": "reference_audio.zip",
+          "bytes": 2917622,
+          "blobID": "d018bfe5d6632ec2a819926106bd93e081b0688a",
+          "sha256": "d25b4950ec39cec5a00f5061491ad0b3606edc6618a54adc59663bfd6e6ab55e"
+        }
+      ]
+    },
+    {
+      "candidateID": "pocket-tts",
+      "modelID": "kyutai/pocket-tts",
+      "revision": "4c8ad48f8a003909bc4f1122cbe88a4252124621",
+      "gated": "auto",
+      "licence": "cc-by-4.0",
+      "apiURL": "https://huggingface.co/api/models/kyutai/pocket-tts/revision/4c8ad48f8a003909bc4f1122cbe88a4252124621?blobs=true",
+      "selectedFileCount": 3,
+      "selectedFileBytes": 235809258,
+      "selectedFiles": [
+        {
+          "path": "README.md",
+          "bytes": 11187,
+          "blobID": "0e9ad24dcd5b6fe6283cb819dd968f8f0da2bd3b",
+          "sha256": null
+        },
+        {
+          "path": "tokenizer.model",
+          "bytes": 59339,
+          "blobID": "1820a7cbb15efc6a33dd365113c07e3df9d28d80",
+          "sha256": "d461765ae179566678c93091c5fa6f2984c31bbe990bf1aa62d92c64d91bc3f6"
+        },
+        {
+          "path": "tts_b6369a24.safetensors",
+          "bytes": 235738732,
+          "blobID": "3b2bcb31f77fafd57cd4951d2b61088f81a3625b",
+          "sha256": "a4246e239af0f35a1c495b6d180961a6f10b379dc24dd537f64c695c08e4e216"
+        }
+      ]
+    },
+    {
+      "candidateID": "voxcpm2",
+      "modelID": "openbmb/VoxCPM2",
+      "revision": "bffb3df5a29440629464e5e839f4d214c8714c3d",
+      "gated": false,
+      "licence": "apache-2.0",
+      "apiURL": "https://huggingface.co/api/models/openbmb/VoxCPM2/revision/bffb3df5a29440629464e5e839f4d214c8714c3d?blobs=true",
+      "selectedFileCount": 8,
+      "selectedFileBytes": 4960730184,
+      "selectedFiles": [
+        {
+          "path": "README.md",
+          "bytes": 7776,
+          "blobID": "6cb95d998835257df3e35094395b696842024163",
+          "sha256": null
+        },
+        {
+          "path": "audiovae.pth",
+          "bytes": 376951122,
+          "blobID": "036ef0b5ced85736b842e31d35bd39606845d830",
+          "sha256": "94b5d51e107e0507d4acc976cfdadb64edd6fd06d1f751dadbf2fd1594274bf1"
+        },
+        {
+          "path": "config.json",
+          "bytes": 4336,
+          "blobID": "792f1c223ed607f9e508c0a0deb15dd9532483be",
+          "sha256": null
+        },
+        {
+          "path": "model.safetensors",
+          "bytes": 4580080592,
+          "blobID": "d53929032ba7405f13a6236df11cd12da17d995a",
+          "sha256": "f7f964cfa9da23653baec6e6f7750719977ad944ed9f95fe52fe3a620506891d"
+        },
+        {
+          "path": "special_tokens_map.json",
+          "bytes": 1632,
+          "blobID": "8619dda6f3eb6d60d0a1bb274820054e46f41699",
+          "sha256": null
+        },
+        {
+          "path": "tokenization_voxcpm2.py",
+          "bytes": 2895,
+          "blobID": "e7d768677298d058fa6ef8b160e3ca4430997fad",
+          "sha256": null
+        },
+        {
+          "path": "tokenizer.json",
+          "bytes": 3676772,
+          "blobID": "41a5c2a8dba4058dd1ad73fb898abf5e4f64f0f9",
+          "sha256": null
+        },
+        {
+          "path": "tokenizer_config.json",
+          "bytes": 5059,
+          "blobID": "fecf4cdae73b57053cac2ad34c67febbe4e4f08b",
+          "sha256": null
+        }
+      ]
+    }
+  ],
+  "publisherRecords": {
+    "voxcpm203Release": {
+      "url": "https://api.github.com/repos/OpenBMB/VoxCPM/releases/tags/2.0.3",
+      "html_url": "https://github.com/OpenBMB/VoxCPM/releases/tag/2.0.3",
+      "tag_name": "2.0.3",
+      "name": "v2.0.3: fine-tuning validation, runtime stability, and streaming improvements",
+      "published_at": "2026-05-11T11:59:20Z",
+      "requiredBodyPhrases": [
+        "Supports `auto`, `cpu`, `mps`, `cuda`",
+        "Fix MPS audio quality issues by promoting low-precision dtypes to `float32`"
+      ]
+    },
+    "voxcpmTrainingDataAndCommercialComment": {
+      "url": "https://api.github.com/repos/OpenBMB/VoxCPM/issues/238/comments",
+      "html_url": "https://github.com/OpenBMB/VoxCPM/issues/238#issuecomment-4228356331",
+      "created_at": "2026-04-11T06:36:43Z",
+      "updated_at": "2026-04-11T06:36:43Z",
+      "user": "a710128",
+      "author_association": "CONTRIBUTOR",
+      "requiredBodyPhrases": [
+        "unable to disclose the specific details of the dataset",
+        "Our model is free and open-source",
+        "obtain lawful authorization for any reference audio"
+      ]
+    }
+  },
+  "candidates": [
+    {
+      "candidateID": "kokoro-82m",
+      "publisher": "hexgrad",
+      "codeRevision": "dfb907a02bba8152ca444717ca5d78747ccb4bec",
+      "modelRevision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
+      "qualityEvidence": "Publisher claims an 82M model comparable to larger systems; no project audio has been generated.",
+      "control": {
+        "arbitraryReferenceWavConditioning": false,
+        "exactFrozenReferencePairUsable": false,
+        "numericSpeedControl": true,
+        "authoredBoundaryAssemblyCompatible": true
+      },
+      "macFeasibility": {
+        "firstPartyMacPath": true,
+        "runtime": "PyTorch CPU or MPS fallback",
+        "modelWeightBytes": 327212226
+      },
+      "provenance": {
+        "trainingScale": "few hundred hours",
+        "namedCorpusDisclosure": "partial",
+        "publisherStatesPermissiveOrNonCopyrightedData": true
+      },
+      "licence": {
+        "code": "Apache-2.0",
+        "weights": "Apache-2.0",
+        "commercialUsePublished": true
+      },
+      "cost": {
+        "incrementalCostNOK": 0,
+        "billingCredentialRequired": false
+      },
+      "gate": {
+        "eligibleForExactByteRuntimePreflight": false,
+        "blockingReasons": [
+          "NO_EXACT_FROZEN_REFERENCE_CONDITIONING"
+        ]
+      }
+    },
+    {
+      "candidateID": "parler-tts-mini-v1",
+      "publisher": "Hugging Face",
+      "codeRevision": "d108732cd57788ec86bc857d99a6cabd66663d68",
+      "modelRevision": "0392b9451a601e528fd863bbb0598431fee810d9",
+      "qualityEvidence": "Publisher describes an 880M model trained on 45K audiobook hours; no project audio has been generated.",
+      "control": {
+        "arbitraryReferenceWavConditioning": false,
+        "exactFrozenReferencePairUsable": false,
+        "naturalLanguagePacePitchAndRecordingControl": true,
+        "namedTrainingSpeakerCount": 34
+      },
+      "macFeasibility": {
+        "firstPartyMacPath": true,
+        "runtime": "PyTorch CPU with publisher Apple-Silicon instructions",
+        "modelWeightBytes": 3511490560
+      },
+      "provenance": {
+        "trainingScale": "45K hours",
+        "publisherStatesDatasetsAndTrainingRecipePublic": true,
+        "namedCorpusDisclosure": "public linked datasets"
+      },
+      "licence": {
+        "code": "Apache-2.0",
+        "weights": "Apache-2.0",
+        "commercialUsePublished": true
+      },
+      "cost": {
+        "incrementalCostNOK": 0,
+        "billingCredentialRequired": false
+      },
+      "gate": {
+        "eligibleForExactByteRuntimePreflight": false,
+        "blockingReasons": [
+          "NO_EXACT_FROZEN_REFERENCE_CONDITIONING"
+        ]
+      }
+    },
+    {
+      "candidateID": "styletts2-libritts",
+      "publisher": "yl4579",
+      "codeRevision": "5cedc71c333f8d8b8551ca59378bdcc7af4c9529",
+      "modelRevision": "3aa7ba7f8f275ec13dce21682a61494c35089e2a",
+      "qualityEvidence": "The publisher reports strong zero-shot adaptation on LibriTTS; no project audio has been generated.",
+      "control": {
+        "arbitraryReferenceWavConditioning": true,
+        "exactFrozenReferencePairUsable": true,
+        "zeroShotSpeakerAdaptation": true,
+        "officialImportableInferencePathComplete": false
+      },
+      "macFeasibility": {
+        "firstPartyMacPath": "CPU is recommended for one artefact class",
+        "runtime": "Official README points to a separate GPL inference fork or lower-quality MIT phonemizer path",
+        "modelWeightBytes": 771390526
+      },
+      "provenance": {
+        "trainingCorpus": "LibriTTS",
+        "auxiliaryModelProvenanceRequiresSeparateClosure": true
+      },
+      "licence": {
+        "code": "MIT",
+        "weights": null,
+        "commercialUsePublished": false,
+        "modelRepositoryHasLicenceMetadata": false
+      },
+      "cost": {
+        "incrementalCostNOK": 0,
+        "billingCredentialRequired": false
+      },
+      "gate": {
+        "eligibleForExactByteRuntimePreflight": false,
+        "blockingReasons": [
+          "OFFICIAL_WEIGHT_LICENCE_ABSENT",
+          "OFFICIAL_INFERENCE_PATH_NOT_SELF_CONTAINED"
+        ]
+      }
+    },
+    {
+      "candidateID": "pocket-tts",
+      "publisher": "Kyutai",
+      "codeRevision": "058886528d0b6f2f2d4022de2e244a5260729e6e",
+      "modelRevision": "4c8ad48f8a003909bc4f1122cbe88a4252124621",
+      "qualityEvidence": "Publisher presents a 100M CPU model with voice cloning; no project audio has been generated.",
+      "control": {
+        "arbitraryReferenceWavConditioning": true,
+        "exactFrozenReferencePairUsable": true,
+        "nativePaceControl": false,
+        "inlineAuthoredPauseControl": false,
+        "authoredBoundaryAssemblyCompatible": true
+      },
+      "macFeasibility": {
+        "firstPartyMacPath": true,
+        "runtime": "PyTorch CPU",
+        "publisherMacBookAirM4RealtimeFactor": "approximately 6x",
+        "selectedEnglishModelBytes": 235809258
+      },
+      "provenance": {
+        "trainingCorpusNamedInModelCard": false,
+        "modelAccessRequiresContactSharingAndUseDeclaration": true
+      },
+      "licence": {
+        "code": "MIT",
+        "weights": "CC-BY-4.0 plus gated prohibited-use terms",
+        "commercialUsePublished": true,
+        "newUserLegalAssentRequired": true
+      },
+      "cost": {
+        "incrementalCostNOK": 0,
+        "billingCredentialRequired": false
+      },
+      "gate": {
+        "eligibleForExactByteRuntimePreflight": false,
+        "blockingReasons": [
+          "NEW_USER_LEGAL_ASSENT_NOT_AUTHORIZED",
+          "NO_NATIVE_PACE_OR_INLINE_PAUSE_CONTROL"
+        ]
+      }
+    },
+    {
+      "candidateID": "voxcpm2",
+      "publisher": "OpenBMB",
+      "codeRevision": "19b6bf7590025418821a86dcb817504e0ad7e5df",
+      "modelRevision": "bffb3df5a29440629464e5e839f4d214c8714c3d",
+      "qualityEvidence": "Publisher reports competitive public zero-shot and controllable-TTS benchmarks for a 2B, 48 kHz model; project quality remains untested.",
+      "control": {
+        "arbitraryReferenceWavConditioning": true,
+        "exactFrozenReferencePairUsable": true,
+        "referenceTranscriptConditioning": true,
+        "paceEmotionAndExpressionGuidance": true,
+        "retryCanBeExplicitlyDisabled": true
+      },
+      "macFeasibility": {
+        "firstPartyMacPath": true,
+        "runtime": "PyTorch MPS with float32 promotion in release 2.0.3",
+        "selectedModelBytes": 4960731703,
+        "currentMachineClass": "Apple M5 Pro, 64 GB, arm64"
+      },
+      "provenance": {
+        "trainingScale": "over 2 million hours",
+        "specificDatasetDetailsDisclosed": false,
+        "publisherReason": "trade-secret protection",
+        "referenceAuthorization": "project-controlled synthetic references"
+      },
+      "licence": {
+        "code": "Apache-2.0",
+        "weights": "Apache-2.0",
+        "commercialUsePublished": true,
+        "modelRepositoryGated": false
+      },
+      "cost": {
+        "incrementalCostNOK": 0,
+        "billingCredentialRequired": false
+      },
+      "gate": {
+        "eligibleForExactByteRuntimePreflight": true,
+        "blockingReasons": [],
+        "risksCarriedIntoNextGate": [
+          "UNDISCLOSED_TRAINING_DATASET_DETAILS",
+          "PUBLISHER_RECOMMENDS_MULTIPLE_TAKES_BUT_PROJECT_PERMITS_ONE",
+          "LARGE_MPS_RUNTIME_REQUIRES_EXACT_MEMORY_AND_DEPENDENCY_PROOF"
+        ]
+      }
+    }
+  ],
+  "decision": {
+    "selectedCandidateID": "voxcpm2",
+    "selectedCandidateCount": 1,
+    "nextGate": "EXACT_BYTES_MACOS_ARM64_RUNTIME_AND_LICENCES",
+    "selectionReasons": [
+      "DIRECT_CONDITIONING_ON_BOTH_FROZEN_REFERENCES_AND_TRANSCRIPT",
+      "FIRST_PARTY_PACE_EXPRESSION_AND_TIMBRE_CONTROLS",
+      "FIRST_PARTY_MPS_PATH_WITH_RECORDED_FLOAT32_FIX",
+      "APACHE_2_CODE_AND_WEIGHT_LICENCES_WITHOUT_GATED_ACCESS",
+      "HIGHEST_DOCUMENTED_QUALITY_CEILING_IN_THE_ELIGIBLE_SET"
+    ],
+    "exactByteRuntimePreflightPermitted": true,
+    "modelDownloadPermittedOnlyInsideHashVerifyingNextPreflight": true,
+    "comparisonSynthesisPermitted": false,
+    "full203By2GenerationPermitted": false,
+    "candidatePromotionPermitted": false,
+    "masterParentPermitted": false,
+    "shippingPermitted": false,
+    "nextMethodMust": [
+      "pin every source, model and runtime byte before loading",
+      "use the two unchanged project references and exact transcript",
+      "set retry_badcase=false and permit one attempt per utterance",
+      "freeze seed, device, dtype, guidance and diffusion steps before synthesis",
+      "retain every V8 identity, word, pronunciation, silence and duration threshold",
+      "stop before synthesis if MPS load, dependency licence or memory proof fails"
+    ]
+  },
+  "cost": {
+    "incrementalCostNOK": 0,
+    "billingCredentialUsed": false,
+    "hostedSynthesisUsed": false,
+    "externalHumanAdded": false
+  }
+}

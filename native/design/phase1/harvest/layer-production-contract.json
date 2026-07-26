@@ -1,0 +1,434 @@
+{
+  "schemaVersion": 2,
+  "id": "harvest-layer-production",
+  "status": "NON_SHIPPING_PRODUCTION_CONTRACT",
+  "sceneFixturePath": "native/phase1/fixtures/harvest-option-1.scene.json",
+  "sceneFixtureSHA256": "c9cfa96d9cc61f7421ecf0efc0136d2f716daa5fb851a4dd99f2943e1b9b8028",
+  "expectedSceneID": "harvest-allocation-option-1",
+  "canvas": {
+    "width": 1290,
+    "height": 2796
+  },
+  "requiredFinalAssets": {
+    "total": 86,
+    "baseLayers": 12,
+    "baseMasks": 27,
+    "stateFiles": 45,
+    "reduceMotionPlates": 2
+  },
+  "toolchain": [
+    {
+      "toolID": "nodejs-local",
+      "version": "26.3.1",
+      "license": "MIT"
+    },
+    {
+      "toolID": "ffmpeg-local",
+      "version": "8.1.2",
+      "license": "GPL-3.0-or-later local command-line tool; outputs are not linked to or derived from FFmpeg code"
+    },
+    {
+      "toolID": "apple-sips",
+      "version": "316",
+      "license": "Apple macOS Software License Agreement"
+    },
+    {
+      "toolID": "mflux-local",
+      "version": "0.18.0",
+      "license": "MIT"
+    },
+    {
+      "toolID": "flux2-klein-4b",
+      "version": "e7b7dc27f91deacad38e78976d1f2b499d76a294",
+      "license": "Apache License 2.0"
+    }
+  ],
+  "disocclusionCoverageRule": {
+    "eligibleLayerRule": "ALPHA_MASKED_NORMAL_BLEND",
+    "excludedBlendModes": [
+      "screen"
+    ]
+  },
+  "disocclusionUnderlays": [
+    {
+      "id": "settlement-underlay",
+      "layerID": "settlement",
+      "sourceLayerPlatePath": "native/.build/visual-assets/harvest-underlay-authority/settlement.png",
+      "workingPath": "work/disocclusion-underlays/settlement.png",
+      "frame": { "x": 0.05, "y": 0.17, "width": 0.9, "height": 0.45 },
+      "coverageMode": "RAIL_BOUNDED",
+      "recipe": {
+        "status": "PENDING_MEASUREMENT"
+      }
+    },
+    {
+      "id": "people-and-work-underlay",
+      "layerID": "people-and-work",
+      "sourceLayerPlatePath": "native/.build/visual-assets/harvest-underlay-authority/people-and-work.png",
+      "workingPath": "work/disocclusion-underlays/people-and-work.png",
+      "frame": { "x": 0.08, "y": 0.27, "width": 0.84, "height": 0.38 },
+      "coverageMode": "RAIL_BOUNDED",
+      "recipe": {
+        "status": "PENDING_MEASUREMENT"
+      }
+    },
+    {
+      "id": "allocation-ground-underlay",
+      "layerID": "allocation-ground",
+      "sourceLayerPlatePath": "native/.build/visual-assets/harvest-underlay-authority/allocation-ground.png",
+      "workingPath": "work/disocclusion-underlays/allocation-ground.png",
+      "frame": { "x": 0.12, "y": 0.46, "width": 0.76, "height": 0.27 },
+      "coverageMode": "RAIL_BOUNDED",
+      "recipe": {
+        "status": "PENDING_MEASUREMENT"
+      }
+    },
+    {
+      "id": "winter-store-underlay",
+      "layerID": "winter-store",
+      "sourceLayerPlatePath": "native/.build/visual-assets/harvest-underlay-authority/winter-store.png",
+      "workingPath": "work/disocclusion-underlays/winter-store.png",
+      "frame": { "x": 0.17, "y": 0.49, "width": 0.24, "height": 0.19 },
+      "coverageMode": "RAIL_BOUNDED",
+      "recipe": {
+        "status": "PENDING_MEASUREMENT"
+      }
+    },
+    {
+      "id": "protected-reserve-underlay",
+      "layerID": "protected-reserve",
+      "sourceLayerPlatePath": "native/.build/visual-assets/harvest-underlay-authority/protected-reserve.png",
+      "workingPath": "work/disocclusion-underlays/protected-reserve.png",
+      "frame": { "x": 0.38, "y": 0.49, "width": 0.24, "height": 0.19 },
+      "coverageMode": "RAIL_BOUNDED",
+      "recipe": {
+        "status": "PENDING_MEASUREMENT"
+      }
+    },
+    {
+      "id": "spring-seed-underlay",
+      "layerID": "spring-seed",
+      "sourceLayerPlatePath": "native/.build/visual-assets/harvest-underlay-authority/spring-seed.png",
+      "workingPath": "work/disocclusion-underlays/spring-seed.png",
+      "frame": { "x": 0.59, "y": 0.49, "width": 0.24, "height": 0.19 },
+      "coverageMode": "RAIL_BOUNDED",
+      "recipe": {
+        "status": "PENDING_MEASUREMENT"
+      }
+    },
+    {
+      "id": "central-harvest-underlay",
+      "layerID": "central-harvest",
+      "sourceLayerPlatePath": "native/.build/visual-assets/harvest-underlay-authority/central-grain.png",
+      "workingPath": "work/disocclusion-underlays/central-grain.png",
+      "frame": { "x": 0.14883720930232558, "y": 0.6266094420600858, "width": 0.6945736434108527, "height": 0.32045779685264664 },
+      "coverageMode": "FULL_STATE_AND_RAIL",
+      "recipe": {
+        "status": "MEASURED",
+      "toolIDs": [
+        "mflux-local"
+      ],
+        "sourceMaster": {
+          "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+          "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca"
+        },
+        "cropPixels": { "x": 192, "y": 1752, "width": 896, "height": 896 },
+        "targetFileName": "central-grain.png",
+        "sourceAuthority": {
+          "path": "native/content/backstage/harvest/central-grain-underlay-v26.source-authority.json",
+          "sha256": "c2915382f8d52162540487d51e70ccafa6fd459969cf6c70c3da2cd1aae23eca"
+        },
+        "authorizationMaskSourcePath": "native/.build/visual-assets/harvest-underlay-authority/central-grain-authorization.png",
+        "authorizationMaskWorkingPath": "work/disocclusion-underlays/central-grain-authorization.png",
+        "subjectMask": {
+          "id": "central-grain",
+          "path": "native/content/backstage/harvest/semantic-masks-v26.provisional/central-grain.png",
+          "sha256": "85dbd5f14ed998ed3874721948678acd0411e3e0e91d443c9d47555fc047aea3",
+          "sourceBoundsPixels": { "minX": 316, "minY": 2189, "maxX": 975, "maxY": 2586 },
+          "cropLocalBoundsPixels": { "minX": 124, "minY": 437, "maxX": 783, "maxY": 834 }
+        },
+        "donorMask": {
+          "id": "allocation-cloth",
+          "path": "native/content/backstage/harvest/semantic-masks-v26.provisional/allocation-cloth.png",
+          "sha256": "f87a639685ccba48127cb3fbcfef46e611228e5c0645aa3d4c4c901589f06627"
+        },
+        "excludedOccluderMask": {
+          "id": "foreground-occluders",
+          "path": "native/content/backstage/harvest/semantic-masks-v26.provisional/foreground-occluders.png",
+          "sha256": "8810139ae423683c5434690a5698bd28940338790b75ba9d3ca897d98a29cf35"
+        },
+      "usableDonorPixelCount": 148493,
+        "maskPreparation": {
+          "closeRadiusPixels": 3,
+          "dilatePixels": 4,
+          "subtractForegroundOccluders": true
+        },
+        "fill": {
+          "method": "SOURCE_ONLY_MULTI_RESOLUTION_PATCHMATCH",
+          "mirrorAllowed": false,
+          "rotationDegrees": { "minimum": -3, "maximum": 3 },
+          "scale": { "minimum": 0.92, "maximum": 1.08 },
+          "sourceBuiltSeamRingPixels": 12
+        }
+      }
+    },
+    {
+      "id": "foreground-occluders-underlay",
+      "layerID": "foreground-occluders",
+      "sourceLayerPlatePath": "native/.build/visual-assets/harvest-underlay-authority/foreground-occluders.png",
+      "workingPath": "work/disocclusion-underlays/foreground-occluders.png",
+      "frame": { "x": 0, "y": 0, "width": 1, "height": 1 },
+      "coverageMode": "RAIL_BOUNDED",
+      "recipe": {
+        "status": "PENDING_MEASUREMENT"
+      }
+    }
+  ],
+  "disocclusionExemptions": [
+    {
+      "layerID": "hands-and-grain",
+      "reasonCode": "ZERO_RELATIVE_MOTION_NO_REVEAL",
+      "relativeMotion": "ZERO",
+      "revealsBackground": false
+    }
+  ],
+  "auxiliaryMasks": [
+    {
+      "id": "rain-density",
+      "maskType": "atmosphere",
+      "atmosphereKind": "rain",
+      "workingPath": "work/masks/atmosphere/rain-density.png",
+      "frame": { "x": 0, "y": 0, "width": 1, "height": 1 },
+      "purpose": "Bounds authored rain density to sky, roofs and exposed earth."
+    },
+    {
+      "id": "rain-occlusion",
+      "maskType": "atmosphere",
+      "atmosphereKind": "rain",
+      "workingPath": "work/masks/atmosphere/rain-occlusion.png",
+      "frame": { "x": 0, "y": 0, "width": 1, "height": 1 },
+      "purpose": "Stops rain at roofs, storage interiors, bodies and foreground occluders."
+    },
+    {
+      "id": "smoke-emission",
+      "maskType": "atmosphere",
+      "atmosphereKind": "smoke",
+      "workingPath": "work/masks/atmosphere/smoke-emission.png",
+      "frame": { "x": 0, "y": 0, "width": 1, "height": 1 },
+      "purpose": "Restricts smoke emission to visible hearth and doorway sources."
+    },
+    {
+      "id": "smoke-occlusion",
+      "maskType": "atmosphere",
+      "atmosphereKind": "smoke",
+      "workingPath": "work/masks/atmosphere/smoke-occlusion.png",
+      "frame": { "x": 0, "y": 0, "width": 1, "height": 1 },
+      "purpose": "Carries smoke behind the authored roofs, people and trees."
+    },
+    {
+      "id": "winter-store-empty-change",
+      "maskType": "authorization",
+      "workingPath": "work/masks/authorization/winter-store-empty.png",
+      "frame": { "x": 0.17, "y": 0.49, "width": 0.24, "height": 0.19 },
+      "purpose": "Allows only the winter-store empty-state silhouette and material to differ from its base."
+    },
+    {
+      "id": "winter-store-receiving-change",
+      "maskType": "authorization",
+      "workingPath": "work/masks/authorization/winter-store-receiving.png",
+      "frame": { "x": 0.17, "y": 0.49, "width": 0.24, "height": 0.19 },
+      "purpose": "Allows only the winter-store receiving action to differ from its base."
+    },
+    {
+      "id": "winter-store-provisioned-change",
+      "maskType": "authorization",
+      "workingPath": "work/masks/authorization/winter-store-provisioned.png",
+      "frame": { "x": 0.17, "y": 0.49, "width": 0.24, "height": 0.19 },
+      "purpose": "Allows only the winter-store provisioned consequence to differ from its base."
+    },
+    {
+      "id": "protected-reserve-empty-change",
+      "maskType": "authorization",
+      "workingPath": "work/masks/authorization/protected-reserve-empty.png",
+      "frame": { "x": 0.38, "y": 0.49, "width": 0.24, "height": 0.19 },
+      "purpose": "Allows only the protected-reserve empty state to differ from its base."
+    },
+    {
+      "id": "protected-reserve-receiving-change",
+      "maskType": "authorization",
+      "workingPath": "work/masks/authorization/protected-reserve-receiving.png",
+      "frame": { "x": 0.38, "y": 0.49, "width": 0.24, "height": 0.19 },
+      "purpose": "Allows only the protected-reserve receiving action to differ from its base."
+    },
+    {
+      "id": "protected-reserve-sealed-change",
+      "maskType": "authorization",
+      "workingPath": "work/masks/authorization/protected-reserve-sealed.png",
+      "frame": { "x": 0.38, "y": 0.49, "width": 0.24, "height": 0.19 },
+      "purpose": "Allows only the protected-reserve sealed consequence to differ from its base."
+    },
+    {
+      "id": "spring-seed-empty-change",
+      "maskType": "authorization",
+      "workingPath": "work/masks/authorization/spring-seed-empty.png",
+      "frame": { "x": 0.59, "y": 0.49, "width": 0.24, "height": 0.19 },
+      "purpose": "Allows only the spring-seed empty state to differ from its base."
+    },
+    {
+      "id": "spring-seed-receiving-change",
+      "maskType": "authorization",
+      "workingPath": "work/masks/authorization/spring-seed-receiving.png",
+      "frame": { "x": 0.59, "y": 0.49, "width": 0.24, "height": 0.19 },
+      "purpose": "Allows only the spring-seed receiving action to differ from its base."
+    },
+    {
+      "id": "spring-seed-committed-change",
+      "maskType": "authorization",
+      "workingPath": "work/masks/authorization/spring-seed-committed.png",
+      "frame": { "x": 0.59, "y": 0.49, "width": 0.24, "height": 0.19 },
+      "purpose": "Allows only the spring-seed committed consequence to differ from its base."
+    },
+    {
+      "id": "central-harvest-full-change",
+      "maskType": "authorization",
+      "workingPath": "work/masks/authorization/central-harvest-full.png",
+      "frame": { "x": 0.19, "y": 0.65, "width": 0.62, "height": 0.31 },
+      "purpose": "Allows only the full harvest silhouette and its local material response to differ from the base."
+    },
+    {
+      "id": "central-harvest-reduced-change",
+      "maskType": "authorization",
+      "workingPath": "work/masks/authorization/central-harvest-reduced.png",
+      "frame": { "x": 0.19, "y": 0.65, "width": 0.62, "height": 0.31 },
+      "purpose": "Allows only the reduced harvest silhouette and newly revealed cloth to differ from the base."
+    },
+    {
+      "id": "central-harvest-scarce-change",
+      "maskType": "authorization",
+      "workingPath": "work/masks/authorization/central-harvest-scarce.png",
+      "frame": { "x": 0.19, "y": 0.65, "width": 0.62, "height": 0.31 },
+      "purpose": "Allows only the scarce harvest silhouette and newly revealed cloth to differ from the base."
+    },
+    {
+      "id": "central-harvest-exhausted-change",
+      "maskType": "authorization",
+      "workingPath": "work/masks/authorization/central-harvest-exhausted.png",
+      "frame": { "x": 0.19, "y": 0.65, "width": 0.62, "height": 0.31 },
+      "purpose": "Allows only the exhausted cloth, chaff and final kernels to differ from the base."
+    }
+  ],
+  "stateVariantPolicies": [
+    {
+      "layerID": "winter-store",
+      "variantID": "empty",
+      "authorizationMaskID": "winter-store-empty-change",
+      "allowedAlphaBounds": { "x": 0.17, "y": 0.49, "width": 0.24, "height": 0.19 },
+      "maximumAuthorizedAreaFraction": 0.8
+    },
+    {
+      "layerID": "winter-store",
+      "variantID": "receiving",
+      "authorizationMaskID": "winter-store-receiving-change",
+      "allowedAlphaBounds": { "x": 0.17, "y": 0.49, "width": 0.24, "height": 0.19 },
+      "maximumAuthorizedAreaFraction": 0.8
+    },
+    {
+      "layerID": "winter-store",
+      "variantID": "provisioned",
+      "authorizationMaskID": "winter-store-provisioned-change",
+      "allowedAlphaBounds": { "x": 0.17, "y": 0.49, "width": 0.24, "height": 0.19 },
+      "maximumAuthorizedAreaFraction": 0.8
+    },
+    {
+      "layerID": "protected-reserve",
+      "variantID": "empty",
+      "authorizationMaskID": "protected-reserve-empty-change",
+      "allowedAlphaBounds": { "x": 0.38, "y": 0.49, "width": 0.24, "height": 0.19 },
+      "maximumAuthorizedAreaFraction": 0.8
+    },
+    {
+      "layerID": "protected-reserve",
+      "variantID": "receiving",
+      "authorizationMaskID": "protected-reserve-receiving-change",
+      "allowedAlphaBounds": { "x": 0.38, "y": 0.49, "width": 0.24, "height": 0.19 },
+      "maximumAuthorizedAreaFraction": 0.8
+    },
+    {
+      "layerID": "protected-reserve",
+      "variantID": "sealed",
+      "authorizationMaskID": "protected-reserve-sealed-change",
+      "allowedAlphaBounds": { "x": 0.38, "y": 0.49, "width": 0.24, "height": 0.19 },
+      "maximumAuthorizedAreaFraction": 0.8
+    },
+    {
+      "layerID": "spring-seed",
+      "variantID": "empty",
+      "authorizationMaskID": "spring-seed-empty-change",
+      "allowedAlphaBounds": { "x": 0.59, "y": 0.49, "width": 0.24, "height": 0.19 },
+      "maximumAuthorizedAreaFraction": 0.8
+    },
+    {
+      "layerID": "spring-seed",
+      "variantID": "receiving",
+      "authorizationMaskID": "spring-seed-receiving-change",
+      "allowedAlphaBounds": { "x": 0.59, "y": 0.49, "width": 0.24, "height": 0.19 },
+      "maximumAuthorizedAreaFraction": 0.8
+    },
+    {
+      "layerID": "spring-seed",
+      "variantID": "committed",
+      "authorizationMaskID": "spring-seed-committed-change",
+      "allowedAlphaBounds": { "x": 0.59, "y": 0.49, "width": 0.24, "height": 0.19 },
+      "maximumAuthorizedAreaFraction": 0.8
+    },
+    {
+      "layerID": "central-harvest",
+      "variantID": "full",
+      "authorizationMaskID": "central-harvest-full-change",
+      "allowedAlphaBounds": { "x": 0.19, "y": 0.65, "width": 0.62, "height": 0.31 },
+      "maximumAuthorizedAreaFraction": 0.9
+    },
+    {
+      "layerID": "central-harvest",
+      "variantID": "reduced",
+      "authorizationMaskID": "central-harvest-reduced-change",
+      "allowedAlphaBounds": { "x": 0.19, "y": 0.65, "width": 0.62, "height": 0.31 },
+      "maximumAuthorizedAreaFraction": 0.9
+    },
+    {
+      "layerID": "central-harvest",
+      "variantID": "scarce",
+      "authorizationMaskID": "central-harvest-scarce-change",
+      "allowedAlphaBounds": { "x": 0.19, "y": 0.65, "width": 0.62, "height": 0.31 },
+      "maximumAuthorizedAreaFraction": 0.9
+    },
+    {
+      "layerID": "central-harvest",
+      "variantID": "exhausted",
+      "authorizationMaskID": "central-harvest-exhausted-change",
+      "allowedAlphaBounds": { "x": 0.19, "y": 0.65, "width": 0.62, "height": 0.31 },
+      "maximumAuthorizedAreaFraction": 0.9
+    }
+  ],
+  "recompositionGate": {
+    "maxChannelError": 0,
+    "maxMeanAbsoluteError": 0,
+    "minimumExactPixelFraction": 1,
+    "statePixelsOutsideAuthorizationMustMatch": true
+  },
+  "encodingGate": {
+    "maxChannelError": 96,
+    "maxMeanAbsoluteError": 6,
+    "deterministicByteReplayRequired": true
+  },
+  "productionRules": {
+    "editorApprovedMasterRequiredForShipping": true,
+    "independentlyGeneratedLayersForbidden": true,
+    "autoMasksRequireArtReview": true,
+    "losslessWorkingIntermediates": true,
+    "pipelineCannotApproveShipping": true,
+    "upscalingForbidden": true,
+    "codexProvisionalMasterMayBuildDevelopmentDAG": true,
+    "provisionalOutputsForbiddenFromShipping": true
+  }
+}

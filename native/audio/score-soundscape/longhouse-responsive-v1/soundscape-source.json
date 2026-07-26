@@ -1,0 +1,249 @@
+{
+  "schemaVersion": 1,
+  "kind": "responsive-procedural-soundscape",
+  "id": "longhouse-responsive-soundscape-v1",
+  "status": "PROVISIONAL_NON_SHIPPING",
+  "shippingState": "PROHIBITED",
+  "output": {
+    "sampleRate": 48000,
+    "bitDepth": 24,
+    "channels": 2,
+    "container": "wav"
+  },
+  "mixGroups": {
+    "soundscape": ["weather-ground", "hearth-fire", "timber-work"],
+    "spatialDetail": ["daub-chaff", "fibre-lashing"]
+  },
+  "regions": [
+    {
+      "id": "approach",
+      "timelineID": "longhouse-approach-v1",
+      "soundscapeStateID": "open-plot-before-assembly",
+      "durationSeconds": 48,
+      "loop": false,
+      "layers": [
+        {
+          "id": "weather-ground", "material": "rain",
+          "visibleSource": "Damp opened earth and the weather crossing the unroofed plot",
+          "generator": { "algorithm": "rain-on-earth-v1", "seed": 251101, "density": 0.3, "colour": 0.38 },
+          "gainDB": -27, "pan": -0.22, "loop": false
+        },
+        {
+          "id": "hearth-fire", "material": "fire",
+          "visibleSource": "Workers' small fire at the edge of the still-open house plot",
+          "generator": { "algorithm": "small-hearth-fire-v1", "seed": 251103, "density": 0.16, "colour": 0.55 },
+          "gainDB": -33, "pan": -0.48, "loop": false
+        },
+        {
+          "id": "daub-chaff", "material": "grain",
+          "visibleSource": "Dry chopped chaff mixed beside the earth prepared for wall daub",
+          "generator": { "algorithm": "dry-grain-contact-v1", "seed": 251107, "density": 0.13, "colour": 0.62 },
+          "gainDB": -29, "pan": 0.12, "loop": false
+        },
+        {
+          "id": "fibre-lashing", "material": "textile",
+          "visibleSource": "Coiled plant-fibre ties waiting beside the posts",
+          "generator": { "algorithm": "woven-fibre-friction-v1", "seed": 251111, "density": 0.12, "colour": 0.5 },
+          "gainDB": -31, "pan": 0.32, "loop": false
+        },
+        {
+          "id": "timber-work", "material": "work",
+          "visibleSource": "Posts being dressed and carried behind the marked postholes",
+          "generator": { "algorithm": "distant-material-work-v1", "seed": 251117, "density": 0.2, "colour": 0.45 },
+          "gainDB": -25, "pan": 0.42, "loop": false
+        }
+      ],
+      "silenceWindows": [
+        {
+          "id": "before-first-post", "atSeconds": 43.5, "durationSeconds": 2.5,
+          "reason": "Leave the cut postholes and separated components exposed before the first structural action.",
+          "entry": "authored-cut", "exit": "authored-return"
+        }
+      ]
+    },
+    {
+      "id": "waiting",
+      "timelineID": "longhouse-waiting-bed-v1",
+      "soundscapeStateID": "components-wait-on-open-ground",
+      "durationSeconds": 15,
+      "loop": true,
+      "layers": [
+        {
+          "id": "weather-ground", "material": "rain",
+          "visibleSource": "Light weather moving over the uncovered postholes",
+          "generator": { "algorithm": "rain-on-earth-v1", "seed": 251121, "density": 0.24, "colour": 0.4 },
+          "gainDB": -30, "pan": -0.2, "loop": true
+        },
+        {
+          "id": "hearth-fire", "material": "fire",
+          "visibleSource": "Workers' edge fire while the house hearth still waits for its supporting posts",
+          "generator": { "algorithm": "small-hearth-fire-v1", "seed": 251123, "density": 0.12, "colour": 0.53 },
+          "gainDB": -35, "pan": -0.5, "loop": true
+        },
+        {
+          "id": "daub-chaff", "material": "grain",
+          "visibleSource": "Chaff and earth lying still beside the unraised wall line",
+          "generator": { "algorithm": "dry-grain-contact-v1", "seed": 251129, "density": 0.08, "colour": 0.6 },
+          "gainDB": -34, "pan": 0.1, "loop": true
+        },
+        {
+          "id": "fibre-lashing", "material": "textile",
+          "visibleSource": "Plant-fibre ties settling in coils beside the frame",
+          "generator": { "algorithm": "woven-fibre-friction-v1", "seed": 251131, "density": 0.08, "colour": 0.48 },
+          "gainDB": -34, "pan": 0.3, "loop": true
+        },
+        {
+          "id": "timber-work", "material": "work",
+          "visibleSource": "Low timber preparation continuing beyond the next available component",
+          "generator": { "algorithm": "distant-material-work-v1", "seed": 251137, "density": 0.12, "colour": 0.43 },
+          "gainDB": -30, "pan": 0.4, "loop": true
+        }
+      ],
+      "silenceWindows": [
+        {
+          "id": "waiting-joint", "atSeconds": 14.82, "durationSeconds": 0.18,
+          "reason": "A short structural breath separates identical waiting cycles without advancing assembly.",
+          "entry": "authored-cut", "exit": "authored-return"
+        }
+      ]
+    },
+    {
+      "id": "engaged",
+      "timelineID": "longhouse-engaged-bed-v1",
+      "soundscapeStateID": "accepted-parts-take-weight",
+      "durationSeconds": 15,
+      "loop": true,
+      "layers": [
+        {
+          "id": "weather-ground", "material": "rain",
+          "visibleSource": "Damp earth taking the weight of newly placed posts",
+          "generator": { "algorithm": "rain-on-earth-v1", "seed": 251139, "density": 0.28, "colour": 0.39 },
+          "gainDB": -27, "pan": -0.2, "loop": true
+        },
+        {
+          "id": "hearth-fire", "material": "fire",
+          "visibleSource": "The accepted central hearth catching after the frame stands",
+          "generator": { "algorithm": "small-hearth-fire-v1", "seed": 251149, "density": 0.34, "colour": 0.66 },
+          "gainDB": -22, "pan": -0.44, "loop": true
+        },
+        {
+          "id": "daub-chaff", "material": "grain",
+          "visibleSource": "Chaff-tempered daub pressed into the accepted wall frame",
+          "generator": { "algorithm": "dry-grain-contact-v1", "seed": 251153, "density": 0.31, "colour": 0.64 },
+          "gainDB": -23, "pan": 0.12, "loop": true
+        },
+        {
+          "id": "fibre-lashing", "material": "textile",
+          "visibleSource": "Plant-fibre lashings tightening around each accepted joint",
+          "generator": { "algorithm": "woven-fibre-friction-v1", "seed": 251159, "density": 0.48, "colour": 0.61 },
+          "gainDB": -18, "pan": 0.3, "loop": true
+        },
+        {
+          "id": "timber-work", "material": "work",
+          "visibleSource": "Posts seated and crosspieces set as the dependency order advances",
+          "generator": { "algorithm": "distant-material-work-v1", "seed": 251161, "density": 0.42, "colour": 0.5 },
+          "gainDB": -17, "pan": 0.38, "loop": true
+        }
+      ],
+      "silenceWindows": [
+        {
+          "id": "accepted-load", "atSeconds": 7.32, "durationSeconds": 0.16,
+          "reason": "Hold one accepted component visibly under load before work resumes around it.",
+          "entry": "authored-cut", "exit": "authored-return"
+        }
+      ]
+    },
+    {
+      "id": "resistance",
+      "timelineID": "longhouse-resistance-bed-v1",
+      "soundscapeStateID": "unsupported-component-resists",
+      "durationSeconds": 15,
+      "loop": true,
+      "layers": [
+        {
+          "id": "weather-ground", "material": "rain",
+          "visibleSource": "Open ground remaining unchanged beneath an unsupported component",
+          "generator": { "algorithm": "rain-on-earth-v1", "seed": 251167, "density": 0.32, "colour": 0.36 },
+          "gainDB": -26, "pan": -0.22, "loop": true
+        },
+        {
+          "id": "hearth-fire", "material": "fire",
+          "visibleSource": "The edge fire continuing while the rejected house component remains unplaced",
+          "generator": { "algorithm": "small-hearth-fire-v1", "seed": 251171, "density": 0.1, "colour": 0.5 },
+          "gainDB": -37, "pan": -0.5, "loop": true
+        },
+        {
+          "id": "daub-chaff", "material": "grain",
+          "visibleSource": "Loose chaff-tempered daub stopped short of an unsupported wall line",
+          "generator": { "algorithm": "dry-grain-contact-v1", "seed": 251177, "density": 0.2, "colour": 0.7 },
+          "gainDB": -27, "pan": 0.08, "loop": true
+        },
+        {
+          "id": "fibre-lashing", "material": "textile",
+          "visibleSource": "A plant-fibre tie held under strain at the rejected joint",
+          "generator": { "algorithm": "woven-fibre-friction-v1", "seed": 251179, "density": 0.62, "colour": 0.69 },
+          "gainDB": -14, "pan": 0.28, "loop": true
+        },
+        {
+          "id": "timber-work", "material": "work",
+          "visibleSource": "One unsupported timber meeting the frame without seating",
+          "generator": { "algorithm": "distant-material-work-v1", "seed": 251183, "density": 0.34, "colour": 0.58 },
+          "gainDB": -18, "pan": 0.36, "loop": true
+        }
+      ],
+      "silenceWindows": [
+        {
+          "id": "unsupported-hold", "atSeconds": 11.62, "durationSeconds": 0.2,
+          "reason": "Stop the rejected load cleanly before the unchanged dependency order returns.",
+          "entry": "authored-cut", "exit": "authored-return"
+        }
+      ]
+    },
+    {
+      "id": "consequence",
+      "timelineID": "longhouse-consequence-v1",
+      "soundscapeStateID": "roofed-house-inherited-plot",
+      "durationSeconds": 45,
+      "loop": false,
+      "layers": [
+        {
+          "id": "weather-ground", "material": "rain",
+          "visibleSource": "Weather crossing the finished roof while the worked plot remains beneath it",
+          "generator": { "algorithm": "rain-on-earth-v1", "seed": 251191, "density": 0.38, "colour": 0.42 },
+          "gainDB": -23, "pan": -0.2, "loop": false
+        },
+        {
+          "id": "hearth-fire", "material": "fire",
+          "visibleSource": "The completed central hearth returning with daily food and warmth",
+          "generator": { "algorithm": "small-hearth-fire-v1", "seed": 251197, "density": 0.31, "colour": 0.67 },
+          "gainDB": -23, "pan": -0.42, "loop": false
+        },
+        {
+          "id": "daub-chaff", "material": "grain",
+          "visibleSource": "Grain and chaff moving into the dry bay inside the completed frame",
+          "generator": { "algorithm": "dry-grain-contact-v1", "seed": 251201, "density": 0.24, "colour": 0.65 },
+          "gainDB": -24, "pan": 0.08, "loop": false
+        },
+        {
+          "id": "fibre-lashing", "material": "textile",
+          "visibleSource": "Roof fibres and joint lashings settling under permanent load",
+          "generator": { "algorithm": "woven-fibre-friction-v1", "seed": 251207, "density": 0.2, "colour": 0.55 },
+          "gainDB": -27, "pan": 0.28, "loop": false
+        },
+        {
+          "id": "timber-work", "material": "work",
+          "visibleSource": "Low repair and storage work continuing inside the inhabited house",
+          "generator": { "algorithm": "distant-material-work-v1", "seed": 251209, "density": 0.16, "colour": 0.44 },
+          "gainDB": -29, "pan": 0.36, "loop": false
+        }
+      ],
+      "silenceWindows": [
+        {
+          "id": "plot-outlives-timber", "atSeconds": 12, "durationSeconds": 4,
+          "reason": "Hold the completed plot through the temporal cut from failed timbers to rebuilding.",
+          "entry": "authored-cut", "exit": "authored-return"
+        }
+      ]
+    }
+  ]
+}

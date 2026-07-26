@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "protocolID": "port1-physical-device-v1",
+  "status": "LOCKED_PENDING_PHYSICAL_EXECUTION",
+  "scope": "Harvest production scene and its signed non-shipping package",
+  "device": {
+    "minimumModel": "iPhone 15 Pro",
+    "minimumOSMajor": 26,
+    "requiredOrientation": "portrait",
+    "physicalDeviceCount": 1,
+    "recordModelVarianceAsRisk": true
+  },
+  "build": {
+    "configuration": "Release",
+    "codeSigningRequired": true,
+    "debuggerAttached": false,
+    "exactAppBuildHashRequired": true,
+    "exactPackageHashRequired": true,
+    "airplaneModeAfterPackageInstall": true
+  },
+  "environment": {
+    "ambientTemperatureCelsius": {
+      "minimum": 20,
+      "maximum": 24
+    },
+    "caseRemoved": true,
+    "acclimationMinutes": 20,
+    "externalPowerConnected": false,
+    "lowPowerMode": false,
+    "startingBatteryPercent": {
+      "minimum": 80,
+      "maximum": 100,
+      "maximumDifferenceBetweenPairedRuns": 2
+    },
+    "screenBrightnessPercent": 50,
+    "automaticBrightness": false,
+    "speakerOutput": "built-in",
+    "outputVolumePercent": 40,
+    "minimumFreeStorageGiB": 10,
+    "notificationsSuppressed": true
+  },
+  "instrumentation": {
+    "localFrameCompletionProxy": "os-signpost-command-buffer-scheduled-and-completed-callbacks-plus-MTLCommandBuffer-GPUStartTime-and-GPUEndTime",
+    "displayedFrameCadence": "retained-Metal-System-Trace",
+    "localInteractionCompletionProxy": "touch-or-accessibility-action-to-command-buffer-completed-callback",
+    "inputToVisibleLatency": "retained-Metal-System-Trace-correlated-with-input-signposts",
+    "memory": "physical-footprint",
+    "thermal": "ProcessInfo.thermalState-transition-log",
+    "localRestoreCompletionProxy": "process-start-to-restored-frame-command-buffer-completed-callback",
+    "restoreToVisibleLatency": "retained-Metal-System-Trace-correlated-with-process-and-restore-signposts",
+    "firstActionReadiness": "process-start-to-first-action-ready-and-received",
+    "audio": "authored-48000-Hz-timeline-cursor",
+    "battery": "paired-device-percentage-and-Instruments-energy-trace",
+    "rawTraceRetentionRequired": true
+  },
+  "runOrder": [
+    {
+      "runID": "cold-restore",
+      "repetitions": 5,
+      "durationMinutes": 0,
+      "purpose": "Restore the same mid-interaction checkpoint after a hard kill."
+    },
+    {
+      "runID": "interaction-latency",
+      "repetitions": 20,
+      "durationMinutes": 0,
+      "purpose": "Measure direct touch and semantic accessibility input against the same action."
+    },
+    {
+      "runID": "static-reference",
+      "repetitions": 3,
+      "durationMinutes": 30,
+      "purpose": "Run the signed build's fixed static reference frame with the same brightness and audio route."
+    },
+    {
+      "runID": "harvest-sustained",
+      "repetitions": 3,
+      "durationMinutes": 30,
+      "purpose": "Loop the complete authored Harvest scene, including renderer, audio and haptics."
+    },
+    {
+      "runID": "audio-restoration",
+      "repetitions": 10,
+      "durationMinutes": 0,
+      "purpose": "Pause normally and hard-kill at registered narration sample cursors."
+    },
+    {
+      "runID": "storage-pressure",
+      "repetitions": 1,
+      "durationMinutes": 0,
+      "purpose": "Inject declared-capacity and write failures without filling unrelated device storage."
+    }
+  ],
+  "budgets": {
+    "targetFramesPerSecond": 60,
+    "p99DisplayedFrameTimeMillisecondsMaximum": 25,
+    "inputToVisibleResponseMillisecondsMaximum": 50,
+    "sustainedPhysicalMemoryMiBMaximum": 500,
+    "allowedThermalStates": [
+      "nominal",
+      "fair"
+    ],
+    "restoreToVisibleFrameMillisecondsMaximum": 1500,
+    "fullInteractivityMillisecondsMaximum": 2000,
+    "controlledPauseAudioSampleErrorMaximum": 0,
+    "hardKillAudioMillisecondsErrorMaximum": 250,
+    "absoluteBatteryDropPercentagePointsMaximum": 8,
+    "incrementalBatteryDropOverStaticReferencePercentagePointsMaximum": 3
+  },
+  "storagePressure": {
+    "actualWholeDeviceFillProhibited": true,
+    "faultInjectionRoot": "Application Support/quality-gate-v1",
+    "requiredCases": [
+      "capacity-one-byte-below-declared-requirement",
+      "staging-write-failure",
+      "activation-index-write-failure",
+      "process-death-during-copy",
+      "successful-retry-after-each-failure"
+    ],
+    "mustPreserveLastVerifiedGeneration": true,
+    "mustPreserveProgress": true
+  },
+  "comparison": {
+    "pairedBatteryRunsRequired": 3,
+    "medianDeterminesBatteryResult": true,
+    "appAndReferenceRunMustAlternate": true,
+    "minimumCoolDownMinutesBetweenRuns": 20
+  },
+  "resultContract": {
+    "allRawMeasurementsRequired": true,
+    "notTestedIsFailure": true,
+    "simulatorCannotSatisfyPhysicalGate": true,
+    "localReportCannotSatisfyDisplayGates": true,
+    "retainedMetalSystemTraceRequiredForDisplayGates": true,
+    "editorApprovalRequiredAfterTechnicalPass": true
+  },
+  "instrumentationReportContract": {
+    "schemaPath": "quality/schemas/physical-performance-report.schema.json",
+    "captureRequestPath": "Application Support/quality-gate-v1/performance-capture-request.json",
+    "reportDirectory": "Application Support/quality-gate-v1/performance-reports",
+    "appHashKind": "APP_BUNDLE_FILE_TREE_SHA256",
+    "packageHashKind": "SIGNED_MANIFEST_SHA256",
+    "simulatorClassification": "NON_DEVICE",
+    "rawDeviceClassification": "DEVICE_RAW_MEASUREMENTS_ONLY",
+    "localTimingScope": "COMMAND_BUFFER_AND_GPU_COMPLETION_PROXY_ONLY",
+    "actualDisplayGateSource": "RETAINED_METAL_SYSTEM_TRACE",
+    "networkingProhibited": true
+  }
+}

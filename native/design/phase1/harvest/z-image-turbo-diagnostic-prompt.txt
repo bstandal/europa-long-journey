@@ -1,0 +1,11 @@
+Use case: historical-scene.
+Asset type: NON_SHIPPING low-resolution image-to-image route diagnostic for a portrait native iPhone 2.5D historical scene master.
+Primary request: reconstruct the supplied composition as a materially exact, observational early-Neolithic settlement scene in Thessaly, 6500–6000 BC while retaining the source camera and spatial arrangement.
+
+Preserve the complete portrait framing, deep composition, timber-and-thatch canopy, storm, dry sheltered grain floor, one finite foreground grain source, three visible destinations, every person and pose, storage layout, settlement, livestock, fields, mountains, lighting direction and restrained near-black palette. Rain falls only beyond the roof. The grain, cloth, baskets, hands and storage remain visibly dry.
+
+Every object is rough timber, reed, thatch, straw-tempered clay or plaster, woven plant fibre, hide, hand-built fired pottery, stone, wood or bone. The low vessel at the left hearth is matte, irregular fired clay seated among the stones, with no handle, bail, chain, suspension or metal sheen. The foreground mound contains thousands of naturally small hulled einkorn, emmer-wheat and barley kernels, short and subtly tapered with irregular straw-to-tan colour and occasional husk fragments.
+
+Resolve coherent faces, fingers, wrists, feet, joints, grips, tool contacts and animal legs. Preserve plain undyed woven garments and bare wrists. Use tactile documentary realism, natural lens depth, readable midtones and restrained warm light on the finite grain and operative storage.
+
+Avoid: metal, wheel-thrown pottery, masonry, glass, writing, later architecture, modern objects, chickpeas, beans, peas, maize, rice, nuts, pasta, pellets, enlarged grain, wet grain, anatomy defects, duplicate limbs, duplicate people, smooth game-render skin, generic digital illustration, cinematic fantasy, heroic pose, typography, numbers, labels, arrows, rings, routes, targets, icons, interface, signs, symbols, border, watermark, blur padding or incomplete edges.

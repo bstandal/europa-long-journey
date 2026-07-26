@@ -1,0 +1,167 @@
+{
+  "schemaVersion": 1,
+  "status": "BACKSTAGE_PROMPT_AUTHORING_REQUIRES_VISUAL_REVIEW",
+  "shippingState": "PROHIBITED",
+  "source": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+    "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca",
+    "pixelSize": [1290, 2796]
+  },
+  "model": {
+    "repository": "facebook/sam2.1-hiera-tiny",
+    "revision": "de431c4043854a71d8101e17995dfe596bf101a5",
+    "path": "native/.build/visual-segmentation/models/facebook-sam2.1-hiera-tiny-de431c4043854a71d8101e17995dfe596bf101a5",
+    "requiredFiles": {
+      "README.md": "dfa401b1b9358b9650ae487dd2f2bb336fd745c3609e3244adf2e97a22343857",
+      "config.json": "860aff9751b139d83a4ad7df1e5535416fded533e0ead02625edbefcb9953cce",
+      "model.safetensors": "48c14467e5cf9e51870511feb72c89688e82dd74523142c0538b663e193ac2a7",
+      "preprocessor_config.json": "6ebf229ee259368ce4a8d4f2fe893a72b053023710853e257253939e601f583d",
+      "processor_config.json": "f8a68e865cfad115c1c2763f3d93eca7b1c622da06da2a9273eb437fb2389b6d",
+      "sam2.1_hiera_t.yaml": "43e114f609a1af7efede061f5c186119d498acd31f118f300c07acf57d4a5eca",
+      "video_preprocessor_config.json": "9fccfe5f464ec38c2f236d0e6a68e95511c80c22132fc2fa4b9f7b65f24fad95"
+    }
+  },
+  "objects": [
+    {
+      "id": "storm-sky",
+      "box": [0, 0, 1290, 1220],
+      "positivePoints": [[90, 40], [610, 70], [1090, 780], [770, 1030]],
+      "negativePoints": [[600, 500], [170, 850], [1060, 1110]],
+      "selectedCandidate": 0
+    },
+    {
+      "id": "upper-canopy",
+      "box": [0, 50, 1290, 780],
+      "positivePoints": [[180, 340], [620, 430], [1080, 360], [700, 650]],
+      "negativePoints": [[120, 30], [610, 80], [1030, 820]],
+      "selectedCandidate": 0
+    },
+    {
+      "id": "left-shelter",
+      "box": [0, 680, 790, 1580],
+      "positivePoints": [[130, 970], [420, 960], [250, 1290], [560, 1360]],
+      "negativePoints": [[700, 1050], [650, 1500], [50, 1640]],
+      "selectedCandidate": 0
+    },
+    {
+      "id": "hearth-woman",
+      "box": [145, 1490, 285, 1840],
+      "positivePoints": [[220, 1535], [240, 1600], [225, 1700], [220, 1785]],
+      "negativePoints": [[145, 1510], [284, 1510], [145, 1720], [284, 1760]],
+      "selectedCandidate": 0
+    },
+    {
+      "id": "hearth-child",
+      "box": [245, 1640, 395, 1845],
+      "positivePoints": [[330, 1690], [335, 1760], [305, 1810]],
+      "negativePoints": [[245, 1710], [394, 1730], [300, 1844]],
+      "selectedCandidate": 1
+    },
+    {
+      "id": "seated-man",
+      "box": [465, 1430, 630, 1785],
+      "positivePoints": [[530, 1475], [545, 1540], [525, 1615], [565, 1690]],
+      "negativePoints": [[465, 1480], [629, 1500], [465, 1700], [629, 1760]],
+      "selectedCandidate": 0
+    },
+    {
+      "id": "background-worker-right",
+      "box": [965, 1190, 1150, 1600],
+      "positivePoints": [[1035, 1280], [1040, 1390], [1060, 1510]],
+      "negativePoints": [[850, 1350], [1180, 1380], [1050, 1670]],
+      "selectedCandidate": 2
+    },
+    {
+      "id": "right-worker",
+      "box": [955, 1650, 1290, 2250],
+      "positivePoints": [[1110, 1760], [1170, 1920], [1050, 2070]],
+      "negativePoints": [[900, 1900], [980, 2270], [1240, 2300]],
+      "selectedCandidate": 0
+    },
+    {
+      "id": "allocation-cloth",
+      "box": [120, 2070, 1120, 2760],
+      "positivePoints": [[250, 2200], [720, 2160], [540, 2620], [940, 2550]],
+      "negativePoints": [[600, 2360], [90, 2470], [1150, 2520]],
+      "selectedCandidate": 2
+    },
+    {
+      "id": "foreground-basket-left",
+      "box": [0, 2250, 290, 2790],
+      "positivePoints": [[120, 2410], [160, 2570], [90, 2690]],
+      "negativePoints": [[300, 2480], [80, 2200], [320, 2740]],
+      "selectedCandidate": 0
+    },
+    {
+      "id": "winter-food-vessel",
+      "box": [425, 1600, 535, 1740],
+      "positivePoints": [[470, 1645], [490, 1680]],
+      "negativePoints": [[430, 1610], [530, 1635], [430, 1715], [500, 1735]],
+      "selectedCandidate": 2
+    },
+    {
+      "id": "protected-reserve-bin",
+      "box": [595, 1560, 835, 1900],
+      "positivePoints": [[690, 1640], [720, 1760], [650, 1840]],
+      "negativePoints": [[560, 1740], [870, 1730], [720, 1940]],
+      "selectedCandidate": 2
+    },
+    {
+      "id": "spring-seed-bin-left",
+      "box": [790, 1530, 1045, 1810],
+      "positivePoints": [[850, 1600], [930, 1650], [970, 1740]],
+      "negativePoints": [[770, 1660], [1060, 1660], [850, 1830]],
+      "selectedCandidate": 0
+    },
+    {
+      "id": "spring-seed-bin-right",
+      "box": [980, 1510, 1290, 1840],
+      "positivePoints": [[1080, 1590], [1190, 1630], [1160, 1760]],
+      "negativePoints": [[960, 1660], [1270, 1835], [1120, 1835]],
+      "selectedCandidate": 0
+    },
+    {
+      "id": "foreground-basket-right",
+      "box": [915, 2340, 1290, 2796],
+      "positivePoints": [[1090, 2480], [1120, 2640], [1060, 2750]],
+      "negativePoints": [[880, 2510], [1230, 2380], [900, 2730]],
+      "selectedCandidate": 0
+    },
+    {
+      "id": "central-grain",
+      "box": [220, 2150, 1030, 2600],
+      "positivePoints": [[430, 2320], [640, 2260], [820, 2400], [600, 2510]],
+      "negativePoints": [[190, 2400], [1060, 2400], [650, 2650]],
+      "selectedCandidate": 1
+    },
+    {
+      "id": "foreground-hands",
+      "box": [1030, 2340, 1290, 2796],
+      "positivePoints": [[1210, 2470], [1200, 2610], [1170, 2720]],
+      "negativePoints": [[1040, 2480], [1030, 2700], [980, 2590]],
+      "selectedCandidate": 2
+    }
+  ],
+  "unions": [
+    {
+      "id": "settlement-shelter",
+      "members": ["upper-canopy", "left-shelter"]
+    },
+    {
+      "id": "people-and-work",
+      "members": ["hearth-woman", "hearth-child", "seated-man", "background-worker-right", "right-worker"]
+    },
+    {
+      "id": "hands-and-grain",
+      "members": ["central-grain", "foreground-hands"]
+    },
+    {
+      "id": "foreground-occluders",
+      "members": ["foreground-basket-left", "foreground-basket-right", "foreground-hands"]
+    },
+    {
+      "id": "spring-seed-store",
+      "members": ["spring-seed-bin-left", "spring-seed-bin-right"]
+    }
+  ]
+}

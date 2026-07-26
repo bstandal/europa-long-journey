@@ -1,0 +1,15 @@
+# Minimal VoxCPM2 inference runtime for the frozen V11 macOS arm64 gate.
+# Versions match OpenBMB's pinned uv.lock at source revision
+# 19b6bf7590025418821a86dcb817504e0ad7e5df. VoxCPM itself is loaded from
+# that exact source archive and is not installed from PyPI.
+torch==2.10.0
+torchaudio==2.10.0
+numpy==2.4.3
+librosa==0.11.0
+einops==0.8.2
+pydantic==2.12.3
+transformers==5.3.0
+huggingface-hub==1.7.1
+safetensors==0.7.0
+tqdm==4.67.3
+soundfile==0.13.1

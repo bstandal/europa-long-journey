@@ -1,0 +1,645 @@
+{
+  "schemaVersion": 1,
+  "kind": "responsive-symbolic-score",
+  "id": "more-mouths-responsive-score-v1",
+  "status": "PROVISIONAL_NON_SHIPPING",
+  "shippingState": "PROHIBITED",
+  "output": {
+    "sampleRate": 48000,
+    "bitDepth": 24,
+    "channels": 2,
+    "container": "wav"
+  },
+  "ppq": 960,
+  "meter": {
+    "numerator": 5,
+    "denominator": 4
+  },
+  "tempoBPM": 60,
+  "direction": "The inherited plot remains fixed while hearth figures answer farther out and field material advances irregularly. Growth is audible as repeated household work, never as a march, trailer pulse, generic uplift or continental culmination.",
+  "motifs": [
+    {
+      "id": "earth-fifth",
+      "notes": [
+        {
+          "pitch": "D2",
+          "atBeat": 0,
+          "durationBeats": 4.2,
+          "dynamic": "pp",
+          "articulation": "tenuto"
+        },
+        {
+          "pitch": "A2",
+          "atBeat": 0,
+          "durationBeats": 4.2,
+          "dynamic": "pp",
+          "articulation": "tenuto"
+        }
+      ]
+    },
+    {
+      "id": "hearth-catch",
+      "notes": [
+        {
+          "pitch": "F3",
+          "atBeat": 0,
+          "durationBeats": 0.5,
+          "dynamic": "pp",
+          "articulation": "detached"
+        },
+        {
+          "pitch": "A3",
+          "atBeat": 0.4,
+          "durationBeats": 0.6,
+          "dynamic": "p",
+          "articulation": "detached"
+        },
+        {
+          "pitch": "D4",
+          "atBeat": 1,
+          "durationBeats": 1.2,
+          "dynamic": "p",
+          "articulation": "tenuto"
+        }
+      ]
+    },
+    {
+      "id": "returning-field",
+      "notes": [
+        {
+          "pitch": "D4",
+          "atBeat": 0,
+          "durationBeats": 0.8,
+          "dynamic": "pp",
+          "articulation": "tenuto"
+        },
+        {
+          "pitch": "E4",
+          "atBeat": 2,
+          "durationBeats": 0.8,
+          "dynamic": "p",
+          "articulation": "tenuto"
+        },
+        {
+          "pitch": "F4",
+          "atBeat": 4,
+          "durationBeats": 0.8,
+          "dynamic": "p",
+          "articulation": "tenuto"
+        },
+        {
+          "pitch": "A4",
+          "atBeat": 7,
+          "durationBeats": 2,
+          "dynamic": "mp",
+          "articulation": "tenuto"
+        }
+      ]
+    },
+    {
+      "id": "house-held",
+      "notes": [
+        {
+          "pitch": "D2",
+          "atBeat": 0,
+          "durationBeats": 2.6,
+          "dynamic": "p",
+          "articulation": "tenuto"
+        },
+        {
+          "pitch": "A2",
+          "atBeat": 0.7,
+          "durationBeats": 2.3,
+          "dynamic": "p",
+          "articulation": "legato"
+        },
+        {
+          "pitch": "D3",
+          "atBeat": 1.5,
+          "durationBeats": 2.4,
+          "dynamic": "mp",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "resistance-knot",
+      "notes": [
+        {
+          "pitch": "Eb3",
+          "atBeat": 0,
+          "durationBeats": 1,
+          "dynamic": "mp",
+          "articulation": "accent"
+        },
+        {
+          "pitch": "D3",
+          "atBeat": 1.25,
+          "durationBeats": 2.75,
+          "dynamic": "p",
+          "articulation": "tenuto"
+        }
+      ]
+    }
+  ],
+  "regions": [
+    {
+      "id": "approach",
+      "timelineID": "more-mouths-approach-v1",
+      "scoreStateID": "one-hearth-becomes-several",
+      "durationSeconds": 48,
+      "loop": false,
+      "stems": [
+        {
+          "id": "ground",
+          "role": "The rebuilt plot and worked soil remain the fixed origin while the household begins to multiply",
+          "instrument": {
+            "bank": 0,
+            "program": 43,
+            "label": "Contrabass"
+          },
+          "gainDB": -17,
+          "pan": -0.18,
+          "phrases": [
+            {
+              "motifID": "earth-fifth",
+              "atBeat": 0,
+              "transposeSemitones": 0,
+              "dynamicOffset": -8
+            },
+            {
+              "motifID": "earth-fifth",
+              "atBeat": 10,
+              "transposeSemitones": 0,
+              "dynamicOffset": -7
+            },
+            {
+              "motifID": "earth-fifth",
+              "atBeat": 20,
+              "transposeSemitones": 0,
+              "dynamicOffset": -6
+            },
+            {
+              "motifID": "earth-fifth",
+              "atBeat": 30,
+              "transposeSemitones": 0,
+              "dynamicOffset": -5
+            },
+            {
+              "motifID": "earth-fifth",
+              "atBeat": 40,
+              "transposeSemitones": 0,
+              "dynamicOffset": -4
+            }
+          ]
+        },
+        {
+          "id": "household",
+          "role": "One hearth figure is answered at widening positions as additional roofs take hold",
+          "instrument": {
+            "bank": 0,
+            "program": 42,
+            "label": "Cello"
+          },
+          "gainDB": -20,
+          "pan": 0.08,
+          "phrases": [
+            {
+              "motifID": "hearth-catch",
+              "atBeat": 6,
+              "transposeSemitones": -12,
+              "dynamicOffset": -10
+            },
+            {
+              "motifID": "house-held",
+              "atBeat": 17,
+              "transposeSemitones": 0,
+              "dynamicOffset": -9
+            },
+            {
+              "motifID": "hearth-catch",
+              "atBeat": 29,
+              "transposeSemitones": -12,
+              "dynamicOffset": -8
+            },
+            {
+              "motifID": "house-held",
+              "atBeat": 41,
+              "transposeSemitones": 0,
+              "dynamicOffset": -7
+            }
+          ]
+        },
+        {
+          "id": "work",
+          "role": "Sparse field fragments locate new edges without turning repeated labour into a processional pulse",
+          "instrument": {
+            "bank": 0,
+            "program": 15,
+            "label": "Dulcimer"
+          },
+          "gainDB": -22,
+          "pan": 0.26,
+          "phrases": [
+            {
+              "motifID": "returning-field",
+              "atBeat": 4,
+              "transposeSemitones": -12,
+              "dynamicOffset": -11
+            },
+            {
+              "motifID": "returning-field",
+              "atBeat": 18,
+              "transposeSemitones": -12,
+              "dynamicOffset": -10
+            },
+            {
+              "motifID": "returning-field",
+              "atBeat": 32,
+              "transposeSemitones": -12,
+              "dynamicOffset": -9
+            },
+            {
+              "motifID": "returning-field",
+              "atBeat": 39,
+              "transposeSemitones": -12,
+              "dynamicOffset": -8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "waiting",
+      "timelineID": "more-mouths-waiting-bed-v1",
+      "scoreStateID": "first-clearing-held",
+      "durationSeconds": 15,
+      "loop": true,
+      "stems": [
+        {
+          "id": "ground",
+          "role": "The first plot remains fixed before settlement pressure opens another edge",
+          "instrument": {
+            "bank": 0,
+            "program": 43,
+            "label": "Contrabass"
+          },
+          "gainDB": -18,
+          "pan": -0.18,
+          "phrases": [
+            {
+              "motifID": "earth-fifth",
+              "atBeat": 0,
+              "transposeSemitones": 0,
+              "dynamicOffset": -9
+            },
+            {
+              "motifID": "earth-fifth",
+              "atBeat": 7,
+              "transposeSemitones": 0,
+              "dynamicOffset": -8
+            }
+          ]
+        },
+        {
+          "id": "household",
+          "role": "One functioning household holds its store and hearth without pre-announcing expansion",
+          "instrument": {
+            "bank": 0,
+            "program": 42,
+            "label": "Cello"
+          },
+          "gainDB": -22,
+          "pan": 0.08,
+          "phrases": [
+            {
+              "motifID": "hearth-catch",
+              "atBeat": 2.2,
+              "transposeSemitones": -12,
+              "dynamicOffset": -11
+            },
+            {
+              "motifID": "house-held",
+              "atBeat": 9,
+              "transposeSemitones": 0,
+              "dynamicOffset": -10
+            }
+          ]
+        },
+        {
+          "id": "work",
+          "role": "A restrained field fragment keeps the worked clearing present without advancing it",
+          "instrument": {
+            "bank": 0,
+            "program": 15,
+            "label": "Dulcimer"
+          },
+          "gainDB": -25,
+          "pan": 0.25,
+          "phrases": [
+            {
+              "motifID": "returning-field",
+              "atBeat": 4.5,
+              "transposeSemitones": -12,
+              "dynamicOffset": -13
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "engaged",
+      "timelineID": "more-mouths-engaged-bed-v1",
+      "scoreStateID": "households-open-ground",
+      "durationSeconds": 15,
+      "loop": true,
+      "stems": [
+        {
+          "id": "ground",
+          "role": "The same plot remains beneath the outward pressure of new households",
+          "instrument": {
+            "bank": 0,
+            "program": 43,
+            "label": "Contrabass"
+          },
+          "gainDB": -16,
+          "pan": -0.18,
+          "phrases": [
+            {
+              "motifID": "earth-fifth",
+              "atBeat": 0,
+              "transposeSemitones": 0,
+              "dynamicOffset": -7
+            },
+            {
+              "motifID": "earth-fifth",
+              "atBeat": 6.7,
+              "transposeSemitones": 0,
+              "dynamicOffset": -6
+            }
+          ]
+        },
+        {
+          "id": "household",
+          "role": "Hearth figures answer across the portrait field as each accepted household takes ground",
+          "instrument": {
+            "bank": 0,
+            "program": 42,
+            "label": "Cello"
+          },
+          "gainDB": -18,
+          "pan": 0.1,
+          "phrases": [
+            {
+              "motifID": "hearth-catch",
+              "atBeat": 0.8,
+              "transposeSemitones": -12,
+              "dynamicOffset": -8
+            },
+            {
+              "motifID": "house-held",
+              "atBeat": 5,
+              "transposeSemitones": 0,
+              "dynamicOffset": -7
+            },
+            {
+              "motifID": "hearth-catch",
+              "atBeat": 10.5,
+              "transposeSemitones": -12,
+              "dynamicOffset": -6
+            }
+          ]
+        },
+        {
+          "id": "work",
+          "role": "Field fragments overlap irregularly while clearing and herd lanes extend beyond the first house",
+          "instrument": {
+            "bank": 0,
+            "program": 15,
+            "label": "Dulcimer"
+          },
+          "gainDB": -20,
+          "pan": 0.28,
+          "phrases": [
+            {
+              "motifID": "returning-field",
+              "atBeat": 1.5,
+              "transposeSemitones": -12,
+              "dynamicOffset": -9
+            },
+            {
+              "motifID": "hearth-catch",
+              "atBeat": 11.8,
+              "transposeSemitones": 0,
+              "dynamicOffset": -8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "resistance",
+      "timelineID": "more-mouths-resistance-bed-v1",
+      "scoreStateID": "field-edge-holds-before-clearance",
+      "durationSeconds": 15,
+      "loop": true,
+      "stems": [
+        {
+          "id": "ground",
+          "role": "The established clearing holds when pressure reaches the next unopened edge",
+          "instrument": {
+            "bank": 0,
+            "program": 43,
+            "label": "Contrabass"
+          },
+          "gainDB": -15,
+          "pan": -0.2,
+          "phrases": [
+            {
+              "motifID": "earth-fifth",
+              "atBeat": 0,
+              "transposeSemitones": 0,
+              "dynamicOffset": -6
+            },
+            {
+              "motifID": "earth-fifth",
+              "atBeat": 7,
+              "transposeSemitones": 0,
+              "dynamicOffset": -5
+            }
+          ]
+        },
+        {
+          "id": "household",
+          "role": "A narrow semitone marks local constraint without turning resistance into danger scoring",
+          "instrument": {
+            "bank": 0,
+            "program": 42,
+            "label": "Cello"
+          },
+          "gainDB": -17,
+          "pan": 0.04,
+          "phrases": [
+            {
+              "motifID": "resistance-knot",
+              "atBeat": 1.4,
+              "transposeSemitones": -12,
+              "dynamicOffset": -6
+            },
+            {
+              "motifID": "resistance-knot",
+              "atBeat": 5.6,
+              "transposeSemitones": -12,
+              "dynamicOffset": -5
+            },
+            {
+              "motifID": "resistance-knot",
+              "atBeat": 9.8,
+              "transposeSemitones": -12,
+              "dynamicOffset": -4
+            }
+          ]
+        },
+        {
+          "id": "work",
+          "role": "Field material tightens at the unopened edge while completed ground remains unchanged",
+          "instrument": {
+            "bank": 0,
+            "program": 15,
+            "label": "Dulcimer"
+          },
+          "gainDB": -26,
+          "pan": 0.28,
+          "phrases": [
+            {
+              "motifID": "resistance-knot",
+              "atBeat": 3.5,
+              "transposeSemitones": 0,
+              "dynamicOffset": -14
+            },
+            {
+              "motifID": "resistance-knot",
+              "atBeat": 8,
+              "transposeSemitones": 0,
+              "dynamicOffset": -13
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "consequence",
+      "timelineID": "more-mouths-consequence-v1",
+      "scoreStateID": "growth-breaks-carried-seed-remains",
+      "durationSeconds": 45,
+      "loop": false,
+      "stems": [
+        {
+          "id": "ground",
+          "role": "Worked ground remains after smoke leaves some roofs; the first plot is still audible beneath departure",
+          "instrument": {
+            "bank": 0,
+            "program": 43,
+            "label": "Contrabass"
+          },
+          "gainDB": -16,
+          "pan": -0.18,
+          "phrases": [
+            {
+              "motifID": "earth-fifth",
+              "atBeat": 0,
+              "transposeSemitones": 0,
+              "dynamicOffset": -8
+            },
+            {
+              "motifID": "earth-fifth",
+              "atBeat": 12,
+              "transposeSemitones": 0,
+              "dynamicOffset": -7
+            },
+            {
+              "motifID": "earth-fifth",
+              "atBeat": 27,
+              "transposeSemitones": 0,
+              "dynamicOffset": -6
+            },
+            {
+              "motifID": "earth-fifth",
+              "atBeat": 38,
+              "transposeSemitones": 0,
+              "dynamicOffset": -5
+            }
+          ]
+        },
+        {
+          "id": "household",
+          "role": "Hearth figures thin, then reappear farther out as households carry the system to another clearing",
+          "instrument": {
+            "bank": 0,
+            "program": 42,
+            "label": "Cello"
+          },
+          "gainDB": -19,
+          "pan": 0.1,
+          "phrases": [
+            {
+              "motifID": "house-held",
+              "atBeat": 4,
+              "transposeSemitones": 0,
+              "dynamicOffset": -9
+            },
+            {
+              "motifID": "hearth-catch",
+              "atBeat": 11,
+              "transposeSemitones": -12,
+              "dynamicOffset": -10
+            },
+            {
+              "motifID": "house-held",
+              "atBeat": 26,
+              "transposeSemitones": 0,
+              "dynamicOffset": -8
+            },
+            {
+              "motifID": "hearth-catch",
+              "atBeat": 37,
+              "transposeSemitones": -12,
+              "dynamicOffset": -8
+            }
+          ]
+        },
+        {
+          "id": "work",
+          "role": "Field fragments leave wider intervals around the carried seed and departing routines",
+          "instrument": {
+            "bank": 0,
+            "program": 15,
+            "label": "Dulcimer"
+          },
+          "gainDB": -21,
+          "pan": 0.27,
+          "phrases": [
+            {
+              "motifID": "returning-field",
+              "atBeat": 7,
+              "transposeSemitones": -12,
+              "dynamicOffset": -10
+            },
+            {
+              "motifID": "returning-field",
+              "atBeat": 22,
+              "transposeSemitones": -12,
+              "dynamicOffset": -9
+            },
+            {
+              "motifID": "returning-field",
+              "atBeat": 34,
+              "transposeSemitones": -12,
+              "dynamicOffset": -8
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

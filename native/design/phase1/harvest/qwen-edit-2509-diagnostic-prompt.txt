@@ -1,0 +1,11 @@
+Use case: precise-object-edit.
+Asset type: NON_SHIPPING low-resolution route diagnostic for a portrait native iPhone 2.5D historical scene master.
+Input image: Image 1 is the sole edit target. Preserve its exact portrait framing, camera, deep composition, roof geometry, rain boundary, every person and pose, storage layout, settlement, livestock, field, mountain, light direction and near-black palette.
+
+Change only two related material defects. First, make the low cooking vessel at the left hearth unmistakably hand-built fired clay: thick irregular rim, matte warm-brown ceramic body, local soot darkening, seated securely among the stones, no metal sheen, no handle, no bail, no chain and no suspension. Second, make the finite foreground mound thousands of correctly scaled dry hulled einkorn, emmer-wheat and barley kernels: short, narrow, subtly tapered, irregular straw-to-tan kernels with occasional husk fragments, never chickpeas, beans, peas, maize, rice, nuts, pasta, pellets or oversized repeated objects.
+
+Historical setting: an early Neolithic farming settlement in Thessaly, 6500–6000 BC. Visible materials are rough timber, reed, thatch, straw-tempered clay and plaster, woven plant fibre, hide, hand-built pottery, stone, wood and bone. No metal, wheel-thrown pottery, masonry, glass, writing, later architecture or modern object.
+
+Invariants: keep all bodies, faces, hands, wrists, feet, garments, baskets, bins, lids, buildings, animals, smoke and rain in their existing positions. Keep the entire grain work zone dry under the canopy. Keep one finite foreground grain source and all three visible destinations. Preserve natural lens depth and tactile separation between plaster, thatch, wicker, clay, grain, skin, smoke and rain.
+
+Avoid: anatomy changes, added or removed people, reframing, crop changes, smooth game-render skin, generic digital illustration, fantasy polish, wet grain, foreground rain, metal, jewellery, text, number, label, arrow, ring, route, target, icon, interface, sign, symbol, border, watermark, blur padding or incomplete edges.

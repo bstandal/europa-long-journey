@@ -1,0 +1,212 @@
+{
+  "schemaVersion": 1,
+  "status": "NON_SHIPPING_UNTIL_EDITOR_VOICE_SELECTION",
+  "language": "English",
+  "locale": "en-GB",
+  "toolchain": {
+    "mlxAudioVersion": "0.4.5",
+    "mlxAudioCommit": "04151c6abb74b886f879a4457ccdc96761f10102",
+    "mlxAudioWheelSHA256": "1c5aae197285ecfda39cc3048f19f3c56ab22c8ac2dfa21d79ca6c7f37418ca7",
+    "pythonVersion": "3.14.6",
+    "uvVersion": "0.11.22",
+    "ffmpegVersion": "8.1.2"
+  },
+  "models": {
+    "voiceDesign": {
+      "repository": "mlx-community/Qwen3-TTS-12Hz-1.7B-VoiceDesign-bf16",
+      "revision": "7d3824abff87e49756bb0f83fb5411de75d160c4",
+      "upstreamRepository": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
+      "upstreamRevision": "5ecdb67327fd37bb2e042aab12ff7391903235d3",
+      "license": "Apache-2.0",
+      "controlFileCount": 12,
+      "controlManifestSHA256": "8b1b10dbd8fa87916c70ca4844d7c51932aecbba6ef145c18b3870a0e48978d2",
+      "files": [
+        {
+          "path": "model.safetensors",
+          "bytes": 3833402589,
+          "sha256": "96ae28bec2205ec0b5e0c750bea2b8a5deac4f14d33a8a25a5f753299486b70e"
+        },
+        {
+          "path": "speech_tokenizer/model.safetensors",
+          "bytes": 682293092,
+          "sha256": "836b7b357f5ea43e889936a3709af68dfe3751881acefe4ecf0dbd30ba571258"
+        }
+      ]
+    },
+    "voiceClone": {
+      "repository": "mlx-community/Qwen3-TTS-12Hz-1.7B-Base-bf16",
+      "revision": "a6eb4f68e4b056f1215157bb696209bc82a6db48",
+      "upstreamRepository": "Qwen/Qwen3-TTS-12Hz-1.7B-Base",
+      "upstreamRevision": "fd4b254389122332181a7c3db7f27e918eec64e3",
+      "license": "Apache-2.0",
+      "controlFileCount": 12,
+      "controlManifestSHA256": "6ce447e63f1ddd4efd44c7670abcf22bb40a04335b3541290c6d7d74457c2991",
+      "files": [
+        {
+          "path": "model.safetensors",
+          "bytes": 3857414009,
+          "sha256": "81fb76175ff74e69be25fef2cc3e54f016df3034f1514c8e1c89da06a3510cff"
+        },
+        {
+          "path": "speech_tokenizer/model.safetensors",
+          "bytes": 682293092,
+          "sha256": "836b7b357f5ea43e889936a3709af68dfe3751881acefe4ecf0dbd30ba571258"
+        }
+      ]
+    }
+  },
+  "texts": {
+    "identityReference": {
+      "path": "identity-reference-v1.txt",
+      "sha256": "a7ccefaf433c8998c1556ba5465c49031a8210e903d32542f8c6aa5a525cc011",
+      "textSHA256": "9c98454111648ac65a33db464c982aae56878efb76f176ac1cffcee0c201878c",
+      "wordCount": 29,
+      "source": "site/src/data/chapters/empire-many-liberties.ts",
+      "sourceSegmentSHA256": "9c98454111648ac65a33db464c982aae56878efb76f176ac1cffcee0c201878c"
+    },
+    "casting": {
+      "path": "casting-passage-v1.txt",
+      "sha256": "c473b155b4cd1696c867fae63a036f32026b9abd02228659716d2267e96114df",
+      "textSHA256": "360dd0992dec5e8223d3416ff161e58767d8e9f57c91c2e19b52cff4b0edc3a7",
+      "wordCount": 829,
+      "sourceSegments": [
+        {
+          "source": "site/src/data/chapters/first-farmers.ts",
+          "sha256": "ab2ea01622e73529c79d045093a362f9be7776448b392a25e011e8fe8182fecc"
+        },
+        {
+          "source": "site/src/data/chapters/first-farmers.ts",
+          "sha256": "f5d53b328af6ef39f2a37616099894b07c56105d151484b8cf6c8db70e880be1"
+        },
+        {
+          "source": "site/src/data/chapters/greece-and-the-citizen.ts",
+          "sha256": "428f2eae22f4ad98295d3a0fb7926cd0bb6467d184720cc3c3f377526e0d35d0"
+        },
+        {
+          "source": "site/src/data/chapters/papal-revolution.ts",
+          "sha256": "fc551dd38ea2eb21752e23530181881dbe090b8423cb06a7121e0cd1989b6cee"
+        },
+        {
+          "source": "site/src/data/chapters/europe-holds-the-line.ts",
+          "sha256": "019a529e817613556defbc944b42b3369e4e8e688d6f54dbf5af5eb8cadef08c"
+        },
+        {
+          "source": "site/src/data/chapters/greece-and-the-citizen.ts",
+          "sha256": "0da2da496a742a9ca06462fc056aa4e33bde59a017b9fbc669d5b1dc0b36f460"
+        },
+        {
+          "source": "site/src/data/chapters/greece-and-the-citizen.ts",
+          "sha256": "7d184263dd3443b83eeaeaee1477b1e99faf424c1113c1242cecdbe9d23f5d9c"
+        },
+        {
+          "source": "site/src/data/chapters/rome-gathers-europe.ts",
+          "sha256": "aba6efd3d64287718406329b9ba123d12068752acc659b66d50de1866e5ac9d2"
+        },
+        {
+          "source": "site/src/data/chapters/rome-gathers-europe.ts",
+          "sha256": "98324c00859e147e1d1ab9dc00746231d7d4c37969561e9afa77e10f51b60f3c"
+        },
+        {
+          "source": "site/src/data/chapters/europe-reborn.ts",
+          "sha256": "ca9267e749d5d10c68676c507fb13f3ed52e4dd228697922b2e665747ff54621"
+        },
+        {
+          "source": "site/src/data/chapters/europe-reborn.ts",
+          "sha256": "ea0398e0540738d6ec94c75da984566b54d1714ecce42eae5679fc088e4c6b35"
+        },
+        {
+          "source": "site/src/data/chapters/europe-reborn.ts",
+          "sha256": "a10038ef47764e9e90e0adbc32cb5a3e7e0bd753c961abf598090f3caaa071f3"
+        }
+      ],
+      "nameCoverage": [
+        {
+          "tradition": "Greek",
+          "segmentIndexes": [6, 7],
+          "requiredTerms": ["Themistocles", "Salamis", "Eurybiades", "Pausanias", "Plataea", "Mardonius", "Mycale"]
+        },
+        {
+          "tradition": "Latin",
+          "segmentIndexes": [8, 9],
+          "requiredTerms": ["Trajan", "Hadrian", "Italica", "Caracalla", "Constitutio Antoniniana", "dediticii"]
+        },
+        {
+          "tradition": "Germanic",
+          "segmentIndexes": [10],
+          "requiredTerms": ["Einhard", "Charlemagne", "Leo", "Michael"]
+        },
+        {
+          "tradition": "Slavic",
+          "segmentIndexes": [11, 12],
+          "requiredTerms": ["Cyril", "Methodius", "Moravia", "Slavonic", "Preslav", "Ohrid", "Volodymyr", "Kyiv"]
+        }
+      ]
+    }
+  },
+  "generation": {
+    "temperature": 0.7,
+    "topK": 50,
+    "topP": 0.95,
+    "repetitionPenalty": 1.1,
+    "maxTokens": 8192,
+    "candidatePeakDBFS": -3.0
+  },
+  "masterFormat": {
+    "sampleRate": 48000,
+    "bitDepth": 24,
+    "channels": 1,
+    "codec": "pcm_s24le"
+  },
+  "stressTest": {
+    "targetMinutes": 20,
+    "minimumMinutes": 18,
+    "maximumMinutes": 22,
+    "estimatedWordsPerMinute": 145,
+    "maxTokens": 20000,
+    "singleGenerationRequired": true
+  },
+  "candidates": [
+    {
+      "id": "voice-candidate-01",
+      "referenceSeed": 731101,
+      "castingSeed": 731201,
+      "stressSeed": 731301,
+      "instruction": "A mature British English narrator with a low baritone register, close microphone presence and controlled authority. Measured but never ponderous; intimate with material detail; natural sentence endings; no trailer cadence, uplift or theatrical grandeur."
+    },
+    {
+      "id": "voice-candidate-02",
+      "referenceSeed": 732101,
+      "castingSeed": 732201,
+      "stressSeed": 732301,
+      "instruction": "A clear British English narrator with a medium male register, precise consonants and quiet intellectual confidence. Alert and humane without cheerfulness; flexible pacing; natural breaths; no announcer tone, trailer rhythm or synthetic emphasis at sentence ends."
+    },
+    {
+      "id": "voice-candidate-03",
+      "referenceSeed": 733101,
+      "castingSeed": 733201,
+      "stressSeed": 733301,
+      "instruction": "A mature British English narrator with a low female contralto register, restrained warmth and close, steady presence. Concrete and unsentimental in conflict, spacious around names and dates, with natural breaths and no documentary uplift or theatrical performance."
+    },
+    {
+      "id": "voice-candidate-04",
+      "referenceSeed": 734101,
+      "castingSeed": 734201,
+      "stressSeed": 734301,
+      "instruction": "A British English narrator with a medium female register, lucid diction and composed authority. Intimate rather than broadcast, capable of quiet tension without melodrama, varied sentence rhythm, clean natural endings and no generic educational or synthetic cadence."
+    },
+    {
+      "id": "voice-candidate-05",
+      "referenceSeed": 735101,
+      "castingSeed": 735201,
+      "stressSeed": 735301,
+      "instruction": "A mature Irish English narrator with a low male register and restrained regional colour, speaking with calm command and close human presence. Names and dates are deliberate, emotion remains inside the history, and phrasing avoids performance, trailer cadence and repeated synthetic contours."
+    },
+    {
+      "id": "voice-candidate-06",
+      "referenceSeed": 736101,
+      "castingSeed": 736201,
+      "stressSeed": 736301,
+      "instruction": "A mature Scottish English narrator with a low female register and lightly perceptible regional colour, clear to an international listener. Controlled, exact and intimate; firm in judgment without declamation; natural breathing and sentence endings; no announcer voice or cinematic trailer manner."
+    }
+  ]
+}

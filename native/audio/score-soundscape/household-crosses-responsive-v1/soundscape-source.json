@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "kind": "responsive-procedural-soundscape",
+  "id": "household-crosses-responsive-soundscape-v1",
+  "status": "PROVISIONAL_NON_SHIPPING",
+  "shippingState": "PROHIBITED",
+  "output": { "sampleRate": 48000, "bitDepth": 24, "channels": 2, "container": "wav" },
+  "mixGroups": {
+    "soundscape": ["close-water", "animal-weight", "hull-and-tools"],
+    "spatialDetail": ["seed-sacks", "carrying-fibre"]
+  },
+  "synthesisBoundaries": {
+    "water": {
+      "algorithm": "close-water-movement-v1",
+      "audibleClaims": ["close shallows", "wake against a timber body", "close river water"],
+      "excluded": ["storm", "heroic ocean", "wind propulsion", "specific paddle or oar action", "rowing cadence"]
+    },
+    "animal": {
+      "algorithm": "herd-ground-movement-v1",
+      "audibleClaims": ["restrained animal weight shifts", "ground and craft contact", "restrained breath and body movement"],
+      "excluded": ["species calls", "bells or tack", "gallop rhythm", "stampede", "species identification"]
+    },
+    "craft": {
+      "algorithm": "distant-material-work-v1",
+      "audibleClaims": ["timber body contact", "carried tool contact"],
+      "excluded": ["sail, mast or rigging", "plank construction", "keel or deck", "nails or metal fittings", "propulsive action"]
+    }
+  },
+  "prohibitedClaims": [
+    "sail, mast, rigging or wind propulsion",
+    "specific paddle, oar, rowing action or cadence",
+    "plank, keel, deck, nail or metal-fitting construction",
+    "storm or heroic ocean",
+    "species calls, bells, tack, gallop or stampede",
+    "human speech, chant or crowd",
+    "procedural tones represented as documented waves or historical evidence"
+  ],
+  "regions": [
+    {
+      "id": "approach", "timelineID": "household-crosses-approach-v1", "soundscapeStateID": "loaded-eastern-shore", "durationSeconds": 60, "loop": false,
+      "layers": [
+        { "id": "close-water", "material": "water", "visibleSource": "Shallows touching the loaded craft and the visible eastern waterline", "generator": { "algorithm": "close-water-movement-v1", "seed": 67000101, "density": 0.22, "colour": 0.58 }, "gainDB": -25, "pan": -0.28, "loop": false },
+        { "id": "animal-weight", "material": "herd", "visibleSource": "Visible domestic animals shifting weight between shore and loaded craft", "generator": { "algorithm": "herd-ground-movement-v1", "seed": 67000103, "density": 0.18, "colour": 0.56 }, "gainDB": -28, "pan": 0.06, "loop": false },
+        { "id": "seed-sacks", "material": "grain", "visibleSource": "Dry seed held inside the visible carried sacks", "generator": { "algorithm": "dry-grain-contact-v1", "seed": 67000107, "density": 0.14, "colour": 0.63 }, "gainDB": -31, "pan": 0.28, "loop": false },
+        { "id": "carrying-fibre", "material": "textile", "visibleSource": "Sacks and carrying fibre settling around the loaded household without implying propulsion", "generator": { "algorithm": "woven-fibre-friction-v1", "seed": 67000109, "density": 0.16, "colour": 0.54 }, "gainDB": -30, "pan": 0.4, "loop": false },
+        { "id": "hull-and-tools", "material": "work", "visibleSource": "The visible timber craft body and carried grinding stones, pots and cutting tools under load", "generator": { "algorithm": "distant-material-work-v1", "seed": 67000111, "density": 0.18, "colour": 0.45 }, "gainDB": -28, "pan": -0.02, "loop": false }
+      ],
+      "silenceWindows": [{ "id": "before-route-contact", "atSeconds": 55.25, "durationSeconds": 2.75, "reason": "Hold the loaded household at the eastern shore before route contact begins.", "entry": "authored-cut", "exit": "authored-return" }]
+    },
+    {
+      "id": "waiting", "timelineID": "household-crosses-waiting-bed-v1", "soundscapeStateID": "craft-held-in-shallows", "durationSeconds": 15, "loop": true,
+      "layers": [
+        { "id": "close-water", "material": "water", "visibleSource": "Close shallows moving around the craft held at the eastern shore", "generator": { "algorithm": "close-water-movement-v1", "seed": 67000113, "density": 0.18, "colour": 0.55 }, "gainDB": -29, "pan": -0.28, "loop": true },
+        { "id": "animal-weight", "material": "herd", "visibleSource": "Visible domestic animals making restrained weight shifts inside the held craft", "generator": { "algorithm": "herd-ground-movement-v1", "seed": 67000117, "density": 0.1, "colour": 0.54 }, "gainDB": -34, "pan": 0.06, "loop": true },
+        { "id": "seed-sacks", "material": "grain", "visibleSource": "Dry seed resting inside the visible carried sacks", "generator": { "algorithm": "dry-grain-contact-v1", "seed": 67000119, "density": 0.07, "colour": 0.6 }, "gainDB": -36, "pan": 0.28, "loop": true },
+        { "id": "carrying-fibre", "material": "textile", "visibleSource": "Carrying fibre settling around the household held in the shallows", "generator": { "algorithm": "woven-fibre-friction-v1", "seed": 67000123, "density": 0.08, "colour": 0.51 }, "gainDB": -35, "pan": 0.4, "loop": true },
+        { "id": "hull-and-tools", "material": "work", "visibleSource": "The timber craft body and carried tools shifting under a stationary load", "generator": { "algorithm": "distant-material-work-v1", "seed": 67000127, "density": 0.08, "colour": 0.42 }, "gainDB": -34, "pan": -0.02, "loop": true }
+      ],
+      "silenceWindows": [{ "id": "held-shallows-joint", "atSeconds": 14.8, "durationSeconds": 0.2, "reason": "Separate waiting cycles while the loaded household remains at shore.", "entry": "authored-cut", "exit": "authored-return" }]
+    },
+    {
+      "id": "engaged", "timelineID": "household-crosses-engaged-bed-v1", "soundscapeStateID": "wake-carries-household", "durationSeconds": 15, "loop": true,
+      "layers": [
+        { "id": "close-water", "material": "water", "visibleSource": "A close wake moving against the visible craft along the viable route", "generator": { "algorithm": "close-water-movement-v1", "seed": 67000131, "density": 0.46, "colour": 0.63 }, "gainDB": -18, "pan": -0.2, "loop": true },
+        { "id": "animal-weight", "material": "herd", "visibleSource": "Visible domestic animals adjusting their weight as the loaded craft moves", "generator": { "algorithm": "herd-ground-movement-v1", "seed": 67000137, "density": 0.34, "colour": 0.61 }, "gainDB": -23, "pan": 0.06, "loop": true },
+        { "id": "seed-sacks", "material": "grain", "visibleSource": "Dry seed moving inside the visible carried sacks as one part of the household system", "generator": { "algorithm": "dry-grain-contact-v1", "seed": 67000139, "density": 0.26, "colour": 0.65 }, "gainDB": -26, "pan": 0.28, "loop": true },
+        { "id": "carrying-fibre", "material": "textile", "visibleSource": "Carrying fibre responding to the craft movement without implying wind propulsion", "generator": { "algorithm": "woven-fibre-friction-v1", "seed": 67000143, "density": 0.3, "colour": 0.59 }, "gainDB": -25, "pan": 0.4, "loop": true },
+        { "id": "hull-and-tools", "material": "work", "visibleSource": "The visible timber craft body and carried tools answering the close wake", "generator": { "algorithm": "distant-material-work-v1", "seed": 67000147, "density": 0.3, "colour": 0.48 }, "gainDB": -23, "pan": -0.02, "loop": true }
+      ],
+      "silenceWindows": [{ "id": "viable-route-breath", "atSeconds": 7.3, "durationSeconds": 0.16, "reason": "Open one short interval inside viable movement so the four carried materials remain separately legible.", "entry": "authored-cut", "exit": "authored-return" }]
+    },
+    {
+      "id": "resistance", "timelineID": "household-crosses-resistance-bed-v1", "soundscapeStateID": "off-route-water-holds", "durationSeconds": 15, "loop": true,
+      "layers": [
+        { "id": "close-water", "material": "water", "visibleSource": "Close water holding around the visible craft when the traced route leaves viable shallows", "generator": { "algorithm": "close-water-movement-v1", "seed": 67000151, "density": 0.38, "colour": 0.47 }, "gainDB": -20, "pan": -0.3, "loop": true },
+        { "id": "animal-weight", "material": "herd", "visibleSource": "Visible domestic animals making restrained weight shifts while the craft stops advancing", "generator": { "algorithm": "herd-ground-movement-v1", "seed": 67000153, "density": 0.2, "colour": 0.49 }, "gainDB": -28, "pan": 0.06, "loop": true },
+        { "id": "seed-sacks", "material": "grain", "visibleSource": "Dry seed held inside the visible sacks while the route resists", "generator": { "algorithm": "dry-grain-contact-v1", "seed": 67000157, "density": 0.12, "colour": 0.55 }, "gainDB": -32, "pan": 0.28, "loop": true },
+        { "id": "carrying-fibre", "material": "textile", "visibleSource": "Carrying fibre tightening around the stationary household load", "generator": { "algorithm": "woven-fibre-friction-v1", "seed": 67000159, "density": 0.18, "colour": 0.48 }, "gainDB": -30, "pan": 0.4, "loop": true },
+        { "id": "hull-and-tools", "material": "work", "visibleSource": "The visible timber craft body and carried tools settling as advance stops", "generator": { "algorithm": "distant-material-work-v1", "seed": 67000161, "density": 0.16, "colour": 0.4 }, "gainDB": -29, "pan": -0.02, "loop": true }
+      ],
+      "silenceWindows": [{ "id": "off-route-hold", "atSeconds": 11.55, "durationSeconds": 0.2, "reason": "Mark the local route refusal without danger, impact or a failure cue.", "entry": "authored-cut", "exit": "authored-return" }]
+    },
+    {
+      "id": "consequence", "timelineID": "household-crosses-consequence-v1", "soundscapeStateID": "riverbank-receives-system", "durationSeconds": 55, "loop": false,
+      "layers": [
+        { "id": "close-water", "material": "water", "visibleSource": "Close river water touching the landed craft beside the visible European bank", "generator": { "algorithm": "close-water-movement-v1", "seed": 67000167, "density": 0.24, "colour": 0.57 }, "gainDB": -26, "pan": -0.22, "loop": false },
+        { "id": "animal-weight", "material": "herd", "visibleSource": "Visible domestic animals shifting weight on the received riverbank", "generator": { "algorithm": "herd-ground-movement-v1", "seed": 67000169, "density": 0.28, "colour": 0.6 }, "gainDB": -25, "pan": 0.08, "loop": false },
+        { "id": "seed-sacks", "material": "grain", "visibleSource": "Dry seed leaving the visible carried sacks beside workable ground", "generator": { "algorithm": "dry-grain-contact-v1", "seed": 67000171, "density": 0.3, "colour": 0.66 }, "gainDB": -24, "pan": 0.28, "loop": false },
+        { "id": "carrying-fibre", "material": "textile", "visibleSource": "Sacks and carrying fibre opening as the household system is received on land", "generator": { "algorithm": "woven-fibre-friction-v1", "seed": 67000173, "density": 0.26, "colour": 0.58 }, "gainDB": -26, "pan": 0.4, "loop": false },
+        { "id": "hull-and-tools", "material": "work", "visibleSource": "The visible timber craft body and carried tools settling beside the riverbank", "generator": { "algorithm": "distant-material-work-v1", "seed": 67000179, "density": 0.24, "colour": 0.46 }, "gainDB": -26, "pan": -0.02, "loop": false }
+      ],
+      "silenceWindows": [{ "id": "before-system-joins", "atSeconds": 15.5, "durationSeconds": 4.5, "reason": "Leave the landed materials separately audible before they join as one learned practice.", "entry": "authored-cut", "exit": "authored-return" }]
+    }
+  ]
+}

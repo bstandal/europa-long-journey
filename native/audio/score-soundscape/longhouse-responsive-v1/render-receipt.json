@@ -1,0 +1,1410 @@
+{
+  "schemaVersion": 1,
+  "id": "longhouse-responsive-audio-render-v1",
+  "status": "PROVISIONAL_NON_SHIPPING",
+  "shippingState": "PROHIBITED",
+  "productionInputs": [
+    {
+      "id": "longhouse-responsive-score-source",
+      "path": "native/audio/score-soundscape/longhouse-responsive-v1/score-source.json",
+      "bytes": 12570,
+      "sha256": "7738fe22923cb0ccf5ccc5c6afa4233618219a0d8589da2e693c6a481d349f32"
+    },
+    {
+      "id": "longhouse-responsive-soundscape-source",
+      "path": "native/audio/score-soundscape/longhouse-responsive-v1/soundscape-source.json",
+      "bytes": 11324,
+      "sha256": "d3b36f9b397606c63452d05a3f64372976e4ac2170f43a01f6beeebd0c64a171"
+    },
+    {
+      "id": "first-farmers-manuscript-source",
+      "path": "native/phase2/editor-review/first-farmers/first-farmers-native-draft-v1.json",
+      "bytes": 42780,
+      "sha256": "4c3a0a2a4f9a3ec5361d2e34c2f6dd21072f27176e60c881f013c93f76e4a5dd"
+    },
+    {
+      "id": "native-audio-bible",
+      "path": "native/bibles/audio-bible.md",
+      "bytes": 3346,
+      "sha256": "726849cc80da30d8e8bce4c884f9765f431474901da53a2c195663a8ab177954"
+    },
+    {
+      "id": "responsive-audio-program-spec",
+      "path": "native/ios/Sources/ContentKit/ResponsiveAudioProgramSpec.swift",
+      "bytes": 26686,
+      "sha256": "8c513b05114484f4d31614ae49267f9fc5d00a3ec2e2276073b576c390b59564"
+    },
+    {
+      "id": "responsive-audio-program-runtime",
+      "path": "native/ios/Sources/DramaticAudio/ResponsiveAudioProgramRuntime.swift",
+      "bytes": 25968,
+      "sha256": "b5239a3c7bb1f1c55578cd9944fdf56144a421d644ea9b9022f4f9148254e870"
+    },
+    {
+      "id": "responsive-audio-program-controller",
+      "path": "native/ios/Sources/DramaticAudio/ResponsiveAudioProgramController.swift",
+      "bytes": 33867,
+      "sha256": "743305b7f890c4c4ea51a69e6551d611f6849fbff627af764753e05508972241"
+    },
+    {
+      "id": "responsive-audio-timeline-planner",
+      "path": "native/ios/Sources/DramaticAudio/TimelinePlaybackPlan.swift",
+      "bytes": 8229,
+      "sha256": "6c621630e28e5be375871046997d6963ede24c621f2d235f00491a75e481b9e0"
+    },
+    {
+      "id": "responsive-audio-transport-contract",
+      "path": "native/ios/Sources/DramaticAudio/OfflineAudioAssetResolver.swift",
+      "bytes": 26432,
+      "sha256": "277eb7e1f9dfcceda0ce28d10e692f456f99d9e94a998efe58dbeece4904275d"
+    },
+    {
+      "id": "native-timeline-transport",
+      "path": "native/ios/Sources/DramaticAudio/NativeTimelineTransport.swift",
+      "bytes": 156660,
+      "sha256": "bd97001ddf65824eaa84be7c5466cad67af526dbc02353e0ae79f33e6f4199b9"
+    },
+    {
+      "id": "durable-audio-completion-runtime",
+      "path": "native/ios/Sources/DramaticAudio/DurableInteractionAudioCompletion.swift",
+      "bytes": 9029,
+      "sha256": "f9110ec847d031c776bfb39ee5782d3821f45d508bf7295a2a7a2adf25e81f81"
+    },
+    {
+      "id": "semantic-haptic-runtime",
+      "path": "native/ios/Sources/DramaticAudio/SemanticHapticTransport.swift",
+      "bytes": 12256,
+      "sha256": "b699e5ab9fab77aa81a343b66a013a73eb693a3ce41a676fc886a042917b3636"
+    },
+    {
+      "id": "audio-production-renderer",
+      "path": "native/tooling/src/audio-production.mjs",
+      "bytes": 49751,
+      "sha256": "d997f68ffb75150bf5cff0aea537891bccaf45d630e46b3e2698498b58e44439"
+    },
+    {
+      "id": "longhouse-responsive-renderer",
+      "path": "native/tooling/src/longhouse-responsive-audio.mjs",
+      "bytes": 45197,
+      "sha256": "fee98ac127a4d0b8efede5f3d2d6969f067183b2ddf4013b4c8d9dd0be9a73de"
+    },
+    {
+      "id": "score-soundscape-toolchain",
+      "path": "native/audio/score-soundscape/toolchain.json",
+      "bytes": 1963,
+      "sha256": "1a1a94ed56652f37681b9d74154c78741e53b280e80bab3f18b1db3fddef8ddd"
+    },
+    {
+      "id": "required-mit-notice",
+      "path": "native/audio/score-soundscape/licenses/MS-Basic-0.2.0-LICENSE.md",
+      "bytes": 3320,
+      "sha256": "bf7db123b5d6c0beb1a37f6e1b11c6f4dfd8fb6abd5d59ff282ea24a5cd932e5"
+    },
+    {
+      "id": "zero-cost-license-registry",
+      "path": "native/tooling/registries/cost-license.json",
+      "bytes": 17842,
+      "sha256": "9a0e7ae2f9af9288c1e761864d13c5ead85b2241cb981024ee6f42a314c74c7e"
+    }
+  ],
+  "toolchain": {
+    "fluidSynth": {
+      "version": "2.5.6",
+      "binarySHA256": "eaec07113cbbac0899368788a9597eddae6ac0db30c1a5c1bbe8b19ee6c6a567"
+    },
+    "soundFont": {
+      "version": "MS Basic 0.2.0",
+      "bytes": 51278610,
+      "sha256": "5ea2375e8bd7d8e71def1036978c1621e85b66934169b6a2744b27b9b3c2d99c",
+      "license": "MIT",
+      "noticeSHA256": "bf7db123b5d6c0beb1a37f6e1b11c6f4dfd8fb6abd5d59ff282ea24a5cd932e5"
+    },
+    "ffmpeg": {
+      "version": "8.1.2",
+      "binarySHA256": "dad4b30b36a1a999bfa4b6ffbde138bd17ee496c69e12eef638227dff2c6415c"
+    },
+    "node": {
+      "version": "v26.3.1",
+      "executable": {
+        "bytes": 68384,
+        "sha256": "56694c81b093cc8da273fa017cf91765b3653e5f64f16727976ffaa87b2b6b31"
+      }
+    }
+  },
+  "outputs": [
+    {
+      "regionID": "approach",
+      "role": "program-preview",
+      "sourceID": "approach-offline-preview",
+      "path": "approach/program-preview.wav",
+      "packageAssetPath": null,
+      "bytes": 13824044,
+      "sha256": "4e5f1356e024d406dfb17709628d5a1cff0d9da1077bae890b9e8c1782deb978",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2304000
+      },
+      "lineage": "PROJECT_AUTHORED_OFFLINE_MIX",
+      "commercialRights": "SCORE_NOTICE_REQUIRED; PROCEDURAL_AUDIO_PROJECT_OWNED",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "score-stem-midi",
+      "sourceID": "frame",
+      "path": "approach/score-frame.mid",
+      "packageAssetPath": null,
+      "bytes": 249,
+      "sha256": "07922dbf70089a239d16f2fffb0ad8d84d2c2e8b20ed4a82d75fcf1770024a1b",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "score-stem-master",
+      "sourceID": "frame",
+      "path": "approach/score-frame.wav",
+      "packageAssetPath": null,
+      "bytes": 13824044,
+      "sha256": "27b8667b63c55446fee5188390549d441c685197b2dfc181b96080d992813eee",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2304000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "score-stem-midi",
+      "sourceID": "ground",
+      "path": "approach/score-ground.mid",
+      "packageAssetPath": null,
+      "bytes": 209,
+      "sha256": "1e1783eba7da6702cfef28fc8e426cbf625daafd43e71c0f3da309a2a8caebfd",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "score-stem-master",
+      "sourceID": "ground",
+      "path": "approach/score-ground.wav",
+      "packageAssetPath": null,
+      "bytes": 13824044,
+      "sha256": "cc3dc87638afb6d690aa81c4ffe95c4171c3d33b1a1a3a3c7be5e40d175ce9bf",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2304000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "score-stem-midi",
+      "sourceID": "inhabited",
+      "path": "approach/score-inhabited.mid",
+      "packageAssetPath": null,
+      "bytes": 220,
+      "sha256": "37c30d003ba36fe5570d3d9f85072d4201c9b584f3b51c445e1d13f60619834f",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "score-stem-master",
+      "sourceID": "inhabited",
+      "path": "approach/score-inhabited.wav",
+      "packageAssetPath": null,
+      "bytes": 13824044,
+      "sha256": "53c23f8299dc041571b5e6cbf97ecc5dc2cddf09a81e8bc8eb9819b361f7e4fe",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2304000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "score-master",
+      "sourceID": "plot-marked-frame-unraised",
+      "path": "approach/score-master.wav",
+      "packageAssetPath": "audio/first-farmers/longhouse-responsive-v1/approach/score-master.wav",
+      "bytes": 13824044,
+      "sha256": "14abf786658c780868c3ef38287ab3a5e648d36fb05697b2c6de89680bef176e",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2304000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "spatial-layer-master",
+      "sourceID": "daub-chaff",
+      "path": "approach/sound-daub-chaff.wav",
+      "packageAssetPath": null,
+      "bytes": 13824044,
+      "sha256": "7745ca66646e7de5f81bc4b38731d353cf4eb89bf869acaeb23f198fd9ae21e5",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2304000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "spatial-layer-master",
+      "sourceID": "fibre-lashing",
+      "path": "approach/sound-fibre-lashing.wav",
+      "packageAssetPath": null,
+      "bytes": 13824044,
+      "sha256": "fff77f28207e03176e2a401a09856e7ce906e365d9d3fecf7ed64c124da717c6",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2304000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "soundscape-layer-master",
+      "sourceID": "hearth-fire",
+      "path": "approach/sound-hearth-fire.wav",
+      "packageAssetPath": null,
+      "bytes": 13824044,
+      "sha256": "ad7a68c250bb261e171d838eb784c33e1313e05e807f6b9459e4de574a5d2eb1",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2304000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "soundscape-layer-master",
+      "sourceID": "timber-work",
+      "path": "approach/sound-timber-work.wav",
+      "packageAssetPath": null,
+      "bytes": 13824044,
+      "sha256": "27c74396f0b1efc817591e29acf3c8ce40f8998133443ca70068e2c04b11b2f4",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2304000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "soundscape-layer-master",
+      "sourceID": "weather-ground",
+      "path": "approach/sound-weather-ground.wav",
+      "packageAssetPath": null,
+      "bytes": 13824044,
+      "sha256": "75474644ec57cdc40815b435e7a2775f01d8e759060e674336563c4b36fdaca2",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2304000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "soundscape-master",
+      "sourceID": "open-plot-before-assembly",
+      "path": "approach/soundscape-master.wav",
+      "packageAssetPath": "audio/first-farmers/longhouse-responsive-v1/approach/soundscape-master.wav",
+      "bytes": 13824044,
+      "sha256": "78cce6ac46b502ae0ba4597161efcd8d4a9bf1aa203b1cf48e579d3b27291a5e",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2304000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "spatial-detail-master",
+      "sourceID": "open-plot-before-assembly-near-material",
+      "path": "approach/spatial-detail-master.wav",
+      "packageAssetPath": "audio/first-farmers/longhouse-responsive-v1/approach/spatial-detail-master.wav",
+      "bytes": 13824044,
+      "sha256": "8426288704e8b8994a30e6f3113d56f38202289a7f799a69d372e9410cda0b60",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2304000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "program-preview",
+      "sourceID": "consequence-offline-preview",
+      "path": "consequence/program-preview.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "43369d3bf8b7e82b9376a7c01be77c9321edaa3a953ca98f60d6a9b5e62df9c0",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_OFFLINE_MIX",
+      "commercialRights": "SCORE_NOTICE_REQUIRED; PROCEDURAL_AUDIO_PROJECT_OWNED",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "score-stem-midi",
+      "sourceID": "frame",
+      "path": "consequence/score-frame.mid",
+      "packageAssetPath": null,
+      "bytes": 248,
+      "sha256": "053a9add14c7070b0f1f039332ed4183f8fe9e852c8b9b052179b106382e0850",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "score-stem-master",
+      "sourceID": "frame",
+      "path": "consequence/score-frame.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "539df6a4fddd4396e854c5fea16e180cec399857f641dd6cbd2ae37e1b549e53",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "score-stem-midi",
+      "sourceID": "ground",
+      "path": "consequence/score-ground.mid",
+      "packageAssetPath": null,
+      "bytes": 232,
+      "sha256": "68ee127ca871db417acd721f647b43865bc39a15895a4bba9b5eb2558932dc2f",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "score-stem-master",
+      "sourceID": "ground",
+      "path": "consequence/score-ground.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "3264f157481afbea9fb1858dedec1ba2f8f978ffa9ab707c04ff7d202852a942",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "score-stem-midi",
+      "sourceID": "inhabited",
+      "path": "consequence/score-inhabited.mid",
+      "packageAssetPath": null,
+      "bytes": 223,
+      "sha256": "895ef79cec30364001a3da22e0dc0dd96155e649281f84e8968f5268d12efc33",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "score-stem-master",
+      "sourceID": "inhabited",
+      "path": "consequence/score-inhabited.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "e06dcf5c3372944c07aefcc15a086ded97ff9c1ecf360f6f04537fee3b568db5",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "score-master",
+      "sourceID": "assembled-house-inherited-plot",
+      "path": "consequence/score-master.wav",
+      "packageAssetPath": "audio/first-farmers/longhouse-responsive-v1/consequence/score-master.wav",
+      "bytes": 12960044,
+      "sha256": "cafc1b5891abdd35de0a4cab90a2f7d3263c7878f4f1e4839c1a44cae6bda9c5",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "spatial-layer-master",
+      "sourceID": "daub-chaff",
+      "path": "consequence/sound-daub-chaff.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "6f312668267becbafd925a2a6f724c7c4bf3b19b256c4c0108d956ec461d325a",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "spatial-layer-master",
+      "sourceID": "fibre-lashing",
+      "path": "consequence/sound-fibre-lashing.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "80d07fb8f2b4b4569543421ed0cad59008f1c1087074e1d4740f5ddc1cb735d4",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "soundscape-layer-master",
+      "sourceID": "hearth-fire",
+      "path": "consequence/sound-hearth-fire.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "777dbe7882bb02c9dfe68648f6b14ff6be840880f867aec794cf9620d7e0db29",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "soundscape-layer-master",
+      "sourceID": "timber-work",
+      "path": "consequence/sound-timber-work.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "51514f9d85a12c636f917d40f27ef35add734bc7630ab86c7671ddd863645275",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "soundscape-layer-master",
+      "sourceID": "weather-ground",
+      "path": "consequence/sound-weather-ground.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "6ed3a5327d93fa72dd43068106f1c83834442ff78b434f92526b3d62ec5f6d9a",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "soundscape-master",
+      "sourceID": "roofed-house-inherited-plot",
+      "path": "consequence/soundscape-master.wav",
+      "packageAssetPath": "audio/first-farmers/longhouse-responsive-v1/consequence/soundscape-master.wav",
+      "bytes": 12960044,
+      "sha256": "8d18d20323a5803f572c48a7a91b8e5dbc3ecc053bf526ecabfa1e205a3cb756",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "spatial-detail-master",
+      "sourceID": "roofed-house-inherited-plot-near-material",
+      "path": "consequence/spatial-detail-master.wav",
+      "packageAssetPath": "audio/first-farmers/longhouse-responsive-v1/consequence/spatial-detail-master.wav",
+      "bytes": 12960044,
+      "sha256": "ae3952f80d13f8bbf15f9425aea2556c9a82143f1211a53e33336bbceca0d5a7",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "program-preview",
+      "sourceID": "engaged-offline-preview",
+      "path": "engaged/program-preview.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "79b8b42f9c03a96a3139120e769adc7f9bb289fe55527035436527987b1d5d9b",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_OFFLINE_MIX",
+      "commercialRights": "SCORE_NOTICE_REQUIRED; PROCEDURAL_AUDIO_PROJECT_OWNED",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "score-stem-midi",
+      "sourceID": "frame",
+      "path": "engaged/score-frame.mid",
+      "packageAssetPath": null,
+      "bytes": 218,
+      "sha256": "02f6c39c95845fb7f1f32e46ce3b2dbc300b13e2be287e2d6b94765789d08fa8",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "score-stem-master",
+      "sourceID": "frame",
+      "path": "engaged/score-frame.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "2d79e4b8d653dac6932b2cf2ca9020748dfa2c951b087cf9aa77704add589bda",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "score-stem-midi",
+      "sourceID": "ground",
+      "path": "engaged/score-ground.mid",
+      "packageAssetPath": null,
+      "bytes": 168,
+      "sha256": "86642113655e30c1d3f5fb717f4c94fe7c97d3b6dd6a26b466f69b9309ba60fa",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "score-stem-master",
+      "sourceID": "ground",
+      "path": "engaged/score-ground.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "dafa0a2adbdccec399c458c0b4f5ed1f876579d6dcf271378c47deceb7f7a09c",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "score-stem-midi",
+      "sourceID": "inhabited",
+      "path": "engaged/score-inhabited.mid",
+      "packageAssetPath": null,
+      "bytes": 190,
+      "sha256": "abedc85a9c09d63f5e8c3172ad6feb1b3a41c4fd541ec4927204345f1e5b6252",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "score-stem-master",
+      "sourceID": "inhabited",
+      "path": "engaged/score-inhabited.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "4c677280a28bb11f9ffad73e7e4ed6192afe8837ec0565e840d59ecc6e6d9601",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "score-master",
+      "sourceID": "accepted-parts-take-weight",
+      "path": "engaged/score-master.wav",
+      "packageAssetPath": "audio/first-farmers/longhouse-responsive-v1/engaged/score-master.wav",
+      "bytes": 4320044,
+      "sha256": "c7e7937e7da1e2293431e7f070ebdefb111543d81a8c9964ad09367d4f89f9ef",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "spatial-layer-master",
+      "sourceID": "daub-chaff",
+      "path": "engaged/sound-daub-chaff.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "14597c8849978513cba81c9ed65c15bb6b37ab69339a60198cd47d0630047e06",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "spatial-layer-master",
+      "sourceID": "fibre-lashing",
+      "path": "engaged/sound-fibre-lashing.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "c5b1fbf1ccd3d65b8455861648d8e1eda6f2f946e56bf7201020acf5dd31c765",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "soundscape-layer-master",
+      "sourceID": "hearth-fire",
+      "path": "engaged/sound-hearth-fire.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "3ad785c5361ee63b52a72fc4ad744ecf67a0ad9a038604204bf781e77970e4b9",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "soundscape-layer-master",
+      "sourceID": "timber-work",
+      "path": "engaged/sound-timber-work.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "01dc7cdfb3a34ca721525b563c54e97f5034c36f9d4e1bb0c82f336d4c3dc74f",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "soundscape-layer-master",
+      "sourceID": "weather-ground",
+      "path": "engaged/sound-weather-ground.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "08d50f93e7bfb5764b42dc1dd177b3a9f58787f16b51833c8aacdab04d7e9178",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "soundscape-master",
+      "sourceID": "accepted-parts-take-weight",
+      "path": "engaged/soundscape-master.wav",
+      "packageAssetPath": "audio/first-farmers/longhouse-responsive-v1/engaged/soundscape-master.wav",
+      "bytes": 4320044,
+      "sha256": "30a670092acebdaad7ab68001ca8e82b79f61b0bf03e98f3f91062f4204ae5be",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "spatial-detail-master",
+      "sourceID": "accepted-parts-take-weight-near-material",
+      "path": "engaged/spatial-detail-master.wav",
+      "packageAssetPath": "audio/first-farmers/longhouse-responsive-v1/engaged/spatial-detail-master.wav",
+      "bytes": 4320044,
+      "sha256": "996c6423ef710b9290c47f0867cc9671de801e6d77bc8316b5eabb8b7c7bda16",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "program-preview",
+      "sourceID": "resistance-offline-preview",
+      "path": "resistance/program-preview.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "5a0bb96fe678838226d8fc7af46baddccf6ec45e2a2621c78b93b2480b88f4de",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_OFFLINE_MIX",
+      "commercialRights": "SCORE_NOTICE_REQUIRED; PROCEDURAL_AUDIO_PROJECT_OWNED",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "score-stem-midi",
+      "sourceID": "frame",
+      "path": "resistance/score-frame.mid",
+      "packageAssetPath": null,
+      "bytes": 188,
+      "sha256": "cf73163667ff986f61c6b6ebe27dd8abef2bed87868295bc754509cdcd91b1a0",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "score-stem-master",
+      "sourceID": "frame",
+      "path": "resistance/score-frame.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "32bf53b9b554a1facac328cec4c06b4454189cdbd396d192550bda4184b56311",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "score-stem-midi",
+      "sourceID": "ground",
+      "path": "resistance/score-ground.mid",
+      "packageAssetPath": null,
+      "bytes": 171,
+      "sha256": "94fef06548553ded5f0fd4c0c12bf87e2692f0a08f361d5ba2dcbada22ce8a64",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "score-stem-master",
+      "sourceID": "ground",
+      "path": "resistance/score-ground.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "ab198bce0da77e8a7fe419bd8266075aaeeac0c9983b3b122913b09fc6bd5910",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "score-stem-midi",
+      "sourceID": "inhabited",
+      "path": "resistance/score-inhabited.mid",
+      "packageAssetPath": null,
+      "bytes": 173,
+      "sha256": "8c6e4f6e2a6354ff4728fba9d32063bfa775b1d2a71fc6df1ec134fc473e893d",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "score-stem-master",
+      "sourceID": "inhabited",
+      "path": "resistance/score-inhabited.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "6164d06146ff64385bc157bf23ef51b262a7421d495fd671b8459a5ff7ce78f0",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "score-master",
+      "sourceID": "unsupported-order-holds",
+      "path": "resistance/score-master.wav",
+      "packageAssetPath": "audio/first-farmers/longhouse-responsive-v1/resistance/score-master.wav",
+      "bytes": 4320044,
+      "sha256": "87faf9d19b70b0653a69a18620838abb955a361c4d46345d8fd6dda6853e390c",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "spatial-layer-master",
+      "sourceID": "daub-chaff",
+      "path": "resistance/sound-daub-chaff.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "ecdddfed3a886903388276e962229ab661f11d71cc51d372e200f051b88a0459",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "spatial-layer-master",
+      "sourceID": "fibre-lashing",
+      "path": "resistance/sound-fibre-lashing.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "b19b83c35ca1821928a01b18cb77120eb7a2ae250f9b2ee606062ac3301395a1",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "soundscape-layer-master",
+      "sourceID": "hearth-fire",
+      "path": "resistance/sound-hearth-fire.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "23282c9b193343109a637bf52428157e2887116457d580336b7cd4f03a32c59b",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "soundscape-layer-master",
+      "sourceID": "timber-work",
+      "path": "resistance/sound-timber-work.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "4fb588f0c3b60807cb389e9563db717e905052799ab51e072807197d99ee4812",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "soundscape-layer-master",
+      "sourceID": "weather-ground",
+      "path": "resistance/sound-weather-ground.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "1751f0a40659b509fe5a41f065f7f254dd16e00828acf246b0eec9fcdbf88ec1",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "soundscape-master",
+      "sourceID": "unsupported-component-resists",
+      "path": "resistance/soundscape-master.wav",
+      "packageAssetPath": "audio/first-farmers/longhouse-responsive-v1/resistance/soundscape-master.wav",
+      "bytes": 4320044,
+      "sha256": "e0293a7e2b59eaea0e6ecf604b0c803e662f1bf02e694cd6a293db808f6814e2",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "spatial-detail-master",
+      "sourceID": "unsupported-component-resists-near-material",
+      "path": "resistance/spatial-detail-master.wav",
+      "packageAssetPath": "audio/first-farmers/longhouse-responsive-v1/resistance/spatial-detail-master.wav",
+      "bytes": 4320044,
+      "sha256": "ec7d1774d74c84505d561cb3310816e795acf1d2a1818e3909702c5482c36210",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "program-preview",
+      "sourceID": "waiting-offline-preview",
+      "path": "waiting/program-preview.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "a4dbc0e2d878eda3607aeda786432225e12e17565a3fc45b438a5c986f5462e5",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_OFFLINE_MIX",
+      "commercialRights": "SCORE_NOTICE_REQUIRED; PROCEDURAL_AUDIO_PROJECT_OWNED",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "score-stem-midi",
+      "sourceID": "frame",
+      "path": "waiting/score-frame.mid",
+      "packageAssetPath": null,
+      "bytes": 188,
+      "sha256": "cc3e974ec784dea14918a3769ae371400d28fde97ad9d9546f07be65b6681bf8",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "score-stem-master",
+      "sourceID": "frame",
+      "path": "waiting/score-frame.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "ed7fa44361efb2b76918f9cfba99157803a70dc381b94c9f8081837b561f9397",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "score-stem-midi",
+      "sourceID": "ground",
+      "path": "waiting/score-ground.mid",
+      "packageAssetPath": null,
+      "bytes": 168,
+      "sha256": "e73fcfe9601c400043686f6a8b9628e7936e80ae4fe920fe99950a88870c18dc",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "score-stem-master",
+      "sourceID": "ground",
+      "path": "waiting/score-ground.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "4fa3637cafb1a6639dc1f1502e0d19db36cb0dc0a7484d56d0c7c8201ea74974",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "score-stem-midi",
+      "sourceID": "inhabited",
+      "path": "waiting/score-inhabited.mid",
+      "packageAssetPath": null,
+      "bytes": 190,
+      "sha256": "67bf7b068cca896ed2108bcf0a7565ac60e51a62d23273189a2e9e6f67cb0e3e",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "score-stem-master",
+      "sourceID": "inhabited",
+      "path": "waiting/score-inhabited.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "b06bfe3f7f745c8aec12e5fa643f86d47b4706dbde2828352912067f5091da3b",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "score-master",
+      "sourceID": "components-wait-on-open-ground",
+      "path": "waiting/score-master.wav",
+      "packageAssetPath": "audio/first-farmers/longhouse-responsive-v1/waiting/score-master.wav",
+      "bytes": 4320044,
+      "sha256": "87bbf28f99b4d312eacc7ef98ea3e0fbd1094f40dbe287ea4d5489f373c6e331",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "spatial-layer-master",
+      "sourceID": "daub-chaff",
+      "path": "waiting/sound-daub-chaff.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "f3f55b79be6f3aeb47ff883f04b9e8205a9f111a92c6442a78486d76d12d4abc",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "spatial-layer-master",
+      "sourceID": "fibre-lashing",
+      "path": "waiting/sound-fibre-lashing.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "44317df3eeb73fe7a099ff3e2b909d9a4b11733d94de2d7e0cbc62c94815e02f",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "soundscape-layer-master",
+      "sourceID": "hearth-fire",
+      "path": "waiting/sound-hearth-fire.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "27b312d4890dd0aea0c2a5f3e7926e7d87323d306c31f0265d6412d1e0a5a123",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "soundscape-layer-master",
+      "sourceID": "timber-work",
+      "path": "waiting/sound-timber-work.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "3e21ae1c212f31dd1bb4ce794394e26d87b633943d27855cdc3bfb8160f7c1ed",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "soundscape-layer-master",
+      "sourceID": "weather-ground",
+      "path": "waiting/sound-weather-ground.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "431b80e7e46e17b3784f77d32fa2fc7352f85e0a4663be219927bfbb6cc39e9a",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "soundscape-master",
+      "sourceID": "components-wait-on-open-ground",
+      "path": "waiting/soundscape-master.wav",
+      "packageAssetPath": "audio/first-farmers/longhouse-responsive-v1/waiting/soundscape-master.wav",
+      "bytes": 4320044,
+      "sha256": "d73ea60763de91185e8153feab57c0fe3062e15d618bd832bf924ce12029cc1d",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "spatial-detail-master",
+      "sourceID": "components-wait-on-open-ground-near-material",
+      "path": "waiting/spatial-detail-master.wav",
+      "packageAssetPath": "audio/first-farmers/longhouse-responsive-v1/waiting/spatial-detail-master.wav",
+      "bytes": 4320044,
+      "sha256": "765b4d25d519f145f3ec710edf2e101e06a8c28aaa587422ede3f81c254d6a86",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    }
+  ],
+  "reproducibility": "PASS_SECOND_COMPLETE_OFFLINE_RENDER",
+  "gates": {
+    "sourceValidation": "PASS",
+    "exactPCMFormat": "PASS_48000_HZ_24_BIT_STEREO",
+    "editableScoreMIDISourceAndStems": "PASS",
+    "sourceBoundSoundscapeAndSpatialLayers": "PASS",
+    "loopSeams": "PASS_LOCAL_NUMERIC_GATE",
+    "authoredSilence": "PASS_SAMPLE_ZERO_WINDOWS",
+    "truePeak": "PASS_ALL_PREVIEWS_AT_OR_BELOW_MINUS_1_DBTP",
+    "narration": "OPEN_MISSING_EDITOR_SELECTED_MASTER",
+    "artisticApproval": "OPEN",
+    "editorApproval": "OPEN",
+    "shippingApproval": "PROHIBITED"
+  }
+}

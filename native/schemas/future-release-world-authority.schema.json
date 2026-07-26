@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thelongwest.invalid/schemas/future-release-world-authority.schema.json",
+  "title": "Canonical launch-world authority for future release placement",
+  "description": "The editor-approved backstage authority binds the exact launch world seed accepted by runtime and the existing living-world nodes to which later releases may attach.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "kind",
+    "status",
+    "authority",
+    "approvedAt",
+    "decisionReference",
+    "collectionID",
+    "worldSeed",
+    "placementNodeIDs"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "kind": { "const": "FUTURE_RELEASE_WORLD_AUTHORITY" },
+    "status": { "const": "APPROVED_BY_EDITOR_IN_CHIEF" },
+    "authority": { "const": "editor-in-chief" },
+    "approvedAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "decisionReference": { "type": "string", "minLength": 12 },
+    "collectionID": { "$ref": "#/$defs/StableID" },
+    "worldSeed": {
+      "$ref": "public-content.schema.json#/$defs/WorldSeedSpec"
+    },
+    "placementNodeIDs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/StableID" }
+    }
+  },
+  "$defs": {
+    "StableID": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    }
+  }
+}

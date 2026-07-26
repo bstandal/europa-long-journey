@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "kind": "DEVELOPMENT_BLUEPRINT_PROJECTION_AUTHORITY",
+  "scope": "VERTICAL_SLICE",
+  "status": "CODEX_PROVISIONAL_NON_SHIPPING_BLUEPRINT_PROJECTION",
+  "authority": "codex-local-production",
+  "shippingState": "PROHIBITED",
+  "packageID": "vertical-slice-development-v1",
+  "keyID": "vertical-slice-development-key-v1",
+  "trustDomain": "the-long-west-vertical-slice-development-v1",
+  "claimsExcluded": [
+    "EDITOR_APPROVAL",
+    "SHIPPING_APPROVAL",
+    "RELEASE_AUTHORITY"
+  ],
+  "chapterIDs": [
+    "first-farmers",
+    "europe-holds-the-line",
+    "european-world"
+  ],
+  "arcIDs": [
+    "first-farmers-arc-02",
+    "first-farmers-arc-03",
+    "europe-holds-the-line-arc-01",
+    "european-world-arc-01"
+  ],
+  "interactionIDs": [
+    "interaction-first-farmers-the-harvest-had-to-last",
+    "interaction-first-farmers-the-house-outlives",
+    "interaction-first-farmers-more-mouths-more-land",
+    "interaction-europe-holds-the-line-northern-valleys-keep-crown",
+    "interaction-european-world-steam-keeps-the-appointment"
+  ],
+  "effectIDs": [
+    "effect-first-farmers-the-harvest-had-to-last",
+    "effect-first-farmers-the-house-outlives",
+    "effect-first-farmers-more-mouths-more-land",
+    "effect-first-farmers-at-the-iron-gates",
+    "effect-europe-holds-the-line-northern-valleys-keep-crown",
+    "effect-europe-holds-the-line-europe-answers-clermont",
+    "effect-european-world-steam-keeps-the-appointment",
+    "effect-european-world-twenty-states-agree-on-the-signal"
+  ],
+  "payloadSHA256": "43466b3c669a2f4d8ace0877faef4589a0d4cc7b6a49de2475c34c55709d0ee4",
+  "contractSliceSHA256": "0d2b54985ec6496350a96365944666317c501b5f894f99b7602b8b63ad974f98",
+  "arcSliceSHA256": "49618663a4923d1e9015b7ba085702c99b345fd3a83cd7128ca6c3f3e5a65558",
+  "interactionSliceSHA256": "2fe374acc11a7ffbfe7a1d0c9a0f7d18d4832398df165fa7285b3d6b3e60e3e7",
+  "worldEffectSliceSHA256": "5a99dc6b172630452d6b581cd5dd7a13b0a8e02a2ff831e38213f7b431302e1f",
+  "projectionSHA256": "3f728bbc2a8c14f3ffcb2a356c55c0a5f9d0f74078830dd58489342b35b9a1d6"
+}

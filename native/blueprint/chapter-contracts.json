@@ -1,0 +1,939 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED_BY_EDITOR_IN_CHIEF",
+  "authority": "Only the editor-in-chief may change editorApproval to APPROVED or reopen an approved contract.",
+  "verificationBoundary": "Research may test concrete claims but may not rebalance, decentre or revise an approved contract.",
+  "contractCount": 24,
+  "contracts": [
+    {
+      "contractID": "contract-01",
+      "contentID": "first-farmers",
+      "title": "The First Farmers",
+      "period": "7000–3300 BC",
+      "thesis": "Farming came to Europe with people who carried seed, animals and knowledge. It bound growing populations to land, season and stores made to outlast a single generation.",
+      "causalSpine": [
+        "Farming enters Europe with Anatolian households carrying seed, livestock, tools and learned routines.",
+        "Seasonal labour and divided stores bind survival to land and to decisions made months ahead.",
+        "Farmers meet established river communities at the Iron Gates; goods, practices and people cross the frontier.",
+        "Long-lived houses and expanding households turn settlement into a demographic and ecological force.",
+        "Fields, herds and inherited places remake the continent before the steppe reaches it."
+      ],
+      "requiredEmphases": [
+        "Migration of people, not disembodied diffusion.",
+        "The complete farming system: seed, animals, storage, labour and knowledge.",
+        "An inhabited European landscape at the Iron Gates.",
+        "The demographic and environmental permanence of settled life."
+      ],
+      "governingJudgement": "Farming remade Europe by tying households to stored futures, inherited ground and settlements built to outlive their founders.",
+      "ending": {
+        "period": "By 3300 BC",
+        "title": "Europe had become a continent of fields, herds and long-lived settlements.",
+        "consequence": "Fields, stores and inherited settlements had fixed Europe’s growing households to ground that the steppe expansion would seize and reorder."
+      },
+      "handoff": "The settled continent now possesses fields, stores and paternal lines that steppe mobility can seize, reorder and inherit.",
+      "editorApproval": "APPROVED",
+      "lockedOnApproval": [
+        "thesis",
+        "causalSpine",
+        "requiredEmphases",
+        "governingJudgement",
+        "ending",
+        "handoff"
+      ],
+      "factLock": null
+    },
+    {
+      "contractID": "contract-02",
+      "contentID": "steppe-comes-west",
+      "title": "The Steppe Comes West",
+      "period": "3300–2000 BC",
+      "thesis": "From the grasslands north of the Black Sea came a mobile order of armed, patrilineal peoples. It displaced old male lines and carried new populations, languages and gods across Europe.",
+      "causalSpine": [
+        "Herds, ox-drawn solid-wheel wagons and mobile households make the Pontic-Caspian grasslands a new field of power.",
+        "Armed male groups and patrilineal descent join mobility to authority, graves and possession.",
+        "Male-led expansion carries conquest and demographic asymmetry into central and western Europe.",
+        "Incoming paternal lines displace many local male lines while households carry language through the conquered landscape.",
+        "A shared Indo-European religious grammar takes distinct western and eastern roads."
+      ],
+      "requiredEmphases": [
+        "Male-led conquest, demographic asymmetry and paternal-line turnover.",
+        "Early wagons and herds without cavalry, saddles, stirrups, swords or chariots.",
+        "Language spread through power, household and descent.",
+        "The Europe–steppe–India relationship as a revelation of Europe's inherited religious grammar."
+      ],
+      "governingJudgement": "The steppe expansion was a conquest that made its mobile, patrilineal and Indo-European inheritance part of Europe itself.",
+      "ending": {
+        "period": "By 2000 BC",
+        "title": "The steppe was no longer east of Europe.",
+        "consequence": "It lived in Europe’s lineages, languages and gods."
+      },
+      "handoff": "Steppe power enters European lineages, speech and sacred imagination; Bronze Europe gives that inheritance distinct material forms.",
+      "editorApproval": "APPROVED",
+      "lockedOnApproval": [
+        "thesis",
+        "causalSpine",
+        "requiredEmphases",
+        "governingJudgement",
+        "ending",
+        "handoff"
+      ],
+      "factLock": null
+    },
+    {
+      "contractID": "contract-03",
+      "contentID": "bronze-europe",
+      "title": "Bronze Europe",
+      "period": "2500–500 BC",
+      "thesis": "Drawing on older eastern networks, Europeans mastered metal and sea, forging distinct worlds of craft, sacred power, warrior courage and heroic memory.",
+      "causalSpine": [
+        "Europe enters a metal age beside older Egyptian and Near Eastern civilisations.",
+        "Separated copper and tin demand mining, exchange, navigation and exact craft.",
+        "Aegean palaces turn writing, ships and stores into organised power while northern Europe makes bronze its own.",
+        "Warrior rank, sacred images, ships and crafted objects give European bronze cultures a recognisable heroic form.",
+        "Palace systems fall, but sung memory carries the age into Greece."
+      ],
+      "requiredEmphases": [
+        "Mastery of metal, seafaring, craftsmanship and monument-building.",
+        "The Nordic Bronze Age, continental exchange and Aegean palace worlds in one causal system.",
+        "Concrete objects and skills rather than a detached trade-network survey.",
+        "Heroic memory as a living handoff, not nostalgia attached after collapse."
+      ],
+      "governingJudgement": "Europe received bronze through older networks and forged from it its own worlds of craft, sacred power, courage and heroic memory.",
+      "ending": {
+        "period": "By 700 BC",
+        "title": "The palace was gone. The heroic age remained.",
+        "consequence": "Greek singers carried bronze names, weapons and memories into the new world of the polis, where public law and citizen armies would give Europe another form."
+      },
+      "handoff": "The singer preserves the bronze inheritance until Greek communities place law, office and war on public ground.",
+      "editorApproval": "APPROVED",
+      "lockedOnApproval": [
+        "thesis",
+        "causalSpine",
+        "requiredEmphases",
+        "governingJudgement",
+        "ending",
+        "handoff"
+      ],
+      "factLock": null
+    },
+    {
+      "contractID": "contract-04",
+      "contentID": "greece-and-the-citizen",
+      "title": "Greece and the Citizen",
+      "period": "800–146 BC",
+      "thesis": "The polis made public rule the work of citizens, then forced rival cities to defend, command and judge that freedom.",
+      "causalSpine": [
+        "After the palaces, Greek communities make law and office local, written and public.",
+        "The polis can be founded again across the seas without becoming one territorial state.",
+        "Sparta and Athens build different citizen orders whose combined strengths preserve Greek autonomy against Persia.",
+        "Athenian participation enlarges public rule while empire turns protection into command.",
+        "The Peloponnesian War tests rival civic systems and leaves government a permanent object of comparison.",
+        "Rome enters a Mediterranean already organised by citizens, councils, magistrates and public law."
+      ],
+      "requiredEmphases": [
+        "The polis as the first recognisably European public world.",
+        "Sparta as co-protagonist, with its divided constitution, material basis, alliance leadership and adaptation.",
+        "Athens as the institutional climax without erasing Corinth, Thebes, Syracuse and smaller allies.",
+        "Greek autonomy as the inheritance defended in the Persian Wars.",
+        "Democratic and civic institutions continuing beyond Alexander."
+      ],
+      "governingJudgement": "The polis made government a public duty of citizens and bequeathed Europe a durable argument about law, liberty, service and command.",
+      "ending": {
+        "period": "146 BC",
+        "title": "Rome enters a world of citizens",
+        "consequence": "Rome defeated the Achaean League and became the decisive Mediterranean power. It entered Greek cities already organised through citizens, councils, magistrates, laws and public records, then carried civic membership into a territorial empire."
+      },
+      "handoff": "Rome takes the civic form it meets in the Greek world and scales membership across a territorial empire.",
+      "editorApproval": "APPROVED",
+      "lockedOnApproval": [
+        "thesis",
+        "causalSpine",
+        "requiredEmphases",
+        "governingJudgement",
+        "ending",
+        "handoff"
+      ],
+      "factLock": null
+    },
+    {
+      "contractID": "contract-05",
+      "contentID": "rome-gathers-europe",
+      "title": "Rome Gathers Europe",
+      "period": "509 BC–AD 212",
+      "thesis": "Rome made conquest durable by extending citizenship, local office and military service outwards from one city until much of Europe lived inside a common political order.",
+      "causalSpine": [
+        "The Republic divides command so power can remain strong without a king.",
+        "Rome survives defeat by restoring armies and imposing graded relationships rather than one uniform settlement.",
+        "Roads, colonies, allied manpower and military obligation turn Italy into a replacement engine.",
+        "Conquest brings wealth, slavery and exceptional commands home until armies follow commanders into civil war.",
+        "Augustus concentrates command while retaining republican offices and a municipal imperial structure.",
+        "Service, manumission, office and grants widen citizenship before AD 212 gives nearly every free inhabitant a Roman legal floor."
+      ],
+      "requiredEmphases": [
+        "Durable incorporation through citizenship, obligation, colonies, roads and local councils.",
+        "Conquest, land seizure, tribute, enslavement and military compulsion as working mechanisms.",
+        "The Social War as the constitutional crisis that forces Italian citizenship.",
+        "Augustus as concentrated command under republican language, not a declared restored republic.",
+        "AD 212 as common citizenship without social equality or the end of slavery."
+      ],
+      "governingJudgement": "Rome's decisive European achievement was to make conquest durable by turning defeated communities into participants in a widening civic and municipal order.",
+      "ending": {
+        "period": "AD 212",
+        "title": "The name now spans the empire",
+        "consequence": "Caracalla’s grant made almost every free inhabitant a Roman citizen. It left slavery, wealth and legal privilege intact, but gave the empire a shared civic status through which later emperors, bishops and jurists could address people from Britain to Syria as members of one Roman commonwealth."
+      },
+      "handoff": "A common Roman legal name gives Christian bishops, jurists and emperors a continental public to address.",
+      "editorApproval": "APPROVED",
+      "lockedOnApproval": [
+        "thesis",
+        "causalSpine",
+        "requiredEmphases",
+        "governingJudgement",
+        "ending",
+        "handoff"
+      ],
+      "factLock": null
+    },
+    {
+      "contractID": "contract-06",
+      "contentID": "empire-takes-cross",
+      "title": "The Empire Takes the Cross",
+      "period": "AD 312–565",
+      "thesis": "Christianity entered Roman law, office and imperial ceremony while Constantinople became the centre of a renewed Christian Rome.",
+      "causalSpine": [
+        "Constantine joins Christian allegiance to imperial victory and ends persecution without transforming the state in one stroke.",
+        "Patronage, councils and creed bring the Church into Roman public government.",
+        "Constantinople rises as New Rome at the strategic meeting point of Europe, Asia and the seas.",
+        "Christian institutions acquire civic weight while the eastern state carries Roman continuity after the western throne disappears.",
+        "Justinian gathers Roman law and raises Hagia Sophia as a visible Christian Roman order.",
+        "Restoration extends Roman reach at a cost that leaves the centre facing new eastern pressure."
+      ],
+      "requiredEmphases": [
+        "The eastern Roman Empire as the continuing Roman state.",
+        "Christian doctrine, worship, law and government as one civilisational inheritance.",
+        "Constantinople as a crowded, repaired and working capital rather than a golden abstraction.",
+        "Imperial authority as organiser of councils without ownership of Christian truth.",
+        "Justinianic law and Hagia Sophia as achievements of the renewed Christian Rome."
+      ],
+      "governingJudgement": "Christianity entered the machinery of Rome, and Constantinople became the capital from which Roman law, worship and government could survive the western imperial collapse.",
+      "ending": {
+        "period": "AD 565",
+        "title": "The Roman inheritance no longer depended on one western emperor.",
+        "consequence": "Justinian’s empire preserved Roman law and Christian kingship from Constantinople. In the former western provinces, bishops, monasteries and kings now carried that inheritance through institutions able to survive without one imperial centre."
+      },
+      "handoff": "The western crown is gone, but bishops, monasteries and kings can rebuild Roman Christian civilisation without one empire.",
+      "editorApproval": "APPROVED",
+      "lockedOnApproval": [
+        "thesis",
+        "causalSpine",
+        "requiredEmphases",
+        "governingJudgement",
+        "ending",
+        "handoff"
+      ],
+      "factLock": null
+    },
+    {
+      "contractID": "contract-07",
+      "contentID": "europe-reborn",
+      "title": "Europe Reborn",
+      "period": "AD 500–1000",
+      "thesis": "Western Rome fell, but its Christian inheritance did not. Bishops, monasteries and kings rebuilt it as a commonwealth that could survive without one empire—and grow beyond Rome’s old frontiers.",
+      "causalSpine": [
+        "Roman offices, property and Christian institutions survive the disappearance of western imperial command.",
+        "Bishops and monasteries turn literacy, land, ritual and rule into durable local government.",
+        "Frankish kingship joins conquest, Catholic alliance and sacred legitimacy.",
+        "Capitularies, corrected books and delegated officers carry rule farther than an itinerant king.",
+        "Division and northern violence test the commonwealth while Latin and Byzantine missions enlarge Christian Europe.",
+        "Gniezno proves that rulers can recognise a common civilisation without submission to one capital."
+      ],
+      "requiredEmphases": [
+        "Civilisational rebuilding through bishops, monasteries, kings and written office.",
+        "Christianity as the common language connecting distinct political centres.",
+        "Conquest and forced conversion where they make the expansion intelligible.",
+        "Europe's plurality as strength, not evidence of civilisational absence.",
+        "Gniezno as a concrete meeting of emperor, Polish ruler, shrine and archbishopric."
+      ],
+      "governingJudgement": "Western Europe rebuilt Roman Christian civilisation as a written commonwealth strong enough to grow without a single emperor commanding it all.",
+      "ending": {
+        "period": "AD 1000",
+        "title": "Europe can meet without one ruler",
+        "consequence": "At Gniezno, an emperor, a Polish ruler and the clergy around a missionary’s shrine recognised one another through gifts, ritual and a new archbishopric. Their agreement depended on a common Christian language and left each political centre intact. That plurality would soon produce a harder question: who could appoint the bishops and command the institutions that held this commonwealth together?"
+      },
+      "handoff": "Plural political centres now contest who may appoint bishops and govern the institutions holding the commonwealth together.",
+      "editorApproval": "APPROVED",
+      "lockedOnApproval": [
+        "thesis",
+        "causalSpine",
+        "requiredEmphases",
+        "governingJudgement",
+        "ending",
+        "handoff"
+      ],
+      "factLock": null
+    },
+    {
+      "contractID": "contract-08",
+      "contentID": "papal-revolution",
+      "title": "The Papal Revolution",
+      "period": "AD 1046–1123",
+      "thesis": "The struggle to free ecclesiastical office from lay possession turned pope, emperor, bishops and princes into rival claimants under law. Worms divided spiritual investiture from temporal regalia, leaving Latin Europe with two organised jurisdictions that neither side could fully absorb.",
+      "causalSpine": [
+        "Imperial intervention restores a reforming papacy and exposes the dependence reform seeks to escape.",
+        "Synods, legates, records and ordered election make papal authority an operating government.",
+        "Bishops embody inseparable sacramental and temporal burdens, bringing pope and king into conflict.",
+        "Excommunication, rebellion, penance and war reveal that every judgment needs political reception.",
+        "Failed coercion drives both jurisdictions toward reciprocal settlement.",
+        "Worms distinguishes canonical election, spiritual investiture and temporal regalia without removing either power from public life."
+      ],
+      "requiredEmphases": [
+        "Institutions, offices and procedures rather than a personal duel between pope and emperor.",
+        "Reform's local, monastic, clerical, urban and papal roots.",
+        "Canossa as restored communion without a settlement of kingship.",
+        "Gregory's exile and Henry's possession of Rome.",
+        "Worms as reciprocal and regionally varied, not modern separation of church and state."
+      ],
+      "governingJudgement": "The papal revolution divided authority inside one Christendom and taught European institutions to define, contest and preserve jurisdiction under law.",
+      "ending": {
+        "period": "AD 1123",
+        "title": "One order now contains rival jurisdictions",
+        "consequence": "The First Lateran Council received the settlement made at Worms. Cathedral chapters could claim canonical election, rulers could demand the services attached to regalia, and papal and royal courts each kept records with which to defend their competence. Neither institution withdrew from public government. Their coexistence made jurisdiction something that monasteries, communes, guilds and universities could also seek, define and preserve."
+      },
+      "handoff": "Monasteries, communes, guilds and universities inherit the legal grammar of bodies that possess office, property and jurisdiction.",
+      "editorApproval": "APPROVED",
+      "lockedOnApproval": [
+        "thesis",
+        "causalSpine",
+        "requiredEmphases",
+        "governingJudgement",
+        "ending",
+        "handoff"
+      ],
+      "factLock": null
+    },
+    {
+      "contractID": "contract-09",
+      "contentID": "society-beyond-kin",
+      "title": "A Society Beyond Kin",
+      "period": "AD 500–1300",
+      "thesis": "The Western Church broke the institutions that kept marriage, inheritance and obligation inside the clan. Europeans rebuilt social life through monasteries, fraternities, communes, guilds and universities—communities made by oath, rule and office rather than blood.",
+      "causalSpine": [
+        "The Western Church widens prohibited kin and breaks the marriage strategies that keep obligation inside the clan.",
+        "Mutual consent makes two speaking persons decisive in marriage.",
+        "Gifts move land from lineage into houses expected to outlive donors and heirs.",
+        "Monasteries, guilds and fraternities bind unrelated people through vow, rule, common property and office.",
+        "Communes convert oath into government; law gives the changing membership one enduring body.",
+        "Universities show strangers acting collectively in a city not their own."
+      ],
+      "requiredEmphases": [
+        "The Western Church's marriage and family programme as the causal break.",
+        "Consent, vow, donation, oath, election, seal and divided custody as concrete acts.",
+        "Chosen association replacing intensive kin organisation.",
+        "Institutions surviving because property, office, rule and record outlast members."
+      ],
+      "governingJudgement": "By weakening clan-centred marriage and inheritance, the Western Church opened the field in which Europeans built durable communities from choice, oath, rule and office.",
+      "ending": {
+        "period": "AD 1300",
+        "title": "Europe has learned to join itself",
+        "consequence": "The Church had weakened the world in which blood decided marriage, property and obligation. In its place stood monasteries, fraternities, guilds, communes and universities: bodies entered by promise, governed by rule and made durable by law. Europeans could now cooperate with people they had not been born to trust. The next road would carry those promises farther than the people who made them."
+      },
+      "handoff": "People who can join without kinship can send capital, promises and risk along written roads.",
+      "editorApproval": "APPROVED",
+      "lockedOnApproval": [
+        "thesis",
+        "causalSpine",
+        "requiredEmphases",
+        "governingJudgement",
+        "ending",
+        "handoff"
+      ],
+      "factLock": null
+    },
+    {
+      "contractID": "contract-10",
+      "contentID": "medieval-commercial-revolution",
+      "title": "The Medieval Commercial Revolution",
+      "period": "AD 950–1350",
+      "thesis": "Medieval Europeans made capital, obligation and risk travel farther than the people who owned them. The written road they built made strangers into partners and dangerous voyages into repeatable enterprises.",
+      "causalSpine": [
+        "Revived ports require records and courts that work across rulers, currencies and distance.",
+        "Notaries make bargains survive departure; fairs make the calendar a commercial institution.",
+        "The commenda joins sedentary capital to travelling skill and bounds the passive investor's exposure.",
+        "Safe conduct, money of account and netting make political protection and writing productive.",
+        "Ledgers and marine insurance make dispersed enterprise and priced danger repeatable.",
+        "The written road joins Mediterranean finance to the northern commercial world."
+      ],
+      "requiredEmphases": [
+        "Commercial organisation as a medieval European achievement.",
+        "The exact limited exposure of a voyage partnership without projecting the modern corporation backward.",
+        "Notary, contract, court, ledger and insured route as material instruments.",
+        "Strangers cooperating across currencies and jurisdictions."
+      ],
+      "governingJudgement": "Medieval Europeans made capital, obligation and risk travel independently of their owners, turning dangerous expeditions into institutions that could be repeated.",
+      "ending": {
+        "period": "c. AD 1350",
+        "title": "The Road Is Written",
+        "consequence": "A voyage could now begin in a contract, cross the sea as cargo, return as an obligation and remain in a ledger after every traveller had gone home. In Europe’s commercial cities, capital could be joined without kinship, settlement reached without a wagon of coin and a venture’s ordinary loss confined to its agreed stake. In Bruges the written road met the ships of the North Sea. Its next reach would run through Lübeck and Bergen, where a league of northern towns turned distance into power."
+      },
+      "handoff": "At Bruges, the written road meets Baltic and North Sea shipping and passes into the Hanseatic world.",
+      "editorApproval": "APPROVED",
+      "lockedOnApproval": [
+        "thesis",
+        "causalSpine",
+        "requiredEmphases",
+        "governingJudgement",
+        "ending",
+        "handoff"
+      ],
+      "factLock": null
+    },
+    {
+      "contractID": "contract-11",
+      "contentID": "hanseatic-north",
+      "title": "The Hanseatic North",
+      "period": "AD 1150–1500",
+      "thesis": "Northern merchants and towns made common power from privilege, discipline and consent. They could close markets, bargain with kings and put fleets to sea while every participating city kept its own government.",
+      "causalSpine": [
+        "Stockfish, grain and seasonal navigation make northern trade reciprocal and necessary.",
+        "Royal privilege gives foreign merchants a recognised legal door into Bergen.",
+        "The Kontor turns yard, store, discipline and assembly into corporate government.",
+        "Lübeck joins two seas and delegated consent turns separate city councils into common action.",
+        "Embargo, contributed fleet and treaty prove that consent can wield selective force.",
+        "Four foreign houses make a distributed intelligence system while every city retains its government."
+      ],
+      "requiredEmphases": [
+        "Bergen and the northern year as the material opening.",
+        "Privilege maintained by records, officers and discipline.",
+        "Delegated consent rather than a hidden Hanseatic state.",
+        "Collective power grounded in separate civic governments.",
+        "The edges informing the whole league."
+      ],
+      "governingJudgement": "The Hanseatic cities made common power from privilege, consent and discipline without erecting a sovereign above themselves.",
+      "ending": {
+        "period": "c. AD 1500",
+        "title": "Cities Can Act Together",
+        "consequence": "The seals remain separate after the common instrument has been written. That is the Hanseatic achievement: merchants and councils learned to defend a continental field of trade through delegated consent, corporate discipline and selective force, without erecting a throne above their towns. Inland, the same European talent for joining unequal powers would assume a grander political form. An elected emperor, princes, bishops, knights and free cities were already making agreement itself into an enduring constitution."
+      },
+      "handoff": "The civic talent for joint action enters the larger constitutional field of emperor, estates, bishops, knights and free cities.",
+      "editorApproval": "APPROVED",
+      "lockedOnApproval": [
+        "thesis",
+        "causalSpine",
+        "requiredEmphases",
+        "governingJudgement",
+        "ending",
+        "handoff"
+      ],
+      "factLock": null
+    },
+    {
+      "contractID": "contract-12",
+      "contentID": "empire-many-liberties",
+      "title": "The Empire of Many Liberties",
+      "period": "AD 962–1806",
+      "thesis": "The Holy Roman Empire held central Europe together through election, privilege, assembly and law. Its many rulers and communities kept real liberties because they belonged to a common imperial peace.",
+      "causalSpine": [
+        "The Roman crown joins German kingship and Italian rule without acquiring a permanent capital.",
+        "Travel, assembly, charter and judgment govern a realm built from accumulated rights.",
+        "Election and princely possession make succession and authority procedural rather than uniformly dynastic.",
+        "Diet, public peace, court and circles give unequal estates working scales for common action.",
+        "Augsburg and Westphalia keep religious difference inside one constitutional order.",
+        "Napoleon ends the office but not the legal and governmental habits formed beneath it."
+      ],
+      "requiredEmphases": [
+        "The Empire as a functioning political order, not a failed nation-state.",
+        "Liberties as concrete rights protected within a common peace.",
+        "Election, assembly, court and regional circles as achievements.",
+        "The changing procedure of the Diet kept exact to its date.",
+        "Continuity of cities, territories, archives and courts after 1806."
+      ],
+      "governingJudgement": "The Holy Roman Empire made plurality governable and protected real liberties by placing unequal powers inside election, assembly, judgment and peace.",
+      "ending": {
+        "period": "AD 1806",
+        "title": "The Empire ended; its jurisdictions remained.",
+        "consequence": "When Francis II laid down the imperial crown in 1806, the Empire vanished as a polity. Its cities, territories, courts and archives preserved the habits of negotiated rule through which unequal powers had acted together for centuries."
+      },
+      "handoff": "To see what that capacity had defended, the Journey now follows Europe’s southern and eastern frontiers across the centuries before 1806.",
+      "editorApproval": "APPROVED",
+      "lockedOnApproval": [
+        "thesis",
+        "causalSpine",
+        "requiredEmphases",
+        "governingJudgement",
+        "ending",
+        "handoff"
+      ],
+      "factLock": null
+    },
+    {
+      "contractID": "contract-13",
+      "contentID": "europe-holds-the-line",
+      "title": "The Frontiers Hold",
+      "period": "AD 711–1699",
+      "thesis": "Christian Europe survived centuries of conquest from the south and east because kingdoms, cities, military orders and frontier peoples kept rebuilding the line. At last the direction of pressure turned.",
+      "causalSpine": [
+        "Umayyad conquest destroys the Visigothic monarchy and confines Christian survival to exposed northern ground.",
+        "Kingdoms, charters, settlers and coalitions turn refuge and captured cities into held frontiers.",
+        "Eastern Roman defeat and appeal draw western armed pilgrimage toward Anatolia and Jerusalem.",
+        "The sack of 1204 breaks Christian Roman defence from within before Constantinople falls to Ottoman conquest.",
+        "Belgrade, Vienna, Croatia, Malta and Lepanto build a repertoire of fortification, permanent service and coalition war.",
+        "Vienna in 1683 opens sustained recovery and Karlowitz fixes the turned frontier."
+      ],
+      "requiredEmphases": [
+        "Christian Europe as the civilisation being defended.",
+        "Exact distinctions among Umayyad, Almohad, Seljuk and Ottoman powers and campaigns.",
+        "The First Crusade as an eastern appeal answered by an armed European pilgrimage.",
+        "1204 and 1453 as catastrophes to the same Christian Roman inheritance.",
+        "Frontier institutions, allied logistics and repeated rebuilding as the cause of survival."
+      ],
+      "governingJudgement": "Christian Europe survived a centuries-long assault because its kingdoms, cities, orders and frontier peoples repeatedly rebuilt the line until coalition power turned it.",
+      "ending": {
+        "period": "AD 1699",
+        "title": "Europe Has Survived the Long Assault",
+        "consequence": "Granada stood inside Christian Iberia, Vienna remained behind the Danube line and the frontier fixed at Karlowitz lay farther south-east. Survival had produced a continental repertoire: chartered settlement, armed pilgrimage, fortified harbours, permanent border communities, coalition fleets and armies supplied across many jurisdictions. Europe had learned to answer distance with alliance and repeated defeat with stronger institutions. The next generation carried that accumulated naval, financial and cartographic power beyond the defended coast. Europeans would stop waiting for the world’s trade to reach them and open an ocean road of their own."
+      },
+      "handoff": "The naval, financial and cartographic capacities accumulated in defence now carry Europeans beyond the coast.",
+      "editorApproval": "APPROVED",
+      "lockedOnApproval": [
+        "thesis",
+        "causalSpine",
+        "requiredEmphases",
+        "governingJudgement",
+        "ending",
+        "handoff"
+      ],
+      "factLock": null
+    },
+    {
+      "contractID": "contract-14",
+      "contentID": "europe-turns-seaward",
+      "title": "Europe Turns Seaward",
+      "period": "AD 1415–1700",
+      "thesis": "Europeans converted the Atlantic from an edge into a road. Repeated voyages, wind knowledge, charts, royal finance and armed ocean-going ships gave small western kingdoms direct strategic access to routes and markets far beyond the reach of any European army on land.",
+      "causalSpine": [
+        "Portuguese conquest and Atlantic island settlement create repeatable bases beyond Europe.",
+        "Pilots learn wind as geography and make the open ocean a navigational instrument.",
+        "Accumulated voyages, crown archives and Indian Ocean pilotage complete the Cape route.",
+        "Castile opens the western road while Tordesillas projects law ahead of reliable measurement.",
+        "Circumnavigation reveals the connected oceans; forts, cannon and passes turn routes into strategic systems.",
+        "Rival European states and companies multiply the oceanic capacity first assembled by Iberian crowns."
+      ],
+      "requiredEmphases": [
+        "Navigation as accumulated observation, ship handling, return routes and archives.",
+        "Portuguese expansion beginning before 1453 and responding to strategic access, not a closed land road.",
+        "Indian Ocean knowledge and the Gujarati pilot at Malindi in the route to Calicut.",
+        "Conquest, fortified bases and coercive passes as mechanisms of ocean power.",
+        "European rivalry as the force multiplying ships, capital and routes."
+      ],
+      "governingJudgement": "Europe converted the Atlantic from an edge into a road and gave small western kingdoms the means to project organised power across the oceans.",
+      "ending": {
+        "period": "AD 1700",
+        "title": "The Coast Has Become a Point of Departure",
+        "consequence": "By 1700, charts made in Lisbon, Seville, Amsterdam and London carried routes that no crown could erase. European pilots could cross the Atlantic, round Africa, enter the Indian Ocean and return through a chain of known winds, soundings, ports and archives. Fortified bases and chartered companies projected the power of small states across distances no European field army could traverse. Rivalry kept ships moving after Iberian exclusivity had broken. The same divided Europe that sent fleets around the earth was dividing Latin Christendom at home, where print, territorial government and confessional allegiance would turn theological revolt into a new European contest."
+      },
+      "handoff": "The same competitive Europe that carries fleets around the world divides Latin Christendom through print and territorial government.",
+      "editorApproval": "APPROVED",
+      "lockedOnApproval": [
+        "thesis",
+        "causalSpine",
+        "requiredEmphases",
+        "governingJudgement",
+        "ending",
+        "handoff"
+      ],
+      "factLock": null
+    },
+    {
+      "contractID": "contract-15",
+      "contentID": "reformation",
+      "title": "The Reformation",
+      "period": "AD 1517–1648",
+      "thesis": "Print carried religious argument beyond every chamber appointed to contain it. Rival confessions then built schools, courts, ministries and armies into territorial government; after thirty years of fire, Westphalia preserved a divided Christendom through law.",
+      "causalSpine": [
+        "Print carries Luther's dispute beyond the university and beyond any authority able to recall it.",
+        "Translation, preaching and civic government give Lutheran and Reformed churches reproducible institutional bodies.",
+        "Catholic renewal answers with clarified doctrine, disciplined clergy, schools and mobile orders.",
+        "Augsburg makes division governable while leaving constitutional fault lines inside the Empire.",
+        "Army contribution systems turn confessional revolt into a self-sustaining continental war.",
+        "Westphalian diplomacy preserves a divided Christendom and a functioning imperial constitution through law."
+      ],
+      "requiredEmphases": [
+        "The secure print event rather than the uncertain door-nailing scene.",
+        "Rival confessions building schools, courts, ministries and territories.",
+        "Catholic renewal as a formidable European institutional achievement.",
+        "The Thirty Years' War as more than an afterword to religious change.",
+        "Westphalia as legal preservation and revision, not the invention of the sovereign state."
+      ],
+      "governingJudgement": "Print made religious argument uncontrollable; confessional government made it territorial; Westphalian law made the resulting division governable.",
+      "ending": {
+        "period": "AD 1648",
+        "title": "The Empire Survives the Fire",
+        "consequence": "The armies left territories scarred by requisition, hunger, disease, flight and burned towns. They did not leave an empty political field. Catholic, Lutheran and Reformed estates returned to diets, courts and negotiated rights under a peace that made religious plurality part of the imperial constitution. Along the Empire’s south-eastern edge, the Habsburg crowns were already binding another Europe together beside the Danube: old kingdoms, frontier lands and many peoples held beneath one dynasty without surrendering every law of their own."
+      },
+      "handoff": "The surviving imperial field opens south-eastward into the Habsburg crowns and their many-lawed common home.",
+      "editorApproval": "APPROVED",
+      "lockedOnApproval": [
+        "thesis",
+        "causalSpine",
+        "requiredEmphases",
+        "governingJudgement",
+        "ending",
+        "handoff"
+      ],
+      "factLock": null
+    },
+    {
+      "contractID": "contract-16",
+      "contentID": "habsburg-europe",
+      "title": "Habsburg Europe",
+      "period": "AD 1526–1918",
+      "thesis": "The Habsburg monarchy joined old kingdoms, local liberties, imperial service and modern infrastructure without requiring its peoples to become one nation. Its greatest achievement was a common political home capacious enough for several languages, laws and loyalties at once. Total war destroyed that home in 1918.",
+      "causalSpine": [
+        "Dynastic succession joins Austria, Bohemia and contested Hungary without merging their crowns.",
+        "Ottoman pressure makes common defence a permanent partnership of court, estates, towns and frontier communities.",
+        "Ratified succession and administrative reform teach distinct lands to promise and serve a common future.",
+        "Road, post, school, district and civil service turn the monarchy into everyday government.",
+        "Constitution, court, rail, customs and municipal life make several national homes inhabit one political geography.",
+        "Total war replaces bargaining with military command and destroys the common state."
+      ],
+      "requiredEmphases": [
+        "A common political home capacious enough for several languages, laws and loyalties.",
+        "Old kingdoms and local liberties remaining real within dynastic government.",
+        "Modern service, infrastructure and constitutional forums.",
+        "The Hungarian succession of 1526 as contested and the 1867 rights settlement as jurisdictionally exact.",
+        "War, not timeless ethnic incompatibility, as the destroyer of the monarchy."
+      ],
+      "governingJudgement": "The Habsburg monarchy's achievement was to make many peoples, laws and political homes work inside one durable state until total war broke its machinery of accommodation.",
+      "ending": {
+        "period": "AD 1918",
+        "title": "A Common Home Passes Into Memory",
+        "consequence": "The monarchy had never asked Prague to become Trieste or Lviv to become Vienna. It asked roads, courts, offices and a crown to hold them in one political house, and generations made that house more habitable than its founders could have imagined. Total war brought hunger, coercion and military defeat through every room. The doors became borders, the sleeping-car routes became international journeys and the common state passed into memory. Its railway arches, universities, civil codes, municipal theatres and many-named streets remained. Long before those rails crossed the Danube, another European network had begun to master distance on a measured page."
+      },
+      "handoff": "Its measured routes point backward to the European knowledge network that made exact observation cumulative.",
+      "editorApproval": "APPROVED",
+      "lockedOnApproval": [
+        "thesis",
+        "causalSpine",
+        "requiredEmphases",
+        "governingJudgement",
+        "ending",
+        "handoff"
+      ],
+      "factLock": null
+    },
+    {
+      "contractID": "contract-17",
+      "contentID": "scientific-revolution",
+      "title": "The Scientific Revolution",
+      "period": "AD 1543–1700",
+      "thesis": "European scholars joined print, exact observation, mathematical proof, crafted instruments and organised criticism into a new power over nature. A claim could be measured, reproduced, attacked and improved by people who had never met. By 1700 knowledge had become cumulative at a scale no earlier intellectual system had achieved.",
+      "causalSpine": [
+        "Copernicus and Vesalius place cosmos and body under printed systems open to correction.",
+        "Tycho turns precision into institutional capital; Kepler trusts measure enough to abandon the perfect circle.",
+        "Lens, dissection, geometry and experiment reveal structures ordinary sight cannot command.",
+        "The air pump and witnessed trial turn controlled events into portable public claims.",
+        "Societies, correspondence and journals give observations an address and a memory.",
+        "Newton joins terrestrial and celestial motion using the accumulated work of Europe's instruments, tables and print."
+      ],
+      "requiredEmphases": [
+        "Print, exact observation, mathematical proof, crafted instruments and organised criticism as one system.",
+        "Artisan skill and instrument making beside named scholars.",
+        "Discrepancy, reproducibility and public registration as sources of authority.",
+        "The new synthesis and cumulative institutions rather than a claim that every component arose in Europe alone.",
+        "Newton's actual geometrical presentation rather than a modern calculus image."
+      ],
+      "governingJudgement": "European investigators made knowledge cumulative by binding measurement, instrument, mathematics, criticism and print into a system no private mind or court could own.",
+      "ending": {
+        "period": "AD 1700",
+        "title": "Europe Makes Knowledge Cumulative",
+        "consequence": "No prince directed this enterprise from one capital. Its power lay in the route between observatory and table, workshop and anatomy theatre, private letter and printed page. Measurements made on Hven could overturn a circle in Prague; a pump built in Oxford could produce an argument in London; a lens ground in Delft could place a new living world before readers in Paris and Florence. Rival courts paid, rival printers hurried and rival investigators tried to break one another’s claims. What survived did not remain a private possession. It became equipment for the next mind. The ships, paper, credit and news that carried those results were already gathering with unmatched speed in Amsterdam."
+      },
+      "handoff": "The ships, credit, paper and news carrying this knowledge gather with unmatched density in the Dutch Republic.",
+      "editorApproval": "APPROVED",
+      "lockedOnApproval": [
+        "thesis",
+        "causalSpine",
+        "requiredEmphases",
+        "governingJudgement",
+        "ending",
+        "handoff"
+      ],
+      "factLock": null
+    },
+    {
+      "contractID": "contract-18",
+      "contentID": "dutch-republic",
+      "title": "The Dutch Republic",
+      "period": "AD 1572–1713",
+      "thesis": "The Dutch Republic turned divided authority into disciplined cooperation. Provinces, towns, water boards, companies, banks and exchanges gave a small European republic the means to command ships, credit and information across the world.",
+      "causalSpine": [
+        "Maritime revolt gives provinces and towns the protected ground from which a republic can grow.",
+        "Union preserves provincial authority while joining defence and foreign action.",
+        "Migration, fluyt shipping and permanent joint capital concentrate skill, routes and durable enterprise.",
+        "Polder, bank and exchange turn common water, unstable coin and distant uncertainty into governed systems.",
+        "Tax, credit and public accounts let a crownless federation sustain war.",
+        "The water line saves the republic; Dutch political and financial practices cross to a larger European state."
+      ],
+      "requiredEmphases": [
+        "Divided authority made productive through disciplined cooperation.",
+        "The Union, water boards, VOC, Wisselbank, exchange and public credit as exact institutions.",
+        "Permanent joint capital and transferable shares without anachronistically complete modern corporate form.",
+        "Practical religious latitude as a comparative civic advantage.",
+        "Engineering, shipping and information as one republican system."
+      ],
+      "governingJudgement": "The Dutch Republic proved that dispersed authority could command water, ships, credit and information when cooperation possessed offices, ledgers and enforceable rules.",
+      "ending": {
+        "period": "AD 1713",
+        "title": "The Exchange Keeps Speaking",
+        "consequence": "The republic had made dispersed authority productive. Its towns could drain a lake, fund a fleet, clear a bill and shelter a printer because cooperation had acquired offices, ledgers, schedules and enforceable rules. Dutch methods now worked in London as well as Amsterdam, while newspapers, pamphlets and coffeehouse reports carried judgment beyond the merchants gathered beneath the exchange arcades. European information was becoming a public voice, and that public would soon claim the right to examine laws, customs and rulers."
+      },
+      "handoff": "The exchange's news, books and judgments widen into a European public able to compare laws and rulers.",
+      "editorApproval": "APPROVED",
+      "lockedOnApproval": [
+        "thesis",
+        "causalSpine",
+        "requiredEmphases",
+        "governingJudgement",
+        "ending",
+        "handoff"
+      ],
+      "factLock": null
+    },
+    {
+      "contractID": "contract-19",
+      "contentID": "enlightenment-public-opinion",
+      "title": "The Enlightenment",
+      "period": "AD 1680–1789",
+      "thesis": "Europe’s presses, coffeehouses, journals, salons, clubs, academies and postal routes created a public able to compare laws, customs and rulers. Arguments acquired readers, reputations and pressure beyond the court that first received them. By 1789 public opinion had become a political power.",
+      "causalSpine": [
+        "Coffeehouses, newspapers and refugee presses give strangers a common dated present.",
+        "Periodical essays, critical dictionaries and travel comparison train readers to judge custom and government.",
+        "Montesquieu turns laws into a comparative field; the Encyclopédie joins learned inquiry to skilled work.",
+        "Clubs and universities make society itself an object of sustained investigation.",
+        "Beccaria's argument crosses translation and office into penal reform.",
+        "Rulers answer a European audience with unequal force until the French public claims constituent authority."
+      ],
+      "requiredEmphases": [
+        "Presses, coffeehouses, salons, clubs, academies and post as operating institutions.",
+        "Named books, articles, plates, laws and reforms rather than disembodied ideas.",
+        "Public comparison as the source of pressure beyond a court.",
+        "Russia's institutional limit stated through Catherine and Novikov, not a claim of no Russian Enlightenment.",
+        "Public opinion becoming political power by 1789."
+      ],
+      "governingJudgement": "The Enlightenment gave Europe a public able to compare institutions, circulate judgment and make rulers answer beyond the court.",
+      "ending": {
+        "period": "AD 1789",
+        "title": "Europe Learns to Judge Aloud",
+        "consequence": "Readers sharing news had become a power that rulers courted, measured and feared. Presses, clubs, academies, markets and assemblies carried arguments through institutions no palace could command from end to end. A law now entered a European field of comparison, and a government’s reply could be printed beside its promise. While public opinion learned to judge authority in words, British mines and workshops were joining coal, machines, capital and skilled labour into a new command over material production."
+      },
+      "handoff": "While the public learns to judge authority in words, British mines and workshops assemble a new material command.",
+      "editorApproval": "APPROVED",
+      "lockedOnApproval": [
+        "thesis",
+        "causalSpine",
+        "requiredEmphases",
+        "governingJudgement",
+        "ending",
+        "handoff"
+      ],
+      "factLock": null
+    },
+    {
+      "contractID": "contract-20",
+      "contentID": "rivalry-industrial-breakthrough",
+      "title": "Rivalry and the Industrial Breakthrough",
+      "period": "AD 1709–1862",
+      "thesis": "Europe joined coal, experiment, precision manufacture, transport and company law into a system that multiplied power, capital and output. Steam released industry from the limits of muscle and falling water; the registered limited-liability company gathered fortunes large and small behind works no household could finance alone.",
+      "causalSpine": [
+        "Coke iron and the Newcomen engine release Britain's mineral depth into practical power.",
+        "Useful knowledge moves among lecture room, workshop, patent, capital and market.",
+        "Watt, Boulton, factory organisation and precision manufacture make mechanical power repeatable.",
+        "Iron, railway and public timetable bind mines, mills, ports and cities into one accelerating system.",
+        "Industry outgrows the partnership and demands a legal body capable of durable, transferable capital.",
+        "Registration and limited liability draw a boundary around exposure and finance works larger than a household fortune."
+      ],
+      "requiredEmphases": [
+        "Compounding among energy, machinery, transport, knowledge and law.",
+        "Working spaces and exact mechanisms rather than inventor portraits or generic smoke.",
+        "The factory as an organisation of architecture, power, capital and time.",
+        "The company as an invention equal in consequence to steam.",
+        "The 1855–1862 legal sequence stated without projecting it backward."
+      ],
+      "governingJudgement": "Europe made material power cumulative and gave it a durable legal body, multiplying what skill, capital and time could build together.",
+      "ending": {
+        "period": "AD 1862",
+        "title": "Europe Can Finance the Impossible",
+        "consequence": "At night, a signalman closes the lever and two lamps answer along the cutting. The rails beneath them embody a century and a half of accumulated power: coke-fed iron, steam raised from water, cylinders bored to measure, machines arranged through whole buildings and traffic governed by a public timetable. Beside the engineer’s plan lies another instrument of equal consequence, a registered share certificate marked Limited. The company can hold the land, contract for the bridge, call unpaid capital and survive the death or departure of any subscriber. Each investor’s exposure ends at a stated boundary while the common undertaking continues. In 1862 Europe possesses the mechanical and legal means to sustain projects larger than a private fortune and longer than a working life. The copper line follows the railway to the harbour, enters a cable house and passes beneath the sea toward a world waiting to be placed on schedule."
+      },
+      "handoff": "The capital line reaches the harbour, becomes cable and carries Europe's systems into a world placed on schedule.",
+      "editorApproval": "APPROVED",
+      "lockedOnApproval": [
+        "thesis",
+        "causalSpine",
+        "requiredEmphases",
+        "governingJudgement",
+        "ending",
+        "handoff"
+      ],
+      "factLock": null
+    },
+    {
+      "contractID": "contract-21",
+      "contentID": "european-world",
+      "title": "The European World",
+      "period": "AD 1802–1914",
+      "thesis": "Europe placed the world on schedule. Steam routes, cables, railways, surveys, public-health agreements, postal rules and administrative law carried European power across the earth—and left a connected institutional world where distance had lost its old command.",
+      "causalSpine": [
+        "British maritime command turns abolition into fleet, treaty and court action on the Atlantic.",
+        "Steam packets, cable and canal compress travel and information into reliable schedules.",
+        "Telegraph, postal and time conventions make technical cooperation permanent across states.",
+        "Survey, railway, port, school, medicine and archive turn European measurement into territorial administration.",
+        "Public-health conferences and diplomatic procedure govern new forms of interdependence and rivalry.",
+        "London's switchboard reveals a world whose routes, standards and institutions possess a European centre."
+      ],
+      "requiredEmphases": [
+        "Infrastructure and institutions rather than a coloured empire map.",
+        "Rail gauge, cable tariff, postal rule, quarantine notice, survey and legal register as dated instruments.",
+        "Conquest and command visible as mechanisms without displacing the European causal spine.",
+        "Capabilities later inherited and used beyond imperial rule.",
+        "The same world system becoming the nervous system of mobilisation in 1914."
+      ],
+      "governingJudgement": "Europe's global power rested on an institutional order across distance—routes, standards, offices and laws that put the world on schedule.",
+      "ending": {
+        "period": "Summer 1914",
+        "title": "The World Has a European Centre",
+        "consequence": "The cable clerk closes the last circuit and the switchboard stands complete. Steam lanes meet railways; surveyed ports meet banks; postal bags, sanitary notices and telegrams pass through offices trained to recognise the same address, tariff and hour. Europe’s enduring overseas work was this common order across distance: institutions that could be learned, copied and inherited wherever the lines reached. One red lamp remains lit after the clerks leave. A mobilisation telegram is entering the same wires that carried prices and passenger lists, turning the world’s European nervous system toward continental war."
+      },
+      "handoff": "A mobilisation telegram enters the completed switchboard and turns Europe's connected world toward continental war.",
+      "editorApproval": "APPROVED",
+      "lockedOnApproval": [
+        "thesis",
+        "causalSpine",
+        "requiredEmphases",
+        "governingJudgement",
+        "ending",
+        "handoff"
+      ],
+      "factLock": null
+    },
+    {
+      "contractID": "contract-22",
+      "contentID": "europe-at-war",
+      "title": "The European Civil War",
+      "period": "AD 1871–1945",
+      "thesis": "Europe’s two world wars were one continental struggle over power, nation, revolution and order. They became world wars because Europe had global reach; at their centre, European industry and administration were turned from engines of civilization into instruments of total war, terror and the murder of Europe’s Jews.",
+      "causalSpine": [
+        "German unification alters the balance while mass politics and antisemitism test civic membership.",
+        "Alliances, conscription and rail schedules compress political time before 1914.",
+        "Industrial administration joins front, factory, railway and household in total war.",
+        "Revolution and defeat remove four empires and leave armed national claims over their remains.",
+        "The peace enlarges self-government yet creates statelessness and weakens legal protection.",
+        "Fascist, Nazi and Bolshevik movements seize the state; racial law, terror and conquest classify people for domination.",
+        "Nazi Germany turns administration and rail into the machinery for murdering European Jewry before Berlin falls and Europe divides."
+      ],
+      "requiredEmphases": [
+        "The two world wars as one European civil war over power, nation, revolution and order.",
+        "Europe's global reach as the reason the continental wars become world wars.",
+        "Industrial and administrative capacities turned into instruments of total war and terror.",
+        "Nazi and Stalinist systems kept historically distinct while their totalising mechanisms remain exact.",
+        "The Holocaust as a non-interactive documentary sequence with full historical and moral weight."
+      ],
+      "governingJudgement": "Europe's civilisation turned its greatest powers of organisation against itself, destroyed its old primacy and brought the murder of its Jews into the centre of continental war.",
+      "ending": {
+        "period": "AD 1945",
+        "title": "The Continent Lies Open",
+        "consequence": "The damaged map table in Berlin carries the whole fracture. Versailles, the mobilisation lines, the trenches, the abandoned passports, the party files and the deportation rails end in one ruined capital. American, British, French and Soviet occupation has destroyed Nazi power, while Europe’s civil war has surrendered the continent’s old primacy. New paper is already being laid on either side of the break: plans for aid, alliance and shared authority in the west; Soviet commands enforced through party and army in the east. Two roads leave the same ruin and run toward 1989."
+      },
+      "handoff": "The ruined continent leaves two roads: Atlantic democracy and lawful integration in the west, Soviet party and army in the east.",
+      "editorApproval": "APPROVED",
+      "lockedOnApproval": [
+        "thesis",
+        "causalSpine",
+        "requiredEmphases",
+        "governingJudgement",
+        "ending",
+        "handoff"
+      ],
+      "factLock": null
+    },
+    {
+      "contractID": "contract-23",
+      "contentID": "continent-rebuilt",
+      "title": "The Continent Rebuilt",
+      "period": "AD 1945–1989",
+      "thesis": "From the same ruin, Europe took two roads. Western Europe bound American protection, national democracy and economic power inside treaties and law; Soviet power held the east through party and army. In 1989, the eastern nations reclaimed their European future and the roads met.",
+      "causalSpine": [
+        "Europeans restore ordinary government amid ruin while American aid joins recovery to cooperation.",
+        "American protection and Soviet command harden the continent into two security orders.",
+        "Coal, steel, market and court turn western reconciliation into cumulative law.",
+        "Southern enlargement joins restored democracy to European membership.",
+        "Budapest, Berlin and Prague reveal the coercion holding the eastern system together.",
+        "John Paul II and Solidarity restore public courage, representation and institutional endurance in Poland.",
+        "Elections, opened borders and civic revolution meet Soviet non-intervention and bring the roads together in 1989."
+      ],
+      "requiredEmphases": [
+        "Western European agency inside American protection.",
+        "Treaty, market and court as concrete machinery for binding power.",
+        "Eastern European national and moral continuity under Soviet rule.",
+        "John Paul II's recovery of public confidence kept distinct from Solidarity's organisation and Moscow's 1989 restraint.",
+        "1989 driven by eastern European agency, not delivered from outside."
+      ],
+      "governingJudgement": "Western Europe bound recovery and power inside law while eastern nations preserved the authority to reclaim their future; in 1989 those achievements met.",
+      "ending": {
+        "period": "AD 1989",
+        "title": "Europe Is No Longer Divided by Force",
+        "consequence": "At the opened Brandenburg Gate, the two roads met. The western road arrived with Atlantic protection, treaty, market and court: institutions built by democratic states to make power answer to agreed rules. The eastern road arrived with recovered nations and the authority of people who preserved truth in churches, kitchens, workshops, theatres and duplicated pages when the state demanded a lie. They entered the same field with distinct histories. Beyond Berlin lay Warsaw, Tallinn, Tbilisi and Kyiv. Europe now had to carry freedom eastward and defend each nation’s choice when Russia returned to conquest."
+      },
+      "handoff": "The freed nations now choose the Union's legal road and NATO's defensive road while Russia prepares to contest that settlement.",
+      "editorApproval": "APPROVED",
+      "lockedOnApproval": [
+        "thesis",
+        "causalSpine",
+        "requiredEmphases",
+        "governingJudgement",
+        "ending",
+        "handoff"
+      ],
+      "factLock": null
+    },
+    {
+      "contractID": "contract-24",
+      "contentID": "europe-returns",
+      "title": "Europe Returns",
+      "period": "AD 1989–20 July 2026",
+      "thesis": "The nations freed in 1989 returned to Europe through two distinct institutions: European Union law and markets, and NATO collective defence. Russia answered that settlement with force, and Europe learned again that an open order endures only where sovereign choice can be defended.",
+      "causalSpine": [
+        "Restored eastern states recover sovereignty and choose entry into European and Atlantic institutions.",
+        "EU conditions and NATO accession create distinct roads of law, market and collective defence.",
+        "Russia uses force in Georgia and then against Ukraine to reverse neighbouring states' sovereign choices.",
+        "Ukraine's Maidan asserts European constitutional direction; invasion and occupation answer it with war.",
+        "Kyiv survives the full-scale attack and activates European support, Union candidacy and NATO enlargement.",
+        "Accession work, industrial capacity, logistics and eastern-flank defence turn solidarity into organised endurance."
+      ],
+      "requiredEmphases": [
+        "Eastern nations returning through sovereign choice rather than being remade as blank post-Soviet spaces.",
+        "EU and NATO status, functions and membership kept institutionally distinct.",
+        "Ukrainian agency at Maidan and in the defence of Kyiv.",
+        "Russian action named precisely as invasion, occupation and annexation where applicable.",
+        "Every post-2024 institutional and financial claim locked to a dated primary source before release."
+      ],
+      "governingJudgement": "Europe returned when its nations were free to choose, and the open order endures only where law, production, alliance and force can defend that choice.",
+      "ending": {
+        "period": "As of 20 July 2026",
+        "title": "The Line Is Open Because It Is Held",
+        "consequence": "At first light, the railway and fibre corridor still runs east. European Union milestones remain cobalt pages of law, market access, budget and reform. NATO nodes remain ice-blue commitments of collective defence, planning and allied force. Ukraine is not yet a member of the Union and is not covered by Article 5. It remains a sovereign European state in accession negotiations, sustained by institutions and nations that have chosen to make distance, winter and attrition bearable. Behind the illuminated line lies an inheritance accumulated across centuries: the city that governed itself, the law that outlived rulers, the experiment that made nature answer, the company that gathered capital, the nation that survived conquest and the alliance that made defence a common promise. Europe returned when its nations were free to choose. It will endure where that choice can be defended."
+      },
+      "handoff": "The long road remains illuminated as a living frontier: Europe carries its inherited city, law, experiment, company, nation and alliance into the work of defence.",
+      "editorApproval": "APPROVED",
+      "lockedOnApproval": [
+        "thesis",
+        "causalSpine",
+        "requiredEmphases",
+        "governingJudgement",
+        "ending",
+        "handoff"
+      ],
+      "factLock": "2026-07-20"
+    }
+  ]
+}

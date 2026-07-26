@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "kind": "responsive-procedural-soundscape",
+  "id": "harvest-responsive-soundscape-v1",
+  "status": "PROVISIONAL_NON_SHIPPING",
+  "shippingState": "PROHIBITED",
+  "output": {
+    "sampleRate": 48000,
+    "bitDepth": 24,
+    "channels": 2,
+    "container": "wav"
+  },
+  "mixGroups": {
+    "soundscape": ["rain-earth", "hearth-fire", "settlement-work"],
+    "spatialDetail": ["grain-contact", "fibre-strain"]
+  },
+  "regions": [
+    {
+      "id": "approach",
+      "timelineID": "harvest-approach-v1",
+      "soundscapeStateID": "shelter-before-division",
+      "durationSeconds": 60,
+      "loop": false,
+      "layers": [
+        { "id": "rain-earth", "material": "rain", "visibleSource": "Storm front, wet field and thatch beyond the shelter", "generator": { "algorithm": "rain-on-earth-v1", "seed": 241201, "density": 0.5, "colour": 0.34 }, "gainDB": -23, "pan": -0.18, "loop": false },
+        { "id": "hearth-fire", "material": "fire", "visibleSource": "Small hearth beside the winter-food destination", "generator": { "algorithm": "small-hearth-fire-v1", "seed": 241203, "density": 0.27, "colour": 0.62 }, "gainDB": -27, "pan": -0.58, "loop": false },
+        { "id": "grain-contact", "material": "grain", "visibleSource": "Finite grain source in the immediate foreground", "generator": { "algorithm": "dry-grain-contact-v1", "seed": 241207, "density": 0.23, "colour": 0.7 }, "gainDB": -20, "pan": 0.02, "loop": false },
+        { "id": "fibre-strain", "material": "textile", "visibleSource": "Woven store and lashing around the receiving vessels", "generator": { "algorithm": "woven-fibre-friction-v1", "seed": 241211, "density": 0.2, "colour": 0.55 }, "gainDB": -25, "pan": 0.28, "loop": false },
+        { "id": "settlement-work", "material": "work", "visibleSource": "Visible timber and vessel work behind the three stores", "generator": { "algorithm": "distant-material-work-v1", "seed": 241217, "density": 0.18, "colour": 0.42 }, "gainDB": -31, "pan": 0.46, "loop": false }
+      ],
+      "silenceWindows": [
+        { "id": "before-first-share", "atSeconds": 55.25, "durationSeconds": 2.75, "reason": "Expose the finite grain and three unmet claims before the interaction bed begins.", "entry": "authored-cut", "exit": "authored-return" }
+      ]
+    },
+    {
+      "id": "waiting",
+      "timelineID": "harvest-waiting-bed-v1",
+      "soundscapeStateID": "field-waiting",
+      "durationSeconds": 15,
+      "loop": true,
+      "layers": [
+        { "id": "rain-earth", "material": "rain", "visibleSource": "Rain crossing field and thatch beyond the untouched grain", "generator": { "algorithm": "rain-on-earth-v1", "seed": 241221, "density": 0.42, "colour": 0.38 }, "gainDB": -25, "pan": -0.16, "loop": true },
+        { "id": "hearth-fire", "material": "fire", "visibleSource": "Hearth waiting beside the winter-food store", "generator": { "algorithm": "small-hearth-fire-v1", "seed": 241223, "density": 0.25, "colour": 0.6 }, "gainDB": -29, "pan": -0.56, "loop": true },
+        { "id": "grain-contact", "material": "grain", "visibleSource": "Undivided foreground grain settling under its own weight", "generator": { "algorithm": "dry-grain-contact-v1", "seed": 241229, "density": 0.16, "colour": 0.68 }, "gainDB": -24, "pan": 0.02, "loop": true },
+        { "id": "fibre-strain", "material": "textile", "visibleSource": "Still woven mouths of the three receiving stores", "generator": { "algorithm": "woven-fibre-friction-v1", "seed": 241231, "density": 0.12, "colour": 0.53 }, "gainDB": -30, "pan": 0.26, "loop": true },
+        { "id": "settlement-work", "material": "work", "visibleSource": "Low vessel work by figures visible behind the stores", "generator": { "algorithm": "distant-material-work-v1", "seed": 241237, "density": 0.14, "colour": 0.4 }, "gainDB": -33, "pan": 0.44, "loop": true }
+      ],
+      "silenceWindows": [
+        { "id": "waiting-breath", "atSeconds": 14.82, "durationSeconds": 0.18, "reason": "A short material breath separates one waiting cycle from the next without advancing history.", "entry": "authored-cut", "exit": "authored-return" }
+      ]
+    },
+    {
+      "id": "engaged",
+      "timelineID": "harvest-engaged-bed-v1",
+      "soundscapeStateID": "field-engaged",
+      "durationSeconds": 15,
+      "loop": true,
+      "layers": [
+        { "id": "rain-earth", "material": "rain", "visibleSource": "Rain crossing the field while grain moves under shelter", "generator": { "algorithm": "rain-on-earth-v1", "seed": 241241, "density": 0.45, "colour": 0.36 }, "gainDB": -24, "pan": -0.18, "loop": true },
+        { "id": "hearth-fire", "material": "fire", "visibleSource": "Hearth beside grain entering winter food", "generator": { "algorithm": "small-hearth-fire-v1", "seed": 241249, "density": 0.3, "colour": 0.64 }, "gainDB": -27, "pan": -0.58, "loop": true },
+        { "id": "grain-contact", "material": "grain", "visibleSource": "Individual shares leaving the finite foreground pile", "generator": { "algorithm": "dry-grain-contact-v1", "seed": 241253, "density": 0.52, "colour": 0.74 }, "gainDB": -14, "pan": 0.04, "loop": true },
+        { "id": "fibre-strain", "material": "textile", "visibleSource": "Woven vessels flexing as moved grain arrives", "generator": { "algorithm": "woven-fibre-friction-v1", "seed": 241259, "density": 0.39, "colour": 0.59 }, "gainDB": -19, "pan": 0.28, "loop": true },
+        { "id": "settlement-work", "material": "work", "visibleSource": "Distant hands continuing vessel and timber work", "generator": { "algorithm": "distant-material-work-v1", "seed": 241261, "density": 0.17, "colour": 0.43 }, "gainDB": -32, "pan": 0.45, "loop": true }
+      ],
+      "silenceWindows": [
+        { "id": "transfer-breath", "atSeconds": 7.36, "durationSeconds": 0.14, "reason": "One brief cut leaves a completed material transfer visible before the responsive bed resumes.", "entry": "authored-cut", "exit": "authored-return" }
+      ]
+    },
+    {
+      "id": "resistance",
+      "timelineID": "harvest-resistance-bed-v1",
+      "soundscapeStateID": "field-resistance",
+      "durationSeconds": 15,
+      "loop": true,
+      "layers": [
+        { "id": "rain-earth", "material": "rain", "visibleSource": "Harder rain beyond the store when an obligation cannot be met", "generator": { "algorithm": "rain-on-earth-v1", "seed": 241267, "density": 0.62, "colour": 0.3 }, "gainDB": -20, "pan": -0.2, "loop": true },
+        { "id": "hearth-fire", "material": "fire", "visibleSource": "Hearth held low beside an underfilled winter store", "generator": { "algorithm": "small-hearth-fire-v1", "seed": 241271, "density": 0.2, "colour": 0.58 }, "gainDB": -31, "pan": -0.58, "loop": true },
+        { "id": "grain-contact", "material": "grain", "visibleSource": "Grain stopped at the boundary of an invalid transfer", "generator": { "algorithm": "dry-grain-contact-v1", "seed": 241277, "density": 0.32, "colour": 0.78 }, "gainDB": -19, "pan": 0.02, "loop": true },
+        { "id": "fibre-strain", "material": "textile", "visibleSource": "Lashing and woven fibre taking the stopped hand's pressure", "generator": { "algorithm": "woven-fibre-friction-v1", "seed": 241279, "density": 0.54, "colour": 0.63 }, "gainDB": -16, "pan": 0.3, "loop": true },
+        { "id": "settlement-work", "material": "work", "visibleSource": "Background work continuing while one local allocation resists", "generator": { "algorithm": "distant-material-work-v1", "seed": 241283, "density": 0.11, "colour": 0.37 }, "gainDB": -35, "pan": 0.46, "loop": true }
+      ],
+      "silenceWindows": [
+        { "id": "resistance-hold", "atSeconds": 11.7, "durationSeconds": 0.16, "reason": "The invalid movement stops cleanly before the unchanged store reasserts itself.", "entry": "authored-cut", "exit": "authored-return" }
+      ]
+    },
+    {
+      "id": "consequence",
+      "timelineID": "harvest-consequence-v1",
+      "soundscapeStateID": "store-through-season",
+      "durationSeconds": 50,
+      "loop": false,
+      "layers": [
+        { "id": "rain-earth", "material": "rain", "visibleSource": "Rain and then wet ground beyond the sealed store", "generator": { "algorithm": "rain-on-earth-v1", "seed": 241291, "density": 0.38, "colour": 0.4 }, "gainDB": -25, "pan": -0.18, "loop": false },
+        { "id": "hearth-fire", "material": "fire", "visibleSource": "Hearth consuming only the grain committed to winter food", "generator": { "algorithm": "small-hearth-fire-v1", "seed": 241297, "density": 0.26, "colour": 0.63 }, "gainDB": -28, "pan": -0.58, "loop": false },
+        { "id": "grain-contact", "material": "grain", "visibleSource": "Fixed grain levels inside the three completed stores", "generator": { "algorithm": "dry-grain-contact-v1", "seed": 241301, "density": 0.1, "colour": 0.66 }, "gainDB": -27, "pan": 0.04, "loop": false },
+        { "id": "fibre-strain", "material": "textile", "visibleSource": "Closed store lashings carrying weight through the season", "generator": { "algorithm": "woven-fibre-friction-v1", "seed": 241307, "density": 0.18, "colour": 0.52 }, "gainDB": -26, "pan": 0.28, "loop": false },
+        { "id": "settlement-work", "material": "work", "visibleSource": "Work shifting from threshing to winter maintenance beyond the doorway", "generator": { "algorithm": "distant-material-work-v1", "seed": 241309, "density": 0.15, "colour": 0.39 }, "gainDB": -32, "pan": 0.44, "loop": false }
+      ],
+      "silenceWindows": [
+        { "id": "season-turns", "atSeconds": 11.5, "durationSeconds": 5, "reason": "Hold the sealed stores unchanged while the weather beyond the doorway turns.", "entry": "authored-cut", "exit": "authored-return" }
+      ]
+    }
+  ]
+}

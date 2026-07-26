@@ -1,0 +1,1072 @@
+{
+  "schemaVersion": 1,
+  "status": "REJECTED_GEOMETRIC_MASK_NEGATIVE_FIXTURE_INVENTORY",
+  "shippingState": "PROHIBITED",
+  "editorApprovalState": "NOT_CLAIMED",
+  "authority": {
+    "path": "native/content/backstage/harvest/production-master-authority-v26.provisional.json",
+    "sha256": "82ffe59bfa5582b6fd2fb3d085fdd39e923e748352b735ae4f0e7f43fde44bbc"
+  },
+  "dag": {
+    "path": "native/content/backstage/harvest/visual-asset-dag-v26.provisional.json",
+    "bytes": 203998,
+    "sha256": "455ce0e77a3118680690e98cdd7837ea390841b7df89b2d02d2891a874e7c56e"
+  },
+  "master": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+    "bytes": 5860864,
+    "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca"
+  },
+  "backup": {
+    "path": "native/content/backstage/harvest/backups/production-master-candidate-v26.filevault-copy.png",
+    "bytes": 5860864,
+    "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca"
+  },
+  "counts": {
+    "finalAssets": {
+      "total": 86,
+      "baseLayers": 12,
+      "baseMasks": 27,
+      "stateFiles": 45,
+      "reduceMotionPlates": 2
+    },
+    "sources": 94,
+    "operations": 133
+  },
+  "sources": [
+    {
+      "id": "harvest-production-master-candidate-v26-garments-local-composite",
+      "kind": "provisional-master",
+      "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+      "bytes": 5860864,
+      "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca",
+      "dimensions": {
+        "width": 1290,
+        "height": 2796
+      }
+    },
+    {
+      "id": "source-storm-sky-base-depth",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/storm-sky-base-depth.pgm",
+      "bytes": 3606857,
+      "sha256": "d6558e1fa475bcac59dfd2e88f816e81493176b1c5c074b2de53d9b13d325d9d",
+      "dimensions": {
+        "width": 1290,
+        "height": 2796
+      }
+    },
+    {
+      "id": "source-storm-sky-base-light",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/storm-sky-base-light.pgm",
+      "bytes": 3606857,
+      "sha256": "2adda27cb2e922c6bafa047ecf4afbc07e7db1b59cc77bf9d70b4ee7609aed7f",
+      "dimensions": {
+        "width": 1290,
+        "height": 2796
+      }
+    },
+    {
+      "id": "source-farming-landscape-base-depth",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/farming-landscape-base-depth.pgm",
+      "bytes": 3606857,
+      "sha256": "d6558e1fa475bcac59dfd2e88f816e81493176b1c5c074b2de53d9b13d325d9d",
+      "dimensions": {
+        "width": 1290,
+        "height": 2796
+      }
+    },
+    {
+      "id": "source-settlement-base-alpha",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/settlement-base-alpha.pgm",
+      "bytes": 1462975,
+      "sha256": "13c3f6e3f0c7d88e5d2799409f30733fd6ccf7adc2de59770d2ce6a6ea844df4",
+      "dimensions": {
+        "width": 1162,
+        "height": 1259
+      }
+    },
+    {
+      "id": "source-settlement-base-depth",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/settlement-base-depth.pgm",
+      "bytes": 1462975,
+      "sha256": "a70ccecd0f0d9dfc17aa412c65bdf747700d176afe5ba65cfc1c60190d1bdf4b",
+      "dimensions": {
+        "width": 1162,
+        "height": 1259
+      }
+    },
+    {
+      "id": "source-settlement-base-light",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/settlement-base-light.pgm",
+      "bytes": 1462975,
+      "sha256": "6762857380924914d49d7719649970c9969d1174ba090015fb859ea6f29cb738",
+      "dimensions": {
+        "width": 1162,
+        "height": 1259
+      }
+    },
+    {
+      "id": "source-settlement-base-occlusion",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/settlement-base-occlusion.pgm",
+      "bytes": 1462975,
+      "sha256": "e24521e845a7b6d3f6df393f4b0408836349836b650703fbb2179a4e36f6eae2",
+      "dimensions": {
+        "width": 1162,
+        "height": 1259
+      }
+    },
+    {
+      "id": "source-people-and-work-base-alpha",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/people-and-work-base-alpha.pgm",
+      "bytes": 1153393,
+      "sha256": "805b71d4fdc4a71dc4ad239435a36a5f40d143167fe8cbad9783b96d146dbdfb",
+      "dimensions": {
+        "width": 1084,
+        "height": 1064
+      }
+    },
+    {
+      "id": "source-people-and-work-base-depth",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/people-and-work-base-depth.pgm",
+      "bytes": 1153393,
+      "sha256": "a61d1a4266fb5245a6a7b9caa72e8842e678e1ee2697e0bbef0965aa6626de71",
+      "dimensions": {
+        "width": 1084,
+        "height": 1064
+      }
+    },
+    {
+      "id": "source-allocation-ground-base-alpha",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/allocation-ground-base-alpha.pgm",
+      "bytes": 742407,
+      "sha256": "b9da11ec92c5544e991a2c30f6052a8c5c046c960e37bbd3ea8e2885ca9a8208",
+      "dimensions": {
+        "width": 982,
+        "height": 756
+      }
+    },
+    {
+      "id": "source-allocation-ground-base-depth",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/allocation-ground-base-depth.pgm",
+      "bytes": 742407,
+      "sha256": "7477a903230e34fea5916014b1b9815a8c056d1bd431a9ed2ce7ce362fd644bf",
+      "dimensions": {
+        "width": 982,
+        "height": 756
+      }
+    },
+    {
+      "id": "source-winter-store-base-alpha",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/winter-store-base-alpha.pgm",
+      "bytes": 164935,
+      "sha256": "97bacb895ff644d5e94ab3d446dd2f04f13861a177f298e694a9521829a5cd6f",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-winter-store-base-depth",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/winter-store-base-depth.pgm",
+      "bytes": 164935,
+      "sha256": "9d0b32f8058147e9dedf87f458a091065448eaa5ab5dbf716d11a9eec8ba87d4",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-winter-store-empty-alpha",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/winter-store-empty-alpha.pgm",
+      "bytes": 164935,
+      "sha256": "97bacb895ff644d5e94ab3d446dd2f04f13861a177f298e694a9521829a5cd6f",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-winter-store-empty-depth",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/winter-store-empty-depth.pgm",
+      "bytes": 164935,
+      "sha256": "9d0b32f8058147e9dedf87f458a091065448eaa5ab5dbf716d11a9eec8ba87d4",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-winter-store-receiving-alpha",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/winter-store-receiving-alpha.pgm",
+      "bytes": 164935,
+      "sha256": "97bacb895ff644d5e94ab3d446dd2f04f13861a177f298e694a9521829a5cd6f",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-winter-store-receiving-depth",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/winter-store-receiving-depth.pgm",
+      "bytes": 164935,
+      "sha256": "9d0b32f8058147e9dedf87f458a091065448eaa5ab5dbf716d11a9eec8ba87d4",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-winter-store-provisioned-alpha",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/winter-store-provisioned-alpha.pgm",
+      "bytes": 164935,
+      "sha256": "97bacb895ff644d5e94ab3d446dd2f04f13861a177f298e694a9521829a5cd6f",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-winter-store-provisioned-depth",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/winter-store-provisioned-depth.pgm",
+      "bytes": 164935,
+      "sha256": "9d0b32f8058147e9dedf87f458a091065448eaa5ab5dbf716d11a9eec8ba87d4",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-winter-store-provisioned-light",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/winter-store-provisioned-light.pgm",
+      "bytes": 164935,
+      "sha256": "f45075e7122328bd44ff28a0f9eb349fe815794a2a941948c29c2df3e990e897",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-protected-reserve-base-alpha",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/protected-reserve-base-alpha.pgm",
+      "bytes": 164935,
+      "sha256": "97bacb895ff644d5e94ab3d446dd2f04f13861a177f298e694a9521829a5cd6f",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-protected-reserve-base-depth",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/protected-reserve-base-depth.pgm",
+      "bytes": 164935,
+      "sha256": "9d0b32f8058147e9dedf87f458a091065448eaa5ab5dbf716d11a9eec8ba87d4",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-protected-reserve-empty-alpha",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/protected-reserve-empty-alpha.pgm",
+      "bytes": 164935,
+      "sha256": "97bacb895ff644d5e94ab3d446dd2f04f13861a177f298e694a9521829a5cd6f",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-protected-reserve-empty-depth",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/protected-reserve-empty-depth.pgm",
+      "bytes": 164935,
+      "sha256": "9d0b32f8058147e9dedf87f458a091065448eaa5ab5dbf716d11a9eec8ba87d4",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-protected-reserve-receiving-alpha",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/protected-reserve-receiving-alpha.pgm",
+      "bytes": 164935,
+      "sha256": "97bacb895ff644d5e94ab3d446dd2f04f13861a177f298e694a9521829a5cd6f",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-protected-reserve-receiving-depth",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/protected-reserve-receiving-depth.pgm",
+      "bytes": 164935,
+      "sha256": "9d0b32f8058147e9dedf87f458a091065448eaa5ab5dbf716d11a9eec8ba87d4",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-protected-reserve-sealed-alpha",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/protected-reserve-sealed-alpha.pgm",
+      "bytes": 164935,
+      "sha256": "97bacb895ff644d5e94ab3d446dd2f04f13861a177f298e694a9521829a5cd6f",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-protected-reserve-sealed-depth",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/protected-reserve-sealed-depth.pgm",
+      "bytes": 164935,
+      "sha256": "9d0b32f8058147e9dedf87f458a091065448eaa5ab5dbf716d11a9eec8ba87d4",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-protected-reserve-sealed-light",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/protected-reserve-sealed-light.pgm",
+      "bytes": 164935,
+      "sha256": "f45075e7122328bd44ff28a0f9eb349fe815794a2a941948c29c2df3e990e897",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-spring-seed-base-alpha",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/spring-seed-base-alpha.pgm",
+      "bytes": 164935,
+      "sha256": "97bacb895ff644d5e94ab3d446dd2f04f13861a177f298e694a9521829a5cd6f",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-spring-seed-base-depth",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/spring-seed-base-depth.pgm",
+      "bytes": 164935,
+      "sha256": "9d0b32f8058147e9dedf87f458a091065448eaa5ab5dbf716d11a9eec8ba87d4",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-spring-seed-empty-alpha",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/spring-seed-empty-alpha.pgm",
+      "bytes": 164935,
+      "sha256": "97bacb895ff644d5e94ab3d446dd2f04f13861a177f298e694a9521829a5cd6f",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-spring-seed-empty-depth",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/spring-seed-empty-depth.pgm",
+      "bytes": 164935,
+      "sha256": "9d0b32f8058147e9dedf87f458a091065448eaa5ab5dbf716d11a9eec8ba87d4",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-spring-seed-receiving-alpha",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/spring-seed-receiving-alpha.pgm",
+      "bytes": 164935,
+      "sha256": "97bacb895ff644d5e94ab3d446dd2f04f13861a177f298e694a9521829a5cd6f",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-spring-seed-receiving-depth",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/spring-seed-receiving-depth.pgm",
+      "bytes": 164935,
+      "sha256": "9d0b32f8058147e9dedf87f458a091065448eaa5ab5dbf716d11a9eec8ba87d4",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-spring-seed-committed-alpha",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/spring-seed-committed-alpha.pgm",
+      "bytes": 164935,
+      "sha256": "97bacb895ff644d5e94ab3d446dd2f04f13861a177f298e694a9521829a5cd6f",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-spring-seed-committed-depth",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/spring-seed-committed-depth.pgm",
+      "bytes": 164935,
+      "sha256": "9d0b32f8058147e9dedf87f458a091065448eaa5ab5dbf716d11a9eec8ba87d4",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-spring-seed-committed-light",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/spring-seed-committed-light.pgm",
+      "bytes": 164935,
+      "sha256": "f45075e7122328bd44ff28a0f9eb349fe815794a2a941948c29c2df3e990e897",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-central-harvest-base-alpha",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/central-harvest-base-alpha.pgm",
+      "bytes": 694415,
+      "sha256": "d583e76fa54132ee765f1ea56f22b80af765b0147dfd88391d64e0ff3e77de43",
+      "dimensions": {
+        "width": 800,
+        "height": 868
+      }
+    },
+    {
+      "id": "source-central-harvest-base-depth",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/central-harvest-base-depth.pgm",
+      "bytes": 694415,
+      "sha256": "5a0e005763da42b900a6145fd1887399d545bc6c639d7b03a8d27173ba460726",
+      "dimensions": {
+        "width": 800,
+        "height": 868
+      }
+    },
+    {
+      "id": "source-central-harvest-base-light",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/central-harvest-base-light.pgm",
+      "bytes": 694415,
+      "sha256": "0f1f895321909dda55570184ad67da719aa5fd6eeb8eb201884d268512998262",
+      "dimensions": {
+        "width": 800,
+        "height": 868
+      }
+    },
+    {
+      "id": "source-central-harvest-full-alpha",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/central-harvest-full-alpha.pgm",
+      "bytes": 694415,
+      "sha256": "81b7ec1f1edff4af1d8c4c09090cec80a066bfae9c1a73ce55ba3c47e7467663",
+      "dimensions": {
+        "width": 800,
+        "height": 868
+      }
+    },
+    {
+      "id": "source-central-harvest-full-depth",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/central-harvest-full-depth.pgm",
+      "bytes": 694415,
+      "sha256": "d847c4e11e41f327b95b6ad9bf21538b28b76b9bcc4157d35aa279b972359a67",
+      "dimensions": {
+        "width": 800,
+        "height": 868
+      }
+    },
+    {
+      "id": "source-central-harvest-full-light",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/central-harvest-full-light.pgm",
+      "bytes": 694415,
+      "sha256": "886997ed8e6c8532e118873469ec61371ae22a52fbb2b5e565bebae45305a2aa",
+      "dimensions": {
+        "width": 800,
+        "height": 868
+      }
+    },
+    {
+      "id": "source-central-harvest-reduced-alpha",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/central-harvest-reduced-alpha.pgm",
+      "bytes": 694415,
+      "sha256": "4381622a2e3fcf94f47ff750534ee5d8bd6a866f105b4a55e5d6a42025d05ae2",
+      "dimensions": {
+        "width": 800,
+        "height": 868
+      }
+    },
+    {
+      "id": "source-central-harvest-reduced-depth",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/central-harvest-reduced-depth.pgm",
+      "bytes": 694415,
+      "sha256": "9de0f1415e5c0e5519c182881dd8e0d9c953a7f99b8bdfcade317cb4fa9157af",
+      "dimensions": {
+        "width": 800,
+        "height": 868
+      }
+    },
+    {
+      "id": "source-central-harvest-reduced-light",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/central-harvest-reduced-light.pgm",
+      "bytes": 694415,
+      "sha256": "da76fd2f4b252dacd7500a3b24aba4f9954897aac64afe98251ce7f1594dc141",
+      "dimensions": {
+        "width": 800,
+        "height": 868
+      }
+    },
+    {
+      "id": "source-central-harvest-scarce-alpha",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/central-harvest-scarce-alpha.pgm",
+      "bytes": 694415,
+      "sha256": "17f2db2b4c2b2d7e2abdeb53dcd3890af100cc48344e67a505035f68df9df3c3",
+      "dimensions": {
+        "width": 800,
+        "height": 868
+      }
+    },
+    {
+      "id": "source-central-harvest-scarce-depth",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/central-harvest-scarce-depth.pgm",
+      "bytes": 694415,
+      "sha256": "ef3de5e164e4e963b871cde37c35adf331fe9010f897935ef3d21529aa05f837",
+      "dimensions": {
+        "width": 800,
+        "height": 868
+      }
+    },
+    {
+      "id": "source-central-harvest-scarce-light",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/central-harvest-scarce-light.pgm",
+      "bytes": 694415,
+      "sha256": "adced0d20fdf5fbf5710bc3984645f0f012eaa670ca4f973b35e38dd52d49509",
+      "dimensions": {
+        "width": 800,
+        "height": 868
+      }
+    },
+    {
+      "id": "source-central-harvest-exhausted-alpha",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/central-harvest-exhausted-alpha.pgm",
+      "bytes": 694415,
+      "sha256": "c21b10f5a4ac6975e40a4530edf5b1c9b31f0b2a2130d6d37c6d5bf8f1e2acdd",
+      "dimensions": {
+        "width": 800,
+        "height": 868
+      }
+    },
+    {
+      "id": "source-central-harvest-exhausted-depth",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/central-harvest-exhausted-depth.pgm",
+      "bytes": 694415,
+      "sha256": "c2f81cbf3d2c978210a9be908aaf96e5a62c8b915bca49eba50bb0a292e56b36",
+      "dimensions": {
+        "width": 800,
+        "height": 868
+      }
+    },
+    {
+      "id": "source-hands-and-grain-base-alpha",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/hands-and-grain-base-alpha.pgm",
+      "bytes": 1154566,
+      "sha256": "4562d73afb4f83de18c0347d14f8714b680761ecd1b697f087717f155d3455c2",
+      "dimensions": {
+        "width": 1290,
+        "height": 895
+      }
+    },
+    {
+      "id": "source-hands-and-grain-base-depth",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/hands-and-grain-base-depth.pgm",
+      "bytes": 1154566,
+      "sha256": "03aed30126b730474202ee56721505ea7845b01c811075d9559c16b40064e1f8",
+      "dimensions": {
+        "width": 1290,
+        "height": 895
+      }
+    },
+    {
+      "id": "source-hands-and-grain-base-occlusion",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/hands-and-grain-base-occlusion.pgm",
+      "bytes": 1154566,
+      "sha256": "6957a491c1846e599ed93faec17c4b4ce5356b6c3f8f46af0b03706f71b6a5e1",
+      "dimensions": {
+        "width": 1290,
+        "height": 895
+      }
+    },
+    {
+      "id": "source-foreground-occluders-base-alpha",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/foreground-occluders-base-alpha.pgm",
+      "bytes": 3606857,
+      "sha256": "409ae6ce1bc6476dfa5abf91991bf2a24f7ae8909809c3eeaf22519696773bfc",
+      "dimensions": {
+        "width": 1290,
+        "height": 2796
+      }
+    },
+    {
+      "id": "source-foreground-occluders-base-occlusion",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/foreground-occluders-base-occlusion.pgm",
+      "bytes": 3606857,
+      "sha256": "7da17dc06d307ae474632dbd380f70b0d18662f437e4f9903da65292e9979be6",
+      "dimensions": {
+        "width": 1290,
+        "height": 2796
+      }
+    },
+    {
+      "id": "source-mechanism-light-base-alpha",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/mechanism-light-base-alpha.pgm",
+      "bytes": 3606857,
+      "sha256": "8f5027682101517bcbf76b01acc8d3233eb8630e218be7038a7906650e7e619e",
+      "dimensions": {
+        "width": 1290,
+        "height": 2796
+      }
+    },
+    {
+      "id": "source-mechanism-light-base-light",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/masks/mechanism-light-base-light.pgm",
+      "bytes": 3606857,
+      "sha256": "f5e62a4eb51681401c2ffe54bd5e9580b757bade40f22111568eb6e498b02857",
+      "dimensions": {
+        "width": 1290,
+        "height": 2796
+      }
+    },
+    {
+      "id": "source-control-rain-density",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/control-masks/rain-density.pgm",
+      "bytes": 3606857,
+      "sha256": "88395edc88f750ebeb7fa3e22fe4865b478cfab81960baeb2d8659855aea79c5",
+      "dimensions": {
+        "width": 1290,
+        "height": 2796
+      }
+    },
+    {
+      "id": "source-control-rain-occlusion",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/control-masks/rain-occlusion.pgm",
+      "bytes": 3606857,
+      "sha256": "4265550cd9786aef071285be0a90d7f737d30989a7c8dc8ecd647170d30b6b62",
+      "dimensions": {
+        "width": 1290,
+        "height": 2796
+      }
+    },
+    {
+      "id": "source-control-smoke-emission",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/control-masks/smoke-emission.pgm",
+      "bytes": 3606857,
+      "sha256": "4b847513819513995499bfea7b55fae3bff48d1857f779f45759065f6c848a94",
+      "dimensions": {
+        "width": 1290,
+        "height": 2796
+      }
+    },
+    {
+      "id": "source-control-smoke-occlusion",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/control-masks/smoke-occlusion.pgm",
+      "bytes": 3606857,
+      "sha256": "d9aabea19f7625da3978c02842ec9a04229355f248523274b5d2d30eef7088bc",
+      "dimensions": {
+        "width": 1290,
+        "height": 2796
+      }
+    },
+    {
+      "id": "source-control-winter-store-empty-change",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/control-masks/winter-store-empty-change.pgm",
+      "bytes": 164935,
+      "sha256": "97bacb895ff644d5e94ab3d446dd2f04f13861a177f298e694a9521829a5cd6f",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-control-winter-store-receiving-change",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/control-masks/winter-store-receiving-change.pgm",
+      "bytes": 164935,
+      "sha256": "97bacb895ff644d5e94ab3d446dd2f04f13861a177f298e694a9521829a5cd6f",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-control-winter-store-provisioned-change",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/control-masks/winter-store-provisioned-change.pgm",
+      "bytes": 164935,
+      "sha256": "97bacb895ff644d5e94ab3d446dd2f04f13861a177f298e694a9521829a5cd6f",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-control-protected-reserve-empty-change",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/control-masks/protected-reserve-empty-change.pgm",
+      "bytes": 164935,
+      "sha256": "97bacb895ff644d5e94ab3d446dd2f04f13861a177f298e694a9521829a5cd6f",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-control-protected-reserve-receiving-change",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/control-masks/protected-reserve-receiving-change.pgm",
+      "bytes": 164935,
+      "sha256": "97bacb895ff644d5e94ab3d446dd2f04f13861a177f298e694a9521829a5cd6f",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-control-protected-reserve-sealed-change",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/control-masks/protected-reserve-sealed-change.pgm",
+      "bytes": 164935,
+      "sha256": "97bacb895ff644d5e94ab3d446dd2f04f13861a177f298e694a9521829a5cd6f",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-control-spring-seed-empty-change",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/control-masks/spring-seed-empty-change.pgm",
+      "bytes": 164935,
+      "sha256": "97bacb895ff644d5e94ab3d446dd2f04f13861a177f298e694a9521829a5cd6f",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-control-spring-seed-receiving-change",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/control-masks/spring-seed-receiving-change.pgm",
+      "bytes": 164935,
+      "sha256": "97bacb895ff644d5e94ab3d446dd2f04f13861a177f298e694a9521829a5cd6f",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-control-spring-seed-committed-change",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/control-masks/spring-seed-committed-change.pgm",
+      "bytes": 164935,
+      "sha256": "97bacb895ff644d5e94ab3d446dd2f04f13861a177f298e694a9521829a5cd6f",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-control-central-harvest-full-change",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/control-masks/central-harvest-full-change.pgm",
+      "bytes": 694415,
+      "sha256": "f139b7ac63c0565b9f671931928f1b350fab576090d05e708f8567f1ff6973d4",
+      "dimensions": {
+        "width": 800,
+        "height": 868
+      }
+    },
+    {
+      "id": "source-control-central-harvest-reduced-change",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/control-masks/central-harvest-reduced-change.pgm",
+      "bytes": 694415,
+      "sha256": "f139b7ac63c0565b9f671931928f1b350fab576090d05e708f8567f1ff6973d4",
+      "dimensions": {
+        "width": 800,
+        "height": 868
+      }
+    },
+    {
+      "id": "source-control-central-harvest-scarce-change",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/control-masks/central-harvest-scarce-change.pgm",
+      "bytes": 694415,
+      "sha256": "f139b7ac63c0565b9f671931928f1b350fab576090d05e708f8567f1ff6973d4",
+      "dimensions": {
+        "width": 800,
+        "height": 868
+      }
+    },
+    {
+      "id": "source-control-central-harvest-exhausted-change",
+      "kind": "authored-mask",
+      "path": "native/.build/visual-assets/harvest-v26-sources/control-masks/central-harvest-exhausted-change.pgm",
+      "bytes": 694415,
+      "sha256": "f139b7ac63c0565b9f671931928f1b350fab576090d05e708f8567f1ff6973d4",
+      "dimensions": {
+        "width": 800,
+        "height": 868
+      }
+    },
+    {
+      "id": "source-clean-world-background",
+      "kind": "clean-plate",
+      "path": "native/.build/visual-assets/harvest-v26-sources/clean-plates/clean-world-background.ppm",
+      "bytes": 10820537,
+      "sha256": "6e6d67eaa865c8af3ef8a07e880b457b933a973f0d541539a702e95754956059",
+      "dimensions": {
+        "width": 1290,
+        "height": 2796
+      }
+    },
+    {
+      "id": "source-clean-settlement-plane",
+      "kind": "clean-plate",
+      "path": "native/.build/visual-assets/harvest-v26-sources/clean-plates/clean-settlement-plane.ppm",
+      "bytes": 10820537,
+      "sha256": "9457e9499e4ea8f7b84e5ac85ad8be78b485c69ad5a11401b4de57ce4a277bbd",
+      "dimensions": {
+        "width": 1290,
+        "height": 2796
+      }
+    },
+    {
+      "id": "source-clean-allocation-foreground",
+      "kind": "clean-plate",
+      "path": "native/.build/visual-assets/harvest-v26-sources/clean-plates/clean-allocation-foreground.ppm",
+      "bytes": 10820537,
+      "sha256": "e270f27e939472e576944fda51acbeff3ed4634744351c04fa4aed93bb508fa7",
+      "dimensions": {
+        "width": 1290,
+        "height": 2796
+      }
+    },
+    {
+      "id": "source-mechanism-light-black",
+      "kind": "layer-plate",
+      "path": "native/.build/visual-assets/harvest-v26-sources/layer-plates/mechanism-light-black.ppm",
+      "bytes": 10820537,
+      "sha256": "3fae16f7eb95e9fd70f0608df0306024ab2ebc150637abda10d5c047ec81dff3",
+      "dimensions": {
+        "width": 1290,
+        "height": 2796
+      }
+    },
+    {
+      "id": "source-state-winter-store-empty",
+      "kind": "state-plate",
+      "path": "native/.build/visual-assets/harvest-v26-sources/state-plates/winter-store-empty.ppm",
+      "bytes": 494775,
+      "sha256": "dd4ff2bcc8785d5c4775888dbae441675362f5a50d411be9bd2b784616039a90",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-state-winter-store-receiving",
+      "kind": "state-plate",
+      "path": "native/.build/visual-assets/harvest-v26-sources/state-plates/winter-store-receiving.ppm",
+      "bytes": 494775,
+      "sha256": "d3a62a93adba5c044dc956d8d21b8efe00830369c01ca0dfc4b856744795a63f",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-state-winter-store-provisioned",
+      "kind": "state-plate",
+      "path": "native/.build/visual-assets/harvest-v26-sources/state-plates/winter-store-provisioned.ppm",
+      "bytes": 494775,
+      "sha256": "a24f379ef3fe77e7fed2345224eb5dd54065d787e648bfa507f62ea583aacc0f",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-state-protected-reserve-empty",
+      "kind": "state-plate",
+      "path": "native/.build/visual-assets/harvest-v26-sources/state-plates/protected-reserve-empty.ppm",
+      "bytes": 494775,
+      "sha256": "d80487522f5885ad36287800f62105efa355ed1c1d387790a5874f0d68beadc8",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-state-protected-reserve-receiving",
+      "kind": "state-plate",
+      "path": "native/.build/visual-assets/harvest-v26-sources/state-plates/protected-reserve-receiving.ppm",
+      "bytes": 494775,
+      "sha256": "f1d1ca1578201a1f91a26c68c232517f26f8df16dfd1b7b2959dc0ce4f441c21",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-state-protected-reserve-sealed",
+      "kind": "state-plate",
+      "path": "native/.build/visual-assets/harvest-v26-sources/state-plates/protected-reserve-sealed.ppm",
+      "bytes": 494775,
+      "sha256": "073f084e9c42355648b5eb41ae270ae3349d9c04afa8b48e633acc3d8ebe0858",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-state-spring-seed-empty",
+      "kind": "state-plate",
+      "path": "native/.build/visual-assets/harvest-v26-sources/state-plates/spring-seed-empty.ppm",
+      "bytes": 494775,
+      "sha256": "e7ce03c61006390d09f9d0cac2233dc2314a57195d4e1a2c1813d00fefd878fe",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-state-spring-seed-receiving",
+      "kind": "state-plate",
+      "path": "native/.build/visual-assets/harvest-v26-sources/state-plates/spring-seed-receiving.ppm",
+      "bytes": 494775,
+      "sha256": "58de019d29e095c8af7bd4db24dc000b36c151b3f7fb7295ad07e6d881db8ae5",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-state-spring-seed-committed",
+      "kind": "state-plate",
+      "path": "native/.build/visual-assets/harvest-v26-sources/state-plates/spring-seed-committed.ppm",
+      "bytes": 494775,
+      "sha256": "6917dc84fe72de769a9b5f5cc15e687b7daee7a6c75b931b483cf7f81ff88cb2",
+      "dimensions": {
+        "width": 310,
+        "height": 532
+      }
+    },
+    {
+      "id": "source-state-central-harvest-full",
+      "kind": "state-plate",
+      "path": "native/.build/visual-assets/harvest-v26-sources/state-plates/central-harvest-full.ppm",
+      "bytes": 2083215,
+      "sha256": "3735303d9aac2c2c0a074baff83f43b32e6e1a2f3b6dcc6ca13e0f64f06c5391",
+      "dimensions": {
+        "width": 800,
+        "height": 868
+      }
+    },
+    {
+      "id": "source-state-central-harvest-reduced",
+      "kind": "state-plate",
+      "path": "native/.build/visual-assets/harvest-v26-sources/state-plates/central-harvest-reduced.ppm",
+      "bytes": 2083215,
+      "sha256": "c107009b66ed1d509696434ae1ff814a3c5da0f63d3aab253cc48ceb9bd5a912",
+      "dimensions": {
+        "width": 800,
+        "height": 868
+      }
+    },
+    {
+      "id": "source-state-central-harvest-scarce",
+      "kind": "state-plate",
+      "path": "native/.build/visual-assets/harvest-v26-sources/state-plates/central-harvest-scarce.ppm",
+      "bytes": 2083215,
+      "sha256": "dd395ee6db5a0704b25a46d7ecca24976dcbfbe9707d49ef60775bc7b5cf3a88",
+      "dimensions": {
+        "width": 800,
+        "height": 868
+      }
+    },
+    {
+      "id": "source-state-central-harvest-exhausted",
+      "kind": "state-plate",
+      "path": "native/.build/visual-assets/harvest-v26-sources/state-plates/central-harvest-exhausted.ppm",
+      "bytes": 2083215,
+      "sha256": "293215246914258f93cffce5eacf417f70190e2374d21dac80704ec1483ebb49",
+      "dimensions": {
+        "width": 800,
+        "height": 868
+      }
+    }
+  ]
+}

@@ -1,0 +1,197 @@
+{
+  "schemaVersion": 1,
+  "status": "TECHNICAL_PROBE_NOT_APPROVED",
+  "inputs": [
+    {
+      "id": "harvest-score-technique-v1",
+      "path": "native/audio/score-soundscape/harvest-score-technique.json",
+      "bytes": 3878,
+      "sha256": "8df9317a66c1669e396d038cf5bc37c84b672b3114f74eb0c5ad22b49bd27803"
+    },
+    {
+      "id": "harvest-soundscape-technique-v1",
+      "path": "native/audio/score-soundscape/harvest-soundscape-technique.json",
+      "bytes": 2359,
+      "sha256": "e9b03c5c85e810bf1f2d99548a812342ca500ac05184fd48a10448f70ef370f5"
+    },
+    {
+      "id": "score-soundscape-toolchain",
+      "path": "native/audio/score-soundscape/toolchain.json",
+      "bytes": 1963,
+      "sha256": "1a1a94ed56652f37681b9d74154c78741e53b280e80bab3f18b1db3fddef8ddd"
+    },
+    {
+      "id": "audio-production-renderer",
+      "path": "native/tooling/src/audio-production.mjs",
+      "bytes": 49751,
+      "sha256": "d997f68ffb75150bf5cff0aea537891bccaf45d630e46b3e2698498b58e44439"
+    },
+    {
+      "id": "audio-production-schema",
+      "path": "native/schemas/audio-production-plan.schema.json",
+      "bytes": 7652,
+      "sha256": "7d681658c6d934e0e7a362c819bd3dee8339d1ff0c0c9cc2bce520dd1cd9335c"
+    }
+  ],
+  "toolchain": {
+    "fluidSynthVersion": "2.5.6",
+    "fluidSynthBinarySHA256": "eaec07113cbbac0899368788a9597eddae6ac0db30c1a5c1bbe8b19ee6c6a567",
+    "soundFontVersion": "MS Basic 0.2.0",
+    "soundFontSHA256": "5ea2375e8bd7d8e71def1036978c1621e85b66934169b6a2744b27b9b3c2d99c",
+    "notice": {
+      "path": "licenses/MS-Basic-0.2.0-LICENSE.md",
+      "bytes": 3320,
+      "sha256": "bf7db123b5d6c0beb1a37f6e1b11c6f4dfd8fb6abd5d59ff282ea24a5cd932e5"
+    },
+    "nodeRuntime": {
+      "version": "v26.3.1",
+      "executableSHA256": "56694c81b093cc8da273fa017cf91765b3653e5f64f16727976ffaa87b2b6b31",
+      "executableBytes": 68384
+    }
+  },
+  "authoredSilence": [
+    {
+      "id": "before-first-share",
+      "atSeconds": 3.2,
+      "durationSeconds": 1.4,
+      "reason": "Leave the finite grain and the three obligations exposed before the first transfer.",
+      "entry": "authored-cut",
+      "exit": "authored-return"
+    }
+  ],
+  "outputs": [
+    {
+      "role": "score",
+      "stemID": "earth",
+      "path": "score-earth.mid",
+      "bytes": 178,
+      "sha256": "250f15d8fe35c183b9af4ef67fa1dfbdee308da22d525a359dd5c3627aaee9fb"
+    },
+    {
+      "role": "score",
+      "stemID": "earth",
+      "path": "score-earth.wav",
+      "bytes": 6545324,
+      "sha256": "d27adc394289118b98e43e98d300f4fa94844ebafe36871cd27966c94ef80450",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 1090880
+      }
+    },
+    {
+      "role": "score",
+      "stemID": "division",
+      "path": "score-division.mid",
+      "bytes": 218,
+      "sha256": "c2b77fdebc20c8abd1903af3619aa421171d37687a28afeebefc4b78bbc3a901"
+    },
+    {
+      "role": "score",
+      "stemID": "division",
+      "path": "score-division.wav",
+      "bytes": 7618220,
+      "sha256": "80f4a7784cfa4455a1a1667e605afacc5fa42e6b6089b592904e68d3e456a0a6",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 1269696
+      }
+    },
+    {
+      "role": "score",
+      "stemID": "obligation",
+      "path": "score-obligation.mid",
+      "bytes": 168,
+      "sha256": "ca92559c970ec0b0f7ac0baf39d5010012e22e0ab14afaa6dd960041c3cf9b2f"
+    },
+    {
+      "role": "score",
+      "stemID": "obligation",
+      "path": "score-obligation.wav",
+      "bytes": 6798380,
+      "sha256": "1f4fcf1c719058229014bc8a1f180c2b259687bc672f43bfd5cfeb38e942c5ca",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 1133056
+      }
+    },
+    {
+      "role": "soundscape",
+      "layerID": "rain-earth",
+      "path": "soundscape-rain-earth.wav",
+      "bytes": 2304044,
+      "sha256": "1aab4dd5a9e99a49be6aec44c27ebb1513dab60cc2ce6148eb424878f0a09fd8",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 384000
+      }
+    },
+    {
+      "role": "soundscape",
+      "layerID": "hearth-fire",
+      "path": "soundscape-hearth-fire.wav",
+      "bytes": 2304044,
+      "sha256": "379f5a17a118e2f97d4917fce9d6d4123971456cfbecfb53cad6015cefdc5532",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 384000
+      }
+    },
+    {
+      "role": "soundscape",
+      "layerID": "grain-contact",
+      "path": "soundscape-grain-contact.wav",
+      "bytes": 2304044,
+      "sha256": "9629787cb6b3dec3c11816af6fda04e12c069d203a2c7d89ce71cc995dfb0e46",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 384000
+      }
+    },
+    {
+      "role": "soundscape",
+      "layerID": "fibre-strain",
+      "path": "soundscape-fibre-strain.wav",
+      "bytes": 2304044,
+      "sha256": "21d4e4320234f80c9daa1b6441abbf9a32023ea616a65c5794665ca484fd06dd",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 384000
+      }
+    },
+    {
+      "role": "soundscape",
+      "layerID": "settlement-work",
+      "path": "soundscape-settlement-work.wav",
+      "bytes": 2304044,
+      "sha256": "1aa560035b3f76ba2a8a006e8f1ef4d94d84f27b525c51c868411cfd8c982388",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 384000
+      }
+    }
+  ],
+  "gates": {
+    "technicalFormat": "PASS",
+    "symbolicEditability": "PASS",
+    "independentStems": "PASS",
+    "commercialRights": "PASS_WITH_RECORDED_MIT_NOTICE",
+    "artisticHarvestApproval": "OPEN",
+    "seamAndTruePeakAudit": "OPEN"
+  }
+}

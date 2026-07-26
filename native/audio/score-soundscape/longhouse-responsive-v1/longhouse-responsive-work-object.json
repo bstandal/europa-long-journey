@@ -1,0 +1,633 @@
+{
+  "schemaVersion": 1,
+  "kind": "responsive-dramatic-audio-work-object",
+  "id": "longhouse-responsive-audio-v1",
+  "status": "PROVISIONAL_NON_SHIPPING",
+  "shippingState": "PROHIBITED",
+  "trustDomain": "BACKSTAGE_AUDIO_PRODUCTION",
+  "scope": {
+    "chapterID": "first-farmers",
+    "arcID": "first-farmers-arc-03",
+    "beatID": "beat-first-farmers-raise-longhouse",
+    "interactionID": "interaction-first-farmers-the-house-outlives"
+  },
+  "responsiveProgram": {
+    "id": "longhouse-responsive-audio-v1",
+    "scope": {
+      "chapterID": "first-farmers",
+      "arcID": "first-farmers-arc-03",
+      "beatID": "beat-first-farmers-raise-longhouse",
+      "interactionID": "interaction-first-farmers-the-house-outlives"
+    },
+    "approachTimelineID": "longhouse-approach-v1",
+    "interactionBeds": [
+      {
+        "phase": "waiting",
+        "timelineID": "longhouse-waiting-bed-v1",
+        "layerStates": {
+          "scoreStateID": "components-wait-on-open-ground",
+          "soundscapeStateID": "components-wait-on-open-ground"
+        }
+      },
+      {
+        "phase": "engaged",
+        "timelineID": "longhouse-engaged-bed-v1",
+        "layerStates": {
+          "scoreStateID": "accepted-parts-take-weight",
+          "soundscapeStateID": "accepted-parts-take-weight"
+        }
+      },
+      {
+        "phase": "resistance",
+        "timelineID": "longhouse-resistance-bed-v1",
+        "layerStates": {
+          "scoreStateID": "unsupported-order-holds",
+          "soundscapeStateID": "unsupported-component-resists"
+        }
+      }
+    ],
+    "consequenceTimelineID": "longhouse-consequence-v1",
+    "exitPolicy": {
+      "kind": "bounded-fade",
+      "durationSamples": 9600
+    }
+  },
+  "timelines": [
+    {
+      "id": "longhouse-approach-v1",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "approach-score-master",
+          "role": "score",
+          "startSample": 0,
+          "durationSamples": 2304000,
+          "assetPath": "audio/first-farmers/longhouse-responsive-v1/approach/score-master.wav",
+          "gain": 0.72
+        },
+        {
+          "cueID": "approach-soundscape-master",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 2304000,
+          "assetPath": "audio/first-farmers/longhouse-responsive-v1/approach/soundscape-master.wav",
+          "gain": 0.82
+        },
+        {
+          "cueID": "approach-spatial-detail-master",
+          "role": "spatialDetail",
+          "startSample": 0,
+          "durationSamples": 2304000,
+          "assetPath": "audio/first-farmers/longhouse-responsive-v1/approach/spatial-detail-master.wav",
+          "gain": 0.9
+        },
+        {
+          "cueID": "approach-before-first-post",
+          "role": "silence",
+          "startSample": 2088000,
+          "durationSamples": 120000,
+          "assetPath": null,
+          "gain": 1
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "longhouse-waiting-bed-v1",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "waiting-score-master",
+          "role": "score",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/longhouse-responsive-v1/waiting/score-master.wav",
+          "gain": 0.72
+        },
+        {
+          "cueID": "waiting-soundscape-master",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/longhouse-responsive-v1/waiting/soundscape-master.wav",
+          "gain": 0.82
+        },
+        {
+          "cueID": "waiting-spatial-detail-master",
+          "role": "spatialDetail",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/longhouse-responsive-v1/waiting/spatial-detail-master.wav",
+          "gain": 0.9
+        },
+        {
+          "cueID": "waiting-waiting-joint",
+          "role": "silence",
+          "startSample": 711360,
+          "durationSamples": 8640,
+          "assetPath": null,
+          "gain": 1
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "longhouse-engaged-bed-v1",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "engaged-score-master",
+          "role": "score",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/longhouse-responsive-v1/engaged/score-master.wav",
+          "gain": 0.72
+        },
+        {
+          "cueID": "engaged-soundscape-master",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/longhouse-responsive-v1/engaged/soundscape-master.wav",
+          "gain": 0.82
+        },
+        {
+          "cueID": "engaged-spatial-detail-master",
+          "role": "spatialDetail",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/longhouse-responsive-v1/engaged/spatial-detail-master.wav",
+          "gain": 0.9
+        },
+        {
+          "cueID": "engaged-accepted-load",
+          "role": "silence",
+          "startSample": 351360,
+          "durationSamples": 7680,
+          "assetPath": null,
+          "gain": 1
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "longhouse-resistance-bed-v1",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "resistance-score-master",
+          "role": "score",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/longhouse-responsive-v1/resistance/score-master.wav",
+          "gain": 0.72
+        },
+        {
+          "cueID": "resistance-soundscape-master",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/longhouse-responsive-v1/resistance/soundscape-master.wav",
+          "gain": 0.82
+        },
+        {
+          "cueID": "resistance-spatial-detail-master",
+          "role": "spatialDetail",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/longhouse-responsive-v1/resistance/spatial-detail-master.wav",
+          "gain": 0.9
+        },
+        {
+          "cueID": "resistance-unsupported-hold",
+          "role": "silence",
+          "startSample": 557760,
+          "durationSamples": 9600,
+          "assetPath": null,
+          "gain": 1
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "longhouse-consequence-v1",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "consequence-score-master",
+          "role": "score",
+          "startSample": 0,
+          "durationSamples": 2160000,
+          "assetPath": "audio/first-farmers/longhouse-responsive-v1/consequence/score-master.wav",
+          "gain": 0.72
+        },
+        {
+          "cueID": "consequence-soundscape-master",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 2160000,
+          "assetPath": "audio/first-farmers/longhouse-responsive-v1/consequence/soundscape-master.wav",
+          "gain": 0.82
+        },
+        {
+          "cueID": "consequence-spatial-detail-master",
+          "role": "spatialDetail",
+          "startSample": 0,
+          "durationSamples": 2160000,
+          "assetPath": "audio/first-farmers/longhouse-responsive-v1/consequence/spatial-detail-master.wav",
+          "gain": 0.9
+        },
+        {
+          "cueID": "consequence-plot-outlives-timber",
+          "role": "silence",
+          "startSample": 576000,
+          "durationSamples": 192000,
+          "assetPath": null,
+          "gain": 1
+        }
+      ],
+      "haptics": []
+    }
+  ],
+  "audioAssetMetadata": [
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/approach/score-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 2304000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/approach/soundscape-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 2304000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/approach/spatial-detail-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 2304000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/consequence/score-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 2160000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/consequence/soundscape-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 2160000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/consequence/spatial-detail-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 2160000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/engaged/score-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/engaged/soundscape-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/engaged/spatial-detail-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/resistance/score-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/resistance/soundscape-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/resistance/spatial-detail-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/waiting/score-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/waiting/soundscape-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/waiting/spatial-detail-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    }
+  ],
+  "narrationSlots": [
+    {
+      "timelineID": "longhouse-approach-v1",
+      "status": "MISSING_EDITOR_SELECTED_NARRATION_MASTER",
+      "requiredAssetPath": "audio/first-farmers/longhouse-responsive-v1/approach/narration-selected-master-required.wav",
+      "sourceDocumentSHA256": "4c3a0a2a4f9a3ec5361d2e34c2f6dd21072f27176e60c881f013c93f76e4a5dd",
+      "segments": [
+        {
+          "manuscriptSegmentID": "ff-house-01",
+          "manuscriptSegmentSHA256": "8d58fa47d1c2d1046144617dbc426829e6e97f7b303703d9e5fdcfb374dcbd61"
+        },
+        {
+          "manuscriptSegmentID": "ff-house-02",
+          "manuscriptSegmentSHA256": "be680f2d5df935bc86bb30c644eb67d1d0320610971b8e56746c2057e77f58d5"
+        }
+      ],
+      "insertionRule": "ADD_NARRATION_EVENTS_ONLY_AFTER_EDITOR_VOICE_SELECTION_AND_EXACT_WORD_ALIGNMENT",
+      "shippingBlock": true
+    },
+    {
+      "timelineID": "longhouse-consequence-v1",
+      "status": "MISSING_EDITOR_SELECTED_NARRATION_MASTER",
+      "requiredAssetPath": "audio/first-farmers/longhouse-responsive-v1/consequence/narration-selected-master-required.wav",
+      "sourceDocumentSHA256": "4c3a0a2a4f9a3ec5361d2e34c2f6dd21072f27176e60c881f013c93f76e4a5dd",
+      "segments": [
+        {
+          "manuscriptSegmentID": "ff-plot-01",
+          "manuscriptSegmentSHA256": "25c57a692d42215f9dad585f95e5a532940a561b154a4cd45a2dcec61e48f0c8"
+        },
+        {
+          "manuscriptSegmentID": "ff-plot-02",
+          "manuscriptSegmentSHA256": "3d4cd32d1629038991c31214d314958cb7c987281ce10d0969dbc1ce24299430"
+        }
+      ],
+      "insertionRule": "ADD_NARRATION_EVENTS_ONLY_AFTER_EDITOR_VOICE_SELECTION_AND_EXACT_WORD_ALIGNMENT",
+      "shippingBlock": true
+    }
+  ],
+  "hapticProgram": {
+    "vocabulary": [
+      "contact",
+      "drag",
+      "resistance",
+      "transfer",
+      "break",
+      "seal"
+    ],
+    "activeLonghouseSemantics": [
+      "contact",
+      "resistance",
+      "seal"
+    ],
+    "reservedForOtherGrammars": [
+      "drag",
+      "transfer",
+      "break"
+    ],
+    "runtimeBindings": [
+      {
+        "trigger": "interaction-begin",
+        "semantic": "contact",
+        "durableCommitRequired": false
+      },
+      {
+        "trigger": "component-rejected",
+        "semantic": "resistance",
+        "durableCommitRequired": false
+      },
+      {
+        "trigger": "durable-completion",
+        "semantic": "seal",
+        "durableCommitRequired": true
+      }
+    ],
+    "loopedTimelineHaptics": "FORBIDDEN",
+    "accessibilityRule": "HAPTICS_NEVER_CARRY_THE_ONLY_CAUSAL_SIGNAL"
+  },
+  "authoredSilence": [
+    {
+      "timelineID": "longhouse-approach-v1",
+      "sampleRate": 48000,
+      "startSample": 2088000,
+      "durationSamples": 120000,
+      "id": "before-first-post",
+      "reason": "Leave the cut postholes and separated components exposed before the first structural action."
+    },
+    {
+      "timelineID": "longhouse-waiting-bed-v1",
+      "sampleRate": 48000,
+      "startSample": 711360,
+      "durationSamples": 8640,
+      "id": "waiting-joint",
+      "reason": "A short structural breath separates identical waiting cycles without advancing assembly."
+    },
+    {
+      "timelineID": "longhouse-engaged-bed-v1",
+      "sampleRate": 48000,
+      "startSample": 351360,
+      "durationSamples": 7680,
+      "id": "accepted-load",
+      "reason": "Hold one accepted component visibly under load before work resumes around it."
+    },
+    {
+      "timelineID": "longhouse-resistance-bed-v1",
+      "sampleRate": 48000,
+      "startSample": 557760,
+      "durationSamples": 9600,
+      "id": "unsupported-hold",
+      "reason": "Stop the rejected load cleanly before the unchanged dependency order returns."
+    },
+    {
+      "timelineID": "longhouse-consequence-v1",
+      "sampleRate": 48000,
+      "startSample": 576000,
+      "durationSamples": 192000,
+      "id": "plot-outlives-timber",
+      "reason": "Hold the completed plot through the temporal cut from failed timbers to rebuilding."
+    }
+  ],
+  "previewMetrics": {
+    "approach": {
+      "integratedLUFS": -28.4,
+      "truePeakDBTP": -13.7
+    },
+    "waiting": {
+      "integratedLUFS": -27.1,
+      "truePeakDBTP": -13.5,
+      "loopSeam": {
+        "leftDelta": 0,
+        "rightDelta": 0
+      }
+    },
+    "engaged": {
+      "integratedLUFS": -26.1,
+      "truePeakDBTP": -12.6,
+      "loopSeam": {
+        "leftDelta": 0,
+        "rightDelta": 0
+      }
+    },
+    "resistance": {
+      "integratedLUFS": -22.6,
+      "truePeakDBTP": -11.4,
+      "loopSeam": {
+        "leftDelta": 0,
+        "rightDelta": 0
+      }
+    },
+    "consequence": {
+      "integratedLUFS": -29,
+      "truePeakDBTP": -13.4
+    }
+  },
+  "provenance": {
+    "productionInputs": [
+      {
+        "id": "longhouse-responsive-score-source",
+        "path": "native/audio/score-soundscape/longhouse-responsive-v1/score-source.json",
+        "bytes": 12570,
+        "sha256": "7738fe22923cb0ccf5ccc5c6afa4233618219a0d8589da2e693c6a481d349f32"
+      },
+      {
+        "id": "longhouse-responsive-soundscape-source",
+        "path": "native/audio/score-soundscape/longhouse-responsive-v1/soundscape-source.json",
+        "bytes": 11324,
+        "sha256": "d3b36f9b397606c63452d05a3f64372976e4ac2170f43a01f6beeebd0c64a171"
+      },
+      {
+        "id": "first-farmers-manuscript-source",
+        "path": "native/phase2/editor-review/first-farmers/first-farmers-native-draft-v1.json",
+        "bytes": 42780,
+        "sha256": "4c3a0a2a4f9a3ec5361d2e34c2f6dd21072f27176e60c881f013c93f76e4a5dd"
+      },
+      {
+        "id": "native-audio-bible",
+        "path": "native/bibles/audio-bible.md",
+        "bytes": 3346,
+        "sha256": "726849cc80da30d8e8bce4c884f9765f431474901da53a2c195663a8ab177954"
+      },
+      {
+        "id": "responsive-audio-program-spec",
+        "path": "native/ios/Sources/ContentKit/ResponsiveAudioProgramSpec.swift",
+        "bytes": 26686,
+        "sha256": "8c513b05114484f4d31614ae49267f9fc5d00a3ec2e2276073b576c390b59564"
+      },
+      {
+        "id": "responsive-audio-program-runtime",
+        "path": "native/ios/Sources/DramaticAudio/ResponsiveAudioProgramRuntime.swift",
+        "bytes": 25968,
+        "sha256": "b5239a3c7bb1f1c55578cd9944fdf56144a421d644ea9b9022f4f9148254e870"
+      },
+      {
+        "id": "responsive-audio-program-controller",
+        "path": "native/ios/Sources/DramaticAudio/ResponsiveAudioProgramController.swift",
+        "bytes": 33867,
+        "sha256": "743305b7f890c4c4ea51a69e6551d611f6849fbff627af764753e05508972241"
+      },
+      {
+        "id": "responsive-audio-timeline-planner",
+        "path": "native/ios/Sources/DramaticAudio/TimelinePlaybackPlan.swift",
+        "bytes": 8229,
+        "sha256": "6c621630e28e5be375871046997d6963ede24c621f2d235f00491a75e481b9e0"
+      },
+      {
+        "id": "responsive-audio-transport-contract",
+        "path": "native/ios/Sources/DramaticAudio/OfflineAudioAssetResolver.swift",
+        "bytes": 26432,
+        "sha256": "277eb7e1f9dfcceda0ce28d10e692f456f99d9e94a998efe58dbeece4904275d"
+      },
+      {
+        "id": "native-timeline-transport",
+        "path": "native/ios/Sources/DramaticAudio/NativeTimelineTransport.swift",
+        "bytes": 156660,
+        "sha256": "bd97001ddf65824eaa84be7c5466cad67af526dbc02353e0ae79f33e6f4199b9"
+      },
+      {
+        "id": "durable-audio-completion-runtime",
+        "path": "native/ios/Sources/DramaticAudio/DurableInteractionAudioCompletion.swift",
+        "bytes": 9029,
+        "sha256": "f9110ec847d031c776bfb39ee5782d3821f45d508bf7295a2a7a2adf25e81f81"
+      },
+      {
+        "id": "semantic-haptic-runtime",
+        "path": "native/ios/Sources/DramaticAudio/SemanticHapticTransport.swift",
+        "bytes": 12256,
+        "sha256": "b699e5ab9fab77aa81a343b66a013a73eb693a3ce41a676fc886a042917b3636"
+      },
+      {
+        "id": "audio-production-renderer",
+        "path": "native/tooling/src/audio-production.mjs",
+        "bytes": 49751,
+        "sha256": "d997f68ffb75150bf5cff0aea537891bccaf45d630e46b3e2698498b58e44439"
+      },
+      {
+        "id": "longhouse-responsive-renderer",
+        "path": "native/tooling/src/longhouse-responsive-audio.mjs",
+        "bytes": 45197,
+        "sha256": "fee98ac127a4d0b8efede5f3d2d6969f067183b2ddf4013b4c8d9dd0be9a73de"
+      },
+      {
+        "id": "score-soundscape-toolchain",
+        "path": "native/audio/score-soundscape/toolchain.json",
+        "bytes": 1963,
+        "sha256": "1a1a94ed56652f37681b9d74154c78741e53b280e80bab3f18b1db3fddef8ddd"
+      },
+      {
+        "id": "required-mit-notice",
+        "path": "native/audio/score-soundscape/licenses/MS-Basic-0.2.0-LICENSE.md",
+        "bytes": 3320,
+        "sha256": "bf7db123b5d6c0beb1a37f6e1b11c6f4dfd8fb6abd5d59ff282ea24a5cd932e5"
+      },
+      {
+        "id": "zero-cost-license-registry",
+        "path": "native/tooling/registries/cost-license.json",
+        "bytes": 17842,
+        "sha256": "9a0e7ae2f9af9288c1e761864d13c5ead85b2241cb981024ee6f42a314c74c7e"
+      }
+    ],
+    "outputReceipt": "render-receipt.json",
+    "scoreLineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+    "soundscapeLineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO_WITH_NO_IMPORTED_RECORDINGS",
+    "runtimeGeneration": "PROHIBITED",
+    "incrementalCostNOK": 0,
+    "commercialRights": "ALLOWED_WITH_RETAINED_MS_BASIC_MIT_NOTICE",
+    "requiredNoticePath": "native/audio/score-soundscape/licenses/MS-Basic-0.2.0-LICENSE.md"
+  },
+  "gates": {
+    "responsiveProgramContract": "PASS_LOCAL_SPEC_VALIDATION_REQUIRED_BY_SWIFT_TEST",
+    "exactOfflineMasters": "PASS",
+    "sampleExactPhaseBeds": "PASS",
+    "authoredSilence": "PASS",
+    "canonicalHapticVocabulary": "PASS",
+    "zeroIncrementalCost": "PASS",
+    "commercialRights": "PASS_WITH_RETAINED_MIT_NOTICE",
+    "narrationMaster": "OPEN_MISSING_EDITOR_SELECTED_MASTER",
+    "narrationWordAlignment": "OPEN_MISSING_EDITOR_SELECTED_MASTER",
+    "integratedLoudnessCalibration": "OPEN_UNTIL_NARRATION_MASTER_IS_BOUND",
+    "artisticApproval": "OPEN",
+    "editorApproval": "OPEN",
+    "shippingApproval": "PROHIBITED",
+    "physicalDeviceAudit": "OPEN"
+  },
+  "claimsExcluded": [
+    "editor approval",
+    "artistic approval",
+    "shipping approval",
+    "final narration integration",
+    "physical-device quality"
+  ]
+}

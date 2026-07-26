@@ -1,0 +1,29 @@
+{
+    "mflux_version": "0.18.0",
+    "model": "Qwen/Qwen-Image-Edit-2509",
+    "base_model": "None",
+    "seed": 21076519,
+    "steps": 30,
+    "guidance": null,
+    "height": 1024,
+    "width": 480,
+    "precision": "mlx.core.bfloat16",
+    "quantize": 8,
+    "generation_time_seconds": 287.46,
+    "created_at": "2026-07-24T17:27:41.180205",
+    "lora_paths": null,
+    "lora_scales": null,
+    "image_path": "native/design/phase1/harvest/production-master-candidate-v10-grain-edit.png",
+    "image_paths": [
+        "native/design/phase1/harvest/production-master-candidate-v10-grain-edit.png"
+    ],
+    "image_strength": null,
+    "controlnet_image_path": null,
+    "controlnet_strength": null,
+    "masked_image_path": null,
+    "depth_image_path": null,
+    "redux_image_paths": null,
+    "redux_image_strengths": null,
+    "prompt": "Use case: precise-object-edit.\nAsset type: NON_SHIPPING low-resolution route diagnostic for a portrait native iPhone 2.5D historical scene master.\nInput image: Image 1 is the sole edit target. Preserve its exact portrait framing, camera, roof geometry, rain boundary, every person and pose, grain mound, cloth, baskets, storage bins and lids, settlement, livestock, field, mountain, lighting, texture and near-black palette.\n\nChange only the black handled cooking vessel at the left hearth. Replace it with one plausible early-Neolithic hand-built fired-clay cooking vessel: low rounded body, thick irregular rim, matte warm-brown ceramic with local soot darkening, seated securely among the existing hearth stones at the edge of the existing embers. It has no handle, bail, chain, suspension, glaze, metallic highlight or cauldron silhouette.\n\nHistorical setting: Thessaly, 6500\u20136000 BC. Visible materials remain rough timber, reed, thatch, straw-tempered clay and plaster, woven plant fibre, hide, hand-built fired pottery, stone, wood and bone. No metal, wheel-thrown pottery, masonry, glass, writing, later architecture or modern object.\n\nInvariants: keep all bodies, faces, hands, wrists, feet, garments, baskets, bins, lids, buildings, animals, smoke and rain in their existing positions. Keep the entire grain work zone dry beneath the canopy. Keep the exact finite cereal mound and all three material destinations unchanged. Preserve natural lens depth and tactile separation between plaster, thatch, wicker, clay, grain, skin, smoke and rain.\n\nAvoid: any edit outside the tiny hearth-vessel region, anatomy change, added or removed person, reframing, crop change, relighting, restyling, smooth game-render skin, generic digital illustration, fantasy polish, wet grain, foreground rain, jewellery, text, number, label, arrow, ring, route, target, icon, interface, sign, symbol, border, watermark, blur padding or incomplete edge.",
+    "negative_prompt": null
+}

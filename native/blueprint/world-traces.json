@@ -1,0 +1,3488 @@
+{
+  "schemaVersion": 2,
+  "status": "APPROVED_BY_EDITOR_IN_CHIEF",
+  "rules": {
+    "persistence": "A world trace remains addressable after creation. Later chapters may reactivate, transform, contest or supersede it, but may not silently erase it.",
+    "historicalSpine": "World traces record documented consequences; they never create an alternative timeline.",
+    "productUse": "Traces are state in the living world, not collectibles, badges or completion rewards.",
+    "ruptureUse": "Civilisational ruptures remain visible but are never converted into score, spectacle or optional play."
+  },
+  "counts": {
+    "traces": 48,
+    "chaptersRepresented": 24,
+    "byKind": {
+      "alliance": 2,
+      "border": 2,
+      "city": 1,
+      "civilisational-rupture": 2,
+      "cultural-inheritance": 2,
+      "infrastructure": 2,
+      "institution": 13,
+      "knowledge-network": 3,
+      "landscape": 1,
+      "network": 9,
+      "political-order": 6,
+      "route": 4,
+      "social-order": 1
+    },
+    "arcEffects": 106,
+    "laterActivations": 152,
+    "byActivationOperation": {
+      "contest": 15,
+      "reactivate": 48,
+      "supersede": 6,
+      "transform": 83
+    }
+  },
+  "traces": [
+    {
+      "traceID": "trace-european-farming-belt",
+      "kind": "landscape",
+      "introducedBy": {
+        "contentID": "first-farmers",
+        "arcID": "first-farmers-arc-03",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-first-farmers-the-house-outlives"
+      },
+      "state": "Cleared fields, herds, longhouses and inherited settlement ground now cross the Danube and loess plains.",
+      "laterActivations": [
+        {
+          "effectID": "effect-european-farming-belt-steppe-comes-west",
+          "target": {
+            "contentID": "steppe-comes-west",
+            "arcID": "steppe-comes-west-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "contest",
+          "beforeState": "Cleared fields, herds, longhouses and inherited settlement ground now cross the Danube and loess plains.",
+          "afterState": "Mobile pastoral households enter the settled Danube world; fields and villages persist while land, descent and power are reordered around incoming groups."
+        },
+        {
+          "effectID": "effect-european-farming-belt-bronze-europe",
+          "target": {
+            "contentID": "bronze-europe",
+            "arcID": "bronze-europe-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Mobile pastoral households enter the settled Danube world; fields and villages persist while land, descent and power are reordered around incoming groups.",
+          "afterState": "Agricultural surplus and settled craft support mines, palace stores and exchange routes; the farming belt becomes the productive ground of the bronze system."
+        },
+        {
+          "effectID": "effect-european-farming-belt-rome-gathers-europe",
+          "target": {
+            "contentID": "rome-gathers-europe",
+            "arcID": "rome-gathers-europe-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Agricultural surplus and settled craft support mines, palace stores and exchange routes; the farming belt becomes the productive ground of the bronze system.",
+          "afterState": "Roads, colonies, census and military levies turn cultivated Italy into the manpower and supply base of Roman expansion."
+        },
+        {
+          "effectID": "effect-european-farming-belt-society-beyond-kin",
+          "target": {
+            "contentID": "society-beyond-kin",
+            "arcID": "society-beyond-kin-arc-03",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Roads, colonies, census and military levies turn cultivated Italy into the manpower and supply base of Roman expansion.",
+          "afterState": "Churches and corporate houses receive fields beyond lineage ownership; settled property gains institutional owners able to outlive their members."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-first-farmers-a-household-crosses",
+          "contentID": "first-farmers",
+          "arcID": "first-farmers-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-first-farmers-a-household-crosses",
+          "operation": "prepare",
+          "beforeState": "An Anatolian farming household waits at the eastern Aegean with seed, livestock and tools, but no worked route yet joins it to European ground.",
+          "afterState": "A traced crossing deposits seed sacks, sheep, cattle and tools beside an inhabited riverbank; one worked route now joins the Aegean shore to the Danube corridor."
+        },
+        {
+          "effectID": "effect-first-farmers-at-the-iron-gates",
+          "contentID": "first-farmers",
+          "arcID": "first-farmers-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-first-farmers-at-the-iron-gates",
+          "operation": "prepare",
+          "beforeState": "A traced crossing deposits seed sacks, sheep, cattle and tools beside an inhabited riverbank; one worked route now joins the Aegean shore to the Danube corridor.",
+          "afterState": "Set side by side, three records at the Iron Gates reveal incoming farmers and established river communities sharing households, food practices, pottery and routes while farming moves up the Danube."
+        },
+        {
+          "effectID": "effect-first-farmers-the-house-outlives",
+          "contentID": "first-farmers",
+          "arcID": "first-farmers-arc-03",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-first-farmers-the-house-outlives",
+          "operation": "establish",
+          "beforeState": "Set side by side, three records at the Iron Gates reveal incoming farmers and established river communities sharing households, food practices, pottery and routes while farming moves up the Danube.",
+          "afterState": "Posts, hearth and storage bays are assembled on one house plot; after the roof decays, the rebuilt frame, worn threshold and remembered plot remain visible."
+        },
+        {
+          "effectID": "effect-first-farmers-more-mouths-more-land",
+          "contentID": "first-farmers",
+          "arcID": "first-farmers-arc-03",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-first-farmers-more-mouths-more-land",
+          "operation": "transform",
+          "beforeState": "Posts, hearth and storage bays are assembled on one house plot; after the roof decays, the rebuilt frame, worn threshold and remembered plot remain visible.",
+          "afterState": "New hearths push fields beyond the first house; cleared loess, herd lanes and daughter settlements remain cut into the ground around the growing community."
+        },
+        {
+          "effectID": "effect-first-farmers-a-continent-remade",
+          "contentID": "first-farmers",
+          "arcID": "first-farmers-arc-03",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-first-farmers-a-continent-remade",
+          "operation": "transform",
+          "beforeState": "New hearths push fields beyond the first house; cleared loess, herd lanes and daughter settlements remain cut into the ground around the growing community.",
+          "afterState": "Cleared fields, herds, longhouses and inherited settlement ground now cross the Danube and loess plains."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-seasonal-store",
+      "kind": "institution",
+      "introducedBy": {
+        "contentID": "first-farmers",
+        "arcID": "first-farmers-arc-02",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-first-farmers-the-harvest-had-to-last"
+      },
+      "state": "The divided store binds present consumption to reserve, seed and the next agricultural year.",
+      "laterActivations": [
+        {
+          "effectID": "effect-seasonal-store-bronze-europe",
+          "target": {
+            "contentID": "bronze-europe",
+            "arcID": "bronze-europe-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "The divided store binds present consumption to reserve, seed and the next agricultural year.",
+          "afterState": "Household reserve becomes counted grain in palace stores, supporting specialists, ships and rulers beyond one agricultural year."
+        },
+        {
+          "effectID": "effect-seasonal-store-rome-gathers-europe",
+          "target": {
+            "contentID": "rome-gathers-europe",
+            "arcID": "rome-gathers-europe-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Household reserve becomes counted grain in palace stores, supporting specialists, ships and rulers beyond one agricultural year.",
+          "afterState": "Tax grain, magazines and scheduled supply extend the store across roads and ports to feed armies and cities."
+        },
+        {
+          "effectID": "effect-seasonal-store-medieval-commercial-revolution",
+          "target": {
+            "contentID": "medieval-commercial-revolution",
+            "arcID": "medieval-commercial-revolution-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Tax grain, magazines and scheduled supply extend the store across roads and ports to feed armies and cities.",
+          "afterState": "Ledgers and contracts carry claims on future harvests across distance, turning deferred use into transferable obligation."
+        },
+        {
+          "effectID": "effect-seasonal-store-rivalry-industrial-breakthrough",
+          "target": {
+            "contentID": "rivalry-industrial-breakthrough",
+            "arcID": "rivalry-industrial-breakthrough-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "supersede",
+          "beforeState": "Ledgers and contracts carry claims on future harvests across distance, turning deferred use into transferable obligation.",
+          "afterState": "Coal and steam release productive power from the agricultural year's finite reserve, while food and seed remain bound to the seasons."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-first-farmers-the-harvest-had-to-last",
+          "contentID": "first-farmers",
+          "arcID": "first-farmers-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-first-farmers-the-harvest-had-to-last",
+          "operation": "establish",
+          "beforeState": "One finite harvest lies on the floor while winter food, spoilage and next spring's seed compete for the same grain.",
+          "afterState": "The divided store binds present consumption to reserve, seed and the next agricultural year."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-steppe-westward-road",
+      "kind": "route",
+      "introducedBy": {
+        "contentID": "steppe-comes-west",
+        "arcID": "steppe-comes-west-arc-01",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-steppe-comes-west-the-wheel-carries-the-house"
+      },
+      "state": "A mobile household road runs from the Pontic-Caspian grasslands into the Danube basin and central Europe.",
+      "laterActivations": [
+        {
+          "effectID": "effect-steppe-westward-road-bronze-europe",
+          "target": {
+            "contentID": "bronze-europe",
+            "arcID": "bronze-europe-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "A mobile household road runs from the Pontic-Caspian grasslands into the Danube basin and central Europe.",
+          "afterState": "Horse traction, wheeled vehicles and bronze weapons turn the household migration road into far-reaching warrior and exchange networks."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-steppe-comes-west-the-wheel-carries-the-house",
+          "contentID": "steppe-comes-west",
+          "arcID": "steppe-comes-west-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-steppe-comes-west-the-wheel-carries-the-house",
+          "operation": "establish",
+          "beforeState": "Herds, tents and stores can move across grassland, but the household has not yet joined wagon, traction and seasonal pasture into a westward system.",
+          "afterState": "A mobile household road runs from the Pontic-Caspian grasslands into the Danube basin and central Europe."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-indo-european-inheritance",
+      "kind": "cultural-inheritance",
+      "introducedBy": {
+        "contentID": "steppe-comes-west",
+        "arcID": "steppe-comes-west-arc-02",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-steppe-comes-west-the-fathers-disappear"
+      },
+      "state": "Related lineages of language and sacred grammar remain embedded across Europe.",
+      "laterActivations": [
+        {
+          "effectID": "effect-indo-european-inheritance-bronze-europe",
+          "target": {
+            "contentID": "bronze-europe",
+            "arcID": "bronze-europe-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Related lineages of language and sacred grammar remain embedded across Europe.",
+          "afterState": "Inherited divine names, ritual fire, horse prestige and heroic formulae acquire distinct European Bronze Age forms."
+        },
+        {
+          "effectID": "effect-indo-european-inheritance-greece-and-the-citizen",
+          "target": {
+            "contentID": "greece-and-the-citizen",
+            "arcID": "greece-and-the-citizen-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Inherited divine names, ritual fire, horse prestige and heroic formulae acquire distinct European Bronze Age forms.",
+          "afterState": "Greek language, epic metre, gods and inherited civic vocabulary give the shared inheritance a durable public form in the polis."
+        },
+        {
+          "effectID": "effect-indo-european-inheritance-rome-gathers-europe",
+          "target": {
+            "contentID": "rome-gathers-europe",
+            "arcID": "rome-gathers-europe-arc-03",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Greek language, epic metre, gods and inherited civic vocabulary give the shared inheritance a durable public form in the polis.",
+          "afterState": "Latin carries one Indo-European branch through Roman law, army and city even as the Roman name extends far beyond descent."
+        },
+        {
+          "effectID": "effect-indo-european-inheritance-europe-reborn",
+          "target": {
+            "contentID": "europe-reborn",
+            "arcID": "europe-reborn-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Latin carries one Indo-European branch through Roman law, army and city even as the Roman name extends far beyond descent.",
+          "afterState": "Copied Latin and rising vernaculars carry related European languages through the written Christian commonwealth."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-steppe-comes-west-the-fathers-disappear",
+          "contentID": "steppe-comes-west",
+          "arcID": "steppe-comes-west-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-steppe-comes-west-the-fathers-disappear",
+          "operation": "establish",
+          "beforeState": "Incoming graves carry new paternal descent and speech, while the scale of replacement remains hidden inside separate regional records.",
+          "afterState": "Three regional paternal-line records align from surviving local lines to sharp turnover; the replaced lines remain dark while steppe-linked descent persists across the map."
+        },
+        {
+          "effectID": "effect-steppe-comes-west-the-gods-take-two-roads",
+          "contentID": "steppe-comes-west",
+          "arcID": "steppe-comes-west-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-steppe-comes-west-the-gods-take-two-roads",
+          "operation": "transform",
+          "beforeState": "Three regional paternal-line records align from surviving local lines to sharp turnover; the replaced lines remain dark while steppe-linked descent persists across the map.",
+          "afterState": "Related lineages of language and sacred grammar remain embedded across Europe."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-bronze-exchange",
+      "kind": "network",
+      "introducedBy": {
+        "contentID": "bronze-europe",
+        "arcID": "bronze-europe-arc-01",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-bronze-europe-copper-and-tin-had-to-meet"
+      },
+      "state": "The connected bronze system remains visible at both scales: the Uluburun hold joins distant mines, ships, measures and palace stores across the Great Sea, while amber routes and Nordic workshops preserve the metal's distinct northern forms.",
+      "laterActivations": [
+        {
+          "effectID": "effect-bronze-exchange-greece-and-the-citizen",
+          "target": {
+            "contentID": "greece-and-the-citizen",
+            "arcID": "greece-and-the-citizen-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "The connected bronze system remains visible at both scales: the Uluburun hold joins distant mines, ships, measures and palace stores across the Great Sea, while amber routes and Nordic workshops preserve the metal's distinct northern forms.",
+          "afterState": "Palace redistribution disappears, but amber routes and Nordic workshops endure while ports, sanctuaries and poleis reopen exchange under civic authorities and private households."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-bronze-europe-copper-and-tin-had-to-meet",
+          "contentID": "bronze-europe",
+          "arcID": "bronze-europe-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-bronze-europe-copper-and-tin-had-to-meet",
+          "operation": "establish",
+          "beforeState": "Copper and tin lie in distant regions, and neither mine can produce the working blade assembled at the centre.",
+          "afterState": "Mine, pass, ship, store and furnace lock into one lit chain; the finished blade leaves every separated source connected to its route."
+        },
+        {
+          "effectID": "effect-bronze-europe-the-north-makes-bronze-its-own",
+          "contentID": "bronze-europe",
+          "arcID": "bronze-europe-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-bronze-europe-the-north-makes-bronze-its-own",
+          "operation": "transform",
+          "beforeState": "Mine, pass, ship, store and furnace lock into one lit chain; the finished blade leaves every separated source connected to its route.",
+          "afterState": "The mine, pass, ship, store and furnace chain now reaches north: Baltic amber moves south while bronze and glass move north, and longhouses, ship routes and Nordic workshops give imported metal local forms."
+        },
+        {
+          "effectID": "effect-bronze-europe-a-world-in-one-hold",
+          "contentID": "bronze-europe",
+          "arcID": "bronze-europe-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-bronze-europe-a-world-in-one-hold",
+          "operation": "transform",
+          "beforeState": "The mine, pass, ship, store and furnace chain now reaches north: Baltic amber moves south while bronze and glass move north, and longhouses, ship routes and Nordic workshops give imported metal local forms.",
+          "afterState": "The connected bronze system remains visible at both scales: the Uluburun hold joins distant mines, ships, measures and palace stores across the Great Sea, while amber routes and Nordic workshops preserve the metal's distinct northern forms."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-heroic-memory",
+      "kind": "cultural-inheritance",
+      "introducedBy": {
+        "contentID": "bronze-europe",
+        "arcID": "bronze-europe-arc-02",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-bronze-europe-the-singer-outlives-the-scribe"
+      },
+      "state": "Sung names, weapons and ideals preserve the heroic age after the archive disappears.",
+      "laterActivations": [
+        {
+          "effectID": "effect-heroic-memory-greece-and-the-citizen",
+          "target": {
+            "contentID": "greece-and-the-citizen",
+            "arcID": "greece-and-the-citizen-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Sung names, weapons and ideals preserve the heroic age after the archive disappears.",
+          "afterState": "Sung memory becomes written epic and gives separate poleis a shared company of heroes, gods and exemplary deeds."
+        },
+        {
+          "effectID": "effect-heroic-memory-rome-gathers-europe",
+          "target": {
+            "contentID": "rome-gathers-europe",
+            "arcID": "rome-gathers-europe-arc-03",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Sung memory becomes written epic and gives separate poleis a shared company of heroes, gods and exemplary deeds.",
+          "afterState": "Roman writers translate Greek epic into Latin ancestry and bind heroic memory to Rome's civic and imperial name."
+        },
+        {
+          "effectID": "effect-heroic-memory-europe-reborn",
+          "target": {
+            "contentID": "europe-reborn",
+            "arcID": "europe-reborn-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Roman writers translate Greek epic into Latin ancestry and bind heroic memory to Rome's civic and imperial name.",
+          "afterState": "Scriptoria preserve Latin epic while courts and vernacular poets make heroic inheritance speak inside new European kingdoms."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-bronze-europe-the-singer-outlives-the-scribe",
+          "contentID": "bronze-europe",
+          "arcID": "bronze-europe-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-bronze-europe-the-singer-outlives-the-scribe",
+          "operation": "establish",
+          "beforeState": "Palace scribes, inventories and Linear B tablets disappear with the archive, leaving remembered names and deeds without their administrative frame.",
+          "afterState": "Sung names, weapons and ideals preserve the heroic age after the archive disappears."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-polis-public-ground",
+      "kind": "institution",
+      "introducedBy": {
+        "contentID": "greece-and-the-citizen",
+        "arcID": "greece-and-the-citizen-arc-01",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-greece-and-the-citizen-the-law-stands"
+      },
+      "state": "Demes and mixed tribes remain the citizen body's ground while inscription, rotating office, council, court and assembly make civic authority visible, answerable and repeatable.",
+      "laterActivations": [
+        {
+          "effectID": "effect-polis-public-ground-rome-gathers-europe",
+          "target": {
+            "contentID": "rome-gathers-europe",
+            "arcID": "rome-gathers-europe-arc-03",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Demes and mixed tribes remain the citizen body's ground while inscription, rotating office, council, court and assembly make civic authority visible, answerable and repeatable.",
+          "afterState": "Greek civic bodies remain active as Rome scales municipal office, public law and citizenship across the provinces."
+        },
+        {
+          "effectID": "effect-polis-public-ground-empire-many-liberties",
+          "target": {
+            "contentID": "empire-many-liberties",
+            "arcID": "empire-many-liberties-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Greek civic bodies remain active as Rome scales municipal office, public law and citizenship across the provinces.",
+          "afterState": "Chartered towns, councils and estate assemblies make law and office visible again inside the travelling Empire."
+        },
+        {
+          "effectID": "effect-polis-public-ground-scientific-revolution",
+          "target": {
+            "contentID": "scientific-revolution",
+            "arcID": "scientific-revolution-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Chartered towns, councils and estate assemblies make law and office visible again inside the travelling Empire.",
+          "afterState": "The public register becomes a learned instrument: societies and journals give claims an address where others can inspect and challenge them."
+        },
+        {
+          "effectID": "effect-polis-public-ground-enlightenment-public-opinion",
+          "target": {
+            "contentID": "enlightenment-public-opinion",
+            "arcID": "enlightenment-public-opinion-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "The public register becomes a learned instrument: societies and journals give claims an address where others can inspect and challenge them.",
+          "afterState": "Club, assembly and printed judgment return public authority to organised citizens and make government answer before them."
+        },
+        {
+          "effectID": "effect-polis-public-ground-continent-rebuilt",
+          "target": {
+            "contentID": "continent-rebuilt",
+            "arcID": "continent-rebuilt-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Club, assembly and printed judgment return public authority to organised citizens and make government answer before them.",
+          "afterState": "Elected chambers, independent courts and municipal government recover public ground inside the western post-war order."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-greece-and-the-citizen-the-law-stands",
+          "contentID": "greece-and-the-citizen",
+          "arcID": "greece-and-the-citizen-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-greece-and-the-citizen-the-law-stands",
+          "operation": "establish",
+          "beforeState": "Judgment still belongs to remembered custom and powerful households; no rule yet stands where the whole civic body can return to it.",
+          "afterState": "A spoken judgment hardens into an inscription beside the agora; rule, magistrate and appeal remain fixed on public ground after the speaker leaves."
+        },
+        {
+          "effectID": "effect-greece-and-the-citizen-athens-makes-a-people",
+          "contentID": "greece-and-the-citizen",
+          "arcID": "greece-and-the-citizen-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-greece-and-the-citizen-athens-makes-a-people",
+          "operation": "transform",
+          "beforeState": "A spoken judgment hardens into an inscription beside the agora; rule, magistrate and appeal remain fixed on public ground after the speaker leaves.",
+          "afterState": "Public law remains beside the agora while demes, ten mixed tribes and the Council of 500 extend repeatable civic authority across city, coast and inland Attica."
+        },
+        {
+          "effectID": "effect-greece-and-the-citizen-the-people-take-their-place",
+          "contentID": "greece-and-the-citizen",
+          "arcID": "greece-and-the-citizen-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-greece-and-the-citizen-the-people-take-their-place",
+          "operation": "transform",
+          "beforeState": "Public law remains beside the agora while demes, ten mixed tribes and the Council of 500 extend repeatable civic authority across city, coast and inland Attica.",
+          "afterState": "Demes and mixed tribes remain the citizen body's ground while inscription, rotating office, council, court and assembly make civic authority visible, answerable and repeatable."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-hellenic-coalition",
+      "kind": "alliance",
+      "introducedBy": {
+        "contentID": "greece-and-the-citizen",
+        "arcID": "greece-and-the-citizen-arc-02",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-greece-and-the-citizen-the-league-follows-sparta"
+      },
+      "state": "The coalition, its fracture and its civic members remain legible through later hegemony: assemblies, councils, public law and federal leagues outlast Spartan and Macedonian command, so Rome meets cities still able to govern and combine.",
+      "laterActivations": [
+        {
+          "effectID": "effect-hellenic-coalition-rome-gathers-europe",
+          "target": {
+            "contentID": "rome-gathers-europe",
+            "arcID": "rome-gathers-europe-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "supersede",
+          "beforeState": "The coalition, its fracture and its civic members remain legible through later hegemony: assemblies, councils, public law and federal leagues outlast Spartan and Macedonian command, so Rome meets cities still able to govern and combine.",
+          "afterState": "Rome absorbs independent alliances into an unequal Italian system; allied service then forces the Social War settlement to widen citizenship."
+        },
+        {
+          "effectID": "effect-hellenic-coalition-europe-holds-the-line",
+          "target": {
+            "contentID": "europe-holds-the-line",
+            "arcID": "europe-holds-the-line-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Rome absorbs independent alliances into an unequal Italian system; allied service then forces the Social War settlement to widen citizenship.",
+          "afterState": "Independent European powers combine ships, fortified cities and relief armies against Ottoman advance without surrendering their governments."
+        },
+        {
+          "effectID": "effect-hellenic-coalition-continent-rebuilt",
+          "target": {
+            "contentID": "continent-rebuilt",
+            "arcID": "continent-rebuilt-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Independent European powers combine ships, fortified cities and relief armies against Ottoman advance without surrendering their governments.",
+          "afterState": "The Atlantic alliance binds sovereign democracies to common defence through standing treaty, planning and command."
+        },
+        {
+          "effectID": "effect-hellenic-coalition-europe-returns",
+          "target": {
+            "contentID": "europe-returns",
+            "arcID": "europe-returns-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "The Atlantic alliance binds sovereign democracies to common defence through standing treaty, planning and command.",
+          "afterState": "Allied states combine national forces, logistics and enlargement commitments to hold the eastern line."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-greece-and-the-citizen-the-league-follows-sparta",
+          "contentID": "greece-and-the-citizen",
+          "arcID": "greece-and-the-citizen-arc-02",
+          "beatID": "UNASSIGNED",
+          "sourceMovementID": "greece-and-the-citizen/the-league-follows-sparta",
+          "operation": "establish",
+          "beforeState": "Independent Greek cities possess ships, hoplites and local commands, but no common authority yet joins their unequal forces against Xerxes' invasion.",
+          "afterState": "Delegates retain their separate governments while accepting Spartan coalition leadership, Eurybiades' naval command and an allied line in which Athenian ships and smaller contingents keep their distinct places."
+        },
+        {
+          "effectID": "effect-greece-and-the-citizen-the-cities-survive-together",
+          "contentID": "greece-and-the-citizen",
+          "arcID": "greece-and-the-citizen-arc-02",
+          "beatID": "UNASSIGNED",
+          "sourceMovementID": "greece-and-the-citizen/the-cities-survive-together",
+          "operation": "transform",
+          "beforeState": "Delegates retain their separate governments while accepting Spartan coalition leadership, Eurybiades' naval command and an allied line in which Athenian ships and smaller contingents keep their distinct places.",
+          "afterState": "The same coalition survives Salamis, Plataea and Mycale: Athenian naval mass, Spartan land command and smaller allied forces preserve Greek autonomy without merging the governments that supplied them."
+        },
+        {
+          "effectID": "effect-greece-and-the-citizen-persia-gives-sparta-the-sea",
+          "contentID": "greece-and-the-citizen",
+          "arcID": "greece-and-the-citizen-arc-03",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-greece-and-the-citizen-persia-gives-sparta-the-sea",
+          "operation": "transform",
+          "beforeState": "The same coalition survives Salamis, Plataea and Mycale: Athenian naval mass, Spartan land command and smaller allied forces preserve Greek autonomy without merging the governments that supplied them.",
+          "afterState": "The old common-defence pattern remains visible but is turned inward: Persian pay sustains Spartan naval adaptation, Aegospotami closes Athens' grain route and the Long Walls fall, while the restored assembly and separate poleis survive the victory."
+        },
+        {
+          "effectID": "effect-greece-and-the-citizen-victory-puts-constitutions-on-trial",
+          "contentID": "greece-and-the-citizen",
+          "arcID": "greece-and-the-citizen-arc-03",
+          "beatID": "UNASSIGNED",
+          "sourceMovementID": "greece-and-the-citizen/victory-puts-constitutions-on-trial",
+          "operation": "transform",
+          "beforeState": "The old common-defence pattern remains visible but is turned inward: Persian pay sustains Spartan naval adaptation, Aegospotami closes Athens' grain route and the Long Walls fall, while the restored assembly and separate poleis survive the victory.",
+          "afterState": "The coalition, its fracture and its civic members remain legible through later hegemony: assemblies, councils, public law and federal leagues outlast Spartan and Macedonian command, so Rome meets cities still able to govern and combine."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-roman-road-system",
+      "kind": "route",
+      "introducedBy": {
+        "contentID": "rome-gathers-europe",
+        "arcID": "rome-gathers-europe-arc-02",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-rome-gathers-europe-the-road-makes-an-army"
+      },
+      "state": "Measured roads, colonies and cities turn local obligations into continental movement and supply.",
+      "laterActivations": [
+        {
+          "effectID": "effect-roman-road-system-empire-takes-cross",
+          "target": {
+            "contentID": "empire-takes-cross",
+            "arcID": "empire-takes-cross-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Measured roads, colonies and cities turn local obligations into continental movement and supply.",
+          "afterState": "Imperial roads carry bishops, soldiers and patronage between old cities and Constantine's new capital."
+        },
+        {
+          "effectID": "effect-roman-road-system-europe-reborn",
+          "target": {
+            "contentID": "europe-reborn",
+            "arcID": "europe-reborn-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Imperial roads carry bishops, soldiers and patronage between old cities and Constantine's new capital.",
+          "afterState": "Kings, envoys and missionaries reuse Roman corridors while repaired roads and river routes connect new political centres."
+        },
+        {
+          "effectID": "effect-roman-road-system-empire-many-liberties",
+          "target": {
+            "contentID": "empire-many-liberties",
+            "arcID": "empire-many-liberties-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Kings, envoys and missionaries reuse Roman corridors while repaired roads and river routes connect new political centres.",
+          "afterState": "The itinerant crown follows renewed roads and chartered towns, turning movement itself into a form of imperial government."
+        },
+        {
+          "effectID": "effect-roman-road-system-habsburg-europe",
+          "target": {
+            "contentID": "habsburg-europe",
+            "arcID": "habsburg-europe-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "The itinerant crown follows renewed roads and chartered towns, turning movement itself into a form of imperial government.",
+          "afterState": "Post roads, Danube crossings and administrative stations overlay old corridors with a permanent dynastic service."
+        },
+        {
+          "effectID": "effect-roman-road-system-european-world",
+          "target": {
+            "contentID": "european-world",
+            "arcID": "european-world-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Post roads, Danube crossings and administrative stations overlay old corridors with a permanent dynastic service.",
+          "afterState": "Rail, cable and common time overwrite the measured road with a scheduled route able to cross states and oceans."
+        },
+        {
+          "effectID": "effect-roman-road-system-europe-returns",
+          "target": {
+            "contentID": "europe-returns",
+            "arcID": "europe-returns-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Rail, cable and common time overwrite the measured road with a scheduled route able to cross states and oceans.",
+          "afterState": "European road and rail corridors carry civilian trade, Ukrainian supply and allied reinforcement toward the defended east."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-rome-gathers-europe-the-road-makes-an-army",
+          "contentID": "rome-gathers-europe",
+          "arcID": "rome-gathers-europe-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-rome-gathers-europe-the-road-makes-an-army",
+          "operation": "establish",
+          "beforeState": "Italian allies owe men and supplies through separate settlements, but no measured route yet turns those obligations into one repeatable campaign system.",
+          "afterState": "Measured roads, colonies and cities turn local obligations into continental movement and supply."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-roman-citizenship",
+      "kind": "institution",
+      "introducedBy": {
+        "contentID": "rome-gathers-europe",
+        "arcID": "rome-gathers-europe-arc-03",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-rome-gathers-europe-service-opens-the-gate"
+      },
+      "state": "A common Roman civic and legal status now spans the provinces through service, manumission, municipal office and imperial grant; Italian and provincial cities retain local office beneath the shared Roman name.",
+      "laterActivations": [
+        {
+          "effectID": "effect-roman-citizenship-empire-takes-cross",
+          "target": {
+            "contentID": "empire-takes-cross",
+            "arcID": "empire-takes-cross-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "A common Roman civic and legal status now spans the provinces through service, manumission, municipal office and imperial grant; Italian and provincial cities retain local office beneath the shared Roman name.",
+          "afterState": "A common civic status is joined by public Christianity as bishops and councils acquire authority within Roman cities."
+        },
+        {
+          "effectID": "effect-roman-citizenship-europe-reborn",
+          "target": {
+            "contentID": "europe-reborn",
+            "arcID": "europe-reborn-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "A common civic status is joined by public Christianity as bishops and councils acquire authority within Roman cities.",
+          "afterState": "Universal Roman citizenship recedes, but city law, baptism and legal memory preserve forms of public personhood across successor kingdoms."
+        },
+        {
+          "effectID": "effect-roman-citizenship-empire-many-liberties",
+          "target": {
+            "contentID": "empire-many-liberties",
+            "arcID": "empire-many-liberties-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Universal Roman citizenship recedes, but city law, baptism and legal memory preserve forms of public personhood across successor kingdoms.",
+          "afterState": "Urban citizenship, chartered right and estate membership place several public statuses inside one imperial constitution."
+        },
+        {
+          "effectID": "effect-roman-citizenship-enlightenment-public-opinion",
+          "target": {
+            "contentID": "enlightenment-public-opinion",
+            "arcID": "enlightenment-public-opinion-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Urban citizenship, chartered right and estate membership place several public statuses inside one imperial constitution.",
+          "afterState": "Public opinion and assembly turn inherited subjecthood toward citizenship as a claim to constitute government."
+        },
+        {
+          "effectID": "effect-roman-citizenship-continent-rebuilt",
+          "target": {
+            "contentID": "continent-rebuilt",
+            "arcID": "continent-rebuilt-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Public opinion and assembly turn inherited subjecthood toward citizenship as a claim to constitute government.",
+          "afterState": "National citizenship gains treaty and court protections inside a widening common European legal order."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-rome-gathers-europe-the-people-make-power-answer",
+          "contentID": "rome-gathers-europe",
+          "arcID": "rome-gathers-europe-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-rome-gathers-europe-the-people-make-power-answer",
+          "operation": "prepare",
+          "beforeState": "Royal power is gone, but command, judgment and public consent have not yet been placed in offices that citizens can repeatedly summon and restrain.",
+          "afterState": "Consuls, Senate, assemblies and tribunes occupy separate stations around the Forum; veto and annual office remain visible as restraints on Roman command."
+        },
+        {
+          "effectID": "effect-rome-gathers-europe-the-allies-demand-the-name",
+          "contentID": "rome-gathers-europe",
+          "arcID": "rome-gathers-europe-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-rome-gathers-europe-the-allies-demand-the-name",
+          "operation": "prepare",
+          "beforeState": "Consuls, Senate, assemblies and tribunes occupy separate stations around the Forum; veto and annual office remain visible as restraints on Roman command.",
+          "afterState": "The republican offices remain, but allied service has become a war aim: the laws of 90–89 BC widen Roman citizenship across Italy while enrolment and effective political integration remain unfinished."
+        },
+        {
+          "effectID": "effect-rome-gathers-europe-armies-follow-generals-home",
+          "contentID": "rome-gathers-europe",
+          "arcID": "rome-gathers-europe-arc-03",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-rome-gathers-europe-armies-follow-generals-home",
+          "operation": "prepare",
+          "beforeState": "The republican offices remain, but allied service has become a war aim: the laws of 90–89 BC widen Roman citizenship across Italy while enrolment and effective political integration remain unfinished.",
+          "afterState": "Italian citizenship remains while civil-war armies carry command toward named generals; under Augustus, censuses, provincial armies and self-governing cities place a durable imperial frame around expanding Roman status."
+        },
+        {
+          "effectID": "effect-rome-gathers-europe-service-opens-the-gate",
+          "contentID": "rome-gathers-europe",
+          "arcID": "rome-gathers-europe-arc-03",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-rome-gathers-europe-service-opens-the-gate",
+          "operation": "establish",
+          "beforeState": "Italian citizenship remains while civil-war armies carry command toward named generals; under Augustus, censuses, provincial armies and self-governing cities place a durable imperial frame around expanding Roman status.",
+          "afterState": "A common Roman civic and legal status now spans the provinces through service, manumission, municipal office and imperial grant; Italian and provincial cities retain local office beneath the shared Roman name."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-constantinople-new-rome",
+      "kind": "city",
+      "introducedBy": {
+        "contentID": "empire-takes-cross",
+        "arcID": "empire-takes-cross-arc-01",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-empire-takes-cross-persecution-ends"
+      },
+      "state": "Constantinople stands at the Bosporus as the fortified capital of the continuing Roman state.",
+      "laterActivations": [
+        {
+          "effectID": "effect-constantinople-new-rome-europe-reborn",
+          "target": {
+            "contentID": "europe-reborn",
+            "arcID": "europe-reborn-arc-03",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Constantinople stands at the Bosporus as the fortified capital of the continuing Roman state.",
+          "afterState": "New Rome's court, church and missions recognise Christian centres among the Slavs while the eastern Roman capital remains sovereign."
+        },
+        {
+          "effectID": "effect-constantinople-new-rome-europe-holds-the-line",
+          "target": {
+            "contentID": "europe-holds-the-line",
+            "arcID": "europe-holds-the-line-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "supersede",
+          "beforeState": "New Rome's court, church and missions recognise Christian centres among the Slavs while the eastern Roman capital remains sovereign.",
+          "afterState": "The Latin sack breaks the city's strength; the restored Roman capital endures until Ottoman conquest extinguishes the state in 1453."
+        },
+        {
+          "effectID": "effect-constantinople-new-rome-europe-turns-seaward",
+          "target": {
+            "contentID": "europe-turns-seaward",
+            "arcID": "europe-turns-seaward-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "The Latin sack breaks the city's strength; the restored Roman capital endures until Ottoman conquest extinguishes the state in 1453.",
+          "afterState": "The Bosporus remains a strategic gate under Ottoman rule as Portugal seeks an ocean road to Asian trade it does not command."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-empire-takes-cross-persecution-ends",
+          "contentID": "empire-takes-cross",
+          "arcID": "empire-takes-cross-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-empire-takes-cross-persecution-ends",
+          "operation": "establish",
+          "beforeState": "Christian congregations move between prohibition and toleration while imperial patronage and the Bosporus foundation remain unjoined.",
+          "afterState": "Four imperial positions end in legal protection and patronage; the merged building path leaves a basilica, harbour and New Rome foundation marker fixed at the Bosporus."
+        },
+        {
+          "effectID": "effect-empire-takes-cross-the-city-grows-behind-walls",
+          "contentID": "empire-takes-cross",
+          "arcID": "empire-takes-cross-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-empire-takes-cross-the-city-grows-behind-walls",
+          "operation": "transform",
+          "beforeState": "Four imperial positions end in legal protection and patronage; the merged building path leaves a basilica, harbour and New Rome foundation marker fixed at the Bosporus.",
+          "afterState": "Constantinople stands at the Bosporus as the fortified capital of the continuing Roman state."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-roman-christian-law",
+      "kind": "institution",
+      "introducedBy": {
+        "contentID": "empire-takes-cross",
+        "arcID": "empire-takes-cross-arc-03",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-empire-takes-cross-wisdom-builds-a-dome"
+      },
+      "state": "Piers and pendentives carry Hagia Sophia's dome above codex, creed and episcopal throne; Justinian's Roman Christian order remains visible in law, office and sacred stone.",
+      "laterActivations": [
+        {
+          "effectID": "effect-roman-christian-law-europe-reborn",
+          "target": {
+            "contentID": "europe-reborn",
+            "arcID": "europe-reborn-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Piers and pendentives carry Hagia Sophia's dome above codex, creed and episcopal throne; Justinian's Roman Christian order remains visible in law, office and sacred stone.",
+          "afterState": "Bishops, monasteries and copied law carry Roman Christian office and property through the loss of western imperial command."
+        },
+        {
+          "effectID": "effect-roman-christian-law-papal-revolution",
+          "target": {
+            "contentID": "papal-revolution",
+            "arcID": "papal-revolution-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Bishops, monasteries and copied law carry Roman Christian office and property through the loss of western imperial command.",
+          "afterState": "Canon law and Roman procedure make appointment, prohibition, excommunication and penance recognisable public acts."
+        },
+        {
+          "effectID": "effect-roman-christian-law-society-beyond-kin",
+          "target": {
+            "contentID": "society-beyond-kin",
+            "arcID": "society-beyond-kin-arc-03",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Canon law and Roman procedure make appointment, prohibition, excommunication and penance recognisable public acts.",
+          "afterState": "Canonists apply office, property, succession and legal personhood to bodies whose members continually change."
+        },
+        {
+          "effectID": "effect-roman-christian-law-empire-many-liberties",
+          "target": {
+            "contentID": "empire-many-liberties",
+            "arcID": "empire-many-liberties-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Canonists apply office, property, succession and legal personhood to bodies whose members continually change.",
+          "afterState": "Roman title, election, charter and court place plural rights inside a common Christian imperial order."
+        },
+        {
+          "effectID": "effect-roman-christian-law-europe-holds-the-line",
+          "target": {
+            "contentID": "europe-holds-the-line",
+            "arcID": "europe-holds-the-line-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Roman title, election, charter and court place plural rights inside a common Christian imperial order.",
+          "afterState": "Eastern and western Christian institutions organise settlement, armed pilgrimage and frontier rule after territorial catastrophe."
+        },
+        {
+          "effectID": "effect-roman-christian-law-reformation",
+          "target": {
+            "contentID": "reformation",
+            "arcID": "reformation-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "contest",
+          "beforeState": "Eastern and western Christian institutions organise settlement, armed pilgrimage and frontier rule after territorial catastrophe.",
+          "afterState": "Confessional war breaks Christian unity, but negotiation and law preserve a constitutional order in which rival confessions remain governed."
+        },
+        {
+          "effectID": "effect-roman-christian-law-habsburg-europe",
+          "target": {
+            "contentID": "habsburg-europe",
+            "arcID": "habsburg-europe-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Confessional war breaks Christian unity, but negotiation and law preserve a constitutional order in which rival confessions remain governed.",
+          "afterState": "The Habsburg crowns govern different laws and churches through ratified succession, civil office and a shared defence."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-empire-takes-cross-an-emperor-calls-a-council",
+          "contentID": "empire-takes-cross",
+          "arcID": "empire-takes-cross-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-empire-takes-cross-an-emperor-calls-a-council",
+          "operation": "prepare",
+          "beforeState": "Bishops carry competing formulations through separate churches, and an imperial summons has not yet produced a confession that can be copied across the Roman world.",
+          "afterState": "Summons, episcopal debate, creed and authenticated copies form one council sequence; the written confession remains in sees after the assembly disperses."
+        },
+        {
+          "effectID": "effect-empire-takes-cross-wisdom-builds-a-dome",
+          "contentID": "empire-takes-cross",
+          "arcID": "empire-takes-cross-arc-03",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-empire-takes-cross-wisdom-builds-a-dome",
+          "operation": "establish",
+          "beforeState": "Summons, episcopal debate, creed and authenticated copies form one council sequence; the written confession remains in sees after the assembly disperses.",
+          "afterState": "Piers and pendentives carry Hagia Sophia's dome above codex, creed and episcopal throne; Justinian's Roman Christian order remains visible in law, office and sacred stone."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-written-christian-commonwealth",
+      "kind": "network",
+      "introducedBy": {
+        "contentID": "europe-reborn",
+        "arcID": "europe-reborn-arc-02",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-europe-reborn-word-travels-further-than-king"
+      },
+      "state": "Books, capitularies, bishops, monasteries and delegated offices connect political centres without one western emperor.",
+      "laterActivations": [
+        {
+          "effectID": "effect-written-christian-commonwealth-papal-revolution",
+          "target": {
+            "contentID": "papal-revolution",
+            "arcID": "papal-revolution-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Books, capitularies, bishops, monasteries and delegated offices connect political centres without one western emperor.",
+          "afterState": "Legates, synods, privileges and registers concentrate a dispersed Latin writing network into repeatable papal government."
+        },
+        {
+          "effectID": "effect-written-christian-commonwealth-society-beyond-kin",
+          "target": {
+            "contentID": "society-beyond-kin",
+            "arcID": "society-beyond-kin-arc-03",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Legates, synods, privileges and registers concentrate a dispersed Latin writing network into repeatable papal government.",
+          "afterState": "Rules, charters, seals and records let autonomous bodies persist inside the same literate Christian order."
+        },
+        {
+          "effectID": "effect-written-christian-commonwealth-medieval-commercial-revolution",
+          "target": {
+            "contentID": "medieval-commercial-revolution",
+            "arcID": "medieval-commercial-revolution-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Rules, charters, seals and records let autonomous bodies persist inside the same literate Christian order.",
+          "afterState": "Notaries and merchant ledgers turn the written road from royal and ecclesiastical command toward portable private obligation."
+        },
+        {
+          "effectID": "effect-written-christian-commonwealth-empire-many-liberties",
+          "target": {
+            "contentID": "empire-many-liberties",
+            "arcID": "empire-many-liberties-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Notaries and merchant ledgers turn the written road from royal and ecclesiastical command toward portable private obligation.",
+          "afterState": "Charters, election records and written custom govern a plural realm whose crown cannot rule from one capital."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-europe-reborn-bishop-keeps-the-city",
+          "contentID": "europe-reborn",
+          "arcID": "europe-reborn-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-europe-reborn-bishop-keeps-the-city",
+          "operation": "prepare",
+          "beforeState": "As western imperial officers withdraw, grain relief, petitions, property disputes and wall repair have no settled local household that can carry them.",
+          "afterState": "Grain, petition, charter and wall are placed in the bishop's household; episcopal archives, estates and civic obligations remain as local stations in a Christian commonwealth."
+        },
+        {
+          "effectID": "effect-europe-reborn-word-travels-further-than-king",
+          "contentID": "europe-reborn",
+          "arcID": "europe-reborn-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-europe-reborn-word-travels-further-than-king",
+          "operation": "establish",
+          "beforeState": "Grain, petition, charter and wall are placed in the bishop's household; episcopal archives, estates and civic obligations remain as local stations in a Christian commonwealth.",
+          "afterState": "A ruled capitulary road now runs from court through scriptorium and messenger to county judgment; copies remain beside a bishop, abbot and count."
+        },
+        {
+          "effectID": "effect-europe-reborn-heirs-divide-the-realm",
+          "contentID": "europe-reborn",
+          "arcID": "europe-reborn-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-europe-reborn-heirs-divide-the-realm",
+          "operation": "transform",
+          "beforeState": "A ruled capitulary road now runs from court through scriptorium and messenger to county judgment; copies remain beside a bishop, abbot and count.",
+          "afterState": "Three royal shares replace one Carolingian court, while the same books, episcopal sees and monastic routes remain illuminated across every boundary."
+        },
+        {
+          "effectID": "effect-europe-reborn-two-christian-roads-reach-north",
+          "contentID": "europe-reborn",
+          "arcID": "europe-reborn-arc-03",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-europe-reborn-two-christian-roads-reach-north",
+          "operation": "transform",
+          "beforeState": "Three royal shares replace one Carolingian court, while the same books, episcopal sees and monastic routes remain illuminated across every boundary.",
+          "afterState": "Books, capitularies, bishops, monasteries and delegated offices connect political centres without one western emperor."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-monastic-rule",
+      "kind": "institution",
+      "introducedBy": {
+        "contentID": "europe-reborn",
+        "arcID": "europe-reborn-arc-01",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-europe-reborn-rule-orders-the-day"
+      },
+      "state": "A copied rule orders time, labour, property and succession beyond the life of any member.",
+      "laterActivations": [
+        {
+          "effectID": "effect-monastic-rule-papal-revolution",
+          "target": {
+            "contentID": "papal-revolution",
+            "arcID": "papal-revolution-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "A copied rule orders time, labour, property and succession beyond the life of any member.",
+          "afterState": "Reformed monasteries supply personnel, discipline and copied norms to a papacy learning to govern beyond Rome."
+        },
+        {
+          "effectID": "effect-monastic-rule-society-beyond-kin",
+          "target": {
+            "contentID": "society-beyond-kin",
+            "arcID": "society-beyond-kin-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Reformed monasteries supply personnel, discipline and copied norms to a papacy learning to govern beyond Rome.",
+          "afterState": "Vow, rule, common property and elected office make the monastery a working model for association beyond kin."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-europe-reborn-rule-orders-the-day",
+          "contentID": "europe-reborn",
+          "arcID": "europe-reborn-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-europe-reborn-rule-orders-the-day",
+          "operation": "establish",
+          "beforeState": "Prayer, work, food and sleep still depend on one abbot's custom, while property and succession can dissolve with the household around him.",
+          "afterState": "A copied rule orders time, labour, property and succession beyond the life of any member."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-dual-jurisdiction",
+      "kind": "political-order",
+      "introducedBy": {
+        "contentID": "papal-revolution",
+        "arcID": "papal-revolution-arc-03",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-papal-revolution-worms-divides-ring-sceptre"
+      },
+      "state": "Spiritual and temporal jurisdictions coexist inside Latin Christendom without either absorbing the other.",
+      "laterActivations": [
+        {
+          "effectID": "effect-dual-jurisdiction-society-beyond-kin",
+          "target": {
+            "contentID": "society-beyond-kin",
+            "arcID": "society-beyond-kin-arc-03",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Spiritual and temporal jurisdictions coexist inside Latin Christendom without either absorbing the other.",
+          "afterState": "Ecclesiastical and civic bodies claim property, office and courts in their own names inside overlapping jurisdictions."
+        },
+        {
+          "effectID": "effect-dual-jurisdiction-empire-many-liberties",
+          "target": {
+            "contentID": "empire-many-liberties",
+            "arcID": "empire-many-liberties-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Ecclesiastical and civic bodies claim property, office and courts in their own names inside overlapping jurisdictions.",
+          "afterState": "Diet, imperial court and confessional settlement govern powers that retain distinct jurisdictions inside one order."
+        },
+        {
+          "effectID": "effect-dual-jurisdiction-reformation",
+          "target": {
+            "contentID": "reformation",
+            "arcID": "reformation-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "contest",
+          "beforeState": "Diet, imperial court and confessional settlement govern powers that retain distinct jurisdictions inside one order.",
+          "afterState": "Princes, estates and churches fight over worship and obedience until Westphalia resets the legal boundary without abolishing either jurisdiction."
+        },
+        {
+          "effectID": "effect-dual-jurisdiction-enlightenment-public-opinion",
+          "target": {
+            "contentID": "enlightenment-public-opinion",
+            "arcID": "enlightenment-public-opinion-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Princes, estates and churches fight over worship and obedience until Westphalia resets the legal boundary without abolishing either jurisdiction.",
+          "afterState": "Comparison of European church and state arrangements makes jurisdiction answerable to public arguments about law and liberty."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-papal-revolution-bishop-serves-altar-crown",
+          "contentID": "papal-revolution",
+          "arcID": "papal-revolution-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-papal-revolution-bishop-serves-altar-crown",
+          "operation": "prepare",
+          "beforeState": "Ring, staff, estate, court and levy lie in one investiture, leaving spiritual office and royal service physically fused around the bishop.",
+          "afterState": "Opening altar, estate, court and levy leaves four labelled burdens held between pope and crown; ring and staff remain bound to the same appointment while temporal regalia and royal service remain unresolved."
+        },
+        {
+          "effectID": "effect-papal-revolution-road-ends-canossa",
+          "contentID": "papal-revolution",
+          "arcID": "papal-revolution-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-papal-revolution-road-ends-canossa",
+          "operation": "prepare",
+          "beforeState": "Opening altar, estate, court and levy leaves four labelled burdens held between pope and crown; ring and staff remain bound to the same appointment while temporal regalia and royal service remain unresolved.",
+          "afterState": "Communion is restored at Canossa, but crown, obedience and investiture remain visibly unresolved; the reopened road ends at a doorway still divided."
+        },
+        {
+          "effectID": "effect-papal-revolution-worms-divides-ring-sceptre",
+          "contentID": "papal-revolution",
+          "arcID": "papal-revolution-arc-03",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-papal-revolution-worms-divides-ring-sceptre",
+          "operation": "establish",
+          "beforeState": "Communion is restored at Canossa, but crown, obedience and investiture remain visibly unresolved; the reopened road ends at a doorway still divided.",
+          "afterState": "Spiritual and temporal jurisdictions coexist inside Latin Christendom without either absorbing the other."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-canonical-election",
+      "kind": "institution",
+      "introducedBy": {
+        "contentID": "papal-revolution",
+        "arcID": "papal-revolution-arc-01",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-papal-revolution-reformers-build-government"
+      },
+      "state": "Ordered election, records and corporate office limit possession of ecclesiastical authority.",
+      "laterActivations": [
+        {
+          "effectID": "effect-canonical-election-society-beyond-kin",
+          "target": {
+            "contentID": "society-beyond-kin",
+            "arcID": "society-beyond-kin-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Ordered election, records and corporate office limit possession of ecclesiastical authority.",
+          "afterState": "Election becomes a repeatable means by which monasteries, guilds and communes place office above inheritance."
+        },
+        {
+          "effectID": "effect-canonical-election-empire-many-liberties",
+          "target": {
+            "contentID": "empire-many-liberties",
+            "arcID": "empire-many-liberties-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Election becomes a repeatable means by which monasteries, guilds and communes place office above inheritance.",
+          "afterState": "Corporate election reaches the crown itself as prince-electors make succession lawful without making it hereditary."
+        },
+        {
+          "effectID": "effect-canonical-election-reformation",
+          "target": {
+            "contentID": "reformation",
+            "arcID": "reformation-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "contest",
+          "beforeState": "Corporate election reaches the crown itself as prince-electors make succession lawful without making it hereditary.",
+          "afterState": "Territorial churches and Catholic reform reorganise ecclesiastical appointment while the older claim that office exceeds its holder survives."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-papal-revolution-reformers-build-government",
+          "contentID": "papal-revolution",
+          "arcID": "papal-revolution-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-papal-revolution-reformers-build-government",
+          "operation": "establish",
+          "beforeState": "Reform depends on local patrons and personal alliances; no complete set of instruments yet lets a papal office reproduce its authority.",
+          "afterState": "Ordered election, records and corporate office limit possession of ecclesiastical authority."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-consent-marriage",
+      "kind": "social-order",
+      "introducedBy": {
+        "contentID": "society-beyond-kin",
+        "arcID": "society-beyond-kin-arc-01",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-society-beyond-kin-circle-opens-outward"
+      },
+      "state": "Mutual consent makes two speaking persons decisive in marriage beyond the lineage's command.",
+      "laterActivations": [],
+      "arcEffects": [
+        {
+          "effectID": "effect-society-beyond-kin-circle-opens-outward",
+          "contentID": "society-beyond-kin",
+          "arcID": "society-beyond-kin-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-society-beyond-kin-circle-opens-outward",
+          "operation": "establish",
+          "beforeState": "Marriage remains enclosed by lineage strategy, with the couple's spoken assent unable to override the kin group arranging property and alliance.",
+          "afterState": "Mutual consent makes two speaking persons decisive in marriage beyond the lineage's command."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-corporate-body",
+      "kind": "institution",
+      "introducedBy": {
+        "contentID": "society-beyond-kin",
+        "arcID": "society-beyond-kin-arc-03",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-society-beyond-kin-institution-outlives-us"
+      },
+      "state": "A body can own, decide and persist through changing members by rule, office, record and law.",
+      "laterActivations": [
+        {
+          "effectID": "effect-corporate-body-medieval-commercial-revolution",
+          "target": {
+            "contentID": "medieval-commercial-revolution",
+            "arcID": "medieval-commercial-revolution-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "A body can own, decide and persist through changing members by rule, office, record and law.",
+          "afterState": "Merchant guilds and recognised fairs supply offices, records and jurisdiction within which time-bound ventures can be enforced."
+        },
+        {
+          "effectID": "effect-corporate-body-hanseatic-north",
+          "target": {
+            "contentID": "hanseatic-north",
+            "arcID": "hanseatic-north-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Merchant guilds and recognised fairs supply offices, records and jurisdiction within which time-bound ventures can be enforced.",
+          "afterState": "Cities and Kontore act through seals, delegates and common decisions while their changing members retain separate governments."
+        },
+        {
+          "effectID": "effect-corporate-body-empire-many-liberties",
+          "target": {
+            "contentID": "empire-many-liberties",
+            "arcID": "empire-many-liberties-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Cities and Kontore act through seals, delegates and common decisions while their changing members retain separate governments.",
+          "afterState": "Cities, chapters, estates and principalities carry rights as enduring bodies inside the imperial constitution."
+        },
+        {
+          "effectID": "effect-corporate-body-dutch-republic",
+          "target": {
+            "contentID": "dutch-republic",
+            "arcID": "dutch-republic-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Cities, chapters, estates and principalities carry rights as enduring bodies inside the imperial constitution.",
+          "afterState": "The VOC gives pooled capital permanent corporate life while transferable shares let individual investors depart."
+        },
+        {
+          "effectID": "effect-corporate-body-rivalry-industrial-breakthrough",
+          "target": {
+            "contentID": "rivalry-industrial-breakthrough",
+            "arcID": "rivalry-industrial-breakthrough-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "The VOC gives pooled capital permanent corporate life while transferable shares let individual investors depart.",
+          "afterState": "Registration, corporate continuity and limited exposure make the company capable of works larger than one fortune."
+        },
+        {
+          "effectID": "effect-corporate-body-continent-rebuilt",
+          "target": {
+            "contentID": "continent-rebuilt",
+            "arcID": "continent-rebuilt-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Registration, corporate continuity and limited exposure make the company capable of works larger than one fortune.",
+          "afterState": "Treaty creates authorities and courts whose offices persist beyond the governments that founded them."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-society-beyond-kin-rule-makes-strangers-house",
+          "contentID": "society-beyond-kin",
+          "arcID": "society-beyond-kin-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-society-beyond-kin-rule-makes-strangers-house",
+          "operation": "prepare",
+          "beforeState": "Unrelated entrants can share devotion and work, but no vow, rule, property or succession yet holds them as one enduring house.",
+          "afterState": "Vow, rule, donated property and election assemble a monastic house whose seal, store and offices remain when its founders leave."
+        },
+        {
+          "effectID": "effect-society-beyond-kin-commune-governs-own-name",
+          "contentID": "society-beyond-kin",
+          "arcID": "society-beyond-kin-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-society-beyond-kin-commune-governs-own-name",
+          "operation": "prepare",
+          "beforeState": "Vow, rule, donated property and election assemble a monastic house whose seal, store and offices remain when its founders leave.",
+          "afterState": "A sworn crowd gains council, treasury, officers and communal seal; the same durable outline now governs a town in its own name."
+        },
+        {
+          "effectID": "effect-society-beyond-kin-institution-outlives-us",
+          "contentID": "society-beyond-kin",
+          "arcID": "society-beyond-kin-arc-03",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-society-beyond-kin-institution-outlives-us",
+          "operation": "establish",
+          "beforeState": "A sworn crowd gains council, treasury, officers and communal seal; the same durable outline now governs a town in its own name.",
+          "afterState": "A body can own, decide and persist through changing members by rule, office, record and law."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-ledger-road",
+      "kind": "network",
+      "introducedBy": {
+        "contentID": "medieval-commercial-revolution",
+        "arcID": "medieval-commercial-revolution-arc-02",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-medieval-commercial-revolution-promise-crosses-alps"
+      },
+      "state": "Contracts, account money, settlement and ledgers carry obligation farther than coin or owner.",
+      "laterActivations": [
+        {
+          "effectID": "effect-ledger-road-hanseatic-north",
+          "target": {
+            "contentID": "hanseatic-north",
+            "arcID": "hanseatic-north-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Contracts, account money, settlement and ledgers carry obligation farther than coin or owner.",
+          "afterState": "Kontor ledgers and reciprocal cargo settle obligations between Bergen, Lübeck and the Baltic without moving coin for every exchange."
+        },
+        {
+          "effectID": "effect-ledger-road-dutch-republic",
+          "target": {
+            "contentID": "dutch-republic",
+            "arcID": "dutch-republic-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Kontor ledgers and reciprocal cargo settle obligations between Bergen, Lübeck and the Baltic without moving coin for every exchange.",
+          "afterState": "Municipal bank money and exchange prices make book entries enforceable settlement across a commercial republic."
+        },
+        {
+          "effectID": "effect-ledger-road-rivalry-industrial-breakthrough",
+          "target": {
+            "contentID": "rivalry-industrial-breakthrough",
+            "arcID": "rivalry-industrial-breakthrough-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Municipal bank money and exchange prices make book entries enforceable settlement across a commercial republic.",
+          "afterState": "Company accounts and scheduled railway receipts coordinate subscribed capital, material and distant work."
+        },
+        {
+          "effectID": "effect-ledger-road-european-world",
+          "target": {
+            "contentID": "european-world",
+            "arcID": "european-world-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Company accounts and scheduled railway receipts coordinate subscribed capital, material and distant work.",
+          "afterState": "Postal, telegraph and treaty systems carry recognised addresses, tariffs and settlement across national borders."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-medieval-commercial-revolution-fair-keeps-its-date",
+          "contentID": "medieval-commercial-revolution",
+          "arcID": "medieval-commercial-revolution-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-medieval-commercial-revolution-fair-keeps-its-date",
+          "operation": "prepare",
+          "beforeState": "Merchants know distant markets, but arrival, payment and judgment still depend on irregular meetings and coin carried in person.",
+          "afterState": "A repeated fair calendar lights successive roads, safe-conducts and settlement days; obligations can now wait for a known market and court."
+        },
+        {
+          "effectID": "effect-medieval-commercial-revolution-promise-crosses-alps",
+          "contentID": "medieval-commercial-revolution",
+          "arcID": "medieval-commercial-revolution-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-medieval-commercial-revolution-promise-crosses-alps",
+          "operation": "establish",
+          "beforeState": "A repeated fair calendar lights successive roads, safe-conducts and settlement days; obligations can now wait for a known market and court.",
+          "afterState": "Contracts, account money, settlement and ledgers carry obligation farther than coin or owner."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-bounded-commercial-risk",
+      "kind": "institution",
+      "introducedBy": {
+        "contentID": "medieval-commercial-revolution",
+        "arcID": "medieval-commercial-revolution-arc-01",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-medieval-commercial-revolution-contract-becomes-route"
+      },
+      "state": "The voyage partnership's bounded contribution remains beside a second written boundary: a premium transfers a named ship's stated hazards to an underwriter, so invested exposure and insured danger remain distinct, priced obligations in the ledger.",
+      "laterActivations": [
+        {
+          "effectID": "effect-bounded-commercial-risk-dutch-republic",
+          "target": {
+            "contentID": "dutch-republic",
+            "arcID": "dutch-republic-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "The voyage partnership's bounded contribution remains beside a second written boundary: a premium transfers a named ship's stated hazards to an underwriter, so invested exposure and insured danger remain distinct, priced obligations in the ledger.",
+          "afterState": "The voyage partnership's bounded stake becomes permanent joint capital whose shares can change hands while marine insurance continues to price the hazards borne by the fleet."
+        },
+        {
+          "effectID": "effect-bounded-commercial-risk-rivalry-industrial-breakthrough",
+          "target": {
+            "contentID": "rivalry-industrial-breakthrough",
+            "arcID": "rivalry-industrial-breakthrough-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "The voyage partnership's bounded stake becomes permanent joint capital whose shares can change hands while marine insurance continues to price the hazards borne by the fleet.",
+          "afterState": "General company law extends bounded shareholder exposure to registered industrial corporations while insurance prices the operational and cargo hazards they carry."
+        },
+        {
+          "effectID": "effect-bounded-commercial-risk-european-world",
+          "target": {
+            "contentID": "european-world",
+            "arcID": "european-world-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "General company law extends bounded shareholder exposure to registered industrial corporations while insurance prices the operational and cargo hazards they carry.",
+          "afterState": "Registered capital and insured risk finance railways, ports, shipping and administrative infrastructure across the connected world."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-medieval-commercial-revolution-contract-becomes-route",
+          "contentID": "medieval-commercial-revolution",
+          "arcID": "medieval-commercial-revolution-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-medieval-commercial-revolution-contract-becomes-route",
+          "operation": "establish",
+          "beforeState": "One merchant's household fortune stands behind ship, cargo and voyage, so a single loss can consume property far beyond the expedition.",
+          "afterState": "Partners place fixed sums beside ship and cargo; the passive investor's committed stake is bounded from his other property while the travelling partner's capital and duties remain separately exposed."
+        },
+        {
+          "effectID": "effect-medieval-commercial-revolution-sea-can-be-insured",
+          "contentID": "medieval-commercial-revolution",
+          "arcID": "medieval-commercial-revolution-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-medieval-commercial-revolution-sea-can-be-insured",
+          "operation": "transform",
+          "beforeState": "Partners place fixed sums beside ship and cargo; the passive investor's committed stake is bounded from his other property while the travelling partner's capital and duties remain separately exposed.",
+          "afterState": "The voyage partnership's bounded contribution remains beside a second written boundary: a premium transfers a named ship's stated hazards to an underwriter, so invested exposure and insured danger remain distinct, priced obligations in the ledger."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-hanseatic-field",
+      "kind": "network",
+      "introducedBy": {
+        "contentID": "hanseatic-north",
+        "arcID": "hanseatic-north-arc-02",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-hanseatic-north-edges-write-back"
+      },
+      "state": "Four Kontore return prices, warnings and disputes through the routes to separate councils; foreign yards and city governments now form a northern commercial field without one throne.",
+      "laterActivations": [
+        {
+          "effectID": "effect-hanseatic-field-empire-many-liberties",
+          "target": {
+            "contentID": "empire-many-liberties",
+            "arcID": "empire-many-liberties-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Four Kontore return prices, warnings and disputes through the routes to separate councils; foreign yards and city governments now form a northern commercial field without one throne.",
+          "afterState": "Self-governing cities retain their law while diets, circles and courts give their wider field a common peace."
+        },
+        {
+          "effectID": "effect-hanseatic-field-europe-turns-seaward",
+          "target": {
+            "contentID": "europe-turns-seaward",
+            "arcID": "europe-turns-seaward-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Self-governing cities retain their law while diets, circles and courts give their wider field a common peace.",
+          "afterState": "Northern commercial routes join the Atlantic as competing states and chartered companies extend trade beyond the Baltic field."
+        },
+        {
+          "effectID": "effect-hanseatic-field-dutch-republic",
+          "target": {
+            "contentID": "dutch-republic",
+            "arcID": "dutch-republic-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Northern commercial routes join the Atlantic as competing states and chartered companies extend trade beyond the Baltic field.",
+          "afterState": "Ships, merchant refugees and permanent joint capital consolidate northern commercial capacity in the Dutch Republic."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-hanseatic-north-lofoten-sends-summer-cargo",
+          "contentID": "hanseatic-north",
+          "arcID": "hanseatic-north-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-hanseatic-north-lofoten-sends-summer-cargo",
+          "operation": "prepare",
+          "beforeState": "Northern fisheries, grain ports and cloth towns work to different seasons, with no single itinerary yet carrying their surpluses through the year.",
+          "afterState": "A seasonal stockfish route runs from Lofoten through Bergen toward grain and cloth ports; summer cargo leaves a recurring northern circuit on the sea."
+        },
+        {
+          "effectID": "effect-hanseatic-north-edges-write-back",
+          "contentID": "hanseatic-north",
+          "arcID": "hanseatic-north-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-hanseatic-north-edges-write-back",
+          "operation": "establish",
+          "beforeState": "A seasonal stockfish route runs from Lofoten through Bergen toward grain and cloth ports; summer cargo leaves a recurring northern circuit on the sea.",
+          "afterState": "Four Kontore return prices, warnings and disputes through the routes to separate councils; foreign yards and city governments now form a northern commercial field without one throne."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-delegated-city-covenant",
+      "kind": "institution",
+      "introducedBy": {
+        "contentID": "hanseatic-north",
+        "arcID": "hanseatic-north-arc-02",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-hanseatic-north-agreement-becomes-fleet"
+      },
+      "state": "Separate city governments delegate consent into common embargo, fleet and treaty while retaining their own seals.",
+      "laterActivations": [
+        {
+          "effectID": "effect-delegated-city-covenant-empire-many-liberties",
+          "target": {
+            "contentID": "empire-many-liberties",
+            "arcID": "empire-many-liberties-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Separate city governments delegate consent into common embargo, fleet and treaty while retaining their own seals.",
+          "afterState": "City delegations, estates and circles convert separate mandates into common judgment without erasing the bodies that issued them."
+        },
+        {
+          "effectID": "effect-delegated-city-covenant-dutch-republic",
+          "target": {
+            "contentID": "dutch-republic",
+            "arcID": "dutch-republic-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "City delegations, estates and circles convert separate mandates into common judgment without erasing the bodies that issued them.",
+          "afterState": "Provincial union scales delegated consent into a republic whose members retain their governments and fiscal power."
+        },
+        {
+          "effectID": "effect-delegated-city-covenant-continent-rebuilt",
+          "target": {
+            "contentID": "continent-rebuilt",
+            "arcID": "continent-rebuilt-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Provincial union scales delegated consent into a republic whose members retain their governments and fiscal power.",
+          "afterState": "European states delegate defined powers to common authorities and courts while retaining their own constitutional seals."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-hanseatic-north-yard-becomes-government",
+          "contentID": "hanseatic-north",
+          "arcID": "hanseatic-north-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-hanseatic-north-yard-becomes-government",
+          "operation": "prepare",
+          "beforeState": "Merchants share a foreign quay, but storage, judgment, watch and representation remain private burdens without a recognised common voice.",
+          "afterState": "Opening the Bryggen yard reveals warehouse rows, elected elders, common rules and a seal; the enclave can now remember obligations and answer as one body."
+        },
+        {
+          "effectID": "effect-hanseatic-north-agreement-becomes-fleet",
+          "contentID": "hanseatic-north",
+          "arcID": "hanseatic-north-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-hanseatic-north-agreement-becomes-fleet",
+          "operation": "establish",
+          "beforeState": "Opening the Bryggen yard reveals warehouse rows, elected elders, common rules and a seal; the enclave can now remember obligations and answer as one body.",
+          "afterState": "Separate city governments delegate consent into common embargo, fleet and treaty while retaining their own seals."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-imperial-liberties",
+      "kind": "political-order",
+      "introducedBy": {
+        "contentID": "empire-many-liberties",
+        "arcID": "empire-many-liberties-arc-01",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-empire-many-liberties-seven-electors-make-one-king"
+      },
+      "state": "Accumulated rights, election and estate government preserve distinct powers inside one imperial order.",
+      "laterActivations": [
+        {
+          "effectID": "effect-imperial-liberties-europe-holds-the-line",
+          "target": {
+            "contentID": "europe-holds-the-line",
+            "arcID": "europe-holds-the-line-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Accumulated rights, election and estate government preserve distinct powers inside one imperial order.",
+          "afterState": "Imperial estates and territories contribute roads, money, fortresses and troops to a defence assembled from distinct powers."
+        },
+        {
+          "effectID": "effect-imperial-liberties-reformation",
+          "target": {
+            "contentID": "reformation",
+            "arcID": "reformation-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "contest",
+          "beforeState": "Imperial estates and territories contribute roads, money, fortresses and troops to a defence assembled from distinct powers.",
+          "afterState": "Confessional war tests estate rights to destruction; Westphalia preserves the Empire by confirming negotiated jurisdiction."
+        },
+        {
+          "effectID": "effect-imperial-liberties-habsburg-europe",
+          "target": {
+            "contentID": "habsburg-europe",
+            "arcID": "habsburg-europe-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Confessional war tests estate rights to destruction; Westphalia preserves the Empire by confirming negotiated jurisdiction.",
+          "afterState": "Habsburg lands retain diets, laws and crowns while common defence and service bind them to one dynasty."
+        },
+        {
+          "effectID": "effect-imperial-liberties-continent-rebuilt",
+          "target": {
+            "contentID": "continent-rebuilt",
+            "arcID": "continent-rebuilt-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Habsburg lands retain diets, laws and crowns while common defence and service bind them to one dynasty.",
+          "afterState": "National governments bind power through treaty and court while retaining constitutional authority within the common order."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-empire-many-liberties-crown-has-no-capital",
+          "contentID": "empire-many-liberties",
+          "arcID": "empire-many-liberties-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-empire-many-liberties-crown-has-no-capital",
+          "operation": "prepare",
+          "beforeState": "The imperial title claims a realm of princes, bishops and cities, but no fixed capital or single administrative chain can make those powers answer together.",
+          "afterState": "Crown, regalia, host and chancery move along an imperial itinerary; each visited estate remains lit with its own court, seal and right."
+        },
+        {
+          "effectID": "effect-empire-many-liberties-seven-electors-make-one-king",
+          "contentID": "empire-many-liberties",
+          "arcID": "empire-many-liberties-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-empire-many-liberties-seven-electors-make-one-king",
+          "operation": "establish",
+          "beforeState": "Crown, regalia, host and chancery move along an imperial itinerary; each visited estate remains lit with its own court, seal and right.",
+          "afterState": "Accumulated rights, election and estate government preserve distinct powers inside one imperial order."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-imperial-public-peace",
+      "kind": "institution",
+      "introducedBy": {
+        "contentID": "empire-many-liberties",
+        "arcID": "empire-many-liberties-arc-02",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-empire-many-liberties-diet-outlaws-feud"
+      },
+      "state": "The 1624 confessional baseline, estate rights, bounded alliances and restored courts remain joined to permanent negotiation at Regensburg; the imperial mosaic survives inside one public peace.",
+      "laterActivations": [
+        {
+          "effectID": "effect-imperial-public-peace-europe-holds-the-line",
+          "target": {
+            "contentID": "europe-holds-the-line",
+            "arcID": "europe-holds-the-line-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "The 1624 confessional baseline, estate rights, bounded alliances and restored courts remain joined to permanent negotiation at Regensburg; the imperial mosaic survives inside one public peace.",
+          "afterState": "Imperial circles and estates coordinate levy, roads and frontier defence through institutions built to replace private feud."
+        },
+        {
+          "effectID": "effect-imperial-public-peace-reformation",
+          "target": {
+            "contentID": "reformation",
+            "arcID": "reformation-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "contest",
+          "beforeState": "Imperial circles and estates coordinate levy, roads and frontier defence through institutions built to replace private feud.",
+          "afterState": "The Thirty Years' War destroys the working peace before congress and reciprocal law restore a governable imperial settlement."
+        },
+        {
+          "effectID": "effect-imperial-public-peace-habsburg-europe",
+          "target": {
+            "contentID": "habsburg-europe",
+            "arcID": "habsburg-europe-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "The Thirty Years' War destroys the working peace before congress and reciprocal law restore a governable imperial settlement.",
+          "afterState": "The Habsburg lands carry courts, estates and public-law habits from the Empire into continuous civil service and common defence."
+        },
+        {
+          "effectID": "effect-imperial-public-peace-continent-rebuilt",
+          "target": {
+            "contentID": "continent-rebuilt",
+            "arcID": "continent-rebuilt-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "The Habsburg lands carry courts, estates and public-law habits from the Empire into continuous civil service and common defence.",
+          "afterState": "Treaty and court place disputes between democratic states under common judgment instead of armed settlement."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-empire-many-liberties-diet-outlaws-feud",
+          "contentID": "empire-many-liberties",
+          "arcID": "empire-many-liberties-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-empire-many-liberties-diet-outlaws-feud",
+          "operation": "establish",
+          "beforeState": "Feud remains a lawful instrument among estates, and an imperial proposal has no force until the distinct benches consent and institutions can execute it.",
+          "afterState": "Electors, princes and cities approve the peace in separate benches; court and regional circles remain on the map to judge breaches and organise enforcement."
+        },
+        {
+          "effectID": "effect-empire-many-liberties-westphalia-keeps-mosaic",
+          "contentID": "empire-many-liberties",
+          "arcID": "empire-many-liberties-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-empire-many-liberties-westphalia-keeps-mosaic",
+          "operation": "transform",
+          "beforeState": "Electors, princes and cities approve the peace in separate benches; court and regional circles remain on the map to judge breaches and organise enforcement.",
+          "afterState": "The 1624 confessional baseline, estate rights, bounded alliances and restored courts remain joined to permanent negotiation at Regensburg; the imperial mosaic survives inside one public peace."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-christian-frontier",
+      "kind": "border",
+      "introducedBy": {
+        "contentID": "europe-holds-the-line",
+        "arcID": "europe-holds-the-line-arc-02",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-europe-holds-the-line-living-wall-guards-croatia"
+      },
+      "state": "Fortified cities and permanent frontier communities hold a recovered Christian European line from Iberia to the Danube.",
+      "laterActivations": [
+        {
+          "effectID": "effect-christian-frontier-habsburg-europe",
+          "target": {
+            "contentID": "habsburg-europe",
+            "arcID": "habsburg-europe-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Fortified cities and permanent frontier communities hold a recovered Christian European line from Iberia to the Danube.",
+          "afterState": "Danube forts, frontier service and military communities become permanent institutions of the Habsburg crowns."
+        },
+        {
+          "effectID": "effect-christian-frontier-europe-returns",
+          "target": {
+            "contentID": "europe-returns",
+            "arcID": "europe-returns-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Danube forts, frontier service and military communities become permanent institutions of the Habsburg crowns.",
+          "afterState": "The defended eastern line now rests on sovereign states, Ukrainian resistance and allied commitments rather than a dynastic military border."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-europe-holds-the-line-northern-valleys-keep-crown",
+          "contentID": "europe-holds-the-line",
+          "arcID": "europe-holds-the-line-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-europe-holds-the-line-northern-valleys-keep-crown",
+          "operation": "prepare",
+          "beforeState": "Cantabrian passes shelter separate bands and settlements, but no durable Christian crown yet carries defence beyond the mountain refuge.",
+          "afterState": "Held passes, the court at Oviedo, monastic stores and defended fields leave an inhabited Christian corridor reaching León and the Duero."
+        },
+        {
+          "effectID": "effect-europe-holds-the-line-living-wall-guards-croatia",
+          "contentID": "europe-holds-the-line",
+          "arcID": "europe-holds-the-line-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-europe-holds-the-line-living-wall-guards-croatia",
+          "operation": "establish",
+          "beforeState": "Held passes, the court at Oviedo, monastic stores and defended fields leave an inhabited Christian corridor reaching León and the Duero.",
+          "afterState": "Fortified cities and permanent frontier communities hold a recovered Christian European line from Iberia to the Danube."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-coalition-defence",
+      "kind": "alliance",
+      "introducedBy": {
+        "contentID": "europe-holds-the-line",
+        "arcID": "europe-holds-the-line-arc-02",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-europe-holds-the-line-frontier-turns"
+      },
+      "state": "Cities, kingdoms, orders, fleets and relief armies combine different capacities against a common threat.",
+      "laterActivations": [
+        {
+          "effectID": "effect-coalition-defence-habsburg-europe",
+          "target": {
+            "contentID": "habsburg-europe",
+            "arcID": "habsburg-europe-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Cities, kingdoms, orders, fleets and relief armies combine different capacities against a common threat.",
+          "afterState": "Several crowns and frontier communities combine revenue, roads and troops for sustained defence along the Danube."
+        },
+        {
+          "effectID": "effect-coalition-defence-europe-at-war",
+          "target": {
+            "contentID": "europe-at-war",
+            "arcID": "europe-at-war-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "contest",
+          "beforeState": "Several crowns and frontier communities combine revenue, roads and troops for sustained defence along the Danube.",
+          "afterState": "Alliance commitments and mass mobilisation turn mutual defence into a chain that carries a continental crisis into total war."
+        },
+        {
+          "effectID": "effect-coalition-defence-continent-rebuilt",
+          "target": {
+            "contentID": "continent-rebuilt",
+            "arcID": "continent-rebuilt-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Alliance commitments and mass mobilisation turn mutual defence into a chain that carries a continental crisis into total war.",
+          "afterState": "NATO gives coalition defence a permanent treaty, integrated planning and Atlantic reinforcement."
+        },
+        {
+          "effectID": "effect-coalition-defence-europe-returns",
+          "target": {
+            "contentID": "europe-returns",
+            "arcID": "europe-returns-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "NATO gives coalition defence a permanent treaty, integrated planning and Atlantic reinforcement.",
+          "afterState": "Allied enlargement, national forces and continental logistics make defence at the eastern line a standing common obligation."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-europe-holds-the-line-europe-answers-clermont",
+          "contentID": "europe-holds-the-line",
+          "arcID": "europe-holds-the-line-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-europe-holds-the-line-europe-answers-clermont",
+          "operation": "prepare",
+          "beforeState": "Western contingents hold separate vows, lords and roads, while the eastern appeal has no common force able to cross the imperial frontier.",
+          "afterState": "Four western roads converge at Constantinople; Roman passage and supply join crusader manpower through Nicaea and Antioch to captured Jerusalem."
+        },
+        {
+          "effectID": "effect-europe-holds-the-line-frontier-turns",
+          "contentID": "europe-holds-the-line",
+          "arcID": "europe-holds-the-line-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-europe-holds-the-line-frontier-turns",
+          "operation": "establish",
+          "beforeState": "Four western roads converge at Constantinople; Roman passage and supply join crusader manpower through Nicaea and Antioch to captured Jerusalem.",
+          "afterState": "Cities, kingdoms, orders, fleets and relief armies combine different capacities against a common threat."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-atlantic-sea-road",
+      "kind": "route",
+      "introducedBy": {
+        "contentID": "europe-turns-seaward",
+        "arcID": "europe-turns-seaward-arc-01",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-europe-turns-seaward-way-home-bends-west"
+      },
+      "state": "Known winds, islands, capes and supplied ports turn the Atlantic and Cape passage into repeatable European roads.",
+      "laterActivations": [
+        {
+          "effectID": "effect-atlantic-sea-road-dutch-republic",
+          "target": {
+            "contentID": "dutch-republic",
+            "arcID": "dutch-republic-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Known winds, islands, capes and supplied ports turn the Atlantic and Cape passage into repeatable European roads.",
+          "afterState": "Dutch fluyts, charts and permanent company capital turn Atlantic routes into dense, repeatable commercial circuits."
+        },
+        {
+          "effectID": "effect-atlantic-sea-road-european-world",
+          "target": {
+            "contentID": "european-world",
+            "arcID": "european-world-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Dutch fluyts, charts and permanent company capital turn Atlantic routes into dense, repeatable commercial circuits.",
+          "afterState": "Steam packets, canals and submarine cable place the sea road on a public schedule."
+        },
+        {
+          "effectID": "effect-atlantic-sea-road-europe-at-war",
+          "target": {
+            "contentID": "europe-at-war",
+            "arcID": "europe-at-war-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "contest",
+          "beforeState": "Steam packets, canals and submarine cable place the sea road on a public schedule.",
+          "afterState": "Blockade, submarine war, convoy and expeditionary armies weaponise the same ocean routes that connected Europe's world."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-europe-turns-seaward-way-home-bends-west",
+          "contentID": "europe-turns-seaward",
+          "arcID": "europe-turns-seaward-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-europe-turns-seaward-way-home-bends-west",
+          "operation": "establish",
+          "beforeState": "A vessel clings to the African coast against wind and current, and the shortest line home remains an unreliable road.",
+          "afterState": "The westward volta reaches Atlantic westerlies and returns to the Tagus, leaving a repeatable open-ocean route for the next voyage."
+        },
+        {
+          "effectID": "effect-europe-turns-seaward-chart-reaches-calicut",
+          "contentID": "europe-turns-seaward",
+          "arcID": "europe-turns-seaward-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-europe-turns-seaward-chart-reaches-calicut",
+          "operation": "transform",
+          "beforeState": "The westward volta reaches Atlantic westerlies and returns to the Tagus, leaving a repeatable open-ocean route for the next voyage.",
+          "afterState": "The unrolled chart joins Bojador, Guinea and the Cape to East African pilotage and a monsoon crossing that reaches Calicut, but the route still lacks supplied bases and armed control of narrow water."
+        },
+        {
+          "effectID": "effect-europe-turns-seaward-meridian-divides-unknown-world",
+          "contentID": "europe-turns-seaward",
+          "arcID": "europe-turns-seaward-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-europe-turns-seaward-meridian-divides-unknown-world",
+          "operation": "transform",
+          "beforeState": "The unrolled chart joins Bojador, Guinea and the Cape to East African pilotage and a monsoon crossing that reaches Calicut, but the route still lacks supplied bases and armed control of narrow water.",
+          "afterState": "The Tordesillas meridian, uncertain longitude, Cabral's landfall and repeated surveys leave royal claims and measured coastline written across the same expanding Atlantic chart."
+        },
+        {
+          "effectID": "effect-europe-turns-seaward-cannon-holds-narrow-water",
+          "contentID": "europe-turns-seaward",
+          "arcID": "europe-turns-seaward-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-europe-turns-seaward-cannon-holds-narrow-water",
+          "operation": "transform",
+          "beforeState": "The Tordesillas meridian, uncertain longitude, Cabral's landfall and repeated surveys leave royal claims and measured coastline written across the same expanding Atlantic chart.",
+          "afterState": "Known winds, islands, capes and supplied ports turn the Atlantic and Cape passage into repeatable European roads."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-pilot-archive",
+      "kind": "knowledge-network",
+      "introducedBy": {
+        "contentID": "europe-turns-seaward",
+        "arcID": "europe-turns-seaward-arc-02",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-europe-turns-seaward-voyage-enters-archive"
+      },
+      "state": "Returning pilots place soundings, latitudes, winds and harbour knowledge into state-held charts for the next voyage.",
+      "laterActivations": [
+        {
+          "effectID": "effect-pilot-archive-scientific-revolution",
+          "target": {
+            "contentID": "scientific-revolution",
+            "arcID": "scientific-revolution-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Returning pilots place soundings, latitudes, winds and harbour knowledge into state-held charts for the next voyage.",
+          "afterState": "The pilot's cumulative log becomes part of a wider discipline in which tables, instruments and corrected observation answer to the world."
+        },
+        {
+          "effectID": "effect-pilot-archive-dutch-republic",
+          "target": {
+            "contentID": "dutch-republic",
+            "arcID": "dutch-republic-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "The pilot's cumulative log becomes part of a wider discipline in which tables, instruments and corrected observation answer to the world.",
+          "afterState": "Commercial charting, soundings and harbour knowledge guide a republic whose power moves by ship."
+        },
+        {
+          "effectID": "effect-pilot-archive-european-world",
+          "target": {
+            "contentID": "european-world",
+            "arcID": "european-world-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Commercial charting, soundings and harbour knowledge guide a republic whose power moves by ship.",
+          "afterState": "State hydrography and territorial survey standardise local observations into a global administrative archive."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-europe-turns-seaward-voyage-enters-archive",
+          "contentID": "europe-turns-seaward",
+          "arcID": "europe-turns-seaward-arc-02",
+          "beatID": "UNASSIGNED",
+          "sourceMovementID": "europe-turns-seaward/voyage-enters-archive",
+          "operation": "establish",
+          "beforeState": "Returning logs, damaged charts and numerical observations reach Lisbon and Seville as separate testimony, while no crown office yet turns them into a controlled master record.",
+          "afterState": "Returning pilots place soundings, latitudes, winds and harbour knowledge into state-held charts for the next voyage."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-confessional-print-network",
+      "kind": "network",
+      "introducedBy": {
+        "contentID": "reformation",
+        "arcID": "reformation-arc-01",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-reformation-indulgence-enters-print"
+      },
+      "state": "Print, translation, school and territorial church make confession reproducible across European states.",
+      "laterActivations": [
+        {
+          "effectID": "effect-confessional-print-network-scientific-revolution",
+          "target": {
+            "contentID": "scientific-revolution",
+            "arcID": "scientific-revolution-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Print, translation, school and territorial church make confession reproducible across European states.",
+          "afterState": "The presses and correspondence that reproduced confession now circulate measured claims, diagrams and criticism between investigators."
+        },
+        {
+          "effectID": "effect-confessional-print-network-dutch-republic",
+          "target": {
+            "contentID": "dutch-republic",
+            "arcID": "dutch-republic-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "The presses and correspondence that reproduced confession now circulate measured claims, diagrams and criticism between investigators.",
+          "afterState": "Refugee printers and plural cities make the republic a European junction for books, news and confessional argument."
+        },
+        {
+          "effectID": "effect-confessional-print-network-enlightenment-public-opinion",
+          "target": {
+            "contentID": "enlightenment-public-opinion",
+            "arcID": "enlightenment-public-opinion-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Refugee printers and plural cities make the republic a European junction for books, news and confessional argument.",
+          "afterState": "Periodical and refugee press detach continental circulation from church control and place institutions before a reading public."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-reformation-indulgence-enters-print",
+          "contentID": "reformation",
+          "arcID": "reformation-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-reformation-indulgence-enters-print",
+          "operation": "establish",
+          "beforeState": "A Latin university dispute remains in manuscript and local speech, still recoverable by the authorities that control its first audience.",
+          "afterState": "Composed type, inked forms, repeated sheets and vernacular pamphlets leave the indulgence dispute running through several commercial presses and cities."
+        },
+        {
+          "effectID": "effect-reformation-prince-builds-a-church",
+          "contentID": "reformation",
+          "arcID": "reformation-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-reformation-prince-builds-a-church",
+          "operation": "transform",
+          "beforeState": "Composed type, inked forms, repeated sheets and vernacular pamphlets leave the indulgence dispute running through several commercial presses and cities.",
+          "afterState": "Print, translation, school and territorial church make confession reproducible across European states."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-westphalian-settlement",
+      "kind": "political-order",
+      "introducedBy": {
+        "contentID": "reformation",
+        "arcID": "reformation-arc-02",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-reformation-envoys-negotiate-under-arms"
+      },
+      "state": "Permanent confessional plurality and estate rights remain inside a preserved constitutional order.",
+      "laterActivations": [
+        {
+          "effectID": "effect-westphalian-settlement-habsburg-europe",
+          "target": {
+            "contentID": "habsburg-europe",
+            "arcID": "habsburg-europe-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Permanent confessional plurality and estate rights remain inside a preserved constitutional order.",
+          "afterState": "After Westphalia confirms estate jurisdictions inside the Empire, Habsburg rulers concentrate common work in their hereditary crowns."
+        },
+        {
+          "effectID": "effect-westphalian-settlement-dutch-republic",
+          "target": {
+            "contentID": "dutch-republic",
+            "arcID": "dutch-republic-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "After Westphalia confirms estate jurisdictions inside the Empire, Habsburg rulers concentrate common work in their hereditary crowns.",
+          "afterState": "Recognition at Münster secures the Dutch Republic's place among European states while its provinces retain their federal compact."
+        },
+        {
+          "effectID": "effect-westphalian-settlement-europe-at-war",
+          "target": {
+            "contentID": "europe-at-war",
+            "arcID": "europe-at-war-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "supersede",
+          "beforeState": "Recognition at Münster secures the Dutch Republic's place among European states while its provinces retain their federal compact.",
+          "afterState": "The Empire preserved at Westphalia disappears in 1806, and by 1914 sovereign alliance diplomacy cannot contain industrial mobilisation."
+        },
+        {
+          "effectID": "effect-westphalian-settlement-continent-rebuilt",
+          "target": {
+            "contentID": "continent-rebuilt",
+            "arcID": "continent-rebuilt-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "The Empire preserved at Westphalia disappears in 1806, and by 1914 sovereign alliance diplomacy cannot contain industrial mobilisation.",
+          "afterState": "European states pool specified powers in treaty authorities and courts without dissolving their statehood."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-reformation-army-learns-to-feed-itself",
+          "contentID": "reformation",
+          "arcID": "reformation-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-reformation-army-learns-to-feed-itself",
+          "operation": "prepare",
+          "beforeState": "Confessional revolt, dynastic allegiance and army supply lie on separate tables while occupied households bear a war with no agreed constitutional exit.",
+          "afterState": "The war table leaves contribution routes, occupied households, confessional claims and surviving estate rights exposed together while armies still stand in the field."
+        },
+        {
+          "effectID": "effect-reformation-envoys-negotiate-under-arms",
+          "contentID": "reformation",
+          "arcID": "reformation-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-reformation-envoys-negotiate-under-arms",
+          "operation": "establish",
+          "beforeState": "The war table leaves contribution routes, occupied households, confessional claims and surviving estate rights exposed together while armies still stand in the field.",
+          "afterState": "Permanent confessional plurality and estate rights remain inside a preserved constitutional order."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-danube-common-home",
+      "kind": "political-order",
+      "introducedBy": {
+        "contentID": "habsburg-europe",
+        "arcID": "habsburg-europe-arc-01",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-habsburg-europe-three-crowns-seek-a-king"
+      },
+      "state": "Several crowns, laws and peoples inhabit one dynastic state through common defence and service.",
+      "laterActivations": [
+        {
+          "effectID": "effect-danube-common-home-europe-at-war",
+          "target": {
+            "contentID": "europe-at-war",
+            "arcID": "europe-at-war-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "supersede",
+          "beforeState": "Several crowns, laws and peoples inhabit one dynastic state through common defence and service.",
+          "afterState": "War, hunger and national secession dissolve the dynastic common home in 1918, leaving its peoples, cities and routes divided among successor states."
+        },
+        {
+          "effectID": "effect-danube-common-home-continent-rebuilt",
+          "target": {
+            "contentID": "continent-rebuilt",
+            "arcID": "continent-rebuilt-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "War, hunger and national secession dissolve the dynastic common home in 1918, leaving its peoples, cities and routes divided among successor states.",
+          "afterState": "Successor nations separated by Soviet power reopen borders and public life as the eastern European revolutions converge in 1989."
+        },
+        {
+          "effectID": "effect-danube-common-home-europe-returns",
+          "target": {
+            "contentID": "europe-returns",
+            "arcID": "europe-returns-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Successor nations separated by Soviet power reopen borders and public life as the eastern European revolutions converge in 1989.",
+          "afterState": "Restored central European states choose a common legal and defensive home through separate accessions to the Union and NATO."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-habsburg-europe-three-crowns-seek-a-king",
+          "contentID": "habsburg-europe",
+          "arcID": "habsburg-europe-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-habsburg-europe-three-crowns-seek-a-king",
+          "operation": "establish",
+          "beforeState": "Austria, Bohemia and a contested Hungary retain separate crowns, diets and claims after Mohács, with no ruler yet binding their defence.",
+          "afterState": "Ferdinand holds three crowns through different oaths and bargains; their diets, laws and tax grants remain visible inside one defensive monarchy."
+        },
+        {
+          "effectID": "effect-habsburg-europe-school-road-post",
+          "contentID": "habsburg-europe",
+          "arcID": "habsburg-europe-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-habsburg-europe-school-road-post",
+          "operation": "transform",
+          "beforeState": "Ferdinand holds three crowns through different oaths and bargains; their diets, laws and tax grants remain visible inside one defensive monarchy.",
+          "afterState": "Surveyed districts, responsible offices, regular post and elementary schools carry common service deeper into crownlands that retain local law and language."
+        },
+        {
+          "effectID": "effect-habsburg-europe-two-governments-share-a-crown",
+          "contentID": "habsburg-europe",
+          "arcID": "habsburg-europe-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-habsburg-europe-two-governments-share-a-crown",
+          "operation": "transform",
+          "beforeState": "Surveyed districts, responsible offices, regular post and elementary schools carry common service deeper into crownlands that retain local law and language.",
+          "afterState": "Several crowns, laws and peoples inhabit one dynastic state through common defence and service."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-habsburg-rail-braid",
+      "kind": "route",
+      "introducedBy": {
+        "contentID": "habsburg-europe",
+        "arcID": "habsburg-europe-arc-02",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-habsburg-europe-rails-braid-the-crownlands"
+      },
+      "state": "Rail, post, telegraph, customs and municipal institutions braid the crownlands into one practical geography.",
+      "laterActivations": [
+        {
+          "effectID": "effect-habsburg-rail-braid-rivalry-industrial-breakthrough",
+          "target": {
+            "contentID": "rivalry-industrial-breakthrough",
+            "arcID": "rivalry-industrial-breakthrough-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Rail, post, telegraph, customs and municipal institutions braid the crownlands into one practical geography.",
+          "afterState": "Continental iron, railway law and corporate capital enlarge the crownland braid into a European system of scheduled movement."
+        },
+        {
+          "effectID": "effect-habsburg-rail-braid-european-world",
+          "target": {
+            "contentID": "european-world",
+            "arcID": "european-world-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Continental iron, railway law and corporate capital enlarge the crownland braid into a European system of scheduled movement.",
+          "afterState": "Telegraph, international post and common time make the rail braid interoperable beyond the monarchy's borders."
+        },
+        {
+          "effectID": "effect-habsburg-rail-braid-europe-at-war",
+          "target": {
+            "contentID": "europe-at-war",
+            "arcID": "europe-at-war-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "contest",
+          "beforeState": "Telegraph, international post and common time make the rail braid interoperable beyond the monarchy's borders.",
+          "afterState": "Mobilisation seizes the railway timetable; blockade, military priority and imperial collapse sever the common network."
+        },
+        {
+          "effectID": "effect-habsburg-rail-braid-continent-rebuilt",
+          "target": {
+            "contentID": "continent-rebuilt",
+            "arcID": "continent-rebuilt-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Mobilisation seizes the railway timetable; blockade, military priority and imperial collapse sever the common network.",
+          "afterState": "The Iron Curtain cuts inherited routes until opened borders and restored governments reconnect them in 1989."
+        },
+        {
+          "effectID": "effect-habsburg-rail-braid-europe-returns",
+          "target": {
+            "contentID": "europe-returns",
+            "arcID": "europe-returns-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "The Iron Curtain cuts inherited routes until opened borders and restored governments reconnect them in 1989.",
+          "afterState": "Central European corridors carry accession trade, Ukrainian supply and allied reinforcement across the old crownland geography."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-habsburg-europe-rails-braid-the-crownlands",
+          "contentID": "habsburg-europe",
+          "arcID": "habsburg-europe-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-habsburg-europe-rails-braid-the-crownlands",
+          "operation": "establish",
+          "beforeState": "Prague, Lviv, Trieste and Zagreb belong to one monarchy, but their journeys still expose separate systems without one practical route between them.",
+          "afterState": "Rail, post, telegraph, customs and municipal institutions braid the crownlands into one practical geography."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-measured-page",
+      "kind": "knowledge-network",
+      "introducedBy": {
+        "contentID": "scientific-revolution",
+        "arcID": "scientific-revolution-arc-02",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-scientific-revolution-geometry-takes-the-page"
+      },
+      "state": "Measurement, calibrated instrument and mathematical proof make observation portable and cumulative on the page.",
+      "laterActivations": [
+        {
+          "effectID": "effect-measured-page-dutch-republic",
+          "target": {
+            "contentID": "dutch-republic",
+            "arcID": "dutch-republic-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Measurement, calibrated instrument and mathematical proof make observation portable and cumulative on the page.",
+          "afterState": "Audited accounts, exchange prices and engineering records make measurement part of republican trust."
+        },
+        {
+          "effectID": "effect-measured-page-enlightenment-public-opinion",
+          "target": {
+            "contentID": "enlightenment-public-opinion",
+            "arcID": "enlightenment-public-opinion-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Audited accounts, exchange prices and engineering records make measurement part of republican trust.",
+          "afterState": "Comparison applies the measured page to institutions, placing laws and governments beside observable alternatives."
+        },
+        {
+          "effectID": "effect-measured-page-rivalry-industrial-breakthrough",
+          "target": {
+            "contentID": "rivalry-industrial-breakthrough",
+            "arcID": "rivalry-industrial-breakthrough-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Comparison applies the measured page to institutions, placing laws and governments beside observable alternatives.",
+          "afterState": "Instrumented experiment, precision improvement and recorded trials make steam power cumulative rather than accidental."
+        },
+        {
+          "effectID": "effect-measured-page-european-world",
+          "target": {
+            "contentID": "european-world",
+            "arcID": "european-world-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Instrumented experiment, precision improvement and recorded trials make steam power cumulative rather than accidental.",
+          "afterState": "Survey, technical standard and public-health register make measured knowledge an instrument of continental administration."
+        },
+        {
+          "effectID": "effect-measured-page-continent-rebuilt",
+          "target": {
+            "contentID": "continent-rebuilt",
+            "arcID": "continent-rebuilt-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Survey, technical standard and public-health register make measured knowledge an instrument of continental administration.",
+          "afterState": "Allocation, treaty and court turn measured obligations into repeatable rules for reconstruction and exchange."
+        },
+        {
+          "effectID": "effect-measured-page-europe-returns",
+          "target": {
+            "contentID": "europe-returns",
+            "arcID": "europe-returns-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Allocation, treaty and court turn measured obligations into repeatable rules for reconstruction and exchange.",
+          "afterState": "Accession criteria and monitored reforms make constitutional change answer to recorded European standards."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-scientific-revolution-earth-becomes-a-planet",
+          "contentID": "scientific-revolution",
+          "arcID": "scientific-revolution-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-scientific-revolution-earth-becomes-a-planet",
+          "operation": "prepare",
+          "beforeState": "Astronomical and anatomical authority remains fixed in inherited diagrams whose errors can be repeated without confronting one ordered field of observation.",
+          "afterState": "Facing folios reorder Earth among the planets and correct the pictured body at the dissection table; printed comparison leaves both claims open to distant readers."
+        },
+        {
+          "effectID": "effect-scientific-revolution-mars-refuses-the-circle",
+          "contentID": "scientific-revolution",
+          "arcID": "scientific-revolution-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-scientific-revolution-mars-refuses-the-circle",
+          "operation": "prepare",
+          "beforeState": "Facing folios reorder Earth among the planets and correct the pictured body at the dissection table; printed comparison leaves both claims open to distant readers.",
+          "afterState": "Tycho's dated observations, Kepler's failed circle, the ellipse and equal-area law remain aligned in a ruled register that preserves how measure defeated perfection, but the record is not yet joined to calibrated instruments or portable geometry."
+        },
+        {
+          "effectID": "effect-scientific-revolution-geometry-takes-the-page",
+          "contentID": "scientific-revolution",
+          "arcID": "scientific-revolution-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-scientific-revolution-geometry-takes-the-page",
+          "operation": "establish",
+          "beforeState": "Tycho's dated observations, Kepler's failed circle, the ellipse and equal-area law remain aligned in a ruled register that preserves how measure defeated perfection, but the record is not yet joined to calibrated instruments or portable geometry.",
+          "afterState": "Measurement, calibrated instrument and mathematical proof make observation portable and cumulative on the page."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-republic-of-letters",
+      "kind": "network",
+      "introducedBy": {
+        "contentID": "scientific-revolution",
+        "arcID": "scientific-revolution-arc-02",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-scientific-revolution-observation-enters-the-register"
+      },
+      "state": "Correspondence, journals and societies carry reproducible claims between cities and generations.",
+      "laterActivations": [
+        {
+          "effectID": "effect-republic-of-letters-dutch-republic",
+          "target": {
+            "contentID": "dutch-republic",
+            "arcID": "dutch-republic-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Correspondence, journals and societies carry reproducible claims between cities and generations.",
+          "afterState": "Dutch cities, printers and learned refugees become a dense junction in Europe's correspondence network."
+        },
+        {
+          "effectID": "effect-republic-of-letters-enlightenment-public-opinion",
+          "target": {
+            "contentID": "enlightenment-public-opinion",
+            "arcID": "enlightenment-public-opinion-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Dutch cities, printers and learned refugees become a dense junction in Europe's correspondence network.",
+          "afterState": "Correspondence and learned journals widen into periodical press, coffeehouse discussion and public comparison."
+        },
+        {
+          "effectID": "effect-republic-of-letters-rivalry-industrial-breakthrough",
+          "target": {
+            "contentID": "rivalry-industrial-breakthrough",
+            "arcID": "rivalry-industrial-breakthrough-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Correspondence and learned journals widen into periodical press, coffeehouse discussion and public comparison.",
+          "afterState": "Published tables, drawings and workshop reports carry practical improvements between mines, foundries and engineers."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-scientific-revolution-observation-enters-the-register",
+          "contentID": "scientific-revolution",
+          "arcID": "scientific-revolution-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-scientific-revolution-observation-enters-the-register",
+          "operation": "establish",
+          "beforeState": "An observation sits in a private letter without a public address, witnessed repetition or stable route by which another city can answer it.",
+          "afterState": "Correspondence, journals and societies carry reproducible claims between cities and generations."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-dutch-credit-machine",
+      "kind": "institution",
+      "introducedBy": {
+        "contentID": "dutch-republic",
+        "arcID": "dutch-republic-arc-02",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-dutch-republic-the-bourse-prices-the-world"
+      },
+      "state": "Bank, exchange, public accounts and transferable claims turn trust into governed financial capacity.",
+      "laterActivations": [
+        {
+          "effectID": "effect-dutch-credit-machine-enlightenment-public-opinion",
+          "target": {
+            "contentID": "enlightenment-public-opinion",
+            "arcID": "enlightenment-public-opinion-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Bank, exchange, public accounts and transferable claims turn trust into governed financial capacity.",
+          "afterState": "Exchange prices, public accounts and financial news give urban readers a continuous judgment on state and commerce."
+        },
+        {
+          "effectID": "effect-dutch-credit-machine-rivalry-industrial-breakthrough",
+          "target": {
+            "contentID": "rivalry-industrial-breakthrough",
+            "arcID": "rivalry-industrial-breakthrough-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Exchange prices, public accounts and financial news give urban readers a continuous judgment on state and commerce.",
+          "afterState": "Public credit and transferable claims finance railways and registered companies whose needs exceed merchant partnership."
+        },
+        {
+          "effectID": "effect-dutch-credit-machine-european-world",
+          "target": {
+            "contentID": "european-world",
+            "arcID": "european-world-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Public credit and transferable claims finance railways and registered companies whose needs exceed merchant partnership.",
+          "afterState": "Banking and securities mobilise capital for steamship, cable and scheduled infrastructure across the world."
+        },
+        {
+          "effectID": "effect-dutch-credit-machine-europe-at-war",
+          "target": {
+            "contentID": "europe-at-war",
+            "arcID": "europe-at-war-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "contest",
+          "beforeState": "Banking and securities mobilise capital for steamship, cable and scheduled infrastructure across the world.",
+          "afterState": "Belligerent states commandeer credit, taxation and debt to sustain industrial war beyond ordinary revenue."
+        },
+        {
+          "effectID": "effect-dutch-credit-machine-continent-rebuilt",
+          "target": {
+            "contentID": "continent-rebuilt",
+            "arcID": "continent-rebuilt-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Belligerent states commandeer credit, taxation and debt to sustain industrial war beyond ordinary revenue.",
+          "afterState": "Public accounts, credit and convertible exchange support reconstruction and the widening common market."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-dutch-republic-capital-outlives-the-voyage",
+          "contentID": "dutch-republic",
+          "arcID": "dutch-republic-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-dutch-republic-capital-outlives-the-voyage",
+          "operation": "prepare",
+          "beforeState": "Separate voyage subscriptions dissolve after each return, forcing ships, command and capital to be assembled again for the next expedition.",
+          "afterState": "Six chambers feed one continuing VOC fund, while a transferable share lets an investor leave without recalling fleet, factories or company property."
+        },
+        {
+          "effectID": "effect-dutch-republic-the-bourse-prices-the-world",
+          "contentID": "dutch-republic",
+          "arcID": "dutch-republic-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-dutch-republic-the-bourse-prices-the-world",
+          "operation": "establish",
+          "beforeState": "Six chambers feed one continuing VOC fund, while a transferable share lets an investor leave without recalling fleet, factories or company property.",
+          "afterState": "Bank, exchange, public accounts and transferable claims turn trust into governed financial capacity."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-water-government",
+      "kind": "infrastructure",
+      "introducedBy": {
+        "contentID": "dutch-republic",
+        "arcID": "dutch-republic-arc-02",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-dutch-republic-water-line-saves-the-republic"
+      },
+      "state": "Measured land, audited maintenance and distributed authority govern water in peace and reverse it for defence.",
+      "laterActivations": [
+        {
+          "effectID": "effect-water-government-rivalry-industrial-breakthrough",
+          "target": {
+            "contentID": "rivalry-industrial-breakthrough",
+            "arcID": "rivalry-industrial-breakthrough-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Measured land, audited maintenance and distributed authority govern water in peace and reverse it for defence.",
+          "afterState": "Steam pumps and iron machinery enlarge drainage capacity while audited water boards preserve distributed responsibility."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-dutch-republic-provinces-make-a-union",
+          "contentID": "dutch-republic",
+          "arcID": "dutch-republic-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-dutch-republic-provinces-make-a-union",
+          "operation": "prepare",
+          "beforeState": "Town councils and provincial estates can raise money and men, but no common procedure yet carries their consent into federal defence.",
+          "afterState": "Town councils, provincial States and the States General remain linked on one consent board; a common decision can return to its constituent governments without erasing them."
+        },
+        {
+          "effectID": "effect-dutch-republic-water-line-saves-the-republic",
+          "contentID": "dutch-republic",
+          "arcID": "dutch-republic-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-dutch-republic-water-line-saves-the-republic",
+          "operation": "establish",
+          "beforeState": "Town councils, provincial States and the States General remain linked on one consent board; a common decision can return to its constituent governments without erasing them.",
+          "afterState": "Measured land, audited maintenance and distributed authority govern water in peace and reverse it for defence."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-european-public-opinion",
+      "kind": "network",
+      "introducedBy": {
+        "contentID": "enlightenment-public-opinion",
+        "arcID": "enlightenment-public-opinion-arc-02",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-enlightenment-public-opinion-encyclopedie-opens-the-workshop"
+      },
+      "state": "Press, club, academy, market and assembly give public judgment institutional force beyond the palace.",
+      "laterActivations": [
+        {
+          "effectID": "effect-european-public-opinion-europe-at-war",
+          "target": {
+            "contentID": "europe-at-war",
+            "arcID": "europe-at-war-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "contest",
+          "beforeState": "Press, club, academy, market and assembly give public judgment institutional force beyond the palace.",
+          "afterState": "Party monopoly, censorship, racial law and terror close the public spaces through which judgment could oppose total dominion."
+        },
+        {
+          "effectID": "effect-european-public-opinion-continent-rebuilt",
+          "target": {
+            "contentID": "continent-rebuilt",
+            "arcID": "continent-rebuilt-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Party monopoly, censorship, racial law and terror close the public spaces through which judgment could oppose total dominion.",
+          "afterState": "Free elections, parliament and independent press restore organised public judgment within western democratic states."
+        },
+        {
+          "effectID": "effect-european-public-opinion-europe-returns",
+          "target": {
+            "contentID": "europe-returns",
+            "arcID": "europe-returns-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Free elections, parliament and independent press restore organised public judgment within western democratic states.",
+          "afterState": "Public mobilisation, constitutional debate and the Maidan make European allegiance an expressed political choice."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-enlightenment-public-opinion-coffeehouse-makes-a-present",
+          "contentID": "enlightenment-public-opinion",
+          "arcID": "enlightenment-public-opinion-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-enlightenment-public-opinion-coffeehouse-makes-a-present",
+          "operation": "prepare",
+          "beforeState": "Shipping reports, parliamentary conduct, advertisements and essays reach London separately, without one dated sheet around which strangers share a present.",
+          "afterState": "One composed paper places shipping, Parliament, market and criticism on coffeehouse tables; recurring issues leave strangers judging the same public day."
+        },
+        {
+          "effectID": "effect-enlightenment-public-opinion-encyclopedie-opens-the-workshop",
+          "contentID": "enlightenment-public-opinion",
+          "arcID": "enlightenment-public-opinion-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-enlightenment-public-opinion-encyclopedie-opens-the-workshop",
+          "operation": "establish",
+          "beforeState": "One composed paper places shipping, Parliament, market and criticism on coffeehouse tables; recurring issues leave strangers judging the same public day.",
+          "afterState": "Articles, definitions, cross-references and engraved operations leave craft and argument joined in an addressable public network whose routes remain open on the page."
+        },
+        {
+          "effectID": "effect-enlightenment-public-opinion-rulers-answer-the-page",
+          "contentID": "enlightenment-public-opinion",
+          "arcID": "enlightenment-public-opinion-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-enlightenment-public-opinion-rulers-answer-the-page",
+          "operation": "transform",
+          "beforeState": "Articles, definitions, cross-references and engraved operations leave craft and argument joined in an addressable public network whose routes remain open on the page.",
+          "afterState": "Press, club, academy, market and assembly give public judgment institutional force beyond the palace."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-comparative-law",
+      "kind": "knowledge-network",
+      "introducedBy": {
+        "contentID": "enlightenment-public-opinion",
+        "arcID": "enlightenment-public-opinion-arc-01",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-enlightenment-public-opinion-voltaire-returns-with-england"
+      },
+      "state": "European institutions can be placed beside one another and judged through power, law and liberty.",
+      "laterActivations": [
+        {
+          "effectID": "effect-comparative-law-continent-rebuilt",
+          "target": {
+            "contentID": "continent-rebuilt",
+            "arcID": "continent-rebuilt-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "European institutions can be placed beside one another and judged through power, law and liberty.",
+          "afterState": "Post-war constitutions, conventions and courts place national systems beside common European standards of government."
+        },
+        {
+          "effectID": "effect-comparative-law-europe-returns",
+          "target": {
+            "contentID": "europe-returns",
+            "arcID": "europe-returns-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Post-war constitutions, conventions and courts place national systems beside common European standards of government.",
+          "afterState": "The Copenhagen criteria turn comparative judgment of law and institutions into a gate for voluntary accession."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-enlightenment-public-opinion-voltaire-returns-with-england",
+          "contentID": "enlightenment-public-opinion",
+          "arcID": "enlightenment-public-opinion-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-enlightenment-public-opinion-voltaire-returns-with-england",
+          "operation": "establish",
+          "beforeState": "English, French, Dutch and Habsburg institutions sit in separate descriptions, with no common folio exposing how executive, legislature, court, tax and print relate.",
+          "afterState": "European institutions can be placed beside one another and judged through power, law and liberty."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-industrial-power-system",
+      "kind": "infrastructure",
+      "introducedBy": {
+        "contentID": "rivalry-industrial-breakthrough",
+        "arcID": "rivalry-industrial-breakthrough-arc-01",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-rivalry-industrial-breakthrough-the-mine-breathes"
+      },
+      "state": "Coal, iron, steam, precision machinery, factory and railway multiply one another as a connected productive system.",
+      "laterActivations": [
+        {
+          "effectID": "effect-industrial-power-system-european-world",
+          "target": {
+            "contentID": "european-world",
+            "arcID": "european-world-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Coal, iron, steam, precision machinery, factory and railway multiply one another as a connected productive system.",
+          "afterState": "Steamship, railway, cable manufacture and scheduled ports project the connected industrial system across oceans."
+        },
+        {
+          "effectID": "effect-industrial-power-system-europe-at-war",
+          "target": {
+            "contentID": "europe-at-war",
+            "arcID": "europe-at-war-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "contest",
+          "beforeState": "Steamship, railway, cable manufacture and scheduled ports project the connected industrial system across oceans.",
+          "afterState": "States reorganise coal, steel, factories and railways for attrition, multiplying supply and destruction through the same system."
+        },
+        {
+          "effectID": "effect-industrial-power-system-continent-rebuilt",
+          "target": {
+            "contentID": "continent-rebuilt",
+            "arcID": "continent-rebuilt-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "States reorganise coal, steel, factories and railways for attrition, multiplying supply and destruction through the same system.",
+          "afterState": "Coal, steel, machinery and power return to civilian reconstruction under shared allocation and market rules."
+        },
+        {
+          "effectID": "effect-industrial-power-system-europe-returns",
+          "target": {
+            "contentID": "europe-returns",
+            "arcID": "europe-returns-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Coal, steel, machinery and power return to civilian reconstruction under shared allocation and market rules.",
+          "afterState": "European industry and logistics are mobilised again to sustain Ukrainian defence and replenish the eastern line."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-rivalry-industrial-breakthrough-the-mine-breathes",
+          "contentID": "rivalry-industrial-breakthrough",
+          "arcID": "rivalry-industrial-breakthrough-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-rivalry-industrial-breakthrough-the-mine-breathes",
+          "operation": "establish",
+          "beforeState": "Flood closes deeper coal workings, while an atmospheric engine wastes enough heat to remain tied to cheap fuel at the mine.",
+          "afterState": "The working stroke drains deeper coal, a separate condenser saves fuel and rotary motion leaves a shaft able to drive machinery beyond the pump."
+        },
+        {
+          "effectID": "effect-rivalry-industrial-breakthrough-the-building-becomes-a-machine",
+          "contentID": "rivalry-industrial-breakthrough",
+          "arcID": "rivalry-industrial-breakthrough-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-rivalry-industrial-breakthrough-the-building-becomes-a-machine",
+          "operation": "transform",
+          "beforeState": "The working stroke drains deeper coal, a separate condenser saves fuel and rotary motion leaves a shaft able to drive machinery beyond the pump.",
+          "afterState": "Spindles multiply under continuous power as preparation, machines, workers and drive shafts remain ordered through one reproducible factory building."
+        },
+        {
+          "effectID": "effect-rivalry-industrial-breakthrough-the-railway-takes-time",
+          "contentID": "rivalry-industrial-breakthrough",
+          "arcID": "rivalry-industrial-breakthrough-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-rivalry-industrial-breakthrough-the-railway-takes-time",
+          "operation": "transform",
+          "beforeState": "Spindles multiply under continuous power as preparation, machines, workers and drive shafts remain ordered through one reproducible factory building.",
+          "afterState": "Coal, iron, steam, precision machinery, factory and railway multiply one another as a connected productive system."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-limited-company",
+      "kind": "institution",
+      "introducedBy": {
+        "contentID": "rivalry-industrial-breakthrough",
+        "arcID": "rivalry-industrial-breakthrough-arc-02",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-rivalry-industrial-breakthrough-liability-finds-a-boundary"
+      },
+      "state": "Registration, corporate continuity, transferable shares and limited exposure give large capital a durable legal body.",
+      "laterActivations": [
+        {
+          "effectID": "effect-limited-company-european-world",
+          "target": {
+            "contentID": "european-world",
+            "arcID": "european-world-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Registration, corporate continuity, transferable shares and limited exposure give large capital a durable legal body.",
+          "afterState": "Durable corporate bodies finance railways, ports and utilities whose work crosses generations and borders."
+        },
+        {
+          "effectID": "effect-limited-company-europe-at-war",
+          "target": {
+            "contentID": "europe-at-war",
+            "arcID": "europe-at-war-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "contest",
+          "beforeState": "Durable corporate bodies finance railways, ports and utilities whose work crosses generations and borders.",
+          "afterState": "War ministries direct firms, requisition output and absorb private risk into national mobilisation."
+        },
+        {
+          "effectID": "effect-limited-company-continent-rebuilt",
+          "target": {
+            "contentID": "continent-rebuilt",
+            "arcID": "continent-rebuilt-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "War ministries direct firms, requisition output and absorb private risk into national mobilisation.",
+          "afterState": "Registered companies operate across a common market whose treaty rules outlive individual governments."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-rivalry-industrial-breakthrough-liability-finds-a-boundary",
+          "contentID": "rivalry-industrial-breakthrough",
+          "arcID": "rivalry-industrial-breakthrough-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-rivalry-industrial-breakthrough-liability-finds-a-boundary",
+          "operation": "establish",
+          "beforeState": "A proposed railway needs capital beyond one partnership, while each subscriber's private estate remains exposed to an enterprise no individual can command.",
+          "afterState": "Registration, corporate continuity, transferable shares and limited exposure give large capital a durable legal body."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-global-schedule",
+      "kind": "network",
+      "introducedBy": {
+        "contentID": "european-world",
+        "arcID": "european-world-arc-01",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-european-world-steam-keeps-the-appointment"
+      },
+      "state": "Steam routes, cables, postal territory and common time connect distant action to European schedules.",
+      "laterActivations": [
+        {
+          "effectID": "effect-global-schedule-europe-at-war",
+          "target": {
+            "contentID": "europe-at-war",
+            "arcID": "europe-at-war-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "contest",
+          "beforeState": "Steam routes, cables, postal territory and common time connect distant action to European schedules.",
+          "afterState": "Rail timetables become mobilisation plans, and the scheduled world carries armies into a war political leaders cannot quickly stop."
+        },
+        {
+          "effectID": "effect-global-schedule-continent-rebuilt",
+          "target": {
+            "contentID": "continent-rebuilt",
+            "arcID": "continent-rebuilt-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Rail timetables become mobilisation plans, and the scheduled world carries armies into a war political leaders cannot quickly stop.",
+          "afterState": "Repaired transport, trade rules and treaty institutions reconnect western European schedules across former battle lines."
+        },
+        {
+          "effectID": "effect-global-schedule-europe-returns",
+          "target": {
+            "contentID": "europe-returns",
+            "arcID": "europe-returns-arc-02",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Repaired transport, trade rules and treaty institutions reconnect western European schedules across former battle lines.",
+          "afterState": "Continental rail, road and communications schedules carry commerce, refugees and military support along the eastern route."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-european-world-steam-keeps-the-appointment",
+          "contentID": "european-world",
+          "arcID": "european-world-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-european-world-steam-keeps-the-appointment",
+          "operation": "establish",
+          "beforeState": "Wind still decides a North Atlantic ship's departure and arrival, forcing mail, merchants and onward carriers to wait on an estimate.",
+          "afterState": "Published packet departures, machinery watches, coal supply and connected mail routes leave the ocean carrying an appointment beyond either shore, while survey archives, rail, cable, port and common time remain separate layers."
+        },
+        {
+          "effectID": "effect-european-world-the-survey-gives-the-state-a-map",
+          "contentID": "european-world",
+          "arcID": "european-world-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-european-world-the-survey-gives-the-state-a-map",
+          "operation": "transform",
+          "beforeState": "Published packet departures, machinery watches, coal supply and connected mail routes leave the ocean carrying an appointment beyond either shore, while survey archives, rail, cable, port and common time remain separate layers.",
+          "afterState": "Steam routes, cables, postal territory and common time connect distant action to European schedules."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-common-protocols",
+      "kind": "institution",
+      "introducedBy": {
+        "contentID": "european-world",
+        "arcID": "european-world-arc-02",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-european-world-the-world-reaches-london-before-dawn"
+      },
+      "state": "Permanent technical and public-health agreements let states operate one connected system across borders.",
+      "laterActivations": [
+        {
+          "effectID": "effect-common-protocols-europe-at-war",
+          "target": {
+            "contentID": "europe-at-war",
+            "arcID": "europe-at-war-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "contest",
+          "beforeState": "Permanent technical and public-health agreements let states operate one connected system across borders.",
+          "afterState": "Mobilisation and blockade subordinate cross-border protocols to military command while technical interoperability continues to move armies and messages."
+        },
+        {
+          "effectID": "effect-common-protocols-continent-rebuilt",
+          "target": {
+            "contentID": "continent-rebuilt",
+            "arcID": "continent-rebuilt-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Mobilisation and blockade subordinate cross-border protocols to military command while technical interoperability continues to move armies and messages.",
+          "afterState": "Coal-and-steel rules, treaty administration and court procedure extend protocol logic from technical exchange into governed power."
+        },
+        {
+          "effectID": "effect-common-protocols-europe-returns",
+          "target": {
+            "contentID": "europe-returns",
+            "arcID": "europe-returns-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Coal-and-steel rules, treaty administration and court procedure extend protocol logic from technical exchange into governed power.",
+          "afterState": "Accession chapters and alliance planning align law, administration and defence through agreed European procedures."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-european-world-twenty-states-agree-on-the-signal",
+          "contentID": "european-world",
+          "arcID": "european-world-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-european-world-twenty-states-agree-on-the-signal",
+          "operation": "prepare",
+          "beforeState": "National telegraph systems meet at the frontier with different alphabets, tariffs and accounts, forcing each message to be rebuilt at the border.",
+          "afterState": "A shared alphabet, tariff, settlement method and permanent revision office let one telegram cross several sovereign systems without losing its words."
+        },
+        {
+          "effectID": "effect-european-world-disease-enters-a-common-conference",
+          "contentID": "european-world",
+          "arcID": "european-world-arc-02",
+          "beatID": "UNASSIGNED",
+          "sourceMovementID": "european-world/disease-enters-a-common-conference",
+          "operation": "prepare",
+          "beforeState": "A shared alphabet, tariff, settlement method and permanent revision office let one telegram cross several sovereign systems without losing its words.",
+          "afterState": "A shared telegraph protocol now stands beside sanitary conventions, standardised outbreak notification and a permanent public-health office through which sovereign states coordinate across borders."
+        },
+        {
+          "effectID": "effect-european-world-the-world-reaches-london-before-dawn",
+          "contentID": "european-world",
+          "arcID": "european-world-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-european-world-the-world-reaches-london-before-dawn",
+          "operation": "establish",
+          "beforeState": "A shared telegraph protocol now stands beside sanitary conventions, standardised outbreak notification and a permanent public-health office through which sovereign states coordinate across borders.",
+          "afterState": "Permanent technical and public-health agreements let states operate one connected system across borders."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-continent-split-open",
+      "kind": "civilisational-rupture",
+      "introducedBy": {
+        "contentID": "europe-at-war",
+        "arcID": "europe-at-war-arc-01",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-europe-at-war-the-continent-is-written-as-a-schedule"
+      },
+      "state": "Berlin lies in ruins beneath American, British, French and Soviet occupation; Europe has lost its old primacy and the continent now opens into rival western and Soviet orders.",
+      "laterActivations": [
+        {
+          "effectID": "effect-continent-split-open-continent-rebuilt",
+          "target": {
+            "contentID": "continent-rebuilt",
+            "arcID": "continent-rebuilt-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Berlin lies in ruins beneath American, British, French and Soviet occupation; Europe has lost its old primacy and the continent now opens into rival western and Soviet orders.",
+          "afterState": "The wartime ruin hardens into two occupation and security orders while western states bind their recovery together."
+        },
+        {
+          "effectID": "effect-continent-split-open-europe-returns",
+          "target": {
+            "contentID": "europe-returns",
+            "arcID": "europe-returns-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "supersede",
+          "beforeState": "The wartime ruin hardens into two occupation and security orders while western states bind their recovery together.",
+          "afterState": "The revolutions of 1989 close the imposed division; freely acceding states replace the occupation line before Russian force contests the eastern settlement."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-europe-at-war-the-continent-is-written-as-a-schedule",
+          "contentID": "europe-at-war",
+          "arcID": "europe-at-war-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-europe-at-war-the-continent-is-written-as-a-schedule",
+          "operation": "establish",
+          "beforeState": "Alliance obligations, conscript armies and strategic railways remain prepared in cabinets, while civilian timetables and political choice still govern the continental map.",
+          "afterState": "Mobilisation orders seize the railways, empty cities and carry deliberate violations into industrial fronts whose schedules now outrun diplomacy."
+        },
+        {
+          "effectID": "effect-europe-at-war-the-peace-creates-the-stateless",
+          "contentID": "europe-at-war",
+          "arcID": "europe-at-war-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-europe-at-war-the-peace-creates-the-stateless",
+          "operation": "transform",
+          "beforeState": "Mobilisation orders seize the railways, empty cities and carry deliberate violations into industrial fronts whose schedules now outrun diplomacy.",
+          "afterState": "Four imperial fields disappear beneath treaty borders; new states, exposed minorities and refugee documents remain fixed on a Europe whose former political frame has broken."
+        },
+        {
+          "effectID": "effect-europe-at-war-berlin-falls-and-europe-is-divided",
+          "contentID": "europe-at-war",
+          "arcID": "europe-at-war-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-europe-at-war-berlin-falls-and-europe-is-divided",
+          "operation": "transform",
+          "beforeState": "Four imperial fields disappear beneath treaty borders; new states, exposed minorities and refugee documents remain fixed on a Europe whose former political frame has broken.",
+          "afterState": "Berlin lies in ruins beneath American, British, French and Soviet occupation; Europe has lost its old primacy and the continent now opens into rival western and Soviet orders."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-european-jewry-destroyed",
+      "kind": "civilisational-rupture",
+      "introducedBy": {
+        "contentID": "europe-at-war",
+        "arcID": "europe-at-war-arc-02",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-europe-at-war-european-jewry-is-marked-for-murder"
+      },
+      "state": "Nazi Germany murders European Jewish communities through occupation, shooting, deportation and killing centres; the absence remains permanent and non-interactive.",
+      "laterActivations": [
+        {
+          "effectID": "effect-european-jewry-destroyed-continent-rebuilt",
+          "target": {
+            "contentID": "continent-rebuilt",
+            "arcID": "continent-rebuilt-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "reactivate",
+          "beforeState": "Nazi Germany murders European Jewish communities through occupation, shooting, deportation and killing centres; the absence remains permanent and non-interactive.",
+          "afterState": "The murdered communities do not return: survivors, empty neighbourhoods and broken family lines remain inside the continent being rebuilt."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-europe-at-war-law-and-terror-reclassify-the-human-being",
+          "contentID": "europe-at-war",
+          "arcID": "europe-at-war-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-europe-at-war-law-and-terror-reclassify-the-human-being",
+          "operation": "prepare",
+          "beforeState": "A recognised passport still binds a citizen to legal protection, before statelessness and Nazi racial records turn membership into exposure controlled by the persecuting state.",
+          "afterState": "Nazi racial law and citizenship records leave German Jews classified, stripped of protection and exposed to a state that controls identity, property and movement."
+        },
+        {
+          "effectID": "effect-europe-at-war-european-jewry-is-marked-for-murder",
+          "contentID": "europe-at-war",
+          "arcID": "europe-at-war-arc-02",
+          "beatID": "UNASSIGNED",
+          "sourceMovementID": "europe-at-war/european-jewry-is-marked-for-murder",
+          "operation": "establish",
+          "beforeState": "Nazi racial law and citizenship records leave German Jews classified, stripped of protection and exposed to a state that controls identity, property and movement.",
+          "afterState": "Nazi Germany murders European Jewish communities through occupation, shooting, deportation and killing centres; the absence remains permanent and non-interactive."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-western-legal-order",
+      "kind": "political-order",
+      "introducedBy": {
+        "contentID": "continent-rebuilt",
+        "arcID": "continent-rebuilt-arc-01",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-continent-rebuilt-the-treaty-acquires-a-court"
+      },
+      "state": "Atlantic protection, democratic states, market, treaty and court bind western European power inside agreed rules.",
+      "laterActivations": [
+        {
+          "effectID": "effect-western-legal-order-europe-returns",
+          "target": {
+            "contentID": "europe-returns",
+            "arcID": "europe-returns-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Atlantic protection, democratic states, market, treaty and court bind western European power inside agreed rules.",
+          "afterState": "Former Soviet-subordinated states enter Union law and NATO through ratified sovereign acts, extending the western legal order east."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-continent-rebuilt-the-atlantic-sends-machines",
+          "contentID": "continent-rebuilt",
+          "arcID": "continent-rebuilt-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-continent-rebuilt-the-atlantic-sends-machines",
+          "operation": "prepare",
+          "beforeState": "Western European states count ruined transport, scarce dollars and competing national needs without a common allocation capable of turning American authority into recovery.",
+          "afterState": "American authorization, joint European allocation, a cleared port and an inland rail route leave one shipment multiplying through restored power and factory output."
+        },
+        {
+          "effectID": "effect-continent-rebuilt-the-treaty-acquires-a-court",
+          "contentID": "continent-rebuilt",
+          "arcID": "continent-rebuilt-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-continent-rebuilt-the-treaty-acquires-a-court",
+          "operation": "establish",
+          "beforeState": "American authorization, joint European allocation, a cleared port and an inland rail route leave one shipment multiplying through restored power and factory output.",
+          "afterState": "Atlantic protection, democratic states, market, treaty and court bind western European power inside agreed rules."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-eastern-civic-memory",
+      "kind": "network",
+      "introducedBy": {
+        "contentID": "continent-rebuilt",
+        "arcID": "continent-rebuilt-arc-02",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-continent-rebuilt-the-wall-confesses-the-system"
+      },
+      "state": "Churches, workshops, homes, theatres and duplicated pages preserve national truth and public organisation under Soviet rule.",
+      "laterActivations": [
+        {
+          "effectID": "effect-eastern-civic-memory-europe-returns",
+          "target": {
+            "contentID": "europe-returns",
+            "arcID": "europe-returns-arc-01",
+            "beatID": "UNASSIGNED"
+          },
+          "operation": "transform",
+          "beforeState": "Churches, workshops, homes, theatres and duplicated pages preserve national truth and public organisation under Soviet rule.",
+          "afterState": "The churches, presses and civic networks that preserved national agency supply parties, constitutions and reformers for sovereign accession."
+        }
+      ],
+      "arcEffects": [
+        {
+          "effectID": "effect-continent-rebuilt-the-wall-confesses-the-system",
+          "contentID": "continent-rebuilt",
+          "arcID": "continent-rebuilt-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-continent-rebuilt-the-wall-confesses-the-system",
+          "operation": "establish",
+          "beforeState": "The same 1945 rubble lies under two occupations, before western institutions and eastern national records begin taking visibly different roads.",
+          "afterState": "Concrete closes the eastern road at Berlin, while church records, duplicated pages and remembered national institutions remain lit beneath the public architecture of Soviet rule."
+        },
+        {
+          "effectID": "effect-continent-rebuilt-solidarity-builds-a-public-body",
+          "contentID": "continent-rebuilt",
+          "arcID": "continent-rebuilt-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-continent-rebuilt-solidarity-builds-a-public-body",
+          "operation": "transform",
+          "beforeState": "Concrete closes the eastern road at Berlin, while church records, duplicated pages and remembered national institutions remain lit beneath the public architecture of Soviet rule.",
+          "afterState": "Churches, workshops, homes, theatres and duplicated pages preserve national truth and public organisation under Soviet rule."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-eastern-return",
+      "kind": "political-order",
+      "introducedBy": {
+        "contentID": "europe-returns",
+        "arcID": "europe-returns-arc-01",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-europe-returns-the-great-enlargement-rejoins-the-continent"
+      },
+      "state": "Restored nations enter European Union law and NATO defence through separate acts of sovereign choice.",
+      "laterActivations": [],
+      "arcEffects": [
+        {
+          "effectID": "effect-europe-returns-copenhagen-writes-the-doorway",
+          "contentID": "europe-returns",
+          "arcID": "europe-returns-arc-01",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-europe-returns-copenhagen-writes-the-doorway",
+          "operation": "prepare",
+          "beforeState": "Restored eastern states have recovered sovereign government, but the European promise still lacks a published route through law into Union membership and allied defence.",
+          "afterState": "Published criteria, legal screening, negotiated chapters and ratification leave a sovereign route into European Union law open to the restored eastern states."
+        },
+        {
+          "effectID": "effect-europe-returns-the-great-enlargement-rejoins-the-continent",
+          "contentID": "europe-returns",
+          "arcID": "europe-returns-arc-01",
+          "beatID": "UNASSIGNED",
+          "sourceMovementID": "europe-returns/the-great-enlargement-rejoins-the-continent",
+          "operation": "establish",
+          "beforeState": "Published criteria, legal screening, negotiated chapters and ratification leave a sovereign route into European Union law open to the restored eastern states.",
+          "afterState": "Restored nations enter European Union law and NATO defence through separate acts of sovereign choice."
+        }
+      ]
+    },
+    {
+      "traceID": "trace-held-eastern-line",
+      "kind": "border",
+      "introducedBy": {
+        "contentID": "europe-returns",
+        "arcID": "europe-returns-arc-02",
+        "beatID": "UNASSIGNED",
+        "effectID": "effect-europe-returns-the-invasion-enlarges-european-resolve"
+      },
+      "state": "Ukrainian sovereignty, European accession work, allied logistics and collective defence remain distinct systems joined in organised endurance.",
+      "laterActivations": [],
+      "arcEffects": [
+        {
+          "effectID": "effect-europe-returns-russia-seizes-crimea-and-opens-the-donbas-war",
+          "contentID": "europe-returns",
+          "arcID": "europe-returns-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-europe-returns-russia-seizes-crimea-and-opens-the-donbas-war",
+          "operation": "prepare",
+          "beforeState": "Georgia's occupied breakaway regions, Crimea, the Donbas and the approaching invasion remain separated as incidents rather than one repeated challenge to sovereign European choice.",
+          "afterState": "The warning atlas aligns Georgia in 2008, occupied Crimea and the Donbas in 2014, and the 2022 invasion; the eastern line now requires organised defence as well as declared law."
+        },
+        {
+          "effectID": "effect-europe-returns-the-invasion-enlarges-european-resolve",
+          "contentID": "europe-returns",
+          "arcID": "europe-returns-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-europe-returns-the-invasion-enlarges-european-resolve",
+          "operation": "establish",
+          "beforeState": "The warning atlas aligns Georgia in 2008, occupied Crimea and the Donbas in 2014, and the 2022 invasion; the eastern line now requires organised defence as well as declared law.",
+          "afterState": "Union candidacy reaches Kyiv, allied support reaches Ukraine and collective defence closes around Finland and Sweden, while every legal boundary remains visibly distinct."
+        },
+        {
+          "effectID": "effect-europe-returns-europe-builds-the-power-to-endure",
+          "contentID": "europe-returns",
+          "arcID": "europe-returns-arc-02",
+          "beatID": "UNASSIGNED",
+          "nativeInteractionID": "interaction-europe-returns-europe-builds-the-power-to-endure",
+          "operation": "transform",
+          "beforeState": "Union candidacy reaches Kyiv, allied support reaches Ukraine and collective defence closes around Finland and Sweden, while every legal boundary remains visibly distinct.",
+          "afterState": "Ukrainian sovereignty, European accession work, allied logistics and collective defence remain distinct systems joined in organised endurance."
+        }
+      ]
+    }
+  ]
+}

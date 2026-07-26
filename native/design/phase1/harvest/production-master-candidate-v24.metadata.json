@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "candidateID": "harvest-production-master-candidate-v24-canvas-normalized",
+  "status": "NON_SHIPPING_CANVAS_NORMALIZED_PRODUCTION_CANDIDATE",
+  "shippingAllowed": false,
+  "parent": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v23-hearth-local-composite.png",
+    "sha256": "c2f71d113775dce78b2bfcae8486a84e5872e829a8d346b891c6b918ac0d4596",
+    "bytes": 5835222,
+    "width": 1296,
+    "height": 2800
+  },
+  "transform": {
+    "toolID": "ffmpeg-local",
+    "operation": "lossless-pixel-domain-canvas-crop",
+    "crop": {
+      "x": 3,
+      "y": 2,
+      "width": 1290,
+      "height": 2796
+    },
+    "resampling": false,
+    "upscaling": false
+  },
+  "output": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v24-canvas-normalized.png",
+    "sha256": "bfc3ea276fa2d63857381e31845d25716dc7c71b82cf38afd734a021dff8b7c1",
+    "bytes": 5805477,
+    "width": 1290,
+    "height": 2796
+  },
+  "audit": {
+    "parentCropRawFrameSHA256": "03dd3a1f45e20ad09b5d19cb8b421c39a35c25df2e74a0b4bb7aa5978061ab5f",
+    "outputRawFrameSHA256": "03dd3a1f45e20ad09b5d19cb8b421c39a35c25df2e74a0b4bb7aa5978061ab5f",
+    "sceneCanvasResult": "PASS_EXACT_1290_X_2796",
+    "pixelDomainResult": "PASS_EXACT_PARENT_CROP",
+    "productionMasterResult": "PENDING_ARTISTIC_GATE",
+    "layerDAGAuthority": "NOT_GRANTED",
+    "reason": "The candidate now matches the exact Harvest SceneSpec canvas without resampling or upscaling. It remains non-shipping and cannot authorize the 86-file production DAG until the artistic master gate is passed."
+  }
+}

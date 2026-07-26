@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "status": "HOST_ONLY_COPY_NOT_ACCEPTED_AS_PRODUCTION_BACKUP",
+  "sourceID": "harvest-production-master-candidate-v26-garments-local-composite",
+  "sourceBytes": 5860864,
+  "sourceSHA256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca",
+  "copyBytes": 5860864,
+  "copySHA256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca",
+  "hashMatch": true,
+  "hostEncryptionObservation": "fdesetup status reported FileVault is On",
+  "encryptedAtRestIndependentlyVerified": false,
+  "independentFailureDomain": false,
+  "requirementPass": false
+}

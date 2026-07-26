@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thelongwest.invalid/schemas/package-manifest.schema.json",
+  "title": "Signed native content package manifest",
+  "description": "manifestDigest is SHA-256 of the canonical long-west-package-v1 integrity material. signature.value is a base64 DER ECDSA P-256/SHA-256 signature over the UTF-8 manifestDigest string.",
+  "type": "object",
+  "additionalProperties": false,
+  "dependentRequired": {
+    "saveMigrations": [
+      "saveMigrationSupportedSourceVersions",
+      "saveMigrationDescriptorInventorySHA256"
+    ],
+    "saveMigrationSupportedSourceVersions": [
+      "saveMigrations",
+      "saveMigrationDescriptorInventorySHA256"
+    ],
+    "saveMigrationDescriptorInventorySHA256": [
+      "saveMigrations",
+      "saveMigrationSupportedSourceVersions"
+    ]
+  },
+  "required": [
+    "packageID",
+    "packageVersion",
+    "schemaVersion",
+    "minimumRuntime",
+    "files",
+    "manifestDigest",
+    "signature"
+  ],
+  "properties": {
+    "packageID": { "$ref": "#/$defs/SigningID" },
+    "packageVersion": { "$ref": "#/$defs/SchemaVersion" },
+    "schemaVersion": { "$ref": "#/$defs/SchemaVersion" },
+    "minimumRuntime": { "$ref": "#/$defs/SchemaVersion" },
+    "saveMigrationSupportedSourceVersions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 128,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/SchemaVersion" }
+    },
+    "saveMigrationDescriptorInventorySHA256": { "$ref": "#/$defs/SHA256" },
+    "saveMigrations": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 128,
+      "items": { "$ref": "#/$defs/SaveMigration" }
+    },
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/FileRecord" }
+    },
+    "manifestDigest": { "$ref": "#/$defs/SHA256" },
+    "signature": { "$ref": "#/$defs/Signature" }
+  },
+  "$defs": {
+    "SigningID": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    },
+    "SchemaVersion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["major", "minor", "patch"],
+      "properties": {
+        "major": { "type": "integer", "minimum": 0 },
+        "minor": { "type": "integer", "minimum": 0 },
+        "patch": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "SHA256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "FileRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "bytes", "sha256"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*[\\u0000-\\u001f\\u007f\\\\]).+$"
+        },
+        "bytes": { "type": "integer", "minimum": 0 },
+        "sha256": { "$ref": "#/$defs/SHA256" }
+      }
+    },
+    "SaveMigration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "fromContentVersion",
+        "toContentVersion",
+        "requiredSaveFormatVersion",
+        "requiredStateSchemaVersion",
+        "fields",
+        "worldOwnershipDelta",
+        "implementationSHA256"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/SigningID" },
+        "fromContentVersion": { "$ref": "#/$defs/SchemaVersion" },
+        "toContentVersion": { "$ref": "#/$defs/SchemaVersion" },
+        "requiredSaveFormatVersion": { "type": "integer", "minimum": 1 },
+        "requiredStateSchemaVersion": { "type": "integer", "minimum": 1 },
+        "fields": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "beatIdentity",
+              "interactionState",
+              "cameraAndTextAnchors",
+              "narrationAndAudioPosition",
+              "cumulativeWorldState"
+            ]
+          }
+        },
+        "worldOwnershipDelta": { "$ref": "#/$defs/WorldOwnershipDelta" },
+        "implementationSHA256": { "$ref": "#/$defs/SHA256" }
+      }
+    },
+    "WorldOwnershipDelta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "oldEffectIDs",
+        "newEffectIDs",
+        "oldNodeIDs",
+        "newNodeIDs",
+        "oldTraceIDs",
+        "newTraceIDs"
+      ],
+      "properties": {
+        "oldEffectIDs": { "$ref": "#/$defs/StableIDSet" },
+        "newEffectIDs": { "$ref": "#/$defs/StableIDSet" },
+        "oldNodeIDs": { "$ref": "#/$defs/StableIDSet" },
+        "newNodeIDs": { "$ref": "#/$defs/StableIDSet" },
+        "oldTraceIDs": { "$ref": "#/$defs/StableIDSet" },
+        "newTraceIDs": { "$ref": "#/$defs/StableIDSet" }
+      }
+    },
+    "StableIDSet": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/SigningID" }
+    },
+    "Signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "keyID", "value"],
+      "properties": {
+        "algorithm": { "const": "P-256-SHA256" },
+        "keyID": { "$ref": "#/$defs/SigningID" },
+        "value": {
+          "type": "string",
+          "contentEncoding": "base64",
+          "pattern": "^[A-Za-z0-9+/]+={0,2}$"
+        }
+      }
+    }
+  }
+}

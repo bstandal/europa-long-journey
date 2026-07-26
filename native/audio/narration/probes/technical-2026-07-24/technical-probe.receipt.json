@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "status": "TECHNICAL_ONLY_NOT_ARTISTICALLY_APPROVED",
+  "createdAt": "2026-07-24T11:21:05+00:00",
+  "candidateID": "voice-candidate-01",
+  "identityTextSHA256": "9c98454111648ac65a33db464c982aae56878efb76f176ac1cffcee0c201878c",
+  "probeText": "A field changed the shape of the year.",
+  "probeTextSHA256": "61ad7e71207e1135041ba26d37d0c2d3b643b3384ea5dae25b75dda978f0f5cf",
+  "models": {
+    "voiceDesign": {
+      "repository": "mlx-community/Qwen3-TTS-12Hz-1.7B-VoiceDesign-bf16",
+      "revision": "7d3824abff87e49756bb0f83fb5411de75d160c4",
+      "upstreamRepository": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
+      "upstreamRevision": "5ecdb67327fd37bb2e042aab12ff7391903235d3",
+      "license": "Apache-2.0",
+      "controlFileCount": 12,
+      "controlManifestSHA256": "8b1b10dbd8fa87916c70ca4844d7c51932aecbba6ef145c18b3870a0e48978d2",
+      "verifiedFiles": [
+        {
+          "path": "model.safetensors",
+          "bytes": 3833402589,
+          "sha256": "96ae28bec2205ec0b5e0c750bea2b8a5deac4f14d33a8a25a5f753299486b70e"
+        },
+        {
+          "path": "speech_tokenizer/model.safetensors",
+          "bytes": 682293092,
+          "sha256": "836b7b357f5ea43e889936a3709af68dfe3751881acefe4ecf0dbd30ba571258"
+        }
+      ]
+    },
+    "voiceClone": {
+      "repository": "mlx-community/Qwen3-TTS-12Hz-1.7B-Base-bf16",
+      "revision": "a6eb4f68e4b056f1215157bb696209bc82a6db48",
+      "upstreamRepository": "Qwen/Qwen3-TTS-12Hz-1.7B-Base",
+      "upstreamRevision": "fd4b254389122332181a7c3db7f27e918eec64e3",
+      "license": "Apache-2.0",
+      "controlFileCount": 12,
+      "controlManifestSHA256": "6ce447e63f1ddd4efd44c7670abcf22bb40a04335b3541290c6d7d74457c2991",
+      "verifiedFiles": [
+        {
+          "path": "model.safetensors",
+          "bytes": 3857414009,
+          "sha256": "81fb76175ff74e69be25fef2cc3e54f016df3034f1514c8e1c89da06a3510cff"
+        },
+        {
+          "path": "speech_tokenizer/model.safetensors",
+          "bytes": 682293092,
+          "sha256": "836b7b357f5ea43e889936a3709af68dfe3751881acefe4ecf0dbd30ba571258"
+        }
+      ]
+    }
+  },
+  "generation": {
+    "temperature": 0.7,
+    "topK": 50,
+    "topP": 0.95,
+    "repetitionPenalty": 1.1,
+    "maxTokens": 4096,
+    "candidatePeakDBFS": -3.0
+  },
+  "referencePeakGain": 1.1561827810491545,
+  "clonePeakGain": 1.319616126416901,
+  "reference": {
+    "path": "/Users/bard/Documents/Eurocentric/native/audio/narration/probes/technical-2026-07-24/technical-reference.wav",
+    "sha256": "39cac8acf11cb60e0118643702db1ed92677fea8ade4df4ed7275ae9e55e0bcb",
+    "bytes": 1970022,
+    "durationSeconds": 13.68,
+    "sampleRate": 48000,
+    "bitDepth": 24,
+    "channels": 1,
+    "codec": "pcm_s24le"
+  },
+  "clone": {
+    "path": "/Users/bard/Documents/Eurocentric/native/audio/narration/probes/technical-2026-07-24/technical-clone.wav",
+    "sha256": "16be2e822e7d16450b033542dfd836282cd19988f1d2c3c7603e51452cc0fbda",
+    "bytes": 368742,
+    "durationSeconds": 2.56,
+    "sampleRate": 48000,
+    "bitDepth": 24,
+    "channels": 1,
+    "codec": "pcm_s24le"
+  },
+  "claimsExcluded": [
+    "editor voice selection",
+    "word-accuracy approval",
+    "pronunciation approval",
+    "artistic approval",
+    "shipping approval"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED_BY_EDITOR_IN_CHIEF",
+  "authority": "editor-in-chief",
+  "role": "APPROVED_COMPOSITION_AND_ANATOMY_TARGET",
+  "target": {
+    "path": "native/design/phase1/harvest/reconstruction-master-draft-v2.png",
+    "sha256": "602c730450d7abd99fa88e877c6b74e2e0e2ad8bfd79bc57b6c7a50fcdc059be",
+    "pixelWidth": 862,
+    "pixelHeight": 1824
+  },
+  "approvedScope": [
+    "composition",
+    "depthHierarchy",
+    "historicalAnatomy",
+    "singleSourceCausalLayout",
+    "lightingDirection"
+  ],
+  "excludedScope": [
+    "shippingPixels",
+    "masterResolution",
+    "cleanPlates",
+    "stateVariants",
+    "masks",
+    "audio",
+    "provenance"
+  ],
+  "shippingGate": {
+    "state": "PROHIBITED",
+    "requiresFullResolutionLayersAndMasks": true,
+    "requiresSeparateAssetApproval": true
+  }
+}

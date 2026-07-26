@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "status": "SELECTED_BY_EDITOR_IN_CHIEF",
+  "role": "NON_SHIPPING_VISUAL_TARGET",
+  "selectedAt": "2026-07-23",
+  "selectionReference": "codex-visible-option-1",
+  "contentID": "first-farmers",
+  "arcID": "first-farmers-arc-02",
+  "movementID": "the-harvest-had-to-last",
+  "nativeInteractionID": "interaction-first-farmers-the-harvest-had-to-last",
+  "visualPath": "native/design/phase1/harvest/selected-direction.png",
+  "visualSHA256": "48f5b82daf7cbcfe46e1afdd021c5f79ed3135c9e4d91a65974e291401cdf22c",
+  "pixelWidth": 853,
+  "pixelHeight": 1844,
+  "lockedComposition": [
+    "The finite harvest fills the near foreground and remains the scene's clearest material.",
+    "Winter food, protected reserve and spring seed are visible together as three physical destinations.",
+    "The settlement, people, fields, smoke and weather form one continuous deep world behind the allocation.",
+    "Grain leaves the central store through direct manipulation and every destination answers in place.",
+    "Darkness frames readable hands, grain, baskets, timber, thatch, soil and human activity."
+  ],
+  "requiredProductionCorrections": [
+    "Rebuild all interface and narrative text as native SwiftUI text.",
+    "Replace generated dashed arrows and target rings with worn ground routes, contact response and moving grain.",
+    "Generate a complete portrait master with at least fifteen per cent camera overscan before layer extraction.",
+    "Separate background, middle ground, people, destinations, foreground grain, light, atmosphere, occlusion and depth.",
+    "Inspect and correct anatomy, storage construction, tools, clothing, crops and material chronology before approval.",
+    "Author a static Reduce Motion composition with the same finite resource and consequences."
+  ],
+  "shippingState": "PROHIBITED_UNTIL_REBUILT_AND_APPROVED"
+}

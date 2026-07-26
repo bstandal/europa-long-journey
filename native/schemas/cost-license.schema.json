@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thelongwest.invalid/schemas/cost-license.schema.json",
+  "title": "Zero-cost and commercial-rights registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["policyVersion", "entries", "unresolvedCapabilities"],
+  "properties": {
+    "policyVersion": { "const": 1 },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "category", "version", "costModel", "incrementalCostNOK", "billingCredentialRequired", "commercialUse", "license", "source"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+          "category": { "type": "string", "enum": ["tool", "model", "font", "image", "audio", "service", "sdk"] },
+          "version": { "type": "string", "minLength": 1 },
+          "costModel": { "type": "string", "enum": ["existing", "free-local", "included-membership", "public-domain", "open-license"] },
+          "incrementalCostNOK": { "type": "number", "const": 0 },
+          "billingCredentialRequired": { "type": "boolean", "const": false },
+          "commercialUse": { "type": "string", "enum": ["allowed"] },
+          "license": { "type": "string", "minLength": 1 },
+          "source": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "unresolvedCapabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "category", "status", "incrementalCostNOKMaximum", "billingCredentialPermitted", "requiredOutcome", "releaseGate"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+          "category": { "type": "string", "enum": ["image", "audio", "tool", "model", "service"] },
+          "status": { "const": "BLOCKED_UNTIL_ZERO_COST_COMMERCIAL_TOOL_PASSES" },
+          "incrementalCostNOKMaximum": { "type": "number", "const": 0 },
+          "billingCredentialPermitted": { "type": "boolean", "const": false },
+          "requiredOutcome": { "type": "string", "minLength": 1 },
+          "releaseGate": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

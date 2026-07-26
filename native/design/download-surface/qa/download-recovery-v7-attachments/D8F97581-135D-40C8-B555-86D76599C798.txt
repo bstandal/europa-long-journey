@@ -1,0 +1,222 @@
+Application, 0x105a83c00, pid: 52226, label: 'EUROCENTRIC' <App element pid: 52226>
+  Window (Main), 0x105a83e80, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 52226, elementOrHash.elementID: 4381574144.4>
+    Other, 0x105a82e40, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 52226, elementOrHash.elementID: 4438488064.5>
+      Other, 0x105a82f80, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 52226, elementOrHash.elementID: 4438129664.6>
+        Other, 0x105a830c0, {{-402.0, -874.0}, {1206.0, 2622.0}}, identifier: 'PopoverDismissRegion', label: 'dismiss popup' <AX element pid: 52226, elementOrHash.elementID: 4439676544.116>
+        Other, 0x105a83200, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 52226, elementOrHash.elementID: 4381575168.7>
+          Other, 0x105a83340, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 52226, elementOrHash.elementID: 4438505024.8>
+            ScrollView, 0x105a83480, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 52226, elementOrHash.elementID: 4381494272.14>
+              Other, 0x105a835c0, {{0.0, 62.0}, {402.0, 3082.0}} <AX element pid: 52226, elementOrHash.elementID: 4714976256.16>
+                StaticText, 0x10901c000, {{28.0, 90.0}, {129.0, 13.3}}, label: 'THE LONG WEST' <AX element pid: 52226, elementOrHash.elementID: 4382645696.17>
+                StaticText, 0x10901c140, {{28.0, 107.3}, {239.7, 40.7}}, label: 'EUROCENTRIC' <AX element pid: 52226, elementOrHash.elementID: 4382644800.18>
+                Other, 0x10901c280, {{0.0, 166.0}, {402.0, 230.0}}, identifier: 'living-world-field', label: 'The historical world. 3 places revealed and 2 roads active.' <AX element pid: 52226, elementOrHash.elementID: 4382651968.19>
+                Button, 0x10901c3c0, {{18.0, 438.0}, {224.7, 44.0}}, identifier: 'chapter-road-first-farmers', label: 'The First Farmers, 7000–3300 BC' <AX element pid: 52226, elementOrHash.elementID: 4382709888.20>
+                  StaticText, 0x10901c500, {{76.0, 439.8}, {96.3, 13.3}}, label: '7000–3300 BC' <AX element pid: 52226, elementOrHash.elementID: 4382704512.44>
+                  StaticText, 0x10901c640, {{76.0, 456.2}, {166.7, 24.0}}, label: 'The First Farmers' <AX element pid: 52226, elementOrHash.elementID: 4382708544.45>
+                Button, 0x10901c780, {{48.0, 550.0}, {285.0, 44.0}}, identifier: 'chapter-road-steppe-comes-west', label: 'The Steppe Comes West, 3300–2000 BC, locked' <AX element pid: 52226, elementOrHash.elementID: 4382715264.21>
+                  Image, 0x10901c8c0, {{66.3, 566.7}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 52226, elementOrHash.elementID: 4382710784.46>
+                  StaticText, 0x10901ca00, {{106.0, 551.8}, {97.0, 13.3}}, label: '3300–2000 BC' <AX element pid: 52226, elementOrHash.elementID: 4382711680.47>
+                  StaticText, 0x10901cb40, {{106.0, 568.2}, {227.0, 24.0}}, label: 'The Steppe Comes West' <AX element pid: 52226, elementOrHash.elementID: 4382713472.48>
+                Button, 0x10901cc80, {{94.0, 662.0}, {196.3, 44.0}}, identifier: 'chapter-road-bronze-europe', label: 'Bronze Europe, 2500–500 BC, locked' <AX element pid: 52226, elementOrHash.elementID: 4437836224.22>
+                  Image, 0x10901cdc0, {{112.3, 678.7}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 52226, elementOrHash.elementID: 4382716160.49>
+                  StaticText, 0x10901cf00, {{152.0, 663.8}, {88.3, 13.3}}, label: '2500–500 BC' <AX element pid: 52226, elementOrHash.elementID: 4382717056.50>
+                  StaticText, 0x10901d040, {{152.0, 680.2}, {138.3, 24.0}}, label: 'Bronze Europe' <AX element pid: 52226, elementOrHash.elementID: 4382717952.51>
+                Button, 0x10901d180, {{92.3, 774.0}, {269.0, 44.0}}, identifier: 'chapter-road-greece-and-the-citizen', label: 'Greece and the Citizen, 800–146 BC, locked' <AX element pid: 52226, elementOrHash.elementID: 4437838464.23>
+                  Image, 0x10901d2c0, {{110.7, 790.7}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 52226, elementOrHash.elementID: 4437836672.52>
+                  StaticText, 0x10901d400, {{150.2, 775.8}, {79.0, 13.3}}, label: '800–146 BC' <AX element pid: 52226, elementOrHash.elementID: 4437837120.53>
+                  StaticText, 0x10901d540, {{150.2, 792.2}, {211.0, 24.0}}, label: 'Greece and the Citizen' <AX element pid: 52226, elementOrHash.elementID: 4437838016.54>
+                Button, 0x10901d680, {{18.0, 886.0}, {264.7, 44.0}}, identifier: 'chapter-road-rome-gathers-europe', label: 'Rome Gathers Europe, 509 BC–AD 212, locked' <AX element pid: 52226, elementOrHash.elementID: 4437840704.24>
+                  Image, 0x10901d7c0, {{36.3, 902.7}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 52226, elementOrHash.elementID: 4437839360.55>
+                  StaticText, 0x10901d900, {{76.0, 887.8}, {100.3, 13.3}}, label: '509 BC–AD 212' <AX element pid: 52226, elementOrHash.elementID: 4437839808.56>
+                  StaticText, 0x10901da40, {{76.0, 904.2}, {206.7, 24.0}}, label: 'Rome Gathers Europe' <AX element pid: 52226, elementOrHash.elementID: 4437840256.57>
+                Button, 0x10901db80, {{28.0, 987.3}, {230.7, 65.3}}, identifier: 'chapter-road-empire-takes-cross', label: 'The Empire Takes the Cross, AD 312–565, locked' <AX element pid: 52226, elementOrHash.elementID: 4437842944.25>
+                  Image, 0x10901dcc0, {{46.3, 1014.7}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 52226, elementOrHash.elementID: 4437841152.58>
+                  StaticText, 0x10901de00, {{85.9, 987.3}, {78.3, 13.3}}, label: 'AD 312–565' <AX element pid: 52226, elementOrHash.elementID: 4437841600.59>
+                  StaticText, 0x10901df40, {{85.9, 1003.7}, {172.7, 49.0}}, label: 'The Empire Takes the Cross' <AX element pid: 52226, elementOrHash.elementID: 4437842496.60>
+                Button, 0x10901e080, {{94.0, 1110.0}, {199.7, 44.0}}, identifier: 'chapter-road-europe-reborn', label: 'Europe Reborn, AD 500–1000, locked' <AX element pid: 52226, elementOrHash.elementID: 4437845632.26>
+                  Image, 0x10901e1c0, {{112.3, 1126.7}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 52226, elementOrHash.elementID: 4437843392.61>
+                  StaticText, 0x10901e300, {{152.0, 1111.8}, {87.3, 13.3}}, label: 'AD 500–1000' <AX element pid: 52226, elementOrHash.elementID: 4437844288.62>
+                  StaticText, 0x10901e440, {{152.0, 1128.2}, {141.7, 24.0}}, label: 'Europe Reborn' <AX element pid: 52226, elementOrHash.elementID: 4437844736.63>
+                Button, 0x10901e580, {{94.0, 1222.0}, {258.3, 44.0}}, identifier: 'chapter-road-papal-revolution', label: 'The Papal Revolution, AD 1046–1123, locked' <AX element pid: 52226, elementOrHash.elementID: 4437848320.27>
+                  Image, 0x10901e6c0, {{112.3, 1238.7}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 52226, elementOrHash.elementID: 4437846080.64>
+                  StaticText, 0x10901e800, {{152.0, 1223.8}, {92.0, 13.3}}, label: 'AD 1046–1123' <AX element pid: 52226, elementOrHash.elementID: 4437846976.65>
+                  StaticText, 0x10901e940, {{152.0, 1240.2}, {200.3, 24.0}}, label: 'The Papal Revolution' <AX element pid: 52226, elementOrHash.elementID: 4437847872.66>
+                Button, 0x10901ea80, {{18.0, 1334.0}, {257.3, 44.0}}, identifier: 'chapter-road-society-beyond-kin', label: 'A Society Beyond Kin, AD 500–1300, locked' <AX element pid: 52226, elementOrHash.elementID: 4437850560.28>
+                  Image, 0x10901ebc0, {{36.3, 1350.7}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 52226, elementOrHash.elementID: 4437848768.67>
+                  StaticText, 0x10901ed00, {{76.0, 1335.8}, {87.3, 13.3}}, label: 'AD 500–1300' <AX element pid: 52226, elementOrHash.elementID: 4437849664.68>
+                  StaticText, 0x10901ee40, {{76.0, 1352.2}, {199.3, 24.0}}, label: 'A Society Beyond Kin' <AX element pid: 52226, elementOrHash.elementID: 4437850112.69>
+                Button, 0x10901ef80, {{48.0, 1435.3}, {280.0, 65.3}}, identifier: 'chapter-road-medieval-commercial-revolution', label: 'The Medieval Commercial Revolution, AD 950–1350, locked' <AX element pid: 52226, elementOrHash.elementID: 4437868992.29>
+                  Image, 0x10901f0c0, {{66.3, 1462.7}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 52226, elementOrHash.elementID: 4437851008.70>
+                  StaticText, 0x10901f200, {{106.0, 1435.3}, {87.3, 13.3}}, label: 'AD 950–1350' <AX element pid: 52226, elementOrHash.elementID: 4437851456.71>
+                  StaticText, 0x10901f340, {{106.0, 1451.7}, {222.0, 49.0}}, label: 'The Medieval Commercial Revolution' <AX element pid: 52226, elementOrHash.elementID: 4437868544.72>
+                Button, 0x10901f480, {{94.0, 1558.0}, {253.7, 44.0}}, identifier: 'chapter-road-hanseatic-north', label: 'The Hanseatic North, AD 1150–1500, locked' <AX element pid: 52226, elementOrHash.elementID: 4437871232.30>
+                  Image, 0x10901f5c0, {{112.3, 1574.7}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 52226, elementOrHash.elementID: 4437869888.73>
+                  StaticText, 0x10901f700, {{152.0, 1559.8}, {92.0, 13.3}}, label: 'AD 1150–1500' <AX element pid: 52226, elementOrHash.elementID: 4437870336.74>
+                  StaticText, 0x10901f840, {{152.0, 1576.2}, {195.7, 24.0}}, label: 'The Hanseatic North' <AX element pid: 52226, elementOrHash.elementID: 4437870784.75>
+                Button, 0x10901f980, {{92.3, 1659.3}, {197.0, 65.3}}, identifier: 'chapter-road-empire-many-liberties', label: 'The Empire of Many Liberties, AD 962–1806, locked' <AX element pid: 52226, elementOrHash.elementID: 4437873024.31>
+                  Image, 0x10901fac0, {{110.7, 1686.7}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 52226, elementOrHash.elementID: 4437871680.76>
+                  StaticText, 0x10901fc00, {{150.2, 1659.3}, {87.3, 13.3}}, label: 'AD 962–1806' <AX element pid: 52226, elementOrHash.elementID: 4437872128.77>
+                  StaticText, 0x10901fd40, {{150.2, 1675.7}, {139.0, 49.0}}, label: 'The Empire of Many Liberties' <AX element pid: 52226, elementOrHash.elementID: 4437872576.78>
+                Button, 0x10901fe80, {{18.0, 1782.0}, {236.0, 44.0}}, identifier: 'chapter-road-europe-holds-the-line', label: 'The Frontiers Hold, AD 711–1699' <AX element pid: 52226, elementOrHash.elementID: 4437874816.32>
+                  StaticText, 0x1090e4000, {{76.0, 1783.8}, {83.3, 13.3}}, label: 'AD 711–1699' <AX element pid: 52226, elementOrHash.elementID: 4437873920.79>
+                  StaticText, 0x1090e4140, {{76.0, 1800.2}, {178.0, 24.0}}, label: 'The Frontiers Hold' <AX element pid: 52226, elementOrHash.elementID: 4437874368.80>
+                Button, 0x1090e4280, {{28.0, 1894.0}, {269.3, 44.0}}, identifier: 'chapter-road-europe-turns-seaward', label: 'Europe Turns Seaward, AD 1415–1700, locked' <AX element pid: 52226, elementOrHash.elementID: 4437876608.33>
+                  Image, 0x1090e43c0, {{46.3, 1910.7}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 52226, elementOrHash.elementID: 4437875264.81>
+                  StaticText, 0x1090e4500, {{85.9, 1895.8}, {91.3, 13.3}}, label: 'AD 1415–1700' <AX element pid: 52226, elementOrHash.elementID: 4437875712.82>
+                  StaticText, 0x1090e4640, {{85.9, 1912.2}, {211.3, 24.0}}, label: 'Europe Turns Seaward' <AX element pid: 52226, elementOrHash.elementID: 4437876160.83>
+                Button, 0x1090e4780, {{94.0, 2006.0}, {218.3, 44.0}}, identifier: 'chapter-road-reformation', label: 'The Reformation, AD 1517–1648, locked' <AX element pid: 52226, elementOrHash.elementID: 4437878400.34>
+                  Image, 0x1090e48c0, {{112.3, 2022.7}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 52226, elementOrHash.elementID: 4437877056.84>
+                  StaticText, 0x1090e4a00, {{152.0, 2007.8}, {91.7, 13.3}}, label: 'AD 1517–1648' <AX element pid: 52226, elementOrHash.elementID: 4437877504.85>
+                  StaticText, 0x1090e4b40, {{152.0, 2024.2}, {160.3, 24.0}}, label: 'The Reformation' <AX element pid: 52226, elementOrHash.elementID: 4437877952.86>
+                Button, 0x1090e4c80, {{94.0, 2118.0}, {222.7, 44.0}}, identifier: 'chapter-road-habsburg-europe', label: 'Habsburg Europe, AD 1526–1918, locked' <AX element pid: 52226, elementOrHash.elementID: 4437880640.35>
+                  Image, 0x1090e4dc0, {{112.3, 2134.7}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 52226, elementOrHash.elementID: 4437878848.87>
+                  StaticText, 0x1090e4f00, {{152.0, 2119.8}, {92.0, 13.3}}, label: 'AD 1526–1918' <AX element pid: 52226, elementOrHash.elementID: 4437879744.88>
+                  StaticText, 0x1090e5040, {{152.0, 2136.2}, {164.7, 24.0}}, label: 'Habsburg Europe' <AX element pid: 52226, elementOrHash.elementID: 4437880192.89>
+                Button, 0x1090e5180, {{18.0, 2219.3}, {191.7, 65.3}}, identifier: 'chapter-road-scientific-revolution', label: 'The Scientific Revolution, AD 1543–1700, locked' <AX element pid: 52226, elementOrHash.elementID: 4437882880.36>
+                  Image, 0x1090e52c0, {{36.3, 2246.7}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 52226, elementOrHash.elementID: 4437881536.90>
+                  StaticText, 0x1090e5400, {{76.0, 2219.3}, {93.0, 13.3}}, label: 'AD 1543–1700' <AX element pid: 52226, elementOrHash.elementID: 4437881984.91>
+                  StaticText, 0x1090e5540, {{76.0, 2235.7}, {133.7, 49.0}}, label: 'The Scientific Revolution' <AX element pid: 52226, elementOrHash.elementID: 4437882432.92>
+                Button, 0x1090e5680, {{48.0, 2342.0}, {243.7, 44.0}}, identifier: 'chapter-road-dutch-republic', label: 'The Dutch Republic, AD 1572–1713, locked' <AX element pid: 52226, elementOrHash.elementID: 4437885376.37>
+                  Image, 0x1090e57c0, {{66.3, 2358.7}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 52226, elementOrHash.elementID: 4437883328.93>
+                  StaticText, 0x1090e5900, {{106.0, 2343.8}, {90.3, 13.3}}, label: 'AD 1572–1713' <AX element pid: 52226, elementOrHash.elementID: 4437883776.94>
+                  StaticText, 0x1090e5a40, {{106.0, 2360.2}, {185.7, 24.0}}, label: 'The Dutch Republic' <AX element pid: 52226, elementOrHash.elementID: 4437884928.95>
+                Button, 0x1090e5b80, {{94.0, 2454.0}, {240.0, 44.0}}, identifier: 'chapter-road-enlightenment-public-opinion', label: 'The Enlightenment, AD 1680–1789, locked' <AX element pid: 52226, elementOrHash.elementID: 4437887168.38>
+                  Image, 0x1090e5cc0, {{112.3, 2470.7}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 52226, elementOrHash.elementID: 4437885824.96>
+                  StaticText, 0x1090e5e00, {{152.0, 2455.8}, {93.7, 13.3}}, label: 'AD 1680–1789' <AX element pid: 52226, elementOrHash.elementID: 4437886272.97>
+                  StaticText, 0x1090e5f40, {{152.0, 2472.2}, {182.0, 24.0}}, label: 'The Enlightenment' <AX element pid: 52226, elementOrHash.elementID: 4437886720.98>
+                Button, 0x1090e6080, {{92.3, 2555.3}, {285.7, 65.3}}, identifier: 'chapter-road-rivalry-industrial-breakthrough', label: 'Rivalry and the Industrial Breakthrough, AD 1709–1862, locked' <AX element pid: 52226, elementOrHash.elementID: 4437888960.39>
+                  Image, 0x1090e61c0, {{110.7, 2582.7}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 52226, elementOrHash.elementID: 4437887616.99>
+                  StaticText, 0x1090e6300, {{150.2, 2555.3}, {93.0, 13.3}}, label: 'AD 1709–1862' <AX element pid: 52226, elementOrHash.elementID: 4437888064.100>
+                  StaticText, 0x1090e6440, {{150.2, 2571.7}, {227.7, 49.0}}, label: 'Rivalry and the Industrial Breakthrough' <AX element pid: 52226, elementOrHash.elementID: 4437888512.101>
+                Button, 0x1090e6580, {{18.0, 2678.0}, {253.3, 44.0}}, identifier: 'chapter-road-european-world', label: 'The European World, AD 1802–1914' <AX element pid: 52226, elementOrHash.elementID: 4437890304.40>
+                  StaticText, 0x1090e66c0, {{76.0, 2679.8}, {92.3, 13.3}}, label: 'AD 1802–1914' <AX element pid: 52226, elementOrHash.elementID: 4437889408.102>
+                  StaticText, 0x1090e6800, {{76.0, 2696.2}, {195.3, 24.0}}, label: 'The European World' <AX element pid: 52226, elementOrHash.elementID: 4437889856.103>
+                Button, 0x1090e6940, {{28.0, 2790.0}, {281.7, 44.0}}, identifier: 'chapter-road-europe-at-war', label: 'The European Civil War, AD 1871–1945, locked' <AX element pid: 52226, elementOrHash.elementID: 4437892096.41>
+                  Image, 0x1090e6a80, {{46.3, 2806.7}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 52226, elementOrHash.elementID: 4437890752.104>
+                  StaticText, 0x1090e6bc0, {{85.9, 2791.8}, {91.7, 13.3}}, label: 'AD 1871–1945' <AX element pid: 52226, elementOrHash.elementID: 4437891200.105>
+                  StaticText, 0x1090e6d00, {{85.9, 2808.2}, {223.7, 24.0}}, label: 'The European Civil War' <AX element pid: 52226, elementOrHash.elementID: 4437891648.106>
+                Button, 0x1090e6e40, {{94.0, 2902.0}, {266.3, 44.0}}, identifier: 'chapter-road-continent-rebuilt', label: 'The Continent Rebuilt, AD 1945–1989, locked' <AX element pid: 52226, elementOrHash.elementID: 4437894336.42>
+                  Image, 0x1090e6f80, {{112.3, 2918.7}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 52226, elementOrHash.elementID: 4437892992.107>
+                  StaticText, 0x1090e70c0, {{152.0, 2903.8}, {94.3, 13.3}}, label: 'AD 1945–1989' <AX element pid: 52226, elementOrHash.elementID: 4437893440.108>
+                  StaticText, 0x1090e7200, {{152.0, 2920.2}, {208.3, 24.0}}, label: 'The Continent Rebuilt' <AX element pid: 52226, elementOrHash.elementID: 4437893888.109>
+                Button, 0x1090e7340, {{94.0, 3014.0}, {210.7, 44.0}}, identifier: 'chapter-road-europe-returns', label: 'Europe Returns, AD 1989–20 July 2026, locked' <AX element pid: 52226, elementOrHash.elementID: 4437897472.43>
+                  Image, 0x1090e7480, {{112.3, 3030.7}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 52226, elementOrHash.elementID: 4437895232.110>
+                  StaticText, 0x1090e75c0, {{152.0, 3015.8}, {152.7, 13.3}}, label: 'AD 1989–20 JULY 2026' <AX element pid: 52226, elementOrHash.elementID: 4437895680.111>
+                  StaticText, 0x1090e7700, {{152.0, 3032.2}, {146.7, 24.0}}, label: 'Europe Returns' <AX element pid: 52226, elementOrHash.elementID: 4437896576.112>
+            Button, 0x1090e7840, {{340.0, 76.0}, {44.0, 44.0}}, identifier: 'experience-settings-open', label: 'Settings', value: 2:2857:-3047425768... <AX element pid: 52226, elementOrHash.elementID: 4437898368.15>
+    Other, 0x1090e7980, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 52226, elementOrHash.elementID: 4714979840.113>
+      Other, 0x1090e7ac0, {{-402.0, -874.0}, {1206.0, 2622.0}}, identifier: 'PopoverDismissRegion', label: 'dismiss popup' <AX element pid: 52226, elementOrHash.elementID: 4439675904.114>
+      Other, 0x1090e7c00, {{8.0, 415.0}, {386.0, 451.0}} <AX element pid: 52226, elementOrHash.elementID: 4439677184.115>
+        Other, 0x1090e7d40, {{8.0, 415.0}, {386.0, 451.0}} <AX element pid: 52226, elementOrHash.elementID: 4437920832.117>
+          Other, 0x1090e7e80, {{8.0, 415.0}, {386.0, 451.0}} <AX element pid: 52226, elementOrHash.elementID: 4437921728.119>
+            Other, 0x1090fc000, {{8.0, 415.0}, {386.0, 451.0}} <AX element pid: 52226, elementOrHash.elementID: 4381577216.121>
+              Other, 0x1090fc140, {{8.0, 415.0}, {386.0, 451.0}} <AX element pid: 52226, elementOrHash.elementID: 4438062656.123>
+                Other, 0x1090fc280, {{8.0, 415.0}, {386.0, 451.0}}, identifier: 'experience-settings-surface' <AX element pid: 52226, elementOrHash.elementID: 4437924416.126>
+                  Other, 0x1090fc3c0, {{8.0, 415.0}, {386.0, 451.0}} <AX element pid: 52226, elementOrHash.elementID: 4437924864.129>
+                    Other, 0x1090fc500, {{8.0, 415.0}, {386.0, 451.0}} <AX element pid: 52226, elementOrHash.elementID: 4438056832.132>
+                      Other, 0x1090fc640, {{8.0, 415.0}, {386.0, 451.0}} <AX element pid: 52226, elementOrHash.elementID: 4381988096.163>
+                        Other, 0x1090fc780, {{8.0, 415.0}, {386.0, 451.0}} <AX element pid: 52226, elementOrHash.elementID: 4438192832.164>
+                          ScrollView, 0x1090fc8c0, {{8.0, 415.0}, {386.0, 451.0}}, identifier: 'offline-chapters-surface' <AX element pid: 52226, elementOrHash.elementID: 4381500416.165>
+                            Other, 0x1090fca00, {{8.0, 415.0}, {386.0, 2065.4}} <AX element pid: 52226, elementOrHash.elementID: 4690063360.166>
+                              Button, 0x1090fcb40, {{29.1, 444.8}, {76.5, 17.3}}, identifier: 'offline-chapters-back', label: 'Settings' <AX element pid: 52226, elementOrHash.elementID: 4438135168.167>
+                                Image, 0x1090fcc80, {{30.1, 447.0}, {7.4, 12.8}}, identifier: 'chevron.left', label: 'Back' <AX element pid: 52226, elementOrHash.elementID: 4438133824.183>
+                                StaticText, 0x1090fcdc0, {{29.1, 444.8}, {76.5, 17.3}}, label: 'Settings' <AX element pid: 52226, elementOrHash.elementID: 4438134720.184>
+                              StaticText, 0x1090fcf00, {{29.1, 495.7}, {234.0, 39.0}}, label: 'Offline chapters' <AX element pid: 52226, elementOrHash.elementID: 4438135616.168>
+                              StaticText, 0x1090fd040, {{29.1, 555.9}, {256.4, 40.6}}, label: 'Installed chapters open without a connection.' <AX element pid: 52226, elementOrHash.elementID: 4438136064.169>
+                              Image, 0x1090fd180, {{41.9, 617.6}, {16.3, 16.3}}, identifier: 'offline-chapters-failure', label: 'Error' <AX element pid: 52226, elementOrHash.elementID: 4438136512.170>
+                              StaticText, 0x1090fd2c0, {{69.1, 616.7}, {194.6, 49.6}}, identifier: 'offline-chapters-failure', label: 'Installed chapters could not be checked. Nothing already on this iPhone changed.' <AX element pid: 52226, elementOrHash.elementID: 4438136960.171>
+                              Button, 0x1090fd400, {{305.3, 616.7}, {56.0, 15.0}}, identifier: 'offline-chapters-failure', label: 'Try again' <AX element pid: 52226, elementOrHash.elementID: 4438137408.172>
+                              Other, 0x1090fd540, {{28.6, 698.4}, {344.7, 190.8}}, identifier: 'offline-package-essential-free-v1' <AX element pid: 52226, elementOrHash.elementID: 4438143232.173>
+                                StaticText, 0x1090fd680, {{44.5, 715.6}, {151.4, 12.8}}, label: '3 INCLUDED CHAPTERS' <AX element pid: 52226, elementOrHash.elementID: 4438137856.185>
+                                Image, 0x1090fd7c0, {{289.0, 715.2}, {11.8, 11.8}}, identifier: 'checkmark.circle', label: 'Selected', Selected <AX element pid: 52226, elementOrHash.elementID: 4438138752.186>
+                                StaticText, 0x1090fd900, {{289.0, 714.7}, {68.5, 13.8}}, label: 'Included' <AX element pid: 52226, elementOrHash.elementID: 4438139200.187>
+                                StaticText, 0x1090fda40, {{44.5, 740.9}, {90.9, 12.8}}, label: '7000–3300 BC' <AX element pid: 52226, elementOrHash.elementID: 4438139648.188>
+                                StaticText, 0x1090fdb80, {{44.5, 755.6}, {160.0, 23.0}}, label: 'The First Farmers' <AX element pid: 52226, elementOrHash.elementID: 4438140096.189>
+                                StaticText, 0x1090fdcc0, {{44.5, 788.3}, {78.4, 12.8}}, label: 'AD 711–1699' <AX element pid: 52226, elementOrHash.elementID: 4438140544.190>
+                                StaticText, 0x1090fde00, {{44.5, 803.0}, {170.9, 23.0}}, label: 'The Frontiers Hold' <AX element pid: 52226, elementOrHash.elementID: 4438141440.191>
+                                StaticText, 0x1090fdf40, {{44.5, 835.7}, {86.7, 12.8}}, label: 'AD 1802–1914' <AX element pid: 52226, elementOrHash.elementID: 4438142336.192>
+                                StaticText, 0x1090fe080, {{44.5, 850.4}, {187.6, 23.0}}, label: 'The European World' <AX element pid: 52226, elementOrHash.elementID: 4438142784.193>
+                              Other, 0x1090fe1c0, {{28.6, 899.8}, {344.7, 190.8}}, identifier: 'offline-package-paid-pack-01' <AX element pid: 52226, elementOrHash.elementID: 4437973568.174>
+                                StaticText, 0x1090fe300, {{44.5, 916.9}, {97.3, 12.8}}, label: 'CHAPTERS 2–4' <AX element pid: 52226, elementOrHash.elementID: 4438143680.194>
+                                Image, 0x1090fe440, {{284.5, 916.6}, {11.8, 11.8}}, identifier: 'clock', label: 'Clock' <AX element pid: 52226, elementOrHash.elementID: 4438144128.195>
+                                StaticText, 0x1090fe580, {{284.5, 916.0}, {73.0, 13.8}}, label: 'Checking' <AX element pid: 52226, elementOrHash.elementID: 4438144576.196>
+                                StaticText, 0x1090fe6c0, {{44.5, 942.3}, {91.2, 12.8}}, label: '3300–2000 BC' <AX element pid: 52226, elementOrHash.elementID: 4438145024.197>
+                                StaticText, 0x1090fe800, {{44.5, 957.0}, {218.0, 23.0}}, label: 'The Steppe Comes West' <AX element pid: 52226, elementOrHash.elementID: 4438145472.198>
+                                StaticText, 0x1090fe940, {{44.5, 989.7}, {83.2, 12.8}}, label: '2500–500 BC' <AX element pid: 52226, elementOrHash.elementID: 4438146368.199>
+                                StaticText, 0x1090fea80, {{44.5, 1004.4}, {132.8, 23.0}}, label: 'Bronze Europe' <AX element pid: 52226, elementOrHash.elementID: 4437974464.200>
+                                StaticText, 0x1090febc0, {{44.5, 1037.0}, {74.6, 12.8}}, label: '800–146 BC' <AX element pid: 52226, elementOrHash.elementID: 4437970432.201>
+                                StaticText, 0x1090fed00, {{44.5, 1051.8}, {202.6, 23.0}}, label: 'Greece and the Citizen' <AX element pid: 52226, elementOrHash.elementID: 4437971776.202>
+                              Other, 0x1090fee40, {{28.6, 1101.1}, {344.7, 191.1}}, identifier: 'offline-package-paid-pack-02' <AX element pid: 52226, elementOrHash.elementID: 4438001856.175>
+                                StaticText, 0x1090fef80, {{44.5, 1118.3}, {96.7, 12.8}}, label: 'CHAPTERS 5–7' <AX element pid: 52226, elementOrHash.elementID: 4437969984.203>
+                                Image, 0x1090ff0c0, {{284.5, 1117.9}, {11.8, 11.8}}, identifier: 'clock', label: 'Clock' <AX element pid: 52226, elementOrHash.elementID: 4437972224.204>
+                                StaticText, 0x1090ff200, {{284.5, 1117.4}, {73.0, 13.8}}, label: 'Checking' <AX element pid: 52226, elementOrHash.elementID: 4437971328.205>
+                                StaticText, 0x1090ff340, {{44.5, 1143.7}, {94.7, 12.8}}, label: '509 BC–AD 212' <AX element pid: 52226, elementOrHash.elementID: 4437974016.206>
+                                StaticText, 0x1090ff480, {{44.5, 1158.4}, {198.4, 23.0}}, label: 'Rome Gathers Europe' <AX element pid: 52226, elementOrHash.elementID: 4437975360.207>
+                                StaticText, 0x1090ff5c0, {{44.5, 1191.0}, {73.9, 12.8}}, label: 'AD 312–565' <AX element pid: 52226, elementOrHash.elementID: 4437972672.208>
+                                StaticText, 0x1090ff700, {{44.5, 1205.8}, {250.6, 23.0}}, label: 'The Empire Takes the Cross' <AX element pid: 52226, elementOrHash.elementID: 4437970880.209>
+                                StaticText, 0x1090ff840, {{44.5, 1238.4}, {82.3, 12.8}}, label: 'AD 500–1000' <AX element pid: 52226, elementOrHash.elementID: 4438007680.210>
+                                StaticText, 0x1090ff980, {{44.5, 1253.1}, {136.0, 23.0}}, label: 'Europe Reborn' <AX element pid: 52226, elementOrHash.elementID: 4438000064.211>
+                              Other, 0x1090ffac0, {{28.6, 1302.7}, {344.7, 214.8}}, identifier: 'offline-package-paid-pack-03' <AX element pid: 52226, elementOrHash.elementID: 4438005440.176>
+                                StaticText, 0x1090ffc00, {{44.5, 1319.7}, {104.3, 12.8}}, label: 'CHAPTERS 8–10' <AX element pid: 52226, elementOrHash.elementID: 4438000512.212>
+                                Image, 0x1090ffd40, {{284.5, 1319.5}, {11.8, 11.8}}, identifier: 'clock', label: 'Clock' <AX element pid: 52226, elementOrHash.elementID: 4438002304.213>
+                                StaticText, 0x1090ffe80, {{284.5, 1318.8}, {73.0, 13.8}}, label: 'Checking' <AX element pid: 52226, elementOrHash.elementID: 4438003200.214>
+                                StaticText, 0x109104000, {{44.5, 1345.1}, {86.7, 12.8}}, label: 'AD 1046–1123' <AX element pid: 52226, elementOrHash.elementID: 4438008128.215>
+                                StaticText, 0x109104140, {{44.5, 1359.8}, {192.4, 23.0}}, label: 'The Papal Revolution' <AX element pid: 52226, elementOrHash.elementID: 4438000960.216>
+                                StaticText, 0x109104280, {{44.5, 1392.4}, {82.3, 12.8}}, label: 'AD 500–1300' <AX element pid: 52226, elementOrHash.elementID: 4438004992.217>
+                                StaticText, 0x1091043c0, {{44.5, 1407.1}, {191.4, 23.0}}, label: 'A Society Beyond Kin' <AX element pid: 52226, elementOrHash.elementID: 4438004096.218>
+                                StaticText, 0x109104500, {{44.5, 1439.8}, {82.3, 12.8}}, label: 'AD 950–1350' <AX element pid: 52226, elementOrHash.elementID: 4438004544.219>
+                                StaticText, 0x109104640, {{44.5, 1454.5}, {241.0, 47.0}}, label: 'The Medieval Commercial Revolution' <AX element pid: 52226, elementOrHash.elementID: 4438007232.220>
+                              Other, 0x109104780, {{28.6, 1528.1}, {344.7, 190.8}}, identifier: 'offline-package-paid-pack-04' <AX element pid: 52226, elementOrHash.elementID: 4438021824.177>
+                                StaticText, 0x1091048c0, {{44.5, 1545.1}, {151.4, 12.8}}, label: '3 INCLUDED CHAPTERS' <AX element pid: 52226, elementOrHash.elementID: 4438005888.221>
+                                Image, 0x109104a00, {{284.5, 1544.9}, {11.8, 11.8}}, identifier: 'clock', label: 'Clock' <AX element pid: 52226, elementOrHash.elementID: 4438002752.222>
+                                StaticText, 0x109104b40, {{284.5, 1544.2}, {73.0, 13.8}}, label: 'Checking' <AX element pid: 52226, elementOrHash.elementID: 4438006784.223>
+                                StaticText, 0x109104c80, {{44.5, 1570.4}, {86.4, 12.8}}, label: 'AD 1150–1500' <AX element pid: 52226, elementOrHash.elementID: 4438024064.224>
+                                StaticText, 0x109104dc0, {{44.5, 1585.2}, {187.9, 23.0}}, label: 'The Hanseatic North' <AX element pid: 52226, elementOrHash.elementID: 4438025408.225>
+                                StaticText, 0x109104f00, {{44.5, 1617.8}, {82.3, 12.8}}, label: 'AD 962–1806' <AX element pid: 52226, elementOrHash.elementID: 4438020032.226>
+                                StaticText, 0x109105040, {{44.5, 1632.5}, {266.0, 23.0}}, label: 'The Empire of Many Liberties' <AX element pid: 52226, elementOrHash.elementID: 4438020480.227>
+                                StaticText, 0x109105180, {{44.5, 1665.2}, {85.8, 12.8}}, label: 'AD 1415–1700' <AX element pid: 52226, elementOrHash.elementID: 4438021376.228>
+                                StaticText, 0x1091052c0, {{44.5, 1679.9}, {202.9, 23.0}}, label: 'Europe Turns Seaward' <AX element pid: 52226, elementOrHash.elementID: 4438023616.229>
+                              Other, 0x109105400, {{28.6, 1729.4}, {344.7, 190.8}}, identifier: 'offline-package-paid-pack-05' <AX element pid: 52226, elementOrHash.elementID: 4438111808.178>
+                                StaticText, 0x109105540, {{44.5, 1746.5}, {109.8, 12.8}}, label: 'CHAPTERS 15–17' <AX element pid: 52226, elementOrHash.elementID: 4438022272.230>
+                                Image, 0x109105680, {{284.5, 1746.2}, {11.8, 11.8}}, identifier: 'clock', label: 'Clock' <AX element pid: 52226, elementOrHash.elementID: 4438022720.231>
+                                StaticText, 0x1091057c0, {{284.5, 1745.6}, {73.0, 13.8}}, label: 'Checking' <AX element pid: 52226, elementOrHash.elementID: 4438023168.232>
+                                StaticText, 0x109105900, {{44.5, 1771.8}, {86.1, 12.8}}, label: 'AD 1517–1648' <AX element pid: 52226, elementOrHash.elementID: 4438018688.233>
+                                StaticText, 0x109105a40, {{44.5, 1786.5}, {154.0, 23.0}}, label: 'The Reformation' <AX element pid: 52226, elementOrHash.elementID: 4438024960.234>
+                                StaticText, 0x109105b80, {{44.5, 1819.2}, {86.4, 12.8}}, label: 'AD 1526–1918' <AX element pid: 52226, elementOrHash.elementID: 4438025856.235>
+                                StaticText, 0x109105cc0, {{44.5, 1833.9}, {158.1, 23.0}}, label: 'Habsburg Europe' <AX element pid: 52226, elementOrHash.elementID: 4438019136.236>
+                                StaticText, 0x109105e00, {{44.5, 1866.6}, {87.7, 12.8}}, label: 'AD 1543–1700' <AX element pid: 52226, elementOrHash.elementID: 4438019584.237>
+                                StaticText, 0x109105f40, {{44.5, 1881.3}, {226.0, 23.0}}, label: 'The Scientific Revolution' <AX element pid: 52226, elementOrHash.elementID: 4438020928.238>
+                              Other, 0x109106080, {{28.6, 1930.7}, {344.7, 214.8}}, identifier: 'offline-package-paid-pack-06' <AX element pid: 52226, elementOrHash.elementID: 4438183424.179>
+                                StaticText, 0x1091061c0, {{44.5, 1947.9}, {112.3, 12.8}}, label: 'CHAPTERS 18–20' <AX element pid: 52226, elementOrHash.elementID: 4438102400.239>
+                                Image, 0x109106300, {{284.5, 1947.5}, {11.8, 11.8}}, identifier: 'clock', label: 'Clock' <AX element pid: 52226, elementOrHash.elementID: 4438101504.240>
+                                StaticText, 0x109106440, {{284.5, 1947.0}, {73.0, 13.8}}, label: 'Checking' <AX element pid: 52226, elementOrHash.elementID: 4438098368.241>
+                                StaticText, 0x109106580, {{44.5, 1973.2}, {84.8, 12.8}}, label: 'AD 1572–1713' <AX element pid: 52226, elementOrHash.elementID: 4438097920.242>
+                                StaticText, 0x1091066c0, {{44.5, 1987.9}, {178.3, 23.0}}, label: 'The Dutch Republic' <AX element pid: 52226, elementOrHash.elementID: 4438179840.243>
+                                StaticText, 0x109106800, {{44.5, 2020.6}, {88.0, 12.8}}, label: 'AD 1680–1789' <AX element pid: 52226, elementOrHash.elementID: 4438180288.244>
+                                StaticText, 0x109106940, {{44.5, 2035.3}, {174.8, 23.0}}, label: 'The Enlightenment' <AX element pid: 52226, elementOrHash.elementID: 4438181184.245>
+                                StaticText, 0x109106a80, {{44.5, 2067.9}, {87.7, 12.8}}, label: 'AD 1709–1862' <AX element pid: 52226, elementOrHash.elementID: 4438182080.246>
+                                StaticText, 0x109106bc0, {{44.5, 2082.7}, {233.0, 47.0}}, label: 'Rivalry and the Industrial Breakthrough' <AX element pid: 52226, elementOrHash.elementID: 4438182976.247>
+                              Other, 0x109106d00, {{28.6, 2156.0}, {344.7, 190.8}}, identifier: 'offline-package-paid-pack-07' <AX element pid: 52226, elementOrHash.elementID: 4438190144.180>
+                                StaticText, 0x109106e40, {{44.5, 2173.2}, {113.3, 12.8}}, label: 'CHAPTERS 22–24' <AX element pid: 52226, elementOrHash.elementID: 4438184320.248>
+                                Image, 0x109106f80, {{284.5, 2172.8}, {11.8, 11.8}}, identifier: 'clock', label: 'Clock' <AX element pid: 52226, elementOrHash.elementID: 4438185216.249>
+                                StaticText, 0x1091070c0, {{284.5, 2172.3}, {73.0, 13.8}}, label: 'Checking' <AX element pid: 52226, elementOrHash.elementID: 4438186112.250>
+                                StaticText, 0x109107200, {{44.5, 2198.6}, {86.1, 12.8}}, label: 'AD 1871–1945' <AX element pid: 52226, elementOrHash.elementID: 4438186560.251>
+                                StaticText, 0x109107340, {{44.5, 2213.3}, {214.8, 23.0}}, label: 'The European Civil War' <AX element pid: 52226, elementOrHash.elementID: 4438187008.252>
+                                StaticText, 0x109107480, {{44.5, 2246.0}, {89.0, 12.8}}, label: 'AD 1945–1989' <AX element pid: 52226, elementOrHash.elementID: 4438187456.253>
+                                StaticText, 0x1091075c0, {{44.5, 2260.7}, {200.0, 23.0}}, label: 'The Continent Rebuilt' <AX element pid: 52226, elementOrHash.elementID: 4438188352.254>
+                                StaticText, 0x109107700, {{44.5, 2293.3}, {143.7, 12.8}}, label: 'AD 1989–20 JULY 2026' <AX element pid: 52226, elementOrHash.elementID: 4438188800.255>
+                                StaticText, 0x109107840, {{44.5, 2308.0}, {140.8, 23.0}}, label: 'Europe Returns' <AX element pid: 52226, elementOrHash.elementID: 4438189248.256>
+                              Switch, 0x109107980, {{29.1, 2382.8}, {343.8, 26.9}}, identifier: 'experience-setting-cellular-downloads', label: 'Use cellular data', value: 0 <AX element pid: 52226, elementOrHash.elementID: 4438191488.181>
+                                StaticText, 0x109107ac0, {{29.1, 2386.6}, {125.5, 19.5}}, label: 'Use cellular data' <AX element pid: 52226, elementOrHash.elementID: 4438190592.257>
+                                Switch, 0x109107c00, {{314.3, 2382.8}, {60.5, 26.9}}, value: 0 <AX element pid: 52226, elementOrHash.elementID: 4689961088.258>
+                              StaticText, 0x109107d40, {{29.1, 2425.2}, {247.4, 15.0}}, label: 'This applies when a new download begins.' <AX element pid: 52226, elementOrHash.elementID: 4438191936.182>
+                  Other, 0x109107e80, {{8.0, 415.0}, {386.0, 451.0}} <AX element pid: 52226, elementOrHash.elementID: 4714982912.130>
+                    Other, 0x109110000, {{8.0, 415.0}, {386.0, 451.0}} <AX element pid: 52226, elementOrHash.elementID: 4714984960.133>
+        Other, 0x109110140, {{8.0, 415.0}, {386.0, 451.0}} <AX element pid: 52226, elementOrHash.elementID: 4714985472.118>
+          Other, 0x109110280, {{8.0, 415.0}, {386.0, 451.0}} <AX element pid: 52226, elementOrHash.elementID: 4381985408.120>
+            Other, 0x1091103c0, {{8.0, 415.0}, {386.0, 451.0}} <AX element pid: 52226, elementOrHash.elementID: 4437928896.122>
+              Other, 0x109110500, {{8.0, 415.0}, {386.0, 451.0}} <AX element pid: 52226, elementOrHash.elementID: 4437929344.124>
+                Other, 0x109110640, {{8.0, 415.0}, {386.0, 451.0}} <AX element pid: 52226, elementOrHash.elementID: 4714985984.127>
+                  Other, 0x109110780, {{8.0, 415.0}, {386.0, 451.0}} <AX element pid: 52226, elementOrHash.elementID: 4437929792.131>
+              Other, 0x1091108c0, {{8.0, 415.0}, {386.0, 451.0}} <AX element pid: 52226, elementOrHash.elementID: 4714986496.125>
+                Other, 0x109110a00, {{8.0, 415.0}, {386.0, 451.0}} <AX element pid: 52226, elementOrHash.elementID: 4437931136.128>

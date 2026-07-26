@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "status": "BACKSTAGE_RUNTIME_METAL_V26_RESTRICTED_PARTIAL_PASS",
+  "shippingState": "PROHIBITED",
+  "reviewedAt": "2026-07-25",
+  "sceneID": "lab-first-farmers-harvest-v26-parallax-proof",
+  "sourceAuthority": {
+    "reviewPath": "native/content/backstage/harvest/parallax-halo-qa-v26.review.json",
+    "reviewSha256": "416848fed0d504fcdc2e2b823725e1f6f8190e3899e7f101a68481cab4c4f8e9",
+    "frozenProofReceiptPath": "native/content/backstage/harvest/parallax-halo-qa-v26.provisional/receipt.json",
+    "frozenProofReceiptSha256": "dbc54f8afef3dceb6a49bd6e21ce9efe0fcd5f039f80d925465d4838a2851277",
+    "result": "PASS_RESTRICTED_PEOPLE_GRAIN_FOREGROUND_SCOPE_ONLY"
+  },
+  "signedDevelopmentFixture": {
+    "packageID": "vertical-slice-development-v1",
+    "trustDomain": "the-long-west-vertical-slice-development-v1",
+    "manifestDigest": "41693073da0f3c5618845feb1783b3c3ff5ae56e26830331d72c244b47aa609a",
+    "manifestPath": "native/phase2/runtime-fixture/compiled/vertical-slice-development-v1.runtimefixture/package-manifest.json",
+    "manifestSha256": "8729a5ab11c132a54490559ea30dcbcf36995c7d9176f81d9c34bf483ad46fb9",
+    "lineagePath": "native/phase2/runtime-fixture/fixture-lineage.json",
+    "lineageSha256": "0117a09c708e6ff0b975941558633d926ab113338f0258ef6e6b24b13366a979",
+    "trustReceiptPath": "native/phase2/runtime-fixture/vertical-slice-development-trust-receipt.json",
+    "trustReceiptSha256": "7668885df5f3c6e82e6a35e61c0310baa63e7048cbe211969970bda13aeacef4",
+    "sceneIsUnreferencedByJourneyBeat": true,
+    "releaseBundleState": "EXCLUDED"
+  },
+  "runtimeInputs": {
+    "source": {
+      "packagePath": "assets/harvest-v26-parallax-development-source.png",
+      "bytes": 5860864,
+      "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca"
+    },
+    "diagnosticUnderlay": {
+      "packagePath": "assets/harvest-v26-parallax-diagnostic-underlay.png",
+      "bytes": 5366597,
+      "sha256": "5459f14eac91f170ff8daa1ffdba75ba456c78a4799bf0ca0f2d4aa8db14f20a",
+      "authority": "DIAGNOSTIC_ONLY_NOT_A_CLEAN_PLATE"
+    },
+    "alphaMasksBackToFront": [
+      {
+        "layerID": "people",
+        "packagePath": "assets/harvest-v26-parallax-alpha-people.png",
+        "bytes": 36079,
+        "sha256": "eb60fffa4ad4bd8a87ebe7165117423a7d6a7baa7c57e873cd9a37671cf4bc59",
+        "maximumRelativeShiftSourcePixels": [3, 1]
+      },
+      {
+        "layerID": "grain",
+        "packagePath": "assets/harvest-v26-parallax-alpha-grain.png",
+        "bytes": 11198,
+        "sha256": "972e9e1f867c9d8e178c7ed1b38b4629b7175c609a30f1ac11d8014f68d810a6",
+        "maximumRelativeShiftSourcePixels": [8, 2.6666666666666665]
+      },
+      {
+        "layerID": "foreground",
+        "packagePath": "assets/harvest-v26-parallax-alpha-foreground.png",
+        "bytes": 17818,
+        "sha256": "8f6332a7ee341e6075c05493e37f5fae68fa5950eef55a0b3727fce659542b58",
+        "maximumRelativeShiftSourcePixels": [10, 3.3333333333333335]
+      }
+    ],
+    "reduceMotionStatic": {
+      "packagePath": "assets/harvest-v26-parallax-reduce-motion-static.png",
+      "bytes": 2334663,
+      "pngSha256": "64bb283bbd37e66502fef198d508af8618f6032fa6edac9558bcb34e7c6199a8",
+      "decodedTopDownBGRA8UnormSRGBSha256": "fab1954e917b0b7f48353332dcda85f8e21574d8e29fa314d8b0f9cfd455fef2"
+    }
+  },
+  "runtimePath": {
+    "framePlanner": "SceneFramePlanner",
+    "preparationPlanner": "SceneMetalPreparationPlanner",
+    "renderer": "SceneMetalCompositor",
+    "productionMTKViewFramebufferOnly": true,
+    "normalComposition": "PRODUCTION_SHADER_PATH",
+    "reduceMotionComposition": "PRODUCTION_SHADER_PATH",
+    "exactStaticCopy": "DEBUG_OFFSCREEN_DIAGNOSTIC_ONLY",
+    "sourcePath": "native/ios/Sources/SceneRuntime/SceneMetalCompositor.swift",
+    "sourceSha256": "3881223a2e0d931ee9c2e29c4ee352ded573893e7761c2333cc8ef2861a1ad2f"
+  },
+  "deterministicProof": {
+    "testPath": "native/ios/Tests/ChapterRuntimeTests/SignedRuntimeFixtureTests.swift",
+    "testSha256": "73b682c17c8bc3183f99e79c6f25b5e402fb441393650efbc4dd1d9293881dab",
+    "testIdentifier": "SignedRuntimeFixtureTests/testHarvestV26PartialPassUsesSignedProductionMetalPathAndRestoresExactly()",
+    "cameraProgresses": [0, 0.5, 1],
+    "deterministicTick": 4242,
+    "saveSnapshotRoundTrip": "PASS_IDENTICAL_FRAME_PLAN_NORMAL_AND_REDUCE_MOTION",
+    "metalReplay": "PASS_BYTE_IDENTICAL_AT_BOTH_EXTREMA_AND_REDUCE_MOTION",
+    "authoredOcclusionOrder": ["diagnostic-underlay", "people", "grain", "foreground"],
+    "normalSceneBypass": "REJECTED_PRODUCTION_SHADER_USED",
+    "staticCopyNegativeCases": [
+      "opacity",
+      "blend-mode",
+      "mask",
+      "viewport-transform",
+      "pixel-dimension-mismatch"
+    ],
+    "staticCopyNegativeResult": "PASS_ALL_REMAIN_ON_SHADER_PATH"
+  },
+  "renderedFrames": {
+    "pixelSizeEach": [786, 1704],
+    "referenceTopDownBGRA8Sha256": "fab1954e917b0b7f48353332dcda85f8e21574d8e29fa314d8b0f9cfd455fef2",
+    "negativeExtremeTopDownBGRA8Sha256": "dd83b40d4d9de0f3859a228fe6934ee0a28cf7532a68ffabb6c609990cdd4dac",
+    "positiveExtremeTopDownBGRA8Sha256": "d5d59cb4e3bf3c469c5e581a55f5e02cc2bf93954cd99a2ff0dc4a5437f9e01f",
+    "reduceMotionProductionShaderTopDownBGRA8Sha256": "fab1954e917b0b7f48353332dcda85f8e21574d8e29fa314d8b0f9cfd455fef2",
+    "reduceMotionChangedPixelCount": 0,
+    "comparisonPath": "native/content/backstage/harvest/runtime-metal-parallax-v26.provisional/simulator-reference-negative-positive-reduce-motion.png",
+    "comparisonPixelSize": [3144, 1704],
+    "comparisonSha256": "3178d181276f61613487f87a0e8bd755338911c2dc226344d274e728b2127125",
+    "panelOrder": [
+      "frozen-reference",
+      "negative-camera-extreme",
+      "positive-camera-extreme",
+      "reduce-motion-production-shader"
+    ]
+  },
+  "simulator": {
+    "result": "PASS",
+    "passedTests": 1,
+    "failedTests": 0,
+    "device": "iPhone 17 Pro",
+    "deviceID": "D5B59287-70AC-4E7F-A653-83556DDB5A14",
+    "platform": "iOS Simulator",
+    "osVersion": "26.5",
+    "osBuildNumber": "23F77",
+    "buildEnvironment": "LongWestJourney built with macOS 26.5.2"
+  },
+  "visualReview": {
+    "reviewer": "CODEX_LOCAL_ORIGINAL_RESOLUTION_REVIEW",
+    "artifactPixelSize": [3144, 1704],
+    "result": "PASS_RESTRICTED_RUNTIME_PARTIAL_SCOPE",
+    "finding": "No visible halo, subject ghost or seam around people, central grain or foreground at either camera extremum. Reduce Motion preserves orientation and composition."
+  },
+  "releaseBoundary": {
+    "fixtureBundling": "DEBUG_AND_TEST_ONLY",
+    "releaseScannerBasenames": [
+      "harvest-v26-parallax-development-source.png",
+      "harvest-v26-parallax-diagnostic-underlay.png",
+      "harvest-v26-parallax-alpha-people.png",
+      "harvest-v26-parallax-alpha-grain.png",
+      "harvest-v26-parallax-alpha-foreground.png",
+      "harvest-v26-parallax-reduce-motion-static.png"
+    ]
+  },
+  "passedScope": [
+    "signed development fixture inventory",
+    "people, grain and foreground authored back-to-front ordering",
+    "bounded camera extrema within the frozen v26 PARTIAL_PASS displacement envelope",
+    "real Metal shader composition",
+    "deterministic frame replay",
+    "SaveSnapshot camera and visual-tick restoration",
+    "Reduce Motion exact identical-crop pixel parity",
+    "iPhone simulator execution"
+  ],
+  "claimsExcluded": [
+    "clean plate",
+    "allocation destinations",
+    "settlement shelter",
+    "allocation cloth",
+    "complete layer DAG",
+    "state variants",
+    "complete scene",
+    "production master",
+    "artistic approval",
+    "editor approval",
+    "shipping asset",
+    "physical-device performance",
+    "chapter completion"
+  ],
+  "remainingBlockers": [
+    "Production-resolution source-matched clean plates for the excluded settlement, shelter and allocation geometry.",
+    "Authored state variants and their restored causal states.",
+    "Additional safe crops beyond the frozen 393 by 852 comparison crop.",
+    "Physical-device frame pacing, memory and thermal verification.",
+    "Independent recoverable backup of irreplaceable masters."
+  ]
+}

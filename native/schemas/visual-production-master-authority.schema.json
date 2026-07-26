@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thelongwest.invalid/schemas/visual-production-master-authority.schema.json",
+  "title": "Codex provisional visual production-master authority",
+  "description": "Backstage-only authority for building and reproducing a local development asset DAG from one exact non-shipping candidate. It cannot approve pixels, assets or packages for shipping.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "status",
+    "authority",
+    "trustDomain",
+    "shippingState",
+    "editorApprovalState",
+    "developmentDAGAuthorityState",
+    "allowedUse",
+    "contract",
+    "sceneFixture",
+    "candidate",
+    "candidateMetadata",
+    "codexPreflight"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "status": { "const": "CODEX_PROVISIONAL_NON_SHIPPING_PRODUCTION_MASTER" },
+    "authority": { "const": "codex" },
+    "trustDomain": { "const": "LOCAL_DEVELOPMENT_ONLY" },
+    "shippingState": { "const": "PROHIBITED" },
+    "editorApprovalState": { "const": "NOT_CLAIMED" },
+    "developmentDAGAuthorityState": { "const": "GRANTED" },
+    "allowedUse": { "const": "BUILD_AND_VERIFY_NON_SHIPPING_VISUAL_ASSET_DAG" },
+    "contract": { "$ref": "#/$defs/pathHash" },
+    "sceneFixture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "sceneID", "canvas"],
+      "properties": {
+        "path": { "$ref": "#/$defs/path" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "sceneID": { "$ref": "#/$defs/stableID" },
+        "canvas": { "$ref": "#/$defs/dimensions" }
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "path", "bytes", "sha256", "width", "height"],
+      "properties": {
+        "id": { "$ref": "#/$defs/stableID" },
+        "path": { "$ref": "#/$defs/path" },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "candidateMetadata": { "$ref": "#/$defs/pathHash" },
+    "codexPreflight": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "status"],
+      "properties": {
+        "path": { "$ref": "#/$defs/path" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "status": { "const": "CODEX_PROVISIONAL_NON_SHIPPING_REVIEW" }
+      }
+    }
+  },
+  "$defs": {
+    "stableID": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "path": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)[A-Za-z0-9._/-]+$"
+    },
+    "pathHash": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "$ref": "#/$defs/path" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "dimensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["width", "height"],
+      "properties": {
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 }
+      }
+    }
+  }
+}

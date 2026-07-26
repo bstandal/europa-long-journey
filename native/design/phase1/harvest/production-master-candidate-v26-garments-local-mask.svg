@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1290" height="1290" viewBox="0 0 1290 1290">
+  <rect width="1290" height="1290" fill="black"/>
+
+  <!-- Hearth worker: upper wrap and lower drape. -->
+  <path fill="white" d="M146 475 L244 472 L306 550 L310 630 L278 671 L241 640 L194 648 L157 611 L130 548 Z"/>
+  <path fill="white" d="M157 610 L286 610 L342 846 L84 850 L109 728 Z"/>
+
+  <!-- Child: coarse tunic within the original body silhouette. -->
+  <path fill="white" d="M301 615 L376 601 L431 659 L420 761 L306 765 L276 683 Z"/>
+  <path fill="white" d="M313 735 L427 729 L444 803 L309 807 Z"/>
+
+  <!-- Seated worker: remove button placket, factory sleeves and trouser tailoring. -->
+  <path fill="white" d="M441 411 L558 405 L628 482 L616 619 L557 663 L473 623 L426 518 Z"/>
+  <path fill="white" d="M470 597 L623 596 L661 778 L427 792 L443 672 Z"/>
+
+  <!-- Field worker: replace the modern knit shirt and tailored skirt. -->
+  <path fill="white" d="M976 211 L1060 211 L1115 294 L1111 474 L946 476 L941 303 Z"/>
+
+  <!-- Foreground worker: replace shirt and modern lower garment. -->
+  <path fill="white" d="M1080 661 L1215 654 L1290 696 L1290 1290 L1084 1290 L1048 927 Z"/>
+
+  <!-- Keep hands, forearms and faces on the pixel-bound parent. -->
+  <path fill="black" d="M137 642 L177 635 L184 693 L146 724 L124 685 Z"/>
+  <path fill="black" d="M262 642 L304 638 L319 690 L278 717 L250 657 Z"/>
+  <ellipse fill="black" cx="221" cy="473" rx="45" ry="55"/>
+
+  <path fill="black" d="M286 650 L325 631 L377 747 L348 782 L307 741 Z"/>
+  <path fill="black" d="M371 641 L402 634 L461 732 L437 765 L392 727 Z"/>
+  <ellipse fill="black" cx="348" cy="603" rx="39" ry="47"/>
+
+  <path fill="black" d="M448 552 L490 541 L514 604 L493 674 L450 657 L433 594 Z"/>
+  <path fill="black" d="M570 547 L610 548 L586 674 L550 661 Z"/>
+  <ellipse fill="black" cx="515" cy="402" rx="48" ry="58"/>
+  <ellipse fill="black" cx="488" cy="661" rx="34" ry="27"/>
+  <ellipse fill="black" cx="570" cy="660" rx="34" ry="27"/>
+
+  <path fill="black" d="M945 354 L981 346 L1003 380 L966 424 L936 392 Z"/>
+  <path fill="black" d="M1070 348 L1104 352 L1119 386 L1087 425 L1058 383 Z"/>
+  <ellipse fill="black" cx="1019" cy="206" rx="41" ry="51"/>
+  <ellipse fill="black" cx="963" cy="422" rx="27" ry="24"/>
+  <ellipse fill="black" cx="1090" cy="420" rx="27" ry="24"/>
+
+  <path fill="black" d="M1056 901 L1099 894 L1165 994 L1132 1041 L1081 1004 L1044 940 Z"/>
+  <path fill="black" d="M1163 900 L1207 902 L1253 1005 L1218 1051 L1173 1013 L1150 943 Z"/>
+  <ellipse fill="black" cx="1164" cy="654" rx="52" ry="63"/>
+  <ellipse fill="black" cx="1129" cy="1033" rx="37" ry="30"/>
+  <ellipse fill="black" cx="1218" cy="1040" rx="37" ry="30"/>
+</svg>

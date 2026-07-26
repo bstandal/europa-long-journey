@@ -1,0 +1,266 @@
+{
+  "schemaVersion": 2,
+  "status": "CODEX_PROVISIONAL_NON_SHIPPING",
+  "trustDomain": "CODEX_PROVISIONAL_NON_SHIPPING",
+  "language": "English",
+  "locale": "en-GB",
+  "candidateSet": {
+    "receiptSHA256": "91135c02541fe8c2f7a040146a0785a61fda761cf7d5afc65f66fa77cf49bac7",
+    "receiptBytes": 13518,
+    "candidateCount": 6
+  },
+  "offlineASR": {
+    "engine": "whisper.cpp",
+    "version": "1.9.1",
+    "executableBytes": 658608,
+    "executableSHA256": "1fbabb51a45906bd36684695de9025eab63618a6eedc26971c47fa5affc5fe49",
+    "model": "Whisper large-v3",
+    "modelBytes": 3095033483,
+    "modelSHA256": "64d182b440b98d5203c4f9bd541544d84c605196c4f7b845dfa11fb23594d1e2",
+    "arguments": [
+      "--language", "en",
+      "--threads", "8",
+      "--processors", "1",
+      "--beam-size", "5",
+      "--best-of", "5",
+      "--split-on-word",
+      "--output-json-full",
+      "--no-prints"
+    ],
+    "answerPromptProhibited": true
+  },
+  "auditRubric": {
+    "normalizationVersion": 1,
+    "repeatedNgramSize": 6,
+    "repeatedNgramMinimumOccurrences": 3,
+    "maximumWordAlignmentErrorRateForStress": 0.08,
+    "maximumRepeatedTokenCoverageForStress": 0.05,
+    "maximumSingleSilenceSecondsForStress": 3.0,
+    "maximumAbsoluteDCOffset": 0.01,
+    "minimumPronunciationRecognitionRecallForStress": 0.70,
+    "stressMaster": {
+      "maximumWordAlignmentErrorRate": 0.05,
+      "minimumReferenceExactMatchCoverage": 0.96,
+      "maximumNonmatchingReferenceRunWords": 12,
+      "maximumNonmatchingHypothesisRunWords": 24,
+      "maximumRepeatedTokenCoverage": 0.02,
+      "maximumRepeatedNgramOccurrences": 3
+    },
+    "scoreWeights": {
+      "wordAlignment": 45,
+      "referenceCoverage": 15,
+      "repetition": 15,
+      "pronunciationRecognition": 10,
+      "technicalIntegrity": 5,
+      "cadenceSignals": 10
+    }
+  },
+  "pronunciationTerms": [
+    "Shulaveris Gora",
+    "Gadachrili Gora",
+    "qvevri",
+    "Leonidas",
+    "Thermopylae",
+    "Spartiates",
+    "Thespians",
+    "Herodotus",
+    "Augsburg",
+    "Canossa",
+    "Matilda",
+    "Hugh of Cluny",
+    "Mehmed II",
+    "Constantinople",
+    "Constantine XI",
+    "Giovanni Giustiniani",
+    "Themistocles",
+    "Salamis",
+    "Eurybiades",
+    "Pausanias",
+    "Plataea",
+    "Tegean",
+    "Mardonius",
+    "Mycale",
+    "Trajan",
+    "Hadrian",
+    "Italica",
+    "Caracalla",
+    "Constitutio Antoniniana",
+    "dediticii",
+    "Einhard",
+    "Charlemagne",
+    "Cyril",
+    "Methodius",
+    "Moravia",
+    "Slavonic",
+    "Preslav",
+    "Ohrid",
+    "Glagolitic",
+    "Cyrillic",
+    "Volodymyr",
+    "Kyiv"
+  ],
+  "stressText": {
+    "sourcePath": "native/blueprint/chapter-contracts.json",
+    "sourceBytes": 65444,
+    "sourceSHA256": "1db83d0791460ba2dab6459c6cc300020fb0658bf70e1fb7f386c52c9903193e",
+    "sourceStatus": "APPROVED_BY_EDITOR_IN_CHIEF",
+    "completeContractIDs": [
+      "contract-01", "contract-02", "contract-03", "contract-04",
+      "contract-05", "contract-06", "contract-07", "contract-08",
+      "contract-09", "contract-10", "contract-11", "contract-12",
+      "contract-13", "contract-14", "contract-15", "contract-16"
+    ],
+    "fieldsInOrder": [
+      "thesis",
+      "causalSpine",
+      "governingJudgement",
+      "ending.periodAndTitle",
+      "ending.consequence",
+      "handoff"
+    ],
+    "wordCount": 3400,
+    "minimumActualMinutes": 18,
+    "maximumActualMinutes": 22,
+    "assemblyMode": "CUE_SEGMENTED_CONTINUOUS_MASTER",
+    "uninterruptedAuditionMasterRequired": true,
+    "singleModelCallRequired": false,
+    "nativeSampleRate": 24000,
+    "segments": [
+      {
+        "segmentID": "cue-01",
+        "contractIDs": ["contract-01", "contract-02", "contract-03"],
+        "wordCount": 483,
+        "textSHA256": "2da594d20592406e0eb1ecd31c43dc56168643104e5e875aceaf4074a9880f11",
+        "seedOffset": 100,
+        "maxTokens": 3140
+      },
+      {
+        "segmentID": "cue-02",
+        "contractIDs": ["contract-04", "contract-05", "contract-06"],
+        "wordCount": 579,
+        "textSHA256": "0edf57dd780fb51ee1f073bb4e95b7df90da3caee94191caccf5efa058908d16",
+        "seedOffset": 200,
+        "maxTokens": 3764
+      },
+      {
+        "segmentID": "cue-03",
+        "contractIDs": ["contract-07", "contract-08", "contract-09"],
+        "wordCount": 655,
+        "textSHA256": "21b30a08cbe1a3ca4481e481e335ef30a06c1250ecdd7964e2acb36c1fc253c3",
+        "seedOffset": 300,
+        "maxTokens": 4258
+      },
+      {
+        "segmentID": "cue-04",
+        "contractIDs": ["contract-10", "contract-11", "contract-12"],
+        "wordCount": 652,
+        "textSHA256": "9c41de20e28c90d52017ea0fb7d3b27ecaaef58bf757dfc798dd057ad4bb89ef",
+        "seedOffset": 400,
+        "maxTokens": 4238
+      },
+      {
+        "segmentID": "cue-05",
+        "contractIDs": ["contract-13", "contract-14"],
+        "wordCount": 523,
+        "textSHA256": "55691c57f86cb4dd22d4cf836a79eef4093e5f662ff3efe4313790b62ffe7a21",
+        "seedOffset": 500,
+        "maxTokens": 3400
+      },
+      {
+        "segmentID": "cue-06",
+        "contractIDs": ["contract-15", "contract-16"],
+        "wordCount": 508,
+        "textSHA256": "88e9fa8073b5cc73205c5c23cf8b9d6b3dc55ada08d922856081aef0c7bb987f",
+        "seedOffset": 600,
+        "maxTokens": 3302
+      }
+    ],
+    "prohibitedAssemblyOperations": [
+      "sample cuts",
+      "inserted silence",
+      "crossfades",
+      "fades",
+      "time stretching",
+      "per-segment gain changes"
+    ],
+    "calibrationRule": "The shared passage comprises the first 16 complete approved contracts. Its 3400 words predict 18.2 minutes for candidate 06 and 19.6 minutes for candidate 05 from their complete casting rates. Six whole contract groups are generated once with the same frozen reference and settings, concatenated sample-for-sample, normalized once as one master, and accepted only on actual duration and complete whole-master recovery."
+  },
+  "voiceConsistency": {
+    "method": "Qwen3-TTS Base ECAPA-TDNN speaker encoder from the pinned voice-clone snapshot",
+    "minimumSegmentToReferenceCosine": 0.96,
+    "minimumPairwiseSegmentCosine": 0.985,
+    "referenceCalibration": {
+      "voice-candidate-05": {
+        "minimumReferenceToCastingThirdCosine": 0.984461,
+        "minimumPairwiseCastingThirdCosine": 0.99712
+      },
+      "voice-candidate-06": {
+        "minimumReferenceToCastingThirdCosine": 0.971106,
+        "minimumPairwiseCastingThirdCosine": 0.99176
+      }
+    },
+    "methodLimit": "Speaker-embedding cosine is an identity-drift screen. It cannot certify performance, accent, warmth, cadence or artistic continuity."
+  },
+  "calibrationEvidence": {
+    "status": "REJECTED_OVERLONG_NON_SHIPPING_CALIBRATION",
+    "sharedTextWordCount": 3400,
+    "stressSetReceiptBytes": 7478,
+    "stressSetReceiptSHA256": "a2e8b5df2da7cee95f86574298ae9e995453c99b69c34b5b2fa5cba419e7fae1",
+    "records": [
+      {
+        "candidateID": "voice-candidate-05",
+        "durationSeconds": 1600.0,
+        "audioSHA256": "cc0ea95d720189bc052cece2d1b6cba016aa91966eb609622a0577f460b69190"
+      },
+      {
+        "candidateID": "voice-candidate-06",
+        "durationSeconds": 1600.0,
+        "audioSHA256": "71df0f7f9bd27e9812834453443443011f49d44a1fa1fe36d538e0d0957ef89f"
+      }
+    ]
+  },
+  "rejectedSingleCallEvidence": {
+    "status": "REJECTED_TOKEN_LIMIT_REPETITION_NON_SHIPPING",
+    "sharedTextWordCount": 2620,
+    "stressSetReceiptBytes": 8225,
+    "stressSetReceiptSHA256": "9e7f5c293336d70a26f7894ae04be55a00c1b1bc3d6e4d121583ee6a104c6bd9",
+    "transcriptRunReceiptBytes": 3509,
+    "transcriptRunReceiptSHA256": "d27ff3d149977ed072c96ad54119538d23ce8b62c23e179f9fae6fe8d78a9a92",
+    "stressAuditReceiptBytes": 169042,
+    "stressAuditReceiptSHA256": "3548daa93e36535090e3ca701dba0d02d1e87f1505fc144ae32bfa7d54d4bcc2",
+    "records": [
+      {
+        "candidateID": "voice-candidate-05",
+        "durationSeconds": 1600.0,
+        "audioSHA256": "2c4e300e36082383313d58ee87f1a3ab9b08204381dc039268bb92a86a346be3",
+        "transcriptSHA256": "6da93abfed68c4667e1410a47df148a0bb749688e94efac8f298c016609ecffa",
+        "lastCorrectAudioMilliseconds": 50340,
+        "firstIncorrectAudioMilliseconds": 52460,
+        "correctReferenceWordOffsetExclusive": 131,
+        "repeatedTokenCoverage": 0.990943,
+        "maximumRepeatedSixGramOccurrences": 760,
+        "terminalLoop": "The island of the sea was the first continent of the world to have a population of over 100,000."
+      },
+      {
+        "candidateID": "voice-candidate-06",
+        "durationSeconds": 1599.92075,
+        "audioSHA256": "bca1348991ee18d2a7d6613e8bfcd1b1ba37451f43a7218a02e13d686f157416",
+        "transcriptSHA256": "9783e56be020594e9fde37b48faa1e8bb5cde7179a07cd90a0be5139b6553517",
+        "lastCorrectAudioMilliseconds": 233640,
+        "firstIncorrectAudioMilliseconds": 233640,
+        "correctReferenceWordOffsetExclusive": 860,
+        "repeatedTokenCoverage": 0.906273,
+        "maximumRepeatedSixGramOccurrences": 674,
+        "terminalLoop": "Patronage, councils and creed bring the Church into Roman public government."
+      }
+    ],
+    "diagnosis": "Both single-call files reached the model token ceiling after an early divergence and filled the remaining output with repeated material. Their 26-minute durations do not represent complete readings and neither file may enter finalist review."
+  },
+  "claimsExcluded": [
+    "editor voice selection",
+    "final word-accuracy approval",
+    "final pronunciation approval",
+    "artistic approval",
+    "shipping approval"
+  ]
+}

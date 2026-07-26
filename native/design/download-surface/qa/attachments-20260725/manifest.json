@@ -1,0 +1,17 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "D5B59287-70AC-4E7F-A653-83556DDB5A14",
+        "deviceName" : "iPhone 17 Pro",
+        "exportedFileName" : "9199287F-22C3-45F4-A02D-56AD67A69680.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "offline-chapters-owned-v1_0_51774597-AA34-4A64-BC24-3FC1EC778FE7.png",
+        "timestamp" : 1784940209.57
+      }
+    ],
+    "testIdentifier" : "JourneyAppUITests/testOwnedOfflineChaptersStartAndPauseOnlyAtThePackageBoundary()",
+    "testIdentifierURL" : "test://com.apple.xcode/LongWestJourney/JourneyAppUITests/JourneyAppUITests/testOwnedOfflineChaptersStartAndPauseOnlyAtThePackageBoundary"
+  }
+]

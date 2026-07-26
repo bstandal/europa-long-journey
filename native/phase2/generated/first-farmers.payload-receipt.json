@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "status": "NON_SHIPPING_DEVELOPMENT_PAYLOAD_PROJECTION",
+  "shippingState": "PROHIBITED",
+  "packageID": "first-farmers-development-v1",
+  "sourceBindings": [
+    {
+      "path": "native/phase2/editor-review/first-farmers/first-farmers-native-draft-v1.json",
+      "sha256": "4c3a0a2a4f9a3ec5361d2e34c2f6dd21072f27176e60c881f013c93f76e4a5dd"
+    },
+    {
+      "path": "native/phase2/generated/first-farmers.chapter.json",
+      "sha256": "32fbcf8824852a8e0e77ae1e8e8ef4d1ff8a85f1869187f080408085f2629e6f"
+    },
+    {
+      "path": "native/phase2/generated/first-farmers.world-seed.json",
+      "sha256": "19b6fff295d31181f68b74832ad1b676bde56571603d543404c45cb4f4c04769"
+    },
+    {
+      "path": "native/phase1/fixtures/harvest-option-1.scene.json",
+      "sha256": "c9cfa96d9cc61f7421ecf0efc0136d2f716daa5fb851a4dd99f2943e1b9b8028"
+    },
+    {
+      "path": "native/audio/score-soundscape/harvest-responsive-v1/work-object.json",
+      "sha256": "0580c37949a3dc735148cd166c2cde8ae819ceda3406be2292152859c2b348a6"
+    },
+    {
+      "path": "native/audio/score-soundscape/longhouse-responsive-v1/longhouse-responsive-work-object.json",
+      "sha256": "3988bd147135469fd851cf37d3e0d28b50d0bf70e469c6e0067a5591a78f871b"
+    },
+    {
+      "path": "native/audio/score-soundscape/continent-remade-responsive-v1/continent-remade-responsive-work-object.json",
+      "sha256": "2b3a850e8e398faa720cdf4b574dc209763b538fad3aa477e3f9801d90d43f89"
+    },
+    {
+      "path": "native/audio/score-soundscape/more-mouths-responsive-v1/more-mouths-responsive-work-object.json",
+      "sha256": "c8eb8c6cb395f6cb3b5bd791321c7355aceef034eb46f8d9281f5902d2105362"
+    },
+    {
+      "path": "native/audio/score-soundscape/household-crosses-responsive-v1/household-crosses-responsive-work-object.json",
+      "sha256": "95d73e6b63407da48fe0d83ff914247ad1fef44c0e153d0e30dbbc44cda1cb7b"
+    }
+  ],
+  "payloadPath": "native/phase2/generated/first-farmers.content-package.json",
+  "payloadSHA256": "4a97922988430702f964d14902350892a7b90c565d1d41db9990869d1a6e4399",
+  "assetRequirementsPath": "native/phase2/generated/first-farmers.asset-requirements.json",
+  "assetRequirementsSHA256": "24b43c4911e4effd579b62e35807bcec6bbe8f11696cbcde378ce0f99a7acd05",
+  "manuscriptSHA256": "b5e02472a72bf1e228e79907f4ec4f62eb0ac973341eeacc2e655690ce7fd805",
+  "assetPathSetSHA256": "c9493dd0b238ce7e62691a0f1fe73816320df8393bd228e212de5db16773a808",
+  "counts": {
+    "chapters": 1,
+    "arcs": 3,
+    "beats": 17,
+    "scenes": 17,
+    "interactions": 6,
+    "runtimeVisualBindings": 6,
+    "audioTimelines": 47,
+    "responsiveAudioPrograms": 6,
+    "provisionalResponsiveAudioPrograms": 5,
+    "placeholderResponsiveAudioPrograms": 1,
+    "narrationCues": 37,
+    "nonNarrationAudioCues": 166,
+    "hapticEvents": 19,
+    "accessibilitySpecs": 17,
+    "assetRequirements": 777
+  },
+  "wireProof": {
+    "canonicalValidator": "validateContentPackagePayload",
+    "harvestSceneReuse": "EXACT_PHASE1_SCENE_WITH_ACCESSIBILITY_ID_REBOUND",
+    "futureAssetState": "INTENTIONALLY_ABSENT_AND_COMPILATION_BLOCKING",
+    "interactiveAudioState": "SIX_PROGRAMS_WIRED_FIVE_PROVISIONAL_AUTHORED_PROGRAMS_ONE_EXPLICIT_NON_SHIPPING_REQUIREMENT_PLACEHOLDER",
+    "hapticVocabulary": [
+      "contact",
+      "drag",
+      "resistance",
+      "transfer",
+      "break",
+      "seal"
+    ]
+  },
+  "claimsExcluded": [
+    "editor approval",
+    "shipping approval",
+    "finished visual assets",
+    "finished narration",
+    "finished score",
+    "finished soundscape",
+    "physical-device proof",
+    "content-package activation",
+    "finished responsive audio programs",
+    "shipping responsive audio integration"
+  ]
+}

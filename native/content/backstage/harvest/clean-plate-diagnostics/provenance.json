@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "status": "REJECTED_AS_PRODUCTION_CLEAN_PLATES_RETAINED_FOR_COMBINED_QA_ONLY",
+  "shippingState": "PROHIBITED",
+  "recordedAt": "2026-07-25",
+  "tool": {
+    "id": "openai-imagegen-codex",
+    "mode": "built-in-image-edit",
+    "modelVersionExposed": false,
+    "seedExposed": false,
+    "incrementalUsagePaymentAdded": false
+  },
+  "sourceReference": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+    "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca"
+  },
+  "outputs": [
+    {
+      "role": "EMPTY_WORLD_DIAGNOSTIC",
+      "path": "native/content/backstage/harvest/clean-plate-diagnostics/codex-imagegen-clean-world-original.png",
+      "sha256": "0ecedc15f01caa6d3d09fcf23366b23bbccebcb2948481eebb62ec48226e1974",
+      "pixelSize": [851, 1847]
+    },
+    {
+      "role": "EMPTY_SETTLEMENT_DIAGNOSTIC",
+      "path": "native/content/backstage/harvest/clean-plate-diagnostics/codex-imagegen-clean-settlement-original.png",
+      "sha256": "d24c1d1b8c1bf7bbf555194b9fbd9f4e2c2c4e2ae8f2cc6376bc891872b5f8fd",
+      "pixelSize": [852, 1847]
+    }
+  ],
+  "productionRejectionReasons": [
+    "Both rasters are below the 1290 x 2796 source canvas.",
+    "The built-in edit does not expose a reproducible seed or model version.",
+    "The exact generation prompts were not frozen beside these two outputs.",
+    "The edits redraw pixels globally and do not preserve source registration outside removed subjects."
+  ],
+  "permittedUse": "A hash-bound backstage stress test may resize these rasters and reveal them only inside dilated semantic-mask holes. Any resulting clean plate or parallax render remains diagnostic and cannot enter a visual production DAG."
+}

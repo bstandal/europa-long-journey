@@ -1,0 +1,11 @@
+Use case: precise-object-edit.
+Asset type: NON_SHIPPING low-resolution route diagnostic for a portrait native iPhone 2.5D historical scene master.
+Input image: Image 1 is the sole edit target. Preserve its exact portrait framing, camera, roof geometry, rain boundary, every person and pose, grain mound, cloth, baskets, storage bins and lids, settlement, livestock, field, mountain, lighting, texture and near-black palette.
+
+Change only the black handled cooking vessel at the left hearth. Replace it with one plausible early-Neolithic hand-built fired-clay cooking vessel: low rounded body, thick irregular rim, matte warm-brown ceramic with local soot darkening, seated securely among the existing hearth stones at the edge of the existing embers. It has no handle, bail, chain, suspension, glaze, metallic highlight or cauldron silhouette.
+
+Historical setting: Thessaly, 6500–6000 BC. Visible materials remain rough timber, reed, thatch, straw-tempered clay and plaster, woven plant fibre, hide, hand-built fired pottery, stone, wood and bone. No metal, wheel-thrown pottery, masonry, glass, writing, later architecture or modern object.
+
+Invariants: keep all bodies, faces, hands, wrists, feet, garments, baskets, bins, lids, buildings, animals, smoke and rain in their existing positions. Keep the entire grain work zone dry beneath the canopy. Keep the exact finite cereal mound and all three material destinations unchanged. Preserve natural lens depth and tactile separation between plaster, thatch, wicker, clay, grain, skin, smoke and rain.
+
+Avoid: any edit outside the tiny hearth-vessel region, anatomy change, added or removed person, reframing, crop change, relighting, restyling, smooth game-render skin, generic digital illustration, fantasy polish, wet grain, foreground rain, jewellery, text, number, label, arrow, ring, route, target, icon, interface, sign, symbol, border, watermark, blur padding or incomplete edge.

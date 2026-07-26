@@ -1,0 +1,5068 @@
+{
+  "schemaVersion": {
+    "major": 1,
+    "minor": 0,
+    "patch": 0
+  },
+  "packageID": "vertical-slice-development-v1",
+  "worldSeed": {
+    "nodes": [
+      {
+        "id": "western-anatolia",
+        "kind": "settlement",
+        "form": "A hidden eastern Aegean point of departure",
+        "position": {
+          "x": 0.76,
+          "y": 0.78
+        },
+        "attributes": []
+      },
+      {
+        "id": "iron-gates",
+        "kind": "frontier",
+        "form": "A hidden inhabited Danube riverbank",
+        "position": {
+          "x": 0.33,
+          "y": 0.2
+        },
+        "attributes": []
+      },
+      {
+        "id": "trace-seasonal-store",
+        "kind": "institution",
+        "form": "An undivided hidden harvest",
+        "position": {
+          "x": 0.56,
+          "y": 0.62
+        },
+        "attributes": []
+      },
+      {
+        "id": "trace-european-farming-belt",
+        "kind": "landscape",
+        "form": "Hidden European farming ground",
+        "position": {
+          "x": 0.5,
+          "y": 0.48
+        },
+        "attributes": []
+      },
+      {
+        "id": "bristol-packet-office",
+        "kind": "institution",
+        "form": "A hidden packet office on the British shore",
+        "position": {
+          "x": 0.38,
+          "y": 0.48
+        },
+        "attributes": []
+      },
+      {
+        "id": "new-york-packet-office",
+        "kind": "institution",
+        "form": "A hidden receiving office beyond the Atlantic",
+        "position": {
+          "x": 0.69,
+          "y": 0.48
+        },
+        "attributes": []
+      }
+    ],
+    "traces": [
+      {
+        "id": "route-aegean-danube",
+        "kind": "seaRoute",
+        "origin": "western-anatolia",
+        "destination": "iron-gates",
+        "strength": 1
+      }
+    ]
+  },
+  "chapters": [
+    {
+      "schemaVersion": {
+        "major": 1,
+        "minor": 0,
+        "patch": 0
+      },
+      "id": "first-farmers",
+      "title": {
+        "id": "chapter-first-farmers-title",
+        "launchEnglish": "The First Farmers"
+      },
+      "period": {
+        "id": "chapter-first-farmers-period",
+        "launchEnglish": "7000–3300 BC"
+      },
+      "arcs": [
+        {
+          "id": "first-farmers-arc-02",
+          "title": {
+            "id": "first-farmers-arc-02-title",
+            "launchEnglish": "The Harvest Had to Last"
+          },
+          "targetDurationMinutes": 9,
+          "situation": {
+            "id": "first-farmers-arc-02-situation",
+            "launchEnglish": "A farming household faces winter, spoilage and the obligation to reserve seed for spring."
+          },
+          "mechanism": {
+            "id": "first-farmers-arc-02-mechanism",
+            "launchEnglish": "Food, reserve and seed compete inside one finite store while river and farming communities exchange people and practices."
+          },
+          "turn": {
+            "id": "first-farmers-arc-02-turn",
+            "launchEnglish": "Grain eaten now cannot answer scarcity or return to the soil."
+          },
+          "consequence": {
+            "id": "first-farmers-arc-02-consequence",
+            "launchEnglish": "Farming becomes a discipline of deferred use and inherited obligation."
+          },
+          "handoff": {
+            "id": "first-farmers-arc-02-handoff",
+            "launchEnglish": "Once stores and households endure, the settlement itself can outlive its builders."
+          },
+          "beats": [
+            {
+              "id": "beat-first-farmers-harvest-allocation",
+              "sceneID": "lab-first-farmers-harvest-allocation",
+              "narrative": {
+                "eyebrow": {
+                  "id": "beat-first-farmers-harvest-allocation-eyebrow",
+                  "launchEnglish": "6500–6000 BC · Thessaly"
+                },
+                "heading": {
+                  "id": "beat-first-farmers-harvest-allocation-heading",
+                  "launchEnglish": "The Harvest Had to Last"
+                },
+                "paragraphs": [
+                  {
+                    "id": "ff-harvest-01",
+                    "launchEnglish": "A field changed the shape of the year. The grain before you has been cut, dried and threshed. Nothing more will grow before winter. This store must answer three claims."
+                  },
+                  {
+                    "id": "ff-harvest-02",
+                    "launchEnglish": "Part will be eaten. Grain carried to the hearth becomes winter food. Once consumed, it cannot answer a longer season or return to the soil."
+                  },
+                  {
+                    "id": "ff-harvest-03",
+                    "launchEnglish": "Part must be kept against loss. Dry grain is lifted from the earth and closed away from damp, insects and hungry animals."
+                  },
+                  {
+                    "id": "ff-harvest-04",
+                    "launchEnglish": "And part must remain untouched. Spring seed is food refused in winter: the next field held inside the present harvest."
+                  },
+                  {
+                    "id": "ff-harvest-05",
+                    "launchEnglish": "Meet every obligation. What remains can ease winter, absorb loss or enlarge the spring sowing. The same grain cannot do all three."
+                  }
+                ],
+                "actionPrompt": {
+                  "id": "beat-first-farmers-harvest-allocation-action-prompt",
+                  "launchEnglish": "Divide the harvest"
+                }
+              },
+              "narrationCueIDs": [],
+              "interaction": {
+                "id": "interaction-first-farmers-the-harvest-had-to-last",
+                "prompt": {
+                  "id": "interaction-interaction-first-farmers-the-harvest-had-to-last-prompt",
+                  "launchEnglish": "Divide the harvest"
+                },
+                "grammar": "allocate",
+                "configuration": {
+                  "resourceName": {
+                    "id": "interaction-interaction-first-farmers-the-harvest-had-to-last-resource-name",
+                    "launchEnglish": "harvest shares"
+                  },
+                  "totalUnits": 12,
+                  "destinations": [
+                    {
+                      "id": "food",
+                      "minimumUnits": 4
+                    },
+                    {
+                      "id": "reserve",
+                      "minimumUnits": 2
+                    },
+                    {
+                      "id": "seed",
+                      "minimumUnits": 3
+                    }
+                  ]
+                },
+                "completionEffects": [
+                  {
+                    "id": "effect-first-farmers-the-harvest-had-to-last",
+                    "mutation": "reveal-node",
+                    "node": {
+                      "id": "trace-seasonal-store",
+                      "kind": "institution",
+                      "form": "A divided store binding winter food, reserve and spring seed",
+                      "position": {
+                        "x": 0.56,
+                        "y": 0.62
+                      },
+                      "attributes": [
+                        {
+                          "key": "obligations",
+                          "value": 3
+                        },
+                        {
+                          "key": "yearBound",
+                          "value": true
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "accessibilityID": "accessibility-lab-first-farmers-harvest-allocation"
+              },
+              "completionEffects": [],
+              "checkpoint": "continuous"
+            }
+          ]
+        },
+        {
+          "id": "first-farmers-arc-03",
+          "title": {
+            "id": "first-farmers-arc-03-title",
+            "launchEnglish": "The House Outlives Its Builders"
+          },
+          "targetDurationMinutes": 10,
+          "situation": {
+            "id": "first-farmers-arc-03-situation",
+            "launchEnglish": "Timber houses decay while repeated rebuilding fixes communities to the same European ground."
+          },
+          "mechanism": {
+            "id": "first-farmers-arc-03-mechanism",
+            "launchEnglish": "Household growth, field clearance, herd traffic and settlement memory expand across the loess plains."
+          },
+          "turn": {
+            "id": "first-farmers-arc-03-turn",
+            "launchEnglish": "A family economy becomes a demographic force able to remake whole landscapes."
+          },
+          "consequence": {
+            "id": "first-farmers-arc-03-consequence",
+            "launchEnglish": "Europe becomes a continent of fields, herds and long-lived settlements."
+          },
+          "handoff": {
+            "id": "first-farmers-arc-03-handoff",
+            "launchEnglish": "That settled order now faces a mobile power arriving from the steppe."
+          },
+          "beats": [
+            {
+              "id": "beat-first-farmers-house-assembly",
+              "sceneID": "lab-first-farmers-house-assembly",
+              "narrative": {
+                "eyebrow": {
+                  "id": "beat-first-farmers-raise-longhouse-eyebrow",
+                  "launchEnglish": "5600–4900 BC · The Loess Plains"
+                },
+                "heading": {
+                  "id": "beat-first-farmers-raise-longhouse-heading",
+                  "launchEnglish": "Raise the House"
+                },
+                "paragraphs": [
+                  {
+                    "id": "ff-house-01",
+                    "launchEnglish": "The plot begins as cuts in the soil. Posts must carry the frame. The hearth must sit where work, food and warmth can return each day. Storage must remain dry and close enough to guard. A roof must bind the parts into shelter."
+                  },
+                  {
+                    "id": "ff-house-02",
+                    "launchEnglish": "Assemble the house in causal order. Every piece changes what the household can preserve, repair and pass forward."
+                  }
+                ],
+                "actionPrompt": {
+                  "id": "beat-first-farmers-raise-longhouse-action-prompt",
+                  "launchEnglish": "Build the house that can be rebuilt"
+                }
+              },
+              "narrationCueIDs": [],
+              "interaction": {
+                "id": "interaction-first-farmers-the-house-outlives",
+                "prompt": {
+                  "id": "interaction-interaction-first-farmers-the-house-outlives-prompt",
+                  "launchEnglish": "Build the house that can be rebuilt"
+                },
+                "grammar": "assemble",
+                "configuration": {
+                  "components": [
+                    {
+                      "id": "posts",
+                      "targetSlot": "frame",
+                      "prerequisites": []
+                    },
+                    {
+                      "id": "hearth",
+                      "targetSlot": "centre",
+                      "prerequisites": [
+                        "posts"
+                      ]
+                    },
+                    {
+                      "id": "storage",
+                      "targetSlot": "dry-bay",
+                      "prerequisites": [
+                        "posts"
+                      ]
+                    },
+                    {
+                      "id": "roof",
+                      "targetSlot": "shelter",
+                      "prerequisites": [
+                        "posts",
+                        "hearth",
+                        "storage"
+                      ]
+                    }
+                  ]
+                },
+                "completionEffects": [
+                  {
+                    "id": "effect-first-farmers-the-house-outlives",
+                    "mutation": "reveal-node",
+                    "node": {
+                      "id": "trace-european-farming-belt",
+                      "kind": "landscape",
+                      "form": "A rebuilt longhouse plot anchored to inherited ground",
+                      "position": {
+                        "x": 0.5,
+                        "y": 0.48
+                      },
+                      "attributes": [
+                        {
+                          "key": "ironGatesContact",
+                          "value": true
+                        },
+                        {
+                          "key": "rebuiltHousePlots",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "accessibilityID": "accessibility-lab-first-farmers-house-assembly"
+              },
+              "completionEffects": [],
+              "checkpoint": "continuous"
+            },
+            {
+              "id": "beat-first-farmers-land-transformation",
+              "sceneID": "lab-first-farmers-land-transformation",
+              "narrative": {
+                "eyebrow": {
+                  "id": "beat-first-farmers-more-mouths-eyebrow",
+                  "launchEnglish": "5500–4000 BC · The Danube and Loess Belt"
+                },
+                "heading": {
+                  "id": "beat-first-farmers-more-mouths-heading",
+                  "launchEnglish": "One Hearth Becomes Several"
+                },
+                "paragraphs": [
+                  {
+                    "id": "ff-growth-01",
+                    "launchEnglish": "Stored harvests and settled care allow households to grow. One roof becomes several. New hearths require new fields. New herds cut lanes between water, pasture and enclosure. The settlement begins to press beyond its first clearing."
+                  },
+                  {
+                    "id": "ff-growth-02",
+                    "launchEnglish": "Open the ground. Every new household carries seed and animals outward, but leaves roads, field edges and daughter settlements behind."
+                  }
+                ],
+                "actionPrompt": {
+                  "id": "beat-first-farmers-more-mouths-action-prompt",
+                  "launchEnglish": "Let the household become a landscape"
+                }
+              },
+              "narrationCueIDs": [],
+              "interaction": {
+                "id": "interaction-first-farmers-more-mouths-more-land",
+                "prompt": {
+                  "id": "interaction-interaction-first-farmers-more-mouths-more-land-prompt",
+                  "launchEnglish": "Let the household become a landscape"
+                },
+                "grammar": "transform",
+                "configuration": {
+                  "stages": [
+                    {
+                      "id": "new-hearths",
+                      "controlID": "settlement-pressure",
+                      "requiredAmount": 1
+                    },
+                    {
+                      "id": "field-edges",
+                      "controlID": "settlement-pressure",
+                      "requiredAmount": 1
+                    },
+                    {
+                      "id": "herd-lanes",
+                      "controlID": "settlement-pressure",
+                      "requiredAmount": 1
+                    },
+                    {
+                      "id": "daughter-settlements",
+                      "controlID": "settlement-pressure",
+                      "requiredAmount": 1
+                    }
+                  ]
+                },
+                "completionEffects": [
+                  {
+                    "id": "effect-first-farmers-more-mouths-more-land",
+                    "mutation": "transform-node",
+                    "nodeID": "trace-european-farming-belt",
+                    "form": "New hearths, fields, herd lanes and daughter settlements",
+                    "attributes": [
+                      {
+                        "key": "settlementGrowth",
+                        "value": "expanding"
+                      },
+                      {
+                        "key": "daughterSettlements",
+                        "value": true
+                      }
+                    ]
+                  }
+                ],
+                "accessibilityID": "accessibility-lab-first-farmers-land-transformation"
+              },
+              "completionEffects": [],
+              "checkpoint": "continuous"
+            }
+          ]
+        }
+      ],
+      "completionEffects": [
+        {
+          "id": "effect-first-farmers-at-the-iron-gates",
+          "mutation": "set-node-attribute",
+          "nodeID": "trace-european-farming-belt",
+          "value": {
+            "key": "ironGatesContact",
+            "value": true
+          }
+        }
+      ]
+    },
+    {
+      "schemaVersion": {
+        "major": 1,
+        "minor": 0,
+        "patch": 0
+      },
+      "id": "europe-holds-the-line",
+      "title": {
+        "id": "lab-frontiers-title",
+        "launchEnglish": "The Frontiers Hold"
+      },
+      "period": {
+        "id": "lab-frontiers-period",
+        "launchEnglish": "AD 711–1699"
+      },
+      "arcs": [
+        {
+          "id": "europe-holds-the-line-arc-01",
+          "title": {
+            "id": "lab-frontiers-arc-01-title",
+            "launchEnglish": "The Broken Frontiers"
+          },
+          "targetDurationMinutes": 15,
+          "situation": {
+            "id": "lab-frontiers-arc-01-situation",
+            "launchEnglish": "Christian polities lose Iberia and Anatolia to external conquest while western and eastern institutions remain divided."
+          },
+          "mechanism": {
+            "id": "lab-frontiers-arc-01-mechanism",
+            "launchEnglish": "Northern refuge, chartered settlement, coalition battle and armed pilgrimage rebuild positions after catastrophe."
+          },
+          "turn": {
+            "id": "lab-frontiers-arc-01-turn",
+            "launchEnglish": "The Fourth Crusade breaks Constantinople's defence from inside Christendom."
+          },
+          "consequence": {
+            "id": "lab-frontiers-arc-01-consequence",
+            "launchEnglish": "European survival depends on repeatedly rebuilding lines that victories and internal fracture can both destroy."
+          },
+          "handoff": {
+            "id": "lab-frontiers-arc-01-handoff",
+            "launchEnglish": "The eastern Roman capital falls, and the defence moves to Belgrade, the Danube and the Mediterranean."
+          },
+          "beats": [
+            {
+              "id": "beat-frontiers-northern-valleys-pressure",
+              "sceneID": "lab-frontiers-northern-valleys-pressure",
+              "narrative": {
+                "eyebrow": {
+                  "id": "lab-frontiers-northern-valleys-pressure-eyebrow",
+                  "launchEnglish": "c. AD 718–910 · Asturias"
+                },
+                "heading": {
+                  "id": "lab-frontiers-northern-valleys-pressure-heading",
+                  "launchEnglish": "The Northern Valleys Keep a Crown"
+                },
+                "paragraphs": [
+                  {
+                    "id": "lab-frontiers-northern-valleys-pressure-paragraph-1",
+                    "launchEnglish": "Rain crossed the Cantabrian ridges, paths narrowed above wooded ravines and an army accustomed to open country lost the advantage of numbers. Pelagius and a small Christian following preserved an armed centre beyond Córdoba’s dependable control."
+                  },
+                  {
+                    "id": "lab-frontiers-northern-valleys-pressure-paragraph-2",
+                    "launchEnglish": "Asturian kings turned endurance into government. A court at Oviedo, churches, monasteries, defended routes and stored grain carried the crown toward León and the Duero basin."
+                  }
+                ],
+                "actionPrompt": {
+                  "id": "lab-frontiers-northern-valleys-pressure-action",
+                  "launchEnglish": "Hold the inhabited line"
+                }
+              },
+              "narrationCueIDs": [],
+              "interaction": {
+                "id": "interaction-europe-holds-the-line-northern-valleys-keep-crown",
+                "prompt": {
+                  "id": "lab-frontiers-northern-valleys-pressure-prompt",
+                  "launchEnglish": "Hold the northern valleys"
+                },
+                "grammar": "pressure",
+                "configuration": {
+                  "forces": [
+                    {
+                      "id": "conquest-pressure",
+                      "direction": 1,
+                      "initialMagnitude": 0.85,
+                      "userControllable": false
+                    },
+                    {
+                      "id": "mountain-depth",
+                      "direction": -1,
+                      "initialMagnitude": 0.15,
+                      "userControllable": false
+                    },
+                    {
+                      "id": "inhabited-stores",
+                      "direction": -1,
+                      "initialMagnitude": 0.2,
+                      "userControllable": true
+                    }
+                  ],
+                  "stableRange": [
+                    -0.05,
+                    0.05
+                  ],
+                  "requiredHoldMillis": 1000
+                },
+                "completionEffects": [
+                  {
+                    "id": "effect-europe-holds-the-line-northern-valleys-keep-crown",
+                    "mutation": "reveal-node",
+                    "node": {
+                      "id": "trace-christian-frontier",
+                      "kind": "frontier",
+                      "form": "Held passes, Oviedo, monastic stores and defended fields reaching toward León",
+                      "position": {
+                        "x": 0.32,
+                        "y": 0.44
+                      },
+                      "attributes": [
+                        {
+                          "key": "inhabitedCorridor",
+                          "value": true
+                        },
+                        {
+                          "key": "heldPasses",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "accessibilityID": "accessibility-lab-frontiers-northern-valleys-pressure"
+              },
+              "completionEffects": [],
+              "checkpoint": "continuous"
+            }
+          ]
+        }
+      ],
+      "completionEffects": [
+        {
+          "id": "effect-europe-holds-the-line-europe-answers-clermont",
+          "mutation": "reveal-node",
+          "node": {
+            "id": "trace-coalition-defence",
+            "kind": "institution",
+            "form": "A coalition route able to carry armed aid across Christian Europe",
+            "position": {
+              "x": 0.49,
+              "y": 0.47
+            },
+            "attributes": []
+          }
+        }
+      ]
+    },
+    {
+      "schemaVersion": {
+        "major": 1,
+        "minor": 0,
+        "patch": 0
+      },
+      "id": "european-world",
+      "title": {
+        "id": "lab-european-world-title",
+        "launchEnglish": "The European World"
+      },
+      "period": {
+        "id": "lab-european-world-period",
+        "launchEnglish": "AD 1802–1914"
+      },
+      "arcs": [
+        {
+          "id": "european-world-arc-01",
+          "title": {
+            "id": "lab-european-world-arc-01-title",
+            "launchEnglish": "The World on Schedule"
+          },
+          "targetDurationMinutes": 15,
+          "situation": {
+            "id": "lab-european-world-arc-01-situation",
+            "launchEnglish": "Ocean distance still governs trade, information and the enforcement of public purpose."
+          },
+          "mechanism": {
+            "id": "lab-european-world-arc-01-mechanism",
+            "launchEnglish": "Fleet, steam packet, submarine cable, canal, telegraph convention, postal union and common time reduce distance through institutions."
+          },
+          "turn": {
+            "id": "lab-european-world-arc-01-turn",
+            "launchEnglish": "Permanent protocols become as important as wire, ship and engine."
+          },
+          "consequence": {
+            "id": "lab-european-world-arc-01-consequence",
+            "launchEnglish": "Routes and offices across states can recognise the same message, address and hour."
+          },
+          "handoff": {
+            "id": "lab-european-world-arc-01-handoff",
+            "launchEnglish": "The scheduled world now enters continents through survey, railway and administrative city."
+          },
+          "beats": [
+            {
+              "id": "beat-european-world-ocean-schedule",
+              "sceneID": "lab-european-world-ocean-schedule",
+              "narrative": {
+                "eyebrow": {
+                  "id": "lab-european-world-ocean-schedule-eyebrow",
+                  "launchEnglish": "AD 1838–1840 · North Atlantic"
+                },
+                "heading": {
+                  "id": "lab-european-world-ocean-schedule-heading",
+                  "launchEnglish": "Steam Keeps the Appointment"
+                },
+                "paragraphs": [
+                  {
+                    "id": "lab-european-world-ocean-schedule-paragraph-1",
+                    "launchEnglish": "In April 1838, Sirius and Great Western reached New York from Britain under steam. A purpose-built steamship could carry enough coal for the North Atlantic and retain motive power when the wind failed."
+                  },
+                  {
+                    "id": "lab-european-world-ocean-schedule-paragraph-2",
+                    "launchEnglish": "From 1840, Cunard packets left Liverpool on announced dates. Coal bunkers, engineering watches, shore agents and mail offices made repeated appointments reliable enough for other institutions to attach their work to the ship."
+                  }
+                ],
+                "actionPrompt": {
+                  "id": "lab-european-world-ocean-schedule-action",
+                  "launchEnglish": "Carry the appointment across the ocean"
+                }
+              },
+              "narrationCueIDs": [],
+              "interaction": {
+                "id": "interaction-european-world-steam-keeps-the-appointment",
+                "prompt": {
+                  "id": "lab-european-world-ocean-schedule-prompt",
+                  "launchEnglish": "Put the ocean on schedule"
+                },
+                "grammar": "trace",
+                "configuration": {
+                  "anchors": [
+                    {
+                      "x": 0.3,
+                      "y": 0.54
+                    },
+                    {
+                      "x": 0.43,
+                      "y": 0.52
+                    },
+                    {
+                      "x": 0.57,
+                      "y": 0.5
+                    },
+                    {
+                      "x": 0.7,
+                      "y": 0.48
+                    }
+                  ],
+                  "tolerance": 0.08
+                },
+                "completionEffects": [
+                  {
+                    "id": "effect-european-world-steam-keeps-the-appointment",
+                    "mutation": "establish-trace",
+                    "trace": {
+                      "id": "trace-global-schedule",
+                      "kind": "seaRoute",
+                      "origin": "bristol-packet-office",
+                      "destination": "new-york-packet-office",
+                      "strength": 1
+                    }
+                  }
+                ],
+                "accessibilityID": "accessibility-lab-european-world-ocean-schedule"
+              },
+              "completionEffects": [],
+              "checkpoint": "continuous"
+            }
+          ]
+        }
+      ],
+      "completionEffects": [
+        {
+          "id": "effect-european-world-twenty-states-agree-on-the-signal",
+          "mutation": "reveal-node",
+          "node": {
+            "id": "trace-common-protocols",
+            "kind": "institution",
+            "form": "A common technical protocol carried through permanent international offices",
+            "position": {
+              "x": 0.58,
+              "y": 0.43
+            },
+            "attributes": []
+          }
+        }
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "id": "lab-first-farmers-harvest-allocation",
+      "sceneCanvas": {
+        "canvas": {
+          "width": 1290,
+          "height": 2796
+        },
+        "cameraTravelBounds": {
+          "x": 0.18,
+          "y": 0.13,
+          "width": 0.64,
+          "height": 0.74
+        },
+        "authoredOverscanFraction": 0.16,
+        "viewportCrops": [
+          {
+            "id": "baseline-393x852",
+            "viewport": {
+              "widthPoints": 393,
+              "heightPoints": 852
+            },
+            "sourceRect": {
+              "x": 0.08,
+              "y": 0.08,
+              "width": 0.84,
+              "height": 0.84
+            },
+            "safeTextRegions": [
+              {
+                "id": "chapter-heading",
+                "rect": {
+                  "x": 0.07,
+                  "y": 0.04,
+                  "width": 0.86,
+                  "height": 0.14
+                }
+              },
+              {
+                "id": "allocation-prompt",
+                "rect": {
+                  "x": 0.18,
+                  "y": 0.18,
+                  "width": 0.64,
+                  "height": 0.08
+                }
+              },
+              {
+                "id": "remaining-harvest",
+                "rect": {
+                  "x": 0.33,
+                  "y": 0.79,
+                  "width": 0.34,
+                  "height": 0.13
+                }
+              }
+            ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.05,
+              "y": 0.05,
+              "width": 0.9,
+              "height": 0.9
+            },
+            "safeTextRegions": [
+              {
+                "id": "chapter-heading",
+                "rect": {
+                  "x": 0.07,
+                  "y": 0.04,
+                  "width": 0.86,
+                  "height": 0.14
+                }
+              },
+              {
+                "id": "allocation-prompt",
+                "rect": {
+                  "x": 0.18,
+                  "y": 0.18,
+                  "width": 0.64,
+                  "height": 0.08
+                }
+              },
+              {
+                "id": "remaining-harvest",
+                "rect": {
+                  "x": 0.33,
+                  "y": 0.79,
+                  "width": 0.34,
+                  "height": 0.13
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "layers": [
+        {
+          "id": "storm-sky",
+          "order": 0,
+          "assetPath": "assets/lab-first-farmers-harvest-allocation-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.05,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "depthMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-depth.png",
+            "lightMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-light.png"
+          },
+          "motion": {
+            "parallaxFactor": 0.01,
+            "windResponse": 0.18,
+            "focusResponse": 0
+          },
+          "stateVariants": []
+        },
+        {
+          "id": "farming-landscape",
+          "order": 1,
+          "assetPath": "assets/lab-first-farmers-harvest-allocation-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.14,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "depthMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-depth.png"
+          },
+          "motion": {
+            "parallaxFactor": 0.025,
+            "windResponse": 0.08,
+            "focusResponse": 0
+          },
+          "stateVariants": []
+        },
+        {
+          "id": "settlement",
+          "order": 2,
+          "assetPath": "assets/lab-first-farmers-harvest-allocation-base.png",
+          "frame": {
+            "x": 0.05,
+            "y": 0.17,
+            "width": 0.9,
+            "height": 0.45
+          },
+          "depth": 0.24,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-alpha.png",
+            "occlusionMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-occlusion.png",
+            "depthMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-depth.png",
+            "lightMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-light.png"
+          },
+          "motion": {
+            "parallaxFactor": 0.05,
+            "windResponse": 0.1,
+            "focusResponse": 0.04
+          },
+          "stateVariants": []
+        },
+        {
+          "id": "people-and-work",
+          "order": 3,
+          "assetPath": "assets/lab-first-farmers-harvest-allocation-base.png",
+          "frame": {
+            "x": 0.08,
+            "y": 0.27,
+            "width": 0.84,
+            "height": 0.38
+          },
+          "depth": 0.34,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-alpha.png",
+            "depthMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-depth.png"
+          },
+          "motion": {
+            "parallaxFactor": 0.08,
+            "windResponse": 0.05,
+            "focusResponse": 0.08
+          },
+          "stateVariants": []
+        },
+        {
+          "id": "allocation-ground",
+          "order": 4,
+          "assetPath": "assets/lab-first-farmers-harvest-allocation-base.png",
+          "frame": {
+            "x": 0.12,
+            "y": 0.46,
+            "width": 0.76,
+            "height": 0.27
+          },
+          "depth": 0.45,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-alpha.png",
+            "depthMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-depth.png"
+          },
+          "motion": {
+            "parallaxFactor": 0.1,
+            "windResponse": 0.04,
+            "focusResponse": 0.12
+          },
+          "stateVariants": []
+        },
+        {
+          "id": "winter-store",
+          "order": 5,
+          "assetPath": "assets/lab-first-farmers-harvest-allocation-base.png",
+          "frame": {
+            "x": 0.17,
+            "y": 0.49,
+            "width": 0.24,
+            "height": 0.19
+          },
+          "depth": 0.6,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-alpha.png",
+            "depthMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-depth.png"
+          },
+          "motion": {
+            "parallaxFactor": 0.12,
+            "windResponse": 0,
+            "focusResponse": 0.5
+          },
+          "stateVariants": [
+            {
+              "id": "empty",
+              "assetPath": "assets/lab-first-farmers-harvest-allocation-state-before.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-alpha.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-depth.png"
+              }
+            },
+            {
+              "id": "receiving",
+              "assetPath": "assets/lab-first-farmers-harvest-allocation-state-active.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-alpha.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-depth.png"
+              }
+            },
+            {
+              "id": "provisioned",
+              "assetPath": "assets/lab-first-farmers-harvest-allocation-state-completed.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-alpha.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-light.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "protected-reserve",
+          "order": 6,
+          "assetPath": "assets/lab-first-farmers-harvest-allocation-base.png",
+          "frame": {
+            "x": 0.38,
+            "y": 0.49,
+            "width": 0.24,
+            "height": 0.19
+          },
+          "depth": 0.61,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-alpha.png",
+            "depthMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-depth.png"
+          },
+          "motion": {
+            "parallaxFactor": 0.125,
+            "windResponse": 0,
+            "focusResponse": 0.55
+          },
+          "stateVariants": [
+            {
+              "id": "empty",
+              "assetPath": "assets/lab-first-farmers-harvest-allocation-state-before.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-alpha.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-depth.png"
+              }
+            },
+            {
+              "id": "receiving",
+              "assetPath": "assets/lab-first-farmers-harvest-allocation-state-active.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-alpha.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-depth.png"
+              }
+            },
+            {
+              "id": "sealed",
+              "assetPath": "assets/lab-first-farmers-harvest-allocation-state-completed.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-alpha.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-light.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "spring-seed",
+          "order": 7,
+          "assetPath": "assets/lab-first-farmers-harvest-allocation-base.png",
+          "frame": {
+            "x": 0.59,
+            "y": 0.49,
+            "width": 0.24,
+            "height": 0.19
+          },
+          "depth": 0.62,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-alpha.png",
+            "depthMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-depth.png"
+          },
+          "motion": {
+            "parallaxFactor": 0.13,
+            "windResponse": 0,
+            "focusResponse": 0.6
+          },
+          "stateVariants": [
+            {
+              "id": "empty",
+              "assetPath": "assets/lab-first-farmers-harvest-allocation-state-before.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-alpha.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-depth.png"
+              }
+            },
+            {
+              "id": "receiving",
+              "assetPath": "assets/lab-first-farmers-harvest-allocation-state-active.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-alpha.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-depth.png"
+              }
+            },
+            {
+              "id": "committed",
+              "assetPath": "assets/lab-first-farmers-harvest-allocation-state-completed.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-alpha.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-light.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "central-harvest",
+          "order": 8,
+          "assetPath": "assets/lab-first-farmers-harvest-allocation-base.png",
+          "frame": {
+            "x": 0.19,
+            "y": 0.65,
+            "width": 0.62,
+            "height": 0.31
+          },
+          "depth": 0.78,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-alpha.png",
+            "depthMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-depth.png",
+            "lightMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-light.png"
+          },
+          "motion": {
+            "parallaxFactor": 0.16,
+            "windResponse": 0,
+            "focusResponse": 0.85
+          },
+          "stateVariants": [
+            {
+              "id": "full",
+              "assetPath": "assets/lab-first-farmers-harvest-allocation-state-completed.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-alpha.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-light.png"
+              }
+            },
+            {
+              "id": "reduced",
+              "assetPath": "assets/lab-first-farmers-harvest-allocation-state-active.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-alpha.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-light.png"
+              }
+            },
+            {
+              "id": "scarce",
+              "assetPath": "assets/lab-first-farmers-harvest-allocation-state-before.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-alpha.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-light.png"
+              }
+            },
+            {
+              "id": "exhausted",
+              "assetPath": "assets/lab-first-farmers-harvest-allocation-state-before.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-alpha.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-depth.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "hands-and-grain",
+          "order": 9,
+          "assetPath": "assets/lab-first-farmers-harvest-allocation-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0.68,
+            "width": 1,
+            "height": 0.32
+          },
+          "depth": 0.86,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-alpha.png",
+            "occlusionMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-occlusion.png",
+            "depthMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-depth.png"
+          },
+          "motion": {
+            "parallaxFactor": 0,
+            "windResponse": 0,
+            "focusResponse": 0.72
+          },
+          "stateVariants": []
+        },
+        {
+          "id": "foreground-occluders",
+          "order": 10,
+          "assetPath": "assets/lab-first-farmers-harvest-allocation-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.94,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-alpha.png",
+            "occlusionMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-occlusion.png"
+          },
+          "motion": {
+            "parallaxFactor": 0.2,
+            "windResponse": 0.09,
+            "focusResponse": 0.18
+          },
+          "stateVariants": []
+        },
+        {
+          "id": "mechanism-light",
+          "order": 11,
+          "assetPath": "assets/lab-first-farmers-harvest-allocation-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.98,
+          "opacity": 0.82,
+          "blendMode": "screen",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-alpha.png",
+            "lightMaskAssetPath": "assets/lab-first-farmers-harvest-allocation-light.png"
+          },
+          "motion": {
+            "parallaxFactor": 0,
+            "windResponse": 0,
+            "focusResponse": 1
+          },
+          "stateVariants": []
+        }
+      ],
+      "cameraRail": {
+        "keyframes": [
+          {
+            "progress": 0,
+            "center": {
+              "x": 0.49,
+              "y": 0.47
+            },
+            "scale": 1
+          },
+          {
+            "progress": 0.32,
+            "center": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scale": 1.025
+          },
+          {
+            "progress": 0.68,
+            "center": {
+              "x": 0.5,
+              "y": 0.54
+            },
+            "scale": 1.055
+          },
+          {
+            "progress": 1,
+            "center": {
+              "x": 0.5,
+              "y": 0.58
+            },
+            "scale": 1.08
+          }
+        ]
+      },
+      "atmosphere": [
+        {
+          "kind": "rain",
+          "density": 0.48,
+          "velocity": {
+            "dx": -0.08,
+            "dy": 0.72
+          },
+          "deterministicSeed": 18423001
+        },
+        {
+          "kind": "smoke",
+          "density": 0.22,
+          "velocity": {
+            "dx": 0.06,
+            "dy": -0.12
+          },
+          "deterministicSeed": 18423002
+        }
+      ],
+      "interactionTargets": [
+        {
+          "interactionTargetID": "winter-food-target",
+          "layerID": "winter-store",
+          "hitRegion": {
+            "path": [
+              {
+                "x": 0.18,
+                "y": 0.5
+              },
+              {
+                "x": 0.37,
+                "y": 0.5
+              },
+              {
+                "x": 0.37,
+                "y": 0.67
+              },
+              {
+                "x": 0.18,
+                "y": 0.67
+              }
+            ]
+          },
+          "accessibilityElementID": "allocate-winter-food"
+        },
+        {
+          "interactionTargetID": "protected-reserve-target",
+          "layerID": "protected-reserve",
+          "hitRegion": {
+            "path": [
+              {
+                "x": 0.405,
+                "y": 0.5
+              },
+              {
+                "x": 0.595,
+                "y": 0.5
+              },
+              {
+                "x": 0.595,
+                "y": 0.67
+              },
+              {
+                "x": 0.405,
+                "y": 0.67
+              }
+            ]
+          },
+          "accessibilityElementID": "allocate-protected-reserve"
+        },
+        {
+          "interactionTargetID": "spring-seed-target",
+          "layerID": "spring-seed",
+          "hitRegion": {
+            "path": [
+              {
+                "x": 0.63,
+                "y": 0.5
+              },
+              {
+                "x": 0.82,
+                "y": 0.5
+              },
+              {
+                "x": 0.82,
+                "y": 0.67
+              },
+              {
+                "x": 0.63,
+                "y": 0.67
+              }
+            ]
+          },
+          "accessibilityElementID": "allocate-spring-seed"
+        }
+      ],
+      "interactionVisualBinding": {
+        "grammar": "allocate",
+        "configuration": {
+          "interactionID": "interaction-first-farmers-the-harvest-had-to-last",
+          "resource": {
+            "layerID": "central-harvest",
+            "hitRegion": {
+              "path": [
+                {
+                  "x": 0.27,
+                  "y": 0.69
+                },
+                {
+                  "x": 0.73,
+                  "y": 0.69
+                },
+                {
+                  "x": 0.79,
+                  "y": 0.84
+                },
+                {
+                  "x": 0.69,
+                  "y": 0.875
+                },
+                {
+                  "x": 0.31,
+                  "y": 0.875
+                },
+                {
+                  "x": 0.21,
+                  "y": 0.84
+                }
+              ]
+            },
+            "hitTest": "selectedVariantAlpha",
+            "variantsByRemainingUnits": [
+              {
+                "maximumRemainingUnits": 0,
+                "variantID": "exhausted"
+              },
+              {
+                "maximumRemainingUnits": 4,
+                "variantID": "scarce"
+              },
+              {
+                "maximumRemainingUnits": 8,
+                "variantID": "reduced"
+              },
+              {
+                "maximumRemainingUnits": 12,
+                "variantID": "full"
+              }
+            ]
+          },
+          "transferLayerID": "hands-and-grain",
+          "destinations": [
+            {
+              "destinationID": "food",
+              "interactionTargetID": "winter-food-target",
+              "layerID": "winter-store",
+              "emptyVariantID": "empty",
+              "receivingVariantID": "receiving",
+              "completedVariantID": "provisioned",
+              "transferPath": [
+                {
+                  "x": 0.5,
+                  "y": 0.74
+                },
+                {
+                  "x": 0.39,
+                  "y": 0.66
+                },
+                {
+                  "x": 0.275,
+                  "y": 0.585
+                }
+              ]
+            },
+            {
+              "destinationID": "reserve",
+              "interactionTargetID": "protected-reserve-target",
+              "layerID": "protected-reserve",
+              "emptyVariantID": "empty",
+              "receivingVariantID": "receiving",
+              "completedVariantID": "sealed",
+              "transferPath": [
+                {
+                  "x": 0.5,
+                  "y": 0.74
+                },
+                {
+                  "x": 0.5,
+                  "y": 0.66
+                },
+                {
+                  "x": 0.5,
+                  "y": 0.585
+                }
+              ]
+            },
+            {
+              "destinationID": "seed",
+              "interactionTargetID": "spring-seed-target",
+              "layerID": "spring-seed",
+              "emptyVariantID": "empty",
+              "receivingVariantID": "receiving",
+              "completedVariantID": "committed",
+              "transferPath": [
+                {
+                  "x": 0.5,
+                  "y": 0.74
+                },
+                {
+                  "x": 0.61,
+                  "y": 0.66
+                },
+                {
+                  "x": 0.725,
+                  "y": 0.585
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "reduceMotionComposition": {
+        "canvas": {
+          "width": 1290,
+          "height": 2796
+        },
+        "strata": [
+          {
+            "id": "world-underlay",
+            "kind": "staticPlate",
+            "assetPath": "assets/lab-first-farmers-harvest-allocation-reduce-motion-underlay.png"
+          },
+          {
+            "id": "winter-store-state",
+            "kind": "stateOverlay",
+            "layerID": "winter-store"
+          },
+          {
+            "id": "protected-reserve-state",
+            "kind": "stateOverlay",
+            "layerID": "protected-reserve"
+          },
+          {
+            "id": "spring-seed-state",
+            "kind": "stateOverlay",
+            "layerID": "spring-seed"
+          },
+          {
+            "id": "central-harvest-state",
+            "kind": "stateOverlay",
+            "layerID": "central-harvest"
+          },
+          {
+            "id": "foreground-occlusion",
+            "kind": "staticPlate",
+            "assetPath": "assets/lab-first-farmers-harvest-allocation-reduce-motion-foreground.png"
+          }
+        ],
+        "viewportCrops": [
+          {
+            "id": "baseline-393x852",
+            "viewport": {
+              "widthPoints": 393,
+              "heightPoints": 852
+            },
+            "sourceRect": {
+              "x": 0.08,
+              "y": 0.08,
+              "width": 0.84,
+              "height": 0.84
+            },
+            "safeTextRegions": [
+              {
+                "id": "chapter-heading",
+                "rect": {
+                  "x": 0.07,
+                  "y": 0.04,
+                  "width": 0.86,
+                  "height": 0.14
+                }
+              },
+              {
+                "id": "allocation-prompt",
+                "rect": {
+                  "x": 0.18,
+                  "y": 0.18,
+                  "width": 0.64,
+                  "height": 0.08
+                }
+              },
+              {
+                "id": "remaining-harvest",
+                "rect": {
+                  "x": 0.33,
+                  "y": 0.79,
+                  "width": 0.34,
+                  "height": 0.13
+                }
+              }
+            ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.05,
+              "y": 0.05,
+              "width": 0.9,
+              "height": 0.9
+            },
+            "safeTextRegions": [
+              {
+                "id": "chapter-heading",
+                "rect": {
+                  "x": 0.07,
+                  "y": 0.04,
+                  "width": 0.86,
+                  "height": 0.14
+                }
+              },
+              {
+                "id": "allocation-prompt",
+                "rect": {
+                  "x": 0.18,
+                  "y": 0.18,
+                  "width": 0.64,
+                  "height": 0.08
+                }
+              },
+              {
+                "id": "remaining-harvest",
+                "rect": {
+                  "x": 0.33,
+                  "y": 0.79,
+                  "width": 0.34,
+                  "height": 0.13
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "mechanismFocus": {
+        "id": "scene-harvest-mechanism-focus",
+        "launchEnglish": "One finite harvest, divided into twelve equal illustrative runtime shares, must become winter food, protected reserve and spring seed before the grain in the foreground is exhausted."
+      },
+      "accessibilityID": "accessibility-lab-first-farmers-harvest-allocation"
+    },
+    {
+      "id": "lab-first-farmers-house-assembly",
+      "sceneCanvas": {
+        "canvas": {
+          "width": 1179,
+          "height": 2556
+        },
+        "cameraTravelBounds": {
+          "x": 0.2,
+          "y": 0.2,
+          "width": 0.6,
+          "height": 0.6
+        },
+        "authoredOverscanFraction": 0.15,
+        "viewportCrops": [
+          {
+            "id": "baseline-393x852",
+            "viewport": {
+              "widthPoints": 393,
+              "heightPoints": 852
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15,
+              "width": 0.7,
+              "height": 0.7
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "layers": [
+        {
+          "id": "background",
+          "order": 0,
+          "assetPath": "assets/lab-first-farmers-house-assembly-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.08,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-first-farmers-house-assembly-alpha.png",
+            "occlusionMaskAssetPath": "assets/lab-first-farmers-house-assembly-occlusion.png",
+            "depthMaskAssetPath": "assets/lab-first-farmers-house-assembly-depth.png",
+            "lightMaskAssetPath": "assets/lab-first-farmers-house-assembly-light.png"
+          },
+          "motion": {
+            "parallaxFactor": 0.02,
+            "windResponse": 0,
+            "focusResponse": 0.2
+          },
+          "stateVariants": []
+        },
+        {
+          "id": "component-posts",
+          "order": 1,
+          "assetPath": "assets/lab-first-farmers-house-assembly-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.2,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-first-farmers-house-assembly-alpha.png",
+            "occlusionMaskAssetPath": "assets/lab-first-farmers-house-assembly-occlusion.png",
+            "depthMaskAssetPath": "assets/lab-first-farmers-house-assembly-depth.png",
+            "lightMaskAssetPath": "assets/lab-first-farmers-house-assembly-light.png"
+          },
+          "motion": {
+            "parallaxFactor": 0,
+            "windResponse": 0,
+            "focusResponse": 0.2
+          },
+          "stateVariants": [
+            {
+              "id": "available",
+              "assetPath": "assets/lab-first-farmers-house-assembly-state-before.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-house-assembly-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-first-farmers-house-assembly-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-house-assembly-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-house-assembly-light.png"
+              }
+            },
+            {
+              "id": "resisted",
+              "assetPath": "assets/lab-first-farmers-house-assembly-state-active.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-house-assembly-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-first-farmers-house-assembly-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-house-assembly-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-house-assembly-light.png"
+              }
+            },
+            {
+              "id": "placed",
+              "assetPath": "assets/lab-first-farmers-house-assembly-state-completed.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-house-assembly-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-first-farmers-house-assembly-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-house-assembly-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-house-assembly-light.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "component-hearth",
+          "order": 2,
+          "assetPath": "assets/lab-first-farmers-house-assembly-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.32,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-first-farmers-house-assembly-alpha.png",
+            "occlusionMaskAssetPath": "assets/lab-first-farmers-house-assembly-occlusion.png",
+            "depthMaskAssetPath": "assets/lab-first-farmers-house-assembly-depth.png",
+            "lightMaskAssetPath": "assets/lab-first-farmers-house-assembly-light.png"
+          },
+          "motion": {
+            "parallaxFactor": 0,
+            "windResponse": 0,
+            "focusResponse": 0.2
+          },
+          "stateVariants": [
+            {
+              "id": "available",
+              "assetPath": "assets/lab-first-farmers-house-assembly-state-before.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-house-assembly-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-first-farmers-house-assembly-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-house-assembly-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-house-assembly-light.png"
+              }
+            },
+            {
+              "id": "resisted",
+              "assetPath": "assets/lab-first-farmers-house-assembly-state-active.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-house-assembly-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-first-farmers-house-assembly-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-house-assembly-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-house-assembly-light.png"
+              }
+            },
+            {
+              "id": "placed",
+              "assetPath": "assets/lab-first-farmers-house-assembly-state-completed.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-house-assembly-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-first-farmers-house-assembly-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-house-assembly-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-house-assembly-light.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "component-storage",
+          "order": 3,
+          "assetPath": "assets/lab-first-farmers-house-assembly-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.44,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-first-farmers-house-assembly-alpha.png",
+            "occlusionMaskAssetPath": "assets/lab-first-farmers-house-assembly-occlusion.png",
+            "depthMaskAssetPath": "assets/lab-first-farmers-house-assembly-depth.png",
+            "lightMaskAssetPath": "assets/lab-first-farmers-house-assembly-light.png"
+          },
+          "motion": {
+            "parallaxFactor": 0,
+            "windResponse": 0,
+            "focusResponse": 0.2
+          },
+          "stateVariants": [
+            {
+              "id": "available",
+              "assetPath": "assets/lab-first-farmers-house-assembly-state-before.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-house-assembly-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-first-farmers-house-assembly-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-house-assembly-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-house-assembly-light.png"
+              }
+            },
+            {
+              "id": "resisted",
+              "assetPath": "assets/lab-first-farmers-house-assembly-state-active.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-house-assembly-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-first-farmers-house-assembly-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-house-assembly-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-house-assembly-light.png"
+              }
+            },
+            {
+              "id": "placed",
+              "assetPath": "assets/lab-first-farmers-house-assembly-state-completed.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-house-assembly-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-first-farmers-house-assembly-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-house-assembly-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-house-assembly-light.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "component-roof",
+          "order": 4,
+          "assetPath": "assets/lab-first-farmers-house-assembly-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.5599999999999999,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-first-farmers-house-assembly-alpha.png",
+            "occlusionMaskAssetPath": "assets/lab-first-farmers-house-assembly-occlusion.png",
+            "depthMaskAssetPath": "assets/lab-first-farmers-house-assembly-depth.png",
+            "lightMaskAssetPath": "assets/lab-first-farmers-house-assembly-light.png"
+          },
+          "motion": {
+            "parallaxFactor": 0,
+            "windResponse": 0,
+            "focusResponse": 0.2
+          },
+          "stateVariants": [
+            {
+              "id": "available",
+              "assetPath": "assets/lab-first-farmers-house-assembly-state-before.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-house-assembly-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-first-farmers-house-assembly-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-house-assembly-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-house-assembly-light.png"
+              }
+            },
+            {
+              "id": "resisted",
+              "assetPath": "assets/lab-first-farmers-house-assembly-state-active.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-house-assembly-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-first-farmers-house-assembly-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-house-assembly-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-house-assembly-light.png"
+              }
+            },
+            {
+              "id": "placed",
+              "assetPath": "assets/lab-first-farmers-house-assembly-state-completed.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-house-assembly-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-first-farmers-house-assembly-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-house-assembly-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-house-assembly-light.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "foreground",
+          "order": 5,
+          "assetPath": "assets/lab-first-farmers-house-assembly-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.92,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-first-farmers-house-assembly-alpha.png",
+            "occlusionMaskAssetPath": "assets/lab-first-farmers-house-assembly-occlusion.png",
+            "depthMaskAssetPath": "assets/lab-first-farmers-house-assembly-depth.png",
+            "lightMaskAssetPath": "assets/lab-first-farmers-house-assembly-light.png"
+          },
+          "motion": {
+            "parallaxFactor": 0.08,
+            "windResponse": 0,
+            "focusResponse": 0.2
+          },
+          "stateVariants": []
+        }
+      ],
+      "cameraRail": {
+        "keyframes": [
+          {
+            "progress": 0,
+            "center": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scale": 1
+          },
+          {
+            "progress": 1,
+            "center": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scale": 1
+          }
+        ]
+      },
+      "atmosphere": [
+        {
+          "kind": "smoke",
+          "density": 0.13,
+          "velocity": {
+            "dx": 0.03,
+            "dy": -0.08
+          },
+          "deterministicSeed": 19910411
+        }
+      ],
+      "interactionTargets": [
+        {
+          "interactionTargetID": "component-posts-source",
+          "layerID": "component-posts",
+          "hitRegion": {
+            "path": [
+              {
+                "x": 0.2,
+                "y": 0.36
+              },
+              {
+                "x": 0.30000000000000004,
+                "y": 0.36
+              },
+              {
+                "x": 0.30000000000000004,
+                "y": 0.45999999999999996
+              },
+              {
+                "x": 0.2,
+                "y": 0.45999999999999996
+              }
+            ]
+          },
+          "accessibilityElementID": "assemble-posts"
+        },
+        {
+          "interactionTargetID": "component-posts-slot",
+          "layerID": "component-posts",
+          "hitRegion": {
+            "path": [
+              {
+                "x": 0.2,
+                "y": 0.64
+              },
+              {
+                "x": 0.30000000000000004,
+                "y": 0.64
+              },
+              {
+                "x": 0.30000000000000004,
+                "y": 0.74
+              },
+              {
+                "x": 0.2,
+                "y": 0.74
+              }
+            ]
+          },
+          "accessibilityElementID": "assemble-posts"
+        },
+        {
+          "interactionTargetID": "component-hearth-source",
+          "layerID": "component-hearth",
+          "hitRegion": {
+            "path": [
+              {
+                "x": 0.36,
+                "y": 0.36
+              },
+              {
+                "x": 0.45999999999999996,
+                "y": 0.36
+              },
+              {
+                "x": 0.45999999999999996,
+                "y": 0.45999999999999996
+              },
+              {
+                "x": 0.36,
+                "y": 0.45999999999999996
+              }
+            ]
+          },
+          "accessibilityElementID": "assemble-hearth"
+        },
+        {
+          "interactionTargetID": "component-hearth-slot",
+          "layerID": "component-hearth",
+          "hitRegion": {
+            "path": [
+              {
+                "x": 0.36,
+                "y": 0.64
+              },
+              {
+                "x": 0.45999999999999996,
+                "y": 0.64
+              },
+              {
+                "x": 0.45999999999999996,
+                "y": 0.74
+              },
+              {
+                "x": 0.36,
+                "y": 0.74
+              }
+            ]
+          },
+          "accessibilityElementID": "assemble-hearth"
+        },
+        {
+          "interactionTargetID": "component-storage-source",
+          "layerID": "component-storage",
+          "hitRegion": {
+            "path": [
+              {
+                "x": 0.52,
+                "y": 0.36
+              },
+              {
+                "x": 0.62,
+                "y": 0.36
+              },
+              {
+                "x": 0.62,
+                "y": 0.45999999999999996
+              },
+              {
+                "x": 0.52,
+                "y": 0.45999999999999996
+              }
+            ]
+          },
+          "accessibilityElementID": "assemble-storage"
+        },
+        {
+          "interactionTargetID": "component-storage-slot",
+          "layerID": "component-storage",
+          "hitRegion": {
+            "path": [
+              {
+                "x": 0.52,
+                "y": 0.64
+              },
+              {
+                "x": 0.62,
+                "y": 0.64
+              },
+              {
+                "x": 0.62,
+                "y": 0.74
+              },
+              {
+                "x": 0.52,
+                "y": 0.74
+              }
+            ]
+          },
+          "accessibilityElementID": "assemble-storage"
+        },
+        {
+          "interactionTargetID": "component-roof-source",
+          "layerID": "component-roof",
+          "hitRegion": {
+            "path": [
+              {
+                "x": 0.6799999999999999,
+                "y": 0.36
+              },
+              {
+                "x": 0.7799999999999999,
+                "y": 0.36
+              },
+              {
+                "x": 0.7799999999999999,
+                "y": 0.45999999999999996
+              },
+              {
+                "x": 0.6799999999999999,
+                "y": 0.45999999999999996
+              }
+            ]
+          },
+          "accessibilityElementID": "assemble-roof"
+        },
+        {
+          "interactionTargetID": "component-roof-slot",
+          "layerID": "component-roof",
+          "hitRegion": {
+            "path": [
+              {
+                "x": 0.6799999999999999,
+                "y": 0.64
+              },
+              {
+                "x": 0.7799999999999999,
+                "y": 0.64
+              },
+              {
+                "x": 0.7799999999999999,
+                "y": 0.74
+              },
+              {
+                "x": 0.6799999999999999,
+                "y": 0.74
+              }
+            ]
+          },
+          "accessibilityElementID": "assemble-roof"
+        }
+      ],
+      "interactionVisualBinding": {
+        "grammar": "assemble",
+        "configuration": {
+          "interactionID": "interaction-first-farmers-the-house-outlives",
+          "components": [
+            {
+              "componentID": "posts",
+              "sourceInteractionTargetID": "component-posts-source",
+              "slotInteractionTargetID": "component-posts-slot",
+              "layerID": "component-posts",
+              "availableVariantID": "available",
+              "resistedVariantID": "resisted",
+              "placedVariantID": "placed"
+            },
+            {
+              "componentID": "hearth",
+              "sourceInteractionTargetID": "component-hearth-source",
+              "slotInteractionTargetID": "component-hearth-slot",
+              "layerID": "component-hearth",
+              "availableVariantID": "available",
+              "resistedVariantID": "resisted",
+              "placedVariantID": "placed"
+            },
+            {
+              "componentID": "storage",
+              "sourceInteractionTargetID": "component-storage-source",
+              "slotInteractionTargetID": "component-storage-slot",
+              "layerID": "component-storage",
+              "availableVariantID": "available",
+              "resistedVariantID": "resisted",
+              "placedVariantID": "placed"
+            },
+            {
+              "componentID": "roof",
+              "sourceInteractionTargetID": "component-roof-source",
+              "slotInteractionTargetID": "component-roof-slot",
+              "layerID": "component-roof",
+              "availableVariantID": "available",
+              "resistedVariantID": "resisted",
+              "placedVariantID": "placed"
+            }
+          ]
+        }
+      },
+      "reduceMotionComposition": {
+        "canvas": {
+          "width": 1179,
+          "height": 2556
+        },
+        "viewportCrops": [
+          {
+            "id": "baseline-393x852",
+            "viewport": {
+              "widthPoints": 393,
+              "heightPoints": 852
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15,
+              "width": 0.7,
+              "height": 0.7
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          }
+        ],
+        "strata": [
+          {
+            "id": "static-underlay",
+            "kind": "staticPlate",
+            "assetPath": "assets/lab-first-farmers-house-assembly-reduce-motion-underlay.png"
+          },
+          {
+            "id": "component-posts-state",
+            "kind": "stateOverlay",
+            "layerID": "component-posts"
+          },
+          {
+            "id": "component-hearth-state",
+            "kind": "stateOverlay",
+            "layerID": "component-hearth"
+          },
+          {
+            "id": "component-storage-state",
+            "kind": "stateOverlay",
+            "layerID": "component-storage"
+          },
+          {
+            "id": "component-roof-state",
+            "kind": "stateOverlay",
+            "layerID": "component-roof"
+          },
+          {
+            "id": "static-foreground",
+            "kind": "staticPlate",
+            "assetPath": "assets/lab-first-farmers-house-assembly-reduce-motion-foreground.png"
+          }
+        ]
+      },
+      "mechanismFocus": {
+        "id": "lab-first-farmers-house-assembly-mechanism-focus",
+        "launchEnglish": "Posts, hearth, storage and roof make one house; rebuilding fixes the household to remembered ground."
+      },
+      "accessibilityID": "accessibility-lab-first-farmers-house-assembly"
+    },
+    {
+      "id": "lab-first-farmers-land-transformation",
+      "sceneCanvas": {
+        "canvas": {
+          "width": 1179,
+          "height": 2556
+        },
+        "cameraTravelBounds": {
+          "x": 0.2,
+          "y": 0.2,
+          "width": 0.6,
+          "height": 0.6
+        },
+        "authoredOverscanFraction": 0.15,
+        "viewportCrops": [
+          {
+            "id": "baseline-393x852",
+            "viewport": {
+              "widthPoints": 393,
+              "heightPoints": 852
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15,
+              "width": 0.7,
+              "height": 0.7
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "layers": [
+        {
+          "id": "background",
+          "order": 0,
+          "assetPath": "assets/lab-first-farmers-land-transformation-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.08,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-first-farmers-land-transformation-alpha.png",
+            "occlusionMaskAssetPath": "assets/lab-first-farmers-land-transformation-occlusion.png",
+            "depthMaskAssetPath": "assets/lab-first-farmers-land-transformation-depth.png",
+            "lightMaskAssetPath": "assets/lab-first-farmers-land-transformation-light.png"
+          },
+          "motion": {
+            "parallaxFactor": 0.02,
+            "windResponse": 0,
+            "focusResponse": 0.2
+          },
+          "stateVariants": []
+        },
+        {
+          "id": "stage-new-hearths",
+          "order": 1,
+          "assetPath": "assets/lab-first-farmers-land-transformation-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.2,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-first-farmers-land-transformation-alpha.png",
+            "occlusionMaskAssetPath": "assets/lab-first-farmers-land-transformation-occlusion.png",
+            "depthMaskAssetPath": "assets/lab-first-farmers-land-transformation-depth.png",
+            "lightMaskAssetPath": "assets/lab-first-farmers-land-transformation-light.png"
+          },
+          "motion": {
+            "parallaxFactor": 0,
+            "windResponse": 0,
+            "focusResponse": 0.2
+          },
+          "stateVariants": [
+            {
+              "id": "before",
+              "assetPath": "assets/lab-first-farmers-land-transformation-state-before.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-land-transformation-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-first-farmers-land-transformation-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-land-transformation-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-land-transformation-light.png"
+              }
+            },
+            {
+              "id": "active",
+              "assetPath": "assets/lab-first-farmers-land-transformation-state-active.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-land-transformation-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-first-farmers-land-transformation-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-land-transformation-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-land-transformation-light.png"
+              }
+            },
+            {
+              "id": "completed",
+              "assetPath": "assets/lab-first-farmers-land-transformation-state-completed.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-land-transformation-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-first-farmers-land-transformation-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-land-transformation-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-land-transformation-light.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "stage-field-edges",
+          "order": 2,
+          "assetPath": "assets/lab-first-farmers-land-transformation-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.32,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-first-farmers-land-transformation-alpha.png",
+            "occlusionMaskAssetPath": "assets/lab-first-farmers-land-transformation-occlusion.png",
+            "depthMaskAssetPath": "assets/lab-first-farmers-land-transformation-depth.png",
+            "lightMaskAssetPath": "assets/lab-first-farmers-land-transformation-light.png"
+          },
+          "motion": {
+            "parallaxFactor": 0,
+            "windResponse": 0,
+            "focusResponse": 0.2
+          },
+          "stateVariants": [
+            {
+              "id": "before",
+              "assetPath": "assets/lab-first-farmers-land-transformation-state-before.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-land-transformation-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-first-farmers-land-transformation-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-land-transformation-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-land-transformation-light.png"
+              }
+            },
+            {
+              "id": "active",
+              "assetPath": "assets/lab-first-farmers-land-transformation-state-active.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-land-transformation-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-first-farmers-land-transformation-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-land-transformation-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-land-transformation-light.png"
+              }
+            },
+            {
+              "id": "completed",
+              "assetPath": "assets/lab-first-farmers-land-transformation-state-completed.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-land-transformation-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-first-farmers-land-transformation-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-land-transformation-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-land-transformation-light.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "stage-herd-lanes",
+          "order": 3,
+          "assetPath": "assets/lab-first-farmers-land-transformation-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.44,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-first-farmers-land-transformation-alpha.png",
+            "occlusionMaskAssetPath": "assets/lab-first-farmers-land-transformation-occlusion.png",
+            "depthMaskAssetPath": "assets/lab-first-farmers-land-transformation-depth.png",
+            "lightMaskAssetPath": "assets/lab-first-farmers-land-transformation-light.png"
+          },
+          "motion": {
+            "parallaxFactor": 0,
+            "windResponse": 0,
+            "focusResponse": 0.2
+          },
+          "stateVariants": [
+            {
+              "id": "before",
+              "assetPath": "assets/lab-first-farmers-land-transformation-state-before.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-land-transformation-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-first-farmers-land-transformation-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-land-transformation-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-land-transformation-light.png"
+              }
+            },
+            {
+              "id": "active",
+              "assetPath": "assets/lab-first-farmers-land-transformation-state-active.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-land-transformation-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-first-farmers-land-transformation-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-land-transformation-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-land-transformation-light.png"
+              }
+            },
+            {
+              "id": "completed",
+              "assetPath": "assets/lab-first-farmers-land-transformation-state-completed.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-land-transformation-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-first-farmers-land-transformation-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-land-transformation-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-land-transformation-light.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "stage-daughter-settlements",
+          "order": 4,
+          "assetPath": "assets/lab-first-farmers-land-transformation-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.5599999999999999,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-first-farmers-land-transformation-alpha.png",
+            "occlusionMaskAssetPath": "assets/lab-first-farmers-land-transformation-occlusion.png",
+            "depthMaskAssetPath": "assets/lab-first-farmers-land-transformation-depth.png",
+            "lightMaskAssetPath": "assets/lab-first-farmers-land-transformation-light.png"
+          },
+          "motion": {
+            "parallaxFactor": 0,
+            "windResponse": 0,
+            "focusResponse": 0.2
+          },
+          "stateVariants": [
+            {
+              "id": "before",
+              "assetPath": "assets/lab-first-farmers-land-transformation-state-before.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-land-transformation-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-first-farmers-land-transformation-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-land-transformation-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-land-transformation-light.png"
+              }
+            },
+            {
+              "id": "active",
+              "assetPath": "assets/lab-first-farmers-land-transformation-state-active.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-land-transformation-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-first-farmers-land-transformation-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-land-transformation-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-land-transformation-light.png"
+              }
+            },
+            {
+              "id": "completed",
+              "assetPath": "assets/lab-first-farmers-land-transformation-state-completed.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-first-farmers-land-transformation-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-first-farmers-land-transformation-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-first-farmers-land-transformation-depth.png",
+                "lightMaskAssetPath": "assets/lab-first-farmers-land-transformation-light.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "foreground",
+          "order": 5,
+          "assetPath": "assets/lab-first-farmers-land-transformation-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.92,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-first-farmers-land-transformation-alpha.png",
+            "occlusionMaskAssetPath": "assets/lab-first-farmers-land-transformation-occlusion.png",
+            "depthMaskAssetPath": "assets/lab-first-farmers-land-transformation-depth.png",
+            "lightMaskAssetPath": "assets/lab-first-farmers-land-transformation-light.png"
+          },
+          "motion": {
+            "parallaxFactor": 0.08,
+            "windResponse": 0,
+            "focusResponse": 0.2
+          },
+          "stateVariants": []
+        }
+      ],
+      "cameraRail": {
+        "keyframes": [
+          {
+            "progress": 0,
+            "center": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scale": 1
+          },
+          {
+            "progress": 1,
+            "center": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scale": 1
+          }
+        ]
+      },
+      "atmosphere": [
+        {
+          "kind": "dust",
+          "density": 0.12,
+          "velocity": {
+            "dx": 0.05,
+            "dy": -0.02
+          },
+          "deterministicSeed": 19910412
+        }
+      ],
+      "interactionTargets": [
+        {
+          "interactionTargetID": "stage-new-hearths-target",
+          "layerID": "stage-new-hearths",
+          "hitRegion": {
+            "path": [
+              {
+                "x": 0.24,
+                "y": 0.46
+              },
+              {
+                "x": 0.39,
+                "y": 0.46
+              },
+              {
+                "x": 0.39,
+                "y": 0.5800000000000001
+              },
+              {
+                "x": 0.24,
+                "y": 0.5800000000000001
+              }
+            ]
+          },
+          "accessibilityElementID": "transform-new-hearths"
+        },
+        {
+          "interactionTargetID": "stage-field-edges-target",
+          "layerID": "stage-field-edges",
+          "hitRegion": {
+            "path": [
+              {
+                "x": 0.61,
+                "y": 0.46
+              },
+              {
+                "x": 0.76,
+                "y": 0.46
+              },
+              {
+                "x": 0.76,
+                "y": 0.5800000000000001
+              },
+              {
+                "x": 0.61,
+                "y": 0.5800000000000001
+              }
+            ]
+          },
+          "accessibilityElementID": "transform-field-edges"
+        },
+        {
+          "interactionTargetID": "stage-herd-lanes-target",
+          "layerID": "stage-herd-lanes",
+          "hitRegion": {
+            "path": [
+              {
+                "x": 0.24,
+                "y": 0.66
+              },
+              {
+                "x": 0.39,
+                "y": 0.66
+              },
+              {
+                "x": 0.39,
+                "y": 0.78
+              },
+              {
+                "x": 0.24,
+                "y": 0.78
+              }
+            ]
+          },
+          "accessibilityElementID": "transform-herd-lanes"
+        },
+        {
+          "interactionTargetID": "stage-daughter-settlements-target",
+          "layerID": "stage-daughter-settlements",
+          "hitRegion": {
+            "path": [
+              {
+                "x": 0.61,
+                "y": 0.66
+              },
+              {
+                "x": 0.76,
+                "y": 0.66
+              },
+              {
+                "x": 0.76,
+                "y": 0.78
+              },
+              {
+                "x": 0.61,
+                "y": 0.78
+              }
+            ]
+          },
+          "accessibilityElementID": "transform-daughter-settlements"
+        }
+      ],
+      "interactionVisualBinding": {
+        "grammar": "transform",
+        "configuration": {
+          "interactionID": "interaction-first-farmers-more-mouths-more-land",
+          "stages": [
+            {
+              "stageID": "new-hearths",
+              "interactionTargetID": "stage-new-hearths-target",
+              "layerID": "stage-new-hearths",
+              "beforeVariantID": "before",
+              "activeVariantID": "active",
+              "completedVariantID": "completed"
+            },
+            {
+              "stageID": "field-edges",
+              "interactionTargetID": "stage-field-edges-target",
+              "layerID": "stage-field-edges",
+              "beforeVariantID": "before",
+              "activeVariantID": "active",
+              "completedVariantID": "completed"
+            },
+            {
+              "stageID": "herd-lanes",
+              "interactionTargetID": "stage-herd-lanes-target",
+              "layerID": "stage-herd-lanes",
+              "beforeVariantID": "before",
+              "activeVariantID": "active",
+              "completedVariantID": "completed"
+            },
+            {
+              "stageID": "daughter-settlements",
+              "interactionTargetID": "stage-daughter-settlements-target",
+              "layerID": "stage-daughter-settlements",
+              "beforeVariantID": "before",
+              "activeVariantID": "active",
+              "completedVariantID": "completed"
+            }
+          ]
+        }
+      },
+      "reduceMotionComposition": {
+        "canvas": {
+          "width": 1179,
+          "height": 2556
+        },
+        "viewportCrops": [
+          {
+            "id": "baseline-393x852",
+            "viewport": {
+              "widthPoints": 393,
+              "heightPoints": 852
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15,
+              "width": 0.7,
+              "height": 0.7
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          }
+        ],
+        "strata": [
+          {
+            "id": "static-underlay",
+            "kind": "staticPlate",
+            "assetPath": "assets/lab-first-farmers-land-transformation-reduce-motion-underlay.png"
+          },
+          {
+            "id": "stage-new-hearths-state",
+            "kind": "stateOverlay",
+            "layerID": "stage-new-hearths"
+          },
+          {
+            "id": "stage-field-edges-state",
+            "kind": "stateOverlay",
+            "layerID": "stage-field-edges"
+          },
+          {
+            "id": "stage-herd-lanes-state",
+            "kind": "stateOverlay",
+            "layerID": "stage-herd-lanes"
+          },
+          {
+            "id": "stage-daughter-settlements-state",
+            "kind": "stateOverlay",
+            "layerID": "stage-daughter-settlements"
+          },
+          {
+            "id": "static-foreground",
+            "kind": "staticPlate",
+            "assetPath": "assets/lab-first-farmers-land-transformation-reduce-motion-foreground.png"
+          }
+        ]
+      },
+      "mechanismFocus": {
+        "id": "lab-first-farmers-land-transformation-mechanism-focus",
+        "launchEnglish": "New hearths, field edges, herd lanes and daughter settlements remain cut into the same ground."
+      },
+      "accessibilityID": "accessibility-lab-first-farmers-land-transformation"
+    },
+    {
+      "id": "lab-frontiers-northern-valleys-pressure",
+      "sceneCanvas": {
+        "canvas": {
+          "width": 1179,
+          "height": 2556
+        },
+        "cameraTravelBounds": {
+          "x": 0.2,
+          "y": 0.2,
+          "width": 0.6,
+          "height": 0.6
+        },
+        "authoredOverscanFraction": 0.15,
+        "viewportCrops": [
+          {
+            "id": "baseline-393x852",
+            "viewport": {
+              "widthPoints": 393,
+              "heightPoints": 852
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15,
+              "width": 0.7,
+              "height": 0.7
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "layers": [
+        {
+          "id": "background",
+          "order": 0,
+          "assetPath": "assets/lab-frontiers-northern-valleys-pressure-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.08,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-alpha.png",
+            "occlusionMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-occlusion.png",
+            "depthMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-depth.png",
+            "lightMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-light.png"
+          },
+          "motion": {
+            "parallaxFactor": 0.02,
+            "windResponse": 0,
+            "focusResponse": 0.2
+          },
+          "stateVariants": []
+        },
+        {
+          "id": "conquest-force",
+          "order": 1,
+          "assetPath": "assets/lab-frontiers-northern-valleys-pressure-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.2,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-alpha.png",
+            "occlusionMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-occlusion.png",
+            "depthMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-depth.png",
+            "lightMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-light.png"
+          },
+          "motion": {
+            "parallaxFactor": 0,
+            "windResponse": 0,
+            "focusResponse": 0.2
+          },
+          "stateVariants": []
+        },
+        {
+          "id": "mountain-depth",
+          "order": 2,
+          "assetPath": "assets/lab-frontiers-northern-valleys-pressure-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.32,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-alpha.png",
+            "occlusionMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-occlusion.png",
+            "depthMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-depth.png",
+            "lightMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-light.png"
+          },
+          "motion": {
+            "parallaxFactor": 0,
+            "windResponse": 0,
+            "focusResponse": 0.2
+          },
+          "stateVariants": []
+        },
+        {
+          "id": "inhabited-stores",
+          "order": 3,
+          "assetPath": "assets/lab-frontiers-northern-valleys-pressure-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.44,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-alpha.png",
+            "occlusionMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-occlusion.png",
+            "depthMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-depth.png",
+            "lightMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-light.png"
+          },
+          "motion": {
+            "parallaxFactor": 0,
+            "windResponse": 0,
+            "focusResponse": 0.2
+          },
+          "stateVariants": []
+        },
+        {
+          "id": "frontier-system",
+          "order": 4,
+          "assetPath": "assets/lab-frontiers-northern-valleys-pressure-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.5599999999999999,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-alpha.png",
+            "occlusionMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-occlusion.png",
+            "depthMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-depth.png",
+            "lightMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-light.png"
+          },
+          "motion": {
+            "parallaxFactor": 0,
+            "windResponse": 0,
+            "focusResponse": 0.2
+          },
+          "stateVariants": [
+            {
+              "id": "resting",
+              "assetPath": "assets/lab-frontiers-northern-valleys-pressure-state-before.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-depth.png",
+                "lightMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-light.png"
+              }
+            },
+            {
+              "id": "resisting",
+              "assetPath": "assets/lab-frontiers-northern-valleys-pressure-state-active.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-depth.png",
+                "lightMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-light.png"
+              }
+            },
+            {
+              "id": "stable",
+              "assetPath": "assets/lab-frontiers-northern-valleys-pressure-state-completed.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-depth.png",
+                "lightMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-light.png"
+              }
+            },
+            {
+              "id": "broken",
+              "assetPath": "assets/lab-frontiers-northern-valleys-pressure-state-before.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-depth.png",
+                "lightMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-light.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "foreground",
+          "order": 5,
+          "assetPath": "assets/lab-frontiers-northern-valleys-pressure-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.92,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-alpha.png",
+            "occlusionMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-occlusion.png",
+            "depthMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-depth.png",
+            "lightMaskAssetPath": "assets/lab-frontiers-northern-valleys-pressure-light.png"
+          },
+          "motion": {
+            "parallaxFactor": 0.08,
+            "windResponse": 0,
+            "focusResponse": 0.2
+          },
+          "stateVariants": []
+        }
+      ],
+      "cameraRail": {
+        "keyframes": [
+          {
+            "progress": 0,
+            "center": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scale": 1
+          },
+          {
+            "progress": 1,
+            "center": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scale": 1
+          }
+        ]
+      },
+      "atmosphere": [
+        {
+          "kind": "rain",
+          "density": 0.18,
+          "velocity": {
+            "dx": -0.08,
+            "dy": 0.18
+          },
+          "deterministicSeed": 19910413
+        }
+      ],
+      "interactionTargets": [
+        {
+          "interactionTargetID": "inhabited-stores-target",
+          "layerID": "inhabited-stores",
+          "hitRegion": {
+            "path": [
+              {
+                "x": 0.42,
+                "y": 0.56
+              },
+              {
+                "x": 0.58,
+                "y": 0.56
+              },
+              {
+                "x": 0.58,
+                "y": 0.7200000000000001
+              },
+              {
+                "x": 0.42,
+                "y": 0.7200000000000001
+              }
+            ]
+          },
+          "accessibilityElementID": "pressure-inhabited-stores"
+        }
+      ],
+      "interactionVisualBinding": {
+        "grammar": "pressure",
+        "configuration": {
+          "interactionID": "interaction-europe-holds-the-line-northern-valleys-keep-crown",
+          "forces": [
+            {
+              "forceID": "conquest-pressure",
+              "layerID": "conquest-force"
+            },
+            {
+              "forceID": "mountain-depth",
+              "layerID": "mountain-depth"
+            },
+            {
+              "forceID": "inhabited-stores",
+              "layerID": "inhabited-stores",
+              "interactionTargetID": "inhabited-stores-target"
+            }
+          ],
+          "systemLayerID": "frontier-system",
+          "restingVariantID": "resting",
+          "resistingVariantID": "resisting",
+          "stableVariantID": "stable",
+          "brokenVariantID": "broken"
+        }
+      },
+      "reduceMotionComposition": {
+        "canvas": {
+          "width": 1179,
+          "height": 2556
+        },
+        "viewportCrops": [
+          {
+            "id": "baseline-393x852",
+            "viewport": {
+              "widthPoints": 393,
+              "heightPoints": 852
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15,
+              "width": 0.7,
+              "height": 0.7
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          }
+        ],
+        "strata": [
+          {
+            "id": "static-underlay",
+            "kind": "staticPlate",
+            "assetPath": "assets/lab-frontiers-northern-valleys-pressure-reduce-motion-underlay.png"
+          },
+          {
+            "id": "frontier-system-state",
+            "kind": "stateOverlay",
+            "layerID": "frontier-system"
+          },
+          {
+            "id": "static-foreground",
+            "kind": "staticPlate",
+            "assetPath": "assets/lab-frontiers-northern-valleys-pressure-reduce-motion-foreground.png"
+          }
+        ]
+      },
+      "mechanismFocus": {
+        "id": "lab-frontiers-northern-valleys-pressure-mechanism-focus",
+        "launchEnglish": "Terrain buys refuge; court, stores and defended fields turn refuge into a frontier that can advance."
+      },
+      "accessibilityID": "accessibility-lab-frontiers-northern-valleys-pressure"
+    },
+    {
+      "id": "lab-european-world-ocean-schedule",
+      "sceneCanvas": {
+        "canvas": {
+          "width": 1179,
+          "height": 2556
+        },
+        "cameraTravelBounds": {
+          "x": 0.2,
+          "y": 0.2,
+          "width": 0.6,
+          "height": 0.6
+        },
+        "authoredOverscanFraction": 0.15,
+        "viewportCrops": [
+          {
+            "id": "baseline-393x852",
+            "viewport": {
+              "widthPoints": 393,
+              "heightPoints": 852
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15,
+              "width": 0.7,
+              "height": 0.7
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "layers": [
+        {
+          "id": "background",
+          "order": 0,
+          "assetPath": "assets/lab-european-world-ocean-schedule-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.08,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-european-world-ocean-schedule-alpha.png",
+            "occlusionMaskAssetPath": "assets/lab-european-world-ocean-schedule-occlusion.png",
+            "depthMaskAssetPath": "assets/lab-european-world-ocean-schedule-depth.png",
+            "lightMaskAssetPath": "assets/lab-european-world-ocean-schedule-light.png"
+          },
+          "motion": {
+            "parallaxFactor": 0.02,
+            "windResponse": 0,
+            "focusResponse": 0.2
+          },
+          "stateVariants": []
+        },
+        {
+          "id": "route-system",
+          "order": 1,
+          "assetPath": "assets/lab-european-world-ocean-schedule-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.56,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-european-world-ocean-schedule-alpha.png",
+            "occlusionMaskAssetPath": "assets/lab-european-world-ocean-schedule-occlusion.png",
+            "depthMaskAssetPath": "assets/lab-european-world-ocean-schedule-depth.png",
+            "lightMaskAssetPath": "assets/lab-european-world-ocean-schedule-light.png"
+          },
+          "motion": {
+            "parallaxFactor": 0,
+            "windResponse": 0,
+            "focusResponse": 0.8
+          },
+          "stateVariants": [
+            {
+              "id": "idle",
+              "assetPath": "assets/lab-european-world-ocean-schedule-state-before.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-european-world-ocean-schedule-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-european-world-ocean-schedule-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-european-world-ocean-schedule-depth.png",
+                "lightMaskAssetPath": "assets/lab-european-world-ocean-schedule-light.png"
+              }
+            },
+            {
+              "id": "tracing",
+              "assetPath": "assets/lab-european-world-ocean-schedule-state-active.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-european-world-ocean-schedule-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-european-world-ocean-schedule-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-european-world-ocean-schedule-depth.png",
+                "lightMaskAssetPath": "assets/lab-european-world-ocean-schedule-light.png"
+              }
+            },
+            {
+              "id": "completed",
+              "assetPath": "assets/lab-european-world-ocean-schedule-state-completed.png",
+              "masks": {
+                "alphaMaskAssetPath": "assets/lab-european-world-ocean-schedule-alpha.png",
+                "occlusionMaskAssetPath": "assets/lab-european-world-ocean-schedule-occlusion.png",
+                "depthMaskAssetPath": "assets/lab-european-world-ocean-schedule-depth.png",
+                "lightMaskAssetPath": "assets/lab-european-world-ocean-schedule-light.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "foreground",
+          "order": 2,
+          "assetPath": "assets/lab-european-world-ocean-schedule-base.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.92,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/lab-european-world-ocean-schedule-alpha.png",
+            "occlusionMaskAssetPath": "assets/lab-european-world-ocean-schedule-occlusion.png",
+            "depthMaskAssetPath": "assets/lab-european-world-ocean-schedule-depth.png",
+            "lightMaskAssetPath": "assets/lab-european-world-ocean-schedule-light.png"
+          },
+          "motion": {
+            "parallaxFactor": 0.08,
+            "windResponse": 0,
+            "focusResponse": 0.2
+          },
+          "stateVariants": []
+        }
+      ],
+      "cameraRail": {
+        "keyframes": [
+          {
+            "progress": 0,
+            "center": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scale": 1
+          },
+          {
+            "progress": 1,
+            "center": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scale": 1
+          }
+        ]
+      },
+      "atmosphere": [
+        {
+          "kind": "mist",
+          "density": 0.14,
+          "velocity": {
+            "dx": 0.08,
+            "dy": -0.01
+          },
+          "deterministicSeed": 19910414
+        }
+      ],
+      "interactionTargets": [
+        {
+          "interactionTargetID": "trace-ocean-route-target",
+          "layerID": "route-system",
+          "hitRegion": {
+            "path": [
+              {
+                "x": 0.25,
+                "y": 0.4
+              },
+              {
+                "x": 0.75,
+                "y": 0.4
+              },
+              {
+                "x": 0.75,
+                "y": 0.64
+              },
+              {
+                "x": 0.25,
+                "y": 0.64
+              }
+            ]
+          },
+          "accessibilityElementID": "trace-ocean-route"
+        }
+      ],
+      "interactionVisualBinding": {
+        "grammar": "trace",
+        "configuration": {
+          "interactionID": "interaction-european-world-steam-keeps-the-appointment",
+          "interactionTargetID": "trace-ocean-route-target",
+          "layerID": "route-system",
+          "idleVariantID": "idle",
+          "tracingVariantID": "tracing",
+          "completedVariantID": "completed"
+        }
+      },
+      "reduceMotionComposition": {
+        "canvas": {
+          "width": 1179,
+          "height": 2556
+        },
+        "viewportCrops": [
+          {
+            "id": "baseline-393x852",
+            "viewport": {
+              "widthPoints": 393,
+              "heightPoints": 852
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15,
+              "width": 0.7,
+              "height": 0.7
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          }
+        ],
+        "strata": [
+          {
+            "id": "static-underlay",
+            "kind": "staticPlate",
+            "assetPath": "assets/lab-european-world-ocean-schedule-reduce-motion-underlay.png"
+          },
+          {
+            "id": "route-system-state",
+            "kind": "stateOverlay",
+            "layerID": "route-system"
+          },
+          {
+            "id": "static-foreground",
+            "kind": "staticPlate",
+            "assetPath": "assets/lab-european-world-ocean-schedule-reduce-motion-foreground.png"
+          }
+        ]
+      },
+      "mechanismFocus": {
+        "id": "lab-european-world-ocean-schedule-mechanism-focus",
+        "launchEnglish": "Steam power, coal capacity, machinery watches and mail offices turn a crossing into a repeatable appointment."
+      },
+      "accessibilityID": "accessibility-lab-european-world-ocean-schedule"
+    },
+    {
+      "id": "lab-first-farmers-harvest-v26-parallax-proof",
+      "sceneCanvas": {
+        "canvas": {
+          "width": 1290,
+          "height": 2796
+        },
+        "cameraTravelBounds": {
+          "x": 0.42,
+          "y": 0.44,
+          "width": 0.16,
+          "height": 0.12
+        },
+        "authoredOverscanFraction": 0.15,
+        "viewportCrops": [
+          {
+            "id": "baseline-393x852",
+            "viewport": {
+              "widthPoints": 393,
+              "heightPoints": 852
+            },
+            "sourceRect": {
+              "x": 0.07984496124031008,
+              "y": 0.08011444921316166,
+              "width": 0.8403100775193798,
+              "height": 0.8397711015736766
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "layers": [
+        {
+          "id": "diagnostic-underlay",
+          "order": 0,
+          "assetPath": "assets/harvest-v26-parallax-diagnostic-underlay.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.08,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {},
+          "motion": {
+            "parallaxFactor": 0,
+            "windResponse": 0,
+            "focusResponse": 0
+          },
+          "stateVariants": []
+        },
+        {
+          "id": "people",
+          "order": 1,
+          "assetPath": "assets/harvest-v26-parallax-development-source.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.42,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/harvest-v26-parallax-alpha-people.png"
+          },
+          "motion": {
+            "parallaxFactor": 0.23255813953488372,
+            "windResponse": 0,
+            "focusResponse": 0
+          },
+          "stateVariants": []
+        },
+        {
+          "id": "grain",
+          "order": 2,
+          "assetPath": "assets/harvest-v26-parallax-development-source.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.64,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/harvest-v26-parallax-alpha-grain.png"
+          },
+          "motion": {
+            "parallaxFactor": 0.6201550387596899,
+            "windResponse": 0,
+            "focusResponse": 0
+          },
+          "stateVariants": []
+        },
+        {
+          "id": "foreground",
+          "order": 3,
+          "assetPath": "assets/harvest-v26-parallax-development-source.png",
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          },
+          "depth": 0.9,
+          "opacity": 1,
+          "blendMode": "normal",
+          "masks": {
+            "alphaMaskAssetPath": "assets/harvest-v26-parallax-alpha-foreground.png"
+          },
+          "motion": {
+            "parallaxFactor": 0.7751937984496123,
+            "windResponse": 0,
+            "focusResponse": 0
+          },
+          "stateVariants": []
+        }
+      ],
+      "cameraRail": {
+        "keyframes": [
+          {
+            "progress": 0,
+            "center": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scale": 1
+          },
+          {
+            "progress": 0.5,
+            "center": {
+              "x": 0.49,
+              "y": 0.5015379113018598
+            },
+            "scale": 1
+          },
+          {
+            "progress": 1,
+            "center": {
+              "x": 0.51,
+              "y": 0.4984620886981402
+            },
+            "scale": 1
+          }
+        ]
+      },
+      "atmosphere": [],
+      "interactionTargets": [],
+      "reduceMotionComposition": {
+        "canvas": {
+          "width": 786,
+          "height": 1704
+        },
+        "viewportCrops": [
+          {
+            "id": "baseline-393x852",
+            "viewport": {
+              "widthPoints": 393,
+              "heightPoints": 852
+            },
+            "sourceRect": {
+              "x": 0,
+              "y": 0,
+              "width": 1,
+              "height": 1
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          }
+        ],
+        "strata": [
+          {
+            "id": "frozen-static-crop",
+            "kind": "staticPlate",
+            "assetPath": "assets/harvest-v26-parallax-reduce-motion-static.png"
+          }
+        ]
+      },
+      "mechanismFocus": {
+        "id": "lab-first-farmers-harvest-v26-parallax-proof-mechanism-focus",
+        "launchEnglish": "Hands, grain and foreground material separate by bounded depth while the settlement remains fixed beneath them."
+      },
+      "accessibilityID": "accessibility-lab-first-farmers-harvest-v26-parallax-proof"
+    }
+  ],
+  "audioTimelines": [
+    {
+      "id": "responsive-beat-first-farmers-harvest-allocation-approach",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "cue-beat-first-farmers-harvest-allocation-approach-soundscape",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 144000,
+          "assetPath": "audio/lab-first-farmers-harvest-allocation-soundscape.m4a",
+          "gain": 0.72
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "responsive-beat-first-farmers-harvest-allocation-waiting",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "cue-beat-first-farmers-harvest-allocation-waiting-soundscape",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 96000,
+          "assetPath": "audio/lab-first-farmers-harvest-allocation-soundscape.m4a",
+          "gain": 0.72
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "responsive-beat-first-farmers-harvest-allocation-engaged",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "cue-beat-first-farmers-harvest-allocation-engaged-soundscape",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 96000,
+          "assetPath": "audio/lab-first-farmers-harvest-allocation-soundscape.m4a",
+          "gain": 0.72
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "responsive-beat-first-farmers-harvest-allocation-resistance",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "cue-beat-first-farmers-harvest-allocation-resistance-soundscape",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 96000,
+          "assetPath": "audio/lab-first-farmers-harvest-allocation-soundscape.m4a",
+          "gain": 0.72
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "responsive-beat-first-farmers-harvest-allocation-consequence",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "cue-beat-first-farmers-harvest-allocation-consequence-soundscape",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 144000,
+          "assetPath": "audio/lab-first-farmers-harvest-allocation-soundscape.m4a",
+          "gain": 0.72
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "responsive-beat-first-farmers-house-assembly-approach",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "cue-beat-first-farmers-house-assembly-approach-soundscape",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 144000,
+          "assetPath": "audio/lab-first-farmers-house-assembly-soundscape.m4a",
+          "gain": 0.72
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "responsive-beat-first-farmers-house-assembly-waiting",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "cue-beat-first-farmers-house-assembly-waiting-soundscape",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 96000,
+          "assetPath": "audio/lab-first-farmers-house-assembly-soundscape.m4a",
+          "gain": 0.72
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "responsive-beat-first-farmers-house-assembly-engaged",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "cue-beat-first-farmers-house-assembly-engaged-soundscape",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 96000,
+          "assetPath": "audio/lab-first-farmers-house-assembly-soundscape.m4a",
+          "gain": 0.72
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "responsive-beat-first-farmers-house-assembly-resistance",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "cue-beat-first-farmers-house-assembly-resistance-soundscape",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 96000,
+          "assetPath": "audio/lab-first-farmers-house-assembly-soundscape.m4a",
+          "gain": 0.72
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "responsive-beat-first-farmers-house-assembly-consequence",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "cue-beat-first-farmers-house-assembly-consequence-soundscape",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 144000,
+          "assetPath": "audio/lab-first-farmers-house-assembly-soundscape.m4a",
+          "gain": 0.72
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "responsive-beat-first-farmers-land-transformation-approach",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "cue-beat-first-farmers-land-transformation-approach-soundscape",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 144000,
+          "assetPath": "audio/lab-first-farmers-land-transformation-soundscape.m4a",
+          "gain": 0.72
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "responsive-beat-first-farmers-land-transformation-waiting",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "cue-beat-first-farmers-land-transformation-waiting-soundscape",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 96000,
+          "assetPath": "audio/lab-first-farmers-land-transformation-soundscape.m4a",
+          "gain": 0.72
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "responsive-beat-first-farmers-land-transformation-engaged",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "cue-beat-first-farmers-land-transformation-engaged-soundscape",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 96000,
+          "assetPath": "audio/lab-first-farmers-land-transformation-soundscape.m4a",
+          "gain": 0.72
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "responsive-beat-first-farmers-land-transformation-resistance",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "cue-beat-first-farmers-land-transformation-resistance-soundscape",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 96000,
+          "assetPath": "audio/lab-first-farmers-land-transformation-soundscape.m4a",
+          "gain": 0.72
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "responsive-beat-first-farmers-land-transformation-consequence",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "cue-beat-first-farmers-land-transformation-consequence-soundscape",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 144000,
+          "assetPath": "audio/lab-first-farmers-land-transformation-soundscape.m4a",
+          "gain": 0.72
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "responsive-beat-frontiers-northern-valleys-pressure-approach",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "cue-beat-frontiers-northern-valleys-pressure-approach-soundscape",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 144000,
+          "assetPath": "audio/lab-frontiers-northern-valleys-pressure-soundscape.m4a",
+          "gain": 0.72
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "responsive-beat-frontiers-northern-valleys-pressure-waiting",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "cue-beat-frontiers-northern-valleys-pressure-waiting-soundscape",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 96000,
+          "assetPath": "audio/lab-frontiers-northern-valleys-pressure-soundscape.m4a",
+          "gain": 0.72
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "responsive-beat-frontiers-northern-valleys-pressure-engaged",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "cue-beat-frontiers-northern-valleys-pressure-engaged-soundscape",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 96000,
+          "assetPath": "audio/lab-frontiers-northern-valleys-pressure-soundscape.m4a",
+          "gain": 0.72
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "responsive-beat-frontiers-northern-valleys-pressure-resistance",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "cue-beat-frontiers-northern-valleys-pressure-resistance-soundscape",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 96000,
+          "assetPath": "audio/lab-frontiers-northern-valleys-pressure-soundscape.m4a",
+          "gain": 0.72
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "responsive-beat-frontiers-northern-valleys-pressure-consequence",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "cue-beat-frontiers-northern-valleys-pressure-consequence-soundscape",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 144000,
+          "assetPath": "audio/lab-frontiers-northern-valleys-pressure-soundscape.m4a",
+          "gain": 0.72
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "responsive-beat-european-world-ocean-schedule-approach",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "cue-beat-european-world-ocean-schedule-approach-soundscape",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 144000,
+          "assetPath": "audio/lab-european-world-ocean-schedule-soundscape.m4a",
+          "gain": 0.72
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "responsive-beat-european-world-ocean-schedule-waiting",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "cue-beat-european-world-ocean-schedule-waiting-soundscape",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 96000,
+          "assetPath": "audio/lab-european-world-ocean-schedule-soundscape.m4a",
+          "gain": 0.72
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "responsive-beat-european-world-ocean-schedule-engaged",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "cue-beat-european-world-ocean-schedule-engaged-soundscape",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 96000,
+          "assetPath": "audio/lab-european-world-ocean-schedule-soundscape.m4a",
+          "gain": 0.72
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "responsive-beat-european-world-ocean-schedule-resistance",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "cue-beat-european-world-ocean-schedule-resistance-soundscape",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 96000,
+          "assetPath": "audio/lab-european-world-ocean-schedule-soundscape.m4a",
+          "gain": 0.72
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "responsive-beat-european-world-ocean-schedule-consequence",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "cue-beat-european-world-ocean-schedule-consequence-soundscape",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 144000,
+          "assetPath": "audio/lab-european-world-ocean-schedule-soundscape.m4a",
+          "gain": 0.72
+        }
+      ],
+      "haptics": []
+    }
+  ],
+  "responsiveAudioPrograms": [
+    {
+      "id": "responsive-program-beat-first-farmers-harvest-allocation",
+      "scope": {
+        "chapterID": "first-farmers",
+        "arcID": "first-farmers-arc-02",
+        "beatID": "beat-first-farmers-harvest-allocation",
+        "interactionID": "interaction-first-farmers-the-harvest-had-to-last"
+      },
+      "approachTimelineID": "responsive-beat-first-farmers-harvest-allocation-approach",
+      "interactionBeds": [
+        {
+          "phase": "waiting",
+          "timelineID": "responsive-beat-first-farmers-harvest-allocation-waiting",
+          "layerStates": {
+            "soundscapeStateID": "lab-first-farmers-harvest-allocation-waiting-world"
+          }
+        },
+        {
+          "phase": "engaged",
+          "timelineID": "responsive-beat-first-farmers-harvest-allocation-engaged",
+          "layerStates": {
+            "soundscapeStateID": "lab-first-farmers-harvest-allocation-engaged-world"
+          }
+        },
+        {
+          "phase": "resistance",
+          "timelineID": "responsive-beat-first-farmers-harvest-allocation-resistance",
+          "layerStates": {
+            "soundscapeStateID": "lab-first-farmers-harvest-allocation-resistance-world"
+          }
+        }
+      ],
+      "consequenceTimelineID": "responsive-beat-first-farmers-harvest-allocation-consequence",
+      "exitPolicy": {
+        "kind": "bounded-fade",
+        "durationSamples": 9600
+      }
+    },
+    {
+      "id": "responsive-program-beat-first-farmers-house-assembly",
+      "scope": {
+        "chapterID": "first-farmers",
+        "arcID": "first-farmers-arc-03",
+        "beatID": "beat-first-farmers-house-assembly",
+        "interactionID": "interaction-first-farmers-the-house-outlives"
+      },
+      "approachTimelineID": "responsive-beat-first-farmers-house-assembly-approach",
+      "interactionBeds": [
+        {
+          "phase": "waiting",
+          "timelineID": "responsive-beat-first-farmers-house-assembly-waiting",
+          "layerStates": {
+            "soundscapeStateID": "lab-first-farmers-house-assembly-waiting-world"
+          }
+        },
+        {
+          "phase": "engaged",
+          "timelineID": "responsive-beat-first-farmers-house-assembly-engaged",
+          "layerStates": {
+            "soundscapeStateID": "lab-first-farmers-house-assembly-engaged-world"
+          }
+        },
+        {
+          "phase": "resistance",
+          "timelineID": "responsive-beat-first-farmers-house-assembly-resistance",
+          "layerStates": {
+            "soundscapeStateID": "lab-first-farmers-house-assembly-resistance-world"
+          }
+        }
+      ],
+      "consequenceTimelineID": "responsive-beat-first-farmers-house-assembly-consequence",
+      "exitPolicy": {
+        "kind": "bounded-fade",
+        "durationSamples": 9600
+      }
+    },
+    {
+      "id": "responsive-program-beat-first-farmers-land-transformation",
+      "scope": {
+        "chapterID": "first-farmers",
+        "arcID": "first-farmers-arc-03",
+        "beatID": "beat-first-farmers-land-transformation",
+        "interactionID": "interaction-first-farmers-more-mouths-more-land"
+      },
+      "approachTimelineID": "responsive-beat-first-farmers-land-transformation-approach",
+      "interactionBeds": [
+        {
+          "phase": "waiting",
+          "timelineID": "responsive-beat-first-farmers-land-transformation-waiting",
+          "layerStates": {
+            "soundscapeStateID": "lab-first-farmers-land-transformation-waiting-world"
+          }
+        },
+        {
+          "phase": "engaged",
+          "timelineID": "responsive-beat-first-farmers-land-transformation-engaged",
+          "layerStates": {
+            "soundscapeStateID": "lab-first-farmers-land-transformation-engaged-world"
+          }
+        },
+        {
+          "phase": "resistance",
+          "timelineID": "responsive-beat-first-farmers-land-transformation-resistance",
+          "layerStates": {
+            "soundscapeStateID": "lab-first-farmers-land-transformation-resistance-world"
+          }
+        }
+      ],
+      "consequenceTimelineID": "responsive-beat-first-farmers-land-transformation-consequence",
+      "exitPolicy": {
+        "kind": "bounded-fade",
+        "durationSamples": 9600
+      }
+    },
+    {
+      "id": "responsive-program-beat-frontiers-northern-valleys-pressure",
+      "scope": {
+        "chapterID": "europe-holds-the-line",
+        "arcID": "europe-holds-the-line-arc-01",
+        "beatID": "beat-frontiers-northern-valleys-pressure",
+        "interactionID": "interaction-europe-holds-the-line-northern-valleys-keep-crown"
+      },
+      "approachTimelineID": "responsive-beat-frontiers-northern-valleys-pressure-approach",
+      "interactionBeds": [
+        {
+          "phase": "waiting",
+          "timelineID": "responsive-beat-frontiers-northern-valleys-pressure-waiting",
+          "layerStates": {
+            "soundscapeStateID": "lab-frontiers-northern-valleys-pressure-waiting-world"
+          }
+        },
+        {
+          "phase": "engaged",
+          "timelineID": "responsive-beat-frontiers-northern-valleys-pressure-engaged",
+          "layerStates": {
+            "soundscapeStateID": "lab-frontiers-northern-valleys-pressure-engaged-world"
+          }
+        },
+        {
+          "phase": "resistance",
+          "timelineID": "responsive-beat-frontiers-northern-valleys-pressure-resistance",
+          "layerStates": {
+            "soundscapeStateID": "lab-frontiers-northern-valleys-pressure-resistance-world"
+          }
+        }
+      ],
+      "consequenceTimelineID": "responsive-beat-frontiers-northern-valleys-pressure-consequence",
+      "exitPolicy": {
+        "kind": "bounded-fade",
+        "durationSamples": 9600
+      }
+    },
+    {
+      "id": "responsive-program-beat-european-world-ocean-schedule",
+      "scope": {
+        "chapterID": "european-world",
+        "arcID": "european-world-arc-01",
+        "beatID": "beat-european-world-ocean-schedule",
+        "interactionID": "interaction-european-world-steam-keeps-the-appointment"
+      },
+      "approachTimelineID": "responsive-beat-european-world-ocean-schedule-approach",
+      "interactionBeds": [
+        {
+          "phase": "waiting",
+          "timelineID": "responsive-beat-european-world-ocean-schedule-waiting",
+          "layerStates": {
+            "soundscapeStateID": "lab-european-world-ocean-schedule-waiting-world"
+          }
+        },
+        {
+          "phase": "engaged",
+          "timelineID": "responsive-beat-european-world-ocean-schedule-engaged",
+          "layerStates": {
+            "soundscapeStateID": "lab-european-world-ocean-schedule-engaged-world"
+          }
+        },
+        {
+          "phase": "resistance",
+          "timelineID": "responsive-beat-european-world-ocean-schedule-resistance",
+          "layerStates": {
+            "soundscapeStateID": "lab-european-world-ocean-schedule-resistance-world"
+          }
+        }
+      ],
+      "consequenceTimelineID": "responsive-beat-european-world-ocean-schedule-consequence",
+      "exitPolicy": {
+        "kind": "bounded-fade",
+        "durationSamples": 9600
+      }
+    }
+  ],
+  "accessibility": [
+    {
+      "id": "accessibility-lab-first-farmers-harvest-allocation",
+      "sceneSummary": {
+        "id": "beat-first-farmers-harvest-allocation-scene-summary",
+        "launchEnglish": "The Harvest Had to Last. Three obligations compete for one finite material source; unmet obligations remain visible in the world."
+      },
+      "elements": [
+        {
+          "id": "scene-heading",
+          "role": "heading",
+          "label": {
+            "id": "beat-first-farmers-harvest-allocation-heading",
+            "launchEnglish": "The Harvest Had to Last"
+          },
+          "actions": []
+        },
+        {
+          "id": "narration-1",
+          "role": "narration",
+          "label": {
+            "id": "ff-harvest-01",
+            "launchEnglish": "A field changed the shape of the year. The grain before you has been cut, dried and threshed. Nothing more will grow before winter. This store must answer three claims."
+          },
+          "actions": []
+        },
+        {
+          "id": "narration-2",
+          "role": "narration",
+          "label": {
+            "id": "ff-harvest-02",
+            "launchEnglish": "Part will be eaten. Grain carried to the hearth becomes winter food. Once consumed, it cannot answer a longer season or return to the soil."
+          },
+          "actions": []
+        },
+        {
+          "id": "narration-3",
+          "role": "narration",
+          "label": {
+            "id": "ff-harvest-03",
+            "launchEnglish": "Part must be kept against loss. Dry grain is lifted from the earth and closed away from damp, insects and hungry animals."
+          },
+          "actions": []
+        },
+        {
+          "id": "narration-4",
+          "role": "narration",
+          "label": {
+            "id": "ff-harvest-04",
+            "launchEnglish": "And part must remain untouched. Spring seed is food refused in winter: the next field held inside the present harvest."
+          },
+          "actions": []
+        },
+        {
+          "id": "narration-5",
+          "role": "narration",
+          "label": {
+            "id": "ff-harvest-05",
+            "launchEnglish": "Meet every obligation. What remains can ease winter, absorb loss or enlarge the spring sowing. The same grain cannot do all three."
+          },
+          "actions": []
+        },
+        {
+          "id": "historical-mechanism",
+          "role": "mechanism",
+          "label": {
+            "id": "harvest-allocation-option-1-mechanism-focus",
+            "launchEnglish": "Three obligations compete for one finite material source; unmet obligations remain visible in the world."
+          },
+          "actions": []
+        },
+        {
+          "id": "allocate-winter-food",
+          "role": "adjustable",
+          "label": {
+            "id": "beat-first-farmers-harvest-allocation-food-label",
+            "launchEnglish": "Winter food"
+          },
+          "value": {
+            "id": "beat-first-farmers-harvest-allocation-food-value",
+            "launchEnglish": "Minimum obligation: 4 shares"
+          },
+          "actions": [
+            {
+              "kind": "increment",
+              "label": {
+                "id": "beat-first-farmers-harvest-allocation-food-increment-label",
+                "launchEnglish": "Move one share to winter food"
+              },
+              "token": {
+                "command": "allocate",
+                "targetID": "food",
+                "unitsPerStep": 1
+              }
+            },
+            {
+              "kind": "decrement",
+              "label": {
+                "id": "beat-first-farmers-harvest-allocation-food-decrement-label",
+                "launchEnglish": "Return one share from winter food"
+              },
+              "token": {
+                "command": "allocate",
+                "targetID": "food",
+                "unitsPerStep": 1
+              }
+            }
+          ]
+        },
+        {
+          "id": "allocate-protected-reserve",
+          "role": "adjustable",
+          "label": {
+            "id": "beat-first-farmers-harvest-allocation-reserve-label",
+            "launchEnglish": "Protected reserve"
+          },
+          "value": {
+            "id": "beat-first-farmers-harvest-allocation-reserve-value",
+            "launchEnglish": "Minimum obligation: 2 shares"
+          },
+          "actions": [
+            {
+              "kind": "increment",
+              "label": {
+                "id": "beat-first-farmers-harvest-allocation-reserve-increment-label",
+                "launchEnglish": "Move one share to protected reserve"
+              },
+              "token": {
+                "command": "allocate",
+                "targetID": "reserve",
+                "unitsPerStep": 1
+              }
+            },
+            {
+              "kind": "decrement",
+              "label": {
+                "id": "beat-first-farmers-harvest-allocation-reserve-decrement-label",
+                "launchEnglish": "Return one share from protected reserve"
+              },
+              "token": {
+                "command": "allocate",
+                "targetID": "reserve",
+                "unitsPerStep": 1
+              }
+            }
+          ]
+        },
+        {
+          "id": "allocate-spring-seed",
+          "role": "adjustable",
+          "label": {
+            "id": "beat-first-farmers-harvest-allocation-seed-label",
+            "launchEnglish": "Spring seed"
+          },
+          "value": {
+            "id": "beat-first-farmers-harvest-allocation-seed-value",
+            "launchEnglish": "Minimum obligation: 3 shares"
+          },
+          "actions": [
+            {
+              "kind": "increment",
+              "label": {
+                "id": "beat-first-farmers-harvest-allocation-seed-increment-label",
+                "launchEnglish": "Move one share to spring seed"
+              },
+              "token": {
+                "command": "allocate",
+                "targetID": "seed",
+                "unitsPerStep": 1
+              }
+            },
+            {
+              "kind": "decrement",
+              "label": {
+                "id": "beat-first-farmers-harvest-allocation-seed-decrement-label",
+                "launchEnglish": "Return one share from spring seed"
+              },
+              "token": {
+                "command": "allocate",
+                "targetID": "seed",
+                "unitsPerStep": 1
+              }
+            }
+          ]
+        },
+        {
+          "id": "commit-allocation",
+          "role": "action",
+          "label": {
+            "id": "beat-first-farmers-harvest-allocation-commit-label",
+            "launchEnglish": "Set the stores"
+          },
+          "actions": [
+            {
+              "kind": "activate",
+              "label": {
+                "id": "beat-first-farmers-harvest-allocation-commit-action-label",
+                "launchEnglish": "Commit the harvest"
+              },
+              "token": {
+                "command": "commit-allocation"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "accessibility-lab-first-farmers-house-assembly",
+      "sceneSummary": {
+        "id": "beat-first-farmers-house-assembly-scene-summary",
+        "launchEnglish": "Raise the House. Posts, hearth, storage and roof make one house; rebuilding fixes the household to remembered ground."
+      },
+      "elements": [
+        {
+          "id": "scene-heading",
+          "role": "heading",
+          "label": {
+            "id": "beat-first-farmers-raise-longhouse-heading",
+            "launchEnglish": "Raise the House"
+          },
+          "actions": []
+        },
+        {
+          "id": "narration-1",
+          "role": "narration",
+          "label": {
+            "id": "ff-house-01",
+            "launchEnglish": "The plot begins as cuts in the soil. Posts must carry the frame. The hearth must sit where work, food and warmth can return each day. Storage must remain dry and close enough to guard. A roof must bind the parts into shelter."
+          },
+          "actions": []
+        },
+        {
+          "id": "narration-2",
+          "role": "narration",
+          "label": {
+            "id": "ff-house-02",
+            "launchEnglish": "Assemble the house in causal order. Every piece changes what the household can preserve, repair and pass forward."
+          },
+          "actions": []
+        },
+        {
+          "id": "historical-mechanism",
+          "role": "mechanism",
+          "label": {
+            "id": "lab-first-farmers-house-assembly-mechanism-focus",
+            "launchEnglish": "Posts, hearth, storage and roof make one house; rebuilding fixes the household to remembered ground."
+          },
+          "actions": []
+        },
+        {
+          "id": "assemble-posts",
+          "role": "action",
+          "label": {
+            "id": "beat-first-farmers-house-assembly-posts-label",
+            "launchEnglish": "posts"
+          },
+          "actions": [
+            {
+              "kind": "activate",
+              "label": {
+                "id": "beat-first-farmers-house-assembly-posts-place-label",
+                "launchEnglish": "Place posts"
+              },
+              "token": {
+                "command": "place-component",
+                "targetID": "posts"
+              }
+            }
+          ]
+        },
+        {
+          "id": "assemble-hearth",
+          "role": "action",
+          "label": {
+            "id": "beat-first-farmers-house-assembly-hearth-label",
+            "launchEnglish": "hearth"
+          },
+          "actions": [
+            {
+              "kind": "activate",
+              "label": {
+                "id": "beat-first-farmers-house-assembly-hearth-place-label",
+                "launchEnglish": "Place hearth"
+              },
+              "token": {
+                "command": "place-component",
+                "targetID": "hearth"
+              }
+            }
+          ]
+        },
+        {
+          "id": "assemble-storage",
+          "role": "action",
+          "label": {
+            "id": "beat-first-farmers-house-assembly-storage-label",
+            "launchEnglish": "storage"
+          },
+          "actions": [
+            {
+              "kind": "activate",
+              "label": {
+                "id": "beat-first-farmers-house-assembly-storage-place-label",
+                "launchEnglish": "Place storage"
+              },
+              "token": {
+                "command": "place-component",
+                "targetID": "storage"
+              }
+            }
+          ]
+        },
+        {
+          "id": "assemble-roof",
+          "role": "action",
+          "label": {
+            "id": "beat-first-farmers-house-assembly-roof-label",
+            "launchEnglish": "roof"
+          },
+          "actions": [
+            {
+              "kind": "activate",
+              "label": {
+                "id": "beat-first-farmers-house-assembly-roof-place-label",
+                "launchEnglish": "Place roof"
+              },
+              "token": {
+                "command": "place-component",
+                "targetID": "roof"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "accessibility-lab-first-farmers-land-transformation",
+      "sceneSummary": {
+        "id": "beat-first-farmers-land-transformation-scene-summary",
+        "launchEnglish": "One Hearth Becomes Several. New hearths, field edges, herd lanes and daughter settlements remain cut into the same ground."
+      },
+      "elements": [
+        {
+          "id": "scene-heading",
+          "role": "heading",
+          "label": {
+            "id": "beat-first-farmers-more-mouths-heading",
+            "launchEnglish": "One Hearth Becomes Several"
+          },
+          "actions": []
+        },
+        {
+          "id": "narration-1",
+          "role": "narration",
+          "label": {
+            "id": "ff-growth-01",
+            "launchEnglish": "Stored harvests and settled care allow households to grow. One roof becomes several. New hearths require new fields. New herds cut lanes between water, pasture and enclosure. The settlement begins to press beyond its first clearing."
+          },
+          "actions": []
+        },
+        {
+          "id": "narration-2",
+          "role": "narration",
+          "label": {
+            "id": "ff-growth-02",
+            "launchEnglish": "Open the ground. Every new household carries seed and animals outward, but leaves roads, field edges and daughter settlements behind."
+          },
+          "actions": []
+        },
+        {
+          "id": "historical-mechanism",
+          "role": "mechanism",
+          "label": {
+            "id": "lab-first-farmers-land-transformation-mechanism-focus",
+            "launchEnglish": "New hearths, field edges, herd lanes and daughter settlements remain cut into the same ground."
+          },
+          "actions": []
+        },
+        {
+          "id": "transform-new-hearths",
+          "role": "adjustable",
+          "label": {
+            "id": "beat-first-farmers-land-transformation-new-hearths-label",
+            "launchEnglish": "new hearths"
+          },
+          "actions": [
+            {
+              "kind": "increment",
+              "label": {
+                "id": "beat-first-farmers-land-transformation-new-hearths-advance-label",
+                "launchEnglish": "Advance new hearths"
+              },
+              "token": {
+                "command": "advance-transform",
+                "targetID": "new-hearths",
+                "step": 1
+              }
+            }
+          ]
+        },
+        {
+          "id": "transform-field-edges",
+          "role": "adjustable",
+          "label": {
+            "id": "beat-first-farmers-land-transformation-field-edges-label",
+            "launchEnglish": "field edges"
+          },
+          "actions": [
+            {
+              "kind": "increment",
+              "label": {
+                "id": "beat-first-farmers-land-transformation-field-edges-advance-label",
+                "launchEnglish": "Advance field edges"
+              },
+              "token": {
+                "command": "advance-transform",
+                "targetID": "field-edges",
+                "step": 1
+              }
+            }
+          ]
+        },
+        {
+          "id": "transform-herd-lanes",
+          "role": "adjustable",
+          "label": {
+            "id": "beat-first-farmers-land-transformation-herd-lanes-label",
+            "launchEnglish": "herd lanes"
+          },
+          "actions": [
+            {
+              "kind": "increment",
+              "label": {
+                "id": "beat-first-farmers-land-transformation-herd-lanes-advance-label",
+                "launchEnglish": "Advance herd lanes"
+              },
+              "token": {
+                "command": "advance-transform",
+                "targetID": "herd-lanes",
+                "step": 1
+              }
+            }
+          ]
+        },
+        {
+          "id": "transform-daughter-settlements",
+          "role": "adjustable",
+          "label": {
+            "id": "beat-first-farmers-land-transformation-daughter-settlements-label",
+            "launchEnglish": "daughter settlements"
+          },
+          "actions": [
+            {
+              "kind": "increment",
+              "label": {
+                "id": "beat-first-farmers-land-transformation-daughter-settlements-advance-label",
+                "launchEnglish": "Advance daughter settlements"
+              },
+              "token": {
+                "command": "advance-transform",
+                "targetID": "daughter-settlements",
+                "step": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "accessibility-lab-frontiers-northern-valleys-pressure",
+      "sceneSummary": {
+        "id": "beat-frontiers-northern-valleys-pressure-scene-summary",
+        "launchEnglish": "The Northern Valleys Keep a Crown. Terrain buys refuge; court, stores and defended fields turn refuge into a frontier that can advance."
+      },
+      "elements": [
+        {
+          "id": "scene-heading",
+          "role": "heading",
+          "label": {
+            "id": "lab-frontiers-northern-valleys-pressure-heading",
+            "launchEnglish": "The Northern Valleys Keep a Crown"
+          },
+          "actions": []
+        },
+        {
+          "id": "narration-1",
+          "role": "narration",
+          "label": {
+            "id": "lab-frontiers-northern-valleys-pressure-paragraph-1",
+            "launchEnglish": "Rain crossed the Cantabrian ridges, paths narrowed above wooded ravines and an army accustomed to open country lost the advantage of numbers. Pelagius and a small Christian following preserved an armed centre beyond Córdoba’s dependable control."
+          },
+          "actions": []
+        },
+        {
+          "id": "narration-2",
+          "role": "narration",
+          "label": {
+            "id": "lab-frontiers-northern-valleys-pressure-paragraph-2",
+            "launchEnglish": "Asturian kings turned endurance into government. A court at Oviedo, churches, monasteries, defended routes and stored grain carried the crown toward León and the Duero basin."
+          },
+          "actions": []
+        },
+        {
+          "id": "historical-mechanism",
+          "role": "mechanism",
+          "label": {
+            "id": "lab-frontiers-northern-valleys-pressure-mechanism-focus",
+            "launchEnglish": "Terrain buys refuge; court, stores and defended fields turn refuge into a frontier that can advance."
+          },
+          "actions": []
+        },
+        {
+          "id": "pressure-inhabited-stores",
+          "role": "adjustable",
+          "label": {
+            "id": "lab-frontiers-northern-valleys-pressure-stores-label",
+            "launchEnglish": "The inhabited corridor"
+          },
+          "hint": {
+            "id": "lab-frontiers-northern-valleys-pressure-stores-hint",
+            "launchEnglish": "Strengthen the stores, fields and defended routes."
+          },
+          "actions": [
+            {
+              "kind": "increment",
+              "label": {
+                "id": "lab-frontiers-northern-valleys-pressure-stores-increase",
+                "launchEnglish": "Strengthen the corridor"
+              },
+              "token": {
+                "command": "adjust-pressure",
+                "targetID": "inhabited-stores",
+                "step": 0.5
+              }
+            },
+            {
+              "kind": "decrement",
+              "label": {
+                "id": "lab-frontiers-northern-valleys-pressure-stores-decrease",
+                "launchEnglish": "Release the corridor"
+              },
+              "token": {
+                "command": "adjust-pressure",
+                "targetID": "inhabited-stores",
+                "step": 0.5
+              }
+            }
+          ]
+        },
+        {
+          "id": "pressure-hold-line",
+          "role": "action",
+          "label": {
+            "id": "lab-frontiers-northern-valleys-pressure-hold-label",
+            "launchEnglish": "Hold the line"
+          },
+          "actions": [
+            {
+              "kind": "activate",
+              "label": {
+                "id": "lab-frontiers-northern-valleys-pressure-hold-action",
+                "launchEnglish": "Hold the line"
+              },
+              "token": {
+                "command": "hold-pressure"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "accessibility-lab-european-world-ocean-schedule",
+      "sceneSummary": {
+        "id": "beat-european-world-ocean-schedule-scene-summary",
+        "launchEnglish": "Steam Keeps the Appointment. Steam power, coal capacity, machinery watches and mail offices turn a crossing into a repeatable appointment."
+      },
+      "elements": [
+        {
+          "id": "scene-heading",
+          "role": "heading",
+          "label": {
+            "id": "lab-european-world-ocean-schedule-heading",
+            "launchEnglish": "Steam Keeps the Appointment"
+          },
+          "actions": []
+        },
+        {
+          "id": "narration-1",
+          "role": "narration",
+          "label": {
+            "id": "lab-european-world-ocean-schedule-paragraph-1",
+            "launchEnglish": "In April 1838, Sirius and Great Western reached New York from Britain under steam. A purpose-built steamship could carry enough coal for the North Atlantic and retain motive power when the wind failed."
+          },
+          "actions": []
+        },
+        {
+          "id": "narration-2",
+          "role": "narration",
+          "label": {
+            "id": "lab-european-world-ocean-schedule-paragraph-2",
+            "launchEnglish": "From 1840, Cunard packets left Liverpool on announced dates. Coal bunkers, engineering watches, shore agents and mail offices made repeated appointments reliable enough for other institutions to attach their work to the ship."
+          },
+          "actions": []
+        },
+        {
+          "id": "historical-mechanism",
+          "role": "mechanism",
+          "label": {
+            "id": "lab-european-world-ocean-schedule-mechanism-focus",
+            "launchEnglish": "Steam power, coal capacity, machinery watches and mail offices turn a crossing into a repeatable appointment."
+          },
+          "actions": []
+        },
+        {
+          "id": "trace-ocean-route",
+          "role": "adjustable",
+          "label": {
+            "id": "lab-european-world-ocean-schedule-route-label",
+            "launchEnglish": "The North Atlantic appointment"
+          },
+          "hint": {
+            "id": "lab-european-world-ocean-schedule-route-hint",
+            "launchEnglish": "Advance through power, coal, watches and connected mail."
+          },
+          "actions": [
+            {
+              "kind": "increment",
+              "label": {
+                "id": "lab-european-world-ocean-schedule-route-next",
+                "launchEnglish": "Advance the packet"
+              },
+              "token": {
+                "command": "trace-next"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "accessibility-lab-first-farmers-harvest-v26-parallax-proof",
+      "sceneSummary": {
+        "id": "lab-first-farmers-harvest-v26-parallax-proof-scene-summary",
+        "launchEnglish": "A harvest settlement held at the exact approved static crop."
+      },
+      "elements": [
+        {
+          "id": "scene-heading",
+          "role": "heading",
+          "label": {
+            "id": "lab-first-farmers-harvest-v26-parallax-proof-heading",
+            "launchEnglish": "The Harvest Had to Last"
+          },
+          "actions": []
+        },
+        {
+          "id": "historical-mechanism",
+          "role": "mechanism",
+          "label": {
+            "id": "lab-first-farmers-harvest-v26-parallax-proof-mechanism-focus",
+            "launchEnglish": "Hands, grain and foreground material separate by bounded depth while the settlement remains fixed beneath them."
+          },
+          "actions": []
+        }
+      ]
+    }
+  ]
+}

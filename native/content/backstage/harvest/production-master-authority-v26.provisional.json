@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "status": "CODEX_PROVISIONAL_NON_SHIPPING_PRODUCTION_MASTER",
+  "authority": "codex",
+  "trustDomain": "LOCAL_DEVELOPMENT_ONLY",
+  "shippingState": "PROHIBITED",
+  "editorApprovalState": "NOT_CLAIMED",
+  "developmentDAGAuthorityState": "GRANTED",
+  "allowedUse": "BUILD_AND_VERIFY_NON_SHIPPING_VISUAL_ASSET_DAG",
+  "contract": {
+    "path": "native/design/phase1/harvest/layer-production-contract.json",
+    "sha256": "91fedef8dbdd946d65d36fc08f5179664a52d8f149a163b3831fc4b990bebc84"
+  },
+  "sceneFixture": {
+    "path": "native/phase1/fixtures/harvest-option-1.scene.json",
+    "sha256": "c9cfa96d9cc61f7421ecf0efc0136d2f716daa5fb851a4dd99f2943e1b9b8028",
+    "sceneID": "harvest-allocation-option-1",
+    "canvas": {
+      "width": 1290,
+      "height": 2796
+    }
+  },
+  "candidate": {
+    "id": "harvest-production-master-candidate-v26-garments-local-composite",
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+    "bytes": 5860864,
+    "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca",
+    "width": 1290,
+    "height": 2796
+  },
+  "candidateMetadata": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v26.metadata.json",
+    "sha256": "6b8f6eefc7070fcb29044d6ad10e6140850e4722f070c7961b2258758ca7c7f4"
+  },
+  "codexPreflight": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-codex-preflight.md",
+    "sha256": "a48283d6270c1b165cc32873b5d3ab25bd2a5b9f6692530e84ea86717733f9fc",
+    "status": "CODEX_PROVISIONAL_NON_SHIPPING_REVIEW"
+  }
+}

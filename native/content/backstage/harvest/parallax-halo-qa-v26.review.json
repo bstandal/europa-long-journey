@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 1,
+  "status": "BACKSTAGE_PARALLAX_HALO_PROOF_PARTIAL_PASS",
+  "shippingState": "PROHIBITED",
+  "reviewedAt": "2026-07-25",
+  "reviewer": "CODEX_LOCAL_ORIGINAL_PIXEL_INSPECTION",
+  "source": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+    "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca",
+    "pixelSize": [1290, 2796],
+    "authority": "NONSHIPPING_FLAT_PROVISIONAL_AUTHORITY"
+  },
+  "specification": {
+    "path": "native/content/backstage/harvest/parallax-halo-qa-v26.spec.json",
+    "sha256": "d1f3f61da2f48f8a86f5ba84c88cb4454e13a2a104924e59da699dfc9fd24ead"
+  },
+  "builder": {
+    "path": "native/scripts/build-harvest-semantic-qa.py",
+    "sha256": "d12f5ac3cad353880b59391ba16cde0fc9d34ea8ffaa30e2faf3c97593b8641b"
+  },
+  "semanticMaskAuthority": {
+    "directory": "native/content/backstage/harvest/semantic-masks-v26.provisional",
+    "segmentationReceiptSha256": "4c378ffe243bdafd85b9c0476147d14b023389e9ea88d5f9884fcba3f3d75191",
+    "result": "PASS_SOURCE_ALIGNED_MASK_ROUTE_ONLY"
+  },
+  "reviewMethod": {
+    "comparisonCrop": {
+      "sourcePixelRect": [103, 224, 1084, 2348],
+      "outputPixelSize": [786, 1704]
+    },
+    "inspectedAtOriginalPixels": [
+      "combined-comparison.png",
+      "halo-edge-inspection.png",
+      "diagnostic-clean-base.png"
+    ],
+    "rejectOn": [
+      "subject ghost",
+      "edge halo",
+      "geometric mask residue",
+      "registration seam",
+      "replacement plate break"
+    ]
+  },
+  "trials": [
+    {
+      "id": "v1",
+      "receiptSha256": "260dc0cd91dda50109a5f64d1a9069304fcc6d3913697bfc45f926dbc3134f79",
+      "result": "REJECT",
+      "finding": "Blue-gray roof and pillar replacement residues and black geometric holes around the storage objects remained visible."
+    },
+    {
+      "id": "v2",
+      "receiptSha256": "d1cf4a2dccac81fe1db4990efb886e5914abf54d38b9bd49d023ccf8a92c074b",
+      "result": "REJECT",
+      "finding": "Keeping roof and shelter static removed the largest residues, but displaced storage destinations still exposed dark ragged seams and replacement registration breaks."
+    },
+    {
+      "id": "v3",
+      "receiptSha256": "22ad2330ea03439c73a387a0031d066ba4978399df00a172065972207ee828f8",
+      "result": "SUPERSEDED",
+      "finding": "Restricted moving-layer pixels passed inspection; the receipt wording and explicit excluded scope were then corrected without changing rendered pixels."
+    },
+    {
+      "id": "v4",
+      "receiptSha256": "dbc54f8afef3dceb6a49bd6e21ce9efe0fcd5f039f80d925465d4838a2851277",
+      "result": "PARTIAL_PASS",
+      "finding": "The restricted people, grain and foreground proof has no visible subject ghost, edge halo, geometric residue or registration seam at either stress-test extremum."
+    }
+  ],
+  "passedScope": [
+    {
+      "layer": "people",
+      "sourceMask": "people-and-work",
+      "maximumShiftPixels": [3, 1],
+      "result": "PASS_RESTRICTED_PARALLAX_EDGE_DIAGNOSTIC"
+    },
+    {
+      "layer": "grain",
+      "sourceMask": "central-grain",
+      "maximumShiftPixels": [8, 3],
+      "result": "PASS_RESTRICTED_PARALLAX_EDGE_DIAGNOSTIC"
+    },
+    {
+      "layer": "foreground",
+      "sourceMask": "foreground-occluders",
+      "maximumShiftPixels": [10, 4],
+      "result": "PASS_RESTRICTED_PARALLAX_EDGE_DIAGNOSTIC"
+    }
+  ],
+  "reduceMotion": {
+    "result": "PASS_EXACT_PIXEL_PARITY_FOR_IDENTICAL_CROP",
+    "referenceSha256": "64bb283bbd37e66502fef198d508af8618f6032fa6edac9558bcb34e7c6199a8",
+    "reduceMotionSha256": "64bb283bbd37e66502fef198d508af8618f6032fa6edac9558bcb34e7c6199a8",
+    "changedPixelCount": 0,
+    "maximumChannelDifference": 0
+  },
+  "parallaxSignal": {
+    "changedPixelCountBetweenExtrema": 248818,
+    "changedPixelFractionBetweenExtrema": 0.1857760217,
+    "maximumChannelDifference": 181,
+    "meanAbsoluteChannelDifference": 3.11583407
+  },
+  "frozenProof": {
+    "directory": "native/content/backstage/harvest/parallax-halo-qa-v26.provisional",
+    "receiptPath": "native/content/backstage/harvest/parallax-halo-qa-v26.provisional/receipt.json",
+    "receiptSha256": "dbc54f8afef3dceb6a49bd6e21ce9efe0fcd5f039f80d925465d4838a2851277",
+    "combinedComparisonSha256": "34cccc69e90b2df7405482e8f4ed85db3abcafdc3944c36ade046a9282ba5f32",
+    "haloInspectionSha256": "0010d11bdf4f8cd4f8ef2cd86d1a7c26dbc64b2ec6b854ae6a597778c5c7d09c"
+  },
+  "deterministicReplay": {
+    "firstRun": "native/.build/visual-segmentation/harvest-v26-parallax-qa-v4",
+    "replay": "native/.build/visual-segmentation/harvest-v26-parallax-qa-v4-replay",
+    "firstReceiptSha256": "dbc54f8afef3dceb6a49bd6e21ce9efe0fcd5f039f80d925465d4838a2851277",
+    "replayReceiptSha256": "dbc54f8afef3dceb6a49bd6e21ce9efe0fcd5f039f80d925465d4838a2851277",
+    "allFilesByteIdentical": true
+  },
+  "rejectedOrUnprovenScope": [
+    {
+      "scope": ["winter-food-vessel", "protected-reserve-bin", "spring-seed-store"],
+      "state": "REJECTED_WITH_DIAGNOSTIC_REPLACEMENT",
+      "requiredNextEvidence": "Production-resolution source-matched clean plate and a new combined edge inspection."
+    },
+    {
+      "scope": ["settlement-shelter", "allocation-cloth"],
+      "state": "UNPROVEN",
+      "requiredNextEvidence": "Production-resolution clean geometry and a combined edge inspection."
+    },
+    {
+      "scope": ["state variants", "camera rail", "Metal runtime", "full-frame occlusion ordering"],
+      "state": "UNPROVEN",
+      "requiredNextEvidence": "Runtime implementation and deterministic rendered-frame tests."
+    }
+  ],
+  "remainingBlockers": [
+    "Production-resolution clean world, settlement, shelter and allocation plates with source-matched geometry and frozen provenance.",
+    "Anti-aliased production RGBA extraction for every moving layer.",
+    "Combined destination, shelter and allocation parallax proof without visible seams or residues.",
+    "Authored state variants and their exact restoration states.",
+    "Camera-rail safe crops beyond this single 393 by 852 comparison crop.",
+    "Metal runtime composition, occlusion, performance and deterministic frame verification.",
+    "Independent recoverable backup of irreplaceable masters."
+  ],
+  "authority": {
+    "mayApprove": [
+      "SOURCE_ALIGNED_MASK_ROUTE",
+      "RESTRICTED_PEOPLE_GRAIN_FOREGROUND_PARALLAX_EDGE_DIAGNOSTIC",
+      "REDUCE_MOTION_IDENTICAL_CROP_PIXEL_PARITY"
+    ],
+    "mayNotApprove": [
+      "CLEAN_PLATE",
+      "COMPLETE_LAYER_DAG",
+      "STATE_VARIANT",
+      "PRODUCTION_MASTER",
+      "RUNTIME_RENDERER",
+      "SHIPPING_ASSET"
+    ]
+  }
+}

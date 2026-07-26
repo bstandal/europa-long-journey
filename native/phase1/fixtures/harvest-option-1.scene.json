@@ -1,0 +1,888 @@
+{
+  "fixtureSchemaVersion": 1,
+  "id": "harvest-option-1-scene-contract",
+  "status": "NON_SHIPPING_CONTRACT_FIXTURE",
+  "role": "PHASE1_HARVEST_LABORATORY",
+  "shippingState": "PROHIBITED_UNTIL_REBUILT_AND_APPROVED",
+  "assetState": "FUTURE_PACKAGE_PATHS_ONLY",
+  "selectionReference": "native/design/phase1/harvest/selection.json",
+  "selectedOption": 1,
+  "contentID": "first-farmers",
+  "arcID": "first-farmers-arc-02",
+  "movementID": "the-harvest-had-to-last",
+  "nativeInteractionID": "interaction-first-farmers-the-harvest-had-to-last",
+  "interactionContract": {
+    "grammar": "allocate",
+    "totalUnits": 12,
+    "unitSemantics": "EQUAL_ILLUSTRATIVE_RUNTIME_SHARES_NOT_HISTORICAL_MEASUREMENT",
+    "interactionSpecApproval": "SEPARATE_EDITOR_APPROVAL_REQUIRED",
+    "directTargetIDs": [
+      "winter-food-target",
+      "protected-reserve-target",
+      "spring-seed-target"
+    ],
+    "initialLayerVariants": {
+      "central-harvest": "full",
+      "winter-store": "empty",
+      "protected-reserve": "empty",
+      "spring-seed": "empty"
+    },
+    "completionLayerVariants": {
+      "central-harvest": "exhausted",
+      "winter-store": "provisioned",
+      "protected-reserve": "sealed",
+      "spring-seed": "committed"
+    }
+  },
+  "scene": {
+    "id": "harvest-allocation-option-1",
+    "sceneCanvas": {
+      "canvas": {
+        "width": 1290,
+        "height": 2796
+      },
+      "cameraTravelBounds": {
+        "x": 0.18,
+        "y": 0.13,
+        "width": 0.64,
+        "height": 0.74
+      },
+      "authoredOverscanFraction": 0.16,
+      "viewportCrops": [
+        {
+          "id": "baseline-393x852",
+          "viewport": {
+            "widthPoints": 393,
+            "heightPoints": 852
+          },
+          "sourceRect": {
+            "x": 0.08,
+            "y": 0.08,
+            "width": 0.84,
+            "height": 0.84
+          },
+          "safeTextRegions": [
+            {
+              "id": "chapter-heading",
+              "rect": {
+                "x": 0.07,
+                "y": 0.04,
+                "width": 0.86,
+                "height": 0.14
+              }
+            },
+            {
+              "id": "allocation-prompt",
+              "rect": {
+                "x": 0.18,
+                "y": 0.18,
+                "width": 0.64,
+                "height": 0.08
+              }
+            },
+            {
+              "id": "remaining-harvest",
+              "rect": {
+                "x": 0.33,
+                "y": 0.79,
+                "width": 0.34,
+                "height": 0.13
+              }
+            }
+          ]
+        },
+        {
+          "id": "largest-430x932",
+          "viewport": {
+            "widthPoints": 430,
+            "heightPoints": 932
+          },
+          "sourceRect": {
+            "x": 0.05,
+            "y": 0.05,
+            "width": 0.9,
+            "height": 0.9
+          },
+          "safeTextRegions": [
+            {
+              "id": "chapter-heading",
+              "rect": {
+                "x": 0.07,
+                "y": 0.04,
+                "width": 0.86,
+                "height": 0.14
+              }
+            },
+            {
+              "id": "allocation-prompt",
+              "rect": {
+                "x": 0.18,
+                "y": 0.18,
+                "width": 0.64,
+                "height": 0.08
+              }
+            },
+            {
+              "id": "remaining-harvest",
+              "rect": {
+                "x": 0.33,
+                "y": 0.79,
+                "width": 0.34,
+                "height": 0.13
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "layers": [
+      {
+        "id": "storm-sky",
+        "order": 0,
+        "assetPath": "assets/phase1/harvest-option-1/layers/00-storm-sky.heif",
+        "frame": {
+          "x": 0,
+          "y": 0,
+          "width": 1,
+          "height": 1
+        },
+        "depth": 0.05,
+        "opacity": 1,
+        "blendMode": "normal",
+        "masks": {
+          "depthMaskAssetPath": "assets/phase1/harvest-option-1/masks/00-storm-sky-depth.png",
+          "lightMaskAssetPath": "assets/phase1/harvest-option-1/masks/00-storm-sky-light.png"
+        },
+        "motion": {
+          "parallaxFactor": 0.01,
+          "windResponse": 0.18,
+          "focusResponse": 0
+        },
+        "stateVariants": []
+      },
+      {
+        "id": "farming-landscape",
+        "order": 1,
+        "assetPath": "assets/phase1/harvest-option-1/layers/01-farming-landscape.heif",
+        "frame": {
+          "x": 0,
+          "y": 0,
+          "width": 1,
+          "height": 1
+        },
+        "depth": 0.14,
+        "opacity": 1,
+        "blendMode": "normal",
+        "masks": {
+          "depthMaskAssetPath": "assets/phase1/harvest-option-1/masks/01-farming-landscape-depth.png"
+        },
+        "motion": {
+          "parallaxFactor": 0.025,
+          "windResponse": 0.08,
+          "focusResponse": 0
+        },
+        "stateVariants": []
+      },
+      {
+        "id": "settlement",
+        "order": 2,
+        "assetPath": "assets/phase1/harvest-option-1/layers/02-settlement.heif",
+        "frame": {
+          "x": 0.05,
+          "y": 0.17,
+          "width": 0.9,
+          "height": 0.45
+        },
+        "depth": 0.24,
+        "opacity": 1,
+        "blendMode": "normal",
+        "masks": {
+          "alphaMaskAssetPath": "assets/phase1/harvest-option-1/masks/02-settlement-alpha.png",
+          "occlusionMaskAssetPath": "assets/phase1/harvest-option-1/masks/02-settlement-occlusion.png",
+          "depthMaskAssetPath": "assets/phase1/harvest-option-1/masks/02-settlement-depth.png",
+          "lightMaskAssetPath": "assets/phase1/harvest-option-1/masks/02-settlement-light.png"
+        },
+        "motion": {
+          "parallaxFactor": 0.05,
+          "windResponse": 0.1,
+          "focusResponse": 0.04
+        },
+        "stateVariants": []
+      },
+      {
+        "id": "people-and-work",
+        "order": 3,
+        "assetPath": "assets/phase1/harvest-option-1/layers/03-people-and-work.heif",
+        "frame": {
+          "x": 0.08,
+          "y": 0.27,
+          "width": 0.84,
+          "height": 0.38
+        },
+        "depth": 0.34,
+        "opacity": 1,
+        "blendMode": "normal",
+        "masks": {
+          "alphaMaskAssetPath": "assets/phase1/harvest-option-1/masks/03-people-and-work-alpha.png",
+          "depthMaskAssetPath": "assets/phase1/harvest-option-1/masks/03-people-and-work-depth.png"
+        },
+        "motion": {
+          "parallaxFactor": 0.08,
+          "windResponse": 0.05,
+          "focusResponse": 0.08
+        },
+        "stateVariants": []
+      },
+      {
+        "id": "allocation-ground",
+        "order": 4,
+        "assetPath": "assets/phase1/harvest-option-1/layers/04-allocation-ground.heif",
+        "frame": {
+          "x": 0.12,
+          "y": 0.46,
+          "width": 0.76,
+          "height": 0.27
+        },
+        "depth": 0.45,
+        "opacity": 1,
+        "blendMode": "normal",
+        "masks": {
+          "alphaMaskAssetPath": "assets/phase1/harvest-option-1/masks/04-allocation-ground-alpha.png",
+          "depthMaskAssetPath": "assets/phase1/harvest-option-1/masks/04-allocation-ground-depth.png"
+        },
+        "motion": {
+          "parallaxFactor": 0.1,
+          "windResponse": 0.04,
+          "focusResponse": 0.12
+        },
+        "stateVariants": []
+      },
+      {
+        "id": "winter-store",
+        "order": 5,
+        "assetPath": "assets/phase1/harvest-option-1/layers/05-winter-store-base.heif",
+        "frame": {
+          "x": 0.17,
+          "y": 0.49,
+          "width": 0.24,
+          "height": 0.19
+        },
+        "depth": 0.6,
+        "opacity": 1,
+        "blendMode": "normal",
+        "masks": {
+          "alphaMaskAssetPath": "assets/phase1/harvest-option-1/masks/05-winter-store-base-alpha.png",
+          "depthMaskAssetPath": "assets/phase1/harvest-option-1/masks/05-winter-store-base-depth.png"
+        },
+        "motion": {
+          "parallaxFactor": 0.12,
+          "windResponse": 0,
+          "focusResponse": 0.5
+        },
+        "stateVariants": [
+          {
+            "id": "empty",
+            "assetPath": "assets/phase1/harvest-option-1/states/winter-store-empty.heif",
+            "masks": {
+              "alphaMaskAssetPath": "assets/phase1/harvest-option-1/states/winter-store-empty-alpha.png",
+              "depthMaskAssetPath": "assets/phase1/harvest-option-1/states/winter-store-empty-depth.png"
+            }
+          },
+          {
+            "id": "receiving",
+            "assetPath": "assets/phase1/harvest-option-1/states/winter-store-receiving.heif",
+            "masks": {
+              "alphaMaskAssetPath": "assets/phase1/harvest-option-1/states/winter-store-receiving-alpha.png",
+              "depthMaskAssetPath": "assets/phase1/harvest-option-1/states/winter-store-receiving-depth.png"
+            }
+          },
+          {
+            "id": "provisioned",
+            "assetPath": "assets/phase1/harvest-option-1/states/winter-store-provisioned.heif",
+            "masks": {
+              "alphaMaskAssetPath": "assets/phase1/harvest-option-1/states/winter-store-provisioned-alpha.png",
+              "depthMaskAssetPath": "assets/phase1/harvest-option-1/states/winter-store-provisioned-depth.png",
+              "lightMaskAssetPath": "assets/phase1/harvest-option-1/states/winter-store-provisioned-light.png"
+            }
+          }
+        ]
+      },
+      {
+        "id": "protected-reserve",
+        "order": 6,
+        "assetPath": "assets/phase1/harvest-option-1/layers/06-protected-reserve-base.heif",
+        "frame": {
+          "x": 0.38,
+          "y": 0.49,
+          "width": 0.24,
+          "height": 0.19
+        },
+        "depth": 0.61,
+        "opacity": 1,
+        "blendMode": "normal",
+        "masks": {
+          "alphaMaskAssetPath": "assets/phase1/harvest-option-1/masks/06-protected-reserve-base-alpha.png",
+          "depthMaskAssetPath": "assets/phase1/harvest-option-1/masks/06-protected-reserve-base-depth.png"
+        },
+        "motion": {
+          "parallaxFactor": 0.125,
+          "windResponse": 0,
+          "focusResponse": 0.55
+        },
+        "stateVariants": [
+          {
+            "id": "empty",
+            "assetPath": "assets/phase1/harvest-option-1/states/protected-reserve-empty.heif",
+            "masks": {
+              "alphaMaskAssetPath": "assets/phase1/harvest-option-1/states/protected-reserve-empty-alpha.png",
+              "depthMaskAssetPath": "assets/phase1/harvest-option-1/states/protected-reserve-empty-depth.png"
+            }
+          },
+          {
+            "id": "receiving",
+            "assetPath": "assets/phase1/harvest-option-1/states/protected-reserve-receiving.heif",
+            "masks": {
+              "alphaMaskAssetPath": "assets/phase1/harvest-option-1/states/protected-reserve-receiving-alpha.png",
+              "depthMaskAssetPath": "assets/phase1/harvest-option-1/states/protected-reserve-receiving-depth.png"
+            }
+          },
+          {
+            "id": "sealed",
+            "assetPath": "assets/phase1/harvest-option-1/states/protected-reserve-sealed.heif",
+            "masks": {
+              "alphaMaskAssetPath": "assets/phase1/harvest-option-1/states/protected-reserve-sealed-alpha.png",
+              "depthMaskAssetPath": "assets/phase1/harvest-option-1/states/protected-reserve-sealed-depth.png",
+              "lightMaskAssetPath": "assets/phase1/harvest-option-1/states/protected-reserve-sealed-light.png"
+            }
+          }
+        ]
+      },
+      {
+        "id": "spring-seed",
+        "order": 7,
+        "assetPath": "assets/phase1/harvest-option-1/layers/07-spring-seed-base.heif",
+        "frame": {
+          "x": 0.59,
+          "y": 0.49,
+          "width": 0.24,
+          "height": 0.19
+        },
+        "depth": 0.62,
+        "opacity": 1,
+        "blendMode": "normal",
+        "masks": {
+          "alphaMaskAssetPath": "assets/phase1/harvest-option-1/masks/07-spring-seed-base-alpha.png",
+          "depthMaskAssetPath": "assets/phase1/harvest-option-1/masks/07-spring-seed-base-depth.png"
+        },
+        "motion": {
+          "parallaxFactor": 0.13,
+          "windResponse": 0,
+          "focusResponse": 0.6
+        },
+        "stateVariants": [
+          {
+            "id": "empty",
+            "assetPath": "assets/phase1/harvest-option-1/states/spring-seed-empty.heif",
+            "masks": {
+              "alphaMaskAssetPath": "assets/phase1/harvest-option-1/states/spring-seed-empty-alpha.png",
+              "depthMaskAssetPath": "assets/phase1/harvest-option-1/states/spring-seed-empty-depth.png"
+            }
+          },
+          {
+            "id": "receiving",
+            "assetPath": "assets/phase1/harvest-option-1/states/spring-seed-receiving.heif",
+            "masks": {
+              "alphaMaskAssetPath": "assets/phase1/harvest-option-1/states/spring-seed-receiving-alpha.png",
+              "depthMaskAssetPath": "assets/phase1/harvest-option-1/states/spring-seed-receiving-depth.png"
+            }
+          },
+          {
+            "id": "committed",
+            "assetPath": "assets/phase1/harvest-option-1/states/spring-seed-committed.heif",
+            "masks": {
+              "alphaMaskAssetPath": "assets/phase1/harvest-option-1/states/spring-seed-committed-alpha.png",
+              "depthMaskAssetPath": "assets/phase1/harvest-option-1/states/spring-seed-committed-depth.png",
+              "lightMaskAssetPath": "assets/phase1/harvest-option-1/states/spring-seed-committed-light.png"
+            }
+          }
+        ]
+      },
+      {
+        "id": "central-harvest",
+        "order": 8,
+        "assetPath": "assets/phase1/harvest-option-1/layers/08-central-harvest-base.heif",
+        "frame": {
+          "x": 0.19,
+          "y": 0.65,
+          "width": 0.62,
+          "height": 0.31
+        },
+        "depth": 0.78,
+        "opacity": 1,
+        "blendMode": "normal",
+        "masks": {
+          "alphaMaskAssetPath": "assets/phase1/harvest-option-1/masks/08-central-harvest-base-alpha.png",
+          "depthMaskAssetPath": "assets/phase1/harvest-option-1/masks/08-central-harvest-base-depth.png",
+          "lightMaskAssetPath": "assets/phase1/harvest-option-1/masks/08-central-harvest-base-light.png"
+        },
+        "motion": {
+          "parallaxFactor": 0.16,
+          "windResponse": 0,
+          "focusResponse": 0.85
+        },
+        "stateVariants": [
+          {
+            "id": "full",
+            "assetPath": "assets/phase1/harvest-option-1/states/central-harvest-full.heif",
+            "masks": {
+              "alphaMaskAssetPath": "assets/phase1/harvest-option-1/states/central-harvest-full-alpha.png",
+              "depthMaskAssetPath": "assets/phase1/harvest-option-1/states/central-harvest-full-depth.png",
+              "lightMaskAssetPath": "assets/phase1/harvest-option-1/states/central-harvest-full-light.png"
+            }
+          },
+          {
+            "id": "reduced",
+            "assetPath": "assets/phase1/harvest-option-1/states/central-harvest-reduced.heif",
+            "masks": {
+              "alphaMaskAssetPath": "assets/phase1/harvest-option-1/states/central-harvest-reduced-alpha.png",
+              "depthMaskAssetPath": "assets/phase1/harvest-option-1/states/central-harvest-reduced-depth.png",
+              "lightMaskAssetPath": "assets/phase1/harvest-option-1/states/central-harvest-reduced-light.png"
+            }
+          },
+          {
+            "id": "scarce",
+            "assetPath": "assets/phase1/harvest-option-1/states/central-harvest-scarce.heif",
+            "masks": {
+              "alphaMaskAssetPath": "assets/phase1/harvest-option-1/states/central-harvest-scarce-alpha.png",
+              "depthMaskAssetPath": "assets/phase1/harvest-option-1/states/central-harvest-scarce-depth.png",
+              "lightMaskAssetPath": "assets/phase1/harvest-option-1/states/central-harvest-scarce-light.png"
+            }
+          },
+          {
+            "id": "exhausted",
+            "assetPath": "assets/phase1/harvest-option-1/states/central-harvest-exhausted.heif",
+            "masks": {
+              "alphaMaskAssetPath": "assets/phase1/harvest-option-1/states/central-harvest-exhausted-alpha.png",
+              "depthMaskAssetPath": "assets/phase1/harvest-option-1/states/central-harvest-exhausted-depth.png"
+            }
+          }
+        ]
+      },
+      {
+        "id": "hands-and-grain",
+        "order": 9,
+        "assetPath": "assets/phase1/harvest-option-1/layers/09-hands-and-grain.heif",
+        "frame": {
+          "x": 0,
+          "y": 0.68,
+          "width": 1,
+          "height": 0.32
+        },
+        "depth": 0.86,
+        "opacity": 1,
+        "blendMode": "normal",
+        "masks": {
+          "alphaMaskAssetPath": "assets/phase1/harvest-option-1/masks/09-hands-and-grain-alpha.png",
+          "occlusionMaskAssetPath": "assets/phase1/harvest-option-1/masks/09-hands-and-grain-occlusion.png",
+          "depthMaskAssetPath": "assets/phase1/harvest-option-1/masks/09-hands-and-grain-depth.png"
+        },
+        "motion": {
+          "parallaxFactor": 0,
+          "windResponse": 0,
+          "focusResponse": 0.72
+        },
+        "stateVariants": []
+      },
+      {
+        "id": "foreground-occluders",
+        "order": 10,
+        "assetPath": "assets/phase1/harvest-option-1/layers/10-foreground-occluders.heif",
+        "frame": {
+          "x": 0,
+          "y": 0,
+          "width": 1,
+          "height": 1
+        },
+        "depth": 0.94,
+        "opacity": 1,
+        "blendMode": "normal",
+        "masks": {
+          "alphaMaskAssetPath": "assets/phase1/harvest-option-1/masks/10-foreground-occluders-alpha.png",
+          "occlusionMaskAssetPath": "assets/phase1/harvest-option-1/masks/10-foreground-occluders-occlusion.png"
+        },
+        "motion": {
+          "parallaxFactor": 0.2,
+          "windResponse": 0.09,
+          "focusResponse": 0.18
+        },
+        "stateVariants": []
+      },
+      {
+        "id": "mechanism-light",
+        "order": 11,
+        "assetPath": "assets/phase1/harvest-option-1/layers/11-mechanism-light.heif",
+        "frame": {
+          "x": 0,
+          "y": 0,
+          "width": 1,
+          "height": 1
+        },
+        "depth": 0.98,
+        "opacity": 0.82,
+        "blendMode": "screen",
+        "masks": {
+          "alphaMaskAssetPath": "assets/phase1/harvest-option-1/masks/11-mechanism-light-alpha.png",
+          "lightMaskAssetPath": "assets/phase1/harvest-option-1/masks/11-mechanism-light-focus.png"
+        },
+        "motion": {
+          "parallaxFactor": 0,
+          "windResponse": 0,
+          "focusResponse": 1
+        },
+        "stateVariants": []
+      }
+    ],
+    "cameraRail": {
+      "keyframes": [
+        {
+          "progress": 0,
+          "center": {
+            "x": 0.49,
+            "y": 0.47
+          },
+          "scale": 1
+        },
+        {
+          "progress": 0.32,
+          "center": {
+            "x": 0.5,
+            "y": 0.5
+          },
+          "scale": 1.025
+        },
+        {
+          "progress": 0.68,
+          "center": {
+            "x": 0.5,
+            "y": 0.54
+          },
+          "scale": 1.055
+        },
+        {
+          "progress": 1,
+          "center": {
+            "x": 0.5,
+            "y": 0.58
+          },
+          "scale": 1.08
+        }
+      ]
+    },
+    "atmosphere": [
+      {
+        "kind": "rain",
+        "density": 0.48,
+        "velocity": {
+          "dx": -0.08,
+          "dy": 0.72
+        },
+        "deterministicSeed": 18423001
+      },
+      {
+        "kind": "smoke",
+        "density": 0.22,
+        "velocity": {
+          "dx": 0.06,
+          "dy": -0.12
+        },
+        "deterministicSeed": 18423002
+      }
+    ],
+    "interactionTargets": [
+      {
+        "interactionTargetID": "winter-food-target",
+        "layerID": "winter-store",
+        "hitRegion": {
+          "path": [
+            {
+              "x": 0.18,
+              "y": 0.5
+            },
+            {
+              "x": 0.37,
+              "y": 0.5
+            },
+            {
+              "x": 0.37,
+              "y": 0.67
+            },
+            {
+              "x": 0.18,
+              "y": 0.67
+            }
+          ]
+        },
+        "accessibilityElementID": "allocate-winter-food"
+      },
+      {
+        "interactionTargetID": "protected-reserve-target",
+        "layerID": "protected-reserve",
+        "hitRegion": {
+          "path": [
+            {
+              "x": 0.405,
+              "y": 0.5
+            },
+            {
+              "x": 0.595,
+              "y": 0.5
+            },
+            {
+              "x": 0.595,
+              "y": 0.67
+            },
+            {
+              "x": 0.405,
+              "y": 0.67
+            }
+          ]
+        },
+        "accessibilityElementID": "allocate-protected-reserve"
+      },
+      {
+        "interactionTargetID": "spring-seed-target",
+        "layerID": "spring-seed",
+        "hitRegion": {
+          "path": [
+            {
+              "x": 0.63,
+              "y": 0.5
+            },
+            {
+              "x": 0.82,
+              "y": 0.5
+            },
+            {
+              "x": 0.82,
+              "y": 0.67
+            },
+            {
+              "x": 0.63,
+              "y": 0.67
+            }
+          ]
+        },
+        "accessibilityElementID": "allocate-spring-seed"
+      }
+    ],
+    "interactionVisualBinding": {
+      "grammar": "allocate",
+      "configuration": {
+        "interactionID": "interaction-first-farmers-the-harvest-had-to-last",
+        "resource": {
+          "layerID": "central-harvest",
+          "hitRegion": {
+            "path": [
+              { "x": 0.27, "y": 0.69 },
+              { "x": 0.73, "y": 0.69 },
+              { "x": 0.79, "y": 0.84 },
+              { "x": 0.69, "y": 0.875 },
+              { "x": 0.31, "y": 0.875 },
+              { "x": 0.21, "y": 0.84 }
+            ]
+          },
+          "hitTest": "selectedVariantAlpha",
+          "variantsByRemainingUnits": [
+            {
+              "maximumRemainingUnits": 0,
+              "variantID": "exhausted"
+            },
+            {
+              "maximumRemainingUnits": 4,
+              "variantID": "scarce"
+            },
+            {
+              "maximumRemainingUnits": 8,
+              "variantID": "reduced"
+            },
+            {
+              "maximumRemainingUnits": 12,
+              "variantID": "full"
+            }
+          ]
+        },
+        "transferLayerID": "hands-and-grain",
+        "destinations": [
+          {
+            "destinationID": "food",
+            "interactionTargetID": "winter-food-target",
+            "layerID": "winter-store",
+            "emptyVariantID": "empty",
+            "receivingVariantID": "receiving",
+            "completedVariantID": "provisioned",
+            "transferPath": [
+              { "x": 0.5, "y": 0.74 },
+              { "x": 0.39, "y": 0.66 },
+              { "x": 0.275, "y": 0.585 }
+            ]
+          },
+          {
+            "destinationID": "reserve",
+            "interactionTargetID": "protected-reserve-target",
+            "layerID": "protected-reserve",
+            "emptyVariantID": "empty",
+            "receivingVariantID": "receiving",
+            "completedVariantID": "sealed",
+            "transferPath": [
+              { "x": 0.5, "y": 0.74 },
+              { "x": 0.5, "y": 0.66 },
+              { "x": 0.5, "y": 0.585 }
+            ]
+          },
+          {
+            "destinationID": "seed",
+            "interactionTargetID": "spring-seed-target",
+            "layerID": "spring-seed",
+            "emptyVariantID": "empty",
+            "receivingVariantID": "receiving",
+            "completedVariantID": "committed",
+            "transferPath": [
+              { "x": 0.5, "y": 0.74 },
+              { "x": 0.61, "y": 0.66 },
+              { "x": 0.725, "y": 0.585 }
+            ]
+          }
+        ]
+      }
+    },
+    "reduceMotionComposition": {
+      "canvas": {
+        "width": 1290,
+        "height": 2796
+      },
+      "strata": [
+        {
+          "id": "world-underlay",
+          "kind": "staticPlate",
+          "assetPath": "assets/phase1/harvest-option-1/reduce-motion/harvest-allocation-static-underlay.heif"
+        },
+        {
+          "id": "winter-store-state",
+          "kind": "stateOverlay",
+          "layerID": "winter-store"
+        },
+        {
+          "id": "protected-reserve-state",
+          "kind": "stateOverlay",
+          "layerID": "protected-reserve"
+        },
+        {
+          "id": "spring-seed-state",
+          "kind": "stateOverlay",
+          "layerID": "spring-seed"
+        },
+        {
+          "id": "central-harvest-state",
+          "kind": "stateOverlay",
+          "layerID": "central-harvest"
+        },
+        {
+          "id": "foreground-occlusion",
+          "kind": "staticPlate",
+          "assetPath": "assets/phase1/harvest-option-1/reduce-motion/harvest-allocation-static-foreground.heif"
+        }
+      ],
+      "viewportCrops": [
+        {
+          "id": "baseline-393x852",
+          "viewport": {
+            "widthPoints": 393,
+            "heightPoints": 852
+          },
+          "sourceRect": {
+            "x": 0.08,
+            "y": 0.08,
+            "width": 0.84,
+            "height": 0.84
+          },
+          "safeTextRegions": [
+            {
+              "id": "chapter-heading",
+              "rect": {
+                "x": 0.07,
+                "y": 0.04,
+                "width": 0.86,
+                "height": 0.14
+              }
+            },
+            {
+              "id": "allocation-prompt",
+              "rect": {
+                "x": 0.18,
+                "y": 0.18,
+                "width": 0.64,
+                "height": 0.08
+              }
+            },
+            {
+              "id": "remaining-harvest",
+              "rect": {
+                "x": 0.33,
+                "y": 0.79,
+                "width": 0.34,
+                "height": 0.13
+              }
+            }
+          ]
+        },
+        {
+          "id": "largest-430x932",
+          "viewport": {
+            "widthPoints": 430,
+            "heightPoints": 932
+          },
+          "sourceRect": {
+            "x": 0.05,
+            "y": 0.05,
+            "width": 0.9,
+            "height": 0.9
+          },
+          "safeTextRegions": [
+            {
+              "id": "chapter-heading",
+              "rect": {
+                "x": 0.07,
+                "y": 0.04,
+                "width": 0.86,
+                "height": 0.14
+              }
+            },
+            {
+              "id": "allocation-prompt",
+              "rect": {
+                "x": 0.18,
+                "y": 0.18,
+                "width": 0.64,
+                "height": 0.08
+              }
+            },
+            {
+              "id": "remaining-harvest",
+              "rect": {
+                "x": 0.33,
+                "y": 0.79,
+                "width": 0.34,
+                "height": 0.13
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "mechanismFocus": {
+      "id": "scene-harvest-mechanism-focus",
+      "launchEnglish": "One finite harvest, divided into twelve equal illustrative runtime shares, must become winter food, protected reserve and spring seed before the grain in the foreground is exhausted."
+    },
+    "accessibilityID": "access-harvest-allocation"
+  }
+}

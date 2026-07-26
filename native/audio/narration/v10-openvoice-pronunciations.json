@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "status": "CODEX_V10_OPENVOICE_ENGLISH_PRONUNCIATIONS_FROZEN",
+  "language": "English",
+  "locale": "en-GB",
+  "tokenizer": "google-bert/bert-base-uncased",
+  "tokenizerRevision": "86b5e0934494bd15c9632b12f734a8a67f723594",
+  "policy": {
+    "wholeRepresentativeSetMustNormalizeBeforeModelLoad": true,
+    "bertWordPieceGroupingMustMatchPinnedMeloTTS": true,
+    "punctuationMustBeAnExplicitMeloSymbol": true,
+    "everyLexicalTokenMustResolveToCMUDictOrProjectOverride": true,
+    "unknownTokenIsFatal": true,
+    "g2pEnImportPermitted": false,
+    "nltkImportPermitted": false,
+    "networkFallbackPermitted": false
+  },
+  "projectOverrides": {
+    "ad": {
+      "phones": ["EY1", "D", "IY1"],
+      "reason": "The approved date heading uses AD as the two spoken letters A D."
+    },
+    "polis": {
+      "phones": ["P", "AA1", "L", "IH0", "S"],
+      "reason": "The chapter means the Greek city-state, pronounced POL-iss."
+    },
+    "excommunication": {
+      "phones": ["EH2", "K", "S", "K", "AH0", "M", "Y", "UW2", "N", "IH0", "K", "EY1", "SH", "AH0", "N"],
+      "reason": "The fourth syllable is kept as the short i in communication."
+    },
+    "monasteries": {
+      "phones": ["M", "AA1", "N", "AH0", "S", "T", "R", "IY0", "Z"],
+      "reason": "The intended English form is MON-uh-strees."
+    },
+    "lepanto": {
+      "phones": ["L", "IH0", "P", "AE1", "N", "T", "OW0"],
+      "reason": "The battle name is pronounced leh-PAN-toh and is absent from the pinned CMU dictionary."
+    },
+    "portuguese": {
+      "phones": ["P", "AO2", "R", "CH", "AH0", "G", "IY1", "Z"],
+      "reason": "Primary stress falls on -guese in this adjective."
+    }
+  },
+  "criticalRegister": {
+    "polis": {
+      "normalizedTokens": ["polis"],
+      "source": "projectOverride"
+    },
+    "roman": {
+      "normalizedTokens": ["roman"],
+      "source": "cmudict"
+    },
+    "christian": {
+      "normalizedTokens": ["christian"],
+      "source": "cmudict"
+    },
+    "excommunication": {
+      "normalizedTokens": ["excommunication"],
+      "source": "projectOverride"
+    },
+    "monasteries": {
+      "normalizedTokens": ["monasteries"],
+      "source": "projectOverride"
+    },
+    "emperor": {
+      "normalizedTokens": ["emperor"],
+      "source": "cmudict"
+    },
+    "belgrade": {
+      "normalizedTokens": ["belgrade"],
+      "source": "cmudict"
+    },
+    "vienna": {
+      "normalizedTokens": ["vienna"],
+      "source": "cmudict"
+    },
+    "croatia": {
+      "normalizedTokens": ["croatia"],
+      "source": "cmudict"
+    },
+    "malta": {
+      "normalizedTokens": ["malta"],
+      "source": "cmudict"
+    },
+    "lepanto": {
+      "normalizedTokens": ["lepanto"],
+      "source": "projectOverride"
+    },
+    "portuguese": {
+      "normalizedTokens": ["portuguese"],
+      "source": "projectOverride"
+    },
+    "atlantic": {
+      "normalizedTokens": ["atlantic"],
+      "source": "cmudict"
+    },
+    "1648": {
+      "normalizedTokens": ["sixteen", "forty", "-", "eight"],
+      "source": "cmudictAndPunctuation"
+    },
+    "habsburg": {
+      "normalizedTokens": ["habsburg"],
+      "source": "cmudict"
+    }
+  }
+}

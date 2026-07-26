@@ -1,0 +1,207 @@
+{
+  "schemaVersion": 1,
+  "kind": "responsive-procedural-soundscape",
+  "id": "three-records-responsive-soundscape-v1",
+  "status": "PROVISIONAL_NON_SHIPPING",
+  "shippingState": "PROHIBITED",
+  "output": { "sampleRate": 48000, "bitDepth": 24, "channels": 2, "container": "wav" },
+  "mixGroups": {
+    "soundscape": ["gorge-current", "landing-work", "settlement-hearths", "domestic-herd", "household-voices"],
+    "spatialDetail": ["river-gear", "carried-grain"]
+  },
+  "scopedQuietPolicy": {
+    "preservedSoundscapeLayerID": "gorge-current",
+    "zeroedRoles": ["score", "spatialDetail"],
+    "zeroedSoundscapeLayerIDs": ["landing-work", "settlement-hearths", "domestic-herd", "household-voices"],
+    "timelineEventRole": "NONE_SCOPED_QUIET_IS_NOT_GLOBAL_SILENCE",
+    "loopTailRule": "FINAL_200_MS_ZEROES_EVERY_NON_RIVER_LAYER_WHILE_GORGE_CURRENT_REMAINS_SAMPLE_CONTINUOUS"
+  },
+  "synthesisBoundaries": {
+    "water": {
+      "algorithm": "close-water-movement-v1",
+      "audibleClaims": ["visible Danube current", "close gorge water", "irregular current against the landing"],
+      "excluded": ["rain", "storm", "propulsion", "rigging", "engines", "documented river recording"]
+    },
+    "human": {
+      "algorithm": "distant-human-presence-v1",
+      "audibleClaims": ["non-lexical household presence", "restrained group activity", "broader presence through density only"],
+      "excluded": ["text or phoneme input", "invented dialogue or language", "reconstructed speech", "song or chant", "cries, laughter or distress", "ethnic or individual identity"]
+    },
+    "animal": {
+      "algorithm": "herd-ground-movement-v1",
+      "audibleClaims": ["restrained domestic-animal weight shifts", "ground contact", "restrained breath and body movement"],
+      "excluded": ["species calls", "bells or tack", "gallop rhythm", "stampede or panic", "species identification"]
+    }
+  },
+  "prohibitedClaims": [
+    "sudden replacement of river communities",
+    "identical timing for all records",
+    "universal adoption of farming",
+    "exact calendar meaning for interaction thresholds",
+    "invented dialogue, language or ethnic vocal timbre",
+    "species calls, bells, tack or panic",
+    "metal tools or martial conflict",
+    "primitive drums, flutes or chanting",
+    "academic evidence mode"
+  ],
+  "causalMixContract": {
+    "schemaVersion": 1,
+    "gainUnit": "linear",
+    "rampDurationSamples": 9600,
+    "transportStatus": "OPEN_NOT_APPLIED_TO_TIMELINE_SLICES",
+    "cueIDPattern": "{regionID}-{layerID}",
+    "interactionLayerAssets": [
+      { "layerID": "gorge-current", "role": "soundscape", "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/gorge-current.wav" },
+      { "layerID": "river-gear", "role": "spatialDetail", "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/river-gear.wav" },
+      { "layerID": "landing-work", "role": "soundscape", "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/landing-work.wav" },
+      { "layerID": "settlement-hearths", "role": "soundscape", "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/settlement-hearths.wav" },
+      { "layerID": "carried-grain", "role": "spatialDetail", "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/carried-grain.wav" },
+      { "layerID": "domestic-herd", "role": "soundscape", "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/domestic-herd.wav" },
+      { "layerID": "household-voices", "role": "soundscape", "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/household-voices.wav" }
+    ],
+    "states": [
+      {
+        "completedStageCount": 0,
+        "stateID": "river-only",
+        "stageID": "before-river-communities",
+        "layerGains": [
+          { "layerID": "gorge-current", "gain": 0.82 },
+          { "layerID": "river-gear", "gain": 0 },
+          { "layerID": "landing-work", "gain": 0 },
+          { "layerID": "settlement-hearths", "gain": 0 },
+          { "layerID": "carried-grain", "gain": 0 },
+          { "layerID": "domestic-herd", "gain": 0 },
+          { "layerID": "household-voices", "gain": 0 }
+        ]
+      },
+      {
+        "completedStageCount": 1,
+        "stateID": "river-communities-present",
+        "stageID": "river-communities",
+        "layerGains": [
+          { "layerID": "gorge-current", "gain": 0.82 },
+          { "layerID": "river-gear", "gain": 0.32 },
+          { "layerID": "landing-work", "gain": 0.28 },
+          { "layerID": "settlement-hearths", "gain": 0.18 },
+          { "layerID": "carried-grain", "gain": 0 },
+          { "layerID": "domestic-herd", "gain": 0 },
+          { "layerID": "household-voices", "gain": 0.14 }
+        ]
+      },
+      {
+        "completedStageCount": 2,
+        "stateID": "contact-households-present",
+        "stageID": "contact-households",
+        "layerGains": [
+          { "layerID": "gorge-current", "gain": 0.82 },
+          { "layerID": "river-gear", "gain": 0.42 },
+          { "layerID": "landing-work", "gain": 0.38 },
+          { "layerID": "settlement-hearths", "gain": 0.28 },
+          { "layerID": "carried-grain", "gain": 0.3 },
+          { "layerID": "domestic-herd", "gain": 0.24 },
+          { "layerID": "household-voices", "gain": 0.34 }
+        ]
+      },
+      {
+        "completedStageCount": 3,
+        "stateID": "later-settlements-present",
+        "stageID": "later-settlements",
+        "layerGains": [
+          { "layerID": "gorge-current", "gain": 0.82 },
+          { "layerID": "river-gear", "gain": 0.48 },
+          { "layerID": "landing-work", "gain": 0.44 },
+          { "layerID": "settlement-hearths", "gain": 0.34 },
+          { "layerID": "carried-grain", "gain": 0.4 },
+          { "layerID": "domestic-herd", "gain": 0.32 },
+          { "layerID": "household-voices", "gain": 0.42 }
+        ]
+      }
+    ],
+    "consequenceState": { "stateID": "later-settlements-retained", "inheritsCompletedStageCount": 3 },
+    "monotonicRule": "COMPLETED_LAYER_GAINS_NEVER_DECREASE_OR_DISAPPEAR"
+  },
+  "interactionMaterialLoop": {
+    "id": "interaction-material-loop",
+    "soundscapeStateID": "shared-time-layer-material-clock",
+    "durationSeconds": 15,
+    "loop": true,
+    "layers": [
+      { "id": "gorge-current", "material": "water", "visibleSource": "The visible Danube current remaining constant beneath every interaction phase and causal stage", "generator": { "algorithm": "close-water-movement-v1", "seed": 73000301, "density": 0.46, "colour": 0.59 }, "gainDB": -21, "pan": -0.24, "loop": true },
+      { "id": "river-gear", "material": "textile", "visibleSource": "Visible net, hide and cordage bound to the river-community stage", "generator": { "algorithm": "woven-fibre-friction-v1", "seed": 73000303, "density": 0.34, "colour": 0.55 }, "gainDB": -24, "pan": 0.3, "loop": true },
+      { "id": "landing-work", "material": "work", "visibleSource": "Visible wood and stone landing work retained through later household stages", "generator": { "algorithm": "distant-material-work-v1", "seed": 73000307, "density": 0.3, "colour": 0.46 }, "gainDB": -24, "pan": 0.12, "loop": true },
+      { "id": "settlement-hearths", "material": "fire", "visibleSource": "Low visible hearths retained through later household stages", "generator": { "algorithm": "small-hearth-fire-v1", "seed": 73000309, "density": 0.24, "colour": 0.58 }, "gainDB": -27, "pan": -0.36, "loop": true },
+      { "id": "carried-grain", "material": "grain", "visibleSource": "Visible carried grain entering only after the contact-household threshold", "generator": { "algorithm": "dry-grain-contact-v1", "seed": 73000311, "density": 0.3, "colour": 0.64 }, "gainDB": -25, "pan": 0.4, "loop": true },
+      { "id": "domestic-herd", "material": "herd", "visibleSource": "Visible domestic animals entering only after the contact-household threshold without calls, tack or panic", "generator": { "algorithm": "herd-ground-movement-v1", "seed": 73000313, "density": 0.28, "colour": 0.61 }, "gainDB": -25, "pan": 0.04, "loop": true },
+      { "id": "household-voices", "material": "human", "visibleSource": "Non-lexical household presence broadening by authored density without words, language or identity", "generator": { "algorithm": "distant-human-presence-v1", "seed": 73000317, "density": 0.42, "colour": 0.5 }, "gainDB": -24, "pan": 0.16, "loop": true }
+    ],
+    "silenceWindows": [{ "id": "river-alone-loop-tail", "atSeconds": 14.8, "durationSeconds": 0.2, "reason": "Zero every non-river layer at the shared loop joint while the gorge current remains continuous.", "entry": "authored-cut", "exit": "authored-return" }]
+  },
+  "nonRenderedRegionIDs": ["waiting", "engaged", "resistance"],
+  "regions": [
+    {
+      "id": "approach", "timelineID": "three-records-approach-v1", "soundscapeStateID": "gorge-before-action", "durationSeconds": 45, "loop": false,
+      "layers": [
+        { "id": "gorge-current", "material": "water", "visibleSource": "The visible Danube current moving through the Iron Gates gorge and past the landing", "generator": { "algorithm": "close-water-movement-v1", "seed": 73000101, "density": 0.46, "colour": 0.58 }, "gainDB": -22, "pan": -0.24, "loop": false },
+        { "id": "river-gear", "material": "textile", "visibleSource": "Visible net, hide and cordage material at the river landing without assigning a precise construction", "generator": { "algorithm": "woven-fibre-friction-v1", "seed": 73000103, "density": 0.16, "colour": 0.5 }, "gainDB": -31, "pan": 0.3, "loop": false },
+        { "id": "landing-work", "material": "work", "visibleSource": "Visible wood, stone and landing material handled without metal tools or conflict", "generator": { "algorithm": "distant-material-work-v1", "seed": 73000107, "density": 0.15, "colour": 0.42 }, "gainDB": -29, "pan": 0.12, "loop": false },
+        { "id": "settlement-hearths", "material": "fire", "visibleSource": "Low visible household hearths above the river landing", "generator": { "algorithm": "small-hearth-fire-v1", "seed": 73000109, "density": 0.1, "colour": 0.52 }, "gainDB": -34, "pan": -0.36, "loop": false },
+        { "id": "carried-grain", "material": "grain", "visibleSource": "Visible carried grain entering a contact household without implying universal adoption", "generator": { "algorithm": "dry-grain-contact-v1", "seed": 73000111, "density": 0.08, "colour": 0.58 }, "gainDB": -35, "pan": 0.4, "loop": false },
+        { "id": "domestic-herd", "material": "herd", "visibleSource": "Visible domestic animals making restrained weight shifts beside later households", "generator": { "algorithm": "herd-ground-movement-v1", "seed": 73000113, "density": 0.1, "colour": 0.55 }, "gainDB": -34, "pan": 0.04, "loop": false },
+        { "id": "household-voices", "material": "human", "visibleSource": "Visible households present at the landing without attributed words, language or identity", "generator": { "algorithm": "distant-human-presence-v1", "seed": 73000117, "density": 0.13, "colour": 0.46 }, "gainDB": -34, "pan": 0.16, "loop": false }
+      ],
+      "silenceWindows": [{ "id": "river-alone-before-action", "atSeconds": 0, "durationSeconds": 2, "reason": "Let the visible gorge current stand alone before score and material records enter.", "entry": "authored-cut", "exit": "authored-return" }]
+    },
+    {
+      "id": "waiting", "timelineID": "three-records-waiting-bed-v1", "soundscapeStateID": "river-community-record-waits", "durationSeconds": 15, "loop": true,
+      "layers": [
+        { "id": "gorge-current", "material": "water", "visibleSource": "The visible Danube current holding the same gorge geometry through the waiting state", "generator": { "algorithm": "close-water-movement-v1", "seed": 73000119, "density": 0.44, "colour": 0.57 }, "gainDB": -22, "pan": -0.24, "loop": true },
+        { "id": "river-gear", "material": "textile", "visibleSource": "Visible net, hide and cordage resting at the river landing", "generator": { "algorithm": "woven-fibre-friction-v1", "seed": 73000123, "density": 0.1, "colour": 0.48 }, "gainDB": -34, "pan": 0.3, "loop": true },
+        { "id": "landing-work", "material": "work", "visibleSource": "Low visible landing work held inside the first record", "generator": { "algorithm": "distant-material-work-v1", "seed": 73000127, "density": 0.08, "colour": 0.4 }, "gainDB": -35, "pan": 0.12, "loop": true },
+        { "id": "settlement-hearths", "material": "fire", "visibleSource": "One low visible hearth above the landing", "generator": { "algorithm": "small-hearth-fire-v1", "seed": 73000131, "density": 0.07, "colour": 0.5 }, "gainDB": -37, "pan": -0.36, "loop": true },
+        { "id": "carried-grain", "material": "grain", "visibleSource": "Visible carried grain held outside the river-only base mix until a contact household is reached", "generator": { "algorithm": "dry-grain-contact-v1", "seed": 73000133, "density": 0.05, "colour": 0.55 }, "gainDB": -38, "pan": 0.4, "loop": true },
+        { "id": "domestic-herd", "material": "herd", "visibleSource": "Visible domestic animals held outside the river-only base mix until a contact household is reached", "generator": { "algorithm": "herd-ground-movement-v1", "seed": 73000137, "density": 0.06, "colour": 0.52 }, "gainDB": -38, "pan": 0.04, "loop": true },
+        { "id": "household-voices", "material": "human", "visibleSource": "Restrained non-lexical presence bound to visible households at the landing", "generator": { "algorithm": "distant-human-presence-v1", "seed": 73000139, "density": 0.08, "colour": 0.43 }, "gainDB": -37, "pan": 0.16, "loop": true }
+      ],
+      "silenceWindows": [{ "id": "river-alone-loop-tail", "atSeconds": 14.8, "durationSeconds": 0.2, "reason": "Zero every non-river layer at the loop joint while the gorge current remains continuous.", "entry": "authored-cut", "exit": "authored-return" }]
+    },
+    {
+      "id": "engaged", "timelineID": "three-records-engaged-bed-v1", "soundscapeStateID": "time-layers-in-motion", "durationSeconds": 15, "loop": true,
+      "layers": [
+        { "id": "gorge-current", "material": "water", "visibleSource": "The visible Danube current remaining constant beneath the moving time layer", "generator": { "algorithm": "close-water-movement-v1", "seed": 73000143, "density": 0.46, "colour": 0.59 }, "gainDB": -21, "pan": -0.24, "loop": true },
+        { "id": "river-gear", "material": "textile", "visibleSource": "Visible net, hide and cordage entering with the river-community layer", "generator": { "algorithm": "woven-fibre-friction-v1", "seed": 73000147, "density": 0.34, "colour": 0.55 }, "gainDB": -24, "pan": 0.3, "loop": true },
+        { "id": "landing-work", "material": "work", "visibleSource": "Visible landing work retaining its place through later household layers", "generator": { "algorithm": "distant-material-work-v1", "seed": 73000149, "density": 0.3, "colour": 0.46 }, "gainDB": -24, "pan": 0.12, "loop": true },
+        { "id": "settlement-hearths", "material": "fire", "visibleSource": "Low visible hearths retaining their place as households change", "generator": { "algorithm": "small-hearth-fire-v1", "seed": 73000151, "density": 0.24, "colour": 0.58 }, "gainDB": -27, "pan": -0.36, "loop": true },
+        { "id": "carried-grain", "material": "grain", "visibleSource": "Visible carried grain entering selected contact households", "generator": { "algorithm": "dry-grain-contact-v1", "seed": 73000157, "density": 0.3, "colour": 0.64 }, "gainDB": -25, "pan": 0.4, "loop": true },
+        { "id": "domestic-herd", "material": "herd", "visibleSource": "Visible domestic animals entering selected contact households without panic or species calls", "generator": { "algorithm": "herd-ground-movement-v1", "seed": 73000161, "density": 0.28, "colour": 0.61 }, "gainDB": -25, "pan": 0.04, "loop": true },
+        { "id": "household-voices", "material": "human", "visibleSource": "Broader non-lexical presence bound to visible contact households without attributed identity", "generator": { "algorithm": "distant-human-presence-v1", "seed": 73000163, "density": 0.42, "colour": 0.5 }, "gainDB": -24, "pan": 0.16, "loop": true }
+      ],
+      "silenceWindows": [{ "id": "river-alone-loop-tail", "atSeconds": 14.8, "durationSeconds": 0.2, "reason": "Zero every non-river layer at the loop joint while the gorge current remains continuous.", "entry": "authored-cut", "exit": "authored-return" }]
+    },
+    {
+      "id": "resistance", "timelineID": "three-records-resistance-bed-v1", "soundscapeStateID": "same-gorge-refuses-false-layer", "durationSeconds": 15, "loop": true,
+      "layers": [
+        { "id": "gorge-current", "material": "water", "visibleSource": "The visible Danube current remaining constant when the time layer refuses a false intermediate state", "generator": { "algorithm": "close-water-movement-v1", "seed": 73000167, "density": 0.45, "colour": 0.54 }, "gainDB": -21, "pan": -0.24, "loop": true },
+        { "id": "river-gear", "material": "textile", "visibleSource": "Visible net, hide and cordage retained from a completed river-community layer", "generator": { "algorithm": "woven-fibre-friction-v1", "seed": 73000169, "density": 0.22, "colour": 0.48 }, "gainDB": -28, "pan": 0.3, "loop": true },
+        { "id": "landing-work", "material": "work", "visibleSource": "Visible landing work retained without metal impact or conflict", "generator": { "algorithm": "distant-material-work-v1", "seed": 73000171, "density": 0.18, "colour": 0.38 }, "gainDB": -29, "pan": 0.12, "loop": true },
+        { "id": "settlement-hearths", "material": "fire", "visibleSource": "Low visible hearths retained without a danger cue", "generator": { "algorithm": "small-hearth-fire-v1", "seed": 73000173, "density": 0.14, "colour": 0.48 }, "gainDB": -31, "pan": -0.36, "loop": true },
+        { "id": "carried-grain", "material": "grain", "visibleSource": "Visible carried grain retained only after its completed contact-household layer", "generator": { "algorithm": "dry-grain-contact-v1", "seed": 73000179, "density": 0.16, "colour": 0.55 }, "gainDB": -31, "pan": 0.4, "loop": true },
+        { "id": "domestic-herd", "material": "herd", "visibleSource": "Visible domestic animals retained without calls, bells, tack or panic", "generator": { "algorithm": "herd-ground-movement-v1", "seed": 73000181, "density": 0.14, "colour": 0.5 }, "gainDB": -31, "pan": 0.04, "loop": true },
+        { "id": "household-voices", "material": "human", "visibleSource": "Restrained non-lexical household presence retained without cries, language or identity", "generator": { "algorithm": "distant-human-presence-v1", "seed": 73000183, "density": 0.18, "colour": 0.41 }, "gainDB": -30, "pan": 0.16, "loop": true }
+      ],
+      "silenceWindows": [{ "id": "river-alone-loop-tail", "atSeconds": 14.8, "durationSeconds": 0.2, "reason": "Zero every non-river layer at the loop joint while the gorge current remains continuous.", "entry": "authored-cut", "exit": "authored-return" }]
+    },
+    {
+      "id": "consequence", "timelineID": "three-records-consequence-v1", "soundscapeStateID": "shared-river-settlement", "durationSeconds": 45, "loop": false,
+      "layers": [
+        { "id": "gorge-current", "material": "water", "visibleSource": "The visible Danube current continuing beside the shared later settlement", "generator": { "algorithm": "close-water-movement-v1", "seed": 73000187, "density": 0.46, "colour": 0.6 }, "gainDB": -21, "pan": -0.24, "loop": false },
+        { "id": "river-gear", "material": "textile", "visibleSource": "Visible net, hide and cordage retained beside households using the older route", "generator": { "algorithm": "woven-fibre-friction-v1", "seed": 73000189, "density": 0.34, "colour": 0.56 }, "gainDB": -24, "pan": 0.3, "loop": false },
+        { "id": "landing-work", "material": "work", "visibleSource": "Visible wood and stone landing work retained as new cargo enters", "generator": { "algorithm": "distant-material-work-v1", "seed": 73000191, "density": 0.32, "colour": 0.46 }, "gainDB": -24, "pan": 0.12, "loop": false },
+        { "id": "settlement-hearths", "material": "fire", "visibleSource": "Visible household hearths retained above the shared riverbank", "generator": { "algorithm": "small-hearth-fire-v1", "seed": 73000193, "density": 0.28, "colour": 0.6 }, "gainDB": -25, "pan": -0.36, "loop": false },
+        { "id": "carried-grain", "material": "grain", "visibleSource": "Visible carried grain entering households while river food and older routes remain", "generator": { "algorithm": "dry-grain-contact-v1", "seed": 73000197, "density": 0.36, "colour": 0.66 }, "gainDB": -23, "pan": 0.4, "loop": false },
+        { "id": "domestic-herd", "material": "herd", "visibleSource": "Visible domestic animals moving with restrained weight beside later households", "generator": { "algorithm": "herd-ground-movement-v1", "seed": 73000199, "density": 0.34, "colour": 0.63 }, "gainDB": -23, "pan": 0.04, "loop": false },
+        { "id": "household-voices", "material": "human", "visibleSource": "Broader non-lexical presence bound to visible later households without attributed speech or identity", "generator": { "algorithm": "distant-human-presence-v1", "seed": 73000203, "density": 0.5, "colour": 0.53 }, "gainDB": -22, "pan": 0.16, "loop": false }
+      ],
+      "silenceWindows": [{ "id": "river-alone-before-consequence", "atSeconds": 0, "durationSeconds": 3, "reason": "Hold the continuous gorge current alone before the completed settlement mix and consequence enter.", "entry": "authored-cut", "exit": "authored-return" }]
+    }
+  ]
+}

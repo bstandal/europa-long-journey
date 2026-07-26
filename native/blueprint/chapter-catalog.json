@@ -1,0 +1,278 @@
+{
+  "schemaVersion": 1,
+  "status": "CANONICAL_PHASE_0_APPROVED",
+  "collectionID": "collection-01",
+  "language": "en",
+  "chapterCount": 24,
+  "freeContentIDs": [
+    "first-farmers",
+    "europe-holds-the-line",
+    "european-world"
+  ],
+  "chapters": [
+    {
+      "ordinal": 1,
+      "contentID": "first-farmers",
+      "title": "The First Farmers",
+      "period": "7000–3300 BC",
+      "access": "FREE",
+      "freeAtLaunch": true,
+      "lockedThesis": "Farming came to Europe with people who carried seed, animals and knowledge. It bound growing populations to land, season and stores made to outlast a single generation.",
+      "thesisSource": "current-journey",
+      "thesisStatus": "LOCKED_NATIVE_CONTRACT_APPROVED"
+    },
+    {
+      "ordinal": 2,
+      "contentID": "steppe-comes-west",
+      "title": "The Steppe Comes West",
+      "period": "3300–2000 BC",
+      "access": "UNLOCKED_BY_COLLECTION_PURCHASE",
+      "freeAtLaunch": false,
+      "lockedThesis": "From the grasslands north of the Black Sea came a mobile order of armed, patrilineal peoples. It displaced old male lines and carried new populations, languages and gods across Europe.",
+      "thesisSource": "current-journey",
+      "thesisStatus": "LOCKED_NATIVE_CONTRACT_APPROVED"
+    },
+    {
+      "ordinal": 3,
+      "contentID": "bronze-europe",
+      "title": "Bronze Europe",
+      "period": "2500–500 BC",
+      "access": "UNLOCKED_BY_COLLECTION_PURCHASE",
+      "freeAtLaunch": false,
+      "lockedThesis": "Drawing on older eastern networks, Europeans mastered metal and sea, forging distinct worlds of craft, sacred power, warrior courage and heroic memory.",
+      "thesisSource": "current-journey",
+      "thesisStatus": "LOCKED_NATIVE_CONTRACT_APPROVED"
+    },
+    {
+      "ordinal": 4,
+      "contentID": "greece-and-the-citizen",
+      "title": "Greece and the Citizen",
+      "period": "800–146 BC",
+      "access": "UNLOCKED_BY_COLLECTION_PURCHASE",
+      "freeAtLaunch": false,
+      "lockedThesis": "The polis made public rule the work of citizens, then forced rival cities to defend, command and judge that freedom.",
+      "thesisSource": "current-journey",
+      "thesisStatus": "LOCKED_NATIVE_CONTRACT_APPROVED"
+    },
+    {
+      "ordinal": 5,
+      "contentID": "rome-gathers-europe",
+      "title": "Rome Gathers Europe",
+      "period": "509 BC–AD 212",
+      "access": "UNLOCKED_BY_COLLECTION_PURCHASE",
+      "freeAtLaunch": false,
+      "lockedThesis": "Rome made conquest durable by extending citizenship, local office and military service outwards from one city until much of Europe lived inside a common political order.",
+      "thesisSource": "current-journey",
+      "thesisStatus": "LOCKED_NATIVE_CONTRACT_APPROVED"
+    },
+    {
+      "ordinal": 6,
+      "contentID": "empire-takes-cross",
+      "title": "The Empire Takes the Cross",
+      "period": "AD 312–565",
+      "access": "UNLOCKED_BY_COLLECTION_PURCHASE",
+      "freeAtLaunch": false,
+      "lockedThesis": "Christianity entered Roman law, office and imperial ceremony while Constantinople became the centre of a renewed Christian Rome.",
+      "thesisSource": "current-journey",
+      "thesisStatus": "LOCKED_NATIVE_CONTRACT_APPROVED"
+    },
+    {
+      "ordinal": 7,
+      "contentID": "europe-reborn",
+      "title": "Europe Reborn",
+      "period": "AD 500–1000",
+      "access": "UNLOCKED_BY_COLLECTION_PURCHASE",
+      "freeAtLaunch": false,
+      "lockedThesis": "Western Rome fell, but its Christian inheritance did not. Bishops, monasteries and kings rebuilt it as a commonwealth that could survive without one empire—and grow beyond Rome’s old frontiers.",
+      "thesisSource": "current-journey",
+      "thesisStatus": "LOCKED_NATIVE_CONTRACT_APPROVED"
+    },
+    {
+      "ordinal": 8,
+      "contentID": "papal-revolution",
+      "title": "The Papal Revolution",
+      "period": "AD 1046–1123",
+      "access": "UNLOCKED_BY_COLLECTION_PURCHASE",
+      "freeAtLaunch": false,
+      "lockedThesis": "The struggle to free ecclesiastical office from lay possession turned pope, emperor, bishops and princes into rival claimants under law. Worms divided spiritual investiture from temporal regalia, leaving Latin Europe with two organised jurisdictions that neither side could fully absorb.",
+      "thesisSource": "current-journey",
+      "thesisStatus": "LOCKED_NATIVE_CONTRACT_APPROVED"
+    },
+    {
+      "ordinal": 9,
+      "contentID": "society-beyond-kin",
+      "title": "A Society Beyond Kin",
+      "period": "AD 500–1300",
+      "access": "UNLOCKED_BY_COLLECTION_PURCHASE",
+      "freeAtLaunch": false,
+      "lockedThesis": "The Western Church broke the institutions that kept marriage, inheritance and obligation inside the clan. Europeans rebuilt social life through monasteries, fraternities, communes, guilds and universities—communities made by oath, rule and office rather than blood.",
+      "thesisSource": "current-journey",
+      "thesisStatus": "LOCKED_NATIVE_CONTRACT_APPROVED"
+    },
+    {
+      "ordinal": 10,
+      "contentID": "medieval-commercial-revolution",
+      "title": "The Medieval Commercial Revolution",
+      "period": "AD 950–1350",
+      "access": "UNLOCKED_BY_COLLECTION_PURCHASE",
+      "freeAtLaunch": false,
+      "lockedThesis": "Medieval Europeans made capital, obligation and risk travel farther than the people who owned them. The written road they built made strangers into partners and dangerous voyages into repeatable enterprises.",
+      "thesisSource": "current-journey",
+      "thesisStatus": "LOCKED_NATIVE_CONTRACT_APPROVED"
+    },
+    {
+      "ordinal": 11,
+      "contentID": "hanseatic-north",
+      "title": "The Hanseatic North",
+      "period": "AD 1150–1500",
+      "access": "UNLOCKED_BY_COLLECTION_PURCHASE",
+      "freeAtLaunch": false,
+      "lockedThesis": "Northern merchants and towns made common power from privilege, discipline and consent. They could close markets, bargain with kings and put fleets to sea while every participating city kept its own government.",
+      "thesisSource": "current-journey",
+      "thesisStatus": "LOCKED_NATIVE_CONTRACT_APPROVED"
+    },
+    {
+      "ordinal": 12,
+      "contentID": "empire-many-liberties",
+      "title": "The Empire of Many Liberties",
+      "period": "AD 962–1806",
+      "access": "UNLOCKED_BY_COLLECTION_PURCHASE",
+      "freeAtLaunch": false,
+      "lockedThesis": "The Holy Roman Empire held central Europe together through election, privilege, assembly and law. Its many rulers and communities kept real liberties because they belonged to a common imperial peace.",
+      "thesisSource": "current-journey",
+      "thesisStatus": "LOCKED_NATIVE_CONTRACT_APPROVED"
+    },
+    {
+      "ordinal": 13,
+      "contentID": "europe-holds-the-line",
+      "title": "The Frontiers Hold",
+      "period": "AD 711–1699",
+      "access": "FREE",
+      "freeAtLaunch": true,
+      "lockedThesis": "Christian Europe survived centuries of conquest from the south and east because kingdoms, cities, military orders and frontier peoples kept rebuilding the line. At last the direction of pressure turned.",
+      "thesisSource": "current-journey",
+      "thesisStatus": "LOCKED_NATIVE_CONTRACT_APPROVED"
+    },
+    {
+      "ordinal": 14,
+      "contentID": "europe-turns-seaward",
+      "title": "Europe Turns Seaward",
+      "period": "AD 1415–1700",
+      "access": "UNLOCKED_BY_COLLECTION_PURCHASE",
+      "freeAtLaunch": false,
+      "lockedThesis": "Europeans converted the Atlantic from an edge into a road. Repeated voyages, wind knowledge, charts, royal finance and armed ocean-going ships gave small western kingdoms direct strategic access to routes and markets far beyond the reach of any European army on land.",
+      "thesisSource": "current-journey",
+      "thesisStatus": "LOCKED_NATIVE_CONTRACT_APPROVED"
+    },
+    {
+      "ordinal": 15,
+      "contentID": "reformation",
+      "title": "The Reformation",
+      "period": "AD 1517–1648",
+      "access": "UNLOCKED_BY_COLLECTION_PURCHASE",
+      "freeAtLaunch": false,
+      "lockedThesis": "Print carried religious argument beyond every chamber appointed to contain it. Rival confessions then built schools, courts, ministries and armies into territorial government; after thirty years of fire, Westphalia preserved a divided Christendom through law.",
+      "thesisSource": "current-journey",
+      "thesisStatus": "LOCKED_NATIVE_CONTRACT_APPROVED"
+    },
+    {
+      "ordinal": 16,
+      "contentID": "habsburg-europe",
+      "title": "Habsburg Europe",
+      "period": "AD 1526–1918",
+      "access": "UNLOCKED_BY_COLLECTION_PURCHASE",
+      "freeAtLaunch": false,
+      "lockedThesis": "The Habsburg monarchy joined old kingdoms, local liberties, imperial service and modern infrastructure without requiring its peoples to become one nation. Its greatest achievement was a common political home capacious enough for several languages, laws and loyalties at once. Total war destroyed that home in 1918.",
+      "thesisSource": "current-journey",
+      "thesisStatus": "LOCKED_NATIVE_CONTRACT_APPROVED"
+    },
+    {
+      "ordinal": 17,
+      "contentID": "scientific-revolution",
+      "title": "The Scientific Revolution",
+      "period": "AD 1543–1700",
+      "access": "UNLOCKED_BY_COLLECTION_PURCHASE",
+      "freeAtLaunch": false,
+      "lockedThesis": "European scholars joined print, exact observation, mathematical proof, crafted instruments and organised criticism into a new power over nature. A claim could be measured, reproduced, attacked and improved by people who had never met. By 1700 knowledge had become cumulative at a scale no earlier intellectual system had achieved.",
+      "thesisSource": "current-journey",
+      "thesisStatus": "LOCKED_NATIVE_CONTRACT_APPROVED"
+    },
+    {
+      "ordinal": 18,
+      "contentID": "dutch-republic",
+      "title": "The Dutch Republic",
+      "period": "AD 1572–1713",
+      "access": "UNLOCKED_BY_COLLECTION_PURCHASE",
+      "freeAtLaunch": false,
+      "lockedThesis": "The Dutch Republic turned divided authority into disciplined cooperation. Provinces, towns, water boards, companies, banks and exchanges gave a small European republic the means to command ships, credit and information across the world.",
+      "thesisSource": "current-journey",
+      "thesisStatus": "LOCKED_NATIVE_CONTRACT_APPROVED"
+    },
+    {
+      "ordinal": 19,
+      "contentID": "enlightenment-public-opinion",
+      "title": "The Enlightenment",
+      "period": "AD 1680–1789",
+      "access": "UNLOCKED_BY_COLLECTION_PURCHASE",
+      "freeAtLaunch": false,
+      "lockedThesis": "Europe’s presses, coffeehouses, journals, salons, clubs, academies and postal routes created a public able to compare laws, customs and rulers. Arguments acquired readers, reputations and pressure beyond the court that first received them. By 1789 public opinion had become a political power.",
+      "thesisSource": "current-journey",
+      "thesisStatus": "LOCKED_NATIVE_CONTRACT_APPROVED"
+    },
+    {
+      "ordinal": 20,
+      "contentID": "rivalry-industrial-breakthrough",
+      "title": "Rivalry and the Industrial Breakthrough",
+      "period": "AD 1709–1862",
+      "access": "UNLOCKED_BY_COLLECTION_PURCHASE",
+      "freeAtLaunch": false,
+      "lockedThesis": "Europe joined coal, experiment, precision manufacture, transport and company law into a system that multiplied power, capital and output. Steam released industry from the limits of muscle and falling water; the registered limited-liability company gathered fortunes large and small behind works no household could finance alone.",
+      "thesisSource": "current-journey",
+      "thesisStatus": "LOCKED_NATIVE_CONTRACT_APPROVED"
+    },
+    {
+      "ordinal": 21,
+      "contentID": "european-world",
+      "title": "The European World",
+      "period": "AD 1802–1914",
+      "access": "FREE",
+      "freeAtLaunch": true,
+      "lockedThesis": "Europe placed the world on schedule. Steam routes, cables, railways, surveys, public-health agreements, postal rules and administrative law carried European power across the earth—and left a connected institutional world where distance had lost its old command.",
+      "thesisSource": "current-journey",
+      "thesisStatus": "LOCKED_NATIVE_CONTRACT_APPROVED"
+    },
+    {
+      "ordinal": 22,
+      "contentID": "europe-at-war",
+      "title": "The European Civil War",
+      "period": "AD 1871–1945",
+      "access": "UNLOCKED_BY_COLLECTION_PURCHASE",
+      "freeAtLaunch": false,
+      "lockedThesis": "Europe’s two world wars were one continental struggle over power, nation, revolution and order. They became world wars because Europe had global reach; at their centre, European industry and administration were turned from engines of civilization into instruments of total war, terror and the murder of Europe’s Jews.",
+      "thesisSource": "current-journey",
+      "thesisStatus": "LOCKED_NATIVE_CONTRACT_APPROVED"
+    },
+    {
+      "ordinal": 23,
+      "contentID": "continent-rebuilt",
+      "title": "The Continent Rebuilt",
+      "period": "AD 1945–1989",
+      "access": "UNLOCKED_BY_COLLECTION_PURCHASE",
+      "freeAtLaunch": false,
+      "lockedThesis": "From the same ruin, Europe took two roads. Western Europe bound American protection, national democracy and economic power inside treaties and law; Soviet power held the east through party and army. In 1989, the eastern nations reclaimed their European future and the roads met.",
+      "thesisSource": "current-journey",
+      "thesisStatus": "LOCKED_NATIVE_CONTRACT_APPROVED"
+    },
+    {
+      "ordinal": 24,
+      "contentID": "europe-returns",
+      "title": "Europe Returns",
+      "period": "AD 1989–20 July 2026",
+      "access": "UNLOCKED_BY_COLLECTION_PURCHASE",
+      "freeAtLaunch": false,
+      "lockedThesis": "The nations freed in 1989 returned to Europe through two distinct institutions: European Union law and markets, and NATO collective defence. Russia answered that settlement with force, and Europe learned again that an open order endures only where sovereign choice can be defended.",
+      "thesisSource": "current-journey",
+      "thesisStatus": "LOCKED_NATIVE_CONTRACT_APPROVED"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+Use case: historical-scene.
+Asset type: NON_SHIPPING low-resolution image-to-image route diagnostic for a portrait native iPhone 2.5D historical scene master.
+Primary request: faithfully reconstruct the supplied portrait composition as an observational early-Neolithic settlement in Thessaly, 6500–6000 BC, preserving its exact camera, depth hierarchy and allocation mechanism.
+
+Keep the full timber-and-thatch canopy, storm, dry sheltered work floor, one finite foreground grain source, winter-food hearth at left, protected reserve at centre, spring-seed work at right, every person and pose, settlement, livestock, fields, mountains, restrained near-black palette and authored light direction. Rain remains confined to the open middle and far distance. Grain, cloth, baskets, hands and storage remain dry.
+
+Materials are rough timber, reed, thatch, straw-tempered clay and plaster, woven plant fibre, hide, hand-built fired pottery, stone, wood and bone. The left hearth uses a low, thick-walled, irregular matte fired-clay cooking vessel seated among the stones, never a metal cauldron. The foreground mound is thousands of naturally small dry hulled einkorn, emmer-wheat and barley kernels, short, narrow, irregular and straw-to-tan with occasional husk fragments.
+
+Resolve coherent faces, hands, wrists, feet, joints, grips, basket joins, roof lashings and animal legs. Preserve natural lens depth and tactile material separation. Darkness frames the evidence; readable midtones reveal work and material; the finite grain and operative storage carry the clearest restrained warm light.
+
+Avoid: metal, wheel-thrown pottery, masonry, glass, writing, later architecture, modern objects, pulses, maize, rice, nuts, pasta, pellets, oversized grain, wet grain, anatomy defects, duplicate limbs, duplicate people, smooth game-render skin, generic digital illustration, fantasy polish, heroic pose, text, number, label, arrow, ring, route, target, icon, interface, sign, symbol, border, watermark, blur padding or incomplete edges.

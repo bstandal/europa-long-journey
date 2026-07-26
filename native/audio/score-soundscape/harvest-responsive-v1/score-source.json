@@ -1,0 +1,304 @@
+{
+  "schemaVersion": 1,
+  "kind": "responsive-symbolic-score",
+  "id": "harvest-responsive-score-v1",
+  "status": "PROVISIONAL_NON_SHIPPING",
+  "shippingState": "PROHIBITED",
+  "output": {
+    "sampleRate": 48000,
+    "bitDepth": 24,
+    "channels": 2,
+    "container": "wav"
+  },
+  "ppq": 960,
+  "meter": {
+    "numerator": 5,
+    "denominator": 4
+  },
+  "tempoBPM": 60,
+  "direction": "An open fifth holds the finite store in place. Three separated grain attacks expose competing claims. A narrow semitone carries resistance. The consequence returns the same material at longer intervals, with no trailer pulse or generic uplift.",
+  "motifs": [
+    {
+      "id": "earth-fifth",
+      "notes": [
+        { "pitch": "D2", "atBeat": 0, "durationBeats": 4.2, "dynamic": "pp", "articulation": "tenuto" },
+        { "pitch": "A2", "atBeat": 0, "durationBeats": 4.2, "dynamic": "pp", "articulation": "tenuto" }
+      ]
+    },
+    {
+      "id": "divided-grain",
+      "notes": [
+        { "pitch": "D4", "atBeat": 0, "durationBeats": 0.35, "dynamic": "p", "articulation": "detached" },
+        { "pitch": "F4", "atBeat": 1.25, "durationBeats": 0.35, "dynamic": "p", "articulation": "detached" },
+        { "pitch": "A4", "atBeat": 3.1, "durationBeats": 0.5, "dynamic": "mp", "articulation": "accent" }
+      ]
+    },
+    {
+      "id": "held-obligation",
+      "notes": [
+        { "pitch": "C3", "atBeat": 0, "durationBeats": 1.8, "dynamic": "pp", "articulation": "legato" },
+        { "pitch": "D3", "atBeat": 2, "durationBeats": 2.2, "dynamic": "p", "articulation": "tenuto" }
+      ]
+    },
+    {
+      "id": "withheld-grain",
+      "notes": [
+        { "pitch": "E4", "atBeat": 0, "durationBeats": 0.5, "dynamic": "p", "articulation": "detached" },
+        { "pitch": "D4", "atBeat": 2.4, "durationBeats": 0.6, "dynamic": "pp", "articulation": "tenuto" }
+      ]
+    },
+    {
+      "id": "resistance-knot",
+      "notes": [
+        { "pitch": "Eb3", "atBeat": 0, "durationBeats": 1, "dynamic": "mp", "articulation": "accent" },
+        { "pitch": "D3", "atBeat": 1.25, "durationBeats": 2.75, "dynamic": "p", "articulation": "tenuto" }
+      ]
+    },
+    {
+      "id": "sealed-store",
+      "notes": [
+        { "pitch": "D3", "atBeat": 0, "durationBeats": 2, "dynamic": "p", "articulation": "tenuto" },
+        { "pitch": "A3", "atBeat": 2.5, "durationBeats": 2, "dynamic": "p", "articulation": "tenuto" },
+        { "pitch": "D4", "atBeat": 5, "durationBeats": 3, "dynamic": "mp", "articulation": "tenuto" }
+      ]
+    },
+    {
+      "id": "returning-field",
+      "notes": [
+        { "pitch": "D4", "atBeat": 0, "durationBeats": 0.8, "dynamic": "pp", "articulation": "tenuto" },
+        { "pitch": "E4", "atBeat": 2, "durationBeats": 0.8, "dynamic": "p", "articulation": "tenuto" },
+        { "pitch": "F4", "atBeat": 4, "durationBeats": 0.8, "dynamic": "p", "articulation": "tenuto" },
+        { "pitch": "A4", "atBeat": 7, "durationBeats": 2, "dynamic": "mp", "articulation": "tenuto" }
+      ]
+    }
+  ],
+  "regions": [
+    {
+      "id": "approach",
+      "timelineID": "harvest-approach-v1",
+      "scoreStateID": "three-claims-emerge",
+      "durationSeconds": 60,
+      "loop": false,
+      "stems": [
+        {
+          "id": "earth",
+          "role": "Open low ground with a full-beat breath between statements",
+          "instrument": { "bank": 0, "program": 43, "label": "Contrabass" },
+          "gainDB": -13,
+          "pan": -0.18,
+          "phrases": [
+            { "motifID": "earth-fifth", "atBeat": 0, "transposeSemitones": 0, "dynamicOffset": -5 },
+            { "motifID": "earth-fifth", "atBeat": 10, "transposeSemitones": 0, "dynamicOffset": -4 },
+            { "motifID": "earth-fifth", "atBeat": 20, "transposeSemitones": 0, "dynamicOffset": -3 },
+            { "motifID": "earth-fifth", "atBeat": 30, "transposeSemitones": 0, "dynamicOffset": -2 },
+            { "motifID": "earth-fifth", "atBeat": 40, "transposeSemitones": 0, "dynamicOffset": -1 },
+            { "motifID": "earth-fifth", "atBeat": 50, "transposeSemitones": 0, "dynamicOffset": 0 }
+          ]
+        },
+        {
+          "id": "grain",
+          "role": "Three dry, separated entries name the competing material claims",
+          "instrument": { "bank": 0, "program": 15, "label": "Dulcimer" },
+          "gainDB": -16,
+          "pan": 0.2,
+          "phrases": [
+            { "motifID": "divided-grain", "atBeat": 6, "transposeSemitones": -12, "dynamicOffset": -8 },
+            { "motifID": "divided-grain", "atBeat": 21, "transposeSemitones": -12, "dynamicOffset": -6 },
+            { "motifID": "divided-grain", "atBeat": 36, "transposeSemitones": -12, "dynamicOffset": -4 },
+            { "motifID": "divided-grain", "atBeat": 51, "transposeSemitones": -12, "dynamicOffset": -2 }
+          ]
+        },
+        {
+          "id": "season",
+          "role": "A restrained bowed line lengthens the obligation beyond the visible field",
+          "instrument": { "bank": 0, "program": 42, "label": "Cello" },
+          "gainDB": -18,
+          "pan": 0.02,
+          "phrases": [
+            { "motifID": "held-obligation", "atBeat": 13, "transposeSemitones": 0, "dynamicOffset": -8 },
+            { "motifID": "held-obligation", "atBeat": 28, "transposeSemitones": 0, "dynamicOffset": -5 },
+            { "motifID": "held-obligation", "atBeat": 43, "transposeSemitones": 0, "dynamicOffset": -2 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "waiting",
+      "timelineID": "harvest-waiting-bed-v1",
+      "scoreStateID": "grain-suspended",
+      "durationSeconds": 15,
+      "loop": true,
+      "stems": [
+        {
+          "id": "earth",
+          "role": "Low store held open while the user reads the three obligations",
+          "instrument": { "bank": 0, "program": 43, "label": "Contrabass" },
+          "gainDB": -17,
+          "pan": -0.18,
+          "phrases": [
+            { "motifID": "earth-fifth", "atBeat": 0, "transposeSemitones": 0, "dynamicOffset": -8 },
+            { "motifID": "earth-fifth", "atBeat": 5, "transposeSemitones": 0, "dynamicOffset": -7 },
+            { "motifID": "earth-fifth", "atBeat": 10, "transposeSemitones": 0, "dynamicOffset": -6 }
+          ]
+        },
+        {
+          "id": "grain",
+          "role": "Sparse material marks without a regular pulse",
+          "instrument": { "bank": 0, "program": 15, "label": "Dulcimer" },
+          "gainDB": -20,
+          "pan": 0.18,
+          "phrases": [
+            { "motifID": "withheld-grain", "atBeat": 1.1, "transposeSemitones": -12, "dynamicOffset": -10 },
+            { "motifID": "divided-grain", "atBeat": 6.2, "transposeSemitones": -12, "dynamicOffset": -10 },
+            { "motifID": "withheld-grain", "atBeat": 11.4, "transposeSemitones": -12, "dynamicOffset": -8 }
+          ]
+        },
+        {
+          "id": "season",
+          "role": "One suspended obligation crossing the centre of the irregular loop",
+          "instrument": { "bank": 0, "program": 42, "label": "Cello" },
+          "gainDB": -21,
+          "pan": 0,
+          "phrases": [
+            { "motifID": "held-obligation", "atBeat": 5.3, "transposeSemitones": 0, "dynamicOffset": -10 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "engaged",
+      "timelineID": "harvest-engaged-bed-v1",
+      "scoreStateID": "grain-in-motion",
+      "durationSeconds": 15,
+      "loop": true,
+      "stems": [
+        {
+          "id": "earth",
+          "role": "The same store ground remains while individual shares move",
+          "instrument": { "bank": 0, "program": 43, "label": "Contrabass" },
+          "gainDB": -16,
+          "pan": -0.18,
+          "phrases": [
+            { "motifID": "earth-fifth", "atBeat": 0, "transposeSemitones": 0, "dynamicOffset": -7 },
+            { "motifID": "earth-fifth", "atBeat": 5, "transposeSemitones": 0, "dynamicOffset": -6 },
+            { "motifID": "earth-fifth", "atBeat": 10, "transposeSemitones": 0, "dynamicOffset": -5 }
+          ]
+        },
+        {
+          "id": "grain",
+          "role": "Irregular dry attacks answer material transfer without becoming a beat grid",
+          "instrument": { "bank": 0, "program": 15, "label": "Dulcimer" },
+          "gainDB": -14,
+          "pan": 0.2,
+          "phrases": [
+            { "motifID": "withheld-grain", "atBeat": 0.8, "transposeSemitones": -12, "dynamicOffset": -7 },
+            { "motifID": "divided-grain", "atBeat": 4.2, "transposeSemitones": -12, "dynamicOffset": -7 },
+            { "motifID": "withheld-grain", "atBeat": 8.6, "transposeSemitones": -12, "dynamicOffset": -5 },
+            { "motifID": "divided-grain", "atBeat": 11.1, "transposeSemitones": -12, "dynamicOffset": -6 }
+          ]
+        },
+        {
+          "id": "season",
+          "role": "The long obligation line remains under the user's local allocation rhythm",
+          "instrument": { "bank": 0, "program": 42, "label": "Cello" },
+          "gainDB": -19,
+          "pan": 0,
+          "phrases": [
+            { "motifID": "held-obligation", "atBeat": 2.7, "transposeSemitones": 0, "dynamicOffset": -8 },
+            { "motifID": "held-obligation", "atBeat": 8.1, "transposeSemitones": 0, "dynamicOffset": -6 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "resistance",
+      "timelineID": "harvest-resistance-bed-v1",
+      "scoreStateID": "grain-tension",
+      "durationSeconds": 15,
+      "loop": true,
+      "stems": [
+        {
+          "id": "earth",
+          "role": "The finite source remains fixed under rejected allocation pressure",
+          "instrument": { "bank": 0, "program": 43, "label": "Contrabass" },
+          "gainDB": -15,
+          "pan": -0.2,
+          "phrases": [
+            { "motifID": "earth-fifth", "atBeat": 0, "transposeSemitones": 0, "dynamicOffset": -6 },
+            { "motifID": "earth-fifth", "atBeat": 5, "transposeSemitones": 0, "dynamicOffset": -5 },
+            { "motifID": "earth-fifth", "atBeat": 10, "transposeSemitones": 0, "dynamicOffset": -4 }
+          ]
+        },
+        {
+          "id": "grain",
+          "role": "A narrowed semitone identifies material resistance without alarm scoring",
+          "instrument": { "bank": 0, "program": 70, "label": "Bassoon" },
+          "gainDB": -17,
+          "pan": 0.12,
+          "phrases": [
+            { "motifID": "resistance-knot", "atBeat": 1.8, "transposeSemitones": 0, "dynamicOffset": -6 },
+            { "motifID": "resistance-knot", "atBeat": 6.9, "transposeSemitones": 0, "dynamicOffset": -4 },
+            { "motifID": "resistance-knot", "atBeat": 11, "transposeSemitones": 0, "dynamicOffset": -3 }
+          ]
+        },
+        {
+          "id": "season",
+          "role": "The obligation line refuses harmonic release until the local state returns",
+          "instrument": { "bank": 0, "program": 42, "label": "Cello" },
+          "gainDB": -18,
+          "pan": -0.04,
+          "phrases": [
+            { "motifID": "held-obligation", "atBeat": 4.5, "transposeSemitones": 0, "dynamicOffset": -6 },
+            { "motifID": "held-obligation", "atBeat": 9.7, "transposeSemitones": 0, "dynamicOffset": -5 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "consequence",
+      "timelineID": "harvest-consequence-v1",
+      "scoreStateID": "store-sealed-field-returning",
+      "durationSeconds": 50,
+      "loop": false,
+      "stems": [
+        {
+          "id": "earth",
+          "role": "The low ground returns at wider intervals after the distribution is sealed",
+          "instrument": { "bank": 0, "program": 43, "label": "Contrabass" },
+          "gainDB": -16,
+          "pan": -0.18,
+          "phrases": [
+            { "motifID": "earth-fifth", "atBeat": 0, "transposeSemitones": 0, "dynamicOffset": -8 },
+            { "motifID": "earth-fifth", "atBeat": 18, "transposeSemitones": 0, "dynamicOffset": -6 },
+            { "motifID": "earth-fifth", "atBeat": 34, "transposeSemitones": 0, "dynamicOffset": -4 },
+            { "motifID": "earth-fifth", "atBeat": 44, "transposeSemitones": 0, "dynamicOffset": -3 }
+          ]
+        },
+        {
+          "id": "grain",
+          "role": "The divided motif becomes a slower sealed-store statement",
+          "instrument": { "bank": 0, "program": 15, "label": "Dulcimer" },
+          "gainDB": -17,
+          "pan": 0.16,
+          "phrases": [
+            { "motifID": "sealed-store", "atBeat": 1, "transposeSemitones": -12, "dynamicOffset": -8 },
+            { "motifID": "sealed-store", "atBeat": 18, "transposeSemitones": -12, "dynamicOffset": -6 },
+            { "motifID": "sealed-store", "atBeat": 32, "transposeSemitones": -12, "dynamicOffset": -4 },
+            { "motifID": "sealed-store", "atBeat": 42, "transposeSemitones": -12, "dynamicOffset": -3 }
+          ]
+        },
+        {
+          "id": "season",
+          "role": "A sparse field-return line arrives after the authored seasonal silence",
+          "instrument": { "bank": 0, "program": 42, "label": "Cello" },
+          "gainDB": -18,
+          "pan": 0.04,
+          "phrases": [
+            { "motifID": "returning-field", "atBeat": 22, "transposeSemitones": -12, "dynamicOffset": -8 },
+            { "motifID": "returning-field", "atBeat": 38, "transposeSemitones": -12, "dynamicOffset": -5 }
+          ]
+        }
+      ]
+    }
+  ]
+}

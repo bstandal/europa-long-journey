@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "status": "CODEX_CHATTERBOX_TURBO_FP16_CONVERTED_RUNTIME_PREFLIGHT_COMPLETE",
+  "purpose": "Pinned MLX runtime representation for the zero-cost nonshipping Chatterbox-Turbo comparison lab; never voice promotion or shipping approval",
+  "convertedSnapshot": {
+    "modelID": "mlx-community/chatterbox-turbo-fp16",
+    "repository": "https://huggingface.co/mlx-community/chatterbox-turbo-fp16",
+    "revision": "b2d0a13aa7cfff0a06d9acb247ae91c8f19a6d75",
+    "private": false,
+    "gated": false,
+    "declaredLibrary": "mlx-audio",
+    "declaredConversionRuntime": "mlx-audio 0.2.8",
+    "declaredSourceModelID": "ResembleAI/chatterbox-turbo",
+    "exactSourceRevisionDeclaredByConversionCard": false,
+    "language": "English",
+    "snapshotBytes": 2987621715,
+    "snapshotDecimalGB": 2.987621715,
+    "snapshotGiB": 2.782439
+  },
+  "licenses": {
+    "convertedRepository": {
+      "license": "Apache-2.0",
+      "basis": "The pinned repository metadata and pinned model-card front matter both declare apache-2.0. Apache-2.0 permits commercial use, modification and redistribution subject to its notice and licence conditions.",
+      "modelCardBytes": 2023,
+      "modelCardSHA256": "453eb1843f39ad0d017f09c82387de7ff8600f9e366116971e132e1fee6d0d97"
+    },
+    "officialUnderlyingModel": {
+      "modelID": "ResembleAI/chatterbox-turbo",
+      "pinnedOfficialRevision": "749d1c1a46eb10492095d68fbcf55691ccf137cd",
+      "license": "MIT",
+      "officialPreflightPath": "native/audio/narration/chatterbox-turbo-spike-preflight.json",
+      "officialPreflightBytes": 4459,
+      "officialPreflightSHA256": "1933dd9b29770319ccebb75c5b9350ac3ad2e95ba7f79db6d60058f6e1cd3605"
+    },
+    "commercialUseAndRedistribution": {
+      "clearForPinnedConvertedBytes": true,
+      "basis": "The converted repository is distributed under Apache-2.0 and the official underlying model is distributed under MIT. Required notices remain mandatory for any future redistribution. This preflight authorises only a local nonshipping comparison spike."
+    }
+  },
+  "expectedFiles": [
+    {
+      "path": ".gitattributes",
+      "bytes": 1519,
+      "sha256": "11ad7efa24975ee4b0c3c3a38ed18737f0658a5f75a0a96787b576a78a023361"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2023,
+      "sha256": "453eb1843f39ad0d017f09c82387de7ff8600f9e366116971e132e1fee6d0d97"
+    },
+    {
+      "path": "added_tokens.json",
+      "bytes": 418,
+      "sha256": "72e4ab6acb0d9309ac3df4b526ae5fd80a2da5bc5ab7bb02d85096a374f69193"
+    },
+    {
+      "path": "conds.safetensors",
+      "bytes": 164884,
+      "sha256": "df9ad2c54848027d94cf01f9fc0ed22bc5d3165df6e6a85c903c1124b8a78a4a"
+    },
+    {
+      "path": "config.json",
+      "bytes": 2059,
+      "sha256": "aacce8af47c9c930636e47da981339fe0d30e08623d19226aa9a43bd3425b736"
+    },
+    {
+      "path": "merges.txt",
+      "bytes": 456318,
+      "sha256": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5"
+    },
+    {
+      "path": "model.safetensors",
+      "bytes": 2985990960,
+      "sha256": "9f70328a3f6c5257257aea76e9b14c34d8225745d133e4c1e83aa31f3f72a80b"
+    },
+    {
+      "path": "special_tokens_map.json",
+      "bytes": 470,
+      "sha256": "92ba8063bf40aa163eadebbfe0de07c2aebe44cf0d4a9e8726580b0781fd2640"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "bytes": 3878,
+      "sha256": "bca16a2ac1ddbd78b8d6228f0031884cc74b6ea54b967d6f6d2ebae9ccde23e6"
+    },
+    {
+      "path": "vocab.json",
+      "bytes": 999186,
+      "sha256": "f6bd25a65e4e63ca31360e9fb11c7e4f9a391a78385d640acd814092dd6eee4f"
+    }
+  ],
+  "runtimeDependencies": {
+    "mlxAudio": {
+      "version": "0.4.5",
+      "license": "MIT",
+      "uvLockSHA256": "db9a1340d7b9fbdb943d791aad3162e020c66a8212f2e4c129722e2dcd4535dc"
+    },
+    "s3Tokenizer": {
+      "modelID": "mlx-community/S3TokenizerV2",
+      "revision": "e0c9886f0e1c35ae85b1f27277416fb19fc72bec",
+      "snapshotReceiptPath": "native/audio/narration/chatterbox-s3tokenizer-snapshot.receipt.json",
+      "snapshotReceiptBytes": 1540,
+      "snapshotReceiptSHA256": "cb39bbd808c282372289025b0f1865f3c1cd3db9d3435188055b81aaf05f70ed"
+    }
+  },
+  "downloadPreflight": {
+    "availableBytesBeforeDownload": 524349407232,
+    "availableGiBBeforeDownload": 488.338552,
+    "availableToExpectedRatio": 175.505639,
+    "sufficientLocalSpace": true,
+    "cacheLocation": "/Users/bard/.cache/huggingface/hub",
+    "telemetryProhibited": true,
+    "paidAPIProhibited": true,
+    "incrementalCostNOK": 0
+  },
+  "lineageGate": {
+    "convertedBytesMayEnterComparisonLab": true,
+    "convertedBytesMayBecomeV7ProductionParentBeforeExactConversionLineageIsResolved": false,
+    "requiredIfComparisonWins": "Reproduce or otherwise bind the conversion to exact official source bytes before any V7 production-parent decision."
+  },
+  "spikeGate": {
+    "properConvertedWeightsRequired": true,
+    "directLoadingOfOfficialPyTorchLayoutIntoMLXProhibited": true,
+    "representativeUtteranceASRRequired": true,
+    "windowedLongFormASRRequired": true,
+    "silenceIdentitySeamTempoGatesCannotBeLowered": true,
+    "editorVoiceSelection": false,
+    "artisticApproval": false,
+    "shippingApproval": false
+  }
+}
