@@ -6,7 +6,6 @@ import "@fontsource/manrope/500.css";
 import "@fontsource/manrope/600.css";
 import "../styles/global.css";
 import IconSprite from "../components/IconSprite.astro";
-import AnalyticsConsent from "../components/AnalyticsConsent.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 
 type Props = {
@@ -73,9 +72,5 @@ const socialImage = new URL(
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <slot />
     <SiteFooter />
-    <AnalyticsConsent />
-    <script>
-      import "../scripts/analytics";
-    </script>
   </body>
 </html>
