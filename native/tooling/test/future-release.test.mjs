@@ -206,6 +206,10 @@ function launchConfiguration() {
       chapters: chapterIDs.map((contentID) => ({ contentID })),
     },
     delivery: {
+      budgets: {
+        responsiveAudioSteadyDecodedBytes: 100_000_000,
+        responsiveAudioTransitionDecodedBytes: 200_000_000,
+      },
       packages: Array.from({ length: 8 }, (_, index) => ({
         packageID: `launch-package-${index + 1}`,
         chapterIDs: chapterIDs.slice(index * 3, index * 3 + 3),
@@ -562,6 +566,17 @@ test("backstage approval binds Release, payload, publication and world authority
       "f".repeat(64),
     ),
     /save-migration authority digest does not match/,
+  );
+});
+
+test("future release requires the locked decoded-audio budget authority", async () => {
+  const fixture = await createFutureSource();
+  const options = validationOptions(fixture);
+  options.launchConfiguration.delivery.budgets
+    .responsiveAudioTransitionDecodedBytes = 0;
+  await assert.rejects(
+    () => validateFutureReleaseSource(fixture.source, options),
+    /valid steady and transition budgets required/,
   );
 });
 

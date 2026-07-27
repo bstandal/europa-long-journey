@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "protocolID": "port1-physical-device-v1",
   "status": "LOCKED_PENDING_PHYSICAL_EXECUTION",
-  "scope": "Harvest production scene and its signed non-shipping package",
+  "scope": "Harvest production scene and the complete First Farmers chapter in their exact signed packages",
   "device": {
     "minimumModel": "iPhone 15 Pro",
     "minimumOSMajor": 26,
@@ -56,9 +56,17 @@
   "runOrder": [
     {
       "runID": "cold-restore",
-      "repetitions": 5,
+      "repetitions": 6,
       "durationMinutes": 0,
-      "purpose": "Restore the same mid-interaction checkpoint after a hard kill."
+      "purpose": "Restore one registered mid-interaction checkpoint for each of the six principal First Farmers interactions after a hard kill.",
+      "requiredInteractionIDs": [
+        "interaction-first-farmers-a-household-crosses",
+        "interaction-first-farmers-the-harvest-had-to-last",
+        "interaction-first-farmers-at-the-iron-gates",
+        "interaction-first-farmers-the-house-outlives",
+        "interaction-first-farmers-more-mouths-more-land",
+        "interaction-first-farmers-a-continent-remade"
+      ]
     },
     {
       "runID": "interaction-latency",
@@ -70,13 +78,25 @@
       "runID": "static-reference",
       "repetitions": 3,
       "durationMinutes": 30,
-      "purpose": "Run the signed build's fixed static reference frame with the same brightness and audio route."
+      "purpose": "Run the signed build's fixed static reference frame paired with Harvest, with the same brightness and audio route."
+    },
+    {
+      "runID": "first-farmers-static-reference",
+      "repetitions": 3,
+      "durationMinutes": 30,
+      "purpose": "Run the signed build's fixed static reference frame paired with the complete First Farmers traversal, with the same brightness and audio route."
     },
     {
       "runID": "harvest-sustained",
       "repetitions": 3,
       "durationMinutes": 30,
       "purpose": "Loop the complete authored Harvest scene, including renderer, audio and haptics."
+    },
+    {
+      "runID": "first-farmers-sustained",
+      "repetitions": 3,
+      "durationMinutes": 30,
+      "purpose": "Traverse the complete 28-minute First Farmers chapter at authored pacing, including every scene, interaction, transition, narration, responsive audio and haptic consequence."
     },
     {
       "runID": "audio-restoration",
@@ -124,6 +144,16 @@
     "pairedBatteryRunsRequired": 3,
     "medianDeterminesBatteryResult": true,
     "appAndReferenceRunMustAlternate": true,
+    "pairedRunSets": [
+      {
+        "referenceRunID": "static-reference",
+        "appRunID": "harvest-sustained"
+      },
+      {
+        "referenceRunID": "first-farmers-static-reference",
+        "appRunID": "first-farmers-sustained"
+      }
+    ],
     "minimumCoolDownMinutesBetweenRuns": 20
   },
   "resultContract": {
@@ -145,5 +175,19 @@
     "localTimingScope": "COMMAND_BUFFER_AND_GPU_COMPLETION_PROXY_ONLY",
     "actualDisplayGateSource": "RETAINED_METAL_SYSTEM_TRACE",
     "networkingProhibited": true
+  },
+  "firstFarmersEvidenceContract": {
+    "schemaPath": "quality/schemas/first-farmers-physical-evidence.schema.json",
+    "validatorPath": "scripts/validate-first-farmers-physical-evidence.mjs",
+    "requiredStatus": "PASS",
+    "chapterID": "first-farmers",
+    "productionPackageID": "essential-free-v1",
+    "requiredBeatCount": 17,
+    "requiredInteractionCount": 6,
+    "requiredBatteryPairs": 3,
+    "requiredColdRestoreCases": 6,
+    "minimumSustainedDurationSeconds": 1800,
+    "traceArtifactHashKind": "RETAINED_TRACE_ARCHIVE_FILE_SHA256",
+    "missingEvidenceFails": true
   }
 }

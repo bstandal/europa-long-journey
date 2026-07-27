@@ -5,7 +5,9 @@
     "shellAndEngineBytes": 100000000,
     "essentialInstallBytes": 750000000,
     "perPaidPackageBytes": 750000000,
-    "completeInstalledWorkBytes": 6000000000
+    "completeInstalledWorkBytes": 6000000000,
+    "responsiveAudioSteadyDecodedBytes": 100000000,
+    "responsiveAudioTransitionDecodedBytes": 200000000
   },
   "entitlement": {
     "entitlementID": "launch-complete-work",

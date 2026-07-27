@@ -25,28 +25,56 @@
       "sha256": "0580c37949a3dc735148cd166c2cde8ae819ceda3406be2292152859c2b348a6"
     },
     {
+      "path": "native/audio/score-soundscape/harvest-responsive-v1/render-receipt.json",
+      "sha256": "85f5b802716e804ab26b4435964af52ac89ee20f9ae7561c6ff18c8383d6e38c"
+    },
+    {
       "path": "native/audio/score-soundscape/longhouse-responsive-v1/longhouse-responsive-work-object.json",
       "sha256": "3988bd147135469fd851cf37d3e0d28b50d0bf70e469c6e0067a5591a78f871b"
+    },
+    {
+      "path": "native/audio/score-soundscape/longhouse-responsive-v1/render-receipt.json",
+      "sha256": "3749f218603431c9d1fbd706d7e4816dc00b85c56056e4eb38dd2fbc99ca1993"
     },
     {
       "path": "native/audio/score-soundscape/continent-remade-responsive-v1/continent-remade-responsive-work-object.json",
       "sha256": "2b3a850e8e398faa720cdf4b574dc209763b538fad3aa477e3f9801d90d43f89"
     },
     {
+      "path": "native/audio/score-soundscape/continent-remade-responsive-v1/render-receipt.json",
+      "sha256": "2eb9647c48e9a46b47fc070eabd9dd3afd3567e02860642f87084da09c2165b8"
+    },
+    {
       "path": "native/audio/score-soundscape/more-mouths-responsive-v1/more-mouths-responsive-work-object.json",
       "sha256": "c8eb8c6cb395f6cb3b5bd791321c7355aceef034eb46f8d9281f5902d2105362"
     },
     {
+      "path": "native/audio/score-soundscape/more-mouths-responsive-v1/render-receipt.json",
+      "sha256": "3a313680830634629cd385da262ceee872813a31fba070ab8b95fb90ad133ec7"
+    },
+    {
       "path": "native/audio/score-soundscape/household-crosses-responsive-v1/household-crosses-responsive-work-object.json",
       "sha256": "95d73e6b63407da48fe0d83ff914247ad1fef44c0e153d0e30dbbc44cda1cb7b"
+    },
+    {
+      "path": "native/audio/score-soundscape/household-crosses-responsive-v1/render-receipt.json",
+      "sha256": "ca9318db16481a213b62bea26dd4eda80be32e4fcbc7e2546c5ec7a9511c3914"
+    },
+    {
+      "path": "native/audio/score-soundscape/three-records-responsive-v1/three-records-responsive-work-object.json",
+      "sha256": "17c97cf5142da179a82ad96ee383aaf13ac5b4f9dc3430a9a790ae89ea2ee22d"
+    },
+    {
+      "path": "native/audio/score-soundscape/three-records-responsive-v1/render-receipt.json",
+      "sha256": "093c900991c956da6f3709da63b4c1e171f891ad2f67faeae1706e7279ff6e2e"
     }
   ],
   "payloadPath": "native/phase2/generated/first-farmers.content-package.json",
-  "payloadSHA256": "4a97922988430702f964d14902350892a7b90c565d1d41db9990869d1a6e4399",
+  "payloadSHA256": "f3a459d72799bb2ee34a24e98fd164ea42c79186a13e60a67d75eaf58d89999d",
   "assetRequirementsPath": "native/phase2/generated/first-farmers.asset-requirements.json",
-  "assetRequirementsSHA256": "24b43c4911e4effd579b62e35807bcec6bbe8f11696cbcde378ce0f99a7acd05",
+  "assetRequirementsSHA256": "58ab0efc1a966112a288e71c28516f5e42382ecc600016c4e06b0777d92b2395",
   "manuscriptSHA256": "b5e02472a72bf1e228e79907f4ec4f62eb0ac973341eeacc2e655690ce7fd805",
-  "assetPathSetSHA256": "c9493dd0b238ce7e62691a0f1fe73816320df8393bd228e212de5db16773a808",
+  "assetPathSetSHA256": "9c1908cae1c90c6653d5561ac2509d4db60dcc72fefd22de143b629b34950d45",
   "counts": {
     "chapters": 1,
     "arcs": 3,
@@ -56,19 +84,19 @@
     "runtimeVisualBindings": 6,
     "audioTimelines": 47,
     "responsiveAudioPrograms": 6,
-    "provisionalResponsiveAudioPrograms": 5,
-    "placeholderResponsiveAudioPrograms": 1,
+    "provisionalResponsiveAudioPrograms": 6,
+    "placeholderResponsiveAudioPrograms": 0,
     "narrationCues": 37,
-    "nonNarrationAudioCues": 166,
-    "hapticEvents": 19,
+    "nonNarrationAudioCues": 181,
+    "hapticEvents": 0,
     "accessibilitySpecs": 17,
-    "assetRequirements": 777
+    "assetRequirements": 778
   },
   "wireProof": {
     "canonicalValidator": "validateContentPackagePayload",
     "harvestSceneReuse": "EXACT_PHASE1_SCENE_WITH_ACCESSIBILITY_ID_REBOUND",
     "futureAssetState": "INTENTIONALLY_ABSENT_AND_COMPILATION_BLOCKING",
-    "interactiveAudioState": "SIX_PROGRAMS_WIRED_FIVE_PROVISIONAL_AUTHORED_PROGRAMS_ONE_EXPLICIT_NON_SHIPPING_REQUIREMENT_PLACEHOLDER",
+    "interactiveAudioState": "SIX_PROVISIONAL_AUTHORED_PROGRAMS_WIRED_WITH_ZERO_REQUIREMENT_PLACEHOLDERS",
     "hapticVocabulary": [
       "contact",
       "drag",
@@ -77,6 +105,17 @@
       "break",
       "seal"
     ]
+  },
+  "audioTechnicalProof": {
+    "responsivePrograms": 6,
+    "responsiveTimelines": 30,
+    "responsiveRuntimeAssets": 91,
+    "provisionalPCMBytes": 750820004,
+    "offlineAssetBinding": "PASS_RENDER_RECEIPTS_AND_PACKAGE_RELATIVE_PATHS",
+    "snapshotRestoreContract": "PASS_COMMON_RUNTIME_BOUND_BY_EACH_WORK_OBJECT",
+    "timedInteractionHaptics": "NONE_RUNTIME_SEMANTICS_ONLY",
+    "narrationState": "OPEN_EDITOR_SELECTED_VOICE_AND_EXACT_ALIGNMENT",
+    "shippingDeliveryEncodingAndDeviceBudget": "OPEN_PROVISIONAL_PCM_MASTERS"
   },
   "claimsExcluded": [
     "editor approval",

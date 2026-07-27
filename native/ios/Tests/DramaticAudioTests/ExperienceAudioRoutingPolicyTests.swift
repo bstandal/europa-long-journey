@@ -222,6 +222,367 @@ final class ExperienceAudioRoutingPolicyTests: XCTestCase {
 
 #if os(iOS)
 final class NativeExperiencePreferenceRoutingTests: XCTestCase {
+    @MainActor
+    func testTransportGateUsesExactInitialBudgetAndResumeRejectsOldEpoch()
+        async throws {
+        let directory = try temporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        try writeAudioFile(
+            to: directory.appendingPathComponent("durability.caf"),
+            channelCount: 2,
+            frameCount: 24_000,
+            constantAmplitude: 0.5
+        )
+        let timeline = oneShotTimeline(
+            id: "durability-budget",
+            path: "durability.caf",
+            durationSamples: 24_000,
+            includesHaptic: false
+        )
+        let transport = NativeTimelineTransport()
+        try transport.enableManualRenderingForTesting()
+        try transport.prepareResponsiveAudio(
+            plan: oneShotTransportPlan(timeline: timeline),
+            resolver: PackageRootAudioAssetResolver(packageRootURL: directory)
+        )
+        XCTAssertTrue(
+            transport.everyPreparedGainNodeUsesDurabilityGateForTesting
+        )
+
+        try transport.play()
+        let firstBinding = try transport.activeAudioCursorBinding()
+        XCTAssertEqual(firstBinding.renderedGraphSampleRate, 48_000)
+        XCTAssertNil(firstBinding.scheduledMappingGeneration)
+        let initialCapture = try await Task.detached {
+            try firstBinding.feed.capture()
+        }.value
+        XCTAssertEqual(initialCapture.snapshot.timelineID, timeline.id)
+        XCTAssertEqual(initialCapture.snapshot.cursorSample, 0)
+        XCTAssertEqual(initialCapture.renderedGraphSample, 0)
+        XCTAssertEqual(
+            initialCapture.mappingGeneration,
+            firstBinding.currentMappingGeneration
+        )
+        XCTAssertFalse(
+            firstBinding.gateToken.authorizeAudio(
+                throughRenderedGraphSample: 11_999
+            )
+        )
+        XCTAssertTrue(
+            firstBinding.gateToken.authorizeAudio(
+                throughRenderedGraphSample: 12_000
+            )
+        )
+
+        let permitted = try transport.renderOfflineSamplesForTesting(12_000)
+        XCTAssertTrue(permitted.joined().contains { abs($0) > 0.01 })
+        let drained = try transport.renderOfflineSamplesForTesting(4_096)
+        XCTAssertTrue(
+            drained.joined().suffix(512).allSatisfy {
+                abs($0) < 0.000_001
+            }
+        )
+        XCTAssertFalse(
+            firstBinding.gateToken.authorizeAudio(
+                throughRenderedGraphSample: 24_000
+            )
+        )
+
+        _ = try transport.pause()
+        XCTAssertFalse(
+            firstBinding.gateToken.claimCapture(
+                atRenderedGraphSample: 12_000
+            )
+        )
+        do {
+            _ = try await Task.detached {
+                try firstBinding.feed.capture()
+            }.value
+            XCTFail("A stopped epoch retained a cursor feed")
+        } catch let error as NativeAudioCursorFeedError {
+            XCTAssertEqual(error, .unavailable)
+        }
+
+        try transport.resume()
+        let resumedBinding = try transport.activeAudioCursorBinding()
+        XCTAssertGreaterThan(
+            resumedBinding.gateToken.epoch,
+            firstBinding.gateToken.epoch
+        )
+        XCTAssertFalse(
+            firstBinding.gateToken.authorizeAudio(
+                throughRenderedGraphSample: 48_000
+            )
+        )
+        XCTAssertTrue(
+            resumedBinding.gateToken.authorizeAudio(
+                throughRenderedGraphSample: 36_000
+            )
+        )
+        transport.stop()
+    }
+
+    @MainActor
+    func testInPlaceAndReplacementTransitionsKeepOneDurabilityEpoch()
+        throws {
+        let directory = try temporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        for path in [
+            "waiting-score.caf", "engaged-score.caf", "river.caf", "work.caf",
+        ] {
+            try writeAudioFile(
+                to: directory.appendingPathComponent(path),
+                channelCount: 2,
+                frameCount: 4_800,
+                constantAmplitude: 0.2
+            )
+        }
+        let resolver = PackageRootAudioAssetResolver(packageRootURL: directory)
+        let waiting = causalTimeline(phase: .waiting)
+        let engaged = causalTimeline(phase: .engaged)
+        let transport = NativeTimelineTransport()
+        try transport.enableManualRenderingForTesting()
+        try transport.prepareResponsiveAudio(
+            plan: causalTransportPlan(
+                timeline: waiting,
+                phase: .waiting,
+                completedStageCount: 0,
+                workGain: 0,
+                cursorSample: 0,
+                loopIteration: 0
+            ),
+            resolver: resolver
+        )
+        try transport.play()
+        let initial = try transport.activeAudioCursorBinding()
+
+        _ = try transport.transitionResponsiveAudio(
+            to: causalTransportPlan(
+                timeline: waiting,
+                phase: .waiting,
+                completedStageCount: 1,
+                workGain: 0.4,
+                cursorSample: 0,
+                loopIteration: 0
+            ),
+            resolver: resolver,
+            validateBeforeCommit: { _ in }
+        )
+        let inPlace = try transport.activeAudioCursorBinding()
+        XCTAssertEqual(inPlace.gateToken.epoch, initial.gateToken.epoch)
+        XCTAssertNotEqual(
+            inPlace.currentMappingGeneration,
+            initial.currentMappingGeneration
+        )
+        XCTAssertNil(inPlace.scheduledMappingGeneration)
+
+        _ = try transport.transitionResponsiveAudio(
+            to: causalTransportPlan(
+                timeline: engaged,
+                phase: .engaged,
+                completedStageCount: 1,
+                workGain: 0.4,
+                cursorSample: 0,
+                loopIteration: 0
+            ),
+            resolver: resolver,
+            validateBeforeCommit: { _ in }
+        )
+        let replacement = try transport.activeAudioCursorBinding()
+        XCTAssertEqual(replacement.gateToken.epoch, initial.gateToken.epoch)
+        XCTAssertEqual(
+            replacement.currentMappingGeneration,
+            inPlace.currentMappingGeneration
+        )
+        XCTAssertNotNil(replacement.scheduledMappingGeneration)
+        XCTAssertTrue(
+            transport.everyPreparedGainNodeUsesDurabilityGateForTesting
+        )
+        transport.stop()
+    }
+
+    @MainActor
+    func testAutomaticSuccessorMappingIsPublishedBeforePhysicalBoundary()
+        async throws {
+        let directory = try temporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        for path in ["approach.caf", "waiting.caf"] {
+            try writeAudioFile(
+                to: directory.appendingPathComponent(path),
+                channelCount: 2,
+                frameCount: 4_800,
+                constantAmplitude: 0.2
+            )
+        }
+        let approach = oneShotTimeline(
+            id: "raw-feed-approach",
+            path: "approach.caf",
+            durationSamples: 4_800,
+            includesHaptic: false
+        )
+        let waiting = oneShotTimeline(
+            id: "raw-feed-waiting",
+            path: "waiting.caf",
+            durationSamples: 4_800,
+            includesHaptic: false
+        )
+        let successor = ResponsiveAudioTimelineTransportPlan(
+            timeline: waiting,
+            cursorSample: 0,
+            loopIteration: 0,
+            repetition: .loop(iteration: 0, durationSamples: 4_800),
+            causalMix: nil
+        )
+        let resolver = PackageRootAudioAssetResolver(packageRootURL: directory)
+        let transport = NativeTimelineTransport()
+        try transport.enableManualRenderingForTesting()
+        try transport.prepareResponsiveAudio(
+            plan: ResponsiveAudioTimelineTransportPlan(
+                timeline: approach,
+                cursorSample: 4_799,
+                loopIteration: 0,
+                repetition: .once,
+                causalMix: nil
+            ),
+            resolver: resolver
+        )
+        try transport.configureAutomaticBoundary(
+            successorPlan: successor,
+            resolver: resolver,
+            handler: { _ in }
+        )
+        try transport.play()
+
+        let binding = try transport.activeAudioCursorBinding()
+        let successorGeneration = try XCTUnwrap(
+            binding.scheduledMappingGeneration
+        )
+        let before = try await Task.detached {
+            try binding.feed.capture()
+        }.value
+        XCTAssertEqual(before.snapshot.timelineID, approach.id)
+        XCTAssertEqual(before.snapshot.cursorSample, 4_799)
+        XCTAssertEqual(before.mappingGeneration, binding.currentMappingGeneration)
+
+        let boundary = try XCTUnwrap(
+            transport.automaticCursorBoundaryForTesting
+        )
+        transport.publishRenderClockAnchorForTesting(
+            graphSampleEnd: boundary,
+            hostTimeAtGraphSampleEnd: nil
+        )
+        let crossed = try await Task.detached {
+            try binding.feed.capture()
+        }.value
+        XCTAssertEqual(crossed.renderedGraphSample, boundary)
+        XCTAssertEqual(crossed.snapshot.timelineID, waiting.id)
+        XCTAssertEqual(crossed.snapshot.cursorSample, 0)
+        XCTAssertEqual(crossed.snapshot.loopIteration, 0)
+        XCTAssertEqual(crossed.mappingGeneration, successorGeneration)
+        // No MainActor promotion was needed to obtain the physical mapping.
+        XCTAssertEqual(transport.preparedPlanForTesting?.timelineID, approach.id)
+        XCTAssertTrue(
+            transport.everyPreparedGainNodeUsesDurabilityGateForTesting
+        )
+        transport.stop()
+    }
+
+    @MainActor
+    func testReplacementAndAutomaticCompletionKeepEveryQueuedCursorMapping()
+        async throws {
+        let directory = try temporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        for path in ["interaction.caf", "consequence.caf"] {
+            try writeAudioFile(
+                to: directory.appendingPathComponent(path),
+                channelCount: 2,
+                frameCount: 4_800,
+                constantAmplitude: 0.2
+            )
+        }
+        let interaction = oneShotTimeline(
+            id: "queued-interaction",
+            path: "interaction.caf",
+            includesHaptic: false
+        )
+        let consequence = oneShotTimeline(
+            id: "queued-consequence",
+            path: "consequence.caf",
+            includesHaptic: false
+        )
+        let resolver = PackageRootAudioAssetResolver(packageRootURL: directory)
+        let transport = NativeTimelineTransport()
+        try transport.enableManualRenderingForTesting()
+        try transport.prepareResponsiveAudio(
+            plan: ResponsiveAudioTimelineTransportPlan(
+                timeline: interaction,
+                cursorSample: 0,
+                loopIteration: 0,
+                repetition: .loop(iteration: 0, durationSamples: 4_800),
+                causalMix: nil
+            ),
+            resolver: resolver
+        )
+        try transport.play()
+        _ = try transport.transitionResponsiveAudio(
+            to: oneShotTransportPlan(timeline: consequence),
+            resolver: resolver,
+            validateBeforeCommit: { _ in }
+        )
+        try transport.configureAutomaticBoundary(
+            successorPlan: nil,
+            resolver: resolver,
+            handler: { _ in }
+        )
+
+        let binding = try transport.activeAudioCursorBinding()
+        XCTAssertEqual(binding.mappingDescriptors.count, 3)
+        XCTAssertEqual(binding.scheduledMappingGenerations.count, 2)
+        let descriptors = binding.mappingDescriptors
+        XCTAssertEqual(
+            descriptors.map(\.snapshotAtBoundary.timelineID),
+            [interaction.id, consequence.id, consequence.id]
+        )
+        XCTAssertTrue(descriptors[0].snapshotAtBoundary.isPlaying)
+        XCTAssertTrue(descriptors[1].snapshotAtBoundary.isPlaying)
+        XCTAssertFalse(descriptors[2].snapshotAtBoundary.isPlaying)
+        XCTAssertEqual(descriptors[1].snapshotAtBoundary.cursorSample, 0)
+        XCTAssertEqual(descriptors[2].snapshotAtBoundary.cursorSample, 4_800)
+
+        let before = try await Task.detached {
+            try binding.feed.capture()
+        }.value
+        XCTAssertEqual(before.snapshot.timelineID, interaction.id)
+
+        transport.publishRenderClockAnchorForTesting(
+            graphSampleEnd: descriptors[1].graphBoundarySample,
+            hostTimeAtGraphSampleEnd: nil
+        )
+        let consequenceCapture = try await Task.detached {
+            try binding.feed.capture()
+        }.value
+        XCTAssertEqual(consequenceCapture.snapshot.timelineID, consequence.id)
+        XCTAssertEqual(consequenceCapture.snapshot.cursorSample, 0)
+        XCTAssertTrue(consequenceCapture.snapshot.isPlaying)
+        XCTAssertEqual(
+            consequenceCapture.mappingGeneration,
+            descriptors[1].generation
+        )
+
+        transport.publishRenderClockAnchorForTesting(
+            graphSampleEnd: descriptors[2].graphBoundarySample,
+            hostTimeAtGraphSampleEnd: nil
+        )
+        let completed = try await Task.detached {
+            try binding.feed.capture()
+        }.value
+        XCTAssertEqual(completed.snapshot.timelineID, consequence.id)
+        XCTAssertEqual(completed.snapshot.cursorSample, 4_800)
+        XCTAssertFalse(completed.snapshot.isPlaying)
+        XCTAssertEqual(completed.mappingGeneration, descriptors[2].generation)
+        transport.stop()
+    }
+
     func testSampleAccurateGainAudioUnitPassesMonoAndStereoAtAuthoredGain() throws {
         for channelCount: AVAudioChannelCount in [1, 2] {
             let gainNode = try makeStandaloneGainNode(
@@ -1527,6 +1888,11 @@ final class NativeExperiencePreferenceRoutingTests: XCTestCase {
         try transport.enableManualRenderingForTesting()
         try transport.prepareResponsiveAudio(plan: plan(gainOffset: 0), resolver: resolver)
         try transport.play()
+        XCTAssertTrue(
+            try transport.activeAudioCursorBinding().gateToken.authorizeAudio(
+                throughRenderedGraphSample: 20_000
+            )
+        )
         let preroll = try transport.renderOfflineSamplesForTesting(2_048)
         let prerollChannel = try XCTUnwrap(preroll.first)
         let stableInitialAmplitude = prerollChannel
@@ -2875,6 +3241,342 @@ final class NativeExperiencePreferenceRoutingTests: XCTestCase {
             XCTAssertEqual(tail.finishReason, .renderClockConfirmed)
             XCTAssertFalse(transport.engineIsRunningForTesting)
         }
+    }
+
+    @MainActor
+    func testOutgoingTailHapticFailureDoesNotExpandDurabilityAuthority()
+        throws {
+        let directory = try temporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        try writeAudioFile(
+            to: directory.appendingPathComponent("haptic-tail.caf"),
+            channelCount: 2,
+            frameCount: 48_000,
+            constantAmplitude: 0.2
+        )
+        let scheduler = RecordingTimelineHapticScheduler()
+        let transport = NativeTimelineTransport(hapticScheduler: scheduler)
+        try transport.enableManualRenderingForTesting()
+        try transport.prepareResponsiveAudio(
+            plan: oneShotTransportPlan(timeline: oneShotTimeline(
+                id: "haptic-tail-failure",
+                path: "haptic-tail.caf",
+                durationSamples: 48_000,
+                includesHaptic: true
+            )),
+            resolver: PackageRootAudioAssetResolver(packageRootURL: directory)
+        )
+        try transport.play()
+        _ = try transport.renderOfflineSamplesForTesting(64)
+
+        scheduler.failNextScheduledStop = true
+        XCTAssertThrowsError(
+            try transport.relinquishOutgoingAudio(
+                exitPolicy: .boundedFade(durationSamples: 24_000)
+            )
+        ) { error in
+            XCTAssertTrue(error is RecordingTimelineHapticScheduler.Failure)
+        }
+        XCTAssertEqual(transport.state, .playing)
+        XCTAssertTrue(transport.engineIsRunningForTesting)
+        XCTAssertNil(transport.conventionalFadeForTesting("score"))
+
+        // The failed handoff must not inherit the requested 24k-sample tail.
+        // Only the original 12k durability prefix remains audible.
+        let permitted = try transport.renderOfflineSamplesForTesting(11_936)
+        XCTAssertTrue(permitted.joined().contains { abs($0) > 0.01 })
+        let denied = try transport.renderOfflineSamplesForTesting(4_096)
+        XCTAssertTrue(denied.joined().allSatisfy { abs($0) < 0.000_001 })
+        transport.stop()
+    }
+
+    @MainActor
+    func testRelinquishPreparationFailureLeavesRunningGraphForCallerCleanup()
+        throws {
+        let directory = try temporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        try writeAudioFile(
+            to: directory.appendingPathComponent("injected-tail.caf"),
+            channelCount: 2,
+            frameCount: 48_000,
+            constantAmplitude: 0.2
+        )
+        let transport = NativeTimelineTransport()
+        try transport.enableManualRenderingForTesting()
+        try transport.prepareResponsiveAudio(
+            plan: oneShotTransportPlan(timeline: oneShotTimeline(
+                id: "injected-tail-preparation",
+                path: "injected-tail.caf",
+                durationSamples: 48_000,
+                includesHaptic: false
+            )),
+            resolver: PackageRootAudioAssetResolver(
+                packageRootURL: directory
+            )
+        )
+        try transport.play()
+        let binding = try transport.activeAudioCursorBinding()
+        transport.armRelinquishPreparationFaultForTesting {
+            throw NativeTimelineTransportInjectedFailure.hapticPreparation
+        }
+
+        XCTAssertThrowsError(
+            try transport.relinquishOutgoingAudio(
+                exitPolicy: .boundedFade(durationSamples: 24_000)
+            )
+        ) { error in
+            XCTAssertEqual(
+                error as? NativeTimelineTransportInjectedFailure,
+                .hapticPreparation
+            )
+        }
+        XCTAssertEqual(transport.state, .playing)
+        XCTAssertTrue(transport.engineIsRunningForTesting)
+        XCTAssertNil(transport.conventionalFadeForTesting("score"))
+
+        transport.stop()
+        XCTAssertEqual(transport.state, .idle)
+        XCTAssertFalse(transport.engineIsRunningForTesting)
+        XCTAssertFalse(binding.gateToken.authorizeAudio(
+            throughRenderedGraphSample: 48_000
+        ))
+    }
+
+    @MainActor
+    func testOutgoingTailAuthorizationFailureStopsTransportFailClosed()
+        throws {
+        let directory = try temporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        try writeAudioFile(
+            to: directory.appendingPathComponent("closed-tail.caf"),
+            channelCount: 2,
+            frameCount: 48_000,
+            constantAmplitude: 0.2
+        )
+        let transport = NativeTimelineTransport()
+        try transport.enableManualRenderingForTesting()
+        try transport.prepareResponsiveAudio(
+            plan: oneShotTransportPlan(timeline: oneShotTimeline(
+                id: "closed-tail-authorization",
+                path: "closed-tail.caf",
+                durationSamples: 48_000,
+                includesHaptic: false
+            )),
+            resolver: PackageRootAudioAssetResolver(packageRootURL: directory)
+        )
+        try transport.play()
+        let binding = try transport.activeAudioCursorBinding()
+        _ = try transport.renderOfflineSamplesForTesting(12_000)
+        _ = try transport.renderOfflineSamplesForTesting(4_096)
+
+        XCTAssertThrowsError(
+            try transport.relinquishOutgoingAudio(
+                exitPolicy: .boundedFade(durationSamples: 24_000)
+            )
+        ) { error in
+            XCTAssertEqual(
+                error as? NativeTimelineTransportError,
+                .renderClockUnavailable
+            )
+        }
+        XCTAssertEqual(transport.state, .idle)
+        XCTAssertFalse(transport.engineIsRunningForTesting)
+        XCTAssertNil(transport.preparedPlanForTesting)
+        XCTAssertFalse(binding.gateToken.claimCapture(
+            atRenderedGraphSample: 16_096
+        ))
+        XCTAssertFalse(binding.gateToken.authorizeAudio(
+            throughRenderedGraphSample: 48_000
+        ))
+        XCTAssertThrowsError(try transport.activeAudioCursorBinding())
+    }
+
+    func testAutomaticBoundaryMonitorUsesExactRenderedSampleAfterHostHint() {
+        var pollState = NativeAutomaticBoundaryMonitorPollState()
+        let boundary: Int64 = 1_000
+
+        XCTAssertEqual(
+            pollState.observe(
+                renderedGraphSample: boundary - 1,
+                boundaryGraphSample: boundary
+            ),
+            .sleep(nanoseconds: 2_000_000)
+        )
+        for _ in 0 ..< 24 {
+            guard case .sleep = pollState.observe(
+                renderedGraphSample: boundary - 1,
+                boundaryGraphSample: boundary
+            ) else {
+                return XCTFail("A host-time hint promoted unrendered history")
+            }
+        }
+        XCTAssertEqual(
+            pollState.observe(
+                renderedGraphSample: boundary,
+                boundaryGraphSample: boundary
+            ),
+            .boundaryCrossed
+        )
+    }
+
+    @MainActor
+    func testAutomaticBoundaryMonitorRejectsPausedStoppedAndOldEpochOwnership()
+        throws {
+        let directory = try temporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        try writeAudioFile(
+            to: directory.appendingPathComponent("monitor-owner.caf"),
+            channelCount: 2,
+            frameCount: 4_800,
+            constantAmplitude: 0.2
+        )
+        let resolver = PackageRootAudioAssetResolver(packageRootURL: directory)
+        let transport = NativeTimelineTransport()
+        try transport.enableManualRenderingForTesting()
+        try transport.prepareResponsiveAudio(
+            plan: oneShotTransportPlan(timeline: oneShotTimeline(
+                id: "monitor-owner",
+                path: "monitor-owner.caf",
+                durationSamples: 4_800,
+                includesHaptic: false
+            )),
+            resolver: resolver
+        )
+        var events: [ResponsiveAudioAutomaticBoundaryEvent] = []
+        try transport.configureAutomaticBoundary(
+            successorPlan: nil,
+            resolver: resolver,
+            handler: { events.append($0) }
+        )
+        try transport.play()
+        let firstGeneration = transport.automaticBoundaryGenerationForTesting
+        let firstEpoch = try transport.activeAudioCursorBinding()
+            .gateToken.epoch
+        let firstBoundary = try XCTUnwrap(
+            transport.automaticCursorBoundaryForTesting
+        )
+        XCTAssertTrue(transport.automaticBoundaryMonitorOwnsForTesting(
+            generation: firstGeneration,
+            durabilityEpoch: firstEpoch,
+            boundaryGraphSample: firstBoundary
+        ))
+
+        _ = try transport.pause()
+        XCTAssertFalse(transport.automaticBoundaryMonitorOwnsForTesting(
+            generation: firstGeneration,
+            durabilityEpoch: firstEpoch,
+            boundaryGraphSample: firstBoundary
+        ))
+
+        try transport.resume()
+        let resumedGeneration = transport.automaticBoundaryGenerationForTesting
+        let resumedEpoch = try transport.activeAudioCursorBinding()
+            .gateToken.epoch
+        let resumedBoundary = try XCTUnwrap(
+            transport.automaticCursorBoundaryForTesting
+        )
+        XCTAssertFalse(transport.automaticBoundaryMonitorOwnsForTesting(
+            generation: resumedGeneration,
+            durabilityEpoch: firstEpoch,
+            boundaryGraphSample: resumedBoundary
+        ))
+        XCTAssertTrue(transport.automaticBoundaryMonitorOwnsForTesting(
+            generation: resumedGeneration,
+            durabilityEpoch: resumedEpoch,
+            boundaryGraphSample: resumedBoundary
+        ))
+
+        transport.stop()
+        XCTAssertFalse(transport.automaticBoundaryMonitorOwnsForTesting(
+            generation: resumedGeneration,
+            durabilityEpoch: resumedEpoch,
+            boundaryGraphSample: resumedBoundary
+        ))
+        XCTAssertTrue(events.isEmpty)
+    }
+
+    @MainActor
+    func testStalledAutomaticBoundaryHasBoundedWakeupsAndFailsClosed()
+        throws {
+        var pollState = NativeAutomaticBoundaryMonitorPollState()
+        var delays: [UInt64] = []
+        var reachedStallLimit = false
+        for _ in 0 ..< 100 {
+            switch pollState.observe(
+                renderedGraphSample: 100,
+                boundaryGraphSample: 4_800
+            ) {
+            case let .sleep(nanoseconds):
+                delays.append(nanoseconds)
+            case .stallLimitReached:
+                reachedStallLimit = true
+            case .boundaryCrossed:
+                XCTFail("A stalled render crossed the boundary")
+            }
+            if reachedStallLimit { break }
+        }
+        XCTAssertTrue(reachedStallLimit)
+        XCTAssertLessThanOrEqual(delays.count, 48)
+        XCTAssertEqual(
+            delays.reduce(0, +),
+            NativeAutomaticBoundaryMonitorPollState
+                .maximumNoProgressNanoseconds
+        )
+        XCTAssertTrue(delays.prefix(
+            NativeAutomaticBoundaryMonitorPollState.precisePollCount
+        ).allSatisfy {
+            $0 == NativeAutomaticBoundaryMonitorPollState
+                .preciseIntervalNanoseconds
+        })
+        XCTAssertTrue(delays.allSatisfy {
+            $0 <= NativeAutomaticBoundaryMonitorPollState
+                .maximumIntervalNanoseconds
+        })
+
+        let directory = try temporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        try writeAudioFile(
+            to: directory.appendingPathComponent("monitor-stall.caf"),
+            channelCount: 2,
+            frameCount: 4_800,
+            constantAmplitude: 0.2
+        )
+        let resolver = PackageRootAudioAssetResolver(packageRootURL: directory)
+        let transport = NativeTimelineTransport()
+        try transport.enableManualRenderingForTesting()
+        try transport.prepareResponsiveAudio(
+            plan: oneShotTransportPlan(timeline: oneShotTimeline(
+                id: "monitor-stall",
+                path: "monitor-stall.caf",
+                durationSamples: 4_800,
+                includesHaptic: false
+            )),
+            resolver: resolver
+        )
+        var events: [ResponsiveAudioAutomaticBoundaryEvent] = []
+        try transport.configureAutomaticBoundary(
+            successorPlan: nil,
+            resolver: resolver,
+            handler: { events.append($0) }
+        )
+        try transport.play()
+        let binding = try transport.activeAudioCursorBinding()
+        let generation = transport.automaticBoundaryGenerationForTesting
+        let boundary = try XCTUnwrap(
+            transport.automaticCursorBoundaryForTesting
+        )
+
+        transport.failClosedAutomaticBoundaryMonitorForTesting(
+            generation: generation,
+            durabilityEpoch: binding.gateToken.epoch,
+            boundaryGraphSample: boundary
+        )
+        XCTAssertEqual(transport.state, .idle)
+        XCTAssertFalse(transport.engineIsRunningForTesting)
+        XCTAssertTrue(events.isEmpty)
+        XCTAssertFalse(binding.gateToken.authorizeAudio(
+            throughRenderedGraphSample: 48_000
+        ))
     }
 
     @MainActor

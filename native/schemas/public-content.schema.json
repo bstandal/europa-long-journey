@@ -185,7 +185,8 @@
       "additionalProperties": false,
       "required": ["anchors", "tolerance"],
       "properties": {
-        "anchors": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/NormalizedPoint" } },
+        "anchors": { "type": "array", "minItems": 2, "maxItems": 64, "items": { "$ref": "#/$defs/NormalizedPoint" } },
+        "anchorIDs": { "type": "array", "minItems": 2, "maxItems": 64, "uniqueItems": true, "items": { "$ref": "#/$defs/StableID" } },
         "tolerance": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 }
       }
     },
@@ -347,7 +348,7 @@
         "title": { "$ref": "#/$defs/LocalizedStringSpec" },
         "period": { "$ref": "#/$defs/LocalizedStringSpec" },
         "arcs": { "type": "array", "minItems": 1, "maxItems": 3, "items": { "$ref": "#/$defs/ArcSpec" } },
-        "completionEffects": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/WorldEffect" } }
+        "completionEffects": { "type": "array", "items": { "$ref": "#/$defs/WorldEffect" } }
       }
     },
     "SceneLayerMotion": {
@@ -588,6 +589,15 @@
         }
       }
     },
+    "SceneTraceReachedAnchorVisualBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["anchorID", "variantID"],
+      "properties": {
+        "anchorID": { "$ref": "#/$defs/StableID" },
+        "variantID": { "$ref": "#/$defs/StableID" }
+      }
+    },
     "SceneTraceVisualBinding": {
       "type": "object",
       "additionalProperties": false,
@@ -598,6 +608,12 @@
         "layerID": { "$ref": "#/$defs/StableID" },
         "idleVariantID": { "$ref": "#/$defs/StableID" },
         "tracingVariantID": { "$ref": "#/$defs/StableID" },
+        "reachedAnchorVariants": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/SceneTraceReachedAnchorVisualBinding" }
+        },
         "completedVariantID": { "$ref": "#/$defs/StableID" }
       }
     },

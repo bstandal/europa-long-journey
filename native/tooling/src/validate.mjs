@@ -358,10 +358,20 @@ function validateNarrative(value, location, issues) {
 }
 
 function validateTraceConfiguration(value, location, issues) {
-  const record = shape(value, location, ["anchors", "tolerance"], [], issues);
+  const record = shape(value, location, ["anchors", "tolerance"], ["anchorIDs"], issues);
   if (!record) return;
   const anchors = arrayValue(record.anchors, `${location}.anchors`, issues, 2);
+  if (anchors.length > 64) issues.push(`${location}.anchors: at most 64 items allowed`);
   anchors.forEach((point, index) => validatePoint(point, `${location}.anchors[${index}]`, issues));
+  if (Object.hasOwn(record, "anchorIDs")) {
+    const anchorIDs = arrayValue(record.anchorIDs, `${location}.anchorIDs`, issues, 2);
+    if (anchorIDs.length > 64) issues.push(`${location}.anchorIDs: at most 64 items allowed`);
+    anchorIDs.forEach((id, index) => stableID(id, `${location}.anchorIDs[${index}]`, issues));
+    requireUnique(anchorIDs, `${location}.anchorIDs`, issues);
+    if (anchorIDs.length !== anchors.length) {
+      issues.push(`${location}.anchorIDs: must identify every Trace anchor in authored order`);
+    }
+  }
   if (finiteNumber(record.tolerance, `${location}.tolerance`, issues)
       && (record.tolerance <= 0 || record.tolerance > 1)) {
     issues.push(`${location}.tolerance: must be greater than 0 and at most 1`);
@@ -565,9 +575,17 @@ function validateChapter(value, location, issues) {
   if (arcs.length > 3) issues.push(`${location}.arcs: at most 3 arcs allowed`);
   arcs.forEach((arc, index) => validateArc(arc, `${location}.arcs[${index}]`, issues));
   requireUnique(arcs.filter(isRecord).map((arc) => arc.id), `${location}.arcs.id`, issues);
-  const effects = arrayValue(record.completionEffects, `${location}.completionEffects`, issues, 1);
+  const effects = arrayValue(record.completionEffects, `${location}.completionEffects`, issues);
   effects.forEach((effect, index) => validateWorldEffect(effect, `${location}.completionEffects[${index}]`, issues));
   requireUnique(effects.filter(isRecord).map((effect) => effect.id), `${location}.completionEffects.id`, issues);
+  const hasPersistentEffect = effects.length > 0 || arcs.some((arc) =>
+    Array.isArray(arc?.beats) && arc.beats.some((beat) =>
+      (Array.isArray(beat?.completionEffects) && beat.completionEffects.length > 0)
+        || (Array.isArray(beat?.interaction?.completionEffects)
+          && beat.interaction.completionEffects.length > 0)));
+  if (!hasPersistentEffect) {
+    issues.push(`${location}: a completed chapter must leave at least one permanent world effect`);
+  }
 }
 
 function validateSafeAssetPath(value, location, issues) {
@@ -1124,17 +1142,47 @@ function validateSceneInteractionVisualBinding(value, location, layers, targets,
     const configuration = shape(record.configuration, `${location}.configuration`, [
       "interactionID", "interactionTargetID", "layerID", "idleVariantID",
       "tracingVariantID", "completedVariantID",
-    ], [], issues);
+    ], ["reachedAnchorVariants"], issues);
     if (!configuration) return;
-    for (const key of Object.keys(configuration)) stableID(configuration[key], `${location}.configuration.${key}`, issues);
+    for (const key of [
+      "interactionID", "interactionTargetID", "layerID", "idleVariantID",
+      "tracingVariantID", "completedVariantID",
+    ]) stableID(configuration[key], `${location}.configuration.${key}`, issues);
+    const reachedAnchorVariants = Object.hasOwn(configuration, "reachedAnchorVariants")
+      ? arrayValue(
+        configuration.reachedAnchorVariants,
+        `${location}.configuration.reachedAnchorVariants`,
+        issues,
+        1,
+      )
+      : [];
+    for (const [index, binding] of reachedAnchorVariants.entries()) {
+      const item = shape(binding, `${location}.configuration.reachedAnchorVariants[${index}]`, [
+        "anchorID", "variantID",
+      ], [], issues);
+      if (!item) continue;
+      stableID(item.anchorID, `${location}.configuration.reachedAnchorVariants[${index}].anchorID`, issues);
+      stableID(item.variantID, `${location}.configuration.reachedAnchorVariants[${index}].variantID`, issues);
+    }
+    requireUnique(
+      reachedAnchorVariants.filter(isRecord).map(({ anchorID }) => anchorID),
+      `${location}.configuration.reachedAnchorVariants.anchorID`,
+      issues,
+    );
+    requireUnique(
+      reachedAnchorVariants.filter(isRecord).map(({ variantID }) => variantID),
+      `${location}.configuration.reachedAnchorVariants.variantID`,
+      issues,
+    );
     const layer = layerByID.get(configuration.layerID);
     if (!layer || targetByID.get(configuration.interactionTargetID)?.layerID !== configuration.layerID
         || !variantsExist([
           configuration.idleVariantID,
           configuration.tracingVariantID,
+          ...reachedAnchorVariants.filter(isRecord).map(({ variantID }) => variantID),
           configuration.completedVariantID,
         ], layer)) {
-      issues.push(`${location}.configuration: trace requires a real route target and three distinct route-state variants`);
+      issues.push(`${location}.configuration: trace requires a real route target and distinct authored route-state variants`);
     }
     return;
   }
@@ -2553,7 +2601,23 @@ function validateSceneVisualBindingToInteraction(scene, interaction, location, i
   if (configuration.interactionID !== interaction.id) {
     issues.push(`${location}.configuration.interactionID: must equal '${interaction.id}'`);
   }
-  if (interaction.grammar === "trace") return;
+  if (interaction.grammar === "trace") {
+    const anchorIDs = interaction.configuration?.anchorIDs;
+    const reachedAnchorVariants = configuration.reachedAnchorVariants;
+    if (Array.isArray(anchorIDs) && Array.isArray(reachedAnchorVariants)) {
+      const boundIDs = reachedAnchorVariants.filter(isRecord).map(({ anchorID }) => anchorID);
+      if (JSON.stringify(boundIDs) !== JSON.stringify(anchorIDs.slice(0, -1))) {
+        issues.push(
+          `${location}.configuration.reachedAnchorVariants: must bind every nonterminal Trace anchor in authored order and by exact identity`,
+        );
+      }
+    } else if (anchorIDs !== undefined || reachedAnchorVariants !== undefined) {
+      issues.push(
+        `${location}.configuration.reachedAnchorVariants: named Trace anchors and reached-anchor visual bindings must be authored together`,
+      );
+    }
+    return;
+  }
   if (interaction.grammar === "allocate" && isRecord(interaction.configuration)) {
     const boundDestinationIDs = Array.isArray(configuration.destinations)
       ? configuration.destinations.filter(isRecord).map((destination) => destination.destinationID).sort()

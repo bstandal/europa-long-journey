@@ -1,0 +1,41 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "6318A14B-C5F6-49D0-B3F7-30607A95294E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "04-offline-chapters.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "offline-chapters-owned-v1_0_BE0E48C2-9AF6-451C-A9F8-32CA36563946.png",
+        "timestamp" : 1785079309.472
+      }
+    ],
+    "testIdentifier" : "JourneyAppUITests/testOwnedOfflineChaptersStartAndPauseOnlyAtThePackageBoundary()",
+    "testIdentifierURL" : "test://com.apple.xcode/LongWestJourney/JourneyAppUITests/JourneyAppUITests/testOwnedOfflineChaptersStartAndPauseOnlyAtThePackageBoundary"
+  },
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "6318A14B-C5F6-49D0-B3F7-30607A95294E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "03-release-settings.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "release-notification-settings-v1_0_F10C6985-5E94-49E9-B573-5A3584E3FE90.png",
+        "timestamp" : 1785079328.112
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "6318A14B-C5F6-49D0-B3F7-30607A95294E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "02-living-world.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "release-world-focus-v1_0_C19B6280-78E6-4886-82A7-236128A03924.png",
+        "timestamp" : 1785079324.756
+      }
+    ],
+    "testIdentifier" : "JourneyAppUITests/testReleaseOptInIsExplicitAndOfflineDeepLinkFocusesTheAuthoredWorldPlace()",
+    "testIdentifierURL" : "test://com.apple.xcode/LongWestJourney/JourneyAppUITests/JourneyAppUITests/testReleaseOptInIsExplicitAndOfflineDeepLinkFocusesTheAuthoredWorldPlace"
+  }
+]

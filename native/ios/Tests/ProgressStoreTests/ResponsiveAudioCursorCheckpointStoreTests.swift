@@ -6,6 +6,77 @@ import JourneyPersistence
 import XCTest
 
 final class ResponsiveAudioCursorCheckpointStoreTests: XCTestCase {
+    func testPeriodicCheckpointUsesOneFileBarrierAndNoSlotReadback()
+        async throws {
+        let root = temporaryDirectory()
+        let io = CheckpointIORecorder()
+        let store = try ResponsiveAudioCursorCheckpointStore(
+            directoryURL: root,
+            ioObserver: { io.record($0) }
+        )
+        let expectedSlots = Set([
+            store.slotAURL,
+            store.slotBURL,
+            store.slotCURL,
+        ])
+
+        XCTAssertEqual(Set(io.preparedSlots), expectedSlots)
+        XCTAssertEqual(Set(io.readSlots), expectedSlots)
+        XCTAssertEqual(io.readSlots.count, 3)
+        XCTAssertEqual(io.directoryBarriers.count, 1)
+        XCTAssertTrue(io.checkpointFileBarriers.isEmpty)
+        for url in expectedSlots {
+            XCTAssertTrue(FileManager.default.fileExists(atPath: url.path))
+        }
+
+        let fixture = try Fixture()
+        let authority = try fixture.authority()
+        let session = try await store.beginSession(authority: authority)
+        let first = fixture.snapshot(cursor: 3_000)
+        try await store.checkpoint(
+            first,
+            session: session,
+            capturedAtMonotonicNanoseconds: 1
+        )
+        try await store.checkpoint(
+            first,
+            session: session,
+            capturedAtMonotonicNanoseconds: 2
+        )
+        try await store.checkpoint(
+            fixture.snapshot(cursor: 4_000),
+            session: session,
+            capturedAtMonotonicNanoseconds: 3
+        )
+
+        XCTAssertEqual(
+            io.checkpointFileBarriers,
+            [store.slotAURL, store.slotBURL]
+        )
+        XCTAssertEqual(io.directoryBarriers.count, 1)
+        XCTAssertEqual(
+            io.readSlots.count,
+            3,
+            "Successful periodic checkpoints must not reread their slots"
+        )
+
+        let recovered = try await store.recover(authority: authority)
+        XCTAssertEqual(recovered?.cursorSample, 4_000)
+        XCTAssertEqual(
+            io.readSlots.count,
+            6,
+            "Explicit recovery must checksum-scan all three slots"
+        )
+        let directoryEntries = try FileManager.default.contentsOfDirectory(
+            at: store.directoryURL,
+            includingPropertiesForKeys: nil
+        )
+        XCTAssertEqual(
+            Set(directoryEntries.map(\.lastPathComponent)),
+            Set(expectedSlots.map(\.lastPathComponent))
+        )
+    }
+
     func testRecoveryChangesOnlyPositionAndSurvivesUnrelatedJourneyCommit() async throws {
         let root = temporaryDirectory()
         let store = try ResponsiveAudioCursorCheckpointStore(directoryURL: root)
@@ -145,6 +216,174 @@ final class ResponsiveAudioCursorCheckpointStoreTests: XCTestCase {
         XCTAssertEqual(recovered?.cursorSample, 5_000)
     }
 
+    func testPartialNewestOverwriteIsRejectedInProcessAndAfterRestart()
+        async throws {
+        let root = temporaryDirectory()
+        let fixture = try Fixture()
+        let authority = try fixture.authority()
+        let stableStore = try ResponsiveAudioCursorCheckpointStore(
+            directoryURL: root
+        )
+        let stableSession = try await stableStore.beginSession(
+            authority: authority
+        )
+        try await stableStore.checkpoint(
+            fixture.snapshot(cursor: 4_000),
+            session: stableSession,
+            capturedAtMonotonicNanoseconds: 1
+        )
+        try await stableStore.checkpoint(
+            fixture.snapshot(cursor: 5_000),
+            session: stableSession,
+            capturedAtMonotonicNanoseconds: 2
+        )
+        await stableStore.retire(stableSession)
+
+        let partialStore = try ResponsiveAudioCursorCheckpointStore(
+            directoryURL: root,
+            durableWrite: { data, url in
+                let partial = Data(data.prefix(max(1, data.count / 2)))
+                try partial.write(to: url, options: [])
+                throw InjectedFailure()
+            }
+        )
+        let partialSession = try await partialStore.beginSession(
+            authority: authority
+        )
+        await XCTAssertThrowsErrorAsync {
+            try await partialStore.checkpoint(
+                fixture.snapshot(cursor: 6_000),
+                session: partialSession,
+                capturedAtMonotonicNanoseconds: 3
+            )
+        }
+
+        let sameProcessRecovery = try await partialStore.recover(
+            authority: authority
+        )
+        XCTAssertEqual(sameProcessRecovery?.cursorSample, 5_000)
+
+        let restartedStore = try ResponsiveAudioCursorCheckpointStore(
+            directoryURL: root
+        )
+        let restartedRecovery = try await restartedStore.recover(
+            authority: authority
+        )
+        XCTAssertEqual(restartedRecovery?.cursorSample, 5_000)
+    }
+
+    func testSilentCorruptWriterSuccessIsRejectedByRecoveryAndRestart()
+        async throws {
+        let root = temporaryDirectory()
+        let fixture = try Fixture()
+        let authority = try fixture.authority()
+        let stableStore = try ResponsiveAudioCursorCheckpointStore(
+            directoryURL: root
+        )
+        let stableSession = try await stableStore.beginSession(
+            authority: authority
+        )
+        try await stableStore.checkpoint(
+            fixture.snapshot(cursor: 4_000),
+            session: stableSession,
+            capturedAtMonotonicNanoseconds: 1
+        )
+        try await stableStore.checkpoint(
+            fixture.snapshot(cursor: 5_000),
+            session: stableSession,
+            capturedAtMonotonicNanoseconds: 2
+        )
+        await stableStore.retire(stableSession)
+
+        // An injected operation that returns success is asserting that it
+        // wrote and synchronised the supplied bytes. Deliberately violating
+        // that contract is invisible to the steady writer, but the required
+        // checksum scan at recovery must reject it and retain the fallback.
+        let corruptStore = try ResponsiveAudioCursorCheckpointStore(
+            directoryURL: root,
+            durableWrite: { _, url in
+                try Data("{\"formatVersion\":1}".utf8).write(to: url)
+            }
+        )
+        let corruptSession = try await corruptStore.beginSession(
+            authority: authority
+        )
+        try await corruptStore.checkpoint(
+            fixture.snapshot(cursor: 6_000),
+            session: corruptSession,
+            capturedAtMonotonicNanoseconds: 3
+        )
+
+        let sameProcessRecovery = try await corruptStore.recover(
+            authority: authority
+        )
+        XCTAssertEqual(sameProcessRecovery?.cursorSample, 5_000)
+
+        let restartedStore = try ResponsiveAudioCursorCheckpointStore(
+            directoryURL: root
+        )
+        let restartedRecovery = try await restartedStore.recover(
+            authority: authority
+        )
+        XCTAssertEqual(restartedRecovery?.cursorSample, 5_000)
+    }
+
+    func testRestartFullyScansSlotsAndRebuildsCachedGenerationHead()
+        async throws {
+        let root = temporaryDirectory()
+        let fixture = try Fixture()
+        let authority = try fixture.authority()
+        let firstStore = try ResponsiveAudioCursorCheckpointStore(
+            directoryURL: root
+        )
+        let firstSession = try await firstStore.beginSession(
+            authority: authority
+        )
+        for (index, cursor) in [3_000, 4_000, 5_000].enumerated() {
+            try await firstStore.checkpoint(
+                fixture.snapshot(cursor: Int64(cursor)),
+                session: firstSession,
+                capturedAtMonotonicNanoseconds: UInt64(index + 1)
+            )
+        }
+        await firstStore.retire(firstSession)
+
+        let io = CheckpointIORecorder()
+        let restartedStore = try ResponsiveAudioCursorCheckpointStore(
+            directoryURL: root,
+            ioObserver: { io.record($0) }
+        )
+        XCTAssertEqual(io.readSlots.count, 3)
+        XCTAssertEqual(
+            Set(io.readSlots),
+            Set([
+                restartedStore.slotAURL,
+                restartedStore.slotBURL,
+                restartedStore.slotCURL,
+            ])
+        )
+
+        let recovered = try await restartedStore.recover(
+            authority: authority
+        )
+        XCTAssertEqual(recovered?.cursorSample, 5_000)
+        XCTAssertEqual(io.readSlots.count, 6)
+
+        let restartedSession = try await restartedStore.beginSession(
+            authority: authority
+        )
+        try await restartedStore.checkpoint(
+            fixture.snapshot(cursor: 6_000),
+            session: restartedSession,
+            capturedAtMonotonicNanoseconds: 4
+        )
+        XCTAssertEqual(
+            io.checkpointFileBarriers,
+            [restartedStore.slotAURL]
+        )
+        XCTAssertEqual(io.readSlots.count, 6)
+    }
+
     func testSidecarCannotPromotePhaseStageTimelineCausalStageOrCompletion() async throws {
         let store = try ResponsiveAudioCursorCheckpointStore(
             directoryURL: temporaryDirectory()
@@ -280,7 +519,7 @@ final class ResponsiveAudioCursorCheckpointStoreTests: XCTestCase {
         }
     }
 
-    func testPostRenameFailureIsQuarantinedUntilProcessRestart()
+    func testCompletedButReportedFailedOverwriteIsQuarantinedUntilRestart()
         async throws {
         let root = temporaryDirectory()
         let fixture = try Fixture()
@@ -319,7 +558,7 @@ final class ResponsiveAudioCursorCheckpointStoreTests: XCTestCase {
         )
         XCTAssertEqual(sameProcessRecovery?.cursorSample, 4_000)
 
-        // A new process has no memory-only quarantine. If the rename really
+        // A new process has no memory-only quarantine. If the complete write
         // survived the crash boundary, digest verification may recover it.
         let restartedStore = try ResponsiveAudioCursorCheckpointStore(
             directoryURL: root
@@ -637,32 +876,34 @@ final class ResponsiveAudioCursorCheckpointStoreTests: XCTestCase {
             maximumAgeNanoseconds: 1_000_000_000
         )
 
-        pump.start(
-            capture: {
-                .verified(
-                    approach.snapshot(
-                        stage: .approach,
-                        phase: nil,
-                        cursor: 2_400
+        let oldStart = Task { @MainActor in
+            await pump.start(
+                capture: {
+                    .verified(
+                        approach.snapshot(
+                            stage: .approach,
+                            phase: nil,
+                            cursor: 2_400
+                        )
                     )
-                )
-            },
-            persist: { snapshot, capturedAt in
-                oldPersistEntered.open()
-                await releaseOldPersist.wait()
-                do {
-                    try await store.checkpoint(
-                        snapshot,
-                        session: priorSession,
-                        capturedAtMonotonicNanoseconds: capturedAt
-                    )
-                } catch let error as ResponsiveAudioCursorCheckpointError {
-                    oldPersistError = error
-                    throw error
-                }
-            },
-            failClosed: { oldFailClosedCount += 1 }
-        )
+                },
+                persist: { snapshot, capturedAt in
+                    oldPersistEntered.open()
+                    await releaseOldPersist.wait()
+                    do {
+                        try await store.checkpoint(
+                            snapshot,
+                            session: priorSession,
+                            capturedAtMonotonicNanoseconds: capturedAt
+                        )
+                    } catch let error as ResponsiveAudioCursorCheckpointError {
+                        oldPersistError = error
+                        throw error
+                    }
+                },
+                failClosed: { oldFailClosedCount += 1 }
+            )
+        }
         await oldPersistEntered.wait()
 
         // This is the exact JourneyModel ordering: retire the old pump
@@ -676,7 +917,7 @@ final class ResponsiveAudioCursorCheckpointStoreTests: XCTestCase {
             initialSnapshot: interaction.snapshot(cursor: successorCursor),
             capturedAtMonotonicNanoseconds: handoffCapturedAt
         )
-        pump.start(
+        let successorStart = await pump.start(
             lastVerifiedCaptureNanoseconds: handoffCapturedAt,
             capture: {
                 successorCursor += 480
@@ -694,8 +935,11 @@ final class ResponsiveAudioCursorCheckpointStoreTests: XCTestCase {
             },
             failClosed: { successorFailClosedCount += 1 }
         )
+        XCTAssertEqual(successorStart, .protecting)
 
         releaseOldPersist.open()
+        let obsoleteStartResult = await oldStart.value
+        XCTAssertEqual(obsoleteStartResult, .superseded)
         try await waitUntil {
             oldPersistError != nil && successorPersistCount > 0
         }
@@ -742,25 +986,27 @@ final class ResponsiveAudioCursorCheckpointStoreTests: XCTestCase {
                 try await Task.sleep(nanoseconds: UInt64.max)
             }
         )
-        pump.start(
-            capture: {
-                .verified(
-                    approach.snapshot(
-                        stage: .approach,
-                        phase: nil,
-                        cursor: 2_400
+        let oldStart = Task { @MainActor in
+            await pump.start(
+                capture: {
+                    .verified(
+                        approach.snapshot(
+                            stage: .approach,
+                            phase: nil,
+                            cursor: 2_400
+                        )
                     )
-                )
-            },
-            persist: { snapshot, capturedAt in
-                try await store.checkpoint(
-                    snapshot,
-                    session: priorSession,
-                    capturedAtMonotonicNanoseconds: capturedAt
-                )
-            },
-            failClosed: { failClosedCount += 1 }
-        )
+                },
+                persist: { snapshot, capturedAt in
+                    try await store.checkpoint(
+                        snapshot,
+                        session: priorSession,
+                        capturedAtMonotonicNanoseconds: capturedAt
+                    )
+                },
+                failClosed: { failClosedCount += 1 }
+            )
+        }
         try await waitUntil { writes.callCount == 1 }
 
         let lastRecoverableCapture = try XCTUnwrap(
@@ -804,6 +1050,8 @@ final class ResponsiveAudioCursorCheckpointStoreTests: XCTestCase {
 
         pump.stop()
         writes.releaseFirst()
+        let obsoleteStartResult = await oldStart.value
+        XCTAssertEqual(obsoleteStartResult, .superseded)
         try await waitUntil { writes.completedCallCount == 2 }
         XCTAssertEqual(writes.callCount, 2)
         let ownsSuccessorAfterOldCompletion = await store.owns(successor)
@@ -840,6 +1088,53 @@ final class ResponsiveAudioCursorCheckpointStoreTests: XCTestCase {
 }
 
 private struct InjectedFailure: Error {}
+
+private final class CheckpointIORecorder: @unchecked Sendable {
+    private let lock = NSLock()
+    private var events: [ResponsiveAudioCursorCheckpointStore.IOEvent] = []
+
+    var preparedSlots: [URL] {
+        recordedURLs { event in
+            if case let .slotPrepared(url) = event { return url }
+            return nil
+        }
+    }
+
+    var readSlots: [URL] {
+        recordedURLs { event in
+            if case let .slotRead(url) = event { return url }
+            return nil
+        }
+    }
+
+    var checkpointFileBarriers: [URL] {
+        recordedURLs { event in
+            if case let .checkpointFileSynchronized(url) = event { return url }
+            return nil
+        }
+    }
+
+    var directoryBarriers: [URL] {
+        recordedURLs { event in
+            if case let .directorySynchronized(url) = event { return url }
+            return nil
+        }
+    }
+
+    func record(_ event: ResponsiveAudioCursorCheckpointStore.IOEvent) {
+        lock.lock()
+        events.append(event)
+        lock.unlock()
+    }
+
+    private func recordedURLs(
+        _ transform: (ResponsiveAudioCursorCheckpointStore.IOEvent) -> URL?
+    ) -> [URL] {
+        lock.lock()
+        defer { lock.unlock() }
+        return events.compactMap(transform)
+    }
+}
 
 private final class FailSelectedDurableWrite: @unchecked Sendable {
     private let lock = NSLock()

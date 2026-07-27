@@ -17,6 +17,12 @@ enum JourneyReleaseDiscoveryComposition {
         applicationSupportURL: URL,
         bundle: Bundle = .main
     ) -> JourneyReleaseDiscoveryServices {
+#if NON_SHIPPING_LIVE_TEST
+        JourneyReleaseDiscoveryServices(
+            applicationModel: ReleaseDiscoveryApplicationModel(),
+            futureReleaseClient: nil
+        )
+#else
         do {
 #if DEBUG
             if !ProcessInfo.processInfo.arguments.contains(
@@ -40,6 +46,7 @@ enum JourneyReleaseDiscoveryComposition {
                 futureReleaseClient: nil
             )
         }
+#endif
     }
 
     private static func makeApple(

@@ -17,7 +17,7 @@ struct RootView: View {
         futureReleaseClient: JourneyFutureReleaseClient? = nil
     ) {
         self.releaseDiscovery = releaseDiscovery
-#if DEBUG
+#if DEBUG || NON_SHIPPING_LIVE_TEST
         let fixtureClient: JourneyContentClient? = ProcessInfo.processInfo.arguments.contains(
             DevelopmentSignedRuntimeFixtureAppContent.launchArgument
         ) ? try! DevelopmentSignedRuntimeFixtureAppContent.makeClient() : nil

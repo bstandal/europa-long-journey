@@ -85,6 +85,94 @@ production edits. They remain evidence for their captured commits and will be
 rerun at the next complete permitted verification freeze. The generic Release
 build and boundary-only scan are current for this permitted tree.
 
+### Chapter 01 technical live-test projection — 26 July 2026
+
+The signed, non-shipping runtime fixture now projects all three First Farmers
+arcs, all 17 beats, all six principal interactions, all 17 scene and
+accessibility bindings, the six real responsive-audio programs and their 30
+timelines. Its manifest binds 231 payload files at `manifestDigest`
+`589ea9be981a4bd6b8d8569b0ebd6a98ed1c856d8e54d39dc5281d4e9b513f53`;
+the compiled fixture contains 232 physical files including the manifest and
+138,253,495 bytes. Narration
+remains excluded at the editor decision gate. The fixture is reproducible
+byte-for-byte and cannot grant production, asset, narration, editorial or
+physical-device approval.
+
+Current local runtime evidence for this tree is:
+
+- SwiftPM: `806/806`, including the focused signed A Continent Remade
+  three-stage runtime test;
+- signed fixture: `10/10`, including complete 17-beat traversal and real Metal
+  preparation of every First Farmers scene;
+- Scene Metal compositor: `16/16`;
+- native tooling: `235/235`;
+- the current Three Records signed-fixture UI preparation test: `1/1`, plus a
+  clean manual install and direct live-configuration launch at that beat;
+- a prior production-route UI traversal opens all `17/17` First Farmers beats;
+  the current fixture integrity and direct Three Records route are retested;
+- native script tests: `83/83`;
+- focused Thread Sanitizer recapture: `194/194`, with zero findings; receipt
+  SHA-256
+  `16f54f1347d6a92cb611c21055c5af23443ce272718d90ef3d3a132fc5d9c9e7`
+  binds source digest
+  `77c98883e64af618205c419c54314d43ff50abfab36e63348c0efed23b46945d`;
+- unsigned shipping-equivalent Release build for the ARM64 iPhone target,
+  explicitly without coverage instrumentation: `PASS`, 17,383,246 bytes and
+  33 files;
+- unsigned release-optimized `NON_SHIPPING_LIVE_TEST` ARM64 build: `PASS`,
+  155,677,766 bytes, 266 files and 93 M4A assets; and
+- Release simulator development-boundary scan: `PASS` for its captured build.
+
+The current integrated Xcode UI gate is `FAIL`, not green: `42/46` tests pass.
+The four reproducible failures are
+`testResponsiveChapterSoundRequiresChoiceResumeAndColdRestoreConsent`,
+`testSignedEuropeanWorldColdRestoresTraceAndExactAudioCursor`,
+`testSignedEuropeanWorldPhysicalTraceEngagesResponsiveAudio` and
+`testSignedEuropeanWorldSilenceSurvivesLifecycleButNotChapterChange`. The
+first and third hit the fail-closed 250 ms cursor-writer watchdog under rapid
+Trace input. The other two restore `waiting` rather than the expected
+same-process `engaged` phase after lifecycle activation. Focused reruns
+reproduce both classes of failure. Passing package, fixture, sanitizer and
+single-route tests do not override this red integrated result.
+
+The Metal view is paused outside display requests and short authored response
+windows. Texture residency is now pruned to the exact active composition, so
+it cannot grow across chapters, scenes or previously visited state variants.
+This is a resource-bounded architecture result, not a physical memory,
+thermal or battery measurement.
+
+The 91 provisional Chapter 1 PCM work files total 750,820,004 bytes. A pinned
+distribution probe now projects them to 90 AAC-LC files and one ALAC seam-safe
+fallback at 85,479,069 bytes, an 88.615 percent reduction. The signed live
+fixture uses those exact receipt-bound M4A bytes. Both source and encoded
+assets remain explicitly non-shipping. The release-candidate boundary hard-caps
+the shell at 100,000,000 bytes, essential content at 750,000,000 bytes and the
+complete base app at 850,000,000 bytes, independently of mutable delivery-plan
+values. It measures the actual app file tree and binds its digest. A shipping
+workflow must still validate and publish the same sealed archive; sequential
+validation of a writable `.app` is not an atomic publication guarantee.
+
+The 125 ms crash-cursor store now precreates three slots and performs one file
+`fsync` for each changed checkpoint, without per-tick rename or directory
+`fsync`. A 30-minute active session can still request 14,400 file `fsync`
+calls, so physical energy measurement remains mandatory. The compiler now
+caps estimated decoded responsive audio at 100,000,000 steady-state bytes and
+200,000,000 transition bytes for launch and future packages. First Farmers
+passes at 97,920,000 and 115,200,000 bytes. The distribution encoding reduces
+disk use, not this decoded working set. The estimate does not include the rest
+of the process footprint and leaves only 2,080,000 bytes of steady audio-budget
+headroom.
+
+The physical protocol now includes separate, explicitly paired Harvest and
+complete First Farmers battery sets. Each set requires three alternating
+30-minute app and static-reference runs. The full-chapter run covers the
+28-minute authored traversal. The unchanged release budgets remain 60 fps,
+p99 displayed frame time at or below 25 ms, sustained physical footprint below
+500 MiB, thermal state no worse than `fair`, absolute battery loss at or below
+8 percentage points and no more than 3 percentage points above its paired
+static reference. Physical execution remains pending and `not tested` remains
+a failure.
+
 ### Artistic and editor gates
 
 Visual composition, interaction purpose, narration performance, score,
@@ -303,17 +391,16 @@ Its non-shipping projection contains:
 - 3 arcs, 17 beats and 6 principal interactions;
 - 17 scene specifications and accessibility specifications;
 - 37 narration cues and 47 audio timelines;
-- 6 responsive-audio programs: Harvest, Household Crosses, Longhouse, More
-  Mouths and A Continent Remade are provisional authored programs; one remains
-  an explicit non-shipping requirement placeholder;
-- 777 future asset requirements.
+- 6 provisional responsive-audio programs: Harvest, Household Crosses,
+  Longhouse, More Mouths, Three Records and A Continent Remade;
+- 778 future asset requirements.
 
 The generated content payload is SHA-256
-`4a97922988430702f964d14902350892a7b90c565d1d41db9990869d1a6e4399`.
+`f3a459d72799bb2ee34a24e98fd164ea42c79186a13e60a67d75eaf58d89999d`.
 The generated chapter file is SHA-256
 `32fbcf8824852a8e0e77ae1e8e8ef4d1ff8a85f1869187f080408085f2629e6f`.
 The current payload-receipt file is SHA-256
-`6fc6793b34ffd66b3c5dcbba14b0eb142f9a31547dcfde3e342956712b91c262`.
+`d0b0843524d38268383721ca58b1fe420e374f2d13ee496097684e56f83a1f97`.
 
 The backstage claim register has 15 findings: 9 `PASS`, 1 `NARROW`, 1
 `REMOVE` and 4 `EDITOR_DECISION`. The two non-editorial repairs are closed.
@@ -476,7 +563,9 @@ asset production.
 - concept image SHA-256:
   `1f166356445255c302f795623af2e56259f0924d153c41cf5c2a4d683d2b8ae7`;
 - selection SHA-256:
-  `49a2ebb1f152fc755928fbedda7707ddbf8bd23c62e089c9616cd0fc29ab463c`;
+  `2e7019abd837297d5eb42aa27b53095f841401ed2864728a183fe3c39e7cb7cd`;
+- A5/A6 390-point refinement review SHA-256:
+  `3a50b45899af9c80a577e8b87af269d5650a293f4982727a3d6ca0a0dcdbc250`;
 - interaction-production contract SHA-256:
   `f0cbd691ab5d321cc03d992e174a4244edb35a7c8d262af615589896e43d575f`.
 
@@ -497,7 +586,10 @@ The Longhouse focus passes `57/57` tests and an independent code review. The
 source-slot contract passes `4/4`. This closes the local controller and content
 binding seam, not the production-scene gate: the signed fixture still uses
 technical geometry and non-production imagery. A4 still needs one complete,
-readable offset former footprint and reworn threshold at phone scale.
+readable offset former footprint and reworn threshold at phone scale. A5 made
+the footprint visible through pit-like marks; A6 removed that confusion but
+also removed phone-scale legibility and introduced broader rendering drift.
+Both remain rejected non-shipping evidence studies.
 
 ## Longhouse responsive score and soundscape
 
@@ -704,13 +796,17 @@ and a rebuilt Release boundary scan. That Release `.app` contained no DEBUG
 fixture, Harvest proof, narration work tree, source, verifier or backstage
 control byte.
 
-The current permitted tree passes `791/791` SwiftPM tests, the named Household
+The current permitted tree passes `806/806` SwiftPM tests, the named Household
 Crosses Trace closure, the `57/57` Longhouse focus, the Harvest source-input
-authority checks and all five permitted responsive-audio validators. Generic
-Debug and Release iOS Simulator app builds succeed, and the rebuilt Release
-`.app` boundary-only scan passes. The connected UI bundle and sanitizer
-receipt have not yet been recaptured after these later edits. They are the
-next complete local verification freeze, not a physical-device dependency.
+authority checks and all six provisional responsive-audio validators. Generic
+Debug and Release iOS Simulator app builds succeed, the ARM64 Release iPhone
+build succeeds, and the rebuilt Release `.app` boundary-only scan passes for
+its captured build. A current production-route UI test opens all 17 First
+Farmers beats, and the focused Thread Sanitizer recapture passes `194/194`
+with zero findings. The current integrated Xcode UI gate remains red at
+`42/46`; therefore the tree does not yet have a complete local app-level pass.
+All of these remain local and simulator evidence, not a physical iPhone
+result.
 
 ### Final physical and service verification
 

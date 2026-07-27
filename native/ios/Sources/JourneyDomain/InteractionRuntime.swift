@@ -311,6 +311,18 @@ public enum InteractionReducer {
                 throw InteractionRuntimeError.mismatchedGrammar
             }
             next.values[index].magnitude = magnitude
+            let netPressure = configuration.forces.reduce(0.0) { partial, force in
+                let currentMagnitude = next.values.first(where: {
+                    $0.forceID == force.id
+                })?.magnitude ?? 0
+                return partial + force.direction * currentMagnitude
+            }
+            if !configuration.stableRange.contains(netPressure) {
+                // Hold time is continuous evidence. Crossing outside the
+                // authored stable range invalidates it at this input boundary,
+                // even when the next periodic hold tick is coalesced later.
+                next.stableMillis = 0
+            }
             state.progress = .pressure(next)
             feedback = .progress
 
@@ -346,7 +358,8 @@ public enum InteractionReducer {
             }
             var next = progress
             next.currentAmount = max(next.currentAmount, amount)
-            if next.currentAmount >= stage.requiredAmount {
+            let crossedStageThreshold = next.currentAmount >= stage.requiredAmount
+            if crossedStageThreshold {
                 next.completedStageCount += 1
                 next.currentAmount = 0
             }
@@ -354,7 +367,7 @@ public enum InteractionReducer {
             if next.completedStageCount == configuration.stages.count {
                 return complete(&state, effects: spec.completionEffects)
             }
-            feedback = .progress
+            feedback = crossedStageThreshold ? .threshold : .progress
 
         default:
             throw InteractionRuntimeError.invalidAction

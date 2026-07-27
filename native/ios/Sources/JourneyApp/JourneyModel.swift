@@ -164,6 +164,7 @@ private enum JourneyUITestInjectedPersistenceError: Error, Sendable {
     case suspensionAppend
     case authorityPauseCompletion
     case orderedExitPauseCompletion
+    case orderedExitConsequenceRelinquish
 }
 
 private struct JourneyUITestResponsiveAudioBindingContext {
@@ -610,8 +611,18 @@ final class JourneyModel: ObservableObject {
         ResponsiveAudioCursorCheckpointSession?
     private var responsiveAudioCursorDurableSnapshot:
         ResponsiveAudioProgramSnapshot?
-    private let responsiveAudioCursorPump =
-        ResponsiveAudioCursorCheckpointPump()
+    /// The render-clock feed and cadence run outside MainActor. Journey owns
+    /// only the exact activation token/protection identities needed to fence
+    /// lifecycle cleanup and authority handoff.
+    private var responsiveAudioCursorWorker: ActiveAudioCursorWorker?
+    private var responsiveAudioCursorActivationToken:
+        ActiveAudioCursorActivationToken?
+    private var responsiveAudioCursorProtection:
+        ActiveAudioCursorProtection?
+    private var responsiveAudioCursorTerminalObserverTask: Task<Void, Never>?
+    private var responsiveAudioCursorCleanupTask: Task<Void, Never>?
+    private var responsiveAudioCursorCleanupID: UUID?
+    private var responsiveAudioCursorDidFailClosed = false
     private var outgoingResponsiveAudioTail: ResponsiveAudioOutgoingTail?
     private var preQuiescedSuspensionAction: JourneyAction?
     private var preQuiescedSuspensionFailed = false
@@ -638,6 +649,10 @@ final class JourneyModel: ObservableObject {
             }
         )
     private var responsiveAudioBindingTask: Task<Void, Never>?
+    /// Fences one asynchronous binding attempt even when a later attempt has
+    /// the same authored-content identity. Identity alone cannot distinguish
+    /// cancel/restart ABA across suspension points.
+    private var responsiveAudioBindingOperationID: UUID?
     private var responsiveAudioPlaybackStartTask: Task<Bool, Never>?
     private var responsiveAudioPlaybackStartID: UUID?
     private var responsiveAudioPlaybackStartLifecycleToken: UUID?
@@ -736,12 +751,17 @@ final class JourneyModel: ObservableObject {
             "journey-progress-v1",
             isDirectory: true
         )
-        responsiveAudioCursorStore = try? ResponsiveAudioCursorCheckpointStore(
-            directoryURL: storageURL.appendingPathComponent(
-                "responsive-audio-cursor-v1",
-                isDirectory: true
+        let preparedResponsiveAudioCursorStore = try?
+            ResponsiveAudioCursorCheckpointStore(
+                directoryURL: storageURL.appendingPathComponent(
+                    "responsive-audio-cursor-v1",
+                    isDirectory: true
+                )
             )
-        )
+        responsiveAudioCursorStore = preparedResponsiveAudioCursorStore
+        responsiveAudioCursorWorker = preparedResponsiveAudioCursorStore.map {
+            ActiveAudioCursorWorker(store: $0)
+        }
         experiencePreferencesStorageURL = applicationSupport.appendingPathComponent(
             "experience-preferences-v1",
             isDirectory: true
@@ -1579,22 +1599,50 @@ final class JourneyModel: ObservableObject {
         }
         let capturedLifecycleToken = responsiveAudioLifecycleToken
 
-        // Close periodic capture before the physical route quiesce. A
-        // transport failure can expose a later rendered cursor while the
-        // controller rolls back; no pump tick may race that rejected cursor
-        // into the recoverable sidecar.
-        responsiveAudioCursorPump.stop()
+        // Fence the exact worker generation before the physical route
+        // quiesce. A transport failure can expose a later rendered cursor
+        // while the controller rolls back; no capture may race that rejected
+        // cursor into the recoverable sidecar.
+        await stopResponsiveAudioCursorWorkerForOrderedExit()
+#if DEBUG
+        beginOrderedExitAudioAuditForTesting(controller: controller)
+#endif
         let finalSnapshot: ResponsiveAudioProgramSnapshot
         if controller.runtime.stage == .consequence,
            controller.runtime.isPlaying {
-            let tail = try controller.relinquishConsequence(
-                exitPolicy: controller.runtime.program.exitPolicy
+#if DEBUG
+            armOrderedExitConsequenceRelinquishProbeForTesting(
+                controller: controller
             )
-            finalSnapshot = controller.runtime.snapshot()
-            retainOutgoingResponsiveAudioTail(tail)
+#endif
+            do {
+                let tail = try controller.relinquishConsequence(
+                    exitPolicy: controller.runtime.program.exitPolicy
+                )
+                finalSnapshot = controller.runtime.snapshot()
+                retainOutgoingResponsiveAudioTail(tail)
+            } catch {
+                // The worker has already been detached, so every failed
+                // relinquish must synchronously end this exact graph before
+                // actor/store cleanup can suspend. Otherwise a muted engine
+                // could keep rendering indefinitely with no durability owner.
+                let controllerWasDiscarded =
+                    discardResponsiveAudioControllerIfStillOwned(
+                        controller,
+                        lifecycleToken: capturedLifecycleToken
+                    )
+                await retireResponsiveAudioCursorProtection()
+                responsiveAudioFailure =
+                    "The authored sound paused before its place could be verified."
+#if DEBUG
+                finalizeOrderedExitAudioFailureForTesting(
+                    controllerWasDiscarded: controllerWasDiscarded
+                )
+#endif
+                throw error
+            }
         } else {
 #if DEBUG
-            beginOrderedExitAudioAuditForTesting(controller: controller)
             armOrderedExitTransportProbeForTesting(controller: controller)
 #endif
             let exactFailureFallback = controller.runtime.snapshot()
@@ -1707,6 +1755,19 @@ final class JourneyModel: ObservableObject {
         tail?.stopImmediately()
     }
 
+    /// A published activation token means the native render gate is already
+    /// bounding the first not-yet-fsynced interval. Once start returns, the
+    /// matching protection keeps that same ownership identity for cadence and
+    /// lifecycle cleanup.
+    private var responsiveAudioCursorIsArmed: Bool {
+        responsiveAudioCursorActivationToken != nil
+    }
+
+    private var responsiveAudioCursorIsStopped: Bool {
+        responsiveAudioCursorActivationToken == nil
+            && responsiveAudioCursorProtection == nil
+    }
+
     private var journeyAudioRequiresRouteSuspension: Bool {
         JourneyAudioRouteChangeSuspensionPolicy
             .journeyAudioRequiresSuspension(
@@ -1714,7 +1775,7 @@ final class JourneyModel: ObservableObject {
                     responsiveAudioController?.runtime.isPlaying == true,
                 playbackStartIsInFlight:
                     responsiveAudioPlaybackStartTask != nil,
-                crashCursorIsArmed: responsiveAudioCursorPump.isRunning,
+                crashCursorIsArmed: responsiveAudioCursorIsArmed,
                 outgoingTailIsActive: outgoingResponsiveAudioTail != nil
             )
     }
@@ -1769,7 +1830,7 @@ final class JourneyModel: ObservableObject {
         }
         switch access(to: chapterID) {
         case .included, .purchased:
-#if DEBUG
+#if DEBUG || NON_SHIPPING_LIVE_TEST
             if ProcessInfo.processInfo.arguments.contains(
                 DevelopmentSignedRuntimeFixtureAppContent.launchArgument
             ), let snapshot = runtimeContentSnapshot,
@@ -1869,6 +1930,15 @@ final class JourneyModel: ObservableObject {
               }),
               let verifiedPackage = authority.verifiedPackage(for: packageID),
               authority.packageRootURL(for: packageID) != nil else {
+            return nil
+        }
+        // Entering an authored beat and beginning its interaction are distinct
+        // durable records. Do not publish a runnable route identity in the
+        // short interval between them: responsive audio and scene input both
+        // require the interaction state established by the latter record.
+        if let interaction = cursor.beat.interaction,
+           committedState.activeChapter?.interaction?.interactionID
+                != interaction.id {
             return nil
         }
         return ChapterRuntimeRouteIdentity(
@@ -2137,6 +2207,12 @@ final class JourneyModel: ObservableObject {
         )
     }
 
+    private var orderedExitConsequenceRelinquishProbeIsEnabled: Bool {
+        ProcessInfo.processInfo.arguments.contains(
+            "--ui-testing-ordered-exit-consequence-relinquish-failure"
+        )
+    }
+
     private func updateOrderedExitAudioDiagnosticForTesting() {
         guard orderedExitAudioProbeIsEnabled else { return }
         let partial = orderedExitAudioPartialSnapshotForTesting.map {
@@ -2183,7 +2259,7 @@ final class JourneyModel: ObservableObject {
             + ";fallbackRecovered=\(bit(orderedExitAudioFallbackRecoveredForTesting))"
             + ";controllerDiscarded=\(bit(orderedExitAudioControllerDiscardedForTesting))"
             + ";cursorRetired=\(bit(orderedExitAudioCursorProtectionRetiredForTesting))"
-            + ";pumpStopped=\(bit(!responsiveAudioCursorPump.isRunning))"
+            + ";pumpStopped=\(bit(responsiveAudioCursorIsStopped))"
             + ";authorityRequested=\(bit(orderedExitAudioAuthorityRequestedForTesting))"
             + ";authorityPublished=\(bit(orderedExitAudioAuthorityPublishedForTesting))"
             + ";actorRecoveryQueried=\(bit(orderedExitAudioActorRecoveryQueriedForTesting))"
@@ -2257,6 +2333,32 @@ final class JourneyModel: ObservableObject {
         }
     }
 
+    private func armOrderedExitConsequenceRelinquishProbeForTesting(
+        controller: ResponsiveAudioProgramController
+    ) {
+        guard orderedExitAudioProbeIsEnabled,
+              orderedExitConsequenceRelinquishProbeIsEnabled,
+              !orderedExitAudioFailureInjectionDidRun,
+              let probeTransport =
+                responsiveAudioAuthorityProbeTransportForTesting,
+              probeTransport.controllerID == ObjectIdentifier(controller)
+        else { return }
+        probeTransport.transport.armRelinquishPreparationFaultForTesting {
+            [weak self, weak controller] in
+            guard let self, let controller,
+                  self.responsiveAudioController === controller,
+                  !self.orderedExitAudioFailureInjectionDidRun else { return }
+            self.orderedExitAudioFailureInjectionDidRun = true
+            self.orderedExitAudioPartialSnapshotForTesting =
+                probeTransport.transport.snapshot()
+            self.orderedExitAudioTransportPausedForTesting =
+                !controller.runtime.isPlaying
+            self.updateOrderedExitAudioDiagnosticForTesting()
+            throw JourneyUITestInjectedPersistenceError
+                .orderedExitConsequenceRelinquish
+        }
+    }
+
     private func markOrderedExitAudioFallbackRecoveredForTesting(
         _ snapshot: ResponsiveAudioProgramSnapshot
     ) {
@@ -2277,10 +2379,10 @@ final class JourneyModel: ObservableObject {
         }
         // This reads the actor's verified durable record, not the model's
         // presentation mirror. Retirement has already drained every write
-        // admitted by the old writer; one full production pump period then
+        // admitted by the old writer; one full production worker period then
         // proves that no cancelled periodic generation can publish later.
         try? await Task.sleep(
-            nanoseconds: ResponsiveAudioCursorCheckpointPump
+            nanoseconds: ActiveAudioCursorWorker
                 .productionIntervalNanoseconds
         )
         if let store = responsiveAudioCursorStore,
@@ -2291,7 +2393,7 @@ final class JourneyModel: ObservableObject {
         }
         orderedExitAudioCursorProtectionRetiredForTesting =
             responsiveAudioCursorSession == nil
-                && !responsiveAudioCursorPump.isRunning
+                && responsiveAudioCursorIsStopped
         updateOrderedExitAudioDiagnosticForTesting()
     }
 
@@ -2319,7 +2421,7 @@ final class JourneyModel: ObservableObject {
         orderedExitAudioSequenceAfterForTesting = lastCommittedSequence
         orderedExitAudioCursorProtectionRetiredForTesting =
             responsiveAudioCursorSession == nil
-                && !responsiveAudioCursorPump.isRunning
+                && responsiveAudioCursorIsStopped
         orderedExitAudioAuditIsFinalForTesting = true
         updateOrderedExitAudioDiagnosticForTesting()
     }
@@ -3139,6 +3241,7 @@ final class JourneyModel: ObservableObject {
             guard responsiveAudioControllerMatchesCurrentJourney() else {
                 throw JourneyChapterRuntimeError.authoredAudioUnavailable
             }
+
         }
         while true {
             do {
@@ -3324,7 +3427,10 @@ final class JourneyModel: ObservableObject {
             }
         }
 
-        if commits.contains(where: \.requiresCheckpoint), let latest = commits.last {
+        if Self.chapterSceneTransitionRequiresCheckpoint(
+            transition,
+            commits: commits
+        ), let latest = commits.last {
             do {
                 try await committer.checkpoint(latest)
             } catch let error as DurableJourneyCommitterError {
@@ -3344,6 +3450,26 @@ final class JourneyModel: ObservableObject {
                 throw JourneyChapterRuntimeError.persistenceUnavailable
             }
         }
+    }
+
+    /// Every accepted interaction event is already recoverable from its
+    /// synchronised journal record. Compacting the whole Journey snapshot for
+    /// each finger sample adds several file barriers without improving crash
+    /// recovery. Completion still compacts immediately; lifecycle and route
+    /// actions retain their existing exact checkpoints.
+    private static func chapterSceneTransitionRequiresCheckpoint(
+        _ transition: ChapterSceneTransition,
+        commits: [DurableJourneyCommit]
+    ) -> Bool {
+        guard commits.contains(where: \.requiresCheckpoint) else {
+            return false
+        }
+        guard let interactionCommit = transition.durableCommit,
+              case .interact = interactionCommit.event.action else {
+            return true
+        }
+        return interactionCommit.state.activeChapter?
+            .interaction?.phase == .complete
     }
 
     func purchaseCompleteWork() {
@@ -3525,17 +3651,42 @@ final class JourneyModel: ObservableObject {
                 actions.append(install)
             }
 
+            let entryActions: [JourneyAction]
             if planningState.chapterSession(chapter.id) == nil {
-                actions.append(contentsOf: try coordinator.beginActions(
+                entryActions = try coordinator.beginActions(
                     chapterID: chapter.id,
                     state: planningState
-                ))
+                )
             } else {
-                actions.append(contentsOf: try coordinator.resumeActions(
+                entryActions = try coordinator.resumeActions(
                     chapterID: chapter.id,
                     state: planningState
-                ))
+                )
             }
+            actions.append(contentsOf: entryActions)
+#if DEBUG || NON_SHIPPING_LIVE_TEST
+            if ProcessInfo.processInfo.arguments.contains(
+                DevelopmentSignedRuntimeFixtureAppContent.launchArgument
+            ), let targetBeatID =
+                DevelopmentSignedRuntimeFixtureAppContent.targetBeatID(),
+               coordinator.repository.chapter(chapter.id)?.arcs
+                .flatMap(\.beats).contains(where: {
+                    $0.id == targetBeatID
+                }) == true {
+                for action in entryActions {
+                    try applySignedRuntimeFixturePlanningAction(
+                        action,
+                        to: &planningState
+                    )
+                }
+                try appendSignedRuntimeFixtureSeekActions(
+                    targetBeatID: targetBeatID,
+                    coordinator: coordinator,
+                    planningState: &planningState,
+                    actions: &actions
+                )
+            }
+#endif
             actions.append(
                 .recordChapterVisit(
                     chapterID: chapter.id,
@@ -3838,8 +3989,10 @@ final class JourneyModel: ObservableObject {
     ) {
         stopOutgoingResponsiveAudioTailImmediately()
         causalHapticTransport.quiesceForSuspension()
-        responsiveAudioCursorPump.stop()
-        defer { cancelResponsiveAudioAutomaticBoundary() }
+        defer {
+            _ = scheduleResponsiveAudioCursorRetirement()
+            cancelResponsiveAudioAutomaticBoundary()
+        }
         guard !preQuiescedSuspensionFailed,
               preQuiescedSuspensionAction == nil,
               let controller = responsiveAudioController else {
@@ -4603,6 +4756,9 @@ final class JourneyModel: ObservableObject {
                 controller: reboundController,
                 expectedLifecycleToken: startAuthority.lifecycleToken
             )
+            let preparedCursorSession = responsiveAudioCursorSession
+            let preparedDurableSnapshot =
+                responsiveAudioCursorDurableSnapshot
             do {
                 try Task.checkCancellation()
                 guard suspensionEpisodeCoordinator.episodeID == nil,
@@ -4618,11 +4774,22 @@ final class JourneyModel: ObservableObject {
                     throw JourneyChapterRuntimeError.routeAuthorityChanged
                 }
                 try reboundController.play()
-                try armResponsiveAudioCursorProtection(
+                try await armResponsiveAudioCursorProtection(
                     controller: reboundController,
                     expectedLifecycleToken: startAuthority.lifecycleToken
                 )
             } catch {
+                guard startAuthority.lifecycleToken
+                        == responsiveAudioLifecycleToken,
+                      responsiveAudioController === reboundController,
+                      responsiveAudioCursorSession
+                        == preparedCursorSession,
+                      responsiveAudioCursorDurableSnapshot
+                        == preparedDurableSnapshot else {
+                    // This transaction lost ownership while its inline fsync
+                    // was suspended. Its successor owns all cleanup.
+                    return false
+                }
                 await retireResponsiveAudioCursorProtection()
                 throw error
             }
@@ -4698,9 +4865,9 @@ final class JourneyModel: ObservableObject {
                 suspensionEpisodeCoordinator.episodeID != nil,
             runtimeTransitionIsInactive: runtimeTransitionIsInactive,
             cursorPumpIsRunning:
-                responsiveAudioCursorPump.isPeriodicallyProtectingPlayback,
+                responsiveAudioCursorIsArmed,
             cursorPumpDidFailClosed:
-                responsiveAudioCursorPump.didFailClosed,
+                responsiveAudioCursorDidFailClosed,
             sidecarSessionIsCurrent: sidecarSessionIsCurrent,
             durableSnapshotIsCurrent: durableSnapshotIsCurrent
         )
@@ -4785,7 +4952,12 @@ final class JourneyModel: ObservableObject {
     ) async throws {
         let lifecycleToken = expectedLifecycleToken
             ?? responsiveAudioLifecycleToken
-        guard let store = responsiveAudioCursorStore,
+        await awaitResponsiveAudioCursorCleanupIfNeeded()
+        guard responsiveAudioCursorActivationToken == nil,
+              responsiveAudioCursorProtection == nil,
+              responsiveAudioCursorSession == nil,
+              let store = responsiveAudioCursorStore,
+              responsiveAudioCursorWorker != nil,
               let durableSnapshot = committedState.activeChapter?
                 .responsiveAudioSnapshot,
               let authority = try responsiveAudioCursorAuthority(
@@ -4801,11 +4973,27 @@ final class JourneyModel: ObservableObject {
         let sidecarSession = try await store.beginSession(
             authority: authority
         )
+        let currentAuthority: ResponsiveAudioCursorAuthority?
+        do {
+            currentAuthority = try responsiveAudioCursorAuthority(
+                for: controller
+            )
+        } catch {
+            await store.retire(sidecarSession)
+            throw JourneyChapterRuntimeError.routeAuthorityChanged
+        }
         guard runtimeTransitionIsInactive,
               lifecycleToken == responsiveAudioLifecycleToken,
               responsiveAudioController === controller,
               committedState.activeChapter?
-                .responsiveAudioSessionIsActive == true else {
+                .responsiveAudioSessionIsActive == true,
+              committedState.activeChapter?.responsiveAudioSnapshot
+                == durableSnapshot,
+              currentAuthority == authority,
+              Self.responsiveAudioNonPositionMatches(
+                controller.runtime.snapshot(),
+                durableSnapshot
+              ) else {
 #if DEBUG
             recordResponsiveAudioStartAdmissionRejection(
                 stage: "cursor-protection"
@@ -4816,6 +5004,7 @@ final class JourneyModel: ObservableObject {
         }
         responsiveAudioCursorSession = sidecarSession
         responsiveAudioCursorDurableSnapshot = durableSnapshot
+        responsiveAudioCursorDidFailClosed = false
     }
 
     /// `NativeTimelineTransport.play` completes session/graph preparation,
@@ -4825,7 +5014,7 @@ final class JourneyModel: ObservableObject {
     private func armResponsiveAudioCursorProtection(
         controller: ResponsiveAudioProgramController,
         expectedLifecycleToken: UUID? = nil
-    ) throws {
+    ) async throws {
         let lifecycleToken = expectedLifecycleToken
             ?? responsiveAudioLifecycleToken
         guard runtimeTransitionIsInactive,
@@ -4835,105 +5024,140 @@ final class JourneyModel: ObservableObject {
               committedState.activeChapter?
                 .responsiveAudioSessionIsActive == true,
               let store = responsiveAudioCursorStore,
+              let worker = responsiveAudioCursorWorker,
               let sidecarSession = responsiveAudioCursorSession,
-              let durableSnapshot = responsiveAudioCursorDurableSnapshot else {
+              let durableSnapshot = responsiveAudioCursorDurableSnapshot,
+              responsiveAudioCursorActivationToken == nil,
+              responsiveAudioCursorProtection == nil else {
 #if DEBUG
             recordResponsiveAudioStartAdmissionRejection(stage: "arming")
 #endif
             throw JourneyChapterRuntimeError.routeAuthorityChanged
         }
-        startResponsiveAudioCursorPump(
-            controller: controller,
-            durableSnapshot: durableSnapshot,
-            sidecarSession: sidecarSession,
-            store: store
+        let binding = try controller.makeActiveAudioCursorBinding(
+            constrainedTo: durableSnapshot
         )
-        // The journaled session baseline already owns the first 250 ms. Do
-        // not await this generation's first sidecar fsync: an approach may
-        // cross its automatic boundary and validly replace the generation
-        // before that write returns. The armed watchdog remains the physical
-        // fail-closed authority throughout that interval.
-        guard !Task.isCancelled,
-              !responsiveAudioCursorPump.didFailClosed,
-              responsiveAudioCursorPump.isRunning,
-              lifecycleToken == responsiveAudioLifecycleToken,
-              responsiveAudioController === controller,
-              controller.runtime.isPlaying,
-              suspensionEpisodeCoordinator.episodeID == nil,
-              responsiveAudioCursorSession == sidecarSession,
-              responsiveAudioCursorDurableSnapshot == durableSnapshot else {
+        let activationToken = ActiveAudioCursorActivationToken()
+        // Publish before entering the actor. An automatic native boundary can
+        // commit while the first fsync is suspended and must be able to hand
+        // off from this exact starting generation.
+        responsiveAudioCursorActivationToken = activationToken
+        responsiveAudioCursorDidFailClosed = false
+#if DEBUG
+        responsiveAudioCursorFailureDiagnosticForTesting = "none"
+#endif
+        let startResult = await worker.start(
+            token: activationToken,
+            binding: binding,
+            session: sidecarSession
+        )
+        switch startResult {
+        case let .protecting(protection):
+            guard !Task.isCancelled,
+                  lifecycleToken == responsiveAudioLifecycleToken,
+                  responsiveAudioController === controller,
+                  controller.runtime.isPlaying,
+                  suspensionEpisodeCoordinator.episodeID == nil,
+                  responsiveAudioCursorActivationToken == activationToken,
+                  responsiveAudioCursorSession == sidecarSession,
+                  responsiveAudioCursorDurableSnapshot == durableSnapshot,
+                  committedState.activeChapter?
+                    .responsiveAudioSessionIsActive == true else {
+                _ = await worker.stop(protection)
+                await store.retire(protection.session)
+                if responsiveAudioCursorActivationToken == activationToken {
+                    responsiveAudioCursorActivationToken = nil
+                    responsiveAudioCursorProtection = nil
+                    responsiveAudioCursorSession = nil
+                    responsiveAudioCursorDurableSnapshot = nil
+                }
+                throw JourneyChapterRuntimeError.routeAuthorityChanged
+            }
+            installResponsiveAudioCursorProtection(
+                protection,
+                controller: controller,
+                lifecycleToken: lifecycleToken,
+                durableSnapshot: durableSnapshot
+            )
+        case .superseded:
+            // A committed automatic boundary may have installed a successor
+            // while the first generation waited on fsync. Accept only that
+            // exact protected successor; its handoff owns cleanup.
+            guard !Task.isCancelled,
+                  lifecycleToken == responsiveAudioLifecycleToken,
+                  responsiveAudioController === controller,
+                  controller.runtime.isPlaying,
+                  suspensionEpisodeCoordinator.episodeID == nil,
+                  responsiveAudioCursorActivationToken != activationToken,
+                  responsiveAudioCursorProtection != nil,
+                  !responsiveAudioCursorDidFailClosed,
+                  committedState.activeChapter?
+                    .responsiveAudioSessionIsActive == true else {
+                throw JourneyChapterRuntimeError.routeAuthorityChanged
+            }
+        case .failed:
+            if responsiveAudioCursorActivationToken == activationToken {
+                responsiveAudioCursorDidFailClosed = true
+            }
             throw JourneyChapterRuntimeError.persistenceUnavailable
         }
     }
 
-    private func startResponsiveAudioCursorPump(
+    private func installResponsiveAudioCursorProtection(
+        _ protection: ActiveAudioCursorProtection,
         controller: ResponsiveAudioProgramController,
-        durableSnapshot: ResponsiveAudioProgramSnapshot,
-        sidecarSession: ResponsiveAudioCursorCheckpointSession,
-        store: ResponsiveAudioCursorCheckpointStore,
-        lastVerifiedCaptureNanoseconds: UInt64? = nil
+        lifecycleToken: UUID,
+        durableSnapshot: ResponsiveAudioProgramSnapshot
     ) {
-#if DEBUG
-        responsiveAudioCursorFailureDiagnosticForTesting = "none"
-#endif
-        responsiveAudioCursorPump.start(
-            lastVerifiedCaptureNanoseconds:
-                lastVerifiedCaptureNanoseconds,
-            capture: { [weak self, weak controller] in
-                guard let self, let controller,
-                      self.responsiveAudioController === controller,
-                      self.responsiveAudioCursorDurableSnapshot
-                        == durableSnapshot else {
-                    throw JourneyChapterRuntimeError.routeAuthorityChanged
-                }
-                let result = try controller.checkpointForDurability(
-                    constrainedTo: durableSnapshot
-                )
-                return switch result {
-                case let .verified(snapshot):
-                    .verified(snapshot)
-                case let .awaitingDurableAuthority(projectedOldSnapshot):
-                    .awaitingDurableAuthority(
-                        projectedOldSnapshot: projectedOldSnapshot
-                    )
-                }
-            },
-            persist: { [weak self] snapshot, capturedAt in
-                guard let self,
-                      self.responsiveAudioCursorSession == sidecarSession else {
-                    throw JourneyChapterRuntimeError.routeAuthorityChanged
-                }
-                try await store.checkpoint(
-                    snapshot,
-                    session: sidecarSession,
-                    capturedAtMonotonicNanoseconds: capturedAt
-                )
-#if DEBUG
-                if self.responsiveAudioCursorSession == sidecarSession,
-                   self.responsiveAudioCursorDurableSnapshot
-                    == durableSnapshot {
-                    self.responsiveAudioDurableCursorForTesting = snapshot
-                }
-#endif
-            },
-            failClosed: { [weak self] in
-                self?.failClosedResponsiveAudioCursorFromPump()
-            }
-        )
-    }
+        responsiveAudioCursorActivationToken = protection.activationToken
+        responsiveAudioCursorProtection = protection
+        responsiveAudioCursorSession = protection.session
+        responsiveAudioCursorDurableSnapshot = durableSnapshot
+        responsiveAudioCursorDidFailClosed = false
 
-    private func failClosedResponsiveAudioCursorFromPump() {
 #if DEBUG
-        let pumpDiagnostic = responsiveAudioCursorPump
-            .failureDiagnosticForTesting
-            .map(String.init(describing:))
-            ?? "missing"
-        failClosedResponsiveAudioCursorImmediately(
-            diagnostic: "pump;\(pumpDiagnostic)"
-        )
-#else
-        failClosedResponsiveAudioCursorImmediately(diagnostic: "pump")
+        let activationToken = protection.activationToken
+        let sidecarSession = protection.session
+        protection.setPersistedSnapshotObserver { [weak self] snapshot in
+            Task { @MainActor [weak self] in
+                guard let self,
+                      self.responsiveAudioCursorActivationToken
+                        == activationToken,
+                      self.responsiveAudioCursorSession == sidecarSession,
+                      self.responsiveAudioCursorDurableSnapshot
+                        == durableSnapshot else { return }
+                self.responsiveAudioDurableCursorForTesting = snapshot
+            }
+        }
 #endif
+
+        responsiveAudioCursorTerminalObserverTask?.cancel()
+        let terminalActivationToken = protection.activationToken
+        let terminalSidecarSession = protection.session
+        responsiveAudioCursorTerminalObserverTask = Task {
+            @MainActor [weak self, weak controller] in
+            let result = await protection.terminalResult()
+            guard !Task.isCancelled,
+                  let self,
+                  let controller else { return }
+            guard case let .failed(reason) = result,
+                  self.responsiveAudioCursorActivationToken
+                    == terminalActivationToken,
+                  self.responsiveAudioCursorProtection?
+                    .activationToken == terminalActivationToken,
+                  self.responsiveAudioCursorSession
+                    == terminalSidecarSession,
+                  self.responsiveAudioCursorDurableSnapshot
+                    == durableSnapshot,
+                  self.responsiveAudioLifecycleToken == lifecycleToken,
+                  self.responsiveAudioController === controller else {
+                return
+            }
+            self.responsiveAudioCursorDidFailClosed = true
+            self.failClosedResponsiveAudioCursorImmediately(
+                diagnostic: "worker;\(String(describing: reason))"
+            )
+        }
     }
 
     private func failClosedResponsiveAudioCursorImmediately(
@@ -4987,12 +5211,104 @@ final class JourneyModel: ObservableObject {
         )
     }
 
-    private func retireResponsiveAudioCursorProtection() async {
-        responsiveAudioCursorPump.stop()
+    /// Detaches ownership synchronously, then serializes scoped actor stop and
+    /// sidecar retirement. A successor must await this task before beginning a
+    /// new store session, so delayed lifecycle cleanup cannot stop or retire a
+    /// newer generation.
+    @discardableResult
+    private func scheduleResponsiveAudioCursorRetirement(
+        runTestingProbes: Bool = false
+    ) -> Task<Void, Never>? {
+        let activationToken = responsiveAudioCursorActivationToken
+        let protection = responsiveAudioCursorProtection
         let retiringSession = responsiveAudioCursorSession
+        guard activationToken != nil
+                || protection != nil
+                || retiringSession != nil else {
+            return responsiveAudioCursorCleanupTask
+        }
+
+        protection?.setPersistedSnapshotObserver(nil)
+        responsiveAudioCursorTerminalObserverTask?.cancel()
+        responsiveAudioCursorTerminalObserverTask = nil
+        responsiveAudioCursorActivationToken = nil
+        responsiveAudioCursorProtection = nil
         responsiveAudioCursorSession = nil
         responsiveAudioCursorDurableSnapshot = nil
+
+        let precedingCleanup = responsiveAudioCursorCleanupTask
+        let cleanupID = UUID()
+        let worker = responsiveAudioCursorWorker
+        let store = responsiveAudioCursorStore
+        let cleanup = Task { @MainActor [weak self] in
+            if let precedingCleanup {
+                await precedingCleanup.value
+            }
+            if let worker {
+                if let protection {
+                    _ = await worker.stop(protection)
+                } else if let activationToken {
+                    _ = await worker.stop(expectedToken: activationToken)
+                }
+            }
 #if DEBUG
+            if runTestingProbes, let self {
+                await self.performResponsiveAudioCursorRetirementProbes()
+            }
+#endif
+            if let retiringSession, let store {
+                await store.retire(retiringSession)
+            }
+        }
+        responsiveAudioCursorCleanupID = cleanupID
+        responsiveAudioCursorCleanupTask = cleanup
+        return cleanup
+    }
+
+    private func awaitResponsiveAudioCursorCleanupIfNeeded() async {
+        guard let cleanup = responsiveAudioCursorCleanupTask else { return }
+        let cleanupID = responsiveAudioCursorCleanupID
+        await cleanup.value
+        if responsiveAudioCursorCleanupID == cleanupID {
+            responsiveAudioCursorCleanupTask = nil
+            responsiveAudioCursorCleanupID = nil
+        }
+    }
+
+    /// Ordered exit must close worker authority before authorizing an outgoing
+    /// terminal tail or asking a transactional transport to quiesce. The
+    /// sidecar session remains attached until the final controller snapshot is
+    /// known, preserving the existing ordered-retirement audit boundary.
+    private func stopResponsiveAudioCursorWorkerForOrderedExit() async {
+        await awaitResponsiveAudioCursorCleanupIfNeeded()
+        let activationToken = responsiveAudioCursorActivationToken
+        let protection = responsiveAudioCursorProtection
+        protection?.setPersistedSnapshotObserver(nil)
+        responsiveAudioCursorTerminalObserverTask?.cancel()
+        responsiveAudioCursorTerminalObserverTask = nil
+        responsiveAudioCursorActivationToken = nil
+        responsiveAudioCursorProtection = nil
+        if let worker = responsiveAudioCursorWorker {
+            if let protection {
+                _ = await worker.stop(protection)
+            } else if let activationToken {
+                _ = await worker.stop(expectedToken: activationToken)
+            }
+        }
+    }
+
+    private func retireResponsiveAudioCursorProtection() async {
+        let cleanup = scheduleResponsiveAudioCursorRetirement(
+            runTestingProbes: true
+        )
+        await cleanup?.value
+        if cleanup != nil {
+            await awaitResponsiveAudioCursorCleanupIfNeeded()
+        }
+    }
+
+#if DEBUG
+    private func performResponsiveAudioCursorRetirementProbes() async {
         if orderedExitPreinstallSuccessorProbeIsEnabled,
            orderedJourneyTransitionTask != nil,
            orderedExitAudioFailureInjectionDidRun,
@@ -5007,6 +5323,7 @@ final class JourneyModel: ObservableObject {
             responsiveAudioLifecycleToken = UUID()
             responsiveAudioBindingIdentity = successorIdentity
             responsiveAudioBindingTask?.cancel()
+            responsiveAudioBindingOperationID = UUID()
             responsiveAudioBindingTask = Task { @MainActor in
                 do {
                     try await Task.sleep(nanoseconds: UInt64.max)
@@ -5051,14 +5368,8 @@ final class JourneyModel: ObservableObject {
                 "retire:resumed"
             )
         }
-#endif
-        if let retiringSession,
-           let responsiveAudioCursorStore {
-            await responsiveAudioCursorStore.retire(
-                retiringSession
-            )
-        }
     }
+#endif
 
 #if DEBUG
     private func forceResponsiveAudioControllerSwapForAuthorityProbeForTesting() {
@@ -5117,136 +5428,118 @@ final class JourneyModel: ObservableObject {
                   controller.runtime.snapshot(),
                   nextSnapshot
               ), let store = responsiveAudioCursorStore,
+              let worker = responsiveAudioCursorWorker,
               let priorSession = responsiveAudioCursorSession,
-              let nextAuthority = try responsiveAudioCursorAuthority(
-                for: controller
-              ) else {
+              let priorActivationToken =
+                responsiveAudioCursorActivationToken else {
             throw JourneyChapterRuntimeError.authoredAudioUnavailable
         }
         let lifecycleToken = responsiveAudioLifecycleToken
-        let lastRecoverableCapture: UInt64
         if let journalCapture {
             guard journalCapture.snapshot == nextSnapshot else {
                 throw JourneyChapterRuntimeError.authoredAudioUnavailable
             }
-            lastRecoverableCapture =
-                journalCapture.capturedAtMonotonicNanoseconds
-        } else {
-            guard let conservativeBaseline = responsiveAudioCursorPump
-                .lastVerifiedCaptureNanoseconds else {
-                throw JourneyChapterRuntimeError.persistenceUnavailable
-            }
-            lastRecoverableCapture = conservativeBaseline
         }
-        let capturedAt = DispatchTime.now().uptimeNanoseconds
-        let capture = try controller.checkpointForDurability(
-            constrainedTo: nextSnapshot
-        )
-        guard case let .verified(initialSnapshot) = capture else {
-            failClosedResponsiveAudioCursorImmediately(
-                diagnostic: "handoffCaptureAwaitingDurableAuthority"
-            )
+
+        // A completed/non-playing boundary is already fully represented by
+        // the Journey journal. It needs no successor crash cursor and must not
+        // restart periodic work after the transport has ended.
+        if nextSnapshot.stage == .completed || !controller.runtime.isPlaying {
+            await retireResponsiveAudioCursorProtection()
+            return
+        }
+
+        guard let nextAuthority = try responsiveAudioCursorAuthority(
+            for: controller
+        ) else {
             throw JourneyChapterRuntimeError.authoredAudioUnavailable
         }
-        // Arm the successor capture's absolute deadline before suspending the
-        // prior periodic writer or awaiting the actor handoff. The deadline
-        // keeps physical playback fail-closed while the admitted store write
-        // continues independently.
-        guard let handoffDeadline = responsiveAudioCursorPump
-            .beginHandoffDeadline(
-                candidateCapturedAtNanoseconds: capturedAt,
-                lastRecoverableCaptureNanoseconds:
-                    lastRecoverableCapture,
-                failClosed: { [weak self] in
-                    self?.failClosedResponsiveAudioCursorFromPump()
-                }
-            ) else {
-            throw JourneyChapterRuntimeError.persistenceUnavailable
-        }
-        let successorSession: ResponsiveAudioCursorCheckpointSession
-        do {
-            successorSession = try await store.handoffSession(
-                from: priorSession,
-                to: nextAuthority,
-                initialSnapshot: initialSnapshot,
-                capturedAtMonotonicNanoseconds: capturedAt
-            )
-        } catch {
-            let observedAt = DispatchTime.now().uptimeNanoseconds
-            let elapsed = observedAt >= capturedAt
-                ? observedAt - capturedAt
-                : UInt64.max
-            failClosedResponsiveAudioCursorImmediately(
-                diagnostic: "handoffStore;requested=\(capturedAt)"
-                    + ";observed=\(observedAt);elapsed=\(elapsed);error="
-                    + Self.responsiveAudioCursorErrorType(error)
-            )
-            throw error
-        }
-        let handoffDeadlineIsOwned = responsiveAudioCursorPump
-            .ownsHandoffDeadline(
-                handoffDeadline,
-                candidateCapturedAtNanoseconds: capturedAt,
-                lastRecoverableCaptureNanoseconds:
-                    lastRecoverableCapture
-            )
-        let lifecycleIsCurrent =
-            lifecycleToken == responsiveAudioLifecycleToken
-        let controllerIsCurrent = responsiveAudioController === controller
-        let controllerIsPlaying = controller.runtime.isPlaying
-        let priorSessionIsCurrent =
-            responsiveAudioCursorSession == priorSession
-        let durableSnapshotIsCurrent =
-            responsiveAudioCursorDurableSnapshot == durableSnapshot
-        let journalSessionIsActive = committedState.activeChapter?
-            .responsiveAudioSessionIsActive == true
-        guard handoffDeadlineIsOwned,
-              lifecycleIsCurrent,
-              controllerIsCurrent,
-              controllerIsPlaying,
-              priorSessionIsCurrent,
-              durableSnapshotIsCurrent,
-              journalSessionIsActive else {
-            responsiveAudioCursorPump.stop()
-            await store.retire(successorSession)
-#if DEBUG
-            let observedAt = DispatchTime.now().uptimeNanoseconds
-            let elapsed = observedAt >= lastRecoverableCapture
-                ? observedAt - lastRecoverableCapture
-                : UInt64.max
-            let diagnostic = "handoffOwnershipLost"
-                + ";deadline=\(handoffDeadlineIsOwned)"
-                + ";lifecycle=\(lifecycleIsCurrent)"
-                + ";controller=\(controllerIsCurrent)"
-                + ";playing=\(controllerIsPlaying)"
-                + ";priorSession=\(priorSessionIsCurrent)"
-                + ";durableSnapshot=\(durableSnapshotIsCurrent)"
-                + ";journalSession=\(journalSessionIsActive)"
-                + ";baselineElapsed=\(elapsed)"
-            failClosedResponsiveAudioCursorImmediately(
-                diagnostic: diagnostic
-            )
-#else
-            failClosedResponsiveAudioCursorImmediately(
-                diagnostic: "handoffOwnershipLost"
-            )
-#endif
-            throw JourneyChapterRuntimeError.routeAuthorityChanged
-        }
-        responsiveAudioCursorSession = successorSession
-        responsiveAudioCursorDurableSnapshot = nextSnapshot
-#if DEBUG
-        responsiveAudioDurableCursorForTesting = initialSnapshot
-#endif
-        startResponsiveAudioCursorPump(
-            controller: controller,
-            durableSnapshot: nextSnapshot,
-            sidecarSession: successorSession,
-            store: store,
-            lastVerifiedCaptureNanoseconds: capturedAt
+        let binding = try controller.makeActiveAudioCursorBinding(
+            constrainedTo: nextSnapshot
         )
-        if responsiveAudioCursorPump.didFailClosed
-            || !responsiveAudioCursorPump.isRunning {
+        let priorProtection = responsiveAudioCursorProtection
+        priorProtection?.setPersistedSnapshotObserver(nil)
+        responsiveAudioCursorTerminalObserverTask?.cancel()
+        responsiveAudioCursorTerminalObserverTask = nil
+
+        let nextActivationToken = ActiveAudioCursorActivationToken()
+        // Publish before actor re-entry so lifecycle cleanup can always scope
+        // itself to the exact handoff attempt it observed.
+        responsiveAudioCursorActivationToken = nextActivationToken
+        responsiveAudioCursorProtection = nil
+        let result = await worker.handoff(
+            from: priorActivationToken,
+            activating: nextActivationToken,
+            to: nextAuthority,
+            binding: binding
+        )
+
+        switch result {
+        case let .protecting(protection):
+            guard lifecycleToken == responsiveAudioLifecycleToken,
+                  responsiveAudioController === controller,
+                  controller.runtime.isPlaying,
+                  responsiveAudioCursorActivationToken
+                    == nextActivationToken,
+                  responsiveAudioCursorSession == priorSession,
+                  responsiveAudioCursorDurableSnapshot == durableSnapshot,
+                  committedState.activeChapter?
+                    .responsiveAudioSessionIsActive == true else {
+                _ = await worker.stop(protection)
+                await store.retire(protection.session)
+                if responsiveAudioCursorActivationToken
+                    == nextActivationToken {
+                    responsiveAudioCursorActivationToken = nil
+                    responsiveAudioCursorProtection = nil
+                    responsiveAudioCursorSession = nil
+                    responsiveAudioCursorDurableSnapshot = nil
+                }
+                throw JourneyChapterRuntimeError.routeAuthorityChanged
+            }
+            installResponsiveAudioCursorProtection(
+                protection,
+                controller: controller,
+                lifecycleToken: lifecycleToken,
+                durableSnapshot: nextSnapshot
+            )
+        case .superseded:
+            guard lifecycleToken == responsiveAudioLifecycleToken,
+                  responsiveAudioController === controller,
+                  controller.runtime.isPlaying,
+                  responsiveAudioCursorActivationToken
+                    != nextActivationToken,
+                  responsiveAudioCursorProtection != nil,
+                  !responsiveAudioCursorDidFailClosed,
+                  committedState.activeChapter?
+                    .responsiveAudioSessionIsActive == true else {
+                throw JourneyChapterRuntimeError.routeAuthorityChanged
+            }
+        case let .failed(reason):
+            guard responsiveAudioCursorActivationToken
+                    == nextActivationToken else {
+                throw JourneyChapterRuntimeError.routeAuthorityChanged
+            }
+            responsiveAudioCursorDidFailClosed = true
+            // Close the transport gate before awaiting actor/store cleanup.
+            failClosedResponsiveAudioCursorImmediately(
+                diagnostic: "handoffWorker;\(String(describing: reason))"
+            )
+            let stoppedNext = await worker.stop(
+                expectedToken: nextActivationToken
+            )
+            if !stoppedNext {
+                _ = await worker.stop(
+                    expectedToken: priorActivationToken
+                )
+            }
+            await store.retire(priorSession)
+            if responsiveAudioCursorActivationToken
+                == nextActivationToken {
+                responsiveAudioCursorActivationToken = nil
+                responsiveAudioCursorProtection = nil
+                responsiveAudioCursorSession = nil
+                responsiveAudioCursorDurableSnapshot = nil
+            }
             throw JourneyChapterRuntimeError.persistenceUnavailable
         }
     }
@@ -6430,7 +6723,7 @@ final class JourneyModel: ObservableObject {
             isRestoring = false
             receiveDesiredContentAuthorityChange()
             performPostRestoreUnavailableChapterFallbackIfNeeded()
-#if DEBUG
+#if DEBUG || NON_SHIPPING_LIVE_TEST
             openSignedRuntimeFixtureIfNeeded()
 #endif
         }
@@ -6652,7 +6945,7 @@ final class JourneyModel: ObservableObject {
     private func restorationInitialState(
         launchSnapshot: VerifiedJourneyContentSnapshot?
     ) throws -> JourneyState {
-#if DEBUG
+#if DEBUG || NON_SHIPPING_LIVE_TEST
         if ProcessInfo.processInfo.arguments.contains(
             DevelopmentSignedRuntimeFixtureAppContent.launchArgument
         ), let launchSnapshot {
@@ -6660,6 +6953,8 @@ final class JourneyModel: ObservableObject {
                 world: try WorldGraph(seed: launchSnapshot.repository.worldSeed)
             )
         }
+#endif
+#if DEBUG
         if usesDevelopmentFirstFarmersPersistenceAuthority {
             if let developmentFirstFarmers {
                 return try developmentInitialJourneyState(
@@ -6681,10 +6976,14 @@ final class JourneyModel: ObservableObject {
         futureReleaseSnapshot: VerifiedFutureReleaseContentSnapshot
     ) throws -> [VerifiedPackageSaveMigrationAuthority] {
 #if DEBUG
-        if usesDevelopmentFirstFarmersPersistenceAuthority
-            || ProcessInfo.processInfo.arguments.contains(
-                DevelopmentSignedRuntimeFixtureAppContent.launchArgument
-            ) {
+        if usesDevelopmentFirstFarmersPersistenceAuthority {
+            return []
+        }
+#endif
+#if DEBUG || NON_SHIPPING_LIVE_TEST
+        if ProcessInfo.processInfo.arguments.contains(
+            DevelopmentSignedRuntimeFixtureAppContent.launchArgument
+        ) {
             return []
         }
 #endif
@@ -6703,10 +7002,14 @@ final class JourneyModel: ObservableObject {
         futureReleaseSnapshot: VerifiedFutureReleaseContentSnapshot
     ) throws -> [SaveMigrationPackageAuthorityIdentity] {
 #if DEBUG
-        if usesDevelopmentFirstFarmersPersistenceAuthority
-            || ProcessInfo.processInfo.arguments.contains(
-                DevelopmentSignedRuntimeFixtureAppContent.launchArgument
-            ) {
+        if usesDevelopmentFirstFarmersPersistenceAuthority {
+            return []
+        }
+#endif
+#if DEBUG || NON_SHIPPING_LIVE_TEST
+        if ProcessInfo.processInfo.arguments.contains(
+            DevelopmentSignedRuntimeFixtureAppContent.launchArgument
+        ) {
             return []
         }
 #endif
@@ -6733,7 +7036,138 @@ final class JourneyModel: ObservableObject {
     }
 #endif
 
-#if DEBUG
+#if DEBUG || NON_SHIPPING_LIVE_TEST
+    private func appendSignedRuntimeFixtureSeekActions(
+        targetBeatID: BeatID,
+        coordinator: ChapterCoordinator,
+        planningState: inout JourneyState,
+        actions: inout [JourneyAction]
+    ) throws {
+        let chapterBeatCount = try coordinator.currentCursor(
+            state: planningState
+        ).chapter.arcs.flatMap(\.beats).count
+        var traversedBeatCount = 0
+        while try coordinator.currentCursor(state: planningState).beat.id
+            != targetBeatID {
+            traversedBeatCount += 1
+            guard traversedBeatCount <= chapterBeatCount else {
+                throw DevelopmentSignedRuntimeFixtureError
+                    .targetBeatUnavailable
+            }
+            let cursor = try coordinator.currentCursor(state: planningState)
+            if let interaction = cursor.beat.interaction {
+                for interactionAction in signedRuntimeFixtureCompletionActions(
+                    for: interaction
+                ) {
+                    let action = JourneyAction.interact(
+                        spec: interaction,
+                        action: interactionAction
+                    )
+                    try applySignedRuntimeFixturePlanningAction(
+                        action,
+                        to: &planningState
+                    )
+                    actions.append(action)
+                }
+            }
+            let advance = try coordinator.advanceActions(
+                state: planningState
+            )
+            for action in advance.actions {
+                try applySignedRuntimeFixturePlanningAction(
+                    action,
+                    to: &planningState
+                )
+                actions.append(action)
+            }
+        }
+    }
+
+    private func signedRuntimeFixtureCompletionActions(
+        for interaction: InteractionSpec
+    ) -> [InteractionAction] {
+        switch interaction.grammar {
+        case let .trace(configuration):
+            return configuration.anchors.map(InteractionAction.trace)
+        case let .allocate(configuration):
+            var allocations = configuration.destinations.map {
+                (destinationID: $0.id, units: $0.minimumUnits)
+            }
+            if let last = allocations.indices.last {
+                let allocated = allocations.reduce(0) { $0 + $1.units }
+                allocations[last].units +=
+                    configuration.totalUnits - allocated
+            }
+            return allocations.map {
+                .allocate(
+                    destinationID: $0.destinationID,
+                    units: $0.units
+                )
+            } + [.commitAllocation]
+        case let .assemble(configuration):
+            var placed: Set<String> = []
+            var remaining = configuration.components
+            var result: [InteractionAction] = []
+            while let component = remaining.first(where: {
+                Set($0.prerequisites).isSubset(of: placed)
+            }) {
+                result.append(
+                    .place(
+                        componentID: component.id,
+                        slotID: component.targetSlot
+                    )
+                )
+                placed.insert(component.id)
+                remaining.removeAll { $0.id == component.id }
+            }
+            return result
+        case let .pressure(configuration):
+            guard let force = configuration.forces.first(where: {
+                $0.userControllable
+            }) else { return [] }
+            let otherContribution = configuration.forces
+                .filter { $0.id != force.id }
+                .reduce(0.0) {
+                    $0 + $1.direction * $1.initialMagnitude
+                }
+            let midpoint = (
+                configuration.stableRange.lowerBound
+                    + configuration.stableRange.upperBound
+            ) / 2
+            let magnitude = min(
+                1,
+                max(0, (midpoint - otherContribution) / force.direction)
+            )
+            return [
+                .setPressure(forceID: force.id, magnitude: magnitude),
+                .advancePressure(
+                    elapsedMillis: configuration.requiredHoldMillis
+                ),
+            ]
+        case let .transform(configuration):
+            return configuration.stages.map {
+                .transform(controlID: $0.controlID, amount: 1)
+            }
+        }
+    }
+
+    private func applySignedRuntimeFixturePlanningAction(
+        _ action: JourneyAction,
+        to planningState: inout JourneyState
+    ) throws {
+        let effects = previewReducer.reduce(
+            state: &planningState,
+            action: action
+        )
+        guard !effects.contains(where: {
+            if case .rejected = $0 { return true }
+            return false
+        }) else {
+            throw DevelopmentSignedRuntimeFixtureError
+                .targetBeatUnavailable
+        }
+    }
+
     private func openSignedRuntimeFixtureIfNeeded() {
         guard ProcessInfo.processInfo.arguments.contains(
             DevelopmentSignedRuntimeFixtureAppContent.launchArgument
@@ -6752,7 +7186,9 @@ final class JourneyModel: ObservableObject {
         }
         _ = openVerifiedChapter(chapter, snapshot: snapshot)
     }
+#endif
 
+#if DEBUG
     private func developmentInitialJourneyState(
         envelope: DevelopmentFirstFarmersEnvelope
     ) throws -> JourneyState {
@@ -7377,15 +7813,20 @@ final class JourneyModel: ObservableObject {
                 .filter { $0.role != .silence }
                 .compactMap(\.assetPath)
         )).sorted()
+        let operationID = UUID()
         responsiveAudioBindingIdentity = identity
+        responsiveAudioBindingOperationID = operationID
         responsiveAudioFailure = nil
 #if DEBUG
         responsiveAudioBindingDiagnosticForTesting = "started"
 #endif
         let task = Task { @MainActor [weak self] in
             defer {
-                if let self, self.responsiveAudioBindingIdentity == identity {
+                if let self,
+                   self.responsiveAudioBindingOperationID == operationID,
+                   self.responsiveAudioBindingIdentity == identity {
                     self.responsiveAudioBindingTask = nil
+                    self.responsiveAudioBindingOperationID = nil
                 }
             }
             do {
@@ -7394,6 +7835,7 @@ final class JourneyModel: ObservableObject {
                 }
                 try Task.checkCancellation()
                 guard let self,
+                      self.responsiveAudioBindingOperationID == operationID,
                       self.responsiveAudioBindingIdentity == identity,
                       self.responsiveAudioBindingIdentityForCurrentRoute()
                         == identity else {
@@ -7407,7 +7849,8 @@ final class JourneyModel: ObservableObject {
 #if DEBUG
                 self.responsiveAudioBindingDiagnosticForTesting = "prewarmed"
 #endif
-                guard self.responsiveAudioBindingIdentity == identity,
+                guard self.responsiveAudioBindingOperationID == operationID,
+                      self.responsiveAudioBindingIdentity == identity,
                       self.responsiveAudioBindingIdentityForCurrentRoute() == identity else {
 #if DEBUG
                     self.responsiveAudioBindingDiagnosticForTesting =
@@ -7422,7 +7865,9 @@ final class JourneyModel: ObservableObject {
                         ), latestPlan.program.id == identity.programID,
                       latestPlan.program.scope == identity.programScope,
                       self.responsiveAudioBindingIdentityForCurrentRoute()
-                        == identity else {
+                        == identity,
+                      self.responsiveAudioBindingOperationID
+                        == operationID else {
                     throw JourneyChapterRuntimeError.routeAuthorityChanged
                 }
                 let latestRestoration = JourneyRestoration(
@@ -7435,7 +7880,8 @@ final class JourneyModel: ObservableObject {
                         latestPlan,
                         identity: identity
                     )
-                guard self.responsiveAudioBindingIdentity == identity,
+                guard self.responsiveAudioBindingOperationID == operationID,
+                      self.responsiveAudioBindingIdentity == identity,
                       self.responsiveAudioBindingIdentityForCurrentRoute() == identity else {
                     return
                 }
@@ -7449,16 +7895,22 @@ final class JourneyModel: ObservableObject {
 #endif
             } catch is CancellationError {
 #if DEBUG
-                self?.responsiveAudioBindingDiagnosticForTesting = "cancelled"
+                if self?.responsiveAudioBindingOperationID == operationID {
+                    self?.responsiveAudioBindingDiagnosticForTesting =
+                        "cancelled"
+                }
 #endif
                 return
             } catch {
                 guard let self,
+                      self.responsiveAudioBindingOperationID == operationID,
                       self.responsiveAudioBindingIdentity == identity,
                       self.responsiveAudioBindingIdentityForCurrentRoute() == identity else {
 #if DEBUG
-                    self?.responsiveAudioBindingDiagnosticForTesting =
-                        "identity-changed-after-error: \(String(reflecting: error))"
+                    if self?.responsiveAudioBindingOperationID == operationID {
+                        self?.responsiveAudioBindingDiagnosticForTesting =
+                            "identity-changed-after-error: \(String(reflecting: error))"
+                    }
 #endif
                     return
                 }
@@ -7492,18 +7944,13 @@ final class JourneyModel: ObservableObject {
         let supersededStartID = responsiveAudioPlaybackStartID
         supersededStartTask?.cancel()
 
-        responsiveAudioCursorPump.stop()
-        let retiringCursorSession = responsiveAudioCursorSession
-        responsiveAudioCursorSession = nil
-        responsiveAudioCursorDurableSnapshot = nil
-
         responsiveAudioController?.stopWithoutPersisting()
         responsiveAudioController = nil
+        let cursorCleanup = scheduleResponsiveAudioCursorRetirement()
 
-        guard supersededStartTask != nil || retiringCursorSession != nil else {
+        guard supersededStartTask != nil || cursorCleanup != nil else {
             return nil
         }
-        let cursorStore = responsiveAudioCursorStore
         return Task { @MainActor [weak self] in
             if let supersededStartTask {
                 _ = await supersededStartTask.value
@@ -7515,8 +7962,9 @@ final class JourneyModel: ObservableObject {
                 self.responsiveAudioPlaybackStartAuthorization = nil
                 self.responsiveAudioPlaybackStartTask = nil
             }
-            if let retiringCursorSession, let cursorStore {
-                await cursorStore.retire(retiringCursorSession)
+            if let cursorCleanup {
+                await cursorCleanup.value
+                await self?.awaitResponsiveAudioCursorCleanupIfNeeded()
             }
         }
     }
@@ -7583,7 +8031,9 @@ final class JourneyModel: ObservableObject {
               let beatID = chapterCursor?.beat.id,
               let program = chapterCursor?.responsiveAudioProgram,
               program.scope.chapterID == chapterID,
-              program.scope.beatID == beatID else {
+              program.scope.beatID == beatID,
+              let interaction = session.interaction,
+              interaction.interactionID == program.scope.interactionID else {
             return nil
         }
         let authority = currentChapterRuntimeAuthority()
@@ -7602,6 +8052,7 @@ final class JourneyModel: ObservableObject {
     private func cancelPendingResponsiveAudioBinding() {
         responsiveAudioBindingTask?.cancel()
         responsiveAudioBindingTask = nil
+        responsiveAudioBindingOperationID = nil
         responsiveAudioBindingIdentity = nil
     }
 
@@ -7731,18 +8182,10 @@ final class JourneyModel: ObservableObject {
         responsiveAudioPlaybackStartTask?.cancel()
         stopOutgoingResponsiveAudioTailImmediately()
         causalHapticTransport.quiesceForSuspension()
-        responsiveAudioCursorPump.stop()
-        let retiringSession = responsiveAudioCursorSession
-        responsiveAudioCursorSession = nil
-        responsiveAudioCursorDurableSnapshot = nil
-        if let retiringSession, let responsiveAudioCursorStore {
-            Task {
-                await responsiveAudioCursorStore.retire(retiringSession)
-            }
-        }
         cancelPendingResponsiveAudioBinding()
         responsiveAudioController?.stopWithoutPersisting()
         responsiveAudioController = nil
+        _ = scheduleResponsiveAudioCursorRetirement()
         cancelResponsiveAudioAutomaticBoundary()
         preQuiescedSuspensionAction = nil
         preQuiescedSuspensionFailed = false

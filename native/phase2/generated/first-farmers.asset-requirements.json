@@ -1293,6 +1293,155 @@
       ]
     },
     {
+      "assetPath": "audio/first-farmers/three-records-responsive-v1/approach/score-master.wav",
+      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
+      "sourceContract": "THREE_RECORDS_RESPONSIVE_AUDIO_WORK_OBJECT",
+      "owners": [
+        "contentPackage.audioTimelines[19].events[0].assetPath"
+      ]
+    },
+    {
+      "assetPath": "audio/first-farmers/three-records-responsive-v1/approach/soundscape-master.wav",
+      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
+      "sourceContract": "THREE_RECORDS_RESPONSIVE_AUDIO_WORK_OBJECT",
+      "owners": [
+        "contentPackage.audioTimelines[19].events[1].assetPath"
+      ]
+    },
+    {
+      "assetPath": "audio/first-farmers/three-records-responsive-v1/approach/spatial-detail-master.wav",
+      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
+      "sourceContract": "THREE_RECORDS_RESPONSIVE_AUDIO_WORK_OBJECT",
+      "owners": [
+        "contentPackage.audioTimelines[19].events[2].assetPath"
+      ]
+    },
+    {
+      "assetPath": "audio/first-farmers/three-records-responsive-v1/consequence/score-master.wav",
+      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
+      "sourceContract": "THREE_RECORDS_RESPONSIVE_AUDIO_WORK_OBJECT",
+      "owners": [
+        "contentPackage.audioTimelines[23].events[0].assetPath"
+      ]
+    },
+    {
+      "assetPath": "audio/first-farmers/three-records-responsive-v1/consequence/soundscape-master.wav",
+      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
+      "sourceContract": "THREE_RECORDS_RESPONSIVE_AUDIO_WORK_OBJECT",
+      "owners": [
+        "contentPackage.audioTimelines[23].events[1].assetPath"
+      ]
+    },
+    {
+      "assetPath": "audio/first-farmers/three-records-responsive-v1/consequence/spatial-detail-master.wav",
+      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
+      "sourceContract": "THREE_RECORDS_RESPONSIVE_AUDIO_WORK_OBJECT",
+      "owners": [
+        "contentPackage.audioTimelines[23].events[2].assetPath"
+      ]
+    },
+    {
+      "assetPath": "audio/first-farmers/three-records-responsive-v1/engaged/score-master.wav",
+      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
+      "sourceContract": "THREE_RECORDS_RESPONSIVE_AUDIO_WORK_OBJECT",
+      "owners": [
+        "contentPackage.audioTimelines[21].events[0].assetPath"
+      ]
+    },
+    {
+      "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/carried-grain.wav",
+      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
+      "sourceContract": "THREE_RECORDS_RESPONSIVE_AUDIO_WORK_OBJECT",
+      "owners": [
+        "contentPackage.audioTimelines[20].events[5].assetPath",
+        "contentPackage.audioTimelines[21].events[5].assetPath",
+        "contentPackage.audioTimelines[22].events[5].assetPath",
+        "contentPackage.responsiveAudioPrograms[2].causalMix.layers[4].assetPath"
+      ]
+    },
+    {
+      "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/domestic-herd.wav",
+      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
+      "sourceContract": "THREE_RECORDS_RESPONSIVE_AUDIO_WORK_OBJECT",
+      "owners": [
+        "contentPackage.audioTimelines[20].events[6].assetPath",
+        "contentPackage.audioTimelines[21].events[6].assetPath",
+        "contentPackage.audioTimelines[22].events[6].assetPath",
+        "contentPackage.responsiveAudioPrograms[2].causalMix.layers[5].assetPath"
+      ]
+    },
+    {
+      "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/gorge-current.wav",
+      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
+      "sourceContract": "THREE_RECORDS_RESPONSIVE_AUDIO_WORK_OBJECT",
+      "owners": [
+        "contentPackage.audioTimelines[20].events[1].assetPath",
+        "contentPackage.audioTimelines[21].events[1].assetPath",
+        "contentPackage.audioTimelines[22].events[1].assetPath",
+        "contentPackage.responsiveAudioPrograms[2].causalMix.layers[0].assetPath"
+      ]
+    },
+    {
+      "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/household-voices.wav",
+      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
+      "sourceContract": "THREE_RECORDS_RESPONSIVE_AUDIO_WORK_OBJECT",
+      "owners": [
+        "contentPackage.audioTimelines[20].events[7].assetPath",
+        "contentPackage.audioTimelines[21].events[7].assetPath",
+        "contentPackage.audioTimelines[22].events[7].assetPath",
+        "contentPackage.responsiveAudioPrograms[2].causalMix.layers[6].assetPath"
+      ]
+    },
+    {
+      "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/landing-work.wav",
+      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
+      "sourceContract": "THREE_RECORDS_RESPONSIVE_AUDIO_WORK_OBJECT",
+      "owners": [
+        "contentPackage.audioTimelines[20].events[3].assetPath",
+        "contentPackage.audioTimelines[21].events[3].assetPath",
+        "contentPackage.audioTimelines[22].events[3].assetPath",
+        "contentPackage.responsiveAudioPrograms[2].causalMix.layers[2].assetPath"
+      ]
+    },
+    {
+      "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/river-gear.wav",
+      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
+      "sourceContract": "THREE_RECORDS_RESPONSIVE_AUDIO_WORK_OBJECT",
+      "owners": [
+        "contentPackage.audioTimelines[20].events[2].assetPath",
+        "contentPackage.audioTimelines[21].events[2].assetPath",
+        "contentPackage.audioTimelines[22].events[2].assetPath",
+        "contentPackage.responsiveAudioPrograms[2].causalMix.layers[1].assetPath"
+      ]
+    },
+    {
+      "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/settlement-hearths.wav",
+      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
+      "sourceContract": "THREE_RECORDS_RESPONSIVE_AUDIO_WORK_OBJECT",
+      "owners": [
+        "contentPackage.audioTimelines[20].events[4].assetPath",
+        "contentPackage.audioTimelines[21].events[4].assetPath",
+        "contentPackage.audioTimelines[22].events[4].assetPath",
+        "contentPackage.responsiveAudioPrograms[2].causalMix.layers[3].assetPath"
+      ]
+    },
+    {
+      "assetPath": "audio/first-farmers/three-records-responsive-v1/resistance/score-master.wav",
+      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
+      "sourceContract": "THREE_RECORDS_RESPONSIVE_AUDIO_WORK_OBJECT",
+      "owners": [
+        "contentPackage.audioTimelines[22].events[0].assetPath"
+      ]
+    },
+    {
+      "assetPath": "audio/first-farmers/three-records-responsive-v1/waiting/score-master.wav",
+      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
+      "sourceContract": "THREE_RECORDS_RESPONSIVE_AUDIO_WORK_OBJECT",
+      "owners": [
+        "contentPackage.audioTimelines[20].events[0].assetPath"
+      ]
+    },
+    {
       "assetPath": "requirements/first-farmers/audio/narration/ff-contact-01.m4a",
       "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
       "sourceContract": "FIRST_FARMERS_PAYLOAD_PROJECTION",
@@ -1586,126 +1735,6 @@
       "sourceContract": "FIRST_FARMERS_PAYLOAD_PROJECTION",
       "owners": [
         "contentPackage.audioTimelines[7].events[1].assetPath"
-      ]
-    },
-    {
-      "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/approach/score-master.wav",
-      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
-      "sourceContract": "FIRST_FARMERS_PAYLOAD_PROJECTION",
-      "owners": [
-        "contentPackage.audioTimelines[19].events[0].assetPath"
-      ]
-    },
-    {
-      "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/approach/soundscape-master.wav",
-      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
-      "sourceContract": "FIRST_FARMERS_PAYLOAD_PROJECTION",
-      "owners": [
-        "contentPackage.audioTimelines[19].events[1].assetPath"
-      ]
-    },
-    {
-      "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/approach/spatial-detail-master.wav",
-      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
-      "sourceContract": "FIRST_FARMERS_PAYLOAD_PROJECTION",
-      "owners": [
-        "contentPackage.audioTimelines[19].events[2].assetPath"
-      ]
-    },
-    {
-      "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/consequence/score-master.wav",
-      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
-      "sourceContract": "FIRST_FARMERS_PAYLOAD_PROJECTION",
-      "owners": [
-        "contentPackage.audioTimelines[23].events[0].assetPath"
-      ]
-    },
-    {
-      "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/consequence/soundscape-master.wav",
-      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
-      "sourceContract": "FIRST_FARMERS_PAYLOAD_PROJECTION",
-      "owners": [
-        "contentPackage.audioTimelines[23].events[1].assetPath"
-      ]
-    },
-    {
-      "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/consequence/spatial-detail-master.wav",
-      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
-      "sourceContract": "FIRST_FARMERS_PAYLOAD_PROJECTION",
-      "owners": [
-        "contentPackage.audioTimelines[23].events[2].assetPath"
-      ]
-    },
-    {
-      "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/engaged/score-master.wav",
-      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
-      "sourceContract": "FIRST_FARMERS_PAYLOAD_PROJECTION",
-      "owners": [
-        "contentPackage.audioTimelines[21].events[0].assetPath"
-      ]
-    },
-    {
-      "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/engaged/soundscape-master.wav",
-      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
-      "sourceContract": "FIRST_FARMERS_PAYLOAD_PROJECTION",
-      "owners": [
-        "contentPackage.audioTimelines[21].events[1].assetPath"
-      ]
-    },
-    {
-      "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/engaged/spatial-detail-master.wav",
-      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
-      "sourceContract": "FIRST_FARMERS_PAYLOAD_PROJECTION",
-      "owners": [
-        "contentPackage.audioTimelines[21].events[2].assetPath"
-      ]
-    },
-    {
-      "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/resistance/score-master.wav",
-      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
-      "sourceContract": "FIRST_FARMERS_PAYLOAD_PROJECTION",
-      "owners": [
-        "contentPackage.audioTimelines[22].events[0].assetPath"
-      ]
-    },
-    {
-      "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/resistance/soundscape-master.wav",
-      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
-      "sourceContract": "FIRST_FARMERS_PAYLOAD_PROJECTION",
-      "owners": [
-        "contentPackage.audioTimelines[22].events[1].assetPath"
-      ]
-    },
-    {
-      "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/resistance/spatial-detail-master.wav",
-      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
-      "sourceContract": "FIRST_FARMERS_PAYLOAD_PROJECTION",
-      "owners": [
-        "contentPackage.audioTimelines[22].events[2].assetPath"
-      ]
-    },
-    {
-      "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/waiting/score-master.wav",
-      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
-      "sourceContract": "FIRST_FARMERS_PAYLOAD_PROJECTION",
-      "owners": [
-        "contentPackage.audioTimelines[20].events[0].assetPath"
-      ]
-    },
-    {
-      "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/waiting/soundscape-master.wav",
-      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
-      "sourceContract": "FIRST_FARMERS_PAYLOAD_PROJECTION",
-      "owners": [
-        "contentPackage.audioTimelines[20].events[1].assetPath"
-      ]
-    },
-    {
-      "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/waiting/spatial-detail-master.wav",
-      "state": "FUTURE_PRODUCTION_ASSET_NOT_PRESENT",
-      "sourceContract": "FIRST_FARMERS_PAYLOAD_PROJECTION",
-      "owners": [
-        "contentPackage.audioTimelines[20].events[2].assetPath"
       ]
     },
     {

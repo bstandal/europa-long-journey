@@ -84,6 +84,12 @@ public final class ResponsiveAudioCursorCheckpointPump {
     public static let productionIntervalNanoseconds: UInt64 = 125_000_000
     public static let productionMaximumAgeNanoseconds: UInt64 = 250_000_000
 
+    public enum StartResult: Equatable, Sendable {
+        case protecting
+        case superseded
+        case failed
+    }
+
     public struct HandoffDeadlineToken: Hashable, Sendable {
         fileprivate let generation: UInt64
         fileprivate let candidateCapturedAtNanoseconds: UInt64
@@ -101,8 +107,9 @@ public final class ResponsiveAudioCursorCheckpointPump {
     public var isPeriodicallyProtectingPlayback: Bool {
         isRunning
             && !didFailClosed
-            && writerTask != nil
             && watchdogTask != nil
+            && (writerTask != nil
+                || initialVerificationState == .pending)
     }
 
     private let intervalNanoseconds: UInt64
@@ -112,6 +119,16 @@ public final class ResponsiveAudioCursorCheckpointPump {
     private var generation: UInt64 = 0
     private var writerTask: Task<Void, Never>?
     private var watchdogTask: Task<Void, Never>?
+    private var scheduledCapture: Capture?
+    private var scheduledPersist: Persist?
+    private var scheduledFailClosed: FailClosed?
+    private var nextCaptureDeadlineNanoseconds: UInt64?
+    private var checkpointPersistGeneration: UInt64?
+    private struct CheckpointWriteWaiter {
+        let generation: UInt64
+        let continuation: CheckedContinuation<Void, Never>
+    }
+    private var checkpointWriteWaiters: [CheckpointWriteWaiter] = []
 #if DEBUG
     private var writerPersistStartedByGeneration: [UInt64: UInt64] = [:]
     private var handoffObsoleteWriterGeneration: UInt64?
@@ -143,12 +160,13 @@ public final class ResponsiveAudioCursorCheckpointPump {
         self.sleep = sleep
     }
 
+    @discardableResult
     public func start(
         lastVerifiedCaptureNanoseconds: UInt64? = nil,
         capture: @escaping Capture,
         persist: @escaping Persist,
         failClosed: @escaping FailClosed
-    ) {
+    ) async -> StartResult {
         stop()
 #if DEBUG
         failureDiagnosticForTesting = nil
@@ -162,17 +180,18 @@ public final class ResponsiveAudioCursorCheckpointPump {
                 detail: "generation-exhausted"
             )
             failClosed()
-            return
+            return .failed
         }
         generation += 1
         let activeGeneration = generation
         isRunning = true
         didFailClosed = false
         initialVerificationState = .pending
+        let scheduleStartedAt = now()
         self.lastVerifiedCaptureNanoseconds =
-            lastVerifiedCaptureNanoseconds ?? now()
+            lastVerifiedCaptureNanoseconds ?? scheduleStartedAt
         guard let baseline = self.lastVerifiedCaptureNanoseconds,
-              age(since: baseline, at: now())
+              age(since: baseline, at: scheduleStartedAt)
                 < maximumAgeNanoseconds else {
             fail(
                 generation: activeGeneration,
@@ -181,84 +200,66 @@ public final class ResponsiveAudioCursorCheckpointPump {
                 baselineNanoseconds: self.lastVerifiedCaptureNanoseconds,
                 failClosed: failClosed
             )
-            return
+            return .failed
+        }
+
+        scheduledCapture = capture
+        scheduledPersist = persist
+        scheduledFailClosed = failClosed
+        let initialCapturedAt = now()
+        nextCaptureDeadlineNanoseconds = captureDeadline(
+            after: initialCapturedAt,
+            currentDeadline: addingInterval(to: scheduleStartedAt)
+        )
+        checkpointPersistGeneration = activeGeneration
+
+        // The first write runs in the admitted caller rather than waiting for
+        // a new unstructured MainActor task to be scheduled behind scene
+        // input. The watchdog is armed first and remains anchored to the last
+        // recoverable baseline while the sidecar fsync is in flight.
+        armWatchdog(
+            generation: activeGeneration,
+            origin: .writerDeadline,
+            failClosed: failClosed
+        )
+        let initialWrite = await persistOneCheckpoint(
+            generation: activeGeneration,
+            capturedAt: initialCapturedAt,
+            capture: capture,
+            persist: persist,
+            failClosed: failClosed
+        )
+        finishCheckpointWrite(generation: activeGeneration)
+        guard initialWrite else {
+            return generation == activeGeneration
+                ? .failed
+                : .superseded
         }
 
         writerTask = Task { @MainActor [weak self] in
             guard let self else { return }
-            var isInitialWrite = true
             while self.owns(activeGeneration) {
                 do {
-                    if isInitialWrite {
-                        isInitialWrite = false
-                    } else {
-                        try await self.sleep(self.intervalNanoseconds)
-                    }
-                    guard self.owns(activeGeneration) else { return }
-                    let capturedAt = self.now()
-                    let result: ResponsiveAudioCursorCaptureResult
-                    do {
-                        result = try capture()
-                    } catch is CancellationError {
-                        return
-                    } catch {
-                        self.fail(
-                            generation: activeGeneration,
-                            origin: .writerCapture,
-                            detail: Self.errorType(error),
-                            failClosed: failClosed
-                        )
+                    guard let deadline = self
+                        .nextCaptureDeadlineNanoseconds else {
                         return
                     }
-                    let persistStartedAt = self.now()
-                    self.recordWriterPersistStarted(
-                        generation: activeGeneration,
-                        at: persistStartedAt
-                    )
-                    do {
-                        try await persist(result.snapshot, capturedAt)
-                    } catch is CancellationError {
-                        self.recordWriterPersistEnded(
-                            generation: activeGeneration
-                        )
-                        return
-                    } catch {
-                        self.fail(
-                            generation: activeGeneration,
-                            origin: .writerPersist,
-                            detail: Self.errorType(error),
-                            writerPersistStartedAtNanoseconds:
-                                persistStartedAt,
-                            failClosed: failClosed
-                        )
-                        self.recordWriterPersistEnded(
-                            generation: activeGeneration
-                        )
-                        return
+                    let observedAt = self.now()
+                    if observedAt < deadline {
+                        try await self.sleep(deadline - observedAt)
+                        continue
                     }
-                    self.recordWriterPersistEnded(
+                    switch await self.serviceDueCheckpointIfNeeded(
                         generation: activeGeneration
-                    )
-                    guard self.owns(activeGeneration) else { return }
-                    if result.verifiesCurrentAuthority {
-                        self.lastVerifiedCaptureNanoseconds = capturedAt
-                        self.completeInitialVerification(
-                            true,
+                    ) {
+                    case .persisted, .notDue:
+                        continue
+                    case .writeInFlight:
+                        await self.awaitCheckpointWrite(
                             generation: activeGeneration
                         )
-                        if self.age(since: capturedAt, at: self.now())
-                            >= self.maximumAgeNanoseconds {
-                            self.fail(
-                                generation: activeGeneration,
-                                origin: .writerDeadline,
-                                detail: "post-persist-expired",
-                                baselineNanoseconds: capturedAt,
-                                writerPersistStartedAtNanoseconds:
-                                    persistStartedAt,
-                                failClosed: failClosed
-                            )
-                            return
-                        }
+                    case .superseded, .failed:
+                        return
                     }
                 } catch is CancellationError {
                     return
@@ -274,19 +275,13 @@ public final class ResponsiveAudioCursorCheckpointPump {
                 }
             }
         }
-
-        armWatchdog(
-            generation: activeGeneration,
-            origin: .writerDeadline,
-            failClosed: failClosed
-        )
+        return .protecting
     }
 
     /// Test and diagnostic seam that observes the first verified sidecar
-    /// result for the current generation. Production playback deliberately
-    /// does not await this: the journaled session baseline and the absolute
-    /// watchdog already cover the first 250 ms, including a valid automatic
-    /// boundary that replaces this generation before its first fsync returns.
+    /// result for the current generation. `start` itself awaits the first
+    /// admitted write, but an awaiting-authority projection can require a
+    /// later periodic write before this result becomes verified.
     public func awaitInitialVerification() async -> Bool {
         switch initialVerificationState {
         case .succeeded:
@@ -368,6 +363,7 @@ public final class ResponsiveAudioCursorCheckpointPump {
         watchdogTask?.cancel()
         writerTask = nil
         watchdogTask = nil
+        clearPeriodicSchedule()
         isRunning = true
         lastVerifiedCaptureNanoseconds =
             lastRecoverableCaptureNanoseconds
@@ -413,6 +409,7 @@ public final class ResponsiveAudioCursorCheckpointPump {
         watchdogTask?.cancel()
         writerTask = nil
         watchdogTask = nil
+        clearPeriodicSchedule()
         isRunning = false
         lastVerifiedCaptureNanoseconds = nil
         initialVerificationState = .idle
@@ -446,6 +443,7 @@ public final class ResponsiveAudioCursorCheckpointPump {
         watchdogTask?.cancel()
         writerTask = nil
         watchdogTask = nil
+        clearPeriodicSchedule()
         lastVerifiedCaptureNanoseconds = nil
         completeInitialVerification(false, generation: candidate)
         failClosed()
@@ -517,6 +515,201 @@ public final class ResponsiveAudioCursorCheckpointPump {
         }
     }
 
+    private enum DueCheckpointServiceResult: Equatable {
+        case persisted
+        case notDue
+        case writeInFlight
+        case superseded
+        case failed
+    }
+
+    private func serviceDueCheckpointIfNeeded(
+        generation activeGeneration: UInt64
+    ) async -> DueCheckpointServiceResult {
+        guard owns(activeGeneration),
+              let deadline = nextCaptureDeadlineNanoseconds,
+              let capture = scheduledCapture,
+              let persist = scheduledPersist,
+              let failClosed = scheduledFailClosed else {
+            return .superseded
+        }
+        let capturedAt = now()
+        guard capturedAt >= deadline else { return .notDue }
+        guard checkpointPersistGeneration == nil else {
+            return .writeInFlight
+        }
+
+        // Claim every elapsed absolute tick before suspending. A later input
+        // or the sleeping writer therefore observes the next unclaimed tick,
+        // never a duplicate of this write.
+        nextCaptureDeadlineNanoseconds = captureDeadline(
+            after: capturedAt,
+            currentDeadline: deadline
+        )
+        checkpointPersistGeneration = activeGeneration
+        let didPersist = await persistOneCheckpoint(
+            generation: activeGeneration,
+            capturedAt: capturedAt,
+            capture: capture,
+            persist: persist,
+            failClosed: failClosed
+        )
+        finishCheckpointWrite(generation: activeGeneration)
+        guard didPersist else {
+            return generation == activeGeneration
+                ? .failed
+                : .superseded
+        }
+        return .persisted
+    }
+
+    private func awaitCheckpointWrite(generation activeGeneration: UInt64)
+        async {
+        await withCheckedContinuation { continuation in
+            guard owns(activeGeneration),
+                  checkpointPersistGeneration == activeGeneration else {
+                continuation.resume()
+                return
+            }
+            checkpointWriteWaiters.append(
+                CheckpointWriteWaiter(
+                    generation: activeGeneration,
+                    continuation: continuation
+                )
+            )
+        }
+    }
+
+    private func finishCheckpointWrite(generation activeGeneration: UInt64) {
+        guard checkpointPersistGeneration == activeGeneration else { return }
+        checkpointPersistGeneration = nil
+        resumeCheckpointWriteWaiters(generation: activeGeneration)
+    }
+
+    private func clearPeriodicSchedule() {
+        scheduledCapture = nil
+        scheduledPersist = nil
+        scheduledFailClosed = nil
+        nextCaptureDeadlineNanoseconds = nil
+        checkpointPersistGeneration = nil
+        let waiters = checkpointWriteWaiters
+        checkpointWriteWaiters.removeAll(keepingCapacity: false)
+        for waiter in waiters { waiter.continuation.resume() }
+    }
+
+    private func resumeCheckpointWriteWaiters(generation: UInt64) {
+        let matching = checkpointWriteWaiters.filter {
+            $0.generation == generation
+        }
+        checkpointWriteWaiters.removeAll { $0.generation == generation }
+        for waiter in matching { waiter.continuation.resume() }
+    }
+
+    /// Captures and persists one cursor for `generation`. The generation is
+    /// fenced after the async persist before any baseline or waiter state can
+    /// be updated, so a late obsolete completion cannot revive old authority.
+    private func persistOneCheckpoint(
+        generation activeGeneration: UInt64,
+        capturedAt: UInt64,
+        capture: Capture,
+        persist: Persist,
+        failClosed: FailClosed
+    ) async -> Bool {
+        guard owns(activeGeneration),
+              let recoverableBaseline = lastVerifiedCaptureNanoseconds else {
+            return false
+        }
+        let result: ResponsiveAudioCursorCaptureResult
+        do {
+            result = try capture()
+        } catch is CancellationError {
+            return false
+        } catch {
+            fail(
+                generation: activeGeneration,
+                origin: .writerCapture,
+                detail: Self.errorType(error),
+                failClosed: failClosed
+            )
+            return false
+        }
+        let persistStartedAt = now()
+        recordWriterPersistStarted(
+            generation: activeGeneration,
+            at: persistStartedAt
+        )
+        do {
+            try await persist(result.snapshot, capturedAt)
+        } catch is CancellationError {
+            recordWriterPersistEnded(generation: activeGeneration)
+            return false
+        } catch {
+            fail(
+                generation: activeGeneration,
+                origin: .writerPersist,
+                detail: Self.errorType(error),
+                writerPersistStartedAtNanoseconds: persistStartedAt,
+                failClosed: failClosed
+            )
+            recordWriterPersistEnded(generation: activeGeneration)
+            return false
+        }
+        let completedAt = now()
+        recordWriterPersistEnded(generation: activeGeneration)
+        return acceptPersistedCheckpoint(
+            generation: activeGeneration,
+            capturedAt: capturedAt,
+            recoverableBaseline: recoverableBaseline,
+            completedAt: completedAt,
+            captureResult: result,
+            persistStartedAt: persistStartedAt,
+            failClosed: failClosed
+        )
+    }
+
+    private func acceptPersistedCheckpoint(
+        generation activeGeneration: UInt64,
+        capturedAt: UInt64,
+        recoverableBaseline: UInt64,
+        completedAt: UInt64,
+        captureResult: ResponsiveAudioCursorCaptureResult,
+        persistStartedAt: UInt64,
+        failClosed: FailClosed
+    ) -> Bool {
+        guard owns(activeGeneration) else { return false }
+        guard age(since: recoverableBaseline, at: completedAt)
+                < maximumAgeNanoseconds else {
+            fail(
+                generation: activeGeneration,
+                origin: .writerDeadline,
+                detail: "persist-completed-after-recoverable-deadline",
+                baselineNanoseconds: recoverableBaseline,
+                writerPersistStartedAtNanoseconds: persistStartedAt,
+                failClosed: failClosed
+            )
+            return false
+        }
+        guard captureResult.verifiesCurrentAuthority else { return true }
+        lastVerifiedCaptureNanoseconds = capturedAt
+        completeInitialVerification(
+            true,
+            generation: activeGeneration
+        )
+        guard age(since: capturedAt, at: now())
+                < maximumAgeNanoseconds else {
+            fail(
+                generation: activeGeneration,
+                origin: .writerDeadline,
+                detail: "post-persist-expired",
+                baselineNanoseconds: capturedAt,
+                writerPersistStartedAtNanoseconds: persistStartedAt,
+                failClosed: failClosed
+            )
+            return false
+        }
+        return true
+    }
+
     private func completeInitialVerification(
         _ succeeded: Bool,
         generation candidate: UInt64? = nil
@@ -531,6 +724,33 @@ public final class ResponsiveAudioCursorCheckpointPump {
 
     private func age(since earlier: UInt64, at later: UInt64) -> UInt64 {
         later >= earlier ? later - earlier : UInt64.max
+    }
+
+    private func addingInterval(to instant: UInt64) -> UInt64 {
+        let addition = instant.addingReportingOverflow(intervalNanoseconds)
+        return addition.overflow ? UInt64.max : addition.partialValue
+    }
+
+    /// Returns the first absolute schedule deadline strictly after a capture.
+    /// A persist may span several ticks; advancing arithmetically folds every
+    /// missed tick into the one fresh capture that follows that persist.
+    private func captureDeadline(
+        after capturedAt: UInt64,
+        currentDeadline: UInt64
+    ) -> UInt64 {
+        guard currentDeadline <= capturedAt else { return currentDeadline }
+        let elapsed = capturedAt - currentDeadline
+        let quotient = elapsed / intervalNanoseconds
+        let intervalCount = quotient.addingReportingOverflow(1)
+        guard !intervalCount.overflow else { return UInt64.max }
+        let advance = intervalCount.partialValue.multipliedReportingOverflow(
+            by: intervalNanoseconds
+        )
+        guard !advance.overflow else { return UInt64.max }
+        let deadline = currentDeadline.addingReportingOverflow(
+            advance.partialValue
+        )
+        return deadline.overflow ? UInt64.max : deadline.partialValue
     }
 
     private static func errorType(_ error: Error) -> String {

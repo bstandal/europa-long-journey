@@ -17,6 +17,7 @@
     "appBuildSHA256",
     "packages",
     "processStartMonotonicNanosecondsSinceBoot",
+    "captureEndedNanosecondsSinceProcessStart",
     "launch",
     "frameCommandBufferCompletionProxies",
     "interactionCommandBufferCompletionProxies",
@@ -34,7 +35,9 @@
         "cold-restore",
         "interaction-latency",
         "static-reference",
+        "first-farmers-static-reference",
         "harvest-sustained",
+        "first-farmers-sustained",
         "audio-restoration",
         "storage-pressure"
       ]
@@ -58,6 +61,10 @@
     "processStartMonotonicNanosecondsSinceBoot": {
       "type": "integer",
       "minimum": 0
+    },
+    "captureEndedNanosecondsSinceProcessStart": {
+      "type": "integer",
+      "minimum": 1
     },
     "launch": { "$ref": "#/$defs/launch" },
     "frameCommandBufferCompletionProxies": {

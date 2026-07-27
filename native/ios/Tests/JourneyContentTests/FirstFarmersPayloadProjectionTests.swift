@@ -1,5 +1,6 @@
 import ContentKit
 import CryptoKit
+import DramaticAudio
 import Foundation
 @testable import JourneyContent
 import XCTest
@@ -33,18 +34,7 @@ final class FirstFarmersPayloadProjectionTests: XCTestCase {
         XCTAssertEqual(narrationEvents.count, 37)
         XCTAssertEqual(Set(narrationEvents.map(\.cueID)).count, 37)
         XCTAssertTrue(narrationEvents.allSatisfy { $0.narrationBinding != nil })
-        XCTAssertEqual(payload.audioTimelines.flatMap(\.haptics).count, 19)
-        XCTAssertEqual(
-            Set(payload.audioTimelines.flatMap(\.haptics).map(\.kind)),
-            Set([
-                HapticSemantic.contact,
-                .drag,
-                .resistance,
-                .transfer,
-                .break,
-                .seal,
-            ])
-        )
+        XCTAssertTrue(payload.audioTimelines.allSatisfy(\.haptics.isEmpty))
 
         XCTAssertEqual(receipt.status, "NON_SHIPPING_DEVELOPMENT_PAYLOAD_PROJECTION")
         XCTAssertEqual(receipt.shippingState, "PROHIBITED")
@@ -58,16 +48,16 @@ final class FirstFarmersPayloadProjectionTests: XCTestCase {
         XCTAssertEqual(receipt.counts.runtimeVisualBindings, 6)
         XCTAssertEqual(receipt.counts.audioTimelines, 47)
         XCTAssertEqual(receipt.counts.responsiveAudioPrograms, 6)
-        XCTAssertEqual(receipt.counts.provisionalResponsiveAudioPrograms, 5)
-        XCTAssertEqual(receipt.counts.placeholderResponsiveAudioPrograms, 1)
-        XCTAssertEqual(receipt.counts.nonNarrationAudioCues, 166)
-        XCTAssertEqual(receipt.counts.assetRequirements, 777)
+        XCTAssertEqual(receipt.counts.provisionalResponsiveAudioPrograms, 6)
+        XCTAssertEqual(receipt.counts.placeholderResponsiveAudioPrograms, 0)
+        XCTAssertEqual(receipt.counts.nonNarrationAudioCues, 181)
+        XCTAssertEqual(receipt.counts.assetRequirements, 778)
         XCTAssertTrue(receipt.claimsExcluded.contains("shipping approval"))
         XCTAssertTrue(receipt.claimsExcluded.contains("physical-device proof"))
 
         XCTAssertEqual(requirements.status, "NON_SHIPPING_FUTURE_ASSET_REQUIREMENTS")
         XCTAssertEqual(requirements.shippingState, "PROHIBITED")
-        XCTAssertEqual(requirements.requirements.count, 777)
+        XCTAssertEqual(requirements.requirements.count, 778)
         XCTAssertTrue(requirements.requirements.allSatisfy {
             $0.state == "FUTURE_PRODUCTION_ASSET_NOT_PRESENT"
         })
@@ -114,6 +104,60 @@ final class FirstFarmersPayloadProjectionTests: XCTestCase {
                     }
                 }
             }
+        }
+    }
+
+    func testAllSixResponsiveProgramsColdRestoreTheirExactLoopPositionPaused() throws {
+        let payload = try ContentDocumentDecoder.decodePackage(payloadFiles().payload)
+        let timelinesByID = Dictionary(
+            uniqueKeysWithValues: payload.audioTimelines.map { ($0.id, $0) }
+        )
+        XCTAssertEqual(payload.responsiveAudioPrograms.count, 6)
+
+        for program in payload.responsiveAudioPrograms {
+            let timelineIDs = [program.approachTimelineID]
+                + program.interactionBeds.map(\.timelineID)
+                + [program.consequenceTimelineID]
+            let timelines = try timelineIDs.map { timelineID in
+                try XCTUnwrap(timelinesByID[timelineID])
+            }
+            let approach = try XCTUnwrap(timelinesByID[program.approachTimelineID])
+            let waitingID = try XCTUnwrap(
+                program.interactionBeds.first { $0.phase == .waiting }?.timelineID
+            )
+            let waiting = try XCTUnwrap(timelinesByID[waitingID])
+
+            var runtime = try ResponsiveAudioProgramRuntime(
+                program: program,
+                timelines: timelines
+            )
+            try runtime.resume()
+            try runtime.advance(
+                bySamples: approach.authoredDurationSamples
+                    + waiting.authoredDurationSamples * 2
+                    + 12_345
+            )
+            XCTAssertEqual(runtime.stage, .interaction)
+            XCTAssertEqual(runtime.interactionPhase, .waiting)
+            XCTAssertEqual(runtime.loopIteration, 2)
+            XCTAssertEqual(runtime.cursorSample, 12_345)
+
+            try runtime.selectInteractionPhase(.engaged)
+            let pausedSnapshot = runtime.pause()
+            let encoded = try JSONEncoder().encode(pausedSnapshot)
+            let decoded = try JSONDecoder().decode(
+                ResponsiveAudioProgramSnapshot.self,
+                from: encoded
+            )
+            XCTAssertEqual(decoded, pausedSnapshot)
+
+            let restored = try ResponsiveAudioProgramRuntime(
+                program: program,
+                timelines: timelines,
+                restoring: decoded
+            )
+            XCTAssertEqual(restored.snapshot(), pausedSnapshot)
+            XCTAssertFalse(restored.isPlaying)
         }
     }
 
@@ -229,8 +273,8 @@ final class FirstFarmersPayloadProjectionTests: XCTestCase {
             from: files.assetRequirements
         )
 
-        XCTAssertEqual(receipt.counts.provisionalResponsiveAudioPrograms, 5)
-        XCTAssertEqual(receipt.counts.placeholderResponsiveAudioPrograms, 1)
+        XCTAssertEqual(receipt.counts.provisionalResponsiveAudioPrograms, 6)
+        XCTAssertEqual(receipt.counts.placeholderResponsiveAudioPrograms, 0)
 
         let program = try XCTUnwrap(
             payload.responsiveAudioPrograms.first {
@@ -382,15 +426,17 @@ final class FirstFarmersPayloadProjectionTests: XCTestCase {
                 $0.interactionTargetID == binding.interactionTargetID
             }
         )
-        XCTAssertEqual(
-            target.hitRegion.path,
-            [
-                NormalizedPoint(x: 0.2, y: 0.16),
-                NormalizedPoint(x: 0.82, y: 0.16),
-                NormalizedPoint(x: 0.82, y: 0.82),
-                NormalizedPoint(x: 0.2, y: 0.82),
-            ]
-        )
+        let expectedPath = [
+            NormalizedPoint(x: 0.2, y: 0.16),
+            NormalizedPoint(x: 0.82, y: 0.16),
+            NormalizedPoint(x: 0.82, y: 0.82),
+            NormalizedPoint(x: 0.2, y: 0.82),
+        ]
+        XCTAssertEqual(target.hitRegion.path.count, expectedPath.count)
+        for (actual, expected) in zip(target.hitRegion.path, expectedPath) {
+            XCTAssertEqual(actual.x, expected.x, accuracy: 0.000_000_1)
+            XCTAssertEqual(actual.y, expected.y, accuracy: 0.000_000_1)
+        }
         XCTAssertNoThrow(try scene.validateInteractionVisualBinding(to: interaction))
     }
 
@@ -454,7 +500,7 @@ final class FirstFarmersPayloadProjectionTests: XCTestCase {
         )
     }
 
-    func testThreeRecordsRemainsAnExplicitNonShippingPlaceholderUntilItsWorkObjectIsApproved() throws {
+    func testThreeRecordsProjectsItsProvisionalAuthoredProgramWithoutShippingApproval() throws {
         let files = try payloadFiles()
         let payload = try ContentDocumentDecoder.decodePackage(files.payload)
         let receipt = try JSONDecoder().decode(PayloadProjectionReceipt.self, from: files.receipt)
@@ -463,15 +509,15 @@ final class FirstFarmersPayloadProjectionTests: XCTestCase {
             from: files.assetRequirements
         )
 
-        XCTAssertEqual(receipt.counts.provisionalResponsiveAudioPrograms, 5)
-        XCTAssertEqual(receipt.counts.placeholderResponsiveAudioPrograms, 1)
+        XCTAssertEqual(receipt.counts.provisionalResponsiveAudioPrograms, 6)
+        XCTAssertEqual(receipt.counts.placeholderResponsiveAudioPrograms, 0)
 
         let program = try XCTUnwrap(
             payload.responsiveAudioPrograms.first {
                 $0.scope.beatID == "beat-first-farmers-three-records"
             }
         )
-        XCTAssertEqual(program.id, "responsive-program-beat-first-farmers-three-records")
+        XCTAssertEqual(program.id, "three-records-responsive-audio-v1")
         XCTAssertEqual(program.scope.chapterID, "first-farmers")
         XCTAssertEqual(program.scope.arcID, "first-farmers-arc-02")
         XCTAssertEqual(program.scope.beatID, "beat-first-farmers-three-records")
@@ -480,7 +526,7 @@ final class FirstFarmersPayloadProjectionTests: XCTestCase {
             "interaction-first-farmers-at-the-iron-gates"
         )
 
-        XCTAssertNil(program.causalMix)
+        XCTAssertNotNil(program.causalMix)
         XCTAssertEqual(
             program.exitPolicy,
             .boundedFade(durationSamples: 9_600)
@@ -492,11 +538,11 @@ final class FirstFarmersPayloadProjectionTests: XCTestCase {
         XCTAssertEqual(
             timelineIDs,
             [
-                "responsive-beat-first-farmers-three-records-approach",
-                "responsive-beat-first-farmers-three-records-waiting",
-                "responsive-beat-first-farmers-three-records-engaged",
-                "responsive-beat-first-farmers-three-records-resistance",
-                "responsive-beat-first-farmers-three-records-consequence",
+                "three-records-approach-v1",
+                "three-records-waiting-bed-v1",
+                "three-records-engaged-bed-v1",
+                "three-records-resistance-bed-v1",
+                "three-records-consequence-v1",
             ]
         )
         let timelineIDSet = Set(timelineIDs)
@@ -511,20 +557,15 @@ final class FirstFarmersPayloadProjectionTests: XCTestCase {
                 })
         })
         let projectedAudioPaths = Set(projectedTimelines.flatMap(\.events).compactMap(\.assetPath))
-        XCTAssertEqual(projectedAudioPaths.count, 15)
+        XCTAssertEqual(projectedAudioPaths.count, 16)
         XCTAssertTrue(projectedAudioPaths.allSatisfy {
-            $0.hasPrefix(
-                "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/"
-            )
+            $0.hasPrefix("audio/first-farmers/three-records-responsive-v1/")
         })
 
         let threeRecordsRequirements = requirements.requirements.filter {
-            $0.sourceContract == "FIRST_FARMERS_PAYLOAD_PROJECTION"
-                && $0.assetPath.hasPrefix(
-                    "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/"
-                )
+            $0.sourceContract == "THREE_RECORDS_RESPONSIVE_AUDIO_WORK_OBJECT"
         }
-        XCTAssertEqual(threeRecordsRequirements.count, 15)
+        XCTAssertEqual(threeRecordsRequirements.count, 16)
         XCTAssertEqual(
             Set(threeRecordsRequirements.map(\.assetPath)),
             projectedAudioPaths

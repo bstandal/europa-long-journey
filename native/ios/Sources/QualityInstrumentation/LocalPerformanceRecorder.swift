@@ -407,7 +407,10 @@ public final class LocalPerformanceRecorder: PerformanceRecording, @unchecked Se
     }
 
     func makeReport(appBuildSHA256: String) -> PhysicalPerformanceReport {
-        lock.withLock {
+        let captureEndedNanosecondsSinceProcessStart = relative(
+            clock.nowNanosecondsSinceBoot()
+        )
+        return lock.withLock {
             if !state.pendingFrames.isEmpty, !state.unresolvedFrameFailureRecorded {
                 state.unresolvedFrameFailureRecorded = true
                 appendFailureLocked(.unresolvedCommandBufferFrame)
@@ -437,6 +440,8 @@ public final class LocalPerformanceRecorder: PerformanceRecording, @unchecked Se
                 packages: packages,
                 processStartMonotonicNanosecondsSinceBoot:
                     processStartMonotonicNanosecondsSinceBoot,
+                captureEndedNanosecondsSinceProcessStart:
+                    captureEndedNanosecondsSinceProcessStart,
                 launch: LaunchTimingMeasurements(
                     restoredFrameCommandBufferCompletionProxyNanosecondsSinceProcessStart:
                         state

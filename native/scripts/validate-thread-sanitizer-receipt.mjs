@@ -66,6 +66,8 @@ export async function validateThreadSanitizerReceipt(receipt) {
   assert.deepEqual(receipt.testSelections, [
     "LongWestNativeTests/ProgressStoreTests",
     "LongWestNativeTests/ProgressStoreAppendBoundaryTests",
+    "LongWestNativeTests/ResponsiveAudioCursorCheckpointStoreTests",
+    "LongWestNativeTests/ResponsiveAudioCursorCheckpointPumpTests",
     "LongWestNativeTests/SaveMigrationRegistryTests",
     "LongWestNativeTests/ChapterSceneRuntimeControllerTests",
     "LongWestNativeTests/DownloadControllerTests",
@@ -76,8 +78,8 @@ export async function validateThreadSanitizerReceipt(receipt) {
     "LongWestNativeTests/VerifiedFutureReleaseRepositoryAuthorityTests",
   ]);
   assert.deepEqual(receipt.result, {
-    total: 134,
-    passed: 134,
+    total: 194,
+    passed: 194,
     failed: 0,
     skipped: 0,
     expectedFailures: 0,
@@ -108,7 +110,7 @@ async function main() {
   const receiptPath = path.join(
     iosRoot,
     "qa",
-    "thread-sanitizer-focused-2026-07-25.receipt.json",
+    "thread-sanitizer-focused-2026-07-26.receipt.json",
   );
   const receipt = JSON.parse(await readFile(receiptPath, "utf8"));
   await validateThreadSanitizerReceipt(receipt);

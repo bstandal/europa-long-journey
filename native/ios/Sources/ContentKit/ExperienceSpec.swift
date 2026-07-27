@@ -346,10 +346,16 @@ public struct ChapterSpec: Codable, Equatable, Sendable {
         }
         try requireUnique(arcs.map(\.id))
         try requireUnique(completionEffects.map(\.id))
-        guard !completionEffects.isEmpty else {
+        let leavesPermanentWorldEffect = !completionEffects.isEmpty || arcs.contains { arc in
+            arc.beats.contains { beat in
+                !beat.completionEffects.isEmpty
+                    || !(beat.interaction?.completionEffects.isEmpty ?? true)
+            }
+        }
+        guard leavesPermanentWorldEffect else {
             throw ContentValidationError.invalidValue(
                 field: "chapter.completionEffects",
-                reason: "every completed chapter must leave a permanent world effect"
+                reason: "a completed chapter must leave at least one permanent world effect"
             )
         }
         for arc in arcs {

@@ -13,7 +13,7 @@ import {
 const nativeRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const receipt = JSON.parse(
   await readFile(
-    path.join(nativeRoot, "ios", "qa", "thread-sanitizer-focused-2026-07-25.receipt.json"),
+    path.join(nativeRoot, "ios", "qa", "thread-sanitizer-focused-2026-07-26.receipt.json"),
     "utf8",
   ),
 );
@@ -36,8 +36,8 @@ test("the pass cannot survive a changed source authority", async () => {
 
 test("the source-authority helper reproduces the bound digest", async () => {
   assert.deepEqual(await sourceAuthorityForReceipt(receipt), {
-    fileCount: 62,
+    fileCount: 92,
     sha256OfSortedFileHashLines:
-      "59ef7d56798519bf5ff8f57ccb0fc0287c8dffdbfbf2a41b6b162658038aa5d9",
+      "77c98883e64af618205c419c54314d43ff50abfab36e63348c0efed23b46945d",
   });
 });

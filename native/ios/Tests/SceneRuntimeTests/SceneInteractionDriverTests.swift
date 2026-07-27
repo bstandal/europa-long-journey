@@ -461,6 +461,7 @@ final class SceneInteractionDriverTests: XCTestCase {
         let firstStage = try driver.submit(
             .semantic(.transform(controlID: "field", amount: 0.7))
         )
+        XCTAssertEqual(firstStage.feedback, .threshold)
         guard case let .transform(sowing) = firstStage.after.mechanism else {
             return XCTFail("Expected a transform snapshot")
         }

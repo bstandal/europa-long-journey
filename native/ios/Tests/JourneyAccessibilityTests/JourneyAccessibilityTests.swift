@@ -154,6 +154,81 @@ final class JourneyAccessibilityTests: XCTestCase {
         }
     }
 
+    func testTransformValueTracksTheCurrentStageAfterThreshold() throws {
+        let spec = transform()
+        let accessibility = accessibility(for: spec)
+        var state = InteractionRuntimeState(spec: spec)
+
+        var model = try SemanticInteractionAdapter.model(
+            for: spec,
+            accessibility: accessibility,
+            state: state
+        )
+        XCTAssertEqual(model.controls.map(\.id), ["transform-clear"])
+        XCTAssertEqual(model.controls.map(\.value), ["0 percent"])
+
+        let clear = try XCTUnwrap(
+            model.controls.first(where: { $0.id == "transform-clear" })?
+                .actions.first
+        )
+        _ = try SemanticInteractionAdapter.reduce(
+            state: &state,
+            elementID: "transform-clear",
+            authoredAction: clear,
+            spec: spec,
+            accessibility: accessibility
+        )
+        model = try SemanticInteractionAdapter.model(
+            for: spec,
+            accessibility: accessibility,
+            state: state
+        )
+        XCTAssertEqual(model.controls.map(\.id), ["transform-clear"])
+        XCTAssertEqual(model.controls.map(\.value), ["25 percent"])
+
+        _ = try SemanticInteractionAdapter.reduce(
+            state: &state,
+            elementID: "transform-clear",
+            authoredAction: clear,
+            spec: spec,
+            accessibility: accessibility
+        )
+        let threshold = try SemanticInteractionAdapter.reduce(
+            state: &state,
+            elementID: "transform-clear",
+            authoredAction: clear,
+            spec: spec,
+            accessibility: accessibility
+        )
+        XCTAssertEqual(threshold.feedback, .threshold)
+        model = try SemanticInteractionAdapter.model(
+            for: spec,
+            accessibility: accessibility,
+            state: state
+        )
+        XCTAssertEqual(model.controls.map(\.id), ["transform-sow"])
+        XCTAssertEqual(model.controls.map(\.value), ["0 percent"])
+
+        let sow = try XCTUnwrap(
+            model.controls.first(where: { $0.id == "transform-sow" })?
+                .actions.first
+        )
+        _ = try SemanticInteractionAdapter.reduce(
+            state: &state,
+            elementID: "transform-sow",
+            authoredAction: sow,
+            spec: spec,
+            accessibility: accessibility
+        )
+        model = try SemanticInteractionAdapter.model(
+            for: spec,
+            accessibility: accessibility,
+            state: state
+        )
+        XCTAssertEqual(model.controls.map(\.id), ["transform-sow"])
+        XCTAssertEqual(model.controls.map(\.value), ["25 percent"])
+    }
+
     private func base(id: String, grammar: InteractionSpec.Grammar) -> InteractionSpec {
         InteractionSpec(
             id: InteractionID(id),

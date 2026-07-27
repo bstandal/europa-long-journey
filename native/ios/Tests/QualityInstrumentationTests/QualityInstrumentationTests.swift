@@ -65,6 +65,7 @@ final class QualityInstrumentationTests: XCTestCase {
             .commandBufferAndGPUCompletionProxyOnly
         )
         XCTAssertEqual(report.platform.captureClass, .nonDevice)
+        XCTAssertEqual(report.captureEndedNanosecondsSinceProcessStart, 40_000_000)
         XCTAssertEqual(
             report.frameCommandBufferCompletionProxies.map(\.frameID),
             [first.rawValue, second.rawValue]
@@ -231,8 +232,10 @@ final class QualityInstrumentationTests: XCTestCase {
     }
 
     func testReportCodecRejectsUnknownNestedFields() throws {
-        let recorder = try makeRecorder(clock: TestClock(now: 4_500_000_000))
+        let clock = TestClock(now: 4_500_000_000)
+        let recorder = try makeRecorder(clock: clock)
         recorder.bindPackage(packageID: "essential-launch-v1", manifestSHA256: digestB)
+        clock.now = 4_500_000_001
         let bytes = try PerformanceReportCodec.encodeCanonical(
             recorder.makeReport(appBuildSHA256: digestA)
         )
@@ -247,8 +250,10 @@ final class QualityInstrumentationTests: XCTestCase {
     }
 
     func testExporterWritesHashBoundDeterministicBackstageFiles() throws {
-        let recorder = try makeRecorder(clock: TestClock(now: 5_000_000_000))
+        let clock = TestClock(now: 5_000_000_000)
+        let recorder = try makeRecorder(clock: clock)
         recorder.bindPackage(packageID: "essential-launch-v1", manifestSHA256: digestB)
+        clock.now = 5_000_000_001
         let root = FileManager.default.temporaryDirectory.appendingPathComponent(
             "quality-instrumentation-\(UUID().uuidString)",
             isDirectory: true
@@ -298,6 +303,18 @@ final class QualityInstrumentationTests: XCTestCase {
         try Data("framework-v2".utf8).write(to: nested, options: .atomic)
         let changed = try hasher.sha256(ofAppBundleAt: root)
         XCTAssertNotEqual(first, changed)
+    }
+
+    func testCompleteFirstFarmersPhysicalRunIsAnAcceptedCaptureIdentity() {
+        let chapterRun = PerformanceCaptureRequest(
+            protocolID: "port1-physical-device-v1",
+            runID: "first-farmers-sustained",
+            attemptID: "first-farmers-sustained-r01",
+            repetition: 1,
+            rawTraceRetentionRequired: true
+        )
+
+        XCTAssertNoThrow(try PerformanceCaptureValidator.validate(chapterRun))
     }
 
     private var request: PerformanceCaptureRequest {

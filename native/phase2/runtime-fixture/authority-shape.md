@@ -21,9 +21,14 @@ allow those two beats to drift into independently activated world states.
 
 The package may enter the runtime only after its isolated development signature,
 manifest inventory, hashes, schema and three-chapter sequence have been checked.
-The DEBUG repository initializer admits that exact sequence and no other. The
-shipping compiler rejects the development authority, and Release scanning
-rejects the fixture package, trust receipt and development markers.
+The repository initializer exists only in DEBUG and the explicit
+`NON_SHIPPING_LIVE_TEST` trust domain. It admits that exact sequence and no
+other. The live-test configuration is release-optimized and has a separate
+bundle identity, a dedicated app group and no Push or production-CloudKit
+entitlement. Its ReleaseDiscovery composition is locally unavailable rather
+than network-backed. The ordinary Release compiler rejects the development
+authority, and Release scanning rejects the fixture package, trust receipt and
+development markers.
 
 The source images and derived soundscapes are technical inputs. Their presence
 does not assert editor approval, production art approval, production audio

@@ -24,6 +24,8 @@ import {
   forbiddenReleaseBasenames,
   forbiddenReleaseByteSequences,
   forbiddenReleaseExtensions,
+  enforceReleaseCandidateByteBudgets,
+  requireReleaseByteBudgetAuthorityWithinLockedCeilings,
   releaseValidationModes,
   validateReleaseAppBoundary,
 } from './validate-release-app-boundary.mjs';
@@ -73,6 +75,26 @@ function canonicalJSON(value) {
 function hash(bytes) {
   return createHash('sha256').update(bytes).digest('hex');
 }
+
+const deliveryPlanPath = fileURLToPath(new URL(
+  '../blueprint/delivery-plan.json',
+  import.meta.url,
+));
+const deliveryPlanBytes = await readFile(deliveryPlanPath);
+const deliveryPlan = JSON.parse(deliveryPlanBytes);
+const essentialDeliveryRecord = deliveryPlan.packages.find(
+  (record) => record.packageID === 'essential-free-v1',
+);
+const byteBudgetAuthority = Object.freeze({
+  appBundleMaximumBytes:
+    deliveryPlan.budgets.shellAndEngineBytes + essentialDeliveryRecord.maximumInstalledBytes,
+  essentialPackageMaximumBytes: essentialDeliveryRecord.maximumInstalledBytes,
+  shellAndEngineMaximumBytes: deliveryPlan.budgets.shellAndEngineBytes,
+});
+const deliveryPlanSHA256 = hash(deliveryPlanBytes);
+const boundaryOnlyOptions = Object.freeze({
+  mode: releaseValidationModes.boundaryOnly,
+});
 
 function productionTrustFixture() {
   const { privateKey, publicKey } = generateKeyPairSync('ec', { namedCurve: 'prime256v1' });
@@ -287,6 +309,7 @@ function essentialReceiptFixture(packageFixture) {
     decisionReference: 'test-only-essential-package-approval',
     packageID: 'essential-free-v1',
     chapterIDs: essentialChapterIDs,
+    deliveryPlanSHA256,
     packageManifestSHA256: hash(packageFixture.manifestBytes),
     manifestDigest: packageFixture.manifest.manifestDigest,
     payloadPath: packageFixture.payloadPath,
@@ -344,8 +367,12 @@ async function writeReleaseCandidateResources(app, root, packageOptions = {}) {
 test('accepts a clean release app bundle in boundary-only mode', async () => {
   await withApp(async (app) => {
     await writeFile(join(app, 'LongWestJourney'), Buffer.from([0, 1, 2, 3]));
-    const result = await validateReleaseAppBoundary(app);
-    assert.equal(result.status, 'PASS');
+    await assert.rejects(
+      validateReleaseAppBoundary(app),
+      /Unknown release validation mode: undefined/,
+    );
+    const result = await validateReleaseAppBoundary(app, boundaryOnlyOptions);
+    assert.equal(result.status, 'PASS_BOUNDARY_ONLY_NON_SHIPPING');
     assert.equal(result.mode, releaseValidationModes.boundaryOnly);
   });
 });
@@ -355,7 +382,7 @@ test('rejects every DEBUG-only resource basename', async () => {
     await withApp(async (app) => {
       await writeFile(join(app, forbidden), '{}');
       await assert.rejects(
-        validateReleaseAppBoundary(app),
+        validateReleaseAppBoundary(app, boundaryOnlyOptions),
         /DEBUG-only resource/,
       );
     });
@@ -367,7 +394,7 @@ test('rejects every key, test and config extension', async () => {
     await withApp(async (app) => {
       await writeFile(join(app, `renamed-material${extension}`), 'opaque');
       await assert.rejects(
-        validateReleaseAppBoundary(app),
+        validateReleaseAppBoundary(app, boundaryOnlyOptions),
         /forbidden key, test or config file/,
       );
     });
@@ -379,7 +406,7 @@ test('rejects every DEBUG-only byte sequence in arbitrary app files', async () =
     await withApp(async (app) => {
       await writeFile(join(app, 'LongWestJourney'), `prefix\0${forbidden}\0suffix`);
       await assert.rejects(
-        validateReleaseAppBoundary(app),
+        validateReleaseAppBoundary(app, boundaryOnlyOptions),
         /DEBUG-only bytes/,
       );
     });
@@ -392,7 +419,7 @@ test('rejects the exact signed runtime fixture and trust receipt after renaming'
       recursive: true,
     });
     await assert.rejects(
-      validateReleaseAppBoundary(app),
+      validateReleaseAppBoundary(app, boundaryOnlyOptions),
       /DEBUG-only (?:bytes|resource)/,
     );
   });
@@ -400,7 +427,7 @@ test('rejects the exact signed runtime fixture and trust receipt after renaming'
   await withApp(async (app) => {
     await cp(signedRuntimeFixtureReceipt, join(app, 'opaque-receipt.bin'));
     await assert.rejects(
-      validateReleaseAppBoundary(app),
+      validateReleaseAppBoundary(app, boundaryOnlyOptions),
       /DEBUG-only bytes/,
     );
   });
@@ -412,7 +439,7 @@ test('rejects a binary private key even after it is renamed', async () => {
   await withApp(async (app) => {
     await writeFile(join(app, 'innocent-looking-resource.bin'), key);
     await assert.rejects(
-      validateReleaseAppBoundary(app),
+      validateReleaseAppBoundary(app, boundaryOnlyOptions),
       /private signing material/,
     );
   });
@@ -424,13 +451,13 @@ test('rejects JWK private material even after it is renamed', async () => {
   await withApp(async (app) => {
     await writeFile(join(app, 'catalog.bin'), JSON.stringify(jwk));
     await assert.rejects(
-      validateReleaseAppBoundary(app),
+      validateReleaseAppBoundary(app, boundaryOnlyOptions),
       /private signing material/,
     );
   });
 });
 
-test('release-candidate mode requires one canonical approved trust root', async () => {
+test('release-candidate mode requires approved trust and accepts actual bytes within budget', async () => {
   await withApp(async (app, root) => {
     await writeFile(join(app, 'LongWestJourney'), Buffer.from([0, 1, 2, 3]));
     await assert.rejects(
@@ -446,7 +473,91 @@ test('release-candidate mode requires one canonical approved trust root', async 
     });
     assert.equal(result.status, 'PASS');
     assert.equal(result.mode, releaseValidationModes.releaseCandidate);
+    const expectedEssentialBytes = fixture.manifestBytes.byteLength
+      + fixture.manifest.files.reduce((total, record) => total + record.bytes, 0);
+    const expectedShellBytes = 4 + fixture.trust.byteLength;
+    const { appBundleFileTreeSHA256, ...measuredBudget } = result.byteBudget;
+    assert.match(appBundleFileTreeSHA256, /^[a-f0-9]{64}$/u);
+    assert.deepEqual(measuredBudget, {
+      deliveryPlanSHA256,
+      appBundleBytes: expectedEssentialBytes + expectedShellBytes,
+      essentialPackageBytes: expectedEssentialBytes,
+      shellAndEngineBytes: expectedShellBytes,
+      ...byteBudgetAuthority,
+    });
   });
+});
+
+test('release-candidate byte boundary rejects package, shell and complete bundle excess', () => {
+  const exactBudget = {
+    appBundleBytes: byteBudgetAuthority.appBundleMaximumBytes,
+    essentialPackageBytes: byteBudgetAuthority.essentialPackageMaximumBytes,
+    shellAndEngineBytes: byteBudgetAuthority.shellAndEngineMaximumBytes,
+  };
+  assert.deepEqual(
+    enforceReleaseCandidateByteBudgets(exactBudget, byteBudgetAuthority),
+    { ...exactBudget, ...byteBudgetAuthority },
+  );
+
+  const packageExcess = byteBudgetAuthority.essentialPackageMaximumBytes + 1;
+  assert.throws(
+    () => enforceReleaseCandidateByteBudgets({
+      appBundleBytes: packageExcess,
+      essentialPackageBytes: packageExcess,
+      shellAndEngineBytes: 0,
+    }, byteBudgetAuthority),
+    new RegExp(
+      `Bundled essential package uses ${packageExcess} bytes; delivery-plan budget `
+        + `for essential-free-v1 is ${byteBudgetAuthority.essentialPackageMaximumBytes} bytes`,
+      'u',
+    ),
+  );
+
+  const shellExcess = byteBudgetAuthority.shellAndEngineMaximumBytes + 1;
+  assert.throws(
+    () => enforceReleaseCandidateByteBudgets({
+      appBundleBytes: shellExcess,
+      essentialPackageBytes: 0,
+      shellAndEngineBytes: shellExcess,
+    }, byteBudgetAuthority),
+    new RegExp(
+      `Release app shell and engine use ${shellExcess} bytes; delivery-plan budget `
+        + `is ${byteBudgetAuthority.shellAndEngineMaximumBytes} bytes`,
+      'u',
+    ),
+  );
+
+  const narrowedBundleAuthority = {
+    ...byteBudgetAuthority,
+    appBundleMaximumBytes: byteBudgetAuthority.appBundleMaximumBytes - 1,
+  };
+  assert.throws(
+    () => enforceReleaseCandidateByteBudgets(exactBudget, narrowedBundleAuthority),
+    /Release byte-budget authority does not partition the base-install ceiling/,
+  );
+
+  for (const authority of [
+    {
+      shellAndEngineMaximumBytes: 100_000_001,
+      essentialPackageMaximumBytes: 750_000_000,
+      appBundleMaximumBytes: 850_000_001,
+    },
+    {
+      shellAndEngineMaximumBytes: 100_000_000,
+      essentialPackageMaximumBytes: 750_000_001,
+      appBundleMaximumBytes: 850_000_001,
+    },
+    {
+      shellAndEngineMaximumBytes: 100_000_000,
+      essentialPackageMaximumBytes: 750_000_000,
+      appBundleMaximumBytes: 850_000_001,
+    },
+  ]) {
+    assert.throws(
+      () => requireReleaseByteBudgetAuthorityWithinLockedCeilings(authority),
+      /exceeds the locked 100\/750\/850 MB release ceilings/,
+    );
+  }
 });
 
 test('release-candidate mode rejects noncanonical, extra or unapproved trust', async () => {
@@ -711,6 +822,7 @@ test('approved essential receipt binds every required package authority field', 
     (receipt) => { receipt.authority = 'codex'; },
     (receipt) => { receipt.approvedAt = 'not-a-date'; },
     (receipt) => { receipt.decisionReference = 'too-short'; },
+    (receipt) => { receipt.deliveryPlanSHA256 = 'f'.repeat(64); },
     (receipt) => { receipt.packageManifestSHA256 = '0'.repeat(64); },
     (receipt) => { receipt.manifestDigest = '1'.repeat(64); },
     (receipt) => { receipt.payloadPath = 'chapters/renamed.json'; },

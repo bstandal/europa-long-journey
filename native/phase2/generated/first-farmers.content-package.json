@@ -1542,16 +1542,16 @@
                 "y": 0.16
               },
               {
-                "x": 0.82,
+                "x": 0.8200000000000001,
                 "y": 0.16
               },
               {
-                "x": 0.82,
-                "y": 0.82
+                "x": 0.8200000000000001,
+                "y": 0.8200000000000001
               },
               {
                 "x": 0.2,
-                "y": 0.82
+                "y": 0.8200000000000001
               }
             ]
           },
@@ -7348,26 +7348,7 @@
           "gain": 0.68
         }
       ],
-      "haptics": [
-        {
-          "sample": 2496000,
-          "kind": "contact",
-          "intensity": 0.36,
-          "sharpness": 0.62
-        },
-        {
-          "sample": 4992000,
-          "kind": "drag",
-          "intensity": 0.24,
-          "sharpness": 0.26
-        },
-        {
-          "sample": 7488000,
-          "kind": "seal",
-          "intensity": 0.64,
-          "sharpness": 0.52
-        }
-      ]
+      "haptics": []
     },
     {
       "id": "household-crosses-approach-v1",
@@ -7868,32 +7849,7 @@
           "gain": 0.68
         }
       ],
-      "haptics": [
-        {
-          "sample": 2016000,
-          "kind": "contact",
-          "intensity": 0.36,
-          "sharpness": 0.62
-        },
-        {
-          "sample": 4032000,
-          "kind": "resistance",
-          "intensity": 0.58,
-          "sharpness": 0.34
-        },
-        {
-          "sample": 6048000,
-          "kind": "transfer",
-          "intensity": 0.44,
-          "sharpness": 0.48
-        },
-        {
-          "sample": 8064000,
-          "kind": "seal",
-          "intensity": 0.64,
-          "sharpness": 0.52
-        }
-      ]
+      "haptics": []
     },
     {
       "id": "harvest-approach-v1",
@@ -8278,178 +8234,279 @@
           "gain": 0.68
         }
       ],
-      "haptics": [
-        {
-          "sample": 1380000,
-          "kind": "drag",
-          "intensity": 0.24,
-          "sharpness": 0.26
-        },
-        {
-          "sample": 2760000,
-          "kind": "break",
-          "intensity": 0.72,
-          "sharpness": 0.78
-        },
-        {
-          "sample": 4140000,
-          "kind": "seal",
-          "intensity": 0.64,
-          "sharpness": 0.52
-        }
-      ]
+      "haptics": []
     },
     {
-      "id": "responsive-beat-first-farmers-three-records-approach",
+      "id": "three-records-approach-v1",
       "sampleRate": 48000,
       "events": [
         {
-          "cueID": "responsive-beat-first-farmers-three-records-approach-score",
+          "cueID": "three-records-responsive-audio-v1-approach-score-master",
           "role": "score",
           "startSample": 0,
-          "durationSamples": 144000,
-          "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/approach/score-master.wav",
-          "gain": 0.5
-        },
-        {
-          "cueID": "responsive-beat-first-farmers-three-records-approach-soundscape",
-          "role": "soundscape",
-          "startSample": 0,
-          "durationSamples": 144000,
-          "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/approach/soundscape-master.wav",
+          "durationSamples": 2160000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/approach/score-master.wav",
           "gain": 0.72
         },
         {
-          "cueID": "responsive-beat-first-farmers-three-records-approach-spatial-detail",
+          "cueID": "three-records-responsive-audio-v1-approach-soundscape-master",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 2160000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/approach/soundscape-master.wav",
+          "gain": 0.82
+        },
+        {
+          "cueID": "three-records-responsive-audio-v1-approach-spatial-detail-master",
           "role": "spatialDetail",
           "startSample": 0,
-          "durationSamples": 144000,
-          "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/approach/spatial-detail-master.wav",
-          "gain": 0.64
+          "durationSamples": 2160000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/approach/spatial-detail-master.wav",
+          "gain": 0.9
         }
       ],
       "haptics": []
     },
     {
-      "id": "responsive-beat-first-farmers-three-records-waiting",
+      "id": "three-records-waiting-bed-v1",
       "sampleRate": 48000,
       "events": [
         {
-          "cueID": "responsive-beat-first-farmers-three-records-waiting-score",
+          "cueID": "three-records-responsive-audio-v1-waiting-score-master",
           "role": "score",
           "startSample": 0,
-          "durationSamples": 96000,
-          "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/waiting/score-master.wav",
-          "gain": 0.5
-        },
-        {
-          "cueID": "responsive-beat-first-farmers-three-records-waiting-soundscape",
-          "role": "soundscape",
-          "startSample": 0,
-          "durationSamples": 96000,
-          "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/waiting/soundscape-master.wav",
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/waiting/score-master.wav",
           "gain": 0.72
         },
         {
-          "cueID": "responsive-beat-first-farmers-three-records-waiting-spatial-detail",
+          "cueID": "three-records-responsive-audio-v1-waiting-gorge-current",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/gorge-current.wav",
+          "gain": 0.82
+        },
+        {
+          "cueID": "three-records-responsive-audio-v1-waiting-river-gear",
           "role": "spatialDetail",
           "startSample": 0,
-          "durationSamples": 96000,
-          "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/waiting/spatial-detail-master.wav",
-          "gain": 0.64
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/river-gear.wav",
+          "gain": 0
+        },
+        {
+          "cueID": "three-records-responsive-audio-v1-waiting-landing-work",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/landing-work.wav",
+          "gain": 0
+        },
+        {
+          "cueID": "three-records-responsive-audio-v1-waiting-settlement-hearths",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/settlement-hearths.wav",
+          "gain": 0
+        },
+        {
+          "cueID": "three-records-responsive-audio-v1-waiting-carried-grain",
+          "role": "spatialDetail",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/carried-grain.wav",
+          "gain": 0
+        },
+        {
+          "cueID": "three-records-responsive-audio-v1-waiting-domestic-herd",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/domestic-herd.wav",
+          "gain": 0
+        },
+        {
+          "cueID": "three-records-responsive-audio-v1-waiting-household-voices",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/household-voices.wav",
+          "gain": 0
         }
       ],
       "haptics": []
     },
     {
-      "id": "responsive-beat-first-farmers-three-records-engaged",
+      "id": "three-records-engaged-bed-v1",
       "sampleRate": 48000,
       "events": [
         {
-          "cueID": "responsive-beat-first-farmers-three-records-engaged-score",
+          "cueID": "three-records-responsive-audio-v1-engaged-score-master",
           "role": "score",
           "startSample": 0,
-          "durationSamples": 96000,
-          "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/engaged/score-master.wav",
-          "gain": 0.5
-        },
-        {
-          "cueID": "responsive-beat-first-farmers-three-records-engaged-soundscape",
-          "role": "soundscape",
-          "startSample": 0,
-          "durationSamples": 96000,
-          "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/engaged/soundscape-master.wav",
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/engaged/score-master.wav",
           "gain": 0.72
         },
         {
-          "cueID": "responsive-beat-first-farmers-three-records-engaged-spatial-detail",
+          "cueID": "three-records-responsive-audio-v1-engaged-gorge-current",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/gorge-current.wav",
+          "gain": 0.82
+        },
+        {
+          "cueID": "three-records-responsive-audio-v1-engaged-river-gear",
           "role": "spatialDetail",
           "startSample": 0,
-          "durationSamples": 96000,
-          "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/engaged/spatial-detail-master.wav",
-          "gain": 0.64
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/river-gear.wav",
+          "gain": 0
+        },
+        {
+          "cueID": "three-records-responsive-audio-v1-engaged-landing-work",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/landing-work.wav",
+          "gain": 0
+        },
+        {
+          "cueID": "three-records-responsive-audio-v1-engaged-settlement-hearths",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/settlement-hearths.wav",
+          "gain": 0
+        },
+        {
+          "cueID": "three-records-responsive-audio-v1-engaged-carried-grain",
+          "role": "spatialDetail",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/carried-grain.wav",
+          "gain": 0
+        },
+        {
+          "cueID": "three-records-responsive-audio-v1-engaged-domestic-herd",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/domestic-herd.wav",
+          "gain": 0
+        },
+        {
+          "cueID": "three-records-responsive-audio-v1-engaged-household-voices",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/household-voices.wav",
+          "gain": 0
         }
       ],
       "haptics": []
     },
     {
-      "id": "responsive-beat-first-farmers-three-records-resistance",
+      "id": "three-records-resistance-bed-v1",
       "sampleRate": 48000,
       "events": [
         {
-          "cueID": "responsive-beat-first-farmers-three-records-resistance-score",
+          "cueID": "three-records-responsive-audio-v1-resistance-score-master",
           "role": "score",
           "startSample": 0,
-          "durationSamples": 96000,
-          "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/resistance/score-master.wav",
-          "gain": 0.5
-        },
-        {
-          "cueID": "responsive-beat-first-farmers-three-records-resistance-soundscape",
-          "role": "soundscape",
-          "startSample": 0,
-          "durationSamples": 96000,
-          "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/resistance/soundscape-master.wav",
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/resistance/score-master.wav",
           "gain": 0.72
         },
         {
-          "cueID": "responsive-beat-first-farmers-three-records-resistance-spatial-detail",
+          "cueID": "three-records-responsive-audio-v1-resistance-gorge-current",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/gorge-current.wav",
+          "gain": 0.82
+        },
+        {
+          "cueID": "three-records-responsive-audio-v1-resistance-river-gear",
           "role": "spatialDetail",
           "startSample": 0,
-          "durationSamples": 96000,
-          "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/resistance/spatial-detail-master.wav",
-          "gain": 0.64
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/river-gear.wav",
+          "gain": 0
+        },
+        {
+          "cueID": "three-records-responsive-audio-v1-resistance-landing-work",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/landing-work.wav",
+          "gain": 0
+        },
+        {
+          "cueID": "three-records-responsive-audio-v1-resistance-settlement-hearths",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/settlement-hearths.wav",
+          "gain": 0
+        },
+        {
+          "cueID": "three-records-responsive-audio-v1-resistance-carried-grain",
+          "role": "spatialDetail",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/carried-grain.wav",
+          "gain": 0
+        },
+        {
+          "cueID": "three-records-responsive-audio-v1-resistance-domestic-herd",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/domestic-herd.wav",
+          "gain": 0
+        },
+        {
+          "cueID": "three-records-responsive-audio-v1-resistance-household-voices",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/household-voices.wav",
+          "gain": 0
         }
       ],
       "haptics": []
     },
     {
-      "id": "responsive-beat-first-farmers-three-records-consequence",
+      "id": "three-records-consequence-v1",
       "sampleRate": 48000,
       "events": [
         {
-          "cueID": "responsive-beat-first-farmers-three-records-consequence-score",
+          "cueID": "three-records-responsive-audio-v1-consequence-score-master",
           "role": "score",
           "startSample": 0,
-          "durationSamples": 144000,
-          "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/consequence/score-master.wav",
-          "gain": 0.5
-        },
-        {
-          "cueID": "responsive-beat-first-farmers-three-records-consequence-soundscape",
-          "role": "soundscape",
-          "startSample": 0,
-          "durationSamples": 144000,
-          "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/consequence/soundscape-master.wav",
+          "durationSamples": 2160000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/consequence/score-master.wav",
           "gain": 0.72
         },
         {
-          "cueID": "responsive-beat-first-farmers-three-records-consequence-spatial-detail",
+          "cueID": "three-records-responsive-audio-v1-consequence-soundscape-master",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 2160000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/consequence/soundscape-master.wav",
+          "gain": 0.82
+        },
+        {
+          "cueID": "three-records-responsive-audio-v1-consequence-spatial-detail-master",
           "role": "spatialDetail",
           "startSample": 0,
-          "durationSamples": 144000,
-          "assetPath": "requirements/first-farmers/audio/responsive/beat-first-farmers-three-records/consequence/spatial-detail-master.wav",
-          "gain": 0.64
+          "durationSamples": 2160000,
+          "assetPath": "audio/first-farmers/three-records-responsive-v1/consequence/spatial-detail-master.wav",
+          "gain": 0.9
         }
       ],
       "haptics": []
@@ -8582,26 +8639,7 @@
           "gain": 0.68
         }
       ],
-      "haptics": [
-        {
-          "sample": 1800000,
-          "kind": "contact",
-          "intensity": 0.36,
-          "sharpness": 0.62
-        },
-        {
-          "sample": 3600000,
-          "kind": "resistance",
-          "intensity": 0.58,
-          "sharpness": 0.34
-        },
-        {
-          "sample": 5400000,
-          "kind": "seal",
-          "intensity": 0.64,
-          "sharpness": 0.52
-        }
-      ]
+      "haptics": []
     },
     {
       "id": "longhouse-approach-v1",
@@ -8986,26 +9024,7 @@
           "gain": 0.68
         }
       ],
-      "haptics": [
-        {
-          "sample": 1440000,
-          "kind": "drag",
-          "intensity": 0.24,
-          "sharpness": 0.26
-        },
-        {
-          "sample": 2880000,
-          "kind": "break",
-          "intensity": 0.72,
-          "sharpness": 0.78
-        },
-        {
-          "sample": 4320000,
-          "kind": "seal",
-          "intensity": 0.64,
-          "sharpness": 0.52
-        }
-      ]
+      "haptics": []
     },
     {
       "id": "more-mouths-approach-v1",
@@ -9325,26 +9344,7 @@
           "gain": 0.68
         }
       ],
-      "haptics": [
-        {
-          "sample": 1440000,
-          "kind": "drag",
-          "intensity": 0.24,
-          "sharpness": 0.26
-        },
-        {
-          "sample": 2880000,
-          "kind": "break",
-          "intensity": 0.72,
-          "sharpness": 0.78
-        },
-        {
-          "sample": 4320000,
-          "kind": "seal",
-          "intensity": 0.64,
-          "sharpness": 0.52
-        }
-      ]
+      "haptics": []
     },
     {
       "id": "continent-remade-approach-v1",
@@ -9686,44 +9686,246 @@
       }
     },
     {
-      "id": "responsive-program-beat-first-farmers-three-records",
+      "id": "three-records-responsive-audio-v1",
       "scope": {
         "chapterID": "first-farmers",
         "arcID": "first-farmers-arc-02",
         "beatID": "beat-first-farmers-three-records",
         "interactionID": "interaction-first-farmers-at-the-iron-gates"
       },
-      "approachTimelineID": "responsive-beat-first-farmers-three-records-approach",
+      "approachTimelineID": "three-records-approach-v1",
       "interactionBeds": [
         {
           "phase": "waiting",
-          "timelineID": "responsive-beat-first-farmers-three-records-waiting",
+          "timelineID": "three-records-waiting-bed-v1",
           "layerStates": {
-            "scoreStateID": "placeholder-waiting-score",
-            "soundscapeStateID": "placeholder-waiting-world"
+            "scoreStateID": "river-record-held",
+            "soundscapeStateID": "river-community-record-waits"
           }
         },
         {
           "phase": "engaged",
-          "timelineID": "responsive-beat-first-farmers-three-records-engaged",
+          "timelineID": "three-records-engaged-bed-v1",
           "layerStates": {
-            "scoreStateID": "placeholder-engaged-score",
-            "soundscapeStateID": "placeholder-engaged-world"
+            "scoreStateID": "records-move-through-time",
+            "soundscapeStateID": "time-layers-in-motion"
           }
         },
         {
           "phase": "resistance",
-          "timelineID": "responsive-beat-first-farmers-three-records-resistance",
+          "timelineID": "three-records-resistance-bed-v1",
           "layerStates": {
-            "scoreStateID": "placeholder-resistance-score",
-            "soundscapeStateID": "placeholder-resistance-world"
+            "scoreStateID": "time-layer-does-not-take",
+            "soundscapeStateID": "same-gorge-refuses-false-layer"
           }
         }
       ],
-      "consequenceTimelineID": "responsive-beat-first-farmers-three-records-consequence",
+      "consequenceTimelineID": "three-records-consequence-v1",
       "exitPolicy": {
         "kind": "bounded-fade",
         "durationSamples": 9600
+      },
+      "causalMix": {
+        "rampDurationSamples": 9600,
+        "layers": [
+          {
+            "id": "gorge-current",
+            "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/gorge-current.wav",
+            "cueIDs": {
+              "waiting": "three-records-responsive-audio-v1-waiting-gorge-current",
+              "engaged": "three-records-responsive-audio-v1-engaged-gorge-current",
+              "resistance": "three-records-responsive-audio-v1-resistance-gorge-current"
+            }
+          },
+          {
+            "id": "river-gear",
+            "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/river-gear.wav",
+            "cueIDs": {
+              "waiting": "three-records-responsive-audio-v1-waiting-river-gear",
+              "engaged": "three-records-responsive-audio-v1-engaged-river-gear",
+              "resistance": "three-records-responsive-audio-v1-resistance-river-gear"
+            }
+          },
+          {
+            "id": "landing-work",
+            "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/landing-work.wav",
+            "cueIDs": {
+              "waiting": "three-records-responsive-audio-v1-waiting-landing-work",
+              "engaged": "three-records-responsive-audio-v1-engaged-landing-work",
+              "resistance": "three-records-responsive-audio-v1-resistance-landing-work"
+            }
+          },
+          {
+            "id": "settlement-hearths",
+            "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/settlement-hearths.wav",
+            "cueIDs": {
+              "waiting": "three-records-responsive-audio-v1-waiting-settlement-hearths",
+              "engaged": "three-records-responsive-audio-v1-engaged-settlement-hearths",
+              "resistance": "three-records-responsive-audio-v1-resistance-settlement-hearths"
+            }
+          },
+          {
+            "id": "carried-grain",
+            "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/carried-grain.wav",
+            "cueIDs": {
+              "waiting": "three-records-responsive-audio-v1-waiting-carried-grain",
+              "engaged": "three-records-responsive-audio-v1-engaged-carried-grain",
+              "resistance": "three-records-responsive-audio-v1-resistance-carried-grain"
+            }
+          },
+          {
+            "id": "domestic-herd",
+            "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/domestic-herd.wav",
+            "cueIDs": {
+              "waiting": "three-records-responsive-audio-v1-waiting-domestic-herd",
+              "engaged": "three-records-responsive-audio-v1-engaged-domestic-herd",
+              "resistance": "three-records-responsive-audio-v1-resistance-domestic-herd"
+            }
+          },
+          {
+            "id": "household-voices",
+            "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/household-voices.wav",
+            "cueIDs": {
+              "waiting": "three-records-responsive-audio-v1-waiting-household-voices",
+              "engaged": "three-records-responsive-audio-v1-engaged-household-voices",
+              "resistance": "three-records-responsive-audio-v1-resistance-household-voices"
+            }
+          }
+        ],
+        "states": [
+          {
+            "completedStageCount": 0,
+            "layerGains": [
+              {
+                "layerID": "gorge-current",
+                "gain": 0.82
+              },
+              {
+                "layerID": "river-gear",
+                "gain": 0
+              },
+              {
+                "layerID": "landing-work",
+                "gain": 0
+              },
+              {
+                "layerID": "settlement-hearths",
+                "gain": 0
+              },
+              {
+                "layerID": "carried-grain",
+                "gain": 0
+              },
+              {
+                "layerID": "domestic-herd",
+                "gain": 0
+              },
+              {
+                "layerID": "household-voices",
+                "gain": 0
+              }
+            ]
+          },
+          {
+            "completedStageCount": 1,
+            "layerGains": [
+              {
+                "layerID": "gorge-current",
+                "gain": 0.82
+              },
+              {
+                "layerID": "river-gear",
+                "gain": 0.32
+              },
+              {
+                "layerID": "landing-work",
+                "gain": 0.28
+              },
+              {
+                "layerID": "settlement-hearths",
+                "gain": 0.18
+              },
+              {
+                "layerID": "carried-grain",
+                "gain": 0
+              },
+              {
+                "layerID": "domestic-herd",
+                "gain": 0
+              },
+              {
+                "layerID": "household-voices",
+                "gain": 0.14
+              }
+            ]
+          },
+          {
+            "completedStageCount": 2,
+            "layerGains": [
+              {
+                "layerID": "gorge-current",
+                "gain": 0.82
+              },
+              {
+                "layerID": "river-gear",
+                "gain": 0.42
+              },
+              {
+                "layerID": "landing-work",
+                "gain": 0.38
+              },
+              {
+                "layerID": "settlement-hearths",
+                "gain": 0.28
+              },
+              {
+                "layerID": "carried-grain",
+                "gain": 0.3
+              },
+              {
+                "layerID": "domestic-herd",
+                "gain": 0.24
+              },
+              {
+                "layerID": "household-voices",
+                "gain": 0.34
+              }
+            ]
+          },
+          {
+            "completedStageCount": 3,
+            "layerGains": [
+              {
+                "layerID": "gorge-current",
+                "gain": 0.82
+              },
+              {
+                "layerID": "river-gear",
+                "gain": 0.48
+              },
+              {
+                "layerID": "landing-work",
+                "gain": 0.44
+              },
+              {
+                "layerID": "settlement-hearths",
+                "gain": 0.34
+              },
+              {
+                "layerID": "carried-grain",
+                "gain": 0.4
+              },
+              {
+                "layerID": "domestic-herd",
+                "gain": 0.32
+              },
+              {
+                "layerID": "household-voices",
+                "gain": 0.42
+              }
+            ]
+          }
+        ]
       }
     },
     {

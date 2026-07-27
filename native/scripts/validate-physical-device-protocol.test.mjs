@@ -17,6 +17,12 @@ const reportSchema = JSON.parse(
     "utf8",
   ),
 );
+const chapterEvidenceSchema = JSON.parse(
+  await readFile(
+    path.join(nativeRoot, protocol.firstFarmersEvidenceContract.schemaPath),
+    "utf8",
+  ),
+);
 
 test("locked physical-device protocol passes", () => {
   assert.doesNotThrow(() => validatePhysicalDeviceProtocol(structuredClone(protocol)));
@@ -32,6 +38,56 @@ test("performance budgets cannot loosen silently", () => {
   const drifted = structuredClone(protocol);
   drifted.budgets.p99DisplayedFrameTimeMillisecondsMaximum = 30;
   assert.throws(() => validatePhysicalDeviceProtocol(drifted));
+});
+
+test("complete First Farmers battery run cannot be removed or shortened", () => {
+  const missing = structuredClone(protocol);
+  missing.runOrder = missing.runOrder.filter(
+    (run) => run.runID !== "first-farmers-sustained",
+  );
+  assert.throws(() => validatePhysicalDeviceProtocol(missing));
+
+  const shortened = structuredClone(protocol);
+  shortened.runOrder.find(
+    (run) => run.runID === "first-farmers-sustained",
+  ).durationMinutes = 28;
+  assert.throws(() => validatePhysicalDeviceProtocol(shortened));
+
+  const ambiguousPairing = structuredClone(protocol);
+  ambiguousPairing.comparison.pairedRunSets = [
+    {
+      referenceRunID: "static-reference",
+      appRunID: "first-farmers-sustained",
+    },
+  ];
+  assert.throws(() => validatePhysicalDeviceProtocol(ambiguousPairing));
+});
+
+test("cold restore must exercise all six First Farmers interactions", () => {
+  const tooFew = structuredClone(protocol);
+  tooFew.runOrder.find((run) => run.runID === "cold-restore").repetitions = 5;
+  assert.throws(() => validatePhysicalDeviceProtocol(tooFew));
+
+  const repeatedInteraction = structuredClone(protocol);
+  repeatedInteraction.runOrder.find(
+    (run) => run.runID === "cold-restore",
+  ).requiredInteractionIDs[5] =
+    "interaction-first-farmers-the-harvest-had-to-last";
+  assert.throws(() => validatePhysicalDeviceProtocol(repeatedInteraction));
+});
+
+test("missing First Farmers physical evidence is a release failure", () => {
+  const drifted = structuredClone(protocol);
+  drifted.firstFarmersEvidenceContract.missingEvidenceFails = false;
+  assert.throws(() => validatePhysicalDeviceProtocol(drifted));
+
+  const notTested = structuredClone(protocol);
+  notTested.firstFarmersEvidenceContract.requiredStatus = "NOT_TESTED";
+  assert.throws(() => validatePhysicalDeviceProtocol(notTested));
+
+  assert.equal(chapterEvidenceSchema.properties.status.const, "PASS");
+  assert.equal(chapterEvidenceSchema.properties.batteryPairs.minItems, 3);
+  assert.equal(chapterEvidenceSchema.properties.coldRestoreRuns.minItems, 6);
 });
 
 test("local completion proxies cannot replace retained display traces", () => {

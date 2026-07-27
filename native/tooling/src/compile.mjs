@@ -63,6 +63,12 @@ const saveMigrationWorldOwnershipKeys = [
   "newTraceIDs",
 ];
 const maximumSaveMigrationEdges = 128;
+// NativeTimelineTransport retains a full non-interleaved Float32 stereo loop
+// and, when restoring inside that loop, a second tail buffer. During an
+// interaction-bed transition the retiring and successor branches can coexist
+// until the scheduled render boundary is observed.
+const decodedStereoFloat32BytesPerFrame = 2 * 4;
+const maximumRetainedLoopBufferCopies = 2;
 const launchViewportCrops = Object.freeze([
   Object.freeze({ id: "baseline-393x852", widthPoints: 393, heightPoints: 852 }),
   Object.freeze({ id: "largest-430x932", widthPoints: 430, heightPoints: 932 }),
@@ -1857,6 +1863,13 @@ export async function validateFutureReleaseSource(sourceRoot, options = {}) {
     payloadRecord.document,
     options.launchConfiguration,
   );
+  requireResponsiveAudioDecodedBufferBudget(
+    payloadRecord.document,
+    options.launchConfiguration.delivery?.budgets
+      ?.responsiveAudioSteadyDecodedBytes,
+    options.launchConfiguration.delivery?.budgets
+      ?.responsiveAudioTransitionDecodedBytes,
+  );
   const { publicationRecord, worldAuthorityRecord }
     = await requireFutureReleaseWorldControls(
       options.futureReleasePublicationPath,
@@ -1938,6 +1951,241 @@ export function requireInstalledByteBudget(records, manifestBytes, maximumInstal
     ]);
   }
   return installedBytes;
+}
+
+function checkedDecodedAudioBytes(
+  durationSamples,
+  audibleEventCount,
+  bufferCopies,
+  location,
+) {
+  if (!Number.isSafeInteger(durationSamples) || durationSamples <= 0
+      || !Number.isSafeInteger(audibleEventCount) || audibleEventCount < 0
+      || !Number.isSafeInteger(bufferCopies) || bufferCopies <= 0) {
+    throw new ValidationError([
+      `${location}: positive duration/copies and non-negative audible event count required`,
+    ]);
+  }
+  const bytesPerEvent = decodedStereoFloat32BytesPerFrame * bufferCopies;
+  if (audibleEventCount !== 0
+      && durationSamples > Math.floor(
+        Number.MAX_SAFE_INTEGER / audibleEventCount / bytesPerEvent,
+      )) {
+    throw new ValidationError([`${location}: decoded buffer byte estimate overflowed`]);
+  }
+  return durationSamples * audibleEventCount * bytesPerEvent;
+}
+
+function checkedDecodedAudioByteSum(total, addition, location) {
+  if (!Number.isSafeInteger(total) || total < 0
+      || !Number.isSafeInteger(addition) || addition < 0
+      || total > Number.MAX_SAFE_INTEGER - addition) {
+    throw new ValidationError([`${location}: decoded buffer byte estimate overflowed`]);
+  }
+  return total + addition;
+}
+
+/**
+ * Conservatively bounds the retained AVAudioPCMBuffer payload implied by the
+ * authored interaction beds. Every conventional event receives a full loop
+ * buffer; a restored non-zero cursor also retains a tail. Common causal layers
+ * keep one player graph across phase changes. A coalesced transition can hold
+ * the retired, pending and newly staged conventional branches until the
+ * sample-accurate boundary is promoted, so the transition bound reserves
+ * three copies of the largest phase-specific branch. The steady bound also
+ * reserves one event-sized scratch buffer used during a cold restore build.
+ */
+export function responsiveAudioDecodedBufferEstimate(payload) {
+  if (!payload || typeof payload !== "object" || Array.isArray(payload)
+      || !Array.isArray(payload.audioTimelines)
+      || !Array.isArray(payload.responsiveAudioPrograms)) {
+    throw new ValidationError([
+      "responsive audio decoded buffers: ContentPackagePayload arrays required",
+    ]);
+  }
+  const timelinesByID = new Map(payload.audioTimelines.map((timeline) => [timeline?.id, timeline]));
+  let steady = { bytes: 0, programID: null, timelineID: null };
+  let transition = { bytes: 0, programID: null, timelineIDs: [] };
+
+  for (const [programIndex, program] of payload.responsiveAudioPrograms.entries()) {
+    const location = `contentPackage.responsiveAudioPrograms[${programIndex}]`;
+    if (!program || typeof program !== "object" || !Array.isArray(program.interactionBeds)) {
+      throw new ValidationError([`${location}.interactionBeds: array required`]);
+    }
+    const beds = [];
+    for (const [bedIndex, bed] of program.interactionBeds.entries()) {
+      const timeline = timelinesByID.get(bed?.timelineID);
+      const bedLocation = `${location}.interactionBeds[${bedIndex}]`;
+      if (!timeline || !Array.isArray(timeline.events)) {
+        throw new ValidationError([`${bedLocation}.timelineID: bound audio timeline required`]);
+      }
+      let durationSamples = 0;
+      const audibleEvents = [];
+      for (const [eventIndex, event] of timeline.events.entries()) {
+        if (!event || !Number.isSafeInteger(event.startSample)
+            || !Number.isSafeInteger(event.durationSamples)
+            || event.startSample < 0 || event.durationSamples < 0
+            || event.startSample > Number.MAX_SAFE_INTEGER - event.durationSamples) {
+          throw new ValidationError([
+            `${bedLocation}.events[${eventIndex}]: safe non-negative sample geometry required`,
+          ]);
+        }
+        durationSamples = Math.max(
+          durationSamples,
+          event.startSample + event.durationSamples,
+        );
+        if (event.role !== "silence") audibleEvents.push(event);
+      }
+      beds.push({
+        bed,
+        bedLocation,
+        timeline,
+        durationSamples,
+        audibleEvents,
+      });
+    }
+
+    const commonCueIDs = new Set();
+    let commonBytes = 0;
+    if (program.causalMix !== undefined && program.causalMix !== null) {
+      if (!program.causalMix || typeof program.causalMix !== "object"
+          || Array.isArray(program.causalMix)
+          || !Array.isArray(program.causalMix.layers)) {
+        throw new ValidationError([`${location}.causalMix.layers: array required`]);
+      }
+      for (const [layerIndex, layer] of program.causalMix.layers.entries()) {
+        const layerLocation = `${location}.causalMix.layers[${layerIndex}]`;
+        if (!layer || typeof layer !== "object" || Array.isArray(layer)
+            || !layer.cueIDs || typeof layer.cueIDs !== "object"
+            || Array.isArray(layer.cueIDs)) {
+          throw new ValidationError([`${layerLocation}.cueIDs: phase map required`]);
+        }
+        let maximumLayerDurationSamples = 0;
+        for (const bedRecord of beds) {
+          const cueID = layer.cueIDs[bedRecord.bed?.phase];
+          const event = bedRecord.audibleEvents.find(
+            (candidate) => candidate.cueID === cueID,
+          );
+          if (typeof cueID !== "string" || !event) {
+            throw new ValidationError([
+              `${layerLocation}.cueIDs: every interaction bed must bind one audible event`,
+            ]);
+          }
+          commonCueIDs.add(cueID);
+          maximumLayerDurationSamples = Math.max(
+            maximumLayerDurationSamples,
+            event.durationSamples,
+          );
+        }
+        commonBytes = checkedDecodedAudioByteSum(
+          commonBytes,
+          checkedDecodedAudioBytes(
+            maximumLayerDurationSamples,
+            1,
+            maximumRetainedLoopBufferCopies,
+            layerLocation,
+          ),
+          layerLocation,
+        );
+      }
+    }
+
+    const branches = beds.map((bedRecord) => {
+      const conventionalEvents = bedRecord.audibleEvents.filter(
+        (event) => !commonCueIDs.has(event.cueID),
+      );
+      const retainedBytes = conventionalEvents.length === 0
+        ? 0
+        : checkedDecodedAudioBytes(
+          bedRecord.durationSamples,
+          conventionalEvents.length,
+          maximumRetainedLoopBufferCopies,
+          bedRecord.bedLocation,
+        );
+      const scratchDurationSamples = conventionalEvents.reduce(
+        (maximum, event) => Math.max(maximum, event.durationSamples),
+        0,
+      );
+      const scratchBytes = scratchDurationSamples === 0
+        ? 0
+        : checkedDecodedAudioBytes(
+          scratchDurationSamples,
+          1,
+          1,
+          bedRecord.bedLocation,
+        );
+      const steadyBytes = checkedDecodedAudioByteSum(
+        checkedDecodedAudioByteSum(
+          commonBytes,
+          retainedBytes,
+          bedRecord.bedLocation,
+        ),
+        scratchBytes,
+        bedRecord.bedLocation,
+      );
+      if (steadyBytes > steady.bytes) {
+        steady = {
+          bytes: steadyBytes,
+          programID: program.id ?? null,
+          timelineID: bedRecord.timeline.id ?? null,
+        };
+      }
+      return {
+        bytes: retainedBytes,
+        timelineID: bedRecord.timeline.id,
+      };
+    });
+    const largestBranch = [...branches]
+      .sort((left, right) => right.bytes - left.bytes)[0]
+      ?? { bytes: 0, timelineID: null };
+    let transitionBytes = commonBytes;
+    for (let branchCopy = 0; branchCopy < 3; branchCopy += 1) {
+      transitionBytes = checkedDecodedAudioByteSum(
+        transitionBytes,
+        largestBranch.bytes,
+        location,
+      );
+    }
+    if (transitionBytes > transition.bytes) {
+      transition = {
+        bytes: transitionBytes,
+        programID: program.id ?? null,
+        timelineIDs: Array(3).fill(largestBranch.timelineID),
+      };
+    }
+  }
+
+  return { steady, transition };
+}
+
+export function requireResponsiveAudioDecodedBufferBudget(
+  payload,
+  maximumSteadyBytes,
+  maximumTransitionBytes,
+) {
+  if (!Number.isSafeInteger(maximumSteadyBytes) || maximumSteadyBytes <= 0
+      || !Number.isSafeInteger(maximumTransitionBytes) || maximumTransitionBytes <= 0
+      || maximumTransitionBytes < maximumSteadyBytes) {
+    throw new ValidationError([
+      "responsive audio decoded buffers: valid steady and transition budgets required",
+    ]);
+  }
+  const estimate = responsiveAudioDecodedBufferEstimate(payload);
+  const issues = [];
+  if (estimate.steady.bytes > maximumSteadyBytes) {
+    issues.push(
+      `responsive audio decoded buffers: steady ${estimate.steady.bytes} bytes for `
+        + `'${estimate.steady.programID}'/'${estimate.steady.timelineID}' exceeds ${maximumSteadyBytes}`,
+    );
+  }
+  if (estimate.transition.bytes > maximumTransitionBytes) {
+    issues.push(
+      `responsive audio decoded buffers: transition ${estimate.transition.bytes} bytes for `
+        + `'${estimate.transition.programID}' exceeds ${maximumTransitionBytes}`,
+    );
+  }
+  if (issues.length) throw new ValidationError(issues);
+  return estimate;
 }
 
 function validateLaunchViewportCropSet(crops, location, issues) {
@@ -2075,6 +2323,13 @@ export async function validateLaunchPackageSource(sourceRoot, options = {}) {
     if (!Number.isSafeInteger(packageSpec.maximumInstalledBytes) || packageSpec.maximumInstalledBytes <= 0) {
       throw new ValidationError([`collection.packages: no installed byte budget for '${packageID}'`]);
     }
+    requireResponsiveAudioDecodedBufferBudget(
+      payload,
+      options.launchConfiguration.delivery?.budgets
+        ?.responsiveAudioSteadyDecodedBytes,
+      options.launchConfiguration.delivery?.budgets
+        ?.responsiveAudioTransitionDecodedBytes,
+    );
     await requireLaunchPackageApproval(
       options.launchPackageApprovalPath,
       resolvedSource,

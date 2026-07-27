@@ -332,6 +332,7 @@ public struct PhysicalPerformanceReport: Codable, Equatable, Sendable {
     public let appBuildSHA256: String
     public let packages: [PerformancePackageIdentity]
     public let processStartMonotonicNanosecondsSinceBoot: UInt64
+    public let captureEndedNanosecondsSinceProcessStart: UInt64
     public let launch: LaunchTimingMeasurements
     public let frameCommandBufferCompletionProxies:
         [FrameCommandBufferCompletionProxyMeasurement]
@@ -357,6 +358,7 @@ public struct PhysicalPerformanceReport: Codable, Equatable, Sendable {
         appBuildSHA256: String,
         packages: [PerformancePackageIdentity],
         processStartMonotonicNanosecondsSinceBoot: UInt64,
+        captureEndedNanosecondsSinceProcessStart: UInt64,
         launch: LaunchTimingMeasurements,
         frameCommandBufferCompletionProxies:
             [FrameCommandBufferCompletionProxyMeasurement],
@@ -380,6 +382,8 @@ public struct PhysicalPerformanceReport: Codable, Equatable, Sendable {
         self.appBuildSHA256 = appBuildSHA256
         self.packages = packages
         self.processStartMonotonicNanosecondsSinceBoot = processStartMonotonicNanosecondsSinceBoot
+        self.captureEndedNanosecondsSinceProcessStart =
+            captureEndedNanosecondsSinceProcessStart
         self.launch = launch
         self.frameCommandBufferCompletionProxies = frameCommandBufferCompletionProxies
         self.interactionCommandBufferCompletionProxies =

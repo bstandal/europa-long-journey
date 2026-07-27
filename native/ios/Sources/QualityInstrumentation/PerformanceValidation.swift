@@ -5,7 +5,9 @@ public enum PerformanceCaptureValidator {
         "cold-restore",
         "interaction-latency",
         "static-reference",
+        "first-farmers-static-reference",
         "harvest-sustained",
+        "first-farmers-sustained",
         "audio-restoration",
         "storage-pressure",
     ]
@@ -79,6 +81,11 @@ public enum PerformanceCaptureValidator {
            report.platform.buildConfiguration != .release {
             throw PerformanceInstrumentationError.invalidReport(
                 "physical raw evidence requires a Release build"
+            )
+        }
+        guard report.captureEndedNanosecondsSinceProcessStart > 0 else {
+            throw PerformanceInstrumentationError.invalidReport(
+                "capture end is missing"
             )
         }
 
@@ -219,6 +226,24 @@ public enum PerformanceCaptureValidator {
         ].compactMap({ $0 }) where milestone > UInt64.max / 2 {
             throw PerformanceInstrumentationError.invalidReport("invalid launch milestone")
         }
+
+        let latestMeasurement = (
+            report.frameCommandBufferCompletionProxies.map(
+                \.commandBufferCompletedCallbackNanosecondsSinceProcessStart
+            )
+            + report.interactionCommandBufferCompletionProxies.map(
+                \.firstCommandBufferCompletedCallbackNanosecondsSinceProcessStart
+            )
+            + report.physicalFootprint.map(\.nanosecondsSinceProcessStart)
+            + report.thermalTransitions.map(\.nanosecondsSinceProcessStart)
+            + report.audioCursorCheckpoints.map(\.nanosecondsSinceProcessStart)
+            + report.instrumentationFailures.map(\.nanosecondsSinceProcessStart)
+        ).max() ?? 0
+        guard latestMeasurement <= report.captureEndedNanosecondsSinceProcessStart else {
+            throw PerformanceInstrumentationError.invalidReport(
+                "capture ended before its last measurement"
+            )
+        }
     }
 
     public static func isLowercaseSHA256(_ value: String) -> Bool {
@@ -281,7 +306,8 @@ public enum PerformanceReportCodec {
             "schemaVersion", "protocolID", "runID", "attemptID", "repetition",
             "gateClassification", "localTimingScope", "platform", "appBuildHashKind",
             "appBuildSHA256",
-            "packages", "processStartMonotonicNanosecondsSinceBoot", "launch",
+            "packages", "processStartMonotonicNanosecondsSinceBoot",
+            "captureEndedNanosecondsSinceProcessStart", "launch",
             "frameCommandBufferCompletionProxies",
             "interactionCommandBufferCompletionProxies", "physicalFootprint",
             "thermalTransitions",

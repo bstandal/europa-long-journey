@@ -101,6 +101,29 @@ xcodebuild -project LongWestJourney.xcodeproj \
   CODE_SIGNING_ALLOWED=NO build test
 ```
 
+For an optimized Chapter 1 run on a physical iPhone, select the
+`LongWestJourneyLiveTest` scheme. Its Run and Profile actions use the
+release-type `NON_SHIPPING_LIVE_TEST` configuration, pass the signed fixture
+arguments for `first-farmers`, and install as
+`com.thelongwest.journey.nonshippinglivetest` with the display name
+`EUROCENTRIC LIVE TEST`. The Run action does not attach LLDB. The configuration
+includes only the exact signed runtime fixture and its development trust
+receipt; the unsigned generated payload remains excluded. It has no Push or
+CloudKit entitlement and uses an unavailable local ReleaseDiscovery model, so
+the physical run cannot enter the production discovery edge.
+
+The app and embedded downloader extension share the dedicated development app
+group `group.com.thelongwest.journey.nonshippinglivetest.assets`. Register that
+group and assign it to both live-test App IDs before asking Xcode to create the
+two physical-device development profiles. The production app group and iCloud
+container are not part of either live-test profile.
+
+The live-test scheme's Archive action is pinned to ordinary `Release`.
+Ordinary `Release` does not compile the fixture seam, excludes the fixture and
+receipt, and remains subject to `validate-release-app-boundary.mjs`. A
+`NON_SHIPPING_LIVE_TEST` product is physical-test input, never a release
+candidate.
+
 XcodeGen is a development-time project generator only. It is not linked into the app. The generated
 `.xcodeproj` is disposable; source, configuration and authored data remain inspectable text files.
 

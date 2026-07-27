@@ -93,10 +93,34 @@
         "promptPath": "native/design/phase1/longhouse/concepts/option-a4-inherited-ground-readable.prompt.txt",
         "promptSha256": "14b52aab4be5d9936dd8ad3a37312d72ce11aab9be56eca1116184863167bad4",
         "editTarget": "option-a3-inherited-ground"
+      },
+      {
+        "imagePath": "native/design/phase1/longhouse/concepts/option-a5-inherited-plot-threshold.png",
+        "imageSha256": "918f59d9d73d5bbb719b522d91fec769c2390e1743d315ff11d3ede5a5b52c57",
+        "promptPath": "native/design/phase1/longhouse/concepts/option-a5-inherited-plot-threshold.prompt.txt",
+        "promptSha256": "43d7a5d2d521babb6a3bc7776e04968e240bb702532d6ab9a0e88791d3c868b3",
+        "editTarget": "option-a4-inherited-ground-readable",
+        "disposition": "REJECTED_AS_REFINED_DIRECTION"
+      },
+      {
+        "imagePath": "native/design/phase1/longhouse/concepts/option-a6-shallow-inherited-footprint.png",
+        "imageSha256": "bb0dd35ac9eae089d435ac5925fb1b85f95fbbdc201d4912b95dab0a69e2aa11",
+        "promptPath": "native/design/phase1/longhouse/concepts/option-a6-shallow-inherited-footprint.prompt.txt",
+        "promptSha256": "3fde86e497cbfc5137bd57494db7d47b6b23da77fb71a819418b144d8759e9e9",
+        "editTarget": "option-a5-inherited-plot-threshold",
+        "disposition": "REJECTED_AS_REFINED_DIRECTION"
       }
     ],
     "comparisonPath": "native/design/phase1/longhouse/concepts/reference-a2-a3-a4-390-comparison.png",
-    "comparisonSha256": "20351c6f9214e3bae4a847a580b31a6ffe62dabf13bc9a4cbc1aa043e8d72e81"
+    "comparisonSha256": "20351c6f9214e3bae4a847a580b31a6ffe62dabf13bc9a4cbc1aa043e8d72e81",
+    "refinementReviews": [
+      {
+        "path": "native/design/phase1/longhouse/refinement-review-a5-a6.json",
+        "sha256": "3a50b45899af9c80a577e8b87af269d5650a293f4982727a3d6ca0a0dcdbc250",
+        "comparisonPath": "native/design/phase1/longhouse/concepts/reference-a4-a5-a6-390-comparison.png",
+        "comparisonSha256": "18757f4a6fa8e55aa2b5737fae448c6427a7585885f5c759245046fecf0ffaf6"
+      }
+    ]
   },
   "selectedDirection": {
     "id": "option-a4-inherited-ground-readable",
@@ -117,6 +141,18 @@
     "Prove the load path from packed post through frame to roof without modern truss geometry or interface light."
   ],
   "rejectedDirections": [
+    {
+      "id": "option-a5-inherited-plot-threshold",
+      "path": "native/design/phase1/longhouse/concepts/option-a5-inherited-plot-threshold.png",
+      "sha256": "918f59d9d73d5bbb719b522d91fec769c2390e1743d315ff11d3ede5a5b52c57",
+      "reason": "The older footprint becomes visible, but its dark round marks can read as open pits and the reworn threshold is not distinct at 390 points."
+    },
+    {
+      "id": "option-a6-shallow-inherited-footprint",
+      "path": "native/design/phase1/longhouse/concepts/option-a6-shallow-inherited-footprint.png",
+      "sha256": "bb0dd35ac9eae089d435ac5925fb1b85f95fbbdc201d4912b95dab0a69e2aa11",
+      "reason": "The inherited marks become too faint at 390 points and the edit introduces ground-rendering drift beyond the authorised local correction."
+    },
     {
       "id": "option-a2-ground-becomes-frame-refined",
       "path": "native/design/phase1/longhouse/concepts/option-a2-ground-becomes-frame-refined.png",

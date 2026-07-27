@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "id": "harvest-v26-destination-underlays-r2-visual-rejection",
+  "scope": "NON_SHIPPING_BACKSTAGE_ONLY",
+  "status": "CODEX_VISUAL_REVIEW_FAIL_REJECTED_NON_SHIPPING",
+  "reviewDate": "2026-07-26",
+  "authority": {
+    "editorApprovalClaimed": false,
+    "productionApprovalClaimed": false,
+    "shippingAllowed": false,
+    "integrationAllowed": false
+  },
+  "decision": {
+    "objectiveTechnicalQA": "PASS_FOR_BUILT_CANDIDATES",
+    "visualAcceptance": "FAIL",
+    "disposition": "REPLACE",
+    "reason": "The second deterministic synthesis improves local patch coherence, but the rendered disocclusions still contain visible reconstruction fragments that break material and contour continuity.",
+    "prohibitedUses": [
+      "runtime integration",
+      "content-package inclusion",
+      "layer-production-contract promotion",
+      "editorial or production approval evidence"
+    ]
+  },
+  "candidates": [
+    {
+      "destinationId": "winter-store",
+      "receipt": {
+        "path": "native/content/backstage/harvest/winter-store-underlay-v26.r2.receipt.json",
+        "sha256": "a05e199e71d4c1f75c935f153b1c8171918e74d638f12daefa7105676ce87275"
+      },
+      "candidate": {
+        "path": "native/.build/visual-assets/harvest-destination-underlays-v26/winter-store-r2/winter-store.png",
+        "fileSha256": "8c16d1fa37f126feabb20ffd26b0faa9c39264d098954f3c617e17498e811f45",
+        "pixelSha256": "6a0f67208c2523e726b60c9514dd3e2e79e1f72f619c8be6d5a1d7b8bcf87c69"
+      },
+      "finding": "A dark granular reconstruction patch remains directly beneath the hands and across the grain-container opening. Its broken fragments and abrupt tonal boundary detach the grain, hands and vessel from the surrounding scene.",
+      "visualAcceptance": "FAIL"
+    },
+    {
+      "destinationId": "protected-reserve",
+      "receipt": {
+        "path": "native/content/backstage/harvest/protected-reserve-underlay-v26.r2.receipt.json",
+        "sha256": "698d29e25a0907862fb77d7e8cdb8f235736ad95977d515972a235d6c92d9427"
+      },
+      "candidate": {
+        "path": "native/.build/visual-assets/harvest-destination-underlays-v26/protected-reserve-r2/protected-reserve.png",
+        "fileSha256": "60ab643f1a207627dc3bc52639b1573890aa4b382a8ea0227d9be00e3b9f3b7f",
+        "pixelSha256": "232011e6bdc6942c1ee7655fa36e8b157b92a8395643b5ffa8b0de2ad805fe71"
+      },
+      "finding": "The central clay bin still carries broad smeared reconstruction strokes over its rim, interior and front face. The marks interrupt the vessel geometry and remain conspicuous at the authored portrait scale.",
+      "visualAcceptance": "FAIL"
+    }
+  ],
+  "unbuiltDestination": {
+    "destinationId": "spring-seed",
+    "status": "OBJECTIVE_GATE_FAIL_NO_CANDIDATE",
+    "finding": "The unchanged source gates reject donor-center reuse 144 above 64 and donor-tile share 28.30 percent above 20 percent. No r2 output exists."
+  },
+  "replacementRequirement": "A replacement must remove visible reconstruction fragments while preserving surface texture, object contour and human-contact occlusion under the measured displacement. It must pass independent visual review in addition to the existing provenance, replay and numerical gates."
+}

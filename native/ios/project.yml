@@ -1,4 +1,8 @@
 name: LongWestJourney
+configs:
+  Debug: debug
+  Release: release
+  NON_SHIPPING_LIVE_TEST: release
 options:
   bundleIdPrefix: com.thelongwest
   createIntermediateGroups: true
@@ -66,6 +70,9 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.foundation.journey-content
+      configs:
+        NON_SHIPPING_LIVE_TEST:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) NON_SHIPPING_LIVE_TEST"
 
   JourneyPersistence:
     type: framework
@@ -230,13 +237,14 @@ targets:
     configFiles:
       Debug: Config/Product.xcconfig
       Release: Config/Product.xcconfig
+      NON_SHIPPING_LIVE_TEST: Config/Product.xcconfig
     info:
       path: Config/Info.plist
       properties:
         CFBundleDisplayName: "$(PRODUCT_DISPLAY_NAME)"
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
-        BAAppGroupID: group.com.thelongwest.journey.assets
+        BAAppGroupID: "$(BACKGROUND_ASSETS_APP_GROUP_ID)"
         BAHasManagedAssetPacks: true
         BAUsesAppleHosting: true
         LSRequiresIPhoneOS: true
@@ -284,10 +292,21 @@ targets:
         TARGETED_DEVICE_FAMILY: "1"
         CURRENT_PROJECT_VERSION: 1
         MARKETING_VERSION: 0.1.0
+        BACKGROUND_ASSETS_APP_GROUP_ID: group.com.thelongwest.journey.assets
         LD_RUNPATH_SEARCH_PATHS:
           - "$(inherited)"
           - "@executable_path/Frameworks"
       configs:
+        NON_SHIPPING_LIVE_TEST:
+          PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.journey.nonshippinglivetest
+          PRODUCT_DISPLAY_NAME: EUROCENTRIC LIVE TEST
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) NON_SHIPPING_LIVE_TEST"
+          SWIFT_OPTIMIZATION_LEVEL: "-O"
+          CODE_SIGN_ENTITLEMENTS: Config/NonShippingLiveTest.entitlements
+          BACKGROUND_ASSETS_APP_GROUP_ID: group.com.thelongwest.journey.nonshippinglivetest.assets
+          EXCLUDED_SOURCE_FILE_NAMES:
+            - first-farmers.content-package.json
+            - first-farmers.payload-receipt.json
         Release:
           EXCLUDED_SOURCE_FILE_NAMES:
             - first-farmers.content-package.json
@@ -321,6 +340,10 @@ targets:
         SKIP_INSTALL: YES
         CURRENT_PROJECT_VERSION: 1
         MARKETING_VERSION: 0.1.0
+      configs:
+        NON_SHIPPING_LIVE_TEST:
+          PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.journey.nonshippinglivetest.asset-downloader
+          CODE_SIGN_ENTITLEMENTS: Config/NonShippingLiveTest.entitlements
 
   LongWestNativeTests:
     type: bundle.unit-test
@@ -361,6 +384,8 @@ targets:
         buildPhase: resources
       - path: ../audio/score-soundscape/household-crosses-responsive-v1/household-crosses-responsive-work-object.json
         buildPhase: resources
+      - path: ../audio/score-soundscape/three-records-responsive-v1/three-records-responsive-work-object.json
+        buildPhase: resources
       - path: ../phase2/runtime-fixture/compiled/vertical-slice-development-v1.runtimefixture
         type: folder
         buildPhase: resources
@@ -400,6 +425,7 @@ targets:
             - continent-remade-responsive-work-object.json
             - more-mouths-responsive-work-object.json
             - household-crosses-responsive-work-object.json
+            - three-records-responsive-work-object.json
 
   ReleaseDiscoveryTests:
     type: bundle.unit-test
@@ -481,5 +507,23 @@ schemes:
           parallelizable: true
         - name: JourneyAppUITests
           parallelizable: false
+    archive:
+      config: Release
+
+  LongWestJourneyLiveTest:
+    build:
+      targets:
+        JourneyApp: all
+    run:
+      config: NON_SHIPPING_LIVE_TEST
+      debugEnabled: false
+      commandLineArguments:
+        "--ui-testing-signed-runtime-fixture": true
+        "--ui-testing-signed-runtime-fixture-chapter=first-farmers": true
+    profile:
+      config: NON_SHIPPING_LIVE_TEST
+      commandLineArguments:
+        "--ui-testing-signed-runtime-fixture": true
+        "--ui-testing-signed-runtime-fixture-chapter=first-farmers": true
     archive:
       config: Release

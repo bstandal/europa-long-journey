@@ -1,0 +1,1292 @@
+{
+  "schemaVersion": 1,
+  "id": "three-records-responsive-audio-render-v1",
+  "status": "PROVISIONAL_NON_SHIPPING",
+  "shippingState": "PROHIBITED",
+  "productionInputs": [
+    {
+      "id": "three-records-responsive-score-source",
+      "path": "native/audio/score-soundscape/three-records-responsive-v1/score-source.json",
+      "bytes": 11758,
+      "sha256": "ec26a81beadc72b9222da79a9fffd56f7435c3b59c0063d74633d5daed6a955e"
+    },
+    {
+      "id": "three-records-responsive-soundscape-source",
+      "path": "native/audio/score-soundscape/three-records-responsive-v1/soundscape-source.json",
+      "bytes": 21709,
+      "sha256": "3028da976861c9a082a96c3c29676081629c1da6d75e612875c23f8d9641d3bc"
+    },
+    {
+      "id": "first-farmers-manuscript-source",
+      "path": "native/phase2/editor-review/first-farmers/first-farmers-native-draft-v1.json",
+      "bytes": 42780,
+      "sha256": "4c3a0a2a4f9a3ec5361d2e34c2f6dd21072f27176e60c881f013c93f76e4a5dd"
+    },
+    {
+      "id": "native-audio-bible",
+      "path": "native/bibles/audio-bible.md",
+      "bytes": 3346,
+      "sha256": "726849cc80da30d8e8bce4c884f9765f431474901da53a2c195663a8ab177954"
+    },
+    {
+      "id": "responsive-audio-program-spec",
+      "path": "native/ios/Sources/ContentKit/ResponsiveAudioProgramSpec.swift",
+      "bytes": 26686,
+      "sha256": "8c513b05114484f4d31614ae49267f9fc5d00a3ec2e2276073b576c390b59564"
+    },
+    {
+      "id": "responsive-audio-content-payload",
+      "path": "native/ios/Sources/ContentKit/ContentPackagePayload.swift",
+      "bytes": 17039,
+      "sha256": "035ba0225817143c405f2e57516ade72782ac4db656a056c786e87087e6994b5"
+    },
+    {
+      "id": "native-audio-timeline-validation",
+      "path": "native/ios/Sources/ContentKit/SceneAudioAccessibility.swift",
+      "bytes": 100676,
+      "sha256": "501357bea7cf2b04167313f5c06dc512eaffc2eb8d794daf677362143e8bc1b3"
+    },
+    {
+      "id": "responsive-audio-program-runtime",
+      "path": "native/ios/Sources/DramaticAudio/ResponsiveAudioProgramRuntime.swift",
+      "bytes": 25968,
+      "sha256": "b5239a3c7bb1f1c55578cd9944fdf56144a421d644ea9b9022f4f9148254e870"
+    },
+    {
+      "id": "responsive-audio-program-controller",
+      "path": "native/ios/Sources/DramaticAudio/ResponsiveAudioProgramController.swift",
+      "bytes": 33867,
+      "sha256": "743305b7f890c4c4ea51a69e6551d611f6849fbff627af764753e05508972241"
+    },
+    {
+      "id": "responsive-audio-timeline-planner",
+      "path": "native/ios/Sources/DramaticAudio/TimelinePlaybackPlan.swift",
+      "bytes": 8229,
+      "sha256": "6c621630e28e5be375871046997d6963ede24c621f2d235f00491a75e481b9e0"
+    },
+    {
+      "id": "responsive-audio-transport-contract",
+      "path": "native/ios/Sources/DramaticAudio/OfflineAudioAssetResolver.swift",
+      "bytes": 26432,
+      "sha256": "277eb7e1f9dfcceda0ce28d10e692f456f99d9e94a998efe58dbeece4904275d"
+    },
+    {
+      "id": "native-timeline-transport",
+      "path": "native/ios/Sources/DramaticAudio/NativeTimelineTransport.swift",
+      "bytes": 156660,
+      "sha256": "bd97001ddf65824eaa84be7c5466cad67af526dbc02353e0ae79f33e6f4199b9"
+    },
+    {
+      "id": "durable-audio-completion-runtime",
+      "path": "native/ios/Sources/DramaticAudio/DurableInteractionAudioCompletion.swift",
+      "bytes": 9029,
+      "sha256": "f9110ec847d031c776bfb39ee5782d3821f45d508bf7295a2a7a2adf25e81f81"
+    },
+    {
+      "id": "semantic-haptic-runtime",
+      "path": "native/ios/Sources/DramaticAudio/SemanticHapticTransport.swift",
+      "bytes": 12256,
+      "sha256": "b699e5ab9fab77aa81a343b66a013a73eb693a3ce41a676fc886a042917b3636"
+    },
+    {
+      "id": "causal-stage-journey-reducer",
+      "path": "native/ios/Sources/JourneyDomain/JourneyReducer.swift",
+      "bytes": 38398,
+      "sha256": "8edaa82df7f3eb9408e1b04a6b944533ef957ea64066a74a0b7226b162d29e84"
+    },
+    {
+      "id": "responsive-audio-runtime-tests",
+      "path": "native/ios/Tests/DramaticAudioTests/ResponsiveAudioProgramRuntimeTests.swift",
+      "bytes": 98110,
+      "sha256": "972a2e8c56e48a17fa777e913f8319ce5fe607ec164cc1cd8be53a65cc061dc3"
+    },
+    {
+      "id": "native-causal-transport-tests",
+      "path": "native/ios/Tests/DramaticAudioTests/ExperienceAudioRoutingPolicyTests.swift",
+      "bytes": 139815,
+      "sha256": "c3e979d5a19da88294cfd7f68357beb781cf5287f23e13c6b419967fdc0e2517"
+    },
+    {
+      "id": "three-records-responsive-swift-tests",
+      "path": "native/ios/Tests/DramaticAudioTests/ThreeRecordsResponsiveAudioWorkObjectTests.swift",
+      "bytes": 14142,
+      "sha256": "0d4d69d445c8acc5fa2c41ff1b9598cda87d96e18b01cf812d2e4731a5dbc6f3"
+    },
+    {
+      "id": "causal-stage-journey-domain-tests",
+      "path": "native/ios/Tests/JourneyDomainTests/JourneyDomainTests.swift",
+      "bytes": 37192,
+      "sha256": "f67cbdf058a177cbe0b4fe970d105f0e7b63aefd6d39dd949d1e8b2de6170764"
+    },
+    {
+      "id": "audio-production-renderer",
+      "path": "native/tooling/src/audio-production.mjs",
+      "bytes": 49751,
+      "sha256": "d997f68ffb75150bf5cff0aea537891bccaf45d630e46b3e2698498b58e44439"
+    },
+    {
+      "id": "three-records-responsive-renderer",
+      "path": "native/tooling/src/three-records-responsive-audio.mjs",
+      "bytes": 76555,
+      "sha256": "8a41c4b674efaa836932ee4cde001b48d82941c1160635fcfa7f70cf0dc9edab"
+    },
+    {
+      "id": "score-soundscape-toolchain",
+      "path": "native/audio/score-soundscape/toolchain.json",
+      "bytes": 1963,
+      "sha256": "1a1a94ed56652f37681b9d74154c78741e53b280e80bab3f18b1db3fddef8ddd"
+    },
+    {
+      "id": "required-mit-notice",
+      "path": "native/audio/score-soundscape/licenses/MS-Basic-0.2.0-LICENSE.md",
+      "bytes": 3320,
+      "sha256": "bf7db123b5d6c0beb1a37f6e1b11c6f4dfd8fb6abd5d59ff282ea24a5cd932e5"
+    },
+    {
+      "id": "zero-cost-license-registry",
+      "path": "native/tooling/registries/cost-license.json",
+      "bytes": 17842,
+      "sha256": "9a0e7ae2f9af9288c1e761864d13c5ead85b2241cb981024ee6f42a314c74c7e"
+    },
+    {
+      "id": "shipping-public-content-validator",
+      "path": "native/tooling/src/validate.mjs",
+      "bytes": 201538,
+      "sha256": "438440a7f7a2c1d06be0ba0072d194d7d3ed6389d141b518054234559a76efdd"
+    },
+    {
+      "id": "shipping-public-content-schema",
+      "path": "native/schemas/public-content.schema.json",
+      "bytes": 50109,
+      "sha256": "b43b2e1c19706a3598773096a8a0950467d3cd05647f6f4aa8dbd68751252724"
+    },
+    {
+      "id": "shipping-public-content-validator-tests",
+      "path": "native/tooling/test/tooling.test.mjs",
+      "bytes": 134838,
+      "sha256": "08457fbcd065ad583248bac6d2cdaa0ad799f5199e440049d3434868d321ab09"
+    }
+  ],
+  "toolchain": {
+    "fluidSynth": {
+      "version": "2.5.6",
+      "binarySHA256": "eaec07113cbbac0899368788a9597eddae6ac0db30c1a5c1bbe8b19ee6c6a567"
+    },
+    "soundFont": {
+      "version": "MS Basic 0.2.0",
+      "bytes": 51278610,
+      "sha256": "5ea2375e8bd7d8e71def1036978c1621e85b66934169b6a2744b27b9b3c2d99c",
+      "license": "MIT",
+      "noticeSHA256": "bf7db123b5d6c0beb1a37f6e1b11c6f4dfd8fb6abd5d59ff282ea24a5cd932e5"
+    },
+    "ffmpeg": {
+      "version": "8.1.2",
+      "binarySHA256": "dad4b30b36a1a999bfa4b6ffbde138bd17ee496c69e12eef638227dff2c6415c"
+    },
+    "node": {
+      "version": "v26.3.1",
+      "executable": {
+        "bytes": 68384,
+        "sha256": "56694c81b093cc8da273fa017cf91765b3653e5f64f16727976ffaa87b2b6b31"
+      }
+    }
+  },
+  "outputs": [
+    {
+      "regionID": "approach",
+      "role": "program-preview",
+      "sourceID": "approach-offline-preview",
+      "path": "approach/program-preview.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "28e2de3e8e9ef1a7589ea2efdb58a3d50ac69172227bda76719e7f489851283f",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_OFFLINE_MIX",
+      "commercialRights": "SCORE_NOTICE_REQUIRED; PROCEDURAL_AUDIO_PROJECT_OWNED",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "score-stem-midi",
+      "sourceID": "ground",
+      "path": "approach/score-ground.mid",
+      "packageAssetPath": null,
+      "bytes": 206,
+      "sha256": "7c85def3d696715042296f55f23a7d6cd9b6d5c548b7b012f87bd5bee70ffb94",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "score-stem-master",
+      "sourceID": "ground",
+      "path": "approach/score-ground.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "4526fe8712b851adbf0ef08d60d22041d59fccad7e3281e11c05ce8b1b063b50",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "score-master",
+      "sourceID": "river-and-records-gather",
+      "path": "approach/score-master.wav",
+      "packageAssetPath": "audio/first-farmers/three-records-responsive-v1/approach/score-master.wav",
+      "bytes": 12960044,
+      "sha256": "efd162180dc65b59e22da4d955a37bbf77406eced4bd416e0be9fa961065a680",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "score-stem-midi",
+      "sourceID": "record",
+      "path": "approach/score-record.mid",
+      "packageAssetPath": null,
+      "bytes": 164,
+      "sha256": "90f8d269b163344aa0b1cff5288a2602a2214e80045fe95bb69f938133ba2276",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "score-stem-master",
+      "sourceID": "record",
+      "path": "approach/score-record.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "5af8c6c1720491d03911759a07a43ec6389dd8beac19b1c0e6162e3167a8c201",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "score-stem-midi",
+      "sourceID": "river-route",
+      "path": "approach/score-river-route.mid",
+      "packageAssetPath": null,
+      "bytes": 229,
+      "sha256": "dd7a821fe45ac3759f501af4c1563a9ce4c57a26724aa6a54c76292994b29385",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "score-stem-master",
+      "sourceID": "river-route",
+      "path": "approach/score-river-route.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "13462a4e769dfe09183a4fd04aab0280e79b44801a3f508e0acadfe1292ace38",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "spatial-layer-master",
+      "sourceID": "carried-grain",
+      "path": "approach/sound-carried-grain.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "e9e07f1aca6de9f5e1c6cc7b4631f984b9145206b4c25949c3f438264399eb85",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "soundscape-layer-master",
+      "sourceID": "domestic-herd",
+      "path": "approach/sound-domestic-herd.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "e14733abecacb61506614f0d45244bb637e6d78c1d77de488d3b0fa68d2c9a66",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "soundscape-layer-master",
+      "sourceID": "gorge-current",
+      "path": "approach/sound-gorge-current.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "72cb9104663e967a5a0a11d198cecfabf41cee91fd001b69e2ab8063afc9e66c",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "soundscape-layer-master",
+      "sourceID": "household-voices",
+      "path": "approach/sound-household-voices.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "a75789e4176c6bdc0b213d6a9e1fe4f7cbe5ce78ddd39e3d99733d014954708b",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "soundscape-layer-master",
+      "sourceID": "landing-work",
+      "path": "approach/sound-landing-work.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "e9c7353ccea0d288c7ada5d1beb7a1e6a7d562f2f62f171944d73e3e2c160329",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "spatial-layer-master",
+      "sourceID": "river-gear",
+      "path": "approach/sound-river-gear.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "b799b80141d6bb90bd4773438458f17b7e95829f2304c1257eb3bf25a6939dd4",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "soundscape-layer-master",
+      "sourceID": "settlement-hearths",
+      "path": "approach/sound-settlement-hearths.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "016a62c151d6586e47957540a2bacadc33163b287e7c41948cfc2bcccd85052a",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "soundscape-master",
+      "sourceID": "gorge-before-action",
+      "path": "approach/soundscape-master.wav",
+      "packageAssetPath": "audio/first-farmers/three-records-responsive-v1/approach/soundscape-master.wav",
+      "bytes": 12960044,
+      "sha256": "b0de9e56983eb439fc5c45d0a5087b37e637ddf429f034c64ecf30d4b8d91dcf",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "approach",
+      "role": "spatial-detail-master",
+      "sourceID": "gorge-before-action-near-material",
+      "path": "approach/spatial-detail-master.wav",
+      "packageAssetPath": "audio/first-farmers/three-records-responsive-v1/approach/spatial-detail-master.wav",
+      "bytes": 12960044,
+      "sha256": "41201e242c9303db788c5261a2f9c88f5efa0f7c944d06ad14690e79b8e48649",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "program-preview",
+      "sourceID": "consequence-offline-preview",
+      "path": "consequence/program-preview.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "addfb5e7d0f91c34f117f1ee2d721d7a0a1d3053b196ead84ac65504b634ad65",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_OFFLINE_MIX",
+      "commercialRights": "SCORE_NOTICE_REQUIRED; PROCEDURAL_AUDIO_PROJECT_OWNED",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "score-stem-midi",
+      "sourceID": "ground",
+      "path": "consequence/score-ground.mid",
+      "packageAssetPath": null,
+      "bytes": 209,
+      "sha256": "3b69ccbd2aa64b000baf9b068e4ae6bbfaf26f256aa933f9ad3ad59152ac4299",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "score-stem-master",
+      "sourceID": "ground",
+      "path": "consequence/score-ground.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "c9e8119275cfcaa63b731730bad4cc86e562ef986af2366214a8e120bc182bcc",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "score-master",
+      "sourceID": "farming-enters-river-route",
+      "path": "consequence/score-master.wav",
+      "packageAssetPath": "audio/first-farmers/three-records-responsive-v1/consequence/score-master.wav",
+      "bytes": 12960044,
+      "sha256": "43595b6c3f0777207dfd8e6e7a612ec7b05cf873ad2a384b5f201b9d90598f17",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "score-stem-midi",
+      "sourceID": "record",
+      "path": "consequence/score-record.mid",
+      "packageAssetPath": null,
+      "bytes": 257,
+      "sha256": "7dc2c6b9953f3fde454ce65b1107ffc88da1cd85500867f25ae040312dd1cc25",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "score-stem-master",
+      "sourceID": "record",
+      "path": "consequence/score-record.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "9c25ae4f743f37bdf91cdaff03074df5c19584270c575439ed35887cb898f12b",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "score-stem-midi",
+      "sourceID": "river-route",
+      "path": "consequence/score-river-route.mid",
+      "packageAssetPath": null,
+      "bytes": 232,
+      "sha256": "074106622d6b8a413de4b233067606fc6482f5b9a270bf8345656265439fe48f",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "score-stem-master",
+      "sourceID": "river-route",
+      "path": "consequence/score-river-route.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "ae23382d43b76c7432c5a042d1c0d5b1c520a01ef50fa727c7fd43f07716be72",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "spatial-layer-master",
+      "sourceID": "carried-grain",
+      "path": "consequence/sound-carried-grain.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "e2e463f38b1a877c835b44fd0133ccaf321f73b9137adf5aeb8a5e667190657c",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "soundscape-layer-master",
+      "sourceID": "domestic-herd",
+      "path": "consequence/sound-domestic-herd.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "725e9a40de5b0d2800f21a9efab77e1042e6838ae0f5684415bb78cdaafceb53",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "soundscape-layer-master",
+      "sourceID": "gorge-current",
+      "path": "consequence/sound-gorge-current.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "a0169cc53f8cfdeb3a5c05af7393946fc04136640c9a2d3c8d73ba2292d04c4a",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "soundscape-layer-master",
+      "sourceID": "household-voices",
+      "path": "consequence/sound-household-voices.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "af560b56c3c25b3007aaeb368d5dc11e4b3d77944b6917d61226b345c4b0d007",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "soundscape-layer-master",
+      "sourceID": "landing-work",
+      "path": "consequence/sound-landing-work.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "98880538c6dc042e74a3de374f20036dba4133a0b233a9301c3aeb0dbaf44257",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "spatial-layer-master",
+      "sourceID": "river-gear",
+      "path": "consequence/sound-river-gear.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "793e4c79d6620ac20d72978330bc7e8031839358c307e7222b28b3d5ef7287f2",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "soundscape-layer-master",
+      "sourceID": "settlement-hearths",
+      "path": "consequence/sound-settlement-hearths.wav",
+      "packageAssetPath": null,
+      "bytes": 12960044,
+      "sha256": "da73bc8b4a1ecc15b3db8cc8337fcc008ddb3bdea90dcc304e242dfe511dae1c",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "soundscape-master",
+      "sourceID": "shared-river-settlement",
+      "path": "consequence/soundscape-master.wav",
+      "packageAssetPath": "audio/first-farmers/three-records-responsive-v1/consequence/soundscape-master.wav",
+      "bytes": 12960044,
+      "sha256": "2c924055b9656a337d2af956e510fb210cb4059c06c2dd1fb80ff1c3618f3dd3",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "consequence",
+      "role": "spatial-detail-master",
+      "sourceID": "shared-river-settlement-near-material",
+      "path": "consequence/spatial-detail-master.wav",
+      "packageAssetPath": "audio/first-farmers/three-records-responsive-v1/consequence/spatial-detail-master.wav",
+      "bytes": 12960044,
+      "sha256": "fea8371bac6686717ff27f75ffdddf0837466761da0004b6c13871ce0d5a3f8d",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 2160000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "program-preview",
+      "sourceID": "engaged-offline-preview",
+      "path": "engaged/program-preview.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "55ac1ed8864545dc20bd467269b95f2d44932ef9f302aa100e0227eae3603264",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_OFFLINE_MIX",
+      "commercialRights": "SCORE_NOTICE_REQUIRED; PROCEDURAL_AUDIO_PROJECT_OWNED",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "score-stem-midi",
+      "sourceID": "ground",
+      "path": "engaged/score-ground.mid",
+      "packageAssetPath": null,
+      "bytes": 169,
+      "sha256": "542eb8e4603fc6ecb2c34f719457f1c2e466890c2033476d8518508173d89035",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "score-stem-master",
+      "sourceID": "ground",
+      "path": "engaged/score-ground.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "0e65b36e7e717e877c30ae6b9177fbc46d3a644536ff4928e08441fd11cdda85",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "score-master",
+      "sourceID": "records-move-through-time",
+      "path": "engaged/score-master.wav",
+      "packageAssetPath": "audio/first-farmers/three-records-responsive-v1/engaged/score-master.wav",
+      "bytes": 4320044,
+      "sha256": "e3fe53869a4f929baf0142ac8f9fc4ffa435017a48d190bb94452eb4d1df2a3d",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "score-stem-midi",
+      "sourceID": "record",
+      "path": "engaged/score-record.mid",
+      "packageAssetPath": null,
+      "bytes": 163,
+      "sha256": "831f8719d7bb6024a1a7131de4eb6e43a69bd5bc47c0d155bf31f71adc3bbd23",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "score-stem-master",
+      "sourceID": "record",
+      "path": "engaged/score-record.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "326446f5d5d5c9eedf44ceef42f51735444d6347e1fdfc5ecd74909df8df3c06",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "score-stem-midi",
+      "sourceID": "river-route",
+      "path": "engaged/score-river-route.mid",
+      "packageAssetPath": null,
+      "bytes": 198,
+      "sha256": "d950f8a9ef8bf3310d4fa4c15f33d64725d3c087a62838d0a99163400af93a26",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "engaged",
+      "role": "score-stem-master",
+      "sourceID": "river-route",
+      "path": "engaged/score-river-route.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "8a04a6a9f81d13d903a30f6cb9f5f20a51de4a0a146827832b2e2a52acbe8655",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "interaction-material-loop",
+      "role": "interaction-spatial-layer-master",
+      "sourceID": "carried-grain",
+      "path": "interaction/shared/carried-grain.wav",
+      "packageAssetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/carried-grain.wav",
+      "bytes": 4320044,
+      "sha256": "2f575c7f388ab6872f6634d6511be8619b429cd26e24e6fd2752fa2d376fa68a",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "interaction-material-loop",
+      "role": "interaction-soundscape-layer-master",
+      "sourceID": "domestic-herd",
+      "path": "interaction/shared/domestic-herd.wav",
+      "packageAssetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/domestic-herd.wav",
+      "bytes": 4320044,
+      "sha256": "7760a3c73163d5a38b04f5a9310e2a62f1ddae96cc764fa36cc0815c38faed1b",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "interaction-material-loop",
+      "role": "interaction-soundscape-layer-master",
+      "sourceID": "gorge-current",
+      "path": "interaction/shared/gorge-current.wav",
+      "packageAssetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/gorge-current.wav",
+      "bytes": 4320044,
+      "sha256": "ad567e7f50221fedccaa07ada8256b091e950895a9bd4fce6c87fa3e8d2f885b",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "interaction-material-loop",
+      "role": "interaction-soundscape-layer-master",
+      "sourceID": "household-voices",
+      "path": "interaction/shared/household-voices.wav",
+      "packageAssetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/household-voices.wav",
+      "bytes": 4320044,
+      "sha256": "387004ccae664aa6ee999a8d4e86adcdd309d0919778fb0df27a80e0f8e05a04",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "interaction-material-loop",
+      "role": "interaction-soundscape-layer-master",
+      "sourceID": "landing-work",
+      "path": "interaction/shared/landing-work.wav",
+      "packageAssetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/landing-work.wav",
+      "bytes": 4320044,
+      "sha256": "b3050241ed263fd9cdf470e97b5c017c53a9d05effe8dade03bb3d4814dd5983",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "interaction-material-loop",
+      "role": "interaction-spatial-layer-master",
+      "sourceID": "river-gear",
+      "path": "interaction/shared/river-gear.wav",
+      "packageAssetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/river-gear.wav",
+      "bytes": 4320044,
+      "sha256": "abbeeb8cac57b464e0233637e181fc62f359d0ec72d2bd782fe1ec0d080b184a",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "interaction-material-loop",
+      "role": "interaction-soundscape-layer-master",
+      "sourceID": "settlement-hearths",
+      "path": "interaction/shared/settlement-hearths.wav",
+      "packageAssetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/settlement-hearths.wav",
+      "bytes": 4320044,
+      "sha256": "d082676f0cc9e9e64b1779fa13e0b07fea18ab0b0cebb49d612c9201f9028643",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO",
+      "commercialRights": "PROJECT_OWNED_SOURCE_AND_OUTPUT",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "program-preview",
+      "sourceID": "resistance-offline-preview",
+      "path": "resistance/program-preview.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "6aa949205eebb50d3365fed70942a77fccc9cedd227b86c5394dbcaa8728e58e",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_OFFLINE_MIX",
+      "commercialRights": "SCORE_NOTICE_REQUIRED; PROCEDURAL_AUDIO_PROJECT_OWNED",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "score-stem-midi",
+      "sourceID": "ground",
+      "path": "resistance/score-ground.mid",
+      "packageAssetPath": null,
+      "bytes": 172,
+      "sha256": "3f01d4b94339ffd8320abba1fac70b28abae633c8ac4b8a1428c0a2b301db8d4",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "score-stem-master",
+      "sourceID": "ground",
+      "path": "resistance/score-ground.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "3866ad129897fa468617fe3367007795aeaba3f65a31caf9eb08af9035f7605d",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "score-master",
+      "sourceID": "time-layer-does-not-take",
+      "path": "resistance/score-master.wav",
+      "packageAssetPath": "audio/first-farmers/three-records-responsive-v1/resistance/score-master.wav",
+      "bytes": 4320044,
+      "sha256": "e3c254a013d1f6f87da0943128f08d05be4b6052d2e2f2f92c528810469b9e67",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "score-stem-midi",
+      "sourceID": "record",
+      "path": "resistance/score-record.mid",
+      "packageAssetPath": null,
+      "bytes": 176,
+      "sha256": "5901fa11e11acc62f544d10a3a9271b04cfb5c89364d13c06e90f7da7b2dc77c",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "score-stem-master",
+      "sourceID": "record",
+      "path": "resistance/score-record.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "38e355fbd6d36661ca5d64cf87ffb68c9c2cecd06402c0defe42a337bb07c4bd",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "score-stem-midi",
+      "sourceID": "river-route",
+      "path": "resistance/score-river-route.mid",
+      "packageAssetPath": null,
+      "bytes": 201,
+      "sha256": "9f13329fd225e3d6d282846323b5d7e1c062704e3602263898bb641595a3caeb",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "resistance",
+      "role": "score-stem-master",
+      "sourceID": "river-route",
+      "path": "resistance/score-river-route.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "3a00b2ebdc05560e3bd4c54435afad2cdad728be254dbcb3697edd22a3f03446",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "program-preview",
+      "sourceID": "waiting-offline-preview",
+      "path": "waiting/program-preview.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "e3b0df9fc4556b67775aef23a92f1a9f64dec6ac0fc8a7214d361763e03c1031",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_OFFLINE_MIX",
+      "commercialRights": "SCORE_NOTICE_REQUIRED; PROCEDURAL_AUDIO_PROJECT_OWNED",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "score-stem-midi",
+      "sourceID": "ground",
+      "path": "waiting/score-ground.mid",
+      "packageAssetPath": null,
+      "bytes": 169,
+      "sha256": "23f81f517ac17937f4789533fb76db376476ab64947d562869428681ac7114e7",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "score-stem-master",
+      "sourceID": "ground",
+      "path": "waiting/score-ground.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "5d92c7e051fa2db5cd7c7fdee17d92233140d8120587ee39bb3c633f43fde156",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "score-master",
+      "sourceID": "river-record-held",
+      "path": "waiting/score-master.wav",
+      "packageAssetPath": "audio/first-farmers/three-records-responsive-v1/waiting/score-master.wav",
+      "bytes": 4320044,
+      "sha256": "e259ac8f0970eab1615a6bcd1fbc7b7e76247a594be86a687aa1fe9ff46630b3",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "score-stem-midi",
+      "sourceID": "record",
+      "path": "waiting/score-record.mid",
+      "packageAssetPath": null,
+      "bytes": 143,
+      "sha256": "67647784dd61fb671e2f2ab5bc7e8664fb6414f0f5eb995293b8e268b090ba0c",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "score-stem-master",
+      "sourceID": "record",
+      "path": "waiting/score-record.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "36a107f612cff8fef39b258226b9c7da9953ff73bdd27b141c7b78665725c69b",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "score-stem-midi",
+      "sourceID": "river-route",
+      "path": "waiting/score-river-route.mid",
+      "packageAssetPath": null,
+      "bytes": 198,
+      "sha256": "466a0544f86d2d118dd400426ad61010b1afb8f64138ff890778bbda612a7533",
+      "lineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE",
+      "commercialRights": "PROJECT_OWNED_SOURCE",
+      "incrementalCostNOK": 0
+    },
+    {
+      "regionID": "waiting",
+      "role": "score-stem-master",
+      "sourceID": "river-route",
+      "path": "waiting/score-river-route.wav",
+      "packageAssetPath": null,
+      "bytes": 4320044,
+      "sha256": "9df136e25648ad7ca775bc267d0c059b66210dec99218f6f199339dbe5c21888",
+      "format": {
+        "sampleRate": 48000,
+        "bitDepth": 24,
+        "channels": 2,
+        "frames": 720000
+      },
+      "lineage": "PROJECT_AUTHORED_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+      "commercialRights": "COMMERCIAL_REDISTRIBUTION_ALLOWED_WITH_RETAINED_MIT_NOTICE",
+      "incrementalCostNOK": 0
+    }
+  ],
+  "reproducibility": "PASS_SECOND_COMPLETE_OFFLINE_RENDER",
+  "gates": {
+    "sourceValidation": "PASS",
+    "exactPCMFormat": "PASS_48000_HZ_24_BIT_STEREO",
+    "editableScoreMIDISourceAndStems": "PASS",
+    "sourceBoundSoundscapeAndSpatialLayers": "PASS",
+    "sharedInteractionMaterialAssets": "PASS_SEVEN_BYTE_IDENTICAL_ASSETS_REUSED_BY_ALL_PHASES",
+    "loopSeams": "PASS_GORGE_CURRENT_SAMPLE_CONTINUOUS",
+    "scopedAuthoredQuiet": "PASS_NON_RIVER_ZERO_WINDOWS_CURRENT_RETAINED",
+    "causalStageMix": "PASS_RUNTIME_TRANSPORT_AND_MONOTONIC_STATIC_GATE",
+    "truePeak": "PASS_ALL_PREVIEWS_AT_OR_BELOW_MINUS_1_DBTP",
+    "narration": "OPEN_MISSING_EDITOR_SELECTED_MASTER",
+    "artisticApproval": "OPEN",
+    "editorApproval": "OPEN",
+    "shippingApproval": "PROHIBITED"
+  }
+}

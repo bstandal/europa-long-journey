@@ -257,14 +257,30 @@ public struct ResponsiveAudioCursorCheckpointSession: Equatable, Sendable {
 /// authority: recovery first restores Journey, rebuilds `authority`, and then
 /// accepts only a monotonic position overlay with a complete identity match.
 ///
-/// Three destinations let one obsolete periodic write finish independently
-/// while an authority handoff and its successor writer keep two crash-safe
-/// generations. Synchronous file durability runs outside actor isolation; the
-/// actor alone reserves monotonically increasing generations and distinct
-/// destinations, and it never activates a successor before that reservation
-/// is durable.
+/// Three destinations admit at most two independent writes while preserving
+/// one untouched fallback slot. An obsolete periodic write may therefore
+/// finish during an authority handoff without colliding with its successor.
+/// Directory entries are synchronised once at init; each checkpoint overwrites
+/// and synchronises only the oldest available file.
+/// Synchronous file durability runs outside actor isolation; the actor alone
+/// reserves monotonically increasing generations and distinct destinations,
+/// and it never activates a successor before that reservation is durable.
 public actor ResponsiveAudioCursorCheckpointStore {
+    /// Success is an attestation that every supplied byte reached the
+    /// destination and the file was synchronised. The POSIX implementation
+    /// enforces that contract. A test double that writes different bytes and
+    /// returns success is detected by the next recovery/init scan, not by a
+    /// periodic post-write readback.
     public typealias DurableWriteOperation = @Sendable (Data, URL) throws -> Void
+
+    enum IOEvent: Equatable, Sendable {
+        case slotPrepared(URL)
+        case slotRead(URL)
+        case checkpointFileSynchronized(URL)
+        case directorySynchronized(URL)
+    }
+
+    typealias IOObserver = @Sendable (IOEvent) -> Void
 
     public nonisolated let directoryURL: URL
     public nonisolated let slotAURL: URL
@@ -272,6 +288,7 @@ public actor ResponsiveAudioCursorCheckpointStore {
     public nonisolated let slotCURL: URL
 
     private let durableWrite: DurableWriteOperation
+    private let ioObserver: IOObserver?
     private var activeSession: ResponsiveAudioCursorCheckpointSession?
     private var highestReservedGeneration: UInt64 = 0
     private var inFlightWritesByURL: [URL: WriteReservation] = [:]
@@ -281,6 +298,7 @@ public actor ResponsiveAudioCursorCheckpointStore {
     private var pendingHandoff: PendingHandoff?
     private var quarantinedSlotURLs: Set<URL> = []
     private var usedSessionIDs: Set<UUID> = []
+    private var verifiedRecordsByURL: [URL: Record]
 
     private struct Position: Codable, Equatable, Sendable {
         let cursorSample: Int64
@@ -354,7 +372,8 @@ public actor ResponsiveAudioCursorCheckpointStore {
     public init(directoryURL: URL) throws {
         try self.init(
             directoryURL: directoryURL,
-            durableWrite: Self.replaceAtomicallyAndSynchronize
+            durableWrite: nil,
+            ioObserver: nil
         )
     }
 
@@ -362,26 +381,74 @@ public actor ResponsiveAudioCursorCheckpointStore {
         directoryURL: URL,
         durableWrite: @escaping DurableWriteOperation
     ) throws {
+        try self.init(
+            directoryURL: directoryURL,
+            durableWrite: durableWrite,
+            ioObserver: nil
+        )
+    }
+
+    init(
+        directoryURL: URL,
+        ioObserver: @escaping IOObserver
+    ) throws {
+        try self.init(
+            directoryURL: directoryURL,
+            durableWrite: nil,
+            ioObserver: ioObserver
+        )
+    }
+
+    private init(
+        directoryURL: URL,
+        durableWrite: DurableWriteOperation?,
+        ioObserver: IOObserver?
+    ) throws {
         let standardized = directoryURL.standardizedFileURL
         try FileManager.default.createDirectory(
             at: standardized,
             withIntermediateDirectories: true
         )
         let canonical = standardized.resolvingSymlinksInPath()
-        self.directoryURL = canonical
-        slotAURL = canonical.appendingPathComponent(
+        let slotAURL = canonical.appendingPathComponent(
             "responsive-audio-cursor-a.json",
             isDirectory: false
         )
-        slotBURL = canonical.appendingPathComponent(
+        let slotBURL = canonical.appendingPathComponent(
             "responsive-audio-cursor-b.json",
             isDirectory: false
         )
-        slotCURL = canonical.appendingPathComponent(
+        let slotCURL = canonical.appendingPathComponent(
             "responsive-audio-cursor-c.json",
             isDirectory: false
         )
-        self.durableWrite = durableWrite
+        let slotURLs = [slotAURL, slotBURL, slotCURL]
+        try Self.prepareSlotsAndSynchronizeDirectory(
+            slotURLs,
+            directoryURL: canonical,
+            ioObserver: ioObserver
+        )
+        let initialRecords = Dictionary(
+            uniqueKeysWithValues: slotURLs.compactMap { url in
+                Self.verifiedRecord(at: url, ioObserver: ioObserver).map {
+                    (url, $0)
+                }
+            }
+        )
+
+        self.directoryURL = canonical
+        self.slotAURL = slotAURL
+        self.slotBURL = slotBURL
+        self.slotCURL = slotCURL
+        self.ioObserver = ioObserver
+        self.verifiedRecordsByURL = initialRecords
+        self.durableWrite = durableWrite ?? { data, destination in
+            try Self.overwriteAndSynchronize(
+                data,
+                at: destination,
+                ioObserver: ioObserver
+            )
+        }
     }
 
     public func beginSession(
@@ -651,7 +718,7 @@ public actor ResponsiveAudioCursorCheckpointStore {
         return destination
     }
 
-    /// The synchronous fsync/rename sequence is detached from actor
+    /// The synchronous overwrite/fsync sequence is detached from actor
     /// isolation. Its destination remains reserved until it returns, so no
     /// later generation can collide with or be overwritten by this write.
     private func perform(_ write: ReservedWrite) async throws {
@@ -663,20 +730,24 @@ public actor ResponsiveAudioCursorCheckpointStore {
         }.value
         do {
             try result.get()
-            guard inFlightWritesByURL[destination] == write.reservation,
-                  verifiedRecord(at: destination)
-                    == write.expectedRecord else {
+            guard inFlightWritesByURL[destination] == write.reservation else {
+                verifiedRecordsByURL.removeValue(forKey: destination)
                 quarantinedSlotURLs.insert(destination)
-                inFlightWritesByURL.removeValue(forKey: destination)
                 throw ResponsiveAudioCursorCheckpointError
                     .durabilityFailure
             }
+            // `expectedRecord` is the exact material encoded above. Once the
+            // durable operation succeeds, publishing it avoids a second file
+            // read, JSON decode and SHA-256 pass on every periodic checkpoint.
+            // Recovery and process initialization still verify disk bytes.
+            verifiedRecordsByURL[destination] = write.expectedRecord
             quarantinedSlotURLs.remove(destination)
             inFlightWritesByURL.removeValue(forKey: destination)
             resumeRetirementWaitersIfDrained(
                 writerSessionID: write.reservation.writerSessionID
             )
         } catch {
+            verifiedRecordsByURL.removeValue(forKey: destination)
             quarantinedSlotURLs.insert(destination)
             if inFlightWritesByURL[destination] == write.reservation {
                 inFlightWritesByURL.removeValue(forKey: destination)
@@ -724,7 +795,7 @@ public actor ResponsiveAudioCursorCheckpointStore {
     public func recover(
         authority: ResponsiveAudioCursorAuthority
     ) throws -> ResponsiveAudioProgramSnapshot? {
-        let record = verifiedRecords()
+        let record = refreshVerifiedRecordsFromDisk()
             .filter { $0.record.authority == authority }
             .max { $0.record.generation < $1.record.generation }?
             .record
@@ -779,12 +850,35 @@ public actor ResponsiveAudioCursorCheckpointStore {
                 || quarantinedSlotURLs.contains(url) {
                 return nil
             }
-            guard let record = verifiedRecord(at: url) else { return nil }
+            guard let record = verifiedRecordsByURL[url] else { return nil }
             return LocatedRecord(record: record, url: url)
         }
     }
 
-    private func verifiedRecord(at url: URL) -> Record? {
+    /// Recovery is rare and deliberately re-reads every eligible slot. The
+    /// periodic writer publishes its exact encoded record after the durable
+    /// operation succeeds; a new process reconstructs the cache during init.
+    private func refreshVerifiedRecordsFromDisk() -> [LocatedRecord] {
+        allSlotURLs.compactMap { url in
+            guard inFlightWritesByURL[url] == nil,
+                  !quarantinedSlotURLs.contains(url) else {
+                return nil
+            }
+            verifiedRecordsByURL.removeValue(forKey: url)
+            guard let record = Self.verifiedRecord(
+                at: url,
+                ioObserver: ioObserver
+            ) else { return nil }
+            verifiedRecordsByURL[url] = record
+            return LocatedRecord(record: record, url: url)
+        }
+    }
+
+    private nonisolated static func verifiedRecord(
+        at url: URL,
+        ioObserver: IOObserver?
+    ) -> Record? {
+        ioObserver?(.slotRead(url))
         guard let bytes = try? Data(contentsOf: url),
               let record = try? Self.decoder.decode(Record.self, from: bytes),
               record.formatVersion
@@ -807,27 +901,66 @@ public actor ResponsiveAudioCursorCheckpointStore {
 
     private static let decoder = JSONDecoder()
 
-    private nonisolated static func replaceAtomicallyAndSynchronize(
-        _ data: Data,
-        at destination: URL
+    /// Creates every stable destination before playback can begin and commits
+    /// all three directory entries with one initialization-only barrier.
+    private nonisolated static func prepareSlotsAndSynchronizeDirectory(
+        _ slotURLs: [URL],
+        directoryURL: URL,
+        ioObserver: IOObserver?
     ) throws {
-        let temporary = destination.deletingLastPathComponent().appendingPathComponent(
-            ".\(destination.lastPathComponent).\(UUID().uuidString).tmp",
-            isDirectory: false
+        for url in slotURLs {
+            let descriptor = open(
+                url.path,
+                O_WRONLY | O_CREAT | O_CLOEXEC | O_NOFOLLOW,
+                S_IRUSR | S_IWUSR
+            )
+            guard descriptor >= 0 else {
+                throw ResponsiveAudioCursorCheckpointError.durabilityFailure
+            }
+            guard close(descriptor) == 0 else {
+                throw ResponsiveAudioCursorCheckpointError.durabilityFailure
+            }
+            ioObserver?(.slotPrepared(url))
+        }
+
+        let directoryDescriptor = open(
+            directoryURL.path,
+            O_RDONLY | O_DIRECTORY | O_CLOEXEC | O_NOFOLLOW
         )
+        guard directoryDescriptor >= 0 else {
+            throw ResponsiveAudioCursorCheckpointError.durabilityFailure
+        }
+        var directoryDescriptorIsOpen = true
+        defer {
+            if directoryDescriptorIsOpen { _ = close(directoryDescriptor) }
+        }
+        try synchronize(descriptor: directoryDescriptor)
+        guard close(directoryDescriptor) == 0 else {
+            directoryDescriptorIsOpen = false
+            throw ResponsiveAudioCursorCheckpointError.durabilityFailure
+        }
+        directoryDescriptorIsOpen = false
+        ioObserver?(.directorySynchronized(directoryURL))
+    }
+
+    /// Overwrites one pre-created ring slot. A torn or partial write fails its
+    /// checksum on recovery while the two other destinations remain intact.
+    /// No directory entry changes, so each checkpoint needs one file barrier.
+    private nonisolated static func overwriteAndSynchronize(
+        _ data: Data,
+        at destination: URL,
+        ioObserver: IOObserver?
+    ) throws {
         let descriptor = open(
-            temporary.path,
-            O_WRONLY | O_CREAT | O_EXCL | O_CLOEXEC,
-            S_IRUSR | S_IWUSR
+            destination.path,
+            O_WRONLY | O_TRUNC | O_CLOEXEC | O_NOFOLLOW
         )
         guard descriptor >= 0 else {
             throw ResponsiveAudioCursorCheckpointError.durabilityFailure
         }
         var descriptorIsOpen = true
-        var shouldRemoveTemporary = true
         defer {
             if descriptorIsOpen { _ = close(descriptor) }
-            if shouldRemoveTemporary { _ = unlink(temporary.path) }
         }
         try data.withUnsafeBytes { rawBuffer in
             guard let baseAddress = rawBuffer.baseAddress else { return }
@@ -838,33 +971,27 @@ public actor ResponsiveAudioCursorCheckpointStore {
                     baseAddress.advanced(by: offset),
                     rawBuffer.count - offset
                 )
+                if count < 0, errno == EINTR { continue }
                 guard count > 0 else {
                     throw ResponsiveAudioCursorCheckpointError.durabilityFailure
                 }
                 offset += count
             }
         }
-        guard fsync(descriptor) == 0 else {
-            throw ResponsiveAudioCursorCheckpointError.durabilityFailure
-        }
+        try synchronize(descriptor: descriptor)
         let closeResult = close(descriptor)
         descriptorIsOpen = false
         guard closeResult == 0 else {
             throw ResponsiveAudioCursorCheckpointError.durabilityFailure
         }
-        guard rename(temporary.path, destination.path) == 0 else {
-            throw ResponsiveAudioCursorCheckpointError.durabilityFailure
-        }
-        shouldRemoveTemporary = false
-        let directoryDescriptor = open(
-            destination.deletingLastPathComponent().path,
-            O_RDONLY | O_DIRECTORY | O_CLOEXEC
-        )
-        guard directoryDescriptor >= 0 else {
-            throw ResponsiveAudioCursorCheckpointError.durabilityFailure
-        }
-        defer { _ = close(directoryDescriptor) }
-        guard fsync(directoryDescriptor) == 0 else {
+        ioObserver?(.checkpointFileSynchronized(destination))
+    }
+
+    private nonisolated static func synchronize(
+        descriptor: Int32
+    ) throws {
+        while fsync(descriptor) != 0 {
+            if errno == EINTR { continue }
             throw ResponsiveAudioCursorCheckpointError.durabilityFailure
         }
     }

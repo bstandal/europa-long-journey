@@ -159,6 +159,47 @@ final class ContentKitTests: XCTestCase {
         )
 
         try chapter.validate()
+        let beatCompletedChapter = ChapterSpec(
+            schemaVersion: chapter.schemaVersion,
+            id: chapter.id,
+            title: chapter.title,
+            period: chapter.period,
+            arcs: chapter.arcs,
+            completionEffects: []
+        )
+        XCTAssertNoThrow(try beatCompletedChapter.validate())
+
+        let effectlessChapter = ChapterSpec(
+            schemaVersion: SchemaVersion(major: 1),
+            id: "effectless-chapter",
+            title: "Effectless Chapter",
+            period: "Period",
+            arcs: [
+                ArcSpec(
+                    id: "effectless-arc",
+                    title: "Arc",
+                    targetDurationMinutes: 9,
+                    situation: "A household reaches the river.",
+                    mechanism: "The river carries the household.",
+                    turn: "The crossing ends.",
+                    consequence: "Nothing durable is authored.",
+                    handoff: "The journey pauses.",
+                    beats: [
+                        BeatSpec(
+                            id: "effectless-beat",
+                            sceneID: "effectless-scene",
+                            narrative: NarrativeText(
+                                heading: "Heading",
+                                paragraphs: ["A concrete sentence."]
+                            ),
+                            checkpoint: .onExit
+                        ),
+                    ]
+                ),
+            ],
+            completionEffects: []
+        )
+        XCTAssertThrowsError(try effectlessChapter.validate())
         let json = String(data: try JSONEncoder().encode(chapter), encoding: .utf8)!.lowercased()
         for forbidden in ["historiography", "counterargument", "confidence", "methodology", "evidencepanel"] {
             XCTAssertFalse(json.contains(forbidden))
@@ -858,7 +899,7 @@ final class ContentKitTests: XCTestCase {
         XCTAssertThrowsError(try interactiveBeat.validate())
     }
 
-    func testInteractionAndChapterRequirePermanentConsequences() {
+    func testInteractionRequiresPermanentConsequences() {
         let interaction = InteractionSpec(
             id: "route",
             prompt: "Follow the route",
@@ -872,17 +913,6 @@ final class ContentKitTests: XCTestCase {
             accessibilityID: "route-accessibility"
         )
         XCTAssertThrowsError(try interaction.validate())
-
-        let authored = canonicalPackage().chapters[0]
-        let chapterWithoutTrace = ChapterSpec(
-            schemaVersion: authored.schemaVersion,
-            id: authored.id,
-            title: authored.title,
-            period: authored.period,
-            arcs: authored.arcs,
-            completionEffects: []
-        )
-        XCTAssertThrowsError(try chapterWithoutTrace.validate())
     }
 
     func testTraceAnchorLimitBoundsDeferredTransportMemory() throws {

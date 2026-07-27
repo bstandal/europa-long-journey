@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "id": "harvest-v26-rear-ground-source-donor-mask",
+  "status": "CODEX_VISUAL_REVIEWED_NON_SHIPPING_SOURCE_INPUT",
+  "scope": "PATCHMATCH_DONOR_SELECTION_ONLY",
+  "authorityLimits": {
+    "editorApproval": false,
+    "productionAssetAuthority": false,
+    "productionMasterAuthority": false,
+    "packageAuthority": false,
+    "shippingAllowed": false,
+    "candidateMayEnterShippingCompiler": false,
+    "maskMayBeUsedAsLayerAlpha": false,
+    "maskMayAuthorizeWrittenPixels": false
+  },
+  "sourceMaster": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+    "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca",
+    "pixelWidth": 1290,
+    "pixelHeight": 2796
+  },
+  "promptSpecification": {
+    "path": "native/content/backstage/harvest/rear-ground-segmentation-prompts-v26.r1.provisional.json",
+    "sha256": "2d4ad9fa21c6c33a494813081a4bd02525d2ceb7c5e19dc63b1a88eb985a517d"
+  },
+  "model": {
+    "repository": "facebook/sam2.1-hiera-tiny",
+    "revision": "de431c4043854a71d8101e17995dfe596bf101a5",
+    "path": "native/.build/visual-segmentation/models/facebook-sam2.1-hiera-tiny-de431c4043854a71d8101e17995dfe596bf101a5",
+    "modelWeightsSha256": "48c14467e5cf9e51870511feb72c89688e82dd74523142c0538b663e193ac2a7"
+  },
+  "selectedMask": {
+    "id": "rear-earth-and-stubble-surface",
+    "path": "native/content/backstage/harvest/semantic-donor-masks-v26.provisional/rear-earth-and-stubble-surface.png",
+    "sha256": "b290c2ad6ca93409612f954b2bc5f99347c39fe35aa026b69adac9460daa0ef0",
+    "bytes": 7100,
+    "pixelWidth": 1290,
+    "pixelHeight": 2796,
+    "colourModel": "GRAYSCALE",
+    "threshold": 128,
+    "selectedCandidate": 2,
+    "pixelCount": 64541,
+    "boundsInclusive": {
+      "minX": 621,
+      "minY": 1222,
+      "maxX": 1289,
+      "maxY": 1633
+    }
+  },
+  "deterministicReplay": {
+    "firstRun": "native/.build/visual-segmentation/harvest-v26-rear-ground-r1-final",
+    "replay": "native/.build/visual-segmentation/harvest-v26-rear-ground-r1-replay",
+    "firstReceiptSha256": "0d85c71e12b6e162f99fb534824b161246f33347f427af4043d976d04ea294fc",
+    "replayReceiptSha256": "0d85c71e12b6e162f99fb534824b161246f33347f427af4043d976d04ea294fc",
+    "allFilesByteIdentical": true
+  },
+  "visualReview": {
+    "status": "CODEX_SOURCE_ALIGNMENT_REVIEW_PASS_FOR_DONOR_SELECTION",
+    "finding": "The selected mask follows the visible rear earth and stubble surface behind the right-hand storage. It provides source-matched material for the top and left rail reveal of the spring-seed layer. Any included edge fragments from people, animals, hay or storage must be removed by recipe-bound exclusions before a donor footprint is accepted.",
+    "prohibitedInterpretations": [
+      "PRODUCTION_LAYER_ALPHA",
+      "WRITE_AUTHORIZATION_MASK",
+      "ARTISTIC_APPROVAL",
+      "EDITOR_APPROVAL",
+      "SHIPPING_APPROVAL"
+    ]
+  }
+}

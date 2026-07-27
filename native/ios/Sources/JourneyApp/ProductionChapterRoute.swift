@@ -9,6 +9,138 @@ import ProgressStore
 import QualityInstrumentation
 import SceneRuntime
 import SwiftUI
+import UIKit
+
+#if DEBUG
+private extension Notification.Name {
+    static let pressureHoldLifecycleProbeStart = Notification.Name(
+        "com.thelongwest.journey.pressure-hold-lifecycle-probe-start"
+    )
+}
+#endif
+
+private enum ContinuousInputProtection: Equatable {
+    case ordinary
+    case traceAnchor(Int)
+    case pressureStabilityBoundary(isStable: Bool)
+    case transformStage(Int)
+    case previewUnavailable
+    case terminal
+
+    var isProtected: Bool {
+        self != .ordinary
+    }
+
+    var tracePriority: TraceDeferredSamplePriority {
+        guard case let .traceAnchor(index) = self else {
+            return TraceDeferredSamplePriority()
+        }
+        return TraceDeferredSamplePriority(protectedAnchorIndex: index)
+    }
+
+#if DEBUG
+    var diagnosticLabel: String {
+        switch self {
+        case .ordinary:
+            "ordinary"
+        case let .traceAnchor(index):
+            "trace-\(index)"
+        case let .pressureStabilityBoundary(isStable):
+            isStable ? "pressure-enter" : "pressure-exit"
+        case let .transformStage(index):
+            "transform-\(index)"
+        case .previewUnavailable:
+            "preview-fallback"
+        case .terminal:
+            "terminal"
+        }
+    }
+#endif
+}
+
+private enum ContinuousInputPreviewOutcome {
+    case notApplicable
+    case classified(ContinuousInputProtection)
+    case ignored
+    case routeFailed
+}
+
+/// Ordinary historical motion may cross the journal at most every 200 ms.
+/// Protected causal contacts and preview-fallback samples bypass the cadence
+/// but reset its next window, so a boundary never permits an immediate
+/// redundant ordinary write.
+private struct ContinuousInputJournalRatePolicy {
+    static let ordinaryIntervalNanoseconds: UInt64 = 200_000_000
+
+    private var lastSubmissionNanoseconds: UInt64?
+
+    mutating func admits(
+        _ protection: ContinuousInputProtection,
+        capturedAtMonotonicNanoseconds capturedAt: UInt64
+    ) -> Bool {
+        if protection.isProtected {
+            lastSubmissionNanoseconds = capturedAt
+            return true
+        }
+        guard let lastSubmissionNanoseconds else {
+            self.lastSubmissionNanoseconds = capturedAt
+            return true
+        }
+        guard capturedAt >= lastSubmissionNanoseconds,
+              capturedAt - lastSubmissionNanoseconds
+                >= Self.ordinaryIntervalNanoseconds else {
+            return false
+        }
+        self.lastSubmissionNanoseconds = capturedAt
+        return true
+    }
+
+    mutating func recordProtectedFlush(
+        capturedAtMonotonicNanoseconds capturedAt: UInt64
+    ) {
+        lastSubmissionNanoseconds = capturedAt
+    }
+
+    mutating func reset() {
+        lastSubmissionNanoseconds = nil
+    }
+}
+
+/// Sub-pixel jitter can cross a Pressure stability edge many times. One
+/// unstable exit per 250 ms hold epoch invalidates continuous hold time
+/// immediately; later absolute samples use the ordinary 5 Hz path and the
+/// latest is drained before the next hold event.
+private struct PressureContinuousInputProtectionPolicy {
+    private var protectedUnstableExitInCurrentHoldEpoch = false
+
+    mutating func protection(
+        isStable: Bool
+    ) -> ContinuousInputProtection {
+        guard !isStable else { return .ordinary }
+        guard !protectedUnstableExitInCurrentHoldEpoch else {
+            return .ordinary
+        }
+        protectedUnstableExitInCurrentHoldEpoch = true
+        return .pressureStabilityBoundary(isStable: false)
+    }
+
+    mutating func beginNextHoldEpoch() {
+        protectedUnstableExitInCurrentHoldEpoch = false
+    }
+
+    /// Returns and consumes the invalidation raised by the first unstable
+    /// sample in this 250 ms epoch. A consumed epoch must not also advance
+    /// hold time: stability has not been continuous for the full interval.
+    mutating func consumeInvalidatedHoldEpoch() -> Bool {
+        guard protectedUnstableExitInCurrentHoldEpoch else { return false }
+        protectedUnstableExitInCurrentHoldEpoch = false
+        return true
+    }
+
+    mutating func reset() {
+        protectedUnstableExitInCurrentHoldEpoch = false
+    }
+}
 
 enum ProductionChapterRouteFailureKind: Equatable {
     case authorityUnavailable
@@ -66,6 +198,20 @@ final class ProductionChapterRouteSession: ObservableObject {
     private var firstTraceViewportPointForTesting: SceneFramePoint?
     @Published private(set) var inputFIFOProbeDiagnosticForTesting =
         "disabled"
+    @Published private(set) var continuousInputEnergyDiagnosticForTesting =
+        "not-run"
+    @Published private(set) var pressureHoldAttemptCountForTesting = 0
+    private var pressureJitterEnergyProbeIsRunning = false
+    private var pressureJitterEnergyProbeDiagnosticPrefix = ""
+    private var pressureJitterEnergyProbeInitialLogicalTime: Int64 = 0
+    private var pressureJitterEnergyProbeAcceptedCount = 0
+    private var pressureJitterEnergyProbePerformedCount = 0
+    private var pressureJitterEnergyProbeCompletedCount = 0
+    private var pressureJitterEnergyProbeProtectedExitCount = 0
+    private var pressureJitterEnergyProbeMaximumReservations = 0
+    private var pressureJitterEnergyProbeOutsideNeutralized = false
+    private var pressureJitterEnergyProbeDroppedHoldCount = 0
+    private var pressureJitterEnergyProbeAcceptedHoldCount = 0
     @Published private(set) var inputFIFOProbeIsHoldingForTesting = false
     private var inputFIFOProbeCycleForTesting = 0
     private var inputFIFOProbePhaseForTesting = "idle"
@@ -119,6 +265,23 @@ final class ProductionChapterRouteSession: ObservableObject {
             case let .semantic(_, action): "semantic-\(action.kind.rawValue)"
             }
         }
+
+#if DEBUG
+        var isPressureEnergyProbeInput: Bool {
+            guard case let .touch(intent) = self else { return false }
+            return switch intent {
+            case .adjustTarget, .holdPressure:
+                true
+            default:
+                false
+            }
+        }
+
+        var isPressureHoldInput: Bool {
+            guard case .touch(.holdPressure) = self else { return false }
+            return true
+        }
+#endif
     }
 
     private var alphaSampler = SceneImageAlphaMaskSampler()
@@ -139,6 +302,10 @@ final class ProductionChapterRouteSession: ObservableObject {
         let event: ResponsiveAudioPhysicalPauseEvent
         let modelIdentifier: ObjectIdentifier
         let identity: ChapterRuntimeRouteIdentity
+        /// Presentation-only phase captured from this live route session. It is
+        /// never written to JourneyState and therefore cannot leak into a cold
+        /// restore, whose projection remains the authored waiting phase.
+        let responsiveAudioPhase: ResponsiveInteractionAudioPhase?
     }
     private var pendingPhysicalPauseRefresh: PendingPhysicalPauseRefresh?
     private struct InstrumentedInput {
@@ -147,20 +314,36 @@ final class ProductionChapterRouteSession: ObservableObject {
         let reservation: ChapterRuntimeInputReservationGate.Token
         let reservationOwner: JourneyModel
         let identity: ChapterRuntimeRouteIdentity
-        let tracePriority: TraceDeferredSamplePriority
+        let protection: ContinuousInputProtection
+
+        var tracePriority: TraceDeferredSamplePriority {
+            protection.tracePriority
+        }
     }
 
     private struct DeferredContinuousInput {
         let input: PendingInput
         let owner: JourneyModel
         let identity: ChapterRuntimeRouteIdentity
-        let tracePriority: TraceDeferredSamplePriority
+        let protection: ContinuousInputProtection
+        let capturedAtMonotonicNanoseconds: UInt64
+
+        var tracePriority: TraceDeferredSamplePriority {
+            protection.tracePriority
+        }
     }
 
     private var pendingInputs: [InstrumentedInput] = []
     private var currentInput: InstrumentedInput?
     private var deferredContinuousInputs: [DeferredContinuousInput] = []
+    private var rateLimitedContinuousInput: DeferredContinuousInput?
+    private var latestContinuousJournalInput: DeferredContinuousInput?
+    private var continuousInputRatePolicy = ContinuousInputJournalRatePolicy()
+    private var pressureInputProtectionPolicy =
+        PressureContinuousInputProtectionPolicy()
     private let maximumAcceptedContinuousInputs = 8
+    private let maximumDeferredContinuousInputs =
+        TraceInteractionSpec.maximumAnchorCount + 1
     private var inputReservationOwners: [
         ChapterRuntimeInputReservationGate.Token: JourneyModel
     ] = [:]
@@ -174,6 +357,15 @@ final class ProductionChapterRouteSession: ObservableObject {
     }
 
     private var responsiveAudioRouteKey: ResponsiveAudioRouteKey?
+    /// The latest active or resisted response seen in this live view session.
+    /// A restored controller deliberately has no transient feedback, so this
+    /// value is consulted only by the matching physical-pause refresh below.
+    private var lastMeaningfulResponsiveAudioPhaseForLifecycle:
+        ResponsiveInteractionAudioPhase?
+    private var responsiveAudioPhaseCapturedAtSceneExit:
+        ResponsiveInteractionAudioPhase?
+    private var responsiveAudioPhaseCaptureIdentity:
+        ChapterRuntimeRouteIdentity?
     private var responsiveAudioPlaybackTask: Task<Void, Never>?
     private var responsiveAudioPolicy = ChapterResponsiveAudioSessionPolicy()
     private var responsiveAudioAuthorizedStartEpoch:
@@ -200,6 +392,447 @@ final class ProductionChapterRouteSession: ObservableObject {
         ProcessInfo.processInfo.arguments.contains(
             "--ui-testing-chapter-input-fifo"
         )
+    }
+
+    var continuousInputEnergyProbeIsEnabledForTesting: Bool {
+        ProcessInfo.processInfo.arguments.contains(
+            "--ui-testing-continuous-input-energy"
+        )
+    }
+
+    var pressureHoldLifecycleProbeIsEnabledForTesting: Bool {
+        ProcessInfo.processInfo.arguments.contains(
+            "--ui-testing-pressure-hold-lifecycle"
+        )
+    }
+
+    func runContinuousInputEnergyProbeForTesting(
+        expectedIdentity: ChapterRuntimeRouteIdentity
+    ) {
+        guard continuousInputEnergyProbeIsEnabledForTesting,
+              admitsInput(for: expectedIdentity),
+              !inputIsPending,
+              inputTask == nil,
+              pendingInputs.isEmpty,
+              deferredContinuousInputs.isEmpty,
+              let runtime,
+              let initialPresentation = presentation,
+              let targetRegion = initialPresentation.framePlan
+                .interactionHitRegions.first,
+              !targetRegion.viewportPath.isEmpty else {
+            continuousInputEnergyDiagnosticForTesting =
+                "result=fail;reason=route-not-ready"
+            return
+        }
+
+        func ordinaryAdmissionCount() -> Int {
+            var policy = ContinuousInputJournalRatePolicy()
+            return (0 ..< 120).reduce(into: 0) { count, observation in
+                let capturedAt = UInt64(observation) * 1_000_000_000 / 120
+                if policy.admits(
+                    .ordinary,
+                    capturedAtMonotonicNanoseconds: capturedAt
+                ) {
+                    count += 1
+                }
+            }
+        }
+
+        let point = SceneFramePoint(
+            x: targetRegion.viewportPath.reduce(0) { $0 + $1.x }
+                / Double(targetRegion.viewportPath.count),
+            y: targetRegion.viewportPath.reduce(0) { $0 + $1.y }
+                / Double(targetRegion.viewportPath.count)
+        )
+        let probeIntent: SceneTouchIntent
+        switch initialPresentation.cursor.beat.interaction?.grammar {
+        case .trace?:
+            probeIntent = .trace(viewportPoint: point)
+        case .pressure?, .transform?:
+            probeIntent = .adjustTarget(
+                viewportPoint: point,
+                amount: 0.35
+            )
+        default:
+            continuousInputEnergyDiagnosticForTesting =
+                "result=fail;reason=unsupported-grammar"
+            return
+        }
+
+        let durablePresentationBeforeProbe = runtime.controller.presentation
+        var visualCount = 0
+        var visualMaximumNanoseconds: UInt64 = 0
+        for _ in 0 ..< 120 {
+            // Keep every timing sample on the same committed reducer state.
+            // This makes the probe independent of whether the chosen point is
+            // also an authored threshold, while still exercising the real
+            // controller-preview and compositor-update path.
+            runtime.controller.resetContinuousTouchPreview()
+            let started = DispatchTime.now().uptimeNanoseconds
+            if case .classified = previewContinuousJournalInput(
+                .touch(probeIntent),
+                publishesVisualResponse: true
+            ) {
+                visualCount += 1
+            }
+            let finished = DispatchTime.now().uptimeNanoseconds
+            visualMaximumNanoseconds = max(
+                visualMaximumNanoseconds,
+                finished >= started ? finished - started : 0
+            )
+        }
+        runtime.controller.resetContinuousTouchPreview()
+        _ = compositor.update(initialPresentation.framePlan)
+        presentation = initialPresentation
+
+        let authoredSemantics: [ContinuousInputProtection] = [
+            .traceAnchor(0),
+            .pressureStabilityBoundary(isStable: false),
+            .transformStage(0),
+            .transformStage(1),
+            .previewUnavailable,
+            .terminal,
+        ]
+        var semanticPolicy = ContinuousInputJournalRatePolicy()
+        _ = semanticPolicy.admits(
+            .ordinary,
+            capturedAtMonotonicNanoseconds: 0
+        )
+        let admittedSemantics = authoredSemantics.enumerated().compactMap {
+            offset, semantic in
+            semanticPolicy.admits(
+                semantic,
+                capturedAtMonotonicNanoseconds: UInt64(offset + 1)
+            ) ? semantic.diagnosticLabel : nil
+        }
+        let holdBypassesCadence = !PendingInput.touch(
+            .holdPressure(elapsedMillis: 250)
+        ).isContinuousTransportSample
+        let voiceOverBypassesCadence = !PendingInput.semantic(
+            elementID: "semantic",
+            action: AccessibilityActionSpec(
+                kind: .activate,
+                label: LocalizedStringSpec(
+                    id: "semantic-action",
+                    launchEnglish: "Continue"
+                ),
+                token: .traceNext
+            )
+        ).isContinuousTransportSample
+        let ordinaryCounts = [
+            ordinaryAdmissionCount(),
+            ordinaryAdmissionCount(),
+            ordinaryAdmissionCount(),
+        ]
+        let semanticOrder = admittedSemantics.joined(separator: ",")
+        let expectedOrder = [
+            "trace-0",
+            "pressure-exit",
+            "transform-0",
+            "transform-1",
+            "preview-fallback",
+            "terminal",
+        ].joined(separator: ",")
+        let visualMaximumMillis = Double(visualMaximumNanoseconds)
+            / 1_000_000
+        let previewKeptDurableAuthority =
+            runtime.controller.presentation == durablePresentationBeforeProbe
+        let passed = ordinaryCounts == [5, 5, 5]
+            && semanticOrder == expectedOrder
+            && holdBypassesCadence
+            && voiceOverBypassesCadence
+            && visualCount == 120
+            && visualMaximumNanoseconds <= 50_000_000
+            && previewKeptDurableAuthority
+        let diagnosticPrefix =
+            "visual=\(visualCount);visualMaxMillis="
+            + String(format: "%.3f", visualMaximumMillis) + ";"
+            + "visualUnder50="
+            + "\(visualMaximumNanoseconds <= 50_000_000 ? 1 : 0);"
+            + "authorityUnchanged=\(previewKeptDurableAuthority ? 1 : 0);"
+            + "ordinary=trace:\(ordinaryCounts[0]),"
+            + "pressure:\(ordinaryCounts[1]),transform:\(ordinaryCounts[2]);"
+            + "protected=\(semanticOrder);"
+            + "discrete=pressure-hold:\(holdBypassesCadence ? 1 : 0),"
+            + "voice-over:\(voiceOverBypassesCadence ? 1 : 0);"
+        if passed,
+           case .pressure? = initialPresentation.cursor.beat.interaction?.grammar {
+            if startPressureJitterEnergyProbeForTesting(
+                initialPresentation: initialPresentation,
+                expectedIdentity: expectedIdentity,
+                diagnosticPrefix: diagnosticPrefix
+            ) {
+                return
+            }
+            continuousInputEnergyDiagnosticForTesting = diagnosticPrefix
+                + "realPressure=setup-failed;result=fail"
+            return
+        }
+        continuousInputEnergyDiagnosticForTesting = diagnosticPrefix
+            + "result=\(passed ? "pass" : "fail")"
+    }
+
+    private func startPressureJitterEnergyProbeForTesting(
+        initialPresentation: ChapterScenePresentation,
+        expectedIdentity: ChapterRuntimeRouteIdentity,
+        diagnosticPrefix: String
+    ) -> Bool {
+        guard let runtime,
+              case let .pressure(configuration)? = initialPresentation.cursor
+                .beat.interaction?.grammar,
+              case let .pressure(progress)? = initialPresentation.journeyState
+                .activeChapter?.interaction?.progress,
+              case let .pressure(visual)? = initialPresentation.cursor.scene
+                .interactionVisualBinding,
+              let force = configuration.forces.first(where: {
+                  $0.userControllable && $0.direction != 0
+              }),
+              let forceVisual = visual.forces.first(where: {
+                  $0.forceID == force.id && $0.interactionTargetID != nil
+              }),
+              let targetID = forceVisual.interactionTargetID,
+              let target = initialPresentation.framePlan.interactionHitRegions
+                .first(where: { $0.interactionTargetID == targetID }),
+              !target.viewportPath.isEmpty else {
+            return false
+        }
+        let fixedNetPressure = configuration.forces
+            .filter { $0.id != force.id }
+            .reduce(0.0) { partial, authoredForce in
+                let magnitude = progress.values.first(where: {
+                    $0.forceID == authoredForce.id
+                })?.magnitude ?? authoredForce.initialMagnitude
+                return partial + authoredForce.direction * magnitude
+            }
+        let stableNetPressure = (
+            configuration.stableRange.lowerBound
+                + configuration.stableRange.upperBound
+        ) * 0.5
+        let stableMagnitude = (
+            stableNetPressure - fixedNetPressure
+        ) / force.direction
+        guard (0 ... 1).contains(stableMagnitude),
+              configuration.stableRange.contains(
+                  fixedNetPressure + force.direction * stableMagnitude
+              ),
+              let unstableMagnitude = [0.0, 1.0].first(where: {
+                  !configuration.stableRange.contains(
+                      fixedNetPressure + force.direction * $0
+                  )
+              }) else {
+            return false
+        }
+        let point = SceneFramePoint(
+            x: target.viewportPath.reduce(0) { $0 + $1.x }
+                / Double(target.viewportPath.count),
+            y: target.viewportPath.reduce(0) { $0 + $1.y }
+                / Double(target.viewportPath.count)
+        )
+        let outsidePoint = SceneFramePoint(x: -1, y: -1)
+
+        resetContinuousInputSampling()
+        pressureJitterEnergyProbeIsRunning = true
+        pressureJitterEnergyProbeDiagnosticPrefix = diagnosticPrefix
+        pressureJitterEnergyProbeInitialLogicalTime = runtime.controller
+            .presentation.journeyState.lastLogicalTimeMillis
+        pressureJitterEnergyProbeAcceptedCount = 0
+        pressureJitterEnergyProbePerformedCount = 0
+        pressureJitterEnergyProbeCompletedCount = 0
+        pressureJitterEnergyProbeProtectedExitCount = 0
+        pressureJitterEnergyProbeMaximumReservations = 0
+        pressureJitterEnergyProbeOutsideNeutralized = false
+        pressureJitterEnergyProbeDroppedHoldCount = 0
+        pressureJitterEnergyProbeAcceptedHoldCount = 0
+
+        // Invalid geometry must never replace a valid coalesced absolute
+        // sample. The final inside sample is held by the 200 ms cadence; the
+        // second outside observation clears only display response, then
+        // finger-up drains that still-valid sample.
+        submitTouch(
+            .adjustTarget(
+                viewportPoint: outsidePoint,
+                amount: stableMagnitude
+            ),
+            expectedIdentity: expectedIdentity
+        )
+        submitTouch(
+            .adjustTarget(
+                viewportPoint: point,
+                amount: stableMagnitude
+            ),
+            expectedIdentity: expectedIdentity
+        )
+        submitTouch(
+            .adjustTarget(
+                viewportPoint: point,
+                amount: unstableMagnitude
+            ),
+            expectedIdentity: expectedIdentity
+        )
+        submitTouch(
+            .adjustTarget(
+                viewportPoint: point,
+                amount: stableMagnitude
+            ),
+            expectedIdentity: expectedIdentity
+        )
+        submitTouch(
+            .adjustTarget(
+                viewportPoint: outsidePoint,
+                amount: unstableMagnitude
+            ),
+            expectedIdentity: expectedIdentity
+        )
+        let retainedValidSample: Bool
+        if case let .touch(.adjustTarget(_, amount))? =
+            rateLimitedContinuousInput?.input {
+            retainedValidSample = amount == stableMagnitude
+        } else {
+            retainedValidSample = false
+        }
+        let neutral = presentation
+        pressureJitterEnergyProbeOutsideNeutralized = retainedValidSample
+            && neutral?.journeyState == initialPresentation.journeyState
+            && neutral?.framePlan.interactionResponse == nil
+            && neutral?.metalPreparationPlan.textureRequests.map(\.key)
+                == initialPresentation.metalPreparationPlan.textureRequests
+                    .map(\.key)
+        endContinuousTouchGesture(expectedIdentity: expectedIdentity)
+
+        // Sixty stable/unstable crossings in one hold epoch may protect only
+        // its first unstable exit. That invalidates this full 250 ms interval,
+        // so the hold tick is dropped after its latest absolute sample drains.
+        // The following sample pair belongs to the next epoch, whose first
+        // unstable exit must again cross immediately.
+        for index in 0 ..< 120 {
+            submitTouch(
+                .adjustTarget(
+                    viewportPoint: point,
+                    amount: index.isMultiple(of: 2)
+                        ? stableMagnitude : unstableMagnitude
+                ),
+                expectedIdentity: expectedIdentity
+            )
+        }
+        submitTouch(
+            .holdPressure(elapsedMillis: 250),
+            expectedIdentity: expectedIdentity
+        )
+        submitTouch(
+            .adjustTarget(
+                viewportPoint: point,
+                amount: stableMagnitude
+            ),
+            expectedIdentity: expectedIdentity
+        )
+        submitTouch(
+            .adjustTarget(
+                viewportPoint: point,
+                amount: unstableMagnitude
+            ),
+            expectedIdentity: expectedIdentity
+        )
+        endContinuousTouchGesture(expectedIdentity: expectedIdentity)
+
+        continuousInputEnergyDiagnosticForTesting = diagnosticPrefix
+            + "realPressure=running"
+        return true
+    }
+
+    private func recordPressureJitterProtectionForTesting(
+        _ protection: ContinuousInputProtection
+    ) {
+        guard pressureJitterEnergyProbeIsRunning,
+              protection
+                == .pressureStabilityBoundary(isStable: false) else {
+            return
+        }
+        pressureJitterEnergyProbeProtectedExitCount += 1
+    }
+
+    private func recordPressureJitterAcceptedInputForTesting(
+        _ input: PendingInput
+    ) {
+        guard pressureJitterEnergyProbeIsRunning,
+              input.isPressureEnergyProbeInput else { return }
+        pressureJitterEnergyProbeAcceptedCount += 1
+        if input.isPressureHoldInput {
+            pressureJitterEnergyProbeAcceptedHoldCount += 1
+        }
+        pressureJitterEnergyProbeMaximumReservations = max(
+            pressureJitterEnergyProbeMaximumReservations,
+            inputReservationOwners.count
+        )
+    }
+
+    private func recordPressureJitterDroppedInvalidatedHoldForTesting() {
+        guard pressureJitterEnergyProbeIsRunning else { return }
+        pressureJitterEnergyProbeDroppedHoldCount += 1
+    }
+
+    private func recordPressureJitterPerformedInputForTesting(
+        _ input: PendingInput
+    ) {
+        guard pressureJitterEnergyProbeIsRunning,
+              input.isPressureEnergyProbeInput else { return }
+        pressureJitterEnergyProbePerformedCount += 1
+    }
+
+    private func recordPressureJitterCompletedInputForTesting(
+        _ input: PendingInput
+    ) {
+        guard pressureJitterEnergyProbeIsRunning,
+              input.isPressureEnergyProbeInput else { return }
+        pressureJitterEnergyProbeCompletedCount += 1
+    }
+
+    private func finalizePressureJitterEnergyProbeIfNeededForTesting() {
+        guard pressureJitterEnergyProbeIsRunning,
+              inputTask == nil,
+              pendingInputs.isEmpty,
+              deferredContinuousInputs.isEmpty,
+              rateLimitedContinuousInput == nil,
+              let finalState = runtime?.controller.presentation.journeyState
+        else { return }
+        let journalDelta = finalState.lastLogicalTimeMillis
+            - pressureJitterEnergyProbeInitialLogicalTime
+        let stableMillis: Int64?
+        if case let .pressure(progress)? = finalState.activeChapter?
+            .interaction?.progress {
+            stableMillis = progress.stableMillis
+        } else {
+            stableMillis = nil
+        }
+        let accepted = pressureJitterEnergyProbeAcceptedCount
+        let queueStayedBounded = accepted == 6
+            && pressureJitterEnergyProbeMaximumReservations <= 8
+        let passed = pressureJitterEnergyProbeOutsideNeutralized
+            && pressureJitterEnergyProbeProtectedExitCount == 3
+            && pressureJitterEnergyProbeDroppedHoldCount == 1
+            && pressureJitterEnergyProbeAcceptedHoldCount == 0
+            && queueStayedBounded
+            && pressureJitterEnergyProbePerformedCount == accepted
+            && pressureJitterEnergyProbeCompletedCount == accepted
+            && journalDelta == Int64(accepted)
+            && stableMillis == 0
+        continuousInputEnergyDiagnosticForTesting =
+            pressureJitterEnergyProbeDiagnosticPrefix
+            + "realPressure=raw:127,protectedExits:"
+            + "\(pressureJitterEnergyProbeProtectedExitCount),"
+            + "accepted:\(accepted),"
+            + "performed:\(pressureJitterEnergyProbePerformedCount),"
+            + "completed:\(pressureJitterEnergyProbeCompletedCount),"
+            + "journal:\(journalDelta),"
+            + "maxReservations:"
+            + "\(pressureJitterEnergyProbeMaximumReservations),"
+            + "outsideNeutral:\(pressureJitterEnergyProbeOutsideNeutralized ? 1 : 0),"
+            + "invalidatedHoldDropped:"
+            + "\(pressureJitterEnergyProbeDroppedHoldCount),"
+            + "holdCredit:"
+            + "\(pressureJitterEnergyProbeAcceptedHoldCount * 250),"
+            + "stableMillis:\(stableMillis.map(String.init) ?? "none");"
+            + "result=\(passed ? "pass" : "fail")"
+        pressureJitterEnergyProbeIsRunning = false
     }
 
     private var inputFIFOProbeUsesRightAngleTraceForTesting: Bool {
@@ -415,10 +1048,16 @@ final class ProductionChapterRouteSession: ObservableObject {
 #endif
         responsiveAudioRouteKey = nil
         desiredResponsiveAudioPhase = nil
+        lastMeaningfulResponsiveAudioPhaseForLifecycle = nil
+        if pendingPhysicalPauseRefresh?.identity != identity {
+            responsiveAudioPhaseCapturedAtSceneExit = nil
+            responsiveAudioPhaseCaptureIdentity = nil
+        }
         inputTask = nil
         pendingInputs.removeAll(keepingCapacity: false)
         currentInput = nil
         deferredContinuousInputs.removeAll(keepingCapacity: false)
+        resetContinuousInputSampling()
         inputIsPending = false
         alphaSampler.purge()
         alphaSampler = SceneImageAlphaMaskSampler()
@@ -592,6 +1231,7 @@ final class ProductionChapterRouteSession: ObservableObject {
         discardDeferredInputFIFOProbeForTesting()
 #endif
         deferredContinuousInputs.removeAll(keepingCapacity: false)
+        resetContinuousInputSampling()
         guard inputTask == nil else { return }
         finishDeactivation()
     }
@@ -613,8 +1253,10 @@ final class ProductionChapterRouteSession: ObservableObject {
         pendingInputs.removeAll(keepingCapacity: false)
         currentInput = nil
         deferredContinuousInputs.removeAll(keepingCapacity: false)
+        resetContinuousInputSampling()
         inputIsPending = false
         pendingPhysicalPauseRefresh = nil
+        clearRememberedResponsiveAudioLifecyclePhase()
         runtime = nil
         identity = nil
         model = nil
@@ -684,6 +1326,12 @@ final class ProductionChapterRouteSession: ObservableObject {
         _ intent: SceneTouchIntent,
         expectedIdentity: ChapterRuntimeRouteIdentity
     ) {
+#if DEBUG
+        if pressureHoldLifecycleProbeIsEnabledForTesting,
+           case .holdPressure = intent {
+            pressureHoldAttemptCountForTesting += 1
+        }
+#endif
         let isAdmitted = admitsInput(for: expectedIdentity)
 #if DEBUG
         let intentDiagnostic = chapterTouchIntentDiagnosticForTesting(intent)
@@ -697,6 +1345,47 @@ final class ProductionChapterRouteSession: ObservableObject {
         guard isAdmitted,
               let model else { return }
         let input = PendingInput.touch(intent)
+#if DEBUG
+        let bypassesJournalCadence =
+            inputFIFOProbeOrdinalForTesting(input) != nil
+#else
+        let bypassesJournalCadence = false
+#endif
+        if !bypassesJournalCadence {
+            let previewOutcome = previewContinuousJournalInput(
+                input,
+                publishesVisualResponse: true
+            )
+            switch previewOutcome {
+            case let .classified(protection):
+#if DEBUG
+                recordPressureJitterProtectionForTesting(protection)
+#endif
+                let capturedAt = DispatchTime.now().uptimeNanoseconds
+                let candidate = DeferredContinuousInput(
+                    input: input,
+                    owner: model,
+                    identity: expectedIdentity,
+                    protection: protection,
+                    capturedAtMonotonicNanoseconds: capturedAt
+                )
+                latestContinuousJournalInput = candidate
+                guard continuousInputRatePolicy.admits(
+                    protection,
+                    capturedAtMonotonicNanoseconds: capturedAt
+                ) else {
+                    replaceRateLimitedContinuousInput(with: candidate)
+                    return
+                }
+                coalesceRateLimitedContinuousInput()
+                submitContinuousInputCandidate(candidate)
+                return
+            case .ignored, .routeFailed:
+                return
+            case .notApplicable:
+                break
+            }
+        }
         if input.isContinuousTransportSample,
            acceptedContinuousInputCount
                 >= maximumAcceptedContinuousInputs {
@@ -708,16 +1397,39 @@ final class ProductionChapterRouteSession: ObservableObject {
                 input: input,
                 owner: model,
                 identity: expectedIdentity,
-                tracePriority: traceDeferredSamplePriority(for: input)
+                protection: protection(
+                    for: traceDeferredSamplePriority(for: input)
+                ),
+                capturedAtMonotonicNanoseconds:
+                    DispatchTime.now().uptimeNanoseconds
             )
             deferContinuousInput(candidate)
             return
         }
         if !input.isContinuousTransportSample,
-           !promoteDeferredContinuousInputIfNeeded() {
+           !drainContinuousInputBeforeBoundary(
+               expectedIdentity: expectedIdentity
+           ) {
             return
         }
-        _ = acceptInput(input, owner: model, identity: expectedIdentity)
+        if case .touch(.holdPressure) = input,
+           pressureInputProtectionPolicy.consumeInvalidatedHoldEpoch() {
+#if DEBUG
+            recordPressureJitterDroppedInvalidatedHoldForTesting()
+#endif
+            return
+        }
+        let accepted = acceptInput(
+            input,
+            owner: model,
+            identity: expectedIdentity,
+            protection: input.isContinuousTransportSample
+                ? protection(for: traceDeferredSamplePriority(for: input))
+                : .terminal
+        )
+        if accepted, case .touch(.holdPressure) = input {
+            pressureInputProtectionPolicy.beginNextHoldEpoch()
+        }
     }
 
     func submitVoiceOver(
@@ -726,12 +1438,54 @@ final class ProductionChapterRouteSession: ObservableObject {
         expectedIdentity: ChapterRuntimeRouteIdentity
     ) {
         guard admitsInput(for: expectedIdentity), let model else { return }
-        guard promoteDeferredContinuousInputIfNeeded() else { return }
-        _ = acceptInput(
+        guard drainContinuousInputBeforeBoundary(
+            expectedIdentity: expectedIdentity
+        ) else { return }
+        if authoredAction.token == .holdPressure,
+           pressureInputProtectionPolicy.consumeInvalidatedHoldEpoch() {
+#if DEBUG
+            recordPressureJitterDroppedInvalidatedHoldForTesting()
+#endif
+            return
+        }
+        let accepted = acceptInput(
             .semantic(elementID: elementID, action: authoredAction),
             owner: model,
-            identity: expectedIdentity
+            identity: expectedIdentity,
+            protection: .terminal
         )
+        if accepted, authoredAction.token == .holdPressure {
+            pressureInputProtectionPolicy.beginNextHoldEpoch()
+        }
+    }
+
+    /// Finger-up turns the newest coalesced journal sample into an accepted
+    /// FIFO reservation before the gesture state disappears.
+    func endContinuousTouchGesture(
+        expectedIdentity: ChapterRuntimeRouteIdentity
+    ) {
+        _ = drainContinuousInputBeforeBoundary(
+            expectedIdentity: expectedIdentity
+        )
+        latestContinuousJournalInput = nil
+        pressureInputProtectionPolicy.reset()
+        neutralizeContinuousTouchPreview()
+    }
+
+    /// `willResignActive` arrives before the root lifecycle gate closes. This
+    /// synchronous call creates reservations for every bounded sample that
+    /// must precede the model's suspension flush; the flush then waits for the
+    /// existing reservation gate exactly as it does for ordinary accepted
+    /// input.
+    func drainContinuousInputBeforeLifecycle(
+        expectedIdentity: ChapterRuntimeRouteIdentity
+    ) {
+        _ = drainContinuousInputBeforeBoundary(
+            expectedIdentity: expectedIdentity
+        )
+        latestContinuousJournalInput = nil
+        pressureInputProtectionPolicy.reset()
+        neutralizeContinuousTouchPreview()
     }
 
     /// The same explicit action serves touch and VoiceOver. A new chapter
@@ -820,18 +1574,83 @@ final class ProductionChapterRouteSession: ObservableObject {
             }
             return
         }
+        let capturedPhase = if responsiveAudioPhaseCaptureIdentity
+            == expectedIdentity {
+            responsiveAudioPhaseCapturedAtSceneExit
+        } else {
+            lastMeaningfulResponsiveAudioPhaseForLifecycle
+        }
         let candidate = PendingPhysicalPauseRefresh(
             event: pauseEvent,
             modelIdentifier: ObjectIdentifier(model),
-            identity: expectedIdentity
+            identity: expectedIdentity,
+            responsiveAudioPhase: capturedPhase
         )
-        if pendingPhysicalPauseRefresh?.event.generation
-            ?? 0 <= pauseEvent.generation {
+        if let pendingPhysicalPauseRefresh {
+            if pendingPhysicalPauseRefresh.modelIdentifier
+                != ObjectIdentifier(model)
+                || pendingPhysicalPauseRefresh.identity != expectedIdentity
+                || pendingPhysicalPauseRefresh.event.generation
+                    < pauseEvent.generation {
+                self.pendingPhysicalPauseRefresh = candidate
+            }
+        } else {
             pendingPhysicalPauseRefresh = candidate
         }
         guard self.model === model, identity == expectedIdentity else { return }
         requireExplicitResponsiveAudioResume()
         startPendingPhysicalPauseRefreshIfReady()
+    }
+
+    /// Captures transient presentation state before the root lifecycle handler
+    /// can rebuild the route. SwiftUI does not guarantee parent/child observer
+    /// order, so an already-published matching event is upgraded in place too.
+    func captureResponsiveAudioPhaseAtSceneExit() {
+        guard let identity,
+              let phase = lastMeaningfulResponsiveAudioPhaseForLifecycle else {
+            responsiveAudioPhaseCapturedAtSceneExit = nil
+            responsiveAudioPhaseCaptureIdentity = nil
+            return
+        }
+        responsiveAudioPhaseCapturedAtSceneExit = phase
+        responsiveAudioPhaseCaptureIdentity = identity
+        guard let pendingPhysicalPauseRefresh,
+              pendingPhysicalPauseRefresh.identity == identity,
+              pendingPhysicalPauseRefresh.responsiveAudioPhase == nil else {
+            return
+        }
+        self.pendingPhysicalPauseRefresh = PendingPhysicalPauseRefresh(
+            event: pendingPhysicalPauseRefresh.event,
+            modelIdentifier: pendingPhysicalPauseRefresh.modelIdentifier,
+            identity: identity,
+            responsiveAudioPhase: phase
+        )
+    }
+
+    /// Silent playback has no active transport to publish an audio pause event.
+    /// Reapply only the phase captured by this same live view when the scene
+    /// returns; a new process or a different route has no such capture.
+    func restoreResponsiveAudioPhaseAfterSceneActivation(
+        expectedIdentity: ChapterRuntimeRouteIdentity
+    ) {
+        guard identity == expectedIdentity,
+              responsiveAudioPhaseCaptureIdentity == expectedIdentity,
+              let capturedPhase = responsiveAudioPhaseCapturedAtSceneExit,
+              presentation?.cursor.responsiveAudioProgram != nil,
+              presentation?.journeyState.activeChapter?.interaction?.phase
+                != .complete else {
+            return
+        }
+        if pendingPhysicalPauseRefresh != nil
+            || lifecyclePresentationRefreshIsPending {
+            // The exact physical refresh publishes the capture after its
+            // durability and compositor barriers instead.
+            return
+        }
+        desiredResponsiveAudioPhase = capturedPhase
+        lastMeaningfulResponsiveAudioPhaseForLifecycle = capturedPhase
+        responsiveAudioPhaseCapturedAtSceneExit = nil
+        responsiveAudioPhaseCaptureIdentity = nil
     }
 
     private func capturePendingPhysicalPauseRefreshIfNeeded(
@@ -844,18 +1663,31 @@ final class ProductionChapterRouteSession: ObservableObject {
             || pendingPhysicalPauseRefresh.identity != identity {
             self.pendingPhysicalPauseRefresh = nil
         }
+        if responsiveAudioPhaseCaptureIdentity != nil,
+           responsiveAudioPhaseCaptureIdentity != identity {
+            responsiveAudioPhaseCapturedAtSceneExit = nil
+            responsiveAudioPhaseCaptureIdentity = nil
+        }
         guard let event = model.pendingChapterRuntimePhysicalPauseEvent(
             for: identity
         ) else {
             pendingPhysicalPauseRefresh = nil
             return
         }
+        // Preserve an exact event already captured by handlePhysicalPause.
+        // Activation can reset the live-session latch while rebuilding the
+        // route; replacing on equality would then lose the pre-pause phase.
+        if pendingPhysicalPauseRefresh?.event == event {
+            return
+        }
         if pendingPhysicalPauseRefresh?.event.generation ?? 0
-            <= event.generation {
+            < event.generation {
             pendingPhysicalPauseRefresh = PendingPhysicalPauseRefresh(
                 event: event,
                 modelIdentifier: modelIdentifier,
-                identity: identity
+                identity: identity,
+                responsiveAudioPhase:
+                    lastMeaningfulResponsiveAudioPhaseForLifecycle
             )
         }
     }
@@ -941,7 +1773,15 @@ final class ProductionChapterRouteSession: ObservableObject {
                 self.presentation = restored
                 self.adoptResponsiveAudioPresentation(
                     restored,
-                    identity: pending.identity
+                    identity: pending.identity,
+                    sameProcessLifecyclePhase:
+                        pending.responsiveAudioPhase
+                        ?? (self.responsiveAudioPhaseCaptureIdentity
+                            == pending.identity
+                            ? self.responsiveAudioPhaseCapturedAtSceneExit
+                            : nil)
+                        ?? self
+                            .lastMeaningfulResponsiveAudioPhaseForLifecycle
                 )
                 guard model.completeChapterRuntimePhysicalPauseRefresh(
                     pending.event,
@@ -952,6 +1792,8 @@ final class ProductionChapterRouteSession: ObservableObject {
                 if self.pendingPhysicalPauseRefresh == pending {
                     self.pendingPhysicalPauseRefresh = nil
                 }
+                self.responsiveAudioPhaseCapturedAtSceneExit = nil
+                self.responsiveAudioPhaseCaptureIdentity = nil
 #if DEBUG
                 self.responsiveAudioBindingReadyForTesting =
                     "ready;stage=physical-pause;generation=\(generation);"
@@ -1514,6 +2356,204 @@ final class ProductionChapterRouteSession: ObservableObject {
             }
     }
 
+    private func previewContinuousJournalInput(
+        _ input: PendingInput,
+        publishesVisualResponse: Bool
+    ) -> ContinuousInputPreviewOutcome {
+        guard case let .touch(intent) = input else {
+            return .notApplicable
+        }
+        switch intent {
+        case .trace, .adjustTarget:
+            break
+        default:
+            return .notApplicable
+        }
+        guard let runtime, let displayedPresentation = presentation else {
+            // Admission said the route was ready, so losing either authority
+            // here is not ordinary motion. Preserve the raw observation at the
+            // durable boundary instead of hiding it behind the 200 ms cadence.
+            return .classified(.previewUnavailable)
+        }
+        do {
+            let preview = try runtime.controller.previewContinuousTouch(
+                intent,
+                displayedFramePlan: displayedPresentation.framePlan,
+                alphaSampler: alphaSampler
+            )
+            if publishesVisualResponse {
+                let compositorState = compositor.update(
+                    preview.presentation.framePlan
+                )
+                guard case .sceneReady = compositorState else {
+                    routeReplacementIsPending = true
+                    failure = ProductionChapterRouteFailure(
+                        kind: .rendererUnavailable,
+                        assetAuthority: nil
+                    )
+                    return .routeFailed
+                }
+                presentation = preview.presentation
+            }
+            return .classified(protection(for: preview.semantic))
+        } catch let error as SceneTouchActionResolverError {
+            switch error {
+            case .targetNotHit, .wrongTarget:
+#if DEBUG
+                chapterInputResolutionDiagnosticForTesting =
+                    "continuous-preview-outside-authored-target"
+#endif
+                return neutralizeContinuousTouchPreview()
+                    ? .ignored : .routeFailed
+            default:
+#if DEBUG
+                chapterInputResolutionDiagnosticForTesting =
+                    "continuous-preview-fallback:\(String(reflecting: error))"
+#endif
+                return .classified(.previewUnavailable)
+            }
+        } catch let error as ChapterSceneRuntimeControllerError
+            where error == .unsupportedContinuousTouchPreview {
+#if DEBUG
+            chapterInputResolutionDiagnosticForTesting =
+                "continuous-preview-no-causal-motion"
+#endif
+            return neutralizeContinuousTouchPreview()
+                ? .ignored : .routeFailed
+        } catch {
+#if DEBUG
+            chapterInputResolutionDiagnosticForTesting =
+                "continuous-preview-fallback:\(String(reflecting: error))"
+#endif
+            return .classified(.previewUnavailable)
+        }
+    }
+
+    private func protection(
+        for semantic: ChapterSceneContinuousTouchSemantic
+    ) -> ContinuousInputProtection {
+        switch semantic {
+        case .ordinary:
+            return .ordinary
+        case let .traceAnchor(index):
+            return protection(
+                for: unresolvedTracePriority(
+                    TraceDeferredSamplePriority(protectedAnchorIndex: index)
+                )
+            )
+        case let .pressureStabilityBoundary(isStable):
+            return pressureInputProtectionPolicy.protection(
+                isStable: isStable
+            )
+        case let .transformStage(index):
+            return .transformStage(index)
+        }
+    }
+
+    private func protection(
+        for tracePriority: TraceDeferredSamplePriority
+    ) -> ContinuousInputProtection {
+        guard let anchorIndex = tracePriority.protectedAnchorIndex else {
+            return .ordinary
+        }
+        return .traceAnchor(anchorIndex)
+    }
+
+    private func submitContinuousInputCandidate(
+        _ candidate: DeferredContinuousInput
+    ) {
+        guard acceptedContinuousInputCount
+                < maximumAcceptedContinuousInputs else {
+            deferContinuousInput(candidate)
+            return
+        }
+        guard acceptInput(
+            candidate.input,
+            owner: candidate.owner,
+            identity: candidate.identity,
+            protection: candidate.protection
+        ) else {
+            failClosedContinuousInputAuthority()
+            return
+        }
+    }
+
+    private func replaceRateLimitedContinuousInput(
+        with candidate: DeferredContinuousInput
+    ) {
+        if let replaced = rateLimitedContinuousInput {
+#if DEBUG
+            coalesceInputFIFOProbeForTesting(replaced.input)
+#endif
+        }
+        rateLimitedContinuousInput = candidate
+    }
+
+    private func coalesceRateLimitedContinuousInput() {
+        guard let replaced = rateLimitedContinuousInput else { return }
+#if DEBUG
+        coalesceInputFIFOProbeForTesting(replaced.input)
+#endif
+        rateLimitedContinuousInput = nil
+    }
+
+    private func resetContinuousInputSampling() {
+        rateLimitedContinuousInput = nil
+        latestContinuousJournalInput = nil
+        continuousInputRatePolicy.reset()
+        pressureInputProtectionPolicy.reset()
+        runtime?.controller.resetContinuousTouchPreview()
+    }
+
+    /// Removes response material from the exact presentation already on screen.
+    /// It performs no file access and never jumps to a newer controller state
+    /// whose textures may still be behind the route's prepare barrier.
+    @discardableResult
+    private func neutralizeContinuousTouchPreview() -> Bool {
+        guard let runtime, let displayedPresentation = presentation else {
+            return false
+        }
+        do {
+            let neutral = try runtime.controller
+                .neutralizeContinuousTouchPreview(
+                    displayedPresentation: displayedPresentation
+                )
+            let compositorState = compositor.update(neutral.framePlan)
+            guard case .sceneReady = compositorState else {
+                routeReplacementIsPending = true
+                failure = ProductionChapterRouteFailure(
+                    kind: .rendererUnavailable,
+                    assetAuthority: nil
+                )
+                return false
+            }
+            cancelEphemeralResponseCleanup()
+            presentation = neutral
+            return true
+        } catch {
+            failClosedContinuousInputAuthority()
+#if DEBUG
+            failureDiagnosticForTesting =
+                "continuous-preview-neutralization:\(String(reflecting: error))"
+#endif
+            return false
+        }
+    }
+
+    private func failClosedContinuousInputAuthority() {
+        routeReplacementIsPending = true
+        rateLimitedContinuousInput = nil
+        latestContinuousJournalInput = nil
+        failure = ProductionChapterRouteFailure(
+            kind: .authorityUnavailable,
+            assetAuthority: nil
+        )
+#if DEBUG
+        failureDiagnosticForTesting =
+            "continuous-input-authority-unavailable"
+#endif
+    }
+
     private func traceDeferredSamplePriority(
         for input: PendingInput
     ) -> TraceDeferredSamplePriority {
@@ -1550,6 +2590,9 @@ final class ProductionChapterRouteSession: ObservableObject {
         let acceptedAnchorIndices = Set(
             ([currentInput].compactMap { $0 } + pendingInputs)
                 .compactMap { $0.tracePriority.protectedAnchorIndex }
+                + deferredContinuousInputs.compactMap {
+                    $0.tracePriority.protectedAnchorIndex
+                }
         )
         return acceptedAnchorIndices.contains(anchorIndex)
             ? TraceDeferredSamplePriority()
@@ -1559,10 +2602,16 @@ final class ProductionChapterRouteSession: ObservableObject {
     private func deferContinuousInput(
         _ candidate: DeferredContinuousInput
     ) {
-        let candidatePriority = unresolvedTracePriority(
-            candidate.tracePriority
-        )
-        if let anchorIndex = candidatePriority.protectedAnchorIndex {
+        if candidate.tracePriority.protectedAnchorIndex != nil {
+            let candidatePriority = unresolvedTracePriority(
+                candidate.tracePriority
+            )
+            guard let anchorIndex = candidatePriority.protectedAnchorIndex else {
+#if DEBUG
+                coalesceInputFIFOProbeForTesting(candidate.input)
+#endif
+                return
+            }
             guard anchorIndex == nextMissingDeferredTraceAnchorIndex() else {
 #if DEBUG
                 coalesceInputFIFOProbeForTesting(candidate.input)
@@ -1570,10 +2619,21 @@ final class ProductionChapterRouteSession: ObservableObject {
                 return
             }
             guard deferredContinuousInputs.count
-                    < TraceInteractionSpec.maximumAnchorCount + 1 else {
+                    < maximumDeferredContinuousInputs else {
+                failClosedContinuousInputAuthority()
+                return
+            }
+            deferredContinuousInputs.append(candidate)
 #if DEBUG
-                coalesceInputFIFOProbeForTesting(candidate.input)
+            appendDeferredInputFIFOProbeForTesting(candidate.input)
 #endif
+            return
+        }
+
+        if candidate.protection.isProtected {
+            guard deferredContinuousInputs.count
+                    < maximumDeferredContinuousInputs else {
+                failClosedContinuousInputAuthority()
                 return
             }
             deferredContinuousInputs.append(candidate)
@@ -1584,7 +2644,7 @@ final class ProductionChapterRouteSession: ObservableObject {
         }
 
         if let ordinaryIndex = deferredContinuousInputs.firstIndex(where: {
-            unresolvedTracePriority($0.tracePriority).protectedAnchorIndex == nil
+            !$0.protection.isProtected
         }) {
             let replaced = deferredContinuousInputs.remove(at: ordinaryIndex)
 #if DEBUG
@@ -1592,10 +2652,8 @@ final class ProductionChapterRouteSession: ObservableObject {
 #endif
         }
         guard deferredContinuousInputs.count
-                < TraceInteractionSpec.maximumAnchorCount + 1 else {
-#if DEBUG
-            coalesceInputFIFOProbeForTesting(candidate.input)
-#endif
+                < maximumDeferredContinuousInputs else {
+            failClosedContinuousInputAuthority()
             return
         }
         deferredContinuousInputs.append(candidate)
@@ -1638,7 +2696,8 @@ final class ProductionChapterRouteSession: ObservableObject {
     private func acceptInput(
         _ input: PendingInput,
         owner: JourneyModel,
-        identity: ChapterRuntimeRouteIdentity
+        identity: ChapterRuntimeRouteIdentity,
+        protection: ContinuousInputProtection
     ) -> Bool {
         guard let reservation = owner.reserveChapterRuntimeInput(identity)
         else { return false }
@@ -1646,7 +2705,8 @@ final class ProductionChapterRouteSession: ObservableObject {
             input,
             reservation: reservation,
             owner: owner,
-            identity: identity
+            identity: identity,
+            protection: protection
         )
         return true
     }
@@ -1678,7 +2738,8 @@ final class ProductionChapterRouteSession: ObservableObject {
         let wasAccepted = acceptInput(
             deferredContinuousInput.input,
             owner: deferredContinuousInput.owner,
-            identity: deferredContinuousInput.identity
+            identity: deferredContinuousInput.identity,
+            protection: deferredContinuousInput.protection
         )
         guard wasAccepted else {
             deferredContinuousInputs.insert(deferredContinuousInput, at: 0)
@@ -1701,11 +2762,119 @@ final class ProductionChapterRouteSession: ObservableObject {
         return deferredContinuousInputs.isEmpty
     }
 
+    /// Reserves the complete content-bounded deferred sequence before a
+    /// semantic boundary. Normal worker draining still promotes only one
+    /// entry at a time, preserving the eight-reservation transport cap during
+    /// ordinary motion.
+    private func drainContinuousInputBeforeBoundary(
+        expectedIdentity: ChapterRuntimeRouteIdentity
+    ) -> Bool {
+        guard admitsInput(for: expectedIdentity),
+              let model,
+              self.model === model else { return false }
+
+        while let deferredContinuousInput =
+            deferredContinuousInputs.first {
+            guard deferredContinuousInput.identity == expectedIdentity,
+                  deferredContinuousInput.owner === model else {
+                failClosedContinuousInputAuthority()
+                return false
+            }
+            deferredContinuousInputs.removeFirst()
+#if DEBUG
+            promoteDeferredInputFIFOProbeForTesting(
+                deferredContinuousInput.input
+            )
+#endif
+            guard acceptInput(
+                deferredContinuousInput.input,
+                owner: model,
+                identity: expectedIdentity,
+                protection: deferredContinuousInput.protection
+            ) else {
+                deferredContinuousInputs.insert(
+                    deferredContinuousInput,
+                    at: 0
+                )
+                failClosedContinuousInputAuthority()
+                return false
+            }
+        }
+
+        if let finalSample = rateLimitedContinuousInput {
+            guard finalSample.identity == expectedIdentity,
+                  finalSample.owner === model else {
+                failClosedContinuousInputAuthority()
+                return false
+            }
+            guard acceptInput(
+                finalSample.input,
+                owner: model,
+                identity: expectedIdentity,
+                protection: .terminal
+            ) else {
+                failClosedContinuousInputAuthority()
+                return false
+            }
+            rateLimitedContinuousInput = nil
+            continuousInputRatePolicy.recordProtectedFlush(
+                capturedAtMonotonicNanoseconds:
+                    DispatchTime.now().uptimeNanoseconds
+            )
+        }
+
+        return drainProjectedTransformThresholds(
+            model: model,
+            expectedIdentity: expectedIdentity
+        )
+    }
+
+    /// One large drag observation can clear several authored stages only when
+    /// those stages share the contacted target. Replaying that exact final
+    /// observation once per projected stage preserves their reducer order
+    /// without retaining raw display-rate samples.
+    private func drainProjectedTransformThresholds(
+        model: JourneyModel,
+        expectedIdentity: ChapterRuntimeRouteIdentity
+    ) -> Bool {
+        guard let latestContinuousJournalInput,
+              latestContinuousJournalInput.identity == expectedIdentity,
+              latestContinuousJournalInput.owner === model,
+              case .touch(.adjustTarget) =
+                latestContinuousJournalInput.input else {
+            return true
+        }
+        var replayCount = 0
+        while replayCount < maximumDeferredContinuousInputs {
+            guard case let .classified(
+                .transformStage(stageIndex)
+            ) = previewContinuousJournalInput(
+                latestContinuousJournalInput.input,
+                publishesVisualResponse: false
+            ) else {
+                return true
+            }
+            guard acceptInput(
+                latestContinuousJournalInput.input,
+                owner: model,
+                identity: expectedIdentity,
+                protection: .transformStage(stageIndex)
+            ) else {
+                failClosedContinuousInputAuthority()
+                return false
+            }
+            replayCount += 1
+        }
+        failClosedContinuousInputAuthority()
+        return false
+    }
+
     private func enqueue(
         _ input: PendingInput,
         reservation: ChapterRuntimeInputReservationGate.Token,
         owner: JourneyModel,
-        identity: ChapterRuntimeRouteIdentity
+        identity: ChapterRuntimeRouteIdentity,
+        protection: ContinuousInputProtection
     ) {
         guard runtime != nil,
               self.identity == identity,
@@ -1728,10 +2897,11 @@ final class ProductionChapterRouteSession: ObservableObject {
             reservation: reservation,
             reservationOwner: owner,
             identity: identity,
-            tracePriority: traceDeferredSamplePriority(for: input)
+            protection: protection
         )
         inputReservationOwners[reservation] = owner
 #if DEBUG
+        recordPressureJitterAcceptedInputForTesting(input)
         acceptInputFIFOProbeForTesting(input)
 #endif
         guard !inputIsPending else {
@@ -1798,6 +2968,9 @@ final class ProductionChapterRouteSession: ObservableObject {
         }
         let model = reservationOwner
 #if DEBUG
+        recordPressureJitterPerformedInputForTesting(
+            instrumentedInput.input
+        )
         model.recordContentAuthorityBarrierInputMilestoneForTesting(
             "perform",
             identity: identity
@@ -1851,6 +3024,9 @@ final class ProductionChapterRouteSession: ObservableObject {
             }
             presentation = next
 #if DEBUG
+            recordPressureJitterCompletedInputForTesting(
+                instrumentedInput.input
+            )
             model.recordContentAuthorityBarrierInputMilestoneForTesting(
                 "presented",
                 identity: identity
@@ -2022,7 +3198,9 @@ final class ProductionChapterRouteSession: ObservableObject {
 
     private func adoptResponsiveAudioPresentation(
         _ presentation: ChapterScenePresentation,
-        identity: ChapterRuntimeRouteIdentity
+        identity: ChapterRuntimeRouteIdentity,
+        sameProcessLifecyclePhase:
+            ResponsiveInteractionAudioPhase? = nil
     ) {
         guard let program = presentation.cursor.responsiveAudioProgram else {
             if responsiveAudioRouteKey != nil {
@@ -2041,6 +3219,7 @@ final class ProductionChapterRouteSession: ObservableObject {
 #endif
             }
             desiredResponsiveAudioPhase = nil
+            clearRememberedResponsiveAudioLifecyclePhase()
             return
         }
         let nextKey = ResponsiveAudioRouteKey(
@@ -2074,6 +3253,7 @@ final class ProductionChapterRouteSession: ObservableObject {
             responsiveAudioPlaybackTask = nil
             responsiveAudioRouteKey = nextKey
             desiredResponsiveAudioPhase = nil
+            clearRememberedResponsiveAudioLifecyclePhase()
             let action = responsiveAudioPolicy.bind(
                 chapterID: identity.chapterID,
                 hasResponsiveAudio: true,
@@ -2103,12 +3283,41 @@ final class ProductionChapterRouteSession: ObservableObject {
                 }
             }
         }
-        desiredResponsiveAudioPhase = SceneResponsiveAudioPhaseResolver.phase(
+        let resolvedPhase = SceneResponsiveAudioPhaseResolver.phase(
             interactionPhase: presentation.journeyState.activeChapter?
                 .interaction?.phase,
             feedback: presentation.interactionFeedback,
             directManipulation: presentation.directManipulation
         )
+        guard let resolvedPhase else {
+            // Completion belongs to the durable consequence timeline and may
+            // never resurrect a transient phase from this view session.
+            desiredResponsiveAudioPhase = nil
+            clearRememberedResponsiveAudioLifecyclePhase()
+            return
+        }
+
+        if presentation.directManipulation?.outcome == .cancelled {
+            // A user-authored snap-back is an explicit return to waiting. The
+            // automatic response cleanup is not: it only removes a short-lived
+            // visual/audio response after an accepted action.
+            clearRememberedResponsiveAudioLifecyclePhase()
+        }
+
+        let presentedPhase = sameProcessLifecyclePhase ?? resolvedPhase
+        desiredResponsiveAudioPhase = presentedPhase
+        switch presentedPhase {
+        case .engaged, .resistance:
+            lastMeaningfulResponsiveAudioPhaseForLifecycle = presentedPhase
+        case .waiting:
+            break
+        }
+    }
+
+    private func clearRememberedResponsiveAudioLifecyclePhase() {
+        lastMeaningfulResponsiveAudioPhaseForLifecycle = nil
+        responsiveAudioPhaseCapturedAtSceneExit = nil
+        responsiveAudioPhaseCaptureIdentity = nil
     }
 
     private func scheduleEphemeralResponseCleanupIfNeeded(
@@ -2219,6 +3428,7 @@ final class ProductionChapterRouteSession: ObservableObject {
             inputIsPending = false
 #if DEBUG
             inputFIFOProbeTrackedOrdinalForTesting = nil
+            finalizePressureJitterEnergyProbeIfNeededForTesting()
 #endif
             if deactivationIsPending {
                 finishDeactivation()
@@ -2260,6 +3470,7 @@ final class ProductionChapterRouteSession: ObservableObject {
         discardDeferredInputFIFOProbeForTesting()
 #endif
         deferredContinuousInputs.removeAll(keepingCapacity: false)
+        resetContinuousInputSampling()
     }
 
     private func releaseChapterRuntimeInputReservation(
@@ -2313,6 +3524,8 @@ struct ProductionChapterView: View {
     @ObservedObject var model: JourneyModel
     @ObservedObject var session: ProductionChapterRouteSession
     let identity: ChapterRuntimeRouteIdentity
+    @Environment(\.scenePhase) private var scenePhase
+    @State private var continuousGestureCancellationEpoch: UInt64 = 0
 
     private var presentation: ChapterScenePresentation? {
         session.presentation(for: identity)
@@ -2328,6 +3541,77 @@ struct ProductionChapterView: View {
                     .accessibilityIdentifier("chapter-runtime-\(identity.chapterID)")
 
 #if DEBUG
+                if session.pressureHoldLifecycleProbeIsEnabledForTesting {
+                    Color.black.opacity(0.001)
+                        .frame(width: 1, height: 1)
+                        .accessibilityElement()
+                        .accessibilityLabel("Pressure hold lifecycle probe")
+                        .accessibilityValue(
+                            "attempts=\(session.pressureHoldAttemptCountForTesting)"
+                        )
+                        .accessibilityIdentifier(
+                            "pressure-hold-lifecycle-diagnostic"
+                        )
+                        .allowsHitTesting(false)
+
+                    Button("Start pressure hold lifecycle probe") {
+                        NotificationCenter.default.post(
+                            name: .pressureHoldLifecycleProbeStart,
+                            object: nil
+                        )
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.orange)
+                    .frame(width: 300, height: 44)
+                    .accessibilityIdentifier(
+                        "pressure-hold-lifecycle-start"
+                    )
+                    .frame(
+                        maxWidth: .infinity,
+                        maxHeight: .infinity,
+                        alignment: .top
+                    )
+                    .padding(.top, geometry.safeAreaInsets.top + 64)
+                    .zIndex(2_000)
+                }
+
+                if session.continuousInputEnergyProbeIsEnabledForTesting {
+                    Color.black.opacity(0.001)
+                        .frame(width: 1, height: 1)
+                        .accessibilityElement()
+                        .accessibilityLabel("Continuous input energy probe")
+                        .accessibilityValue(
+                            session.continuousInputEnergyDiagnosticForTesting
+                        )
+                        .accessibilityIdentifier(
+                            "continuous-input-energy-diagnostic"
+                        )
+                        .allowsHitTesting(false)
+
+                    Button("Run continuous input energy probe") {
+                        session.runContinuousInputEnergyProbeForTesting(
+                            expectedIdentity: identity
+                        )
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.orange)
+                    .frame(width: 280, height: 44)
+                    .disabled(
+                        session.inputIsPending
+                            || session.lifecyclePresentationRefreshIsPending
+                    )
+                    .accessibilityIdentifier(
+                        "continuous-input-energy-run"
+                    )
+                    .frame(
+                        maxWidth: .infinity,
+                        maxHeight: .infinity,
+                        alignment: .top
+                    )
+                    .padding(.top, geometry.safeAreaInsets.top + 64)
+                    .zIndex(2_000)
+                }
+
                 if session.inputFIFOProbeIsEnabledForTesting {
                     Color.black.opacity(0.001)
                         .frame(width: 1, height: 1)
@@ -2405,9 +3689,16 @@ struct ProductionChapterView: View {
                         .accessibilityHidden(true)
                         ChapterTouchSurface(
                             presentation: presentation,
+                            cancellationEpoch:
+                                continuousGestureCancellationEpoch,
                             submit: { intent in
                                 session.submitTouch(
                                     intent,
+                                    expectedIdentity: identity
+                                )
+                            },
+                            endGesture: {
+                                session.endContinuousTouchGesture(
                                     expectedIdentity: identity
                                 )
                             }
@@ -2607,6 +3898,29 @@ struct ProductionChapterView: View {
                 model: model,
                 expectedIdentity: identity
             )
+        }
+        .onReceive(
+            NotificationCenter.default.publisher(
+                for: UIApplication.willResignActiveNotification
+            )
+        ) { _ in
+            continuousGestureCancellationEpoch &+= 1
+            session.drainContinuousInputBeforeLifecycle(
+                expectedIdentity: identity
+            )
+        }
+        .onChange(of: scenePhase) { _, phase in
+            if phase == .active {
+                session.restoreResponsiveAudioPhaseAfterSceneActivation(
+                    expectedIdentity: identity
+                )
+            } else {
+                continuousGestureCancellationEpoch &+= 1
+                session.drainContinuousInputBeforeLifecycle(
+                    expectedIdentity: identity
+                )
+                session.captureResponsiveAudioPhaseAtSceneExit()
+            }
         }
     }
 }
@@ -2876,24 +4190,42 @@ private struct SemanticControlElement: View {
 
 private struct ChapterTouchSurface: View {
     let presentation: ChapterScenePresentation
+    let cancellationEpoch: UInt64
     let submit: (SceneTouchIntent) -> Void
+    let endGesture: () -> Void
 
     var body: some View {
         if let interaction = presentation.cursor.beat.interaction,
            presentation.journeyState.activeChapter?.interaction?.phase != .complete {
             switch interaction.grammar {
             case .trace:
-                TraceTouchSurface(submit: submit)
+                TraceTouchSurface(
+                    submit: submit,
+                    endGesture: endGesture
+                )
             case .allocate:
-                AllocateTouchSurface(presentation: presentation, submit: submit)
+                AllocateTouchSurface(
+                    presentation: presentation,
+                    submit: submit,
+                    endGesture: endGesture
+                )
             case .assemble:
-                AssembleTouchSurface(presentation: presentation, submit: submit)
+                AssembleTouchSurface(
+                    presentation: presentation,
+                    submit: submit,
+                    endGesture: endGesture
+                )
             case .pressure:
-                PressureTouchSurface(submit: submit)
+                PressureTouchSurface(
+                    cancellationEpoch: cancellationEpoch,
+                    submit: submit,
+                    endGesture: endGesture
+                )
             case .transform:
                 TransformTouchSurface(
                     currentAmount: transformAmount(in: presentation),
-                    submit: submit
+                    submit: submit,
+                    endGesture: endGesture
                 )
             }
         }
@@ -2910,6 +4242,7 @@ private struct ChapterTouchSurface: View {
 
 private struct TraceTouchSurface: View {
     let submit: (SceneTouchIntent) -> Void
+    let endGesture: () -> Void
     @State private var sampleAdmission = TraceTouchSampleAdmissionPolicy()
 
     var body: some View {
@@ -2923,9 +4256,15 @@ private struct TraceTouchSurface: View {
                             guard sampleAdmission.admits(point) else { return }
                             submit(.trace(viewportPoint: point))
                         }
-                        .onEnded { _ in sampleAdmission.endGesture() }
+                        .onEnded { _ in
+                            sampleAdmission.endGesture()
+                            endGesture()
+                        }
                 )
-                .onDisappear { sampleAdmission.endGesture() }
+                .onDisappear {
+                    sampleAdmission.endGesture()
+                    endGesture()
+                }
         }
     }
 }
@@ -2954,6 +4293,7 @@ private struct TargetActivationTouchSurface: View {
 private struct AssembleTouchSurface: View {
     let presentation: ChapterScenePresentation
     let submit: (SceneTouchIntent) -> Void
+    let endGesture: () -> Void
 
     var body: some View {
         GeometryReader { geometry in
@@ -3002,6 +4342,7 @@ private struct AssembleTouchSurface: View {
                             }
                         }
                         .onEnded { value in
+                            defer { endGesture() }
                             let source = normalized(value.startLocation, in: geometry.size)
                             guard componentSourceHit(at: source) != nil else { return }
                             let current = normalized(value.location, in: geometry.size)
@@ -3025,6 +4366,7 @@ private struct AssembleTouchSurface: View {
                             }
                         }
                 )
+                .onDisappear { endGesture() }
         }
     }
 
@@ -3065,6 +4407,7 @@ private struct AssembleTouchSurface: View {
 private struct AllocateTouchSurface: View {
     let presentation: ChapterScenePresentation
     let submit: (SceneTouchIntent) -> Void
+    let endGesture: () -> Void
 
     var body: some View {
         GeometryReader { geometry in
@@ -3101,6 +4444,7 @@ private struct AllocateTouchSurface: View {
                             }
                         }
                         .onEnded { value in
+                            defer { endGesture() }
                             let source = normalized(value.startLocation, in: geometry.size)
                             let destination = normalized(value.location, in: geometry.size)
                             if destinationHit(at: source) != nil {
@@ -3124,6 +4468,7 @@ private struct AllocateTouchSurface: View {
                             )
                         }
                 )
+                .onDisappear { endGesture() }
         }
     }
 
@@ -3176,7 +4521,9 @@ private struct AllocateTouchSurface: View {
 }
 
 private struct PressureTouchSurface: View {
+    let cancellationEpoch: UInt64
     let submit: (SceneTouchIntent) -> Void
+    let endGesture: () -> Void
     @State private var heldPoint: SceneFramePoint?
     @State private var holdTask: Task<Void, Never>?
 
@@ -3197,9 +4544,39 @@ private struct PressureTouchSurface: View {
                             )
                             startHoldIfNeeded()
                         }
-                        .onEnded { _ in stopHold() }
+                        .onEnded { _ in
+                            stopHold()
+                            endGesture()
+                        }
                 )
-                .onDisappear { stopHold() }
+                .onDisappear {
+                    stopHold()
+                    endGesture()
+                }
+                .onChange(of: cancellationEpoch) { _, _ in
+                    stopHold()
+                    endGesture()
+                }
+                .onReceive(
+                    NotificationCenter.default.publisher(
+                        for: UIApplication.willResignActiveNotification
+                    )
+                ) { _ in
+                    // Stop synchronously on the earliest lifecycle signal so
+                    // the 250 ms loop cannot wake once more in background.
+                    stopHold()
+                    endGesture()
+                }
+#if DEBUG
+                .onReceive(
+                    NotificationCenter.default.publisher(
+                        for: .pressureHoldLifecycleProbeStart
+                    )
+                ) { _ in
+                    heldPoint = SceneFramePoint(x: 0.5, y: 0.5)
+                    startHoldIfNeeded()
+                }
+#endif
         }
     }
 
@@ -3224,6 +4601,7 @@ private struct PressureTouchSurface: View {
 private struct TransformTouchSurface: View {
     let currentAmount: Double
     let submit: (SceneTouchIntent) -> Void
+    let endGesture: () -> Void
 
     var body: some View {
         GeometryReader { geometry in
@@ -3241,7 +4619,9 @@ private struct TransformTouchSurface: View {
                                 )
                             )
                         }
+                        .onEnded { _ in endGesture() }
                 )
+                .onDisappear { endGesture() }
         }
     }
 }

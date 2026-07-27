@@ -23,15 +23,20 @@ async function main() {
     issues.push("delivery plan: locked schema/status required");
   }
   const budgets = plan.budgets ?? {};
-  if (!["shellAndEngineBytes", "essentialInstallBytes", "perPaidPackageBytes", "completeInstalledWorkBytes"]
+  if (!["shellAndEngineBytes", "essentialInstallBytes", "perPaidPackageBytes", "completeInstalledWorkBytes",
+    "responsiveAudioSteadyDecodedBytes", "responsiveAudioTransitionDecodedBytes"]
     .every((key) => Number.isSafeInteger(budgets[key]) && budgets[key] > 0)) {
-    issues.push("delivery plan: every size budget must be a positive safe integer");
+    issues.push("delivery plan: every storage and decoded-audio budget must be a positive safe integer");
   } else if (budgets.shellAndEngineBytes > 100_000_000
       || budgets.essentialInstallBytes > 750_000_000
       || budgets.perPaidPackageBytes > 750_000_000
       || budgets.completeInstalledWorkBytes > 6_000_000_000
-      || budgets.completeInstalledWorkBytes <= budgets.shellAndEngineBytes) {
-    issues.push("delivery plan: a locked size budget was exceeded");
+      || budgets.completeInstalledWorkBytes <= budgets.shellAndEngineBytes
+      || budgets.responsiveAudioSteadyDecodedBytes > 100_000_000
+      || budgets.responsiveAudioTransitionDecodedBytes > 200_000_000
+      || budgets.responsiveAudioTransitionDecodedBytes
+        < budgets.responsiveAudioSteadyDecodedBytes) {
+    issues.push("delivery plan: a locked storage or decoded-audio budget was exceeded");
   }
   if (plan.entitlement?.kind !== "NON_CONSUMABLE"
       || plan.entitlement?.entitlementID !== "launch-complete-work"

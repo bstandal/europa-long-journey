@@ -402,6 +402,54 @@ final class SceneMetalCompositorTests: XCTestCase {
     }
 
     @MainActor
+    func testTextureResidencyIsBoundedToTheActiveCompositionWithinOneScene() async throws {
+        guard let device = MTLCreateSystemDefaultDevice() else {
+            throw XCTSkip("The current test host exposes no Metal device.")
+        }
+        let fixture = try makeFixture()
+        let complete = try fixture.frame(reduceMotion: false)
+        let backgroundOnly = copy(
+            complete,
+            drawCommands: [try XCTUnwrap(complete.drawCommands.first)]
+        )
+        let mechanismOnly = copy(
+            complete,
+            drawCommands: [try XCTUnwrap(complete.drawCommands.last)]
+        )
+        let compositor = SceneMetalCompositor()
+        XCTAssertEqual(compositor.configure(device: device), .readyForScene)
+        let backgroundState = await compositor.prepare(backgroundOnly)
+        XCTAssertEqual(
+            backgroundState,
+            .sceneReady(
+                sceneID: complete.sceneID,
+                deterministicTick: complete.deterministicTick,
+                reduceMotion: false
+            )
+        )
+        let mechanismState = await compositor.prepare(mechanismOnly)
+        XCTAssertEqual(
+            mechanismState,
+            .sceneReady(
+                sceneID: complete.sceneID,
+                deterministicTick: complete.deterministicTick,
+                reduceMotion: false
+            )
+        )
+
+        try Data([0x00]).write(
+            to: fixture.root.appending(path: "assets/background.png"),
+            options: .atomic
+        )
+
+        let revisitedState = await compositor.prepare(backgroundOnly)
+        XCTAssertEqual(
+            revisitedState,
+            .failed(.assetVerificationFailed("assets/background.png"))
+        )
+    }
+
+    @MainActor
     func testPerFrameUpdateUsesPreparedTexturesWithoutReadingPackageFiles() async throws {
         guard let device = MTLCreateSystemDefaultDevice() else {
             throw XCTSkip("The current test host exposes no Metal device.")

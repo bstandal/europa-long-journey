@@ -5,9 +5,10 @@ import {
   createPublicKey,
   createVerify,
 } from 'node:crypto';
-import { createReadStream } from 'node:fs';
+import { constants as fileConstants } from 'node:fs';
 import {
   lstat,
+  open,
   readFile,
   readdir,
   realpath,
@@ -91,6 +92,10 @@ const trustResourceBasename = 'launch-package-trust.json';
 const essentialResourceParentDirectory = 'JourneyContent';
 const essentialPackageID = 'essential-free-v1';
 const essentialManifestBasename = 'package-manifest.json';
+const authoritativeDeliveryPlanURL = new URL('../blueprint/delivery-plan.json', import.meta.url);
+const lockedShellAndEngineMaximumBytes = 100_000_000;
+const lockedEssentialPackageMaximumBytes = 750_000_000;
+const lockedBaseInstallMaximumBytes = 850_000_000;
 const signatureAlgorithm = 'P-256-SHA256';
 const packageIntegrityHeader = 'long-west-package-v1';
 const lowercaseSHA256Pattern = /^[a-f0-9]{64}$/u;
@@ -138,6 +143,160 @@ function canonicalJSONBytes(value) {
 
 function sha256(bytes) {
   return createHash('sha256').update(bytes).digest('hex');
+}
+
+function addByteCount(total, value, description) {
+  if (!Number.isSafeInteger(total) || total < 0
+      || !Number.isSafeInteger(value) || value < 0
+      || total > Number.MAX_SAFE_INTEGER - value) {
+    throw new Error(`${description} cannot be represented as a safe non-negative byte count`);
+  }
+  return total + value;
+}
+
+function requirePositiveByteBudget(value, description) {
+  if (!Number.isSafeInteger(value) || value <= 0) {
+    throw new Error(`Authoritative delivery plan has no valid ${description}`);
+  }
+  return value;
+}
+
+async function loadReleaseByteBudgetAuthority() {
+  const deliveryPlanPath = fileURLToPath(authoritativeDeliveryPlanURL);
+  const info = await lstat(deliveryPlanPath).catch(() => null);
+  if (!info?.isFile() || info.isSymbolicLink()) {
+    throw new Error('Authoritative delivery plan must be a regular, non-symbolic-link file');
+  }
+  const bytes = await readFile(deliveryPlanPath);
+  const plan = parseJSON(bytes, 'Authoritative delivery plan');
+  if (plan === null || Array.isArray(plan) || typeof plan !== 'object'
+      || plan.schemaVersion !== 1 || plan.status !== 'LOCKED_NATIVE_LAUNCH'
+      || plan.budgets === null || Array.isArray(plan.budgets)
+      || typeof plan.budgets !== 'object' || !Array.isArray(plan.packages)) {
+    throw new Error('Authoritative delivery plan does not contain the locked launch byte budgets');
+  }
+
+  const essentialRecords = plan.packages.filter((record) =>
+    record?.packageID === essentialPackageID);
+  if (essentialRecords.length !== 1
+      || essentialRecords[0].delivery !== 'BASE_INSTALL'
+      || essentialRecords[0].isEssentialInstall !== true
+      || JSON.stringify(essentialRecords[0].chapterIDs) !== JSON.stringify(essentialChapterIDs)) {
+    throw new Error('Authoritative delivery plan does not contain the exact essential base-install package');
+  }
+
+  const shellAndEngineMaximumBytes = requirePositiveByteBudget(
+    plan.budgets.shellAndEngineBytes,
+    'shellAndEngineBytes budget',
+  );
+  const essentialInstallMaximumBytes = requirePositiveByteBudget(
+    plan.budgets.essentialInstallBytes,
+    'essentialInstallBytes budget',
+  );
+  const packageMaximumBytes = requirePositiveByteBudget(
+    essentialRecords[0].maximumInstalledBytes,
+    `${essentialPackageID} maximumInstalledBytes budget`,
+  );
+  if (packageMaximumBytes !== essentialInstallMaximumBytes) {
+    throw new Error(
+      'Authoritative delivery plan has conflicting essential-install byte ceilings',
+    );
+  }
+  const appBundleMaximumBytes = addByteCount(
+    shellAndEngineMaximumBytes,
+    packageMaximumBytes,
+    'Combined base-install byte budget',
+  );
+  return requireReleaseByteBudgetAuthorityWithinLockedCeilings({
+    deliveryPlanSHA256: sha256(bytes),
+    shellAndEngineMaximumBytes,
+    essentialPackageMaximumBytes: packageMaximumBytes,
+    appBundleMaximumBytes,
+  });
+}
+
+export function requireReleaseByteBudgetAuthorityWithinLockedCeilings(authority) {
+  if (!authority || typeof authority !== 'object'
+      || !Number.isSafeInteger(authority.shellAndEngineMaximumBytes)
+      || authority.shellAndEngineMaximumBytes <= 0
+      || !Number.isSafeInteger(authority.essentialPackageMaximumBytes)
+      || authority.essentialPackageMaximumBytes <= 0
+      || !Number.isSafeInteger(authority.appBundleMaximumBytes)
+      || authority.appBundleMaximumBytes <= 0) {
+    throw new Error('Release byte-budget authority must contain positive safe integers');
+  }
+  if (authority.shellAndEngineMaximumBytes > lockedShellAndEngineMaximumBytes
+      || authority.essentialPackageMaximumBytes > lockedEssentialPackageMaximumBytes
+      || authority.appBundleMaximumBytes > lockedBaseInstallMaximumBytes) {
+    throw new Error(
+      'Authoritative delivery plan exceeds the locked 100/750/850 MB release ceilings',
+    );
+  }
+  const partitionedMaximum = addByteCount(
+    authority.shellAndEngineMaximumBytes,
+    authority.essentialPackageMaximumBytes,
+    'Release byte-budget authority',
+  );
+  if (partitionedMaximum !== authority.appBundleMaximumBytes) {
+    throw new Error('Release byte-budget authority does not partition the base-install ceiling');
+  }
+  return authority;
+}
+
+export function enforceReleaseCandidateByteBudgets(actual, authority) {
+  requireReleaseByteBudgetAuthorityWithinLockedCeilings(authority);
+  const descriptions = {
+    appBundleBytes: 'Release app bundle byte total',
+    essentialPackageBytes: 'Bundled essential package byte total',
+    shellAndEngineBytes: 'Release app shell and engine byte total',
+    appBundleMaximumBytes: 'combined base-install byte budget',
+    essentialPackageMaximumBytes: 'essential package byte budget',
+    shellAndEngineMaximumBytes: 'shell and engine byte budget',
+  };
+  for (const [key, description] of Object.entries(descriptions)) {
+    const value = key in actual ? actual[key] : authority?.[key];
+    const permitsZero = key.endsWith('Bytes') && !key.endsWith('MaximumBytes');
+    if (!Number.isSafeInteger(value) || value < (permitsZero ? 0 : 1)) {
+      throw new Error(`${description} must be a safe ${permitsZero ? 'non-negative' : 'positive'} integer`);
+    }
+  }
+
+  const partitionedAppBytes = addByteCount(
+    actual.essentialPackageBytes,
+    actual.shellAndEngineBytes,
+    'Release app byte accounting',
+  );
+  if (partitionedAppBytes !== actual.appBundleBytes) {
+    throw new Error(
+      `Release app byte accounting mismatch: bundle=${actual.appBundleBytes}, `
+        + `essential=${actual.essentialPackageBytes}, shellAndEngine=${actual.shellAndEngineBytes}`,
+    );
+  }
+  if (actual.essentialPackageBytes > authority.essentialPackageMaximumBytes) {
+    throw new Error(
+      `Bundled essential package uses ${actual.essentialPackageBytes} bytes; `
+        + `delivery-plan budget for ${essentialPackageID} is `
+        + `${authority.essentialPackageMaximumBytes} bytes`,
+    );
+  }
+  if (actual.shellAndEngineBytes > authority.shellAndEngineMaximumBytes) {
+    throw new Error(
+      `Release app shell and engine use ${actual.shellAndEngineBytes} bytes; `
+        + `delivery-plan budget is ${authority.shellAndEngineMaximumBytes} bytes`,
+    );
+  }
+  if (actual.appBundleBytes > authority.appBundleMaximumBytes) {
+    throw new Error(
+      `Release app bundle uses ${actual.appBundleBytes} bytes; combined delivery-plan `
+        + `base-install budget is ${authority.appBundleMaximumBytes} bytes`,
+    );
+  }
+  return {
+    ...actual,
+    appBundleMaximumBytes: authority.appBundleMaximumBytes,
+    essentialPackageMaximumBytes: authority.essentialPackageMaximumBytes,
+    shellAndEngineMaximumBytes: authority.shellAndEngineMaximumBytes,
+  };
 }
 
 function exactFields(object, fields, description) {
@@ -380,13 +539,42 @@ function validateEssentialManifest(manifestBytes, trust) {
 }
 
 async function hashFile(path) {
-  const hasher = createHash('sha256');
-  let bytes = 0;
-  for await (const chunk of createReadStream(path)) {
-    bytes += chunk.byteLength;
-    hasher.update(chunk);
+  const handle = await open(
+    path,
+    fileConstants.O_RDONLY | fileConstants.O_NOFOLLOW,
+  );
+  try {
+    const before = await handle.stat({ bigint: true });
+    if (!before.isFile()) {
+      throw new Error(`Release app path is not a regular file: ${path}`);
+    }
+    const hasher = createHash('sha256');
+    const buffer = Buffer.allocUnsafe(1024 * 1024);
+    let bytes = 0;
+    while (true) {
+      const { bytesRead } = await handle.read(
+        buffer,
+        0,
+        buffer.byteLength,
+        null,
+      );
+      if (bytesRead === 0) break;
+      bytes = addByteCount(bytes, bytesRead, `Release app file ${path}`);
+      hasher.update(buffer.subarray(0, bytesRead));
+    }
+    const after = await handle.stat({ bigint: true });
+    for (const key of ['dev', 'ino', 'size', 'mtimeNs', 'ctimeNs']) {
+      if (before[key] !== after[key]) {
+        throw new Error(`Release app file changed while it was measured: ${path}`);
+      }
+    }
+    if (BigInt(bytes) !== after.size) {
+      throw new Error(`Release app file size changed while it was measured: ${path}`);
+    }
+    return { bytes, sha256: hasher.digest('hex') };
+  } finally {
+    await handle.close();
   }
-  return { bytes, sha256: hasher.digest('hex') };
 }
 
 async function packageTree(root) {
@@ -481,12 +669,18 @@ async function validateEssentialPackageRoot(appRoot, allAppFiles, trust) {
     throw new Error('Bundled essential package contains a foreign or empty directory');
   }
 
+  let installedBytes = manifestBytes.byteLength;
   const recordByPath = new Map(manifest.files.map((record) => [record.path, record]));
   for (const [recordPath, record] of recordByPath) {
     const actual = await hashFile(join(expectedRoot, ...recordPath.split('/')));
     if (actual.bytes !== record.bytes || actual.sha256 !== record.sha256) {
       throw new Error(`Bundled essential package file differs from manifest: ${recordPath}`);
     }
+    installedBytes = addByteCount(
+      installedBytes,
+      actual.bytes,
+      'Bundled essential package byte total',
+    );
   }
 
   const payloadCandidates = [];
@@ -515,10 +709,53 @@ async function validateEssentialPackageRoot(appRoot, allAppFiles, trust) {
     );
   }
   return {
+    root: expectedRoot,
+    installedBytes,
     manifest,
     manifestBytes,
     payloadPath: payload.path,
     payloadBytes: payload.bytes,
+  };
+}
+
+async function measureReleaseCandidateBytes(appRoot, initialFiles, essentialPackage) {
+  const finalFiles = await filesUnder(appRoot);
+  if (JSON.stringify(finalFiles) !== JSON.stringify(initialFiles)) {
+    throw new Error('Release app file inventory changed during validation');
+  }
+  let appBundleBytes = 0;
+  let essentialPackageBytes = 0;
+  const treeHasher = createHash('sha256');
+  for (const path of finalFiles) {
+    const measured = await hashFile(path);
+    appBundleBytes = addByteCount(
+      appBundleBytes,
+      measured.bytes,
+      'Release app bundle byte total',
+    );
+    if (isWithin(essentialPackage.root, path)) {
+      essentialPackageBytes = addByteCount(
+        essentialPackageBytes,
+        measured.bytes,
+        'Bundled essential package byte total',
+      );
+    }
+    const relativePath = relative(appRoot, path).split(sep).join('/');
+    treeHasher.update(`${relativePath}\0${measured.bytes}\0${measured.sha256}\n`);
+  }
+  const finalInventory = await filesUnder(appRoot);
+  if (JSON.stringify(finalInventory) !== JSON.stringify(finalFiles)) {
+    throw new Error('Release app file inventory changed while bytes were measured');
+  }
+  if (!isWithin(appRoot, essentialPackage.root)
+      || essentialPackageBytes !== essentialPackage.installedBytes) {
+    throw new Error('Release app byte accounting could not isolate the verified essential package');
+  }
+  return {
+    appBundleBytes,
+    essentialPackageBytes,
+    shellAndEngineBytes: appBundleBytes - essentialPackageBytes,
+    appBundleFileTreeSHA256: treeHasher.digest('hex'),
   };
 }
 
@@ -549,7 +786,12 @@ async function validateApprovedTrustReceipt(receiptPath, trustBytes, trust) {
   }
 }
 
-async function validateApprovedEssentialReceipt(receiptPath, appRoot, essentialPackage) {
+async function validateApprovedEssentialReceipt(
+  receiptPath,
+  appRoot,
+  essentialPackage,
+  byteBudgetAuthority,
+) {
   if (!receiptPath) {
     throw new Error('Release-candidate validation requires --approved-essential-receipt');
   }
@@ -577,6 +819,7 @@ async function validateApprovedEssentialReceipt(receiptPath, appRoot, essentialP
       'decisionReference',
       'packageID',
       'chapterIDs',
+      'deliveryPlanSHA256',
       'packageManifestSHA256',
       'manifestDigest',
       'payloadPath',
@@ -600,6 +843,12 @@ async function validateApprovedEssentialReceipt(receiptPath, appRoot, essentialP
       || receipt.payloadPath !== essentialPackage.payloadPath
       || receipt.payloadSHA256 !== sha256(essentialPackage.payloadBytes)) {
     throw new Error('Bundled essential signed package does not match the exact editor-approved receipt');
+  }
+  if (receipt.deliveryPlanSHA256 !== byteBudgetAuthority.deliveryPlanSHA256) {
+    throw new Error(
+      'Bundled essential signed package does not match the exact editor-approved receipt: '
+        + 'deliveryPlanSHA256 differs from the authoritative delivery plan',
+    );
   }
 }
 
@@ -670,7 +919,7 @@ function validateReleasePath(appRoot, path) {
 export async function validateReleaseAppBoundary(
   appPath,
   {
-    mode = releaseValidationModes.boundaryOnly,
+    mode,
     approvedTrustReceiptPath,
     approvedEssentialReceiptPath,
   } = {},
@@ -704,7 +953,9 @@ export async function validateReleaseAppBoundary(
     }
   }
 
+  let byteBudget;
   if (mode === releaseValidationModes.releaseCandidate) {
+    const byteBudgetAuthority = await loadReleaseByteBudgetAuthority();
     const trustResources = files.filter((path) => basename(path) === trustResourceBasename);
     if (trustResources.length !== 1) {
       throw new Error('Release candidate must contain exactly one launch-package-trust.json');
@@ -726,10 +977,30 @@ export async function validateReleaseAppBoundary(
       approvedEssentialReceiptPath,
       appRoot,
       essentialPackage,
+      byteBudgetAuthority,
     );
+    const actualByteTotals = await measureReleaseCandidateBytes(
+      appRoot,
+      files,
+      essentialPackage,
+    );
+    byteBudget = {
+      deliveryPlanSHA256: byteBudgetAuthority.deliveryPlanSHA256,
+      ...enforceReleaseCandidateByteBudgets(
+        actualByteTotals,
+        byteBudgetAuthority,
+      ),
+    };
   }
 
-  return { appRoot, mode, status: 'PASS' };
+  return {
+    appRoot,
+    mode,
+    status: mode === releaseValidationModes.releaseCandidate
+      ? 'PASS'
+      : 'PASS_BOUNDARY_ONLY_NON_SHIPPING',
+    ...(byteBudget ? { byteBudget } : {}),
+  };
 }
 
 async function main() {
@@ -741,7 +1012,7 @@ async function main() {
   if (!appPath) {
     throw new Error(
       'Usage: validate-release-app-boundary.mjs --app <path.app> '
-        + '[--mode boundary-only|release-candidate] '
+        + '--mode <boundary-only|release-candidate> '
         + '[--approved-trust-receipt <path.json>] '
         + '[--approved-essential-receipt <external-path.json>]\n'
         + 'Release-candidate mode requires the complete signed package root at '
@@ -749,11 +1020,19 @@ async function main() {
     );
   }
   const result = await validateReleaseAppBoundary(appPath, {
-    mode: valueAfter('--mode') ?? releaseValidationModes.boundaryOnly,
+    mode: valueAfter('--mode'),
     approvedTrustReceiptPath: valueAfter('--approved-trust-receipt'),
     approvedEssentialReceiptPath: valueAfter('--approved-essential-receipt'),
   });
   console.log(`Release app ${result.mode}: ${result.status}`);
+  if (result.byteBudget) {
+    console.log(
+      `Release bytes app=${result.byteBudget.appBundleBytes} `
+        + `essential=${result.byteBudget.essentialPackageBytes} `
+        + `shell=${result.byteBudget.shellAndEngineBytes} `
+        + `treeSHA256=${result.byteBudget.appBundleFileTreeSHA256}`,
+    );
+  }
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1])) {

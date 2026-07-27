@@ -96,4 +96,6 @@ xcodebuild -quiet \
   CODE_SIGNING_ALLOWED=NO \
   build
 RELEASE_APP="$RELEASE_DERIVED/Build/Products/Release-iphonesimulator/LongWestJourney.app"
-node "$NATIVE_ROOT/scripts/validate-release-app-boundary.mjs" --app "$RELEASE_APP"
+node "$NATIVE_ROOT/scripts/validate-release-app-boundary.mjs" \
+  --app "$RELEASE_APP" \
+  --mode boundary-only

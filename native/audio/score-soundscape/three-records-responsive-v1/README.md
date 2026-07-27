@@ -15,9 +15,10 @@ gear, landing work, hearths, grain, domestic animals and non-lexical household
 presence. Waiting, engaged and resistance reuse the same seven 15-second loop
 files and the same sample positions. Only their score loops differ. Stage-zero
 timeline gains expose the river and fail every other material closed. The
-monotonic stage-gain contract remains authored data until the common player
-passes the independent render-clock and atomic-transition audit; the work
-object makes no claim that the staged mix is audible yet.
+common player retains all seven material clocks across phase changes and
+applies the monotonic stage gains through sample-time ramps. Runtime transport
+tests own the render-clock, retained-player and atomic-transition proof; this
+does not grant artistic, physical-device or shipping approval.
 
 The complete runtime asset contract is sixteen files: three approach masters,
 three phase-score loops, seven shared interaction material loops and three

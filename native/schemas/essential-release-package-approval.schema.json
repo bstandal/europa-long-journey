@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://thelongwest.invalid/schemas/essential-release-package-approval.schema.json",
   "title": "Editor approval for the bundled essential release package",
-  "description": "External backstage receipt used by release-candidate validation. The approved signed manifest transitively binds every bundled asset path, byte count and SHA-256. A Codex provisional visual authority cannot satisfy this schema.",
+  "description": "External backstage receipt used by release-candidate validation. The approved signed manifest transitively binds every bundled asset path, byte count and SHA-256; deliveryPlanSHA256 binds the exact locked byte-budget authority used by the release gate. A Codex provisional visual authority cannot satisfy this schema.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -13,6 +13,7 @@
     "decisionReference",
     "packageID",
     "chapterIDs",
+    "deliveryPlanSHA256",
     "packageManifestSHA256",
     "manifestDigest",
     "payloadPath",
@@ -40,6 +41,7 @@
       "minItems": 3,
       "maxItems": 3
     },
+    "deliveryPlanSHA256": { "$ref": "#/$defs/sha256" },
     "packageManifestSHA256": { "$ref": "#/$defs/sha256" },
     "manifestDigest": { "$ref": "#/$defs/sha256" },
     "payloadPath": {

@@ -113,9 +113,21 @@ test("payload generator is deterministic and the canonical validator accepts its
     placeholderResponsiveAudioPrograms: 0,
     narrationCues: 37,
     nonNarrationAudioCues: 181,
-    hapticEvents: 19,
+    hapticEvents: 0,
     accessibilitySpecs: 17,
-    assetRequirements: 766,
+    assetRequirements: 778,
+  });
+  assert.ok(payload.audioTimelines.every(({ haptics }) => haptics.length === 0));
+  assert.deepEqual(receipt.audioTechnicalProof, {
+    responsivePrograms: 6,
+    responsiveTimelines: 30,
+    responsiveRuntimeAssets: 91,
+    provisionalPCMBytes: 750_820_004,
+    offlineAssetBinding: "PASS_RENDER_RECEIPTS_AND_PACKAGE_RELATIVE_PATHS",
+    snapshotRestoreContract: "PASS_COMMON_RUNTIME_BOUND_BY_EACH_WORK_OBJECT",
+    timedInteractionHaptics: "NONE_RUNTIME_SEMANTICS_ONLY",
+    narrationState: "OPEN_EDITOR_SELECTED_VOICE_AND_EXACT_ALIGNMENT",
+    shippingDeliveryEncodingAndDeviceBudget: "OPEN_PROVISIONAL_PCM_MASTERS",
   });
   assert.ok(receipt.claimsExcluded.includes("shipping approval"));
   assert.ok(receipt.claimsExcluded.includes("physical-device proof"));
@@ -371,6 +383,7 @@ test("all seventeen scenes, thirty-seven manuscript cues and accessibility specs
   })));
   const sceneByID = new Map(payload.scenes.map((scene) => [scene.id, scene]));
   const accessibilityByID = new Map(payload.accessibility.map((item) => [item.id, item]));
+  const timelineByID = new Map(payload.audioTimelines.map((timeline) => [timeline.id, timeline]));
   const eventByCueID = new Map(
     payload.audioTimelines.flatMap(({ events }) => events)
       .filter(({ role }) => role === "narration")
@@ -386,6 +399,13 @@ test("all seventeen scenes, thirty-seven manuscript cues and accessibility specs
     assert.ok(scene, `Missing scene ${beat.sceneID}`);
     assert.equal(scene.accessibilityID, accessibilityID);
     assert.ok(accessibilityByID.has(accessibilityID));
+    const baseTimeline = timelineByID.get(`audio-${beat.beatID}`);
+    assert.ok(baseTimeline, `Missing base audio timeline for ${beat.beatID}`);
+    assert.deepEqual(baseTimeline.haptics, []);
+    const baseNarration = baseTimeline.events.filter(({ role }) => role === "narration");
+    assert.equal(baseNarration.length, beat.narrative.segments.length);
+    assert.ok(baseNarration.every(({ startSample, durationSamples }) =>
+      startSample + durationSamples <= beat.estimatedSeconds * 48_000));
     for (const segment of beat.narrative.segments) {
       const cueID = `narration-${segment.id}`;
       const event = eventByCueID.get(cueID);

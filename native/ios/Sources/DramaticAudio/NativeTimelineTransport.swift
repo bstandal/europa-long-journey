@@ -98,6 +98,439 @@ final class NativeRenderClockStorage: @unchecked Sendable {
     }
 }
 
+/// Energy-bounded polling after an automatic boundary's host-time wake hint.
+/// The render sample remains the sole authority: this state only selects when
+/// the main actor checks it again.
+struct NativeAutomaticBoundaryMonitorPollState: Sendable {
+    enum Decision: Equatable, Sendable {
+        case boundaryCrossed
+        case sleep(nanoseconds: UInt64)
+        case stallLimitReached
+    }
+
+    static let preciseIntervalNanoseconds: UInt64 = 2_000_000
+    static let precisePollCount = 16
+    static let maximumIntervalNanoseconds: UInt64 = 250_000_000
+    /// Five seconds without one new rendered graph sample means the running
+    /// graph can no longer substantiate the scheduled historical boundary.
+    static let maximumNoProgressNanoseconds: UInt64 = 5_000_000_000
+
+    private var pollCount = 0
+    private var lastRenderedGraphSample: Int64?
+    private var noProgressNanoseconds: UInt64 = 0
+
+    mutating func observe(
+        renderedGraphSample: Int64,
+        boundaryGraphSample: Int64
+    ) -> Decision {
+        if renderedGraphSample >= boundaryGraphSample {
+            return .boundaryCrossed
+        }
+        if let lastRenderedGraphSample,
+           renderedGraphSample > lastRenderedGraphSample {
+            noProgressNanoseconds = 0
+        }
+        if let lastRenderedGraphSample {
+            self.lastRenderedGraphSample = max(
+                lastRenderedGraphSample,
+                renderedGraphSample
+            )
+        } else {
+            lastRenderedGraphSample = renderedGraphSample
+        }
+        guard noProgressNanoseconds
+            < Self.maximumNoProgressNanoseconds else {
+            return .stallLimitReached
+        }
+
+        let preferredDelay: UInt64
+        if pollCount < Self.precisePollCount {
+            preferredDelay = Self.preciseIntervalNanoseconds
+        } else {
+            let backoffStep = min(
+                pollCount - Self.precisePollCount + 1,
+                7
+            )
+            preferredDelay = min(
+                Self.preciseIntervalNanoseconds << backoffStep,
+                Self.maximumIntervalNanoseconds
+            )
+        }
+        pollCount += 1
+        let remaining = Self.maximumNoProgressNanoseconds
+            - noProgressNanoseconds
+        let delay = min(preferredDelay, remaining)
+        noProgressNanoseconds += delay
+        return .sleep(nanoseconds: delay)
+    }
+}
+
+public enum NativeAudioCursorFeedError: Error, Equatable, Sendable {
+    case unavailable
+    case renderClockUnavailable
+}
+
+/// One raw transport capture. `snapshot` and `renderedGraphSample` are derived
+/// from the same source-render clock publication. `mappingGeneration` names
+/// the exact logical mapping used for that projection; a consumer must not
+/// interpret it through a runtime template belonging to another generation.
+public struct NativeAudioCursorFeedCapture: Equatable, Sendable {
+    public let snapshot: NativeTimelineTransportSnapshot
+    public let renderedGraphSample: Int64
+    public let mappingGeneration: UInt64
+
+    public init(
+        snapshot: NativeTimelineTransportSnapshot,
+        renderedGraphSample: Int64,
+        mappingGeneration: UInt64
+    ) {
+        self.snapshot = snapshot
+        self.renderedGraphSample = renderedGraphSample
+        self.mappingGeneration = mappingGeneration
+    }
+}
+
+public struct NativeAudioCursorFeed: Sendable {
+    public typealias Capture = @Sendable () throws
+        -> NativeAudioCursorFeedCapture
+
+    private let captureOperation: Capture
+
+    public init(capture: @escaping Capture) {
+        captureOperation = capture
+    }
+
+    public func capture() throws -> NativeAudioCursorFeedCapture {
+        try captureOperation()
+    }
+}
+
+public struct NativeAudioCursorMappingDescriptor: Equatable, Sendable {
+    public let generation: UInt64
+    public let graphBoundarySample: Int64
+    public let snapshotAtBoundary: NativeTimelineTransportSnapshot
+
+    public init(
+        generation: UInt64,
+        graphBoundarySample: Int64,
+        snapshotAtBoundary: NativeTimelineTransportSnapshot
+    ) {
+        self.generation = generation
+        self.graphBoundarySample = graphBoundarySample
+        self.snapshotAtBoundary = snapshotAtBoundary
+    }
+}
+
+/// The raw native half of active durability protection. Journey supplies the
+/// generation-bound runtime projection before adapting this to an
+/// `ActiveAudioCursorBinding`; the transport never reaches back to MainActor
+/// from the worker feed.
+public struct NativeAudioCursorBinding: Sendable {
+    public let feed: NativeAudioCursorFeed
+    public let gateToken: NativeAudioDurabilityGate.EpochToken
+    public let renderedGraphSampleRate: Double
+    public let mappingDescriptors: [NativeAudioCursorMappingDescriptor]
+    public var currentMappingGeneration: UInt64 {
+        mappingDescriptors[0].generation
+    }
+    public var scheduledMappingGenerations: [UInt64] {
+        mappingDescriptors.dropFirst().map(\.generation)
+    }
+    public var scheduledMappingGeneration: UInt64? {
+        mappingDescriptors.dropFirst().first?.generation
+    }
+    public var latestPublishedMappingGeneration: UInt64 {
+        mappingDescriptors.map(\.generation).max() ?? currentMappingGeneration
+    }
+
+    public init(
+        feed: NativeAudioCursorFeed,
+        gateToken: NativeAudioDurabilityGate.EpochToken,
+        renderedGraphSampleRate: Double,
+        mappingDescriptors: [NativeAudioCursorMappingDescriptor]
+    ) {
+        precondition(!mappingDescriptors.isEmpty)
+        self.feed = feed
+        self.gateToken = gateToken
+        self.renderedGraphSampleRate = renderedGraphSampleRate
+        self.mappingDescriptors = mappingDescriptors
+    }
+}
+
+private struct NativeAudioCursorFeedBasis: Sendable {
+    let timelineID: AudioTimelineID
+    let cursorSample: Int64
+    let loopIteration: UInt64
+    let repetition: ResponsiveAudioPlaybackRepetition
+    let endSample: Int64
+    let graphBaseSample: Int64
+    let isPlaying: Bool
+    let mappingGeneration: UInt64
+
+    var descriptor: NativeAudioCursorMappingDescriptor {
+        NativeAudioCursorMappingDescriptor(
+            generation: mappingGeneration,
+            graphBoundarySample: graphBaseSample,
+            snapshotAtBoundary: capture(
+                atRenderedGraphSample: graphBaseSample
+            ).snapshot
+        )
+    }
+
+    func capture(atRenderedGraphSample renderedGraphSample: Int64)
+        -> NativeAudioCursorFeedCapture {
+        let elapsedResult = renderedGraphSample.subtractingReportingOverflow(
+            graphBaseSample
+        )
+        let elapsed = elapsedResult.overflow
+            ? 0
+            : max(0, elapsedResult.partialValue)
+        let position: (cursor: Int64, iteration: UInt64)
+        switch repetition {
+        case .once:
+            let advanced = cursorSample.addingReportingOverflow(elapsed)
+            position = (
+                advanced.overflow
+                    ? endSample
+                    : min(endSample, advanced.partialValue),
+                0
+            )
+        case let .loop(_, durationSamples):
+            guard durationSamples > 0 else {
+                position = (cursorSample, loopIteration)
+                break
+            }
+            let relative = UInt64(cursorSample).addingReportingOverflow(
+                UInt64(elapsed)
+            )
+            guard !relative.overflow else {
+                position = (Int64.max % durationSamples, .max)
+                break
+            }
+            let addedIterations = relative.partialValue
+                / UInt64(durationSamples)
+            let advancedIteration = loopIteration.addingReportingOverflow(
+                addedIterations
+            )
+            position = (
+                Int64(relative.partialValue % UInt64(durationSamples)),
+                advancedIteration.overflow
+                    ? .max
+                    : advancedIteration.partialValue
+            )
+        }
+        return NativeAudioCursorFeedCapture(
+            snapshot: NativeTimelineTransportSnapshot(
+                timelineID: timelineID,
+                cursorSample: position.cursor,
+                loopIteration: position.iteration,
+                isPlaying: isPlaying
+            ),
+            renderedGraphSample: renderedGraphSample,
+            mappingGeneration: mappingGeneration
+        )
+    }
+}
+
+/// MainActor publishes immutable mappings. The worker takes one locked
+/// publication, then reads only that publication's seqlock-protected source
+/// clock. Rebuilds can therefore never pair an old plan with a new clock.
+private final class NativeAudioCursorFeedStorage: @unchecked Sendable {
+    private struct Publication: Sendable {
+        let identity: UInt64
+        let clock: NativeRenderClockStorage
+        let mappings: [NativeAudioCursorFeedBasis]
+    }
+
+    private let lock = NSLock()
+    private var nextIdentity: UInt64 = 0
+    private var nextMappingGeneration: UInt64 = 0
+    private var publication: Publication?
+
+    func publishCurrent(
+        clock: NativeRenderClockStorage,
+        timelineID: AudioTimelineID,
+        cursorSample: Int64,
+        loopIteration: UInt64,
+        repetition: ResponsiveAudioPlaybackRepetition,
+        endSample: Int64,
+        graphBaseSample: Int64,
+        isPlaying: Bool
+    ) -> UInt64 {
+        lock.lock()
+        defer { lock.unlock() }
+        let generation = issueMappingGenerationLocked()
+        publication = Publication(
+            identity: issueIdentityLocked(),
+            clock: clock,
+            mappings: [NativeAudioCursorFeedBasis(
+                timelineID: timelineID,
+                cursorSample: cursorSample,
+                loopIteration: loopIteration,
+                repetition: repetition,
+                endSample: endSample,
+                graphBaseSample: graphBaseSample,
+                isPlaying: isPlaying,
+                mappingGeneration: generation
+            )]
+        )
+        return generation
+    }
+
+    func publishScheduled(
+        clock: NativeRenderClockStorage,
+        timelineID: AudioTimelineID,
+        cursorSample: Int64,
+        loopIteration: UInt64,
+        repetition: ResponsiveAudioPlaybackRepetition,
+        endSample: Int64,
+        graphBoundarySample: Int64,
+        isPlaying: Bool
+    ) throws -> UInt64 {
+        lock.lock()
+        defer { lock.unlock() }
+        guard let current = publication,
+              current.clock === clock,
+              let currentBasis = current.mappings.first,
+              graphBoundarySample > currentBasis.graphBaseSample else {
+            throw NativeAudioCursorFeedError.unavailable
+        }
+        let generation = issueMappingGenerationLocked()
+        let scheduled = NativeAudioCursorFeedBasis(
+            timelineID: timelineID,
+            cursorSample: cursorSample,
+            loopIteration: loopIteration,
+            repetition: repetition,
+            endSample: endSample,
+            graphBaseSample: graphBoundarySample,
+            isPlaying: isPlaying,
+            mappingGeneration: generation
+        )
+        var mappings = current.mappings.filter {
+            $0.graphBaseSample != graphBoundarySample
+        }
+        mappings.append(scheduled)
+        mappings.sort {
+            if $0.graphBaseSample != $1.graphBaseSample {
+                return $0.graphBaseSample < $1.graphBaseSample
+            }
+            return $0.mappingGeneration < $1.mappingGeneration
+        }
+        publication = Publication(
+            identity: issueIdentityLocked(),
+            clock: clock,
+            mappings: mappings
+        )
+        return generation
+    }
+
+    func promoteScheduled(mappingGeneration: UInt64?) {
+        guard let mappingGeneration else { return }
+        lock.lock()
+        defer { lock.unlock() }
+        guard let current = publication,
+              let promotedIndex = current.mappings.firstIndex(where: {
+                  $0.mappingGeneration == mappingGeneration
+              }), promotedIndex > 0 else { return }
+        publication = Publication(
+            identity: current.identity,
+            clock: current.clock,
+            mappings: Array(current.mappings[promotedIndex...])
+        )
+    }
+
+    func clearScheduled(mappingGeneration: UInt64?) {
+        guard let mappingGeneration else { return }
+        lock.lock()
+        defer { lock.unlock() }
+        guard let current = publication,
+              current.mappings.dropFirst().contains(where: {
+                  $0.mappingGeneration == mappingGeneration
+              }) else { return }
+        publication = Publication(
+            identity: issueIdentityLocked(),
+            clock: current.clock,
+            mappings: current.mappings.filter {
+                $0.mappingGeneration != mappingGeneration
+            }
+        )
+    }
+
+    func clear() {
+        lock.lock()
+        publication = nil
+        _ = issueIdentityLocked()
+        lock.unlock()
+    }
+
+    func feed() -> NativeAudioCursorFeed {
+        NativeAudioCursorFeed { [weak self] in
+            guard let self else {
+                throw NativeAudioCursorFeedError.unavailable
+            }
+            return try self.capture()
+        }
+    }
+
+    func mappingDescriptors() -> [NativeAudioCursorMappingDescriptor]? {
+        lock.lock()
+        defer { lock.unlock() }
+        guard let publication,
+              !publication.mappings.isEmpty else { return nil }
+        return publication.mappings.map(\.descriptor)
+    }
+
+    private func capture() throws -> NativeAudioCursorFeedCapture {
+        for _ in 0 ..< 64 {
+            let selected: Publication
+            lock.lock()
+            guard let currentPublication = publication else {
+                lock.unlock()
+                throw NativeAudioCursorFeedError.unavailable
+            }
+            selected = currentPublication
+            lock.unlock()
+
+            guard let anchor = selected.clock.loadCoherentAnchor() else {
+                throw NativeAudioCursorFeedError.renderClockUnavailable
+            }
+            let renderedGraphSample = max(
+                anchor.graphSampleEnd,
+                selected.mappings[0].graphBaseSample
+            )
+            let basis = selected.mappings.last(where: {
+                renderedGraphSample >= $0.graphBaseSample
+            }) ?? selected.mappings[0]
+
+            // Retry a publication race internally. A worker sees either one
+            // coherent old mapping or one coherent new mapping, never a
+            // transient capture failure merely because MainActor committed a
+            // transition at the same instant.
+            lock.lock()
+            let isStillCurrent = publication?.identity == selected.identity
+            lock.unlock()
+            if isStillCurrent {
+                return basis.capture(
+                    atRenderedGraphSample: renderedGraphSample
+                )
+            }
+        }
+        throw NativeAudioCursorFeedError.unavailable
+    }
+
+    private func issueIdentityLocked() -> UInt64 {
+        nextIdentity &+= 1
+        if nextIdentity == 0 { nextIdentity = 1 }
+        return nextIdentity
+    }
+
+    private func issueMappingGenerationLocked() -> UInt64 {
+        nextMappingGeneration &+= 1
+        if nextMappingGeneration == 0 { nextMappingGeneration = 1 }
+        return nextMappingGeneration
+    }
+}
+
 private func makeNativeRenderClockSource(
     format: AVAudioFormat,
     storage: NativeRenderClockStorage
@@ -999,6 +1432,7 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
         let startTime: AVAudioTime
         var candidateHaptics: (any NativeTimelineHapticPlayback)?
         var replacesConventionalBranch: Bool
+        var cursorMappingGeneration: UInt64?
     }
 
     private struct AutomaticBoundaryRequest {
@@ -1015,6 +1449,7 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
         let generation: UInt64
         var graphSampleTime: AUEventSampleTime
         var startTime: AVAudioTime
+        var cursorMappingGeneration: UInt64?
         let successorTimelinePlan: TimelinePlaybackPlan?
         var successorSlices: [PreparedAudioSlice]
         var successorCommonLayers:
@@ -1052,6 +1487,9 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
     private var renderClockSource: AVAudioSourceNode?
     private var renderClockStorage = NativeRenderClockStorage()
     private var renderClockBaseGraphSampleTime: AVAudioFramePosition = 0
+    private let audioDurabilityGate = NativeAudioDurabilityGate()
+    private var audioDurabilityEpoch: NativeAudioDurabilityGate.EpochToken?
+    private let audioCursorFeedStorage = NativeAudioCursorFeedStorage()
     private var pendingPhysicalTransition: PendingPhysicalTransition?
     private var needsRebuildOnPlay = false
     private var hapticPlayback: (any NativeTimelineHapticPlayback)?
@@ -1070,12 +1508,15 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
     private var currentGraphStartTime: AVAudioTime?
     private let performanceRecorder: (any PerformanceRecording)?
 
+    private static let initialDurabilitySampleBudget: Int64 = 12_000
+
     // Narrow fault/clock controls used only by @testable native regressions.
     private var renderedSampleOffsetOverrideForTesting: Int64?
     private var pauseQuiescenceHookForTesting: (() -> Void)?
 #if DEBUG
     private var pauseCompletionFaultForTesting:
         ((NativeTimelineTransportSnapshot) throws -> Void)?
+    private var relinquishPreparationFaultForTesting: (() throws -> Void)?
     private var clearsRenderedSampleOffsetAfterNextPauseForTesting = false
 #endif
     private var failNextHapticPreparationForTesting = false
@@ -1110,7 +1551,9 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
 
     isolated deinit {
         automaticBoundaryTask?.cancel()
+        beginAudioDurabilityStop()
         engine.stop()
+        endAudioDurabilityEpochAfterEngineDrain()
         stopCurrentHaptics()
         audioSessionLease?.release()
         audioSessionLease = nil
@@ -1284,6 +1727,9 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
 
     private func teardownStagedAutomaticBoundary() {
         guard let staged = stagedAutomaticBoundary else { return }
+        audioCursorFeedStorage.clearScheduled(
+            mappingGeneration: staged.cursorMappingGeneration
+        )
         teardownConventionalNodes(staged.successorSlices)
         teardownCommonLayers(staged.successorCommonLayers.values)
         stopPreparedHaptics(staged.successorHaptics)
@@ -1304,6 +1750,7 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
                 generation: request.generation,
                 graphSampleTime: 0,
                 startTime: AVAudioTime(sampleTime: 0, atRate: 48_000),
+                cursorMappingGeneration: nil,
                 successorTimelinePlan: nil,
                 successorSlices: [],
                 successorCommonLayers: [:],
@@ -1352,6 +1799,7 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
                     sampleTime: 0,
                     atRate: Double(successorTimelinePlan.sampleRate)
                 ),
+                cursorMappingGeneration: nil,
                 successorTimelinePlan: successorTimelinePlan,
                 successorSlices: slices,
                 successorCommonLayers: layers,
@@ -1410,6 +1858,33 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
         staged.graphSampleTime = graphBoundary.partialValue
         staged.startTime = boundaryTime
 
+        let cursorMappingGeneration: UInt64
+        if let successor = request.successorPlan,
+           let successorTimelinePlan = staged.successorTimelinePlan {
+            cursorMappingGeneration = try publishScheduledAudioCursorMapping(
+                request: successor.replacingPosition(
+                    cursorSample: 0,
+                    loopIteration: 0
+                ),
+                timelinePlan: successorTimelinePlan,
+                graphBoundarySample: graphBoundary.partialValue
+            )
+        } else {
+            cursorMappingGeneration = try publishScheduledAudioCursorMapping(
+                request: currentRequest.replacingPosition(
+                    cursorSample: request.currentAuthoredDurationSamples,
+                    loopIteration: 0
+                ),
+                timelinePlan: currentPlan,
+                graphBoundarySample: graphBoundary.partialValue,
+                isPlaying: false
+            )
+        }
+        staged.cursorMappingGeneration = cursorMappingGeneration
+        // Publish the future identity before any haptic or player is allowed
+        // to schedule the successor at this graph boundary.
+        stagedAutomaticBoundary = staged
+
         let hapticBoundary = nativeHapticBoundary(
             startTime: boundaryTime,
             graphSampleTime: graphBoundary.partialValue,
@@ -1451,7 +1926,8 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
         stagedAutomaticBoundary = staged
         armAutomaticBoundaryMonitor(
             generation: request.generation,
-            boundaryTime: boundaryTime
+            boundaryTime: boundaryTime,
+            boundaryGraphSample: graphBoundary.partialValue
         )
     }
 
@@ -1485,36 +1961,143 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
 
     private func armAutomaticBoundaryMonitor(
         generation: UInt64,
-        boundaryTime: AVAudioTime
+        boundaryTime: AVAudioTime,
+        boundaryGraphSample: Int64
     ) {
         automaticBoundaryTask?.cancel()
         automaticBoundaryTask = nil
         guard engine.manualRenderingMode != .offline,
-              boundaryTime.isHostTimeValid else { return }
+              boundaryTime.isHostTimeValid,
+              let durabilityEpoch = audioDurabilityEpoch?.epoch else { return }
         let boundaryHostTime = boundaryTime.hostTime
         automaticBoundaryTask = Task { @MainActor [weak self] in
+            guard let self,
+                  self.ownsAutomaticBoundaryMonitor(
+                      generation: generation,
+                      durabilityEpoch: durabilityEpoch,
+                      boundaryGraphSample: boundaryGraphSample
+                  ) else { return }
             let now = mach_absolute_time()
             if boundaryHostTime > now {
                 let nanoseconds = AVAudioTime.seconds(
                     forHostTime: boundaryHostTime - now
                 ) * 1_000_000_000
-                if nanoseconds.isFinite, nanoseconds > 0 {
-                    try? await Task.sleep(
+                guard nanoseconds.isFinite,
+                      nanoseconds > 0,
+                      nanoseconds <= Double(UInt64.max) else {
+                    self.failClosedAutomaticBoundaryMonitor(
+                        generation: generation,
+                        durabilityEpoch: durabilityEpoch,
+                        boundaryGraphSample: boundaryGraphSample
+                    )
+                    return
+                }
+                do {
+                    try await Task.sleep(
                         nanoseconds: UInt64(nanoseconds.rounded(.up))
                     )
+                } catch {
+                    return
                 }
             }
-            guard !Task.isCancelled else { return }
+            var pollState = NativeAutomaticBoundaryMonitorPollState()
             while !Task.isCancelled {
-                self?.promoteAutomaticBoundary(generation: generation)
-                guard self?.automaticBoundaryRequest?.generation
+                guard self.ownsAutomaticBoundaryMonitor(
+                    generation: generation,
+                    durabilityEpoch: durabilityEpoch,
+                    boundaryGraphSample: boundaryGraphSample
+                ) else { return }
+                self.promoteAutomaticBoundary(generation: generation)
+                guard self.automaticBoundaryRequest?.generation
                     == generation else { return }
-                // The host deadline is only a wake-up hint. An underrun,
-                // interruption or stalled engine cannot publish history: the
-                // source render clock must cross the scheduled graph sample.
-                try? await Task.sleep(nanoseconds: 2_000_000)
+
+                let renderedGraphSample = self.renderClockStorage
+                    .latestGraphSampleEnd.load(ordering: .acquiring)
+                switch pollState.observe(
+                    renderedGraphSample: renderedGraphSample,
+                    boundaryGraphSample: boundaryGraphSample
+                ) {
+                case .boundaryCrossed:
+                    // Promotion above reads the same monotone render clock.
+                    // If it did not consume this generation, ownership was
+                    // lost and no public boundary event may be invented.
+                    self.promoteAutomaticBoundary(generation: generation)
+                    return
+                case .stallLimitReached:
+                    let confirmedGraphSample = self.renderClockStorage
+                        .latestGraphSampleEnd.load(ordering: .acquiring)
+                    if confirmedGraphSample > renderedGraphSample {
+                        // A render callback won the watchdog edge. Feed that
+                        // progress back through the same policy rather than
+                        // retiring a graph that has resumed.
+                        switch pollState.observe(
+                            renderedGraphSample: confirmedGraphSample,
+                            boundaryGraphSample: boundaryGraphSample
+                        ) {
+                        case .boundaryCrossed:
+                            self.promoteAutomaticBoundary(
+                                generation: generation
+                            )
+                            return
+                        case let .sleep(nanoseconds):
+                            do {
+                                try await Task.sleep(
+                                    nanoseconds: nanoseconds
+                                )
+                            } catch {
+                                return
+                            }
+                            continue
+                        case .stallLimitReached:
+                            break
+                        }
+                    }
+                    self.failClosedAutomaticBoundaryMonitor(
+                        generation: generation,
+                        durabilityEpoch: durabilityEpoch,
+                        boundaryGraphSample: boundaryGraphSample
+                    )
+                    return
+                case let .sleep(nanoseconds):
+                    do {
+                        try await Task.sleep(nanoseconds: nanoseconds)
+                    } catch {
+                        return
+                    }
+                }
             }
         }
+    }
+
+    private func ownsAutomaticBoundaryMonitor(
+        generation: UInt64,
+        durabilityEpoch: UInt64,
+        boundaryGraphSample: Int64
+    ) -> Bool {
+        state == .playing
+            && engine.isRunning
+            && currentGraphStartTime != nil
+            && audioDurabilityEpoch?.epoch == durabilityEpoch
+            && automaticBoundaryGeneration == generation
+            && automaticBoundaryRequest?.generation == generation
+            && stagedAutomaticBoundary?.generation == generation
+            && stagedAutomaticBoundary?.graphSampleTime == boundaryGraphSample
+    }
+
+    private func failClosedAutomaticBoundaryMonitor(
+        generation: UInt64,
+        durabilityEpoch: UInt64,
+        boundaryGraphSample: Int64
+    ) {
+        guard ownsAutomaticBoundaryMonitor(
+            generation: generation,
+            durabilityEpoch: durabilityEpoch,
+            boundaryGraphSample: boundaryGraphSample
+        ) else { return }
+        // No handler is called: a stopped render clock never crossed the
+        // authored sample. Retire the graph and its epoch instead of keeping a
+        // muted transport and a high-frequency monitor alive indefinitely.
+        stop(clearTimeline: true)
     }
 
     public func transitionResponsiveAudio(
@@ -1591,17 +2174,40 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
                 isPlaying: wasPlaying
             )
             try validateBeforeCommit(authoritativeSnapshot)
+            var scheduledMappingGeneration: UInt64?
+            if let boundary,
+               pendingPhysicalTransition != nil {
+                let projected = effective.replacingPosition(
+                    cursorSample: boundary.projectedPosition.cursorSample,
+                    loopIteration: boundary.projectedPosition.loopIteration
+                )
+                scheduledMappingGeneration =
+                    try publishScheduledAudioCursorMapping(
+                        request: projected,
+                        timelinePlan: currentTimelinePlan,
+                        graphBoundarySample: boundary.graphSampleTime
+                    )
+            }
             responsivePlan = effective
             if let observation, let boundary {
                 rebaseRenderClock(to: observation)
                 lastTransitionBoundaryForTesting = boundary.graphSampleTime
                 if pendingPhysicalTransition == nil {
+                    _ = publishCurrentAudioCursorMapping(
+                        request: effective,
+                        timelinePlan: currentTimelinePlan,
+                        graphBaseSample: observation.graphSampleTime
+                    )
                     pendingPhysicalTransition = PendingPhysicalTransition(
                         graphSampleTime: boundary.graphSampleTime,
                         startTime: boundary.startTime,
                         candidateHaptics: nil,
-                        replacesConventionalBranch: false
+                        replacesConventionalBranch: false,
+                        cursorMappingGeneration: nil
                     )
+                } else {
+                    pendingPhysicalTransition?.cursorMappingGeneration =
+                        scheduledMappingGeneration
                 }
             }
             applyCausalTargetChanges(
@@ -1756,6 +2362,22 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
                 }
             }
 
+            let cursorMappingGeneration: UInt64?
+            if wasPlaying, let boundary {
+                let physicalMapping = requestedPlan.replacingPosition(
+                    cursorSample: physicalPosition.cursorSample,
+                    loopIteration: physicalPosition.loopIteration
+                )
+                cursorMappingGeneration =
+                    try publishScheduledAudioCursorMapping(
+                        request: physicalMapping,
+                        timelinePlan: physicalTimelinePlan,
+                        graphBoundarySample: boundary.graphSampleTime
+                    )
+            } else {
+                cursorMappingGeneration = nil
+            }
+
             // Commit begins here. Every operation capable of throwing has
             // completed; the old branch and runtime-visible identity have not
             // yet changed.
@@ -1794,7 +2416,8 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
                     graphSampleTime: boundary.graphSampleTime,
                     startTime: boundary.startTime,
                     candidateHaptics: candidateHaptics,
-                    replacesConventionalBranch: true
+                    replacesConventionalBranch: true,
+                    cursorMappingGeneration: cursorMappingGeneration
                 )
                 candidateHaptics = nil
                 if let observation {
@@ -1861,6 +2484,80 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
             teardownRoleMixers(createdAfter: originalMixerKeys)
             throw error
         }
+    }
+
+    private func beginAudioDurabilityEpoch(
+        graphStartSample: Int64,
+        request: ResponsiveAudioTimelineTransportPlan,
+        timelinePlan: TimelinePlaybackPlan
+    ) throws {
+        let cutoff = graphStartSample.addingReportingOverflow(
+            Self.initialDurabilitySampleBudget
+        )
+        guard graphStartSample >= 0, !cutoff.overflow else {
+            throw NativeTimelineTransportError.renderClockUnavailable
+        }
+        let token = try audioDurabilityGate.resetWhileTransportStopped(
+            atRenderedGraphSample: cutoff.partialValue
+        )
+        audioDurabilityEpoch = token
+        _ = audioCursorFeedStorage.publishCurrent(
+            clock: renderClockStorage,
+            timelineID: request.timeline.id,
+            cursorSample: request.cursorSample,
+            loopIteration: request.loopIteration,
+            repetition: request.repetition,
+            endSample: timelinePlan.endSample,
+            graphBaseSample: graphStartSample,
+            isPlaying: true
+        )
+    }
+
+    private func endAudioDurabilityEpochAfterEngineDrain() {
+        _ = audioDurabilityEpoch?.transportDidStop()
+        audioDurabilityEpoch = nil
+        audioCursorFeedStorage.clear()
+    }
+
+    private func beginAudioDurabilityStop() {
+        _ = audioDurabilityEpoch?.transportWillStop()
+    }
+
+    @discardableResult
+    private func publishCurrentAudioCursorMapping(
+        request: ResponsiveAudioTimelineTransportPlan,
+        timelinePlan: TimelinePlaybackPlan,
+        graphBaseSample: Int64,
+        isPlaying: Bool = true
+    ) -> UInt64 {
+        audioCursorFeedStorage.publishCurrent(
+            clock: renderClockStorage,
+            timelineID: request.timeline.id,
+            cursorSample: request.cursorSample,
+            loopIteration: request.loopIteration,
+            repetition: request.repetition,
+            endSample: timelinePlan.endSample,
+            graphBaseSample: graphBaseSample,
+            isPlaying: isPlaying
+        )
+    }
+
+    private func publishScheduledAudioCursorMapping(
+        request: ResponsiveAudioTimelineTransportPlan,
+        timelinePlan: TimelinePlaybackPlan,
+        graphBoundarySample: Int64,
+        isPlaying: Bool = true
+    ) throws -> UInt64 {
+        try audioCursorFeedStorage.publishScheduled(
+            clock: renderClockStorage,
+            timelineID: request.timeline.id,
+            cursorSample: request.cursorSample,
+            loopIteration: request.loopIteration,
+            repetition: request.repetition,
+            endSample: timelinePlan.endSample,
+            graphBoundarySample: graphBoundarySample,
+            isPlaying: isPlaying
+        )
     }
 
     public func play() throws {
@@ -1946,6 +2643,23 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
                 renderClockBaseGraphSampleTime = graphStart.partialValue
             }
             currentGraphStartTime = startTime
+            guard let graphStartSample else {
+                throw NativeTimelineTransportError.renderClockUnavailable
+            }
+            if isManualRendering {
+                renderClockStorage.record(
+                    graphStartSample,
+                    hostTimeAtGraphSampleEnd: nil
+                )
+            }
+            // The epoch begins only after the exact graph origin is fixed,
+            // while no player or haptic has started. Every prepared and staged
+            // gain unit already points at this one stable gate object.
+            try beginAudioDurabilityEpoch(
+                graphStartSample: graphStartSample,
+                request: responsivePlan,
+                timelinePlan: plan
+            )
 
             // Haptics is the only throwable operation after engine start and
             // therefore crosses the transaction before any audio schedule is
@@ -1958,12 +2672,10 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
                     sampleRate: plan.sampleRate
                 )
             )
-            if let graphStartSample {
-                try scheduleAutomaticBoundary(
-                    graphStartSample: graphStartSample,
-                    startTime: startTime
-                )
-            }
+            try scheduleAutomaticBoundary(
+                graphStartSample: graphStartSample,
+                startTime: startTime
+            )
             scheduleConventionalSlices(
                 preparedSlices,
                 plan: plan,
@@ -1987,9 +2699,11 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
     private func rollbackFailedStartup(
         restoring entryState: NativeTimelineTransportState
     ) {
+        beginAudioDurabilityStop()
         preparedSlices.forEach { $0.player.stop() }
         commonLayers.values.forEach { $0.player.stop() }
         engine.stop()
+        endAudioDurabilityEpochAfterEngineDrain()
         invalidateAutomaticBoundary(clearRequest: false)
         currentGraphStartTime = nil
         stopCurrentHaptics()
@@ -2025,7 +2739,9 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
         // engine.stop() is the render-thread barrier. The final source-node
         // publication must be read only after this call has returned; reading
         // before it can lose the last in-flight render quantum.
+        beginAudioDurabilityStop()
         engine.stop()
+        endAudioDurabilityEpochAfterEngineDrain()
         pauseQuiescenceHookForTesting?()
         promoteAutomaticBoundaryIfNeeded()
         if state == .completed {
@@ -2086,6 +2802,15 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
               let plan else { return nil }
         invalidateAutomaticBoundary(clearRequest: true)
         try exitPolicy.validate(field: "responsiveAudioExitPolicy")
+#if DEBUG
+        let relinquishPreparationFault =
+            relinquishPreparationFaultForTesting
+        relinquishPreparationFaultForTesting = nil
+        // This seam runs while the original graph, lease and finite
+        // durability epoch are still live. It models any real preparation
+        // error below without turning the test into a post-stop success case.
+        try relinquishPreparationFault?()
+#endif
         let fadeDuration = exitPolicy.boundedFadeDurationSamples
         let observation = try captureRenderClockObservation()
         let boundary = try makeTransitionBoundary(
@@ -2100,8 +2825,24 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
             throw NativeTimelineTransportError.renderClockUnavailable
         }
 
-        // Haptic ownership is scheduled before graph automation so a failure
-        // leaves the audible consequence untouched and retryable.
+        let initialWakeHintNanoseconds: UInt64?
+        if engine.manualRenderingMode == .offline {
+            initialWakeHintNanoseconds = nil
+        } else {
+            let totalSeconds = boundary.leadSeconds
+                + Double(fadeDuration) / Double(plan.sampleRate)
+            let nanoseconds = totalSeconds * 1_000_000_000
+            guard nanoseconds.isFinite,
+                  nanoseconds >= 0,
+                  nanoseconds <= Double(UInt64.max) else {
+                throw NativeTimelineTransportError.renderClockUnavailable
+            }
+            initialWakeHintNanoseconds = UInt64(nanoseconds.rounded(.up))
+        }
+
+        // Finish every throwable boundary operation before replacing worker
+        // authority with the terminal tail. A haptic failure therefore leaves
+        // the original durability cutoff intact and the graph retryable.
         let hapticAtFadeEnd = try nativeHapticBoundaryAtFadeEnd(
             boundary,
             durationSamples: fadeDuration,
@@ -2121,29 +2862,28 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
             at: boundary.graphSampleTime,
             durationSamples: fadeDuration
         )
+        // Fade automation is nonthrowing and must be visible to render before
+        // a long terminal extension can expose samples beyond the old cutoff.
         scheduleFade(
             for: commonLayers.values,
             at: boundary.graphSampleTime,
             durationSamples: fadeDuration
         )
+        guard let audioDurabilityEpoch,
+              audioDurabilityEpoch.authorizeTerminalTail(
+                  fromRenderedGraphSample: observation.graphSampleTime,
+                  throughRenderedGraphSample: fadeEnd.partialValue
+              ) else {
+            // The render callback may close the durability boundary between
+            // observation and authorization. Continuing would create a muted
+            // live transport, so drain and retire this epoch before throwing.
+            stop(clearTimeline: true)
+            throw NativeTimelineTransportError.renderClockUnavailable
+        }
+
         outgoingTailGeneration &+= 1
         let generation = outgoingTailGeneration
         activeOutgoingTailGeneration = generation
-
-        let initialWakeHintNanoseconds: UInt64?
-        if engine.manualRenderingMode == .offline {
-            initialWakeHintNanoseconds = nil
-        } else {
-            let totalSeconds = boundary.leadSeconds
-                + Double(fadeDuration) / Double(plan.sampleRate)
-            let nanoseconds = totalSeconds * 1_000_000_000
-            guard nanoseconds.isFinite,
-                  nanoseconds >= 0,
-                  nanoseconds <= Double(UInt64.max) else {
-                throw NativeTimelineTransportError.renderClockUnavailable
-            }
-            initialWakeHintNanoseconds = UInt64(nanoseconds.rounded(.up))
-        }
         let tail = ResponsiveAudioOutgoingTail(
             owner: self,
             fadeBoundarySample: Int64(boundary.graphSampleTime),
@@ -2185,6 +2925,26 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
 
     public func resume() throws {
         try play()
+    }
+
+    /// Returns a worker-safe raw clock binding for the current playback epoch.
+    /// The caller must retain generation-specific runtime projection state;
+    /// this feed deliberately contains no MainActor closure.
+    public func activeAudioCursorBinding() throws
+        -> NativeAudioCursorBinding {
+        guard state == .playing,
+              let audioDurabilityEpoch,
+              let plan,
+              let mappingDescriptors = audioCursorFeedStorage
+                  .mappingDescriptors() else {
+            throw NativeAudioCursorFeedError.unavailable
+        }
+        return NativeAudioCursorBinding(
+            feed: audioCursorFeedStorage.feed(),
+            gateToken: audioDurabilityEpoch,
+            renderedGraphSampleRate: Double(plan.sampleRate),
+            mappingDescriptors: mappingDescriptors
+        )
     }
 
     public func snapshot() -> NativeTimelineTransportSnapshot {
@@ -2513,6 +3273,8 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
 
     private func promotePendingPhysicalTransition() {
         guard let pendingPhysicalTransition else { return }
+        let cursorMappingGeneration =
+            pendingPhysicalTransition.cursorMappingGeneration
         teardownRetiredNodes()
         if pendingPhysicalTransition.replacesConventionalBranch {
             stopCurrentHaptics()
@@ -2521,6 +3283,9 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
             reassertCurrentHapticPreferenceFailClosed()
         }
         self.pendingPhysicalTransition = nil
+        audioCursorFeedStorage.promoteScheduled(
+            mappingGeneration: cursorMappingGeneration
+        )
     }
 
     private func promoteAutomaticBoundaryIfNeeded() {
@@ -2587,6 +3352,9 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
             currentGraphStartTime = staged.startTime
             needsRebuildOnPlay = false
             state = .playing
+            audioCursorFeedStorage.promoteScheduled(
+                mappingGeneration: staged.cursorMappingGeneration
+            )
             let snapshot = NativeTimelineTransportSnapshot(
                 timelineID: successor.timeline.id,
                 cursorSample: 0,
@@ -2605,8 +3373,10 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
                 loopIteration: 0
             )
         }
+        beginAudioDurabilityStop()
         preparedSlices.forEach { $0.player.stop() }
         engine.stop()
+        endAudioDurabilityEpochAfterEngineDrain()
         stopCurrentHaptics()
         stopPreparedHaptics(pendingPhysicalTransition?.candidateHaptics)
         pendingPhysicalTransition = nil
@@ -2805,7 +3575,8 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
             throw NativeTimelineTransportInjectedFailure.gainUnitInstantiation
         }
         let gainNode = try SampleAccurateGainNode.make(
-            initialGain: AUValue(gain)
+            initialGain: AUValue(gain),
+            durabilityGate: audioDurabilityGate
         )
         player.volume = 1
         engine.attach(player)
@@ -2995,7 +3766,8 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
             }
             let player = AVAudioPlayerNode()
             let gainNode = try SampleAccurateGainNode.make(
-                initialGain: AUValue(target.targetGain)
+                initialGain: AUValue(target.targetGain),
+                durabilityGate: audioDurabilityGate
             )
             engine.attach(player)
             engine.attach(gainNode.node)
@@ -3713,11 +4485,13 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
         activeOutgoingTail = nil
         activeOutgoingTailGeneration = nil
         outgoingTailGeneration &+= 1
+        beginAudioDurabilityStop()
         outgoingTail?.stopImmediately()
         invalidateAutomaticBoundary(clearRequest: true)
         currentGraphStartTime = nil
         preparedSlices.forEach { $0.player.stop() }
         engine.stop()
+        endAudioDurabilityEpochAfterEngineDrain()
         stopCurrentHaptics()
         releaseAudioSessionLease()
         teardownNodes()
@@ -3853,6 +4627,48 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
             + stagedAutomaticBoundary.successorCommonLayers.count * 2
     }
 
+    var everyPreparedGainNodeUsesDurabilityGateForTesting: Bool {
+        let gainNodes = preparedSlices.map(\.gainNode)
+            + retiredSlices.map(\.gainNode)
+            + Array(commonLayers.values).map(\.gainNode)
+            + retiredCommonLayers.map(\.gainNode)
+            + (stagedAutomaticBoundary?.successorSlices.map(\.gainNode) ?? [])
+            + (stagedAutomaticBoundary.map {
+                Array($0.successorCommonLayers.values).map(\.gainNode)
+            } ?? [])
+        return !gainNodes.isEmpty && gainNodes.allSatisfy {
+            $0.durabilityGate === audioDurabilityGate
+        }
+    }
+
+    var automaticCursorBoundaryForTesting: Int64? {
+        stagedAutomaticBoundary.map { Int64($0.graphSampleTime) }
+    }
+
+    func automaticBoundaryMonitorOwnsForTesting(
+        generation: UInt64,
+        durabilityEpoch: UInt64,
+        boundaryGraphSample: Int64
+    ) -> Bool {
+        ownsAutomaticBoundaryMonitor(
+            generation: generation,
+            durabilityEpoch: durabilityEpoch,
+            boundaryGraphSample: boundaryGraphSample
+        )
+    }
+
+    func failClosedAutomaticBoundaryMonitorForTesting(
+        generation: UInt64,
+        durabilityEpoch: UInt64,
+        boundaryGraphSample: Int64
+    ) {
+        failClosedAutomaticBoundaryMonitor(
+            generation: generation,
+            durabilityEpoch: durabilityEpoch,
+            boundaryGraphSample: boundaryGraphSample
+        )
+    }
+
     func promoteAutomaticBoundaryForTesting(generation: UInt64) {
         promoteAutomaticBoundary(generation: generation)
     }
@@ -3911,6 +4727,14 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
             minimumRenderedSampleAdvance: minimumRenderedSampleAdvance
         )
         pauseCompletionFaultForTesting = fault
+    }
+
+    /// Arms one failure before outgoing-tail preparation mutates the running
+    /// graph or replaces its durability authority.
+    public func armRelinquishPreparationFaultForTesting(
+        _ fault: @escaping () throws -> Void
+    ) {
+        relinquishPreparationFaultForTesting = fault
     }
 #endif
 
@@ -4038,6 +4862,10 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
                 }
                 remaining -= buffer.frameLength
                 retries = 0
+                renderClockStorage.record(
+                    engine.manualRenderingSampleTime,
+                    hostTimeAtGraphSampleEnd: nil
+                )
                 promoteAutomaticBoundaryIfNeeded()
             case .cannotDoInCurrentContext:
                 retries += 1

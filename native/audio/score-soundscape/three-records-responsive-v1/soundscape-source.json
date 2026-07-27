@@ -48,7 +48,7 @@
     "schemaVersion": 1,
     "gainUnit": "linear",
     "rampDurationSamples": 9600,
-    "transportStatus": "OPEN_NOT_APPLIED_TO_TIMELINE_SLICES",
+    "transportStatus": "PASS_COMMON_PLAYER_SAMPLE_TIME_GAIN_RAMPS",
     "cueIDPattern": "{regionID}-{layerID}",
     "interactionLayerAssets": [
       { "layerID": "gorge-current", "role": "soundscape", "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/gorge-current.wav" },

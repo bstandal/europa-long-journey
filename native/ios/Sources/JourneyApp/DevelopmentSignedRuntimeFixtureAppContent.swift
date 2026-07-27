@@ -1,4 +1,4 @@
-#if DEBUG
+#if DEBUG || NON_SHIPPING_LIVE_TEST
 import ContentDelivery
 import ContentKit
 import CryptoKit
@@ -11,12 +11,15 @@ enum DevelopmentSignedRuntimeFixtureError: Error, Equatable {
     case malformedTrustReceipt
     case trustBoundaryMismatch
     case manifestDigestMismatch
+    case targetBeatUnavailable
 }
 
 enum DevelopmentSignedRuntimeFixtureAppContent {
     static let launchArgument = "--ui-testing-signed-runtime-fixture"
     static let chapterArgumentPrefix =
         "--ui-testing-signed-runtime-fixture-chapter="
+    static let beatArgumentPrefix =
+        "--ui-testing-signed-runtime-fixture-beat="
 
     private static let packageID = PackageID("vertical-slice-development-v1")
     private static let keyID = "vertical-slice-development-key-v1"
@@ -135,6 +138,17 @@ enum DevelopmentSignedRuntimeFixtureAppContent {
         }
         let requested = ChapterID(String(value))
         return chapterIDs.contains(requested) ? requested : chapterIDs[0]
+    }
+
+    static func targetBeatID(
+        arguments: [String] = ProcessInfo.processInfo.arguments
+    ) -> BeatID? {
+        guard let value = arguments.first(where: {
+            $0.hasPrefix(beatArgumentPrefix)
+        })?.dropFirst(beatArgumentPrefix.count), !value.isEmpty else {
+            return nil
+        }
+        return BeatID(String(value))
     }
 
     private struct VerifiedReceipt {

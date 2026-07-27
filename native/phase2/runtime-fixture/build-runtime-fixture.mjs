@@ -22,6 +22,9 @@ import {
   compileDevelopmentVerticalSlice,
   createDevelopmentProjectionAuthority,
 } from "../../tooling/src/vertical-slice-compile.mjs";
+import {
+  requireResponsiveAudioDecodedBufferBudget,
+} from "../../tooling/src/compile.mjs";
 import { verticalSliceDevelopmentIdentity } from "../../tooling/src/development-trust.mjs";
 
 const execFileAsync = promisify(execFile);
@@ -43,20 +46,128 @@ const trustReceiptPath = path.join(
 );
 const lineagePath = path.join(fixtureRoot, "fixture-lineage.json");
 const version = Object.freeze({ major: 1, minor: 0, patch: 0 });
+const firstFarmersResponsiveAudioCandidateRoot = path.join(
+  nativeRoot,
+  "audio/score-soundscape/distribution-cache/first-farmers-aac-lc-384-alac-fallback-v1",
+);
+const firstFarmersResponsiveAudioReceiptPath = path.join(
+  nativeRoot,
+  "audio/score-soundscape/distribution-coding-v1/render-receipt.json",
+);
+const firstFarmersResponsiveAudioReceiptSHA256Path =
+  `${firstFarmersResponsiveAudioReceiptPath}.sha256`;
+const firstFarmersResponsiveAudioAssetCount = 91;
+const firstFarmersResponsiveAudioSteadyDecodedBytes = 97_920_000;
+const firstFarmersResponsiveAudioTransitionDecodedBytes = 115_200_000;
+const firstFarmersResponsiveAudioProgramIDs = Object.freeze([
+  "household-crosses-responsive-audio-v1",
+  "harvest-responsive-audio-v1",
+  "three-records-responsive-audio-v1",
+  "longhouse-responsive-audio-v1",
+  "more-mouths-responsive-audio-v1",
+  "continent-remade-responsive-audio-v1",
+]);
+const moreMouthsTechnicalLiveSlice = Object.freeze({
+  beatID: "beat-first-farmers-more-mouths",
+  sceneID: "scene-first-farmers-settlement-growth",
+  accessibilityID: "accessibility-beat-first-farmers-more-mouths",
+  interactionID: "interaction-first-farmers-more-mouths-more-land",
+  assetStemID: "lab-first-farmers-land-transformation",
+  transparentAssetPath:
+    "assets/lab-first-farmers-land-transformation-technical-transparent.png",
+  transparentReduceMotionAssetPath:
+    "assets/lab-first-farmers-land-transformation-technical-reduce-motion-foreground.png",
+  stageMasks: Object.freeze([
+    Object.freeze({
+      stageID: "new-hearths",
+      assetPath:
+        "assets/lab-first-farmers-land-transformation-stage-new-hearths-alpha.png",
+      pixelBounds: Object.freeze({ x: 92, y: 350, width: 82, height: 170 }),
+    }),
+    Object.freeze({
+      stageID: "field-edges",
+      assetPath:
+        "assets/lab-first-farmers-land-transformation-stage-field-edges-alpha.png",
+      pixelBounds: Object.freeze({ x: 157, y: 318, width: 92, height: 240 }),
+    }),
+    Object.freeze({
+      stageID: "herd-lanes-and-daughters",
+      assetPath:
+        "assets/lab-first-farmers-land-transformation-stage-herd-lanes-and-daughters-alpha.png",
+      pixelBounds: Object.freeze({ x: 223, y: 285, width: 105, height: 310 }),
+    }),
+  ]),
+});
 
 const experienceLabPath = path.join(nativeRoot, "phase1/experience-lab.json");
 const visualSources = Object.freeze({
+  "scene-first-farmers-iron-gates-dawn": path.join(
+    repositoryRoot,
+    "site/assets/source/first-farmers/before-the-fields.png",
+  ),
+  "scene-first-farmers-aegean-crossing": path.join(
+    repositoryRoot,
+    "site/assets/source/first-farmers/crossing-the-sea.png",
+  ),
+  "scene-first-farmers-thessaly-landing": path.join(
+    repositoryRoot,
+    "site/assets/source/first-farmers/crossing-the-sea.png",
+  ),
+  "scene-first-farmers-thessaly-first-season": path.join(
+    repositoryRoot,
+    "site/assets/source/first-farmers/before-the-fields.png",
+  ),
+  "scene-first-farmers-danube-arrival": path.join(
+    repositoryRoot,
+    "site/assets/source/first-farmers/at-the-iron-gates.png",
+  ),
   "lab-first-farmers-harvest-allocation": path.join(
     nativeRoot,
     "design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
   ),
+  "scene-first-farmers-store-committed": path.join(
+    nativeRoot,
+    "design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+  ),
+  "scene-first-farmers-iron-gates-contact": path.join(
+    repositoryRoot,
+    "site/assets/source/first-farmers/at-the-iron-gates.png",
+  ),
+  "scene-first-farmers-iron-gates-transformation": path.join(
+    repositoryRoot,
+    "site/assets/source/first-farmers/at-the-iron-gates.png",
+  ),
+  "scene-first-farmers-danube-to-loess": path.join(
+    repositoryRoot,
+    "site/assets/source/first-farmers/at-the-iron-gates.png",
+  ),
   "lab-first-farmers-house-assembly": path.join(
+    nativeRoot,
+    "design/phase1/longhouse/concepts/option-a4-inherited-ground-readable.png",
+  ),
+  "scene-first-farmers-longhouse-rebuilt": path.join(
     repositoryRoot,
     "site/assets/source/first-farmers/house-outlives-builders.png",
+  ),
+  "scene-first-farmers-household-descent": path.join(
+    repositoryRoot,
+    "site/public/assets/chapters/first-farmers/one-house-one-clearing.webp",
   ),
   "lab-first-farmers-land-transformation": path.join(
     repositoryRoot,
     "site/public/assets/chapters/first-farmers/more-mouths-more-land-v2.webp",
+  ),
+  "scene-first-farmers-local-contraction": path.join(
+    repositoryRoot,
+    "site/public/assets/chapters/first-farmers/empty-houses-regrowth.webp",
+  ),
+  "scene-first-farmers-europe-transformation": path.join(
+    repositoryRoot,
+    "site/assets/source/first-farmers/more-mouths-more-land.png",
+  ),
+  "scene-first-farmers-steppe-handoff": path.join(
+    repositoryRoot,
+    "site/public/assets/chapters/first-farmers/one-house-one-clearing.webp",
   ),
   "lab-frontiers-northern-valleys-pressure": path.join(
     repositoryRoot,
@@ -67,6 +178,16 @@ const visualSources = Object.freeze({
     "site/public/assets/chapters/european-world/02-steam-keeps-the-appointment.avif",
   ),
 });
+const supportingResponsiveAudioDerivations = Object.freeze([
+  {
+    sceneID: "lab-frontiers-northern-valleys-pressure",
+    filter: "highpass=f=50,lowpass=f=7200,volume=0.76",
+  },
+  {
+    sceneID: "lab-european-world-ocean-schedule",
+    filter: "highpass=f=45,lowpass=f=8400,volume=0.78",
+  },
+]);
 const audioSource = path.join(
   nativeRoot,
   "audio/score-soundscape/cache/harvest-responsive-v1/approach/soundscape-master.wav",
@@ -130,6 +251,191 @@ async function writeJSON(file, value) {
   await writeFile(file, `${JSON.stringify(value, null, 2)}\n`);
 }
 
+function requireCondition(condition, message) {
+  if (!condition) throw new Error(message);
+}
+
+function isLowercaseSHA256(value) {
+  return typeof value === "string" && /^[a-f0-9]{64}$/u.test(value);
+}
+
+function isSafePackagePath(value) {
+  if (typeof value !== "string" || value.length === 0
+      || value.startsWith("/") || value.includes("\\") || value.includes("://")) {
+    return false;
+  }
+  return value.split("/").every((component) =>
+    component.length > 0 && component !== "." && component !== "..");
+}
+
+export function validateFirstFarmersResponsiveAudioCandidateReceipt(
+  receipt,
+  receiptBytes,
+  receiptSHA256Sidecar,
+) {
+  requireCondition(
+    Buffer.isBuffer(receiptBytes),
+    "responsive audio candidate receipt bytes are required",
+  );
+  const receiptSHA256 = sha256(receiptBytes);
+  requireCondition(
+    receiptSHA256Sidecar.trim() === `${receiptSHA256}  render-receipt.json`,
+    "responsive audio candidate receipt digest sidecar does not match",
+  );
+  let receiptFromBytes;
+  try {
+    receiptFromBytes = JSON.parse(receiptBytes);
+  } catch {
+    throw new Error("responsive audio candidate receipt is not valid JSON");
+  }
+  requireCondition(
+    JSON.stringify(receiptFromBytes) === JSON.stringify(receipt),
+    "responsive audio candidate receipt object is not bound to its bytes",
+  );
+  requireCondition(
+    receipt?.schemaVersion === 1
+      && receipt.id === "first-farmers-responsive-aac-lc-384-alac-fallback-render-v1"
+      && receipt.status === "PROVISIONAL_NON_SHIPPING"
+      && receipt.shippingState === "PROHIBITED"
+      && receipt.trustDomain === "BACKSTAGE_AUDIO_DISTRIBUTION_PROBE"
+      && receipt.scope?.chapterID === "first-farmers",
+    "responsive audio candidate authority is not the locked non-shipping Chapter 1 receipt",
+  );
+  requireCondition(
+    receipt.inventory?.candidateM4AAssets === firstFarmersResponsiveAudioAssetCount
+      && receipt.inventory?.sourceResponsiveWAVAssets
+        === firstFarmersResponsiveAudioAssetCount
+      && receipt.inventory?.aacLCAssets === 90
+      && receipt.inventory?.alacFallbackAssets === 1
+      && receipt.inventory?.candidateEncodedBytes === 85_479_069,
+    "responsive audio candidate inventory drifted",
+  );
+  requireCondition(
+    receipt.decodedPCM?.distributionEncodingDoesNotReduceDecodedWorkingSet === true
+      && receipt.decodedPCM?.runtimeConcurrentMemoryGateIsSeparate === true
+      && receipt.decodedPCM?.physicalIPhoneMeasurement === "OPEN",
+    "responsive audio candidate decoded-memory or physical-test boundary drifted",
+  );
+  requireCondition(
+    receipt.gates?.audioApproval === "OPEN"
+      && receipt.gates?.editorApproval === "OPEN"
+      && receipt.gates?.physicalIPhonePlayback === "OPEN"
+      && receipt.gates?.physicalIPhoneEnergy === "OPEN"
+      && receipt.gates?.shippingApproval === "PROHIBITED",
+    "responsive audio candidate approval boundary drifted",
+  );
+  requireCondition(
+    Array.isArray(receipt.outputs)
+      && receipt.outputs.length === firstFarmersResponsiveAudioAssetCount,
+    "responsive audio candidate receipt must contain exactly 91 outputs",
+  );
+
+  const bySourcePath = new Map();
+  const candidatePaths = new Set();
+  let encodedBytes = 0;
+  let aacCount = 0;
+  let alacCount = 0;
+  for (const output of receipt.outputs) {
+    const sourcePath = output?.sourcePackageAssetPath;
+    const candidatePath = output?.candidateRelativePath;
+    requireCondition(
+      isSafePackagePath(sourcePath)
+        && sourcePath.startsWith("audio/first-farmers/")
+        && sourcePath.endsWith(".wav")
+        && isSafePackagePath(candidatePath)
+        && candidatePath === sourcePath.replace(/\.wav$/u, ".m4a"),
+      "responsive audio candidate contains an unsafe or mismatched package path",
+    );
+    requireCondition(
+      output.status === "PROVISIONAL_NON_SHIPPING"
+        && output.shippingState === "PROHIBITED"
+        && Number.isSafeInteger(output.bytes) && output.bytes > 0
+        && isLowercaseSHA256(output.sha256)
+        && output.deterministicReplay?.byteIdentical === true
+        && output.deterministicReplay?.bytes === output.bytes
+        && output.deterministicReplay?.sha256 === output.sha256,
+      `${candidatePath}: candidate identity or non-shipping state drifted`,
+    );
+    requireCondition(
+      output.format?.sampleRate === 48_000
+        && output.format?.channels === 2
+        && output.format?.durationSamples === output.source?.frames
+        && output.decoded?.scheduledFrames === output.source?.frames,
+      `${candidatePath}: candidate format or scheduled duration drifted`,
+    );
+    requireCondition(
+      !bySourcePath.has(sourcePath) && !candidatePaths.has(candidatePath),
+      `${candidatePath}: duplicate responsive audio candidate mapping`,
+    );
+    bySourcePath.set(sourcePath, output);
+    candidatePaths.add(candidatePath);
+    encodedBytes += output.bytes;
+    if (output.format?.codec === "aac") aacCount += 1;
+    else if (output.format?.codec === "alac") alacCount += 1;
+    else throw new Error(`${candidatePath}: unsupported live-test codec`);
+  }
+  requireCondition(
+    encodedBytes === receipt.inventory.candidateEncodedBytes
+      && aacCount === receipt.inventory.aacLCAssets
+      && alacCount === receipt.inventory.alacFallbackAssets,
+    "responsive audio candidate aggregate identity drifted",
+  );
+  return {
+    receipt,
+    receiptSHA256,
+    bySourcePath,
+    candidatePaths: [...candidatePaths].sort(),
+    encodedBytes,
+  };
+}
+
+async function loadFirstFarmersResponsiveAudioCandidates() {
+  const [receiptBytes, sidecar] = await Promise.all([
+    readFile(firstFarmersResponsiveAudioReceiptPath),
+    readFile(firstFarmersResponsiveAudioReceiptSHA256Path, "utf8"),
+  ]);
+  let receipt;
+  try {
+    receipt = JSON.parse(receiptBytes);
+  } catch {
+    throw new Error("responsive audio candidate receipt is not valid JSON");
+  }
+  const candidates = validateFirstFarmersResponsiveAudioCandidateReceipt(
+    receipt,
+    receiptBytes,
+    sidecar,
+  );
+  for (const output of candidates.bySourcePath.values()) {
+    const candidateFile = path.join(
+      firstFarmersResponsiveAudioCandidateRoot,
+      ...output.candidateRelativePath.split("/"),
+    );
+    const bytes = await readFile(candidateFile).catch(() => null);
+    requireCondition(
+      bytes !== null
+        && bytes.byteLength === output.bytes
+        && sha256(bytes) === output.sha256,
+      `${output.candidateRelativePath}: verified M4A candidate is absent or changed`,
+    );
+  }
+  return candidates;
+}
+
+async function installFirstFarmersResponsiveAudioCandidates(candidates) {
+  for (const output of candidates.bySourcePath.values()) {
+    const source = path.join(
+      firstFarmersResponsiveAudioCandidateRoot,
+      ...output.candidateRelativePath.split("/"),
+    );
+    const destination = path.join(
+      sourceRoot,
+      ...output.candidateRelativePath.split("/"),
+    );
+    await mkdir(path.dirname(destination), { recursive: true });
+    await copyFile(source, destination);
+  }
+}
+
 async function renderRaster(source, destination, tailFilter) {
   const common = "scale=393:852:force_original_aspect_ratio=increase,crop=393:852";
   const filter = tailFilter ? `${common},${tailFilter}` : common;
@@ -145,9 +451,26 @@ async function renderRaster(source, destination, tailFilter) {
   ]);
 }
 
+async function renderTechnicalMask(destination, pixelBounds) {
+  const { x, y, width, height } = pixelBounds;
+  await execFileAsync("ffmpeg", [
+    "-hide_banner",
+    "-loglevel", "error",
+    "-y",
+    "-f", "lavfi",
+    "-i", "color=c=black:s=393x852:r=1",
+    "-vf",
+    `drawbox=x=${x}:y=${y}:w=${width}:h=${height}:color=white:t=fill,gblur=sigma=12,format=gray`,
+    "-frames:v", "1",
+    "-map_metadata", "-1",
+    destination,
+  ]);
+}
+
 async function renderAssets() {
   const assetRoot = path.join(sourceRoot, "assets");
   const audioRoot = path.join(sourceRoot, "audio");
+  const renderedPaths = [];
   await mkdir(assetRoot, { recursive: true });
   await mkdir(audioRoot, { recursive: true });
 
@@ -165,29 +488,46 @@ async function renderAssets() {
   ];
   for (const [sceneID, source] of Object.entries(visualSources)) {
     for (const [suffix, filter] of rasterSpecifications) {
+      const relative = `assets/${sceneID}-${suffix}.png`;
       await renderRaster(
         source,
-        path.join(assetRoot, `${sceneID}-${suffix}.png`),
+        path.join(sourceRoot, ...relative.split("/")),
         filter,
       );
+      renderedPaths.push(relative);
     }
   }
 
-  const audioFilters = [
-    "highpass=f=35,lowpass=f=9000,volume=0.80",
-    "highpass=f=50,lowpass=f=7200,volume=0.76",
-    "highpass=f=45,lowpass=f=8400,volume=0.78",
-    "highpass=f=60,lowpass=f=6600,volume=0.74",
-    "highpass=f=40,lowpass=f=9600,volume=0.77",
-  ];
-  for (const [index, sceneID] of Object.keys(visualSources).entries()) {
+  const moreMouthsSource = visualSources[moreMouthsTechnicalLiveSlice.assetStemID];
+  const transparentRelative = moreMouthsTechnicalLiveSlice.transparentAssetPath;
+  for (const relative of [
+    transparentRelative,
+    moreMouthsTechnicalLiveSlice.transparentReduceMotionAssetPath,
+  ]) {
+    await renderRaster(
+      moreMouthsSource,
+      path.join(sourceRoot, ...relative.split("/")),
+      "format=rgba,colorchannelmixer=aa=0",
+    );
+    renderedPaths.push(relative);
+  }
+  for (const stageMask of moreMouthsTechnicalLiveSlice.stageMasks) {
+    await renderTechnicalMask(
+      path.join(sourceRoot, ...stageMask.assetPath.split("/")),
+      stageMask.pixelBounds,
+    );
+    renderedPaths.push(stageMask.assetPath);
+  }
+
+  for (const { sceneID, filter } of supportingResponsiveAudioDerivations) {
+    const relative = `audio/${sceneID}-soundscape.m4a`;
     await execFileAsync("ffmpeg", [
       "-hide_banner",
       "-loglevel", "error",
       "-y",
       "-i", audioSource,
       "-t", "60",
-      "-af", audioFilters[index],
+      "-af", filter,
       "-map_metadata", "-1",
       "-fflags", "+bitexact",
       "-flags:a", "+bitexact",
@@ -195,8 +535,9 @@ async function renderAssets() {
       "-b:a", "128k",
       "-ar", "48000",
       "-ac", "2",
-      path.join(audioRoot, `${sceneID}-soundscape.m4a`),
+      path.join(sourceRoot, ...relative.split("/")),
     ]);
+    renderedPaths.push(relative);
   }
 
   for (const [role, packagePath] of Object.entries(harvestProofAssetPaths)) {
@@ -204,7 +545,33 @@ async function renderAssets() {
       harvestProofInputs[role],
       path.join(sourceRoot, ...packagePath.split("/")),
     );
+    renderedPaths.push(packagePath);
   }
+  return renderedPaths;
+}
+
+function collectReferencedAssetPaths(value, key = undefined, paths = new Set()) {
+  if (Array.isArray(value)) {
+    for (const item of value) collectReferencedAssetPaths(item, undefined, paths);
+  } else if (value && typeof value === "object") {
+    for (const [childKey, childValue] of Object.entries(value)) {
+      collectReferencedAssetPaths(childValue, childKey, paths);
+    }
+  } else if (typeof value === "string" && (
+    key === "assetPath" || key === "alphaMaskAssetPath"
+      || key === "occlusionMaskAssetPath" || key === "depthMaskAssetPath"
+      || key === "lightMaskAssetPath"
+  )) {
+    paths.add(value);
+  }
+  return paths;
+}
+
+async function removeUnreferencedRenderedAssets(payload, renderedPaths) {
+  const referenced = collectReferencedAssetPaths(payload);
+  await Promise.all(renderedPaths
+    .filter((assetPath) => !referenced.has(assetPath))
+    .map((assetPath) => rm(path.join(sourceRoot, ...assetPath.split("/")), { force: true })));
 }
 
 function localizedEnglish(value) {
@@ -271,6 +638,74 @@ function rewriteAuthoredSceneAssets(scene, sceneID) {
     stratum.assetPath = index === 0
       ? assetPath(sceneID, "reduce-motion-underlay")
       : assetPath(sceneID, "reduce-motion-foreground");
+  }
+  return scene;
+}
+
+function rewriteMoreMouthsTechnicalSceneAssets(scene) {
+  requireCondition(
+    scene.id === moreMouthsTechnicalLiveSlice.sceneID,
+    "More Mouths technical scene must retain its canonical scene ID",
+  );
+  const basePath = assetPath(moreMouthsTechnicalLiveSlice.assetStemID, "base");
+  const activePath = assetPath(
+    moreMouthsTechnicalLiveSlice.assetStemID,
+    "state-active",
+  );
+  const completedPath = assetPath(
+    moreMouthsTechnicalLiveSlice.assetStemID,
+    "state-completed",
+  );
+  const reduceMotionUnderlayPath = assetPath(
+    moreMouthsTechnicalLiveSlice.assetStemID,
+    "reduce-motion-underlay",
+  );
+  const masksByLayerID = new Map(
+    moreMouthsTechnicalLiveSlice.stageMasks.map(({ stageID, assetPath }) => [
+      `stage-${stageID}`,
+      { alphaMaskAssetPath: assetPath },
+    ]),
+  );
+
+  for (const layer of scene.layers) {
+    const stageMasks = masksByLayerID.get(layer.id);
+    if (stageMasks) {
+      layer.assetPath = basePath;
+      layer.masks = structuredClone(stageMasks);
+      for (const variant of layer.stateVariants) {
+        if (variant.id === "before") variant.assetPath = basePath;
+        else if (variant.id === "active") variant.assetPath = activePath;
+        else if (variant.id === "completed") variant.assetPath = completedPath;
+        else throw new Error(`More Mouths has unsupported state '${variant.id}'`);
+        variant.masks = structuredClone(stageMasks);
+      }
+      continue;
+    }
+
+    if (layer.id === "far-landscape") {
+      layer.assetPath = basePath;
+      layer.masks = {};
+      continue;
+    }
+
+    // The technical fixture must not place a full-frame opaque plate above
+    // the three causal overlays. These transparent placeholders prove the
+    // runtime ordering without making any production-art claim.
+    layer.assetPath = moreMouthsTechnicalLiveSlice.transparentAssetPath;
+    layer.masks = {};
+    for (const variant of layer.stateVariants) {
+      variant.assetPath = moreMouthsTechnicalLiveSlice.transparentAssetPath;
+      variant.masks = {};
+    }
+  }
+
+  const staticStrata = scene.reduceMotionComposition.strata.filter(
+    ({ kind }) => kind === "staticPlate",
+  );
+  for (const [index, stratum] of staticStrata.entries()) {
+    stratum.assetPath = index === 0
+      ? reduceMotionUnderlayPath
+      : moreMouthsTechnicalLiveSlice.transparentReduceMotionAssetPath;
   }
   return scene;
 }
@@ -594,6 +1029,177 @@ function makeResponsiveAudio(chapterID, arcID, beat, sceneID) {
   };
 }
 
+function programTimelineIDs(program) {
+  return [
+    program.approachTimelineID,
+    ...program.interactionBeds.map(({ timelineID }) => timelineID),
+    program.consequenceTimelineID,
+  ];
+}
+
+export function projectFirstFarmersResponsiveAudio(
+  source,
+  projectedChapter,
+  candidates,
+) {
+  const sourcePrograms = source.responsiveAudioPrograms.filter(
+    ({ scope }) => scope.chapterID === "first-farmers",
+  );
+  requireCondition(
+    sourcePrograms.length === firstFarmersResponsiveAudioProgramIDs.length
+      && sourcePrograms.map(({ id }) => id).join("\n")
+        === firstFarmersResponsiveAudioProgramIDs.join("\n"),
+    "authored First Farmers responsive program inventory drifted",
+  );
+  requireCondition(
+    candidates?.bySourcePath instanceof Map
+      && candidates.bySourcePath.size === firstFarmersResponsiveAudioAssetCount,
+    "exact responsive audio candidate mapping is required",
+  );
+
+  const projectedScopesByInteractionID = new Map();
+  for (const arc of projectedChapter.arcs) {
+    for (const beat of arc.beats) {
+      if (!beat.interaction) continue;
+      requireCondition(
+        !projectedScopesByInteractionID.has(beat.interaction.id),
+        `${beat.interaction.id}: duplicate projected interaction scope`,
+      );
+      projectedScopesByInteractionID.set(beat.interaction.id, {
+        chapterID: projectedChapter.id,
+        arcID: arc.id,
+        beatID: beat.id,
+        interactionID: beat.interaction.id,
+      });
+    }
+  }
+
+  const timelineIDs = new Set();
+  const projectedPrograms = sourcePrograms.map((sourceProgram) => {
+    const program = structuredClone(sourceProgram);
+    const projectedScope = projectedScopesByInteractionID.get(
+      sourceProgram.scope.interactionID,
+    );
+    requireCondition(
+      projectedScope !== undefined,
+      `${sourceProgram.id}: projected interaction scope is missing`,
+    );
+    program.scope = projectedScope;
+    for (const timelineID of programTimelineIDs(program)) {
+      requireCondition(
+        typeof timelineID === "string" && !timelineIDs.has(timelineID),
+        `${sourceProgram.id}: duplicate or invalid responsive timeline ID`,
+      );
+      timelineIDs.add(timelineID);
+    }
+    if (program.causalMix) {
+      for (const layer of program.causalMix.layers) {
+        const output = candidates.bySourcePath.get(layer.assetPath);
+        requireCondition(
+          output !== undefined,
+          `${sourceProgram.id}: causal layer has no verified M4A candidate`,
+        );
+        layer.assetPath = output.candidateRelativePath;
+      }
+    }
+    return program;
+  });
+  requireCondition(
+    timelineIDs.size === firstFarmersResponsiveAudioProgramIDs.length * 5,
+    "First Farmers must project exactly thirty responsive timelines",
+  );
+
+  const usedSourcePaths = new Set();
+  const projectedTimelines = source.audioTimelines
+    .filter(({ id }) => timelineIDs.has(id))
+    .map((sourceTimeline) => {
+      const timeline = structuredClone(sourceTimeline);
+      timeline.events = timeline.events.map((event) => {
+        if (event.role === "silence") return event;
+        const output = candidates.bySourcePath.get(event.assetPath);
+        requireCondition(
+          output !== undefined,
+          `${timeline.id}/${event.cueID}: no verified M4A candidate`,
+        );
+        usedSourcePaths.add(event.assetPath);
+        return { ...event, assetPath: output.candidateRelativePath };
+      });
+      return timeline;
+    });
+  requireCondition(
+    projectedTimelines.length === timelineIDs.size
+      && projectedTimelines.every(({ id }) => timelineIDs.has(id)),
+    "First Farmers responsive timeline source is incomplete",
+  );
+  const missingOrUnused = [...candidates.bySourcePath.keys()].filter(
+    (sourcePath) => !usedSourcePaths.has(sourcePath),
+  );
+  requireCondition(
+    usedSourcePaths.size === firstFarmersResponsiveAudioAssetCount
+      && missingOrUnused.length === 0,
+    "the six First Farmers programs do not consume exactly 91 verified M4A candidates",
+  );
+  return {
+    programs: projectedPrograms,
+    timelines: projectedTimelines,
+    assetPaths: [...usedSourcePaths]
+      .map((sourcePath) => candidates.bySourcePath.get(sourcePath).candidateRelativePath)
+      .sort(),
+  };
+}
+
+export function requireRepresentativeFirstFarmersResponsiveAudio(payload) {
+  const programs = payload.responsiveAudioPrograms.filter(
+    ({ scope }) => scope.chapterID === "first-farmers",
+  );
+  requireCondition(
+    programs.length === firstFarmersResponsiveAudioProgramIDs.length
+      && programs.map(({ id }) => id).join("\n")
+        === firstFarmersResponsiveAudioProgramIDs.join("\n"),
+    "live-test payload does not contain the six authored First Farmers programs",
+  );
+  const timelineIDs = new Set(programs.flatMap(programTimelineIDs));
+  requireCondition(
+    timelineIDs.size === 30,
+    "live-test payload does not contain thirty authored First Farmers timelines",
+  );
+  const timelines = payload.audioTimelines.filter(({ id }) => timelineIDs.has(id));
+  requireCondition(
+    timelines.length === timelineIDs.size,
+    "live-test payload is missing an authored First Farmers timeline",
+  );
+  const paths = new Set(timelines.flatMap(({ events }) => events)
+    .filter(({ role }) => role !== "silence")
+    .map(({ assetPath }) => assetPath));
+  requireCondition(
+    paths.size === firstFarmersResponsiveAudioAssetCount
+      && [...paths].every((assetPath) =>
+        isSafePackagePath(assetPath)
+          && assetPath.startsWith("audio/first-farmers/")
+          && assetPath.endsWith(".m4a")),
+    "live-test payload does not bind exactly 91 First Farmers M4A assets",
+  );
+  const estimate = requireResponsiveAudioDecodedBufferBudget(
+    payload,
+    100_000_000,
+    200_000_000,
+  );
+  requireCondition(
+    estimate.steady.bytes === firstFarmersResponsiveAudioSteadyDecodedBytes
+      && estimate.steady.programID === "three-records-responsive-audio-v1"
+      && estimate.transition.bytes
+        === firstFarmersResponsiveAudioTransitionDecodedBytes
+      && estimate.transition.programID === "three-records-responsive-audio-v1",
+    "live-test responsive audio decoded-buffer bounds drifted from 97.92/115.20 MB",
+  );
+  return {
+    programIDs: programs.map(({ id }) => id),
+    timelineIDs: [...timelineIDs].sort(),
+    assetPaths: [...paths].sort(),
+    decodedBufferEstimate: estimate,
+  };
+}
+
 function approvedArc(documents, contentID, arcID) {
   const chapter = documents.arcs.chapters.find((item) => item.contentID === contentID);
   const arc = chapter?.arcs.find((item) => item.arcID === arcID);
@@ -717,84 +1323,30 @@ function makeAssembleProjection(source) {
 }
 
 function makeTransformProjection(source) {
-  const sceneID = "lab-first-farmers-land-transformation";
   const sourceBeat = source.chapters[0].arcs
     .flatMap(({ beats }) => beats)
-    .find(({ interaction }) => interaction?.id === "interaction-first-farmers-more-mouths-more-land");
-  if (!sourceBeat) throw new Error("Missing authored land transformation beat");
-  const beat = structuredClone(sourceBeat);
-  beat.id = "beat-first-farmers-land-transformation";
-  beat.sceneID = sceneID;
-  beat.narrationCueIDs = [];
-  beat.interaction.accessibilityID = "accessibility-lab-first-farmers-land-transformation";
-  beat.interaction.configuration.stages = [
-    { id: "new-hearths", controlID: "settlement-pressure", requiredAmount: 1 },
-    { id: "field-edges", controlID: "settlement-pressure", requiredAmount: 1 },
-    { id: "herd-lanes", controlID: "settlement-pressure", requiredAmount: 1 },
-    { id: "daughter-settlements", controlID: "settlement-pressure", requiredAmount: 1 },
-  ];
-  const mechanism = local(
-    `${sceneID}-mechanism-focus`,
-    "New hearths, field edges, herd lanes and daughter settlements remain cut into the same ground.",
+    .find(({ interaction }) =>
+      interaction?.id === moreMouthsTechnicalLiveSlice.interactionID);
+  const sourceScene = source.scenes.find(({ id }) => id === sourceBeat?.sceneID);
+  const sourceAccessibility = source.accessibility.find(
+    ({ id }) => id === sourceBeat?.interaction?.accessibilityID,
   );
-  const positions = [
-    [0.24, 0.46], [0.61, 0.46], [0.24, 0.66], [0.61, 0.66],
-  ];
-  const stages = beat.interaction.configuration.stages;
-  const stageLayers = stages.map(({ id }, index) =>
-    technicalLayer(sceneID, `stage-${id}`, index + 1, ["before", "active", "completed"]));
-  const targets = stages.map(({ id }, index) => ({
-    interactionTargetID: `stage-${id}-target`,
-    layerID: `stage-${id}`,
-    hitRegion: targetRegion(...positions[index]),
-    accessibilityElementID: `transform-${id}`,
-  }));
-  const scene = technicalScene({
-    sceneID,
-    accessibilityID: beat.interaction.accessibilityID,
-    mechanism,
-    layers: [
-      technicalLayer(sceneID, "background", 0, [], { depth: 0.08, parallaxFactor: 0.02 }),
-      ...stageLayers,
-      technicalLayer(sceneID, "foreground", stages.length + 1, [], {
-        depth: 0.92,
-        parallaxFactor: 0.08,
-      }),
-    ],
-    interactionTargets: targets,
-    interactionVisualBinding: {
-      grammar: "transform",
-      configuration: {
-        interactionID: beat.interaction.id,
-        stages: stages.map(({ id }) => ({
-          stageID: id,
-          interactionTargetID: `stage-${id}-target`,
-          layerID: `stage-${id}`,
-          beforeVariantID: "before",
-          activeVariantID: "active",
-          completedVariantID: "completed",
-        })),
-      },
-    },
-    atmosphere: {
-      kind: "dust",
-      density: 0.12,
-      velocity: { dx: 0.05, dy: -0.02 },
-      deterministicSeed: 19910412,
-    },
-  });
-  const controls = stages.map(({ id }) => ({
-    id: `transform-${id}`,
-    role: "adjustable",
-    label: local(`${beat.id}-${id}-label`, id.replaceAll("-", " ")),
-    actions: [action(
-      "increment",
-      `${beat.id}-${id}-advance-label`,
-      `Advance ${id.replaceAll("-", " ")}`,
-      { command: "advance-transform", targetID: id, step: 1 },
-    )],
-  }));
-  return { beat, scene, accessibility: makeAccessibility(beat, mechanism, controls) };
+  if (!sourceBeat || !sourceScene || !sourceAccessibility) {
+    throw new Error("Missing authored land transformation projection");
+  }
+  requireCondition(
+    sourceBeat.id === moreMouthsTechnicalLiveSlice.beatID
+      && sourceScene.id === moreMouthsTechnicalLiveSlice.sceneID
+      && sourceAccessibility.id === moreMouthsTechnicalLiveSlice.accessibilityID,
+    "More Mouths canonical identity drifted before technical projection",
+  );
+  const beat = structuredClone(sourceBeat);
+  beat.narrationCueIDs = [];
+  const scene = rewriteMoreMouthsTechnicalSceneAssets(
+    structuredClone(sourceScene),
+  );
+  const accessibility = structuredClone(sourceAccessibility);
+  return { beat, scene, accessibility };
 }
 
 function makePressureProjection(documents) {
@@ -1071,28 +1623,36 @@ function validateExperienceLabCoverage(payload, experienceLab) {
       (beat.interaction?.completionEffects ?? beat.completionEffects).map(({ id }) => id)),
   ]));
   for (const expected of experienceLab.scenes) {
+    const isCanonicalMoreMouths =
+      expected.nativeInteractionID === moreMouthsTechnicalLiveSlice.interactionID;
+    const expectedBeatID = isCanonicalMoreMouths
+      ? moreMouthsTechnicalLiveSlice.beatID
+      : expected.beatID;
+    const expectedSceneID = isCanonicalMoreMouths
+      ? moreMouthsTechnicalLiveSlice.sceneID
+      : expected.labSceneID;
     const chapter = payload.chapters.find(({ id }) => id === expected.contentID);
     const arc = chapter?.arcs.find(({ id }) => id === expected.arcID);
-    const beat = arc?.beats.find(({ id }) => id === expected.beatID);
-    const scene = payload.scenes.find(({ id }) => id === expected.labSceneID);
+    const beat = arc?.beats.find(({ id }) => id === expectedBeatID);
+    const scene = payload.scenes.find(({ id }) => id === expectedSceneID);
     if (!chapter || !arc || !beat || !scene) {
-      issues.push(`${expected.labSceneID}: chapter, arc, beat and scene are required`);
+      issues.push(`${expectedSceneID}: chapter, arc, beat and scene are required`);
       continue;
     }
-    if (beat.sceneID !== expected.labSceneID
+    if (beat.sceneID !== expectedSceneID
         || beat.interaction?.id !== expected.nativeInteractionID
         || beat.interaction?.grammar !== expected.grammar
         || beat.interaction?.completionEffects?.map(({ id }) => id).join(",")
           !== expected.worldEffectID) {
-      issues.push(`${expected.labSceneID}: locked interaction projection drifted`);
+      issues.push(`${expectedSceneID}: locked interaction projection drifted`);
     }
     if (scene.interactionVisualBinding?.grammar !== expected.grammar
         || scene.accessibilityID !== beat.interaction?.accessibilityID) {
-      issues.push(`${expected.labSceneID}: visual/accessibility grammar drifted`);
+      issues.push(`${expectedSceneID}: visual/accessibility grammar drifted`);
     }
     for (const seedEffectID of expected.seedEffectIDs ?? []) {
       if (!authoredEffectIDs.has(seedEffectID)) {
-        issues.push(`${expected.labSceneID}: seed effect ${seedEffectID} is unavailable`);
+        issues.push(`${expectedSceneID}: seed effect ${seedEffectID} is unavailable`);
       }
     }
     grammarSet.add(expected.grammar);
@@ -1104,23 +1664,39 @@ function validateExperienceLabCoverage(payload, experienceLab) {
   if ([...grammarSet].sort().join(",") !== [...experienceLab.requiredGrammars].sort().join(",")) {
     issues.push("experience lab does not cover all five locked grammars");
   }
+  const firstFarmers = payload.chapters.find(({ id }) => id === "first-farmers");
+  const firstFarmersBeats = firstFarmers?.arcs.flatMap(({ beats }) => beats) ?? [];
+  const firstFarmersInteractions = firstFarmersBeats
+    .flatMap(({ interaction }) => interaction ? [interaction] : []);
+  if (firstFarmers?.arcs.length !== 3 || firstFarmersBeats.length !== 17) {
+    issues.push("the live First Farmers projection must contain all three arcs and 17 beats");
+  }
+  if (firstFarmersInteractions.length !== 6) {
+    issues.push("the live First Farmers projection must contain all six principal interactions");
+  }
+  for (const beat of firstFarmersBeats) {
+    if (!payload.scenes.some(({ id }) => id === beat.sceneID)) {
+      issues.push(`${beat.id}: referenced scene ${beat.sceneID} is unavailable`);
+    }
+  }
   const interactions = payload.chapters.flatMap(({ arcs }) => arcs)
     .flatMap(({ beats }) => beats)
     .flatMap(({ interaction }) => interaction ? [interaction] : []);
-  if (interactions.length !== 5) issues.push("experience lab must contain exactly five interactions");
+  if (interactions.length !== 8) {
+    issues.push("the full-chapter live fixture must contain six First Farmers interactions and two supporting lab interactions");
+  }
   if (issues.length) throw new Error(issues.join("\n"));
 }
 
-function buildPayload(source, documents, experienceLab) {
+function buildPayload(source, documents, experienceLab, responsiveAudioCandidates) {
   const sourceChapter = source.chapters.find(({ id }) => id === "first-farmers");
-  const sourceArc02 = sourceChapter?.arcs.find(({ id }) => id === "first-farmers-arc-02");
-  const sourceArc03 = sourceChapter?.arcs.find(({ id }) => id === "first-farmers-arc-03");
-  const harvestSourceBeat = sourceArc02?.beats.find(
-    ({ id }) => id === "beat-first-farmers-harvest-allocation",
-  );
+  const sourceBeats = sourceChapter?.arcs.flatMap(({ beats }) => beats) ?? [];
+  const harvestSourceBeat = sourceBeats.find(({ id }) =>
+    id === "beat-first-farmers-harvest-allocation");
   const harvestSourceScene = source.scenes.find(({ id }) => id === "harvest-allocation-option-1");
-  if (!sourceChapter || !sourceArc02 || !sourceArc03 || !harvestSourceBeat || !harvestSourceScene) {
-    throw new Error("First Farmers experience-lab source projection is incomplete");
+  if (!sourceChapter || sourceChapter.arcs.length !== 3 || sourceBeats.length !== 17
+      || !harvestSourceBeat || !harvestSourceScene) {
+    throw new Error("The authored First Farmers chapter source is incomplete");
   }
 
   const harvestBeat = structuredClone(harvestSourceBeat);
@@ -1139,27 +1715,85 @@ function buildPayload(source, documents, experienceLab) {
   const assemble = makeAssembleProjection(source);
   const transform = makeTransformProjection(source);
   const firstFarmers = structuredClone(sourceChapter);
-  firstFarmers.arcs = [
-    { ...structuredClone(sourceArc02), beats: [harvestBeat] },
-    { ...structuredClone(sourceArc03), beats: [assemble.beat, transform.beat] },
-  ];
-  const chapterExitEffect = sourceChapter.arcs.flatMap(({ beats }) => beats)
-    .find(({ id }) => id === "beat-first-farmers-three-records")
-    ?.interaction?.completionEffects[0];
-  if (!chapterExitEffect) throw new Error("First Farmers chapter exit effect is missing");
-  firstFarmers.completionEffects = [structuredClone(chapterExitEffect)];
+  const beatSubstitutions = new Map([
+    ["beat-first-farmers-harvest-allocation", harvestBeat],
+    ["beat-first-farmers-raise-longhouse", assemble.beat],
+    ["beat-first-farmers-more-mouths", transform.beat],
+  ]);
+  firstFarmers.arcs = firstFarmers.arcs.map((arc) => ({
+    ...arc,
+    beats: arc.beats.map((sourceBeat) => {
+      const beat = structuredClone(beatSubstitutions.get(sourceBeat.id) ?? sourceBeat);
+      // The live fixture deliberately excludes the still-unapproved narrator
+      // attempts. Responsive authored-state audio remains active for every
+      // principal interaction.
+      beat.narrationCueIDs = [];
+      return beat;
+    }),
+  }));
+  // The authored draft carries a provisional convenience mutation that is
+  // intentionally outside the approved WorldEffect ledger. The six approved
+  // interaction effects already carry the complete chapter causal state.
+  firstFarmers.completionEffects = [];
+
+  const replacedSceneIDs = new Set([
+    "harvest-allocation-option-1",
+    "scene-first-farmers-longhouse-assembly",
+    "scene-first-farmers-settlement-growth",
+  ]);
+  const chapterScenesByID = new Map(
+    source.scenes
+      .filter(({ id }) => !replacedSceneIDs.has(id))
+      .map((scene) => {
+        const projection = rewriteAuthoredSceneAssets(structuredClone(scene), scene.id);
+        return [projection.id, projection];
+      }),
+  );
+  for (const scene of [harvestScene, assemble.scene, transform.scene]) {
+    chapterScenesByID.set(scene.id, scene);
+  }
+  const chapterScenes = firstFarmers.arcs
+    .flatMap(({ beats }) => beats)
+    .map((beat) => chapterScenesByID.get(beat.sceneID));
+  if (chapterScenes.some((scene) => !scene) || new Set(chapterScenes.map(({ id }) => id)).size !== 17) {
+    throw new Error("The live First Farmers chapter does not project exactly one scene per beat");
+  }
+
+  const replacedAccessibilityIDs = new Set([
+    harvestSourceBeat.interaction.accessibilityID,
+    sourceBeats.find(({ id }) => id === "beat-first-farmers-raise-longhouse")
+      ?.interaction?.accessibilityID,
+    sourceBeats.find(({ id }) => id === "beat-first-farmers-more-mouths")
+      ?.interaction?.accessibilityID,
+  ]);
+  const chapterAccessibilityByID = new Map(
+    source.accessibility
+      .filter(({ id }) => !replacedAccessibilityIDs.has(id))
+      .map((accessibility) => [accessibility.id, structuredClone(accessibility)]),
+  );
+  for (const accessibility of [harvestAccessibility, assemble.accessibility, transform.accessibility]) {
+    chapterAccessibilityByID.set(accessibility.id, accessibility);
+  }
+  const chapterAccessibility = chapterScenes.map((scene) =>
+    chapterAccessibilityByID.get(scene.accessibilityID));
+  if (chapterAccessibility.some((accessibility) => !accessibility)) {
+    throw new Error("The live First Farmers chapter is missing scene accessibility");
+  }
 
   const pressure = makePressureProjection(documents);
   const trace = makeTraceProjection(documents);
   const harvestParallaxProof = makeHarvestParallaxProof();
-  const interactiveRecords = [
-    { chapterID: "first-farmers", arcID: "first-farmers-arc-02", beat: harvestBeat, sceneID: harvestSceneID },
-    { chapterID: "first-farmers", arcID: "first-farmers-arc-03", beat: assemble.beat, sceneID: assemble.scene.id },
-    { chapterID: "first-farmers", arcID: "first-farmers-arc-03", beat: transform.beat, sceneID: transform.scene.id },
+  const firstFarmersAudio = projectFirstFarmersResponsiveAudio(
+    source,
+    firstFarmers,
+    responsiveAudioCandidates,
+  );
+  const supportingInteractiveRecords = [
     { chapterID: "europe-holds-the-line", arcID: "europe-holds-the-line-arc-01", beat: pressure.beat, sceneID: pressure.scene.id },
     { chapterID: "european-world", arcID: "european-world-arc-01", beat: trace.beat, sceneID: trace.scene.id },
   ];
-  const audio = interactiveRecords.map(({ chapterID, arcID, beat, sceneID }) =>
+  const supportingAudio = supportingInteractiveRecords.map(
+    ({ chapterID, arcID, beat, sceneID }) =>
     makeResponsiveAudio(chapterID, arcID, beat, sceneID));
   const worldSeed = structuredClone(source.worldSeed);
   worldSeed.nodes.push(
@@ -1185,19 +1819,21 @@ function buildPayload(source, documents, experienceLab) {
     worldSeed,
     chapters: [firstFarmers, pressure.chapter, trace.chapter],
     scenes: [
-      harvestScene,
-      assemble.scene,
-      transform.scene,
+      ...chapterScenes,
       pressure.scene,
       trace.scene,
       harvestParallaxProof.scene,
     ],
-    audioTimelines: audio.flatMap(({ timelines }) => timelines),
-    responsiveAudioPrograms: audio.map(({ program }) => program),
+    audioTimelines: [
+      ...firstFarmersAudio.timelines,
+      ...supportingAudio.flatMap(({ timelines }) => timelines),
+    ],
+    responsiveAudioPrograms: [
+      ...firstFarmersAudio.programs,
+      ...supportingAudio.map(({ program }) => program),
+    ],
     accessibility: [
-      harvestAccessibility,
-      assemble.accessibility,
-      transform.accessibility,
+      ...chapterAccessibility,
       pressure.accessibility,
       trace.accessibility,
       harvestParallaxProof.accessibility,
@@ -1205,7 +1841,9 @@ function buildPayload(source, documents, experienceLab) {
   };
   validateExperienceLabCoverage(payload, experienceLab);
   if (localizedEnglish(firstFarmers.title) !== "The First Farmers"
-      || localizedEnglish(firstFarmers.arcs[0].title) !== "The Harvest Had to Last"
+      || localizedEnglish(firstFarmers.arcs[0].title) !== "The River Before the Fields"
+      || localizedEnglish(firstFarmers.arcs[1].title) !== "The Harvest Had to Last"
+      || localizedEnglish(firstFarmers.arcs[2].title) !== "The House Outlives Its Builders"
       || localizedEnglish(pressure.chapter.title) !== "The Frontiers Hold"
       || localizedEnglish(trace.chapter.title) !== "The European World") {
     throw new Error("Experience-lab editorial contracts drifted before fixture projection");
@@ -1230,14 +1868,33 @@ async function main() {
     await rm(target, { force: true });
   }
   await mkdir(path.join(sourceRoot, "chapters"), { recursive: true });
-  await renderAssets();
+  const renderedPaths = await renderAssets();
 
-  const [sourcePayload, blueprint, experienceLab] = await Promise.all([
+  const [
+    sourcePayload,
+    blueprint,
+    experienceLab,
+    responsiveAudioCandidates,
+  ] = await Promise.all([
     readFile(sourcePayloadPath, "utf8").then(JSON.parse),
     readBlueprintProjectionDocuments(blueprintRoot),
     readFile(experienceLabPath, "utf8").then(JSON.parse),
+    loadFirstFarmersResponsiveAudioCandidates(),
   ]);
-  const payload = buildPayload(sourcePayload, blueprint, experienceLab);
+  const payload = buildPayload(
+    sourcePayload,
+    blueprint,
+    experienceLab,
+    responsiveAudioCandidates,
+  );
+  const responsiveAudioProjection =
+    requireRepresentativeFirstFarmersResponsiveAudio(payload);
+  await removeUnreferencedRenderedAssets(payload, renderedPaths);
+  await installFirstFarmersResponsiveAudioCandidates(
+    responsiveAudioCandidates,
+  );
+  const firstFarmersProjection = payload.chapters.find(({ id }) => id === "first-farmers");
+  const firstFarmersProjectedBeats = firstFarmersProjection.arcs.flatMap(({ beats }) => beats);
   const payloadPath = path.join(
     sourceRoot,
     "chapters",
@@ -1276,8 +1933,18 @@ async function main() {
     schemaVersion: 1,
     status: "CODEX_PROVISIONAL_NON_SHIPPING_TECHNICAL_FIXTURE",
     authorityShape:
-      "SINGLE_ATOMIC_FIVE_GRAMMAR_LAB_PACKAGE_WITH_UNREFERENCED_V26_PARTIAL_PASS_PROOF",
+      "FULL_FIRST_FARMERS_LIVE_TEST_PLUS_FIVE_GRAMMAR_LAB_WITH_UNREFERENCED_V26_PARTIAL_PASS_PROOF",
     chapterIDs: payload.chapters.map(({ id }) => id),
+    fullChapterProjection: {
+      contentID: "first-farmers",
+      arcCount: firstFarmersProjection.arcs.length,
+      beatCount: firstFarmersProjectedBeats.length,
+      interactionCount: firstFarmersProjectedBeats
+        .filter(({ interaction }) => interaction).length,
+      sceneCount: firstFarmersProjectedBeats.length,
+      accessibilityCount: firstFarmersProjectedBeats.length,
+      narrationState: "EXCLUDED_PENDING_EDITOR_APPROVAL",
+    },
     labSceneIDs: experienceLab.scenes.map(({ labSceneID }) => labSceneID),
     interactionIDs: experienceLab.scenes.map(({ nativeInteractionID }) => nativeInteractionID),
     requiredGrammars: experienceLab.requiredGrammars,
@@ -1292,12 +1959,57 @@ async function main() {
     projectionAuthority: verticalSliceDevelopmentIdentity.projectionAuthority,
     shippingState: verticalSliceDevelopmentIdentity.shippingState,
     visualSources: await Promise.all(
-      Object.entries(visualSources).map(async ([labSceneID, file]) => ({
-        labSceneID,
+      Object.entries(visualSources).map(async ([assetStemID, file]) => ({
+        sceneID: assetStemID === moreMouthsTechnicalLiveSlice.assetStemID
+          ? moreMouthsTechnicalLiveSlice.sceneID
+          : assetStemID,
+        assetStemID,
         ...await fileRecord(file),
       })),
     ),
     visualSourceStatus: "CODEX_PROVISIONAL_NON_SHIPPING_TECHNICAL_INPUT",
+    moreMouthsTechnicalLiveSlice: {
+      status: "CODEX_PROVISIONAL_NON_SHIPPING_CAUSAL_STATE_PROOF",
+      shippingState: "PROHIBITED",
+      beatID: moreMouthsTechnicalLiveSlice.beatID,
+      sceneID: moreMouthsTechnicalLiveSlice.sceneID,
+      accessibilityID: moreMouthsTechnicalLiveSlice.accessibilityID,
+      interactionID: moreMouthsTechnicalLiveSlice.interactionID,
+      technicalAssetStemID: moreMouthsTechnicalLiveSlice.assetStemID,
+      transparentOcclusionPlate: {
+        packageAssetPath: moreMouthsTechnicalLiveSlice.transparentAssetPath,
+        ...await fileRecord(path.join(
+          sourceRoot,
+          ...moreMouthsTechnicalLiveSlice.transparentAssetPath.split("/"),
+        )),
+      },
+      transparentReduceMotionForeground: {
+        packageAssetPath:
+          moreMouthsTechnicalLiveSlice.transparentReduceMotionAssetPath,
+        ...await fileRecord(path.join(
+          sourceRoot,
+          ...moreMouthsTechnicalLiveSlice.transparentReduceMotionAssetPath
+            .split("/"),
+        )),
+      },
+      stageMasks: await Promise.all(
+        moreMouthsTechnicalLiveSlice.stageMasks.map(async (stage) => ({
+          stageID: stage.stageID,
+          pixelBounds: stage.pixelBounds,
+          packageAssetPath: stage.assetPath,
+          ...await fileRecord(path.join(sourceRoot, ...stage.assetPath.split("/"))),
+        })),
+      ),
+      statePurpose:
+        "VERIFY_VISIBLE_ORDERED_TRANSFORM_RESPONSE_AND_PERSISTENCE_ON_DEVICE",
+      productionArtAuthority: "NONE",
+      claimsExcluded: [
+        "production art",
+        "historical visual finish",
+        "artistic approval",
+        "shipping asset approval",
+      ],
+    },
     runtimeVisualProof: {
       sceneID: harvestProofSceneID,
       status: "CODEX_PROVISIONAL_NON_SHIPPING_V26_PARTIAL_PASS_RUNTIME_PROOF",
@@ -1324,10 +2036,29 @@ async function main() {
     },
     audioSource: await fileRecord(audioSource),
     audioRights: "PROJECT_OWNED_PROCEDURAL_AUDIO",
-    audioDerivations: experienceLab.scenes.map(({ labSceneID }) => ({
-      labSceneID,
-      path: `source/audio/${labSceneID}-soundscape.m4a`,
+    audioDerivations: supportingResponsiveAudioDerivations.map(({ sceneID }) => ({
+      sceneID,
+      path: `source/audio/${sceneID}-soundscape.m4a`,
     })),
+    responsiveAudioCandidate: {
+      status: responsiveAudioCandidates.receipt.status,
+      shippingState: responsiveAudioCandidates.receipt.shippingState,
+      trustDomain: responsiveAudioCandidates.receipt.trustDomain,
+      receipt: await fileRecord(firstFarmersResponsiveAudioReceiptPath),
+      receiptSHA256: responsiveAudioCandidates.receiptSHA256,
+      candidateAssetCount: responsiveAudioProjection.assetPaths.length,
+      candidateEncodedBytes: responsiveAudioCandidates.encodedBytes,
+      programIDs: responsiveAudioProjection.programIDs,
+      timelineCount: responsiveAudioProjection.timelineIDs.length,
+      decodedBufferEstimate:
+        responsiveAudioProjection.decodedBufferEstimate,
+      audioApproval: "OPEN",
+      editorApproval: "OPEN",
+      physicalIPhonePlayback: "OPEN",
+      physicalIPhoneEnergy: "OPEN",
+      shippingApproval: "PROHIBITED",
+      fixtureUse: "NON_SHIPPING_LIVE_TEST_ONLY",
+    },
     sourcePayload: await fileRecord(sourcePayloadPath),
     experienceLab: await fileRecord(experienceLabPath),
     payloadSHA256: sha256(payloadBytes),
@@ -1355,7 +2086,10 @@ async function main() {
   );
 }
 
-main().catch((error) => {
-  console.error(error?.stack ?? error);
-  process.exitCode = 1;
-});
+if (process.argv[1]
+    && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  main().catch((error) => {
+    console.error(error?.stack ?? error);
+    process.exitCode = 1;
+  });
+}

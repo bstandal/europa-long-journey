@@ -68,6 +68,8 @@ private final class SampleAccurateGainRenderStorage: @unchecked Sendable {
     let requestedImmediate = Atomic<UInt64>(UInt64(AUValue(1).bitPattern))
     let maximumFrameCount = Atomic<UInt32>(4_096)
     let expectedChannelCount = Atomic<UInt32>(2)
+    private var durabilityGateOwner: NativeAudioDurabilityGate?
+    private var durabilityGatePointer: UnsafeRawPointer?
 
     init() {
         kernel = .allocate(capacity: 1)
@@ -99,6 +101,31 @@ private final class SampleAccurateGainRenderStorage: @unchecked Sendable {
         return (
             generation: UInt32(truncatingIfNeeded: packed >> 32),
             value: AUValue(bitPattern: UInt32(truncatingIfNeeded: packed))
+        )
+    }
+
+    /// Configuration is restricted to the stopped, unallocated AU lifecycle.
+    /// The render block may already retain this storage, so it reads a stable
+    /// unretained pointer while this storage owns the gate for its full life.
+    func configureDurabilityGate(_ gate: NativeAudioDurabilityGate?) {
+        durabilityGateOwner = gate
+        durabilityGatePointer = gate.map {
+            UnsafeRawPointer(Unmanaged.passUnretained($0).toOpaque())
+        }
+    }
+
+    @inline(__always)
+    func audibleFrameCount(
+        fromRenderedGraphSample renderStart: Int64,
+        frameCount: UInt32
+    ) -> UInt32 {
+        guard let durabilityGatePointer else { return frameCount }
+        let gate = Unmanaged<NativeAudioDurabilityGate>
+            .fromOpaque(durabilityGatePointer)
+            .takeUnretainedValue()
+        return gate.audibleFrameCount(
+            fromRenderedGraphSample: renderStart,
+            frameCount: frameCount
         )
     }
 }
@@ -217,6 +244,16 @@ final class SampleAccurateGainAudioUnit: AUAudioUnit {
             && format.commonFormat == .pcmFormatFloat32
             && !format.isInterleaved
             && (format.channelCount == 1 || format.channelCount == 2)
+    }
+
+    func configureDurabilityGate(
+        _ gate: NativeAudioDurabilityGate?
+    ) throws {
+        guard !renderResourcesAllocated else {
+            throw SampleAccurateGainNodeError
+                .durabilityGateRequiresUnallocatedRenderResources
+        }
+        renderStorage.configureDurabilityGate(gate)
     }
 
     override func allocateRenderResources() throws {
@@ -379,6 +416,10 @@ final class SampleAccurateGainAudioUnit: AUAudioUnit {
                 requestedImmediate.value,
                 generation: requestedImmediate.generation
             )
+            let audibleFrameCount = Int(storage.audibleFrameCount(
+                fromRenderedGraphSample: renderStartSample,
+                frameCount: frameCount
+            ))
 
             var event = realtimeEventListHead
             for frame in 0 ..< Int(frameCount) {
@@ -406,8 +447,15 @@ final class SampleAccurateGainAudioUnit: AUAudioUnit {
                 for bufferIndex in buffers.indices {
                     let data = buffers[bufferIndex].mData!
                     let samples = data.assumingMemoryBound(to: Float.self)
-                    samples[frame] *= gain
+                    if frame < audibleFrameCount {
+                        samples[frame] *= gain
+                    } else {
+                        samples[frame] = 0
+                    }
                 }
+            }
+            if audibleFrameCount == 0 {
+                actionFlags.pointee.insert(.unitRenderAction_OutputIsSilence)
             }
             return noErr
         }
@@ -419,12 +467,14 @@ enum SampleAccurateGainNodeError: Error, Equatable {
     case inputOutputFormatMismatch
     case invalidInitialGain
     case componentInstantiationFailed
+    case durabilityGateRequiresUnallocatedRenderResources
 }
 
 struct SampleAccurateGainNode {
     let node: AVAudioUnitEffect
     let audioUnit: SampleAccurateGainAudioUnit
     let gainParameter: AUParameter
+    let durabilityGate: NativeAudioDurabilityGate?
 
     private static let componentDescription = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -443,7 +493,10 @@ struct SampleAccurateGainNode {
         )
     }()
 
-    static func make(initialGain: AUValue) throws -> Self {
+    static func make(
+        initialGain: AUValue,
+        durabilityGate: NativeAudioDurabilityGate? = nil
+    ) throws -> Self {
         guard initialGain.isFinite,
               initialGain >= 0,
               initialGain <= 4 else {
@@ -459,11 +512,13 @@ struct SampleAccurateGainNode {
               ) else {
             throw SampleAccurateGainNodeError.componentInstantiationFailed
         }
+        try audioUnit.configureDurabilityGate(durabilityGate)
         gainParameter.value = initialGain
         return Self(
             node: node,
             audioUnit: audioUnit,
-            gainParameter: gainParameter
+            gainParameter: gainParameter,
+            durabilityGate: durabilityGate
         )
     }
 }

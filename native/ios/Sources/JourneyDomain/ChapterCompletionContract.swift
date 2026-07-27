@@ -173,6 +173,7 @@ public struct ChapterCompletionContract: Codable, Equatable, Sendable {
         }
         guard arcIDs.count == Set(arcIDs).count,
               beatIDs.count == Set(beatIDs).count,
+              !allEffectIDs.isEmpty,
               allEffectIDs.count == Set(allEffectIDs).count,
               let lastArc = arcs.last,
               let lastBeat = lastArc.beats.last else {
@@ -210,8 +211,7 @@ public struct ChapterCompletionContract: Codable, Equatable, Sendable {
 
     private var completionEffectsHaveUniqueNonemptyIDs: Bool {
         let ids = completionEffects.map(\.id)
-        return !ids.isEmpty
-            && ids.allSatisfy(\.isNonempty)
+        return ids.allSatisfy(\.isNonempty)
             && ids.count == Set(ids).count
     }
 

@@ -54,6 +54,208 @@ final class ChapterSceneRuntimeControllerTests: XCTestCase {
         XCTAssertEqual(journalCount, 0)
     }
 
+    func testContinuousTouchPreviewRespondsWithinFiftyMillisecondsWithoutDurableSideEffects() async throws {
+        let fixture = try RuntimeTestFixture.pressure()
+        defer { try? FileManager.default.removeItem(at: fixture.packageRoot) }
+        let log = EventLog()
+        let journal = JournalSpy(log: log)
+        let controller = try await makeController(
+            fixture: fixture,
+            journal: journal,
+            hapticBridge: HapticSpy(log: log)
+        )
+        let target = try targetPoint(
+            "runtime-defence-target",
+            in: controller
+        )
+        let durablePresentation = controller.presentation
+        let durableInteraction = try XCTUnwrap(
+            durablePresentation.journeyState.activeChapter?.interaction
+        )
+        let textureKeys = durablePresentation.metalPreparationPlan
+            .textureRequests.map(\.key)
+        var maximumLatencyNanoseconds: UInt64 = 0
+
+        for index in 0..<120 {
+            let started = DispatchTime.now().uptimeNanoseconds
+            let preview = try controller.previewContinuousTouch(
+                .adjustTarget(
+                    viewportPoint: target,
+                    amount: index.isMultiple(of: 2) ? 0.1 : 0.2
+                ),
+                displayedFramePlan: durablePresentation.framePlan
+            )
+            maximumLatencyNanoseconds = max(
+                maximumLatencyNanoseconds,
+                DispatchTime.now().uptimeNanoseconds - started
+            )
+
+            XCTAssertEqual(controller.presentation, durablePresentation)
+            XCTAssertEqual(
+                preview.presentation.journeyState,
+                durablePresentation.journeyState
+            )
+            XCTAssertEqual(
+                preview.presentation.framePlan.drawCommands,
+                durablePresentation.framePlan.drawCommands
+            )
+            XCTAssertEqual(
+                preview.presentation.metalPreparationPlan.textureRequests
+                    .map(\.key),
+                textureKeys
+            )
+            XCTAssertNotNil(
+                preview.presentation.framePlan.interactionResponse
+            )
+            XCTAssertNil(preview.presentation.interactionFeedback)
+            XCTAssertNil(preview.presentation.directManipulation)
+            XCTAssertNotEqual(
+                preview.interactionPreview.candidateState,
+                durableInteraction
+            )
+        }
+
+        XCTAssertLessThanOrEqual(
+            maximumLatencyNanoseconds,
+            50_000_000,
+            "Raw visual feedback must be available inside the 50 ms interaction budget"
+        )
+        let journalCount = await journal.count()
+        XCTAssertEqual(journalCount, 0)
+        XCTAssertTrue(log.events.isEmpty)
+    }
+
+    func testContinuousTracePreviewClassifiesAnchorsButDurableInputStillStartsFromCommittedAuthority() async throws {
+        let fixture = try RuntimeTestFixture.trace()
+        defer { try? FileManager.default.removeItem(at: fixture.packageRoot) }
+        let log = EventLog()
+        let journal = JournalSpy(log: log)
+        let controller = try await makeController(
+            fixture: fixture,
+            journal: journal,
+            hapticBridge: HapticSpy(log: log)
+        )
+        let durablePresentation = controller.presentation
+
+        for (index, point) in RuntimeTestFixture.traceTouchPoints.enumerated() {
+            let preview = try controller.previewContinuousTouch(
+                .trace(viewportPoint: point),
+                displayedFramePlan: durablePresentation.framePlan
+            )
+            XCTAssertEqual(preview.semantic, .traceAnchor(index))
+            XCTAssertEqual(controller.presentation, durablePresentation)
+            XCTAssertEqual(
+                preview.presentation.journeyState,
+                durablePresentation.journeyState
+            )
+            if index == RuntimeTestFixture.traceTouchPoints.count - 1 {
+                XCTAssertEqual(
+                    preview.interactionPreview.candidateState.phase,
+                    .complete
+                )
+            }
+        }
+
+        let repeatedTerminal = try controller.previewContinuousTouch(
+            .trace(viewportPoint: RuntimeTestFixture.traceTouchPoints.last!),
+            displayedFramePlan: durablePresentation.framePlan
+        )
+        XCTAssertEqual(repeatedTerminal.semantic, .ordinary)
+        XCTAssertEqual(controller.presentation, durablePresentation)
+        let previewJournalCount = await journal.count()
+        XCTAssertEqual(previewJournalCount, 0)
+        XCTAssertTrue(log.events.isEmpty)
+
+        let committed = try await controller.submitTouch(
+            .trace(viewportPoint: RuntimeTestFixture.traceTouchPoints[0])
+        )
+        guard case let .trace(progress)? = committed.presentation.journeyState
+            .activeChapter?.interaction?.progress else {
+            return XCTFail("Durable Trace must reduce from committed authority")
+        }
+        XCTAssertEqual(progress.reachedAnchorCount, 1)
+        XCTAssertEqual(
+            committed.presentation.journeyState.activeChapter?.interaction?.phase,
+            .active
+        )
+        let committedJournalCount = await journal.count()
+        XCTAssertEqual(committedJournalCount, 1)
+    }
+
+    func testContinuousTouchPreviewClassifiesPressureBoundariesAndTransformStageWithoutCompleting() async throws {
+        let pressureFixture = try RuntimeTestFixture.pressure()
+        let transformFixture = try RuntimeTestFixture.transform()
+        defer {
+            try? FileManager.default.removeItem(at: pressureFixture.packageRoot)
+            try? FileManager.default.removeItem(at: transformFixture.packageRoot)
+        }
+        let pressureJournal = JournalSpy()
+        let pressure = try await makeController(
+            fixture: pressureFixture,
+            journal: pressureJournal
+        )
+        let pressureTarget = try targetPoint(
+            "runtime-defence-target",
+            in: pressure
+        )
+        let pressureFrame = pressure.presentation.framePlan
+
+        let entered = try pressure.previewContinuousTouch(
+            .adjustTarget(viewportPoint: pressureTarget, amount: 0.4),
+            displayedFramePlan: pressureFrame
+        )
+        XCTAssertEqual(
+            entered.semantic,
+            .pressureStabilityBoundary(isStable: true)
+        )
+        let exited = try pressure.previewContinuousTouch(
+            .adjustTarget(viewportPoint: pressureTarget, amount: 0),
+            displayedFramePlan: pressureFrame
+        )
+        XCTAssertEqual(
+            exited.semantic,
+            .pressureStabilityBoundary(isStable: false)
+        )
+        XCTAssertEqual(
+            pressure.presentation.journeyState,
+            pressureFixture.state
+        )
+        let pressureJournalCount = await pressureJournal.count()
+        XCTAssertEqual(pressureJournalCount, 0)
+
+        let transformJournal = JournalSpy()
+        let transform = try await makeController(
+            fixture: transformFixture,
+            journal: transformJournal
+        )
+        let transformTarget = try targetPoint(
+            "runtime-clear-target",
+            in: transform
+        )
+        let transformFrame = transform.presentation.framePlan
+        let stage = try transform.previewContinuousTouch(
+            .adjustTarget(viewportPoint: transformTarget, amount: 1),
+            displayedFramePlan: transformFrame
+        )
+        XCTAssertEqual(stage.semantic, .transformStage(0))
+        XCTAssertEqual(stage.interactionPreview.candidateState.phase, .complete)
+        XCTAssertEqual(
+            stage.presentation.journeyState.activeChapter?.interaction?.phase,
+            .ready
+        )
+        XCTAssertEqual(
+            transform.presentation.journeyState,
+            transformFixture.state
+        )
+        let repeatedStage = try transform.previewContinuousTouch(
+            .adjustTarget(viewportPoint: transformTarget, amount: 1),
+            displayedFramePlan: transformFrame
+        )
+        XCTAssertEqual(repeatedStage.semantic, .ordinary)
+        let transformJournalCount = await transformJournal.count()
+        XCTAssertEqual(transformJournalCount, 0)
+    }
+
     func testExplicitResponsiveAudioSynchronizationPublishesBeforeFirstTrace() async throws {
         let fixture = try RuntimeTestFixture.trace()
         defer { try? FileManager.default.removeItem(at: fixture.packageRoot) }

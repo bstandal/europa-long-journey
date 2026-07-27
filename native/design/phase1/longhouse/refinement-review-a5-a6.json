@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "id": "longhouse-refinement-review-a5-a6-v1",
+  "status": "CODEX_REJECTED_NON_SHIPPING_REFINEMENT_STUDIES",
+  "shippingAllowed": false,
+  "editorApprovalClaimed": false,
+  "productionMasterAuthority": false,
+  "assetProductionPermitted": false,
+  "reviewedAtUTC": "2026-07-26T19:59:25Z",
+  "baseline": {
+    "id": "option-a4-inherited-ground-readable",
+    "path": "native/design/phase1/longhouse/concepts/option-a4-inherited-ground-readable.png",
+    "sha256": "1f166356445255c302f795623af2e56259f0924d153c41cf5c2a4d683d2b8ae7"
+  },
+  "reviewViewport": {
+    "widthPoints": 390,
+    "renderedPixelWidthPerStudy": 390,
+    "renderedPixelHeight": 826,
+    "comparisonPath": "native/design/phase1/longhouse/concepts/reference-a4-a5-a6-390-comparison.png",
+    "comparisonSha256": "18757f4a6fa8e55aa2b5737fae448c6427a7585885f5c759245046fecf0ffaf6"
+  },
+  "studies": [
+    {
+      "id": "option-a5-inherited-plot-threshold",
+      "status": "REJECTED_AS_REFINED_DIRECTION",
+      "imagePath": "native/design/phase1/longhouse/concepts/option-a5-inherited-plot-threshold.png",
+      "imageSha256": "918f59d9d73d5bbb719b522d91fec769c2390e1743d315ff11d3ede5a5b52c57",
+      "promptPath": "native/design/phase1/longhouse/concepts/option-a5-inherited-plot-threshold.prompt.txt",
+      "promptSha256": "43d7a5d2d521babb6a3bc7776e04968e240bb702532d6ab9a0e88791d3c868b3",
+      "editTarget": "option-a4-inherited-ground-readable",
+      "modelAndSeedAvailable": false,
+      "findings": [
+        {
+          "criterion": "CAMERA_PEOPLE_FRAME_AND_SOURCE_FAMILIES_PRESERVED",
+          "result": "PASS"
+        },
+        {
+          "criterion": "FORMER_FOOTPRINT_LEGIBLE_AT_390_POINTS",
+          "result": "PASS"
+        },
+        {
+          "criterion": "FORMER_FOOTPRINT_CANNOT_READ_AS_OPEN_HOLES",
+          "result": "FAIL",
+          "reason": "The repeated marks are too dark, round and locally concentrated; at phone scale they can read as fresh pits rather than old filled stains."
+        },
+        {
+          "criterion": "REWORN_THRESHOLD_LEGIBLE_WITHOUT_GRAPHIC_TREATMENT",
+          "result": "FAIL",
+          "reason": "The central wear remains a general path and does not establish one unambiguous threshold crossing between the two house generations."
+        },
+        {
+          "criterion": "FOUR_COMPONENT_SOURCE_FAMILIES_VISIBLE",
+          "result": "PASS"
+        },
+        {
+          "criterion": "WOODLAND_REMAINS_SUBSTANTIAL_AND_BOUNDED",
+          "result": "PASS"
+        }
+      ],
+      "decision": "Reject as the refined direction. Keep only as a non-shipping evidence study."
+    },
+    {
+      "id": "option-a6-shallow-inherited-footprint",
+      "status": "REJECTED_AS_REFINED_DIRECTION",
+      "imagePath": "native/design/phase1/longhouse/concepts/option-a6-shallow-inherited-footprint.png",
+      "imageSha256": "bb0dd35ac9eae089d435ac5925fb1b85f95fbbdc201d4912b95dab0a69e2aa11",
+      "promptPath": "native/design/phase1/longhouse/concepts/option-a6-shallow-inherited-footprint.prompt.txt",
+      "promptSha256": "3fde86e497cbfc5137bd57494db7d47b6b23da77fb71a819418b144d8759e9e9",
+      "editTarget": "option-a5-inherited-plot-threshold",
+      "modelAndSeedAvailable": false,
+      "findings": [
+        {
+          "criterion": "FORMER_FOOTPRINT_LEGIBLE_AT_390_POINTS",
+          "result": "FAIL",
+          "reason": "The correction removes the open-hole impression by making the inherited rows too faint to read as a complete older footprint."
+        },
+        {
+          "criterion": "REWORN_THRESHOLD_LEGIBLE_WITHOUT_GRAPHIC_TREATMENT",
+          "result": "FAIL",
+          "reason": "No distinct inherited threshold survives the 390-point reduction."
+        },
+        {
+          "criterion": "CAMERA_PEOPLE_FRAME_AND_SOURCE_FAMILIES_PRESERVED",
+          "result": "FAIL",
+          "reason": "The edit introduces broad ground-texture and rendering drift beyond the authorised footprint and threshold change."
+        },
+        {
+          "criterion": "FOUR_COMPONENT_SOURCE_FAMILIES_VISIBLE",
+          "result": "PASS"
+        },
+        {
+          "criterion": "WOODLAND_REMAINS_SUBSTANTIAL_AND_BOUNDED",
+          "result": "PASS"
+        }
+      ],
+      "decision": "Reject as the refined direction. Keep only as a non-shipping evidence study."
+    }
+  ],
+  "conclusion": {
+    "selectedDirectionRemains": "option-a4-inherited-ground-readable",
+    "mandatoryRefinementResolved": false,
+    "productionInputsRemainBlocked": true,
+    "nextRequiredEvidence": "A revised portrait direction must retain A4's composition while showing one shallow, coherent former footprint and its reworn threshold at 390 points without pit-like marks or global rendering drift."
+  }
+}

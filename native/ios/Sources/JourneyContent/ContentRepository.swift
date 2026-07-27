@@ -125,7 +125,7 @@ public struct ContentRepository: Sendable {
             requiredCollectionID: CollectionID,
             expectedWorldSeed: WorldSeedSpec
         )
-#if DEBUG
+#if DEBUG || NON_SHIPPING_LIVE_TEST
         case developmentVerticalSlice(requiredPackageID: PackageID)
 #endif
     }
@@ -394,11 +394,12 @@ public struct ContentRepository: Sendable {
         )
     }
 
-#if DEBUG
+#if DEBUG || NON_SHIPPING_LIVE_TEST
     /// The only non-launch repository admitted by the app. The package must
     /// already have crossed `ContentPackageVerifier` under the isolated
-    /// development vertical-slice identity. This overload is absent from a
-    /// Release build, so fixture trust can never widen the launch manifest.
+    /// development vertical-slice identity. This overload is absent from an
+    /// ordinary Release build, so fixture trust can never widen the launch
+    /// manifest.
     public init(developmentVerticalSlice verifiedPackage: VerifiedContentPackage) throws {
         let packageID = PackageID("vertical-slice-development-v1")
         let chapterIDs = [
@@ -417,7 +418,7 @@ public struct ContentRepository: Sendable {
               verifiedPackage.payload.schemaVersion == requiredVersion,
               verifiedPackage.payload.chapters.map(\.id) == chapterIDs else {
             throw ContentRepositoryError.invalidLaunchManifest(
-                "DEBUG vertical-slice trust boundary mismatch"
+                "Non-shipping vertical-slice trust boundary mismatch"
             )
         }
 
@@ -607,7 +608,7 @@ public struct ContentRepository: Sendable {
                 )
             }
             requiredBasePackageID = requiredPackageID
-#if DEBUG
+#if DEBUG || NON_SHIPPING_LIVE_TEST
         case let .developmentVerticalSlice(requiredPackageID):
             do {
                 try manifest.validate()
@@ -621,7 +622,7 @@ public struct ContentRepository: Sendable {
                   }),
                   manifest.entitlements.isEmpty else {
                 throw ContentRepositoryError.invalidLaunchManifest(
-                    "DEBUG vertical-slice manifest boundary mismatch"
+                    "Non-shipping vertical-slice manifest boundary mismatch"
                 )
             }
             requiredBasePackageID = requiredPackageID

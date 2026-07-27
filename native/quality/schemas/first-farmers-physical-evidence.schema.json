@@ -1,0 +1,220 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thelongwest.local/schemas/first-farmers-physical-evidence-v1.json",
+  "title": "The First Farmers physical iPhone evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "kind",
+    "status",
+    "protocolID",
+    "chapterID",
+    "appBuild",
+    "signedProductionPackage",
+    "batteryPairs",
+    "coldRestoreRuns",
+    "audioRestorationRuns"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "kind": { "const": "FIRST_FARMERS_PHYSICAL_IPHONE_EVIDENCE" },
+    "status": { "const": "PASS" },
+    "protocolID": { "const": "port1-physical-device-v1" },
+    "chapterID": { "const": "first-farmers" },
+    "appBuild": { "$ref": "#/$defs/appBuild" },
+    "signedProductionPackage": { "$ref": "#/$defs/package" },
+    "batteryPairs": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": { "$ref": "#/$defs/batteryPair" }
+    },
+    "coldRestoreRuns": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": { "$ref": "#/$defs/coldRestoreRun" }
+    },
+    "audioRestorationRuns": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 10,
+      "items": { "$ref": "#/$defs/audioRestorationRun" }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "attemptID": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "appBuild": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["hashKind", "sha256"],
+      "properties": {
+        "hashKind": { "const": "APP_BUNDLE_FILE_TREE_SHA256" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "package": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["packageID", "hashKind", "manifestSHA256"],
+      "properties": {
+        "packageID": { "const": "essential-free-v1" },
+        "hashKind": { "const": "SIGNED_MANIFEST_SHA256" },
+        "manifestSHA256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "referenceRun": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runID",
+        "attemptID",
+        "rawReport",
+        "durationSeconds",
+        "startingBatteryPercent",
+        "endingBatteryPercent",
+        "metalSystemTraceArchive",
+        "energyTraceArchive"
+      ],
+      "properties": {
+        "runID": { "const": "first-farmers-static-reference" },
+        "attemptID": { "$ref": "#/$defs/attemptID" },
+        "rawReport": { "$ref": "#/$defs/artifact" },
+        "durationSeconds": { "type": "integer", "minimum": 1800 },
+        "startingBatteryPercent": { "type": "integer", "minimum": 80, "maximum": 100 },
+        "endingBatteryPercent": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "metalSystemTraceArchive": { "$ref": "#/$defs/artifact" },
+        "energyTraceArchive": { "$ref": "#/$defs/artifact" }
+      }
+    },
+    "chapterRun": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runID",
+        "attemptID",
+        "rawReport",
+        "durationSeconds",
+        "startingBatteryPercent",
+        "endingBatteryPercent",
+        "displayedFrameP99Milliseconds",
+        "inputToVisibleP99Milliseconds",
+        "metalSystemTraceArchive",
+        "energyTraceArchive"
+      ],
+      "properties": {
+        "runID": { "const": "first-farmers-sustained" },
+        "attemptID": { "$ref": "#/$defs/attemptID" },
+        "rawReport": { "$ref": "#/$defs/artifact" },
+        "durationSeconds": { "type": "integer", "minimum": 1800 },
+        "startingBatteryPercent": { "type": "integer", "minimum": 80, "maximum": 100 },
+        "endingBatteryPercent": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "displayedFrameP99Milliseconds": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 25
+        },
+        "inputToVisibleP99Milliseconds": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 50
+        },
+        "metalSystemTraceArchive": { "$ref": "#/$defs/artifact" },
+        "energyTraceArchive": { "$ref": "#/$defs/artifact" }
+      }
+    },
+    "batteryPair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repetition", "reference", "chapter"],
+      "properties": {
+        "repetition": { "type": "integer", "minimum": 1, "maximum": 3 },
+        "reference": { "$ref": "#/$defs/referenceRun" },
+        "chapter": { "$ref": "#/$defs/chapterRun" }
+      }
+    },
+    "coldRestoreRun": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runID",
+        "repetition",
+        "attemptID",
+        "interactionID",
+        "rawReport",
+        "metalSystemTraceArchive"
+      ],
+      "properties": {
+        "runID": { "const": "cold-restore" },
+        "repetition": { "type": "integer", "minimum": 1, "maximum": 6 },
+        "attemptID": { "$ref": "#/$defs/attemptID" },
+        "interactionID": { "type": "string", "minLength": 1 },
+        "rawReport": { "$ref": "#/$defs/artifact" },
+        "metalSystemTraceArchive": { "$ref": "#/$defs/artifact" }
+      }
+    },
+    "controlledPauseResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pauseCheckpointSequence", "restorationCheckpointSequence"],
+      "properties": {
+        "pauseCheckpointSequence": { "type": "integer", "minimum": 1 },
+        "restorationCheckpointSequence": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "hardKillResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lastRenderedCheckpointSequence", "restorationCheckpointSequence"],
+      "properties": {
+        "lastRenderedCheckpointSequence": { "type": "integer", "minimum": 1 },
+        "restorationCheckpointSequence": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "audioRestorationRun": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runID",
+        "repetition",
+        "attemptID",
+        "timelineID",
+        "sampleRate",
+        "controlledPause",
+        "hardKill",
+        "rawReport",
+        "metalSystemTraceArchive",
+        "audioTraceArchive"
+      ],
+      "properties": {
+        "runID": { "const": "audio-restoration" },
+        "repetition": { "type": "integer", "minimum": 1, "maximum": 10 },
+        "attemptID": { "$ref": "#/$defs/attemptID" },
+        "timelineID": { "type": "string", "minLength": 1 },
+        "sampleRate": { "const": 48000 },
+        "controlledPause": { "$ref": "#/$defs/controlledPauseResult" },
+        "hardKill": { "$ref": "#/$defs/hardKillResult" },
+        "rawReport": { "$ref": "#/$defs/artifact" },
+        "metalSystemTraceArchive": { "$ref": "#/$defs/artifact" },
+        "audioTraceArchive": { "$ref": "#/$defs/artifact" }
+      }
+    }
+  }
+}

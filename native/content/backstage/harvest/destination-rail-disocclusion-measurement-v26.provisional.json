@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "id": "harvest-v26-destination-rail-disocclusion-measurement",
+  "status": "CODEX_MEASURED_NON_SHIPPING_TECHNICAL_INPUT",
+  "scope": [
+    "winter-store",
+    "protected-reserve",
+    "spring-seed"
+  ],
+  "authorityLimits": {
+    "editorApproval": false,
+    "productionAssetAuthority": false,
+    "productionMasterAuthority": false,
+    "packageAuthority": false,
+    "shippingAllowed": false
+  },
+  "sceneFixture": {
+    "path": "native/phase1/fixtures/harvest-option-1.scene.json",
+    "sha256": "c9cfa96d9cc61f7421ecf0efc0136d2f716daa5fb851a4dd99f2943e1b9b8028",
+    "canvasPixels": {
+      "width": 1290,
+      "height": 2796
+    },
+    "railOrigin": {
+      "x": 0.49,
+      "y": 0.47
+    },
+    "keyframes": [
+      {
+        "progress": 0,
+        "center": { "x": 0.49, "y": 0.47 },
+        "scale": 1
+      },
+      {
+        "progress": 0.32,
+        "center": { "x": 0.5, "y": 0.5 },
+        "scale": 1.025
+      },
+      {
+        "progress": 0.68,
+        "center": { "x": 0.5, "y": 0.54 },
+        "scale": 1.055
+      },
+      {
+        "progress": 1,
+        "center": { "x": 0.5, "y": 0.58 },
+        "scale": 1.08
+      }
+    ]
+  },
+  "runtimeFormula": {
+    "path": "native/ios/Sources/SceneRuntime/SceneFramePlanner.swift",
+    "sha256": "232128d177097739d80ccf805619d82742466247fa6890c98d96f52dfc92c93a",
+    "sourceLines": [1008, 1025],
+    "viewportEquation": "((camera.masterCenter - railOrigin) / camera.sourceRect.size) * layer.motion.parallaxFactor",
+    "masterPixelEquation": "(camera.masterCenter - railOrigin) * canvasPixels * layer.motion.parallaxFactor",
+    "sourceRectCancellation": "Mapping the normalized viewport offset back through the same camera sourceRect cancels camera scale and crop size.",
+    "windContribution": 0,
+    "reasonWindIsZero": "All three destination layers have windResponse 0 in the bound scene fixture."
+  },
+  "measurements": [
+    {
+      "layerID": "winter-store",
+      "parallaxFactor": 0.12,
+      "keyframeMasterPixelOffsets": [
+        { "progress": 0, "dx": 0, "dy": 0 },
+        { "progress": 0.32, "dx": 1.548, "dy": 10.0656 },
+        { "progress": 0.68, "dx": 1.548, "dy": 23.4864 },
+        { "progress": 1, "dx": 1.548, "dy": 36.9072 }
+      ],
+      "maximumAbsoluteShiftPixelsCeil": { "x": 2, "y": 37 },
+      "revealedSourceEdges": ["TOP", "LEFT"],
+      "sourceBuiltSeamRingPixels": 12,
+      "minimumSymmetricAuthoringBandPixels": { "x": 14, "y": 49 }
+    },
+    {
+      "layerID": "protected-reserve",
+      "parallaxFactor": 0.125,
+      "keyframeMasterPixelOffsets": [
+        { "progress": 0, "dx": 0, "dy": 0 },
+        { "progress": 0.32, "dx": 1.6125, "dy": 10.485 },
+        { "progress": 0.68, "dx": 1.6125, "dy": 24.465 },
+        { "progress": 1, "dx": 1.6125, "dy": 38.445 }
+      ],
+      "maximumAbsoluteShiftPixelsCeil": { "x": 2, "y": 39 },
+      "revealedSourceEdges": ["TOP", "LEFT"],
+      "sourceBuiltSeamRingPixels": 12,
+      "minimumSymmetricAuthoringBandPixels": { "x": 14, "y": 51 }
+    },
+    {
+      "layerID": "spring-seed",
+      "parallaxFactor": 0.13,
+      "keyframeMasterPixelOffsets": [
+        { "progress": 0, "dx": 0, "dy": 0 },
+        { "progress": 0.32, "dx": 1.677, "dy": 10.9044 },
+        { "progress": 0.68, "dx": 1.677, "dy": 25.4436 },
+        { "progress": 1, "dx": 1.677, "dy": 39.9828 }
+      ],
+      "maximumAbsoluteShiftPixelsCeil": { "x": 2, "y": 40 },
+      "revealedSourceEdges": ["TOP", "LEFT"],
+      "sourceBuiltSeamRingPixels": 12,
+      "minimumSymmetricAuthoringBandPixels": { "x": 14, "y": 52 }
+    }
+  ],
+  "authoringRule": {
+    "coverageMode": "RAIL_BOUNDED",
+    "minimumTarget": "Every source pixel exposed at a bound rail keyframe plus the source-built seam ring.",
+    "conservativeImplementation": "A recipe may synthesize the complete anisotropic symmetric subject boundary band recorded above. It may not claim full-subject or state-removal coverage from this measurement.",
+    "requiredReplay": "BYTE_IDENTICAL_OUTPUT_AND_RECEIPT",
+    "requiredVisualReview": [
+      "ALL_BOUND_CAMERA_KEYFRAMES",
+      "BASELINE_393X852",
+      "LARGEST_430X932",
+      "INCREASE_CONTRAST",
+      "REDUCE_MOTION"
+    ]
+  }
+}

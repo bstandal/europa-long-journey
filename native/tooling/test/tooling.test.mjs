@@ -22,6 +22,8 @@ import {
   publicKeyX963Base64,
   requireInstalledByteBudget,
   requireMatchingCollectionPackageSpec,
+  requireResponsiveAudioDecodedBufferBudget,
+  responsiveAudioDecodedBufferEstimate,
   saveMigrationDescriptorInventoryDigest,
   saveMigrationGraphDigest,
   validateShippingAssetProvenance,
@@ -1608,6 +1610,68 @@ test("installed package bytes include the signed manifest and cannot consume the
   );
 });
 
+test("responsive audio decoded buffers reject a three-branch non-causal transition peak", () => {
+  const payload = bindResponsiveAudioPrograms(validContentPackage("transform"));
+  const program = payload.responsiveAudioPrograms[0];
+  for (const bed of program.interactionBeds) {
+    const timeline = payload.audioTimelines.find(({ id }) => id === bed.timelineID);
+    timeline.events = Array.from({ length: 8 }, (_, index) => ({
+      cueID: `decoded-layer-${bed.phase}-${index}`,
+      role: index === 0 ? "score" : "soundscape",
+      startSample: 0,
+      durationSamples: 720_000,
+      assetPath: `audio/${bed.phase}-layer-${index}.m4a`,
+      gain: index === 0 ? 0.7 : 0,
+    }));
+  }
+
+  const estimate = responsiveAudioDecodedBufferEstimate(payload);
+  assert.equal(estimate.steady.bytes, 97_920_000);
+  assert.equal(estimate.transition.bytes, 276_480_000);
+  assert.throws(
+    () => requireResponsiveAudioDecodedBufferBudget(
+      payload,
+      100_000_000,
+      200_000_000,
+    ),
+    /transition 276480000 bytes/,
+  );
+  assert.deepEqual(
+    requireResponsiveAudioDecodedBufferBudget(payload, 100_000_000, 300_000_000),
+    estimate,
+  );
+  assert.throws(
+    () => requireResponsiveAudioDecodedBufferBudget(
+      payload,
+      97_919_999,
+      300_000_000,
+    ),
+    /steady 97920000 bytes/,
+  );
+  assert.throws(
+    () => requireResponsiveAudioDecodedBufferBudget(
+      payload,
+      100_000_000,
+      276_479_999,
+    ),
+    /transition 276480000 bytes/,
+  );
+});
+
+test("responsive audio decoded buffers count causal layers once across three branches", () => {
+  const payload = bindValidCausalMix(
+    bindResponsiveAudioPrograms(validContentPackage("transform")),
+  );
+  const estimate = responsiveAudioDecodedBufferEstimate(payload);
+
+  assert.equal(estimate.steady.bytes, 2_688_000);
+  assert.equal(estimate.transition.bytes, 3_840_000);
+  assert.deepEqual(
+    requireResponsiveAudioDecodedBufferBudget(payload, 3_000_000, 4_000_000),
+    estimate,
+  );
+});
+
 test("package signing metadata exactly matches the owning collection package", () => {
   const collection = validCollection();
   assert.equal(
@@ -2325,6 +2389,12 @@ test("rejects a chapter schema version that differs from its package", () => {
   const payload = validContentPackage();
   payload.chapters[0].schemaVersion.patch = 1;
   assert.throws(() => validatePublicDocument(payload), /must match contentPackage\.schemaVersion/);
+});
+
+test("accepts chapter completion carried entirely by authored beat effects", () => {
+  const payload = validContentPackage();
+  payload.chapters[0].completionEffects = [];
+  assert.equal(validatePublicDocument(payload).chapters[0].completionEffects.length, 0);
 });
 
 test("rejects globally duplicated effect and cue IDs", () => {

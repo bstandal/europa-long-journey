@@ -12,6 +12,9 @@ const requiredCapabilities = new Set([
 ]);
 const requiredBackgroundModes = new Set(["fetch", "remote-notification"]);
 const assetAppGroupID = "group.com.thelongwest.journey.assets";
+const assetAppGroupBuildSetting = "$(BACKGROUND_ASSETS_APP_GROUP_ID)";
+const liveTestAssetAppGroupID =
+  "group.com.thelongwest.journey.nonshippinglivetest.assets";
 const cloudContainerID = "iCloud.com.thelongwest.journey";
 
 export function validateIOSPlist(plist, expectedDisplayName) {
@@ -42,8 +45,10 @@ export function validateIOSPlist(plist, expectedDisplayName) {
   if (plist.LSRequiresIPhoneOS !== true) {
     issues.push("Info.plist: LSRequiresIPhoneOS must be true");
   }
-  if (plist.BAAppGroupID !== assetAppGroupID) {
-    issues.push(`Info.plist: BAAppGroupID must be ${assetAppGroupID}`);
+  if (![assetAppGroupID, assetAppGroupBuildSetting].includes(plist.BAAppGroupID)) {
+    issues.push(
+      `Info.plist: BAAppGroupID must be ${assetAppGroupID} or the locked build setting`,
+    );
   }
   if (plist.BAHasManagedAssetPacks !== true || plist.BAUsesAppleHosting !== true) {
     issues.push("Info.plist: managed Apple-hosted Background Assets must remain enabled");
@@ -123,14 +128,25 @@ export async function validateIOSConfiguration(root) {
     "Config",
     "AssetDownloaderExtension.entitlements",
   );
+  const liveTestEntitlementsPath = path.join(
+    root,
+    "Config",
+    "NonShippingLiveTest.entitlements",
+  );
   const extensionPlistPath = path.join(root, "Config", "AssetDownloaderExtension-Info.plist");
   const project = await readFile(projectPath, "utf8");
   const { stdout } = await execFileAsync("plutil", ["-convert", "json", "-o", "-", plistPath]);
   const plist = validateIOSPlist(JSON.parse(stdout), product.displayName);
-  const [appEntitlementsResult, extensionEntitlementsResult, extensionPlistResult] =
+  const [
+    appEntitlementsResult,
+    extensionEntitlementsResult,
+    liveTestEntitlementsResult,
+    extensionPlistResult,
+  ] =
     await Promise.all([
       execFileAsync("plutil", ["-convert", "json", "-o", "-", appEntitlementsPath]),
       execFileAsync("plutil", ["-convert", "json", "-o", "-", extensionEntitlementsPath]),
+      execFileAsync("plutil", ["-convert", "json", "-o", "-", liveTestEntitlementsPath]),
       execFileAsync("plutil", ["-convert", "json", "-o", "-", extensionPlistPath]),
     ]);
   const appleServices = validateAppleServiceConfiguration({
@@ -147,10 +163,34 @@ export async function validateIOSConfiguration(root) {
     issues.push("project.yml: Swift strict concurrency must remain complete");
   }
   const appStart = project.indexOf("  JourneyApp:\n");
-  const testsStart = project.indexOf("  LongWestNativeTests:\n", appStart);
-  const appTarget = appStart >= 0 ? project.slice(appStart, testsStart >= 0 ? testsStart : undefined) : "";
+  const extensionStart = project.indexOf("  AssetDownloaderExtension:\n", appStart);
+  const testsStart = project.indexOf("  LongWestNativeTests:\n", extensionStart);
+  const appTarget = appStart >= 0
+    ? project.slice(appStart, extensionStart >= 0 ? extensionStart : undefined)
+    : "";
+  const extensionTarget = extensionStart >= 0
+    ? project.slice(extensionStart, testsStart >= 0 ? testsStart : undefined)
+    : "";
   if (!/TARGETED_DEVICE_FAMILY:\s*["']1["']/.test(appTarget)) {
     issues.push("project.yml: JourneyApp must explicitly target device family 1");
+  }
+  const liveTestEntitlements = JSON.parse(liveTestEntitlementsResult.stdout);
+  const liveTestGroups = liveTestEntitlements["com.apple.security.application-groups"];
+  if (
+    plist.BAAppGroupID === assetAppGroupBuildSetting
+    && (
+      !appTarget.includes(`BACKGROUND_ASSETS_APP_GROUP_ID: ${assetAppGroupID}`)
+      || !appTarget.includes(`BACKGROUND_ASSETS_APP_GROUP_ID: ${liveTestAssetAppGroupID}`)
+      || !appTarget.includes("CODE_SIGN_ENTITLEMENTS: Config/NonShippingLiveTest.entitlements")
+      || !extensionTarget.includes("CODE_SIGN_ENTITLEMENTS: Config/NonShippingLiveTest.entitlements")
+      || !Array.isArray(liveTestGroups)
+      || liveTestGroups.length !== 1
+      || liveTestGroups[0] !== liveTestAssetAppGroupID
+    )
+  ) {
+    issues.push(
+      "NON_SHIPPING_LIVE_TEST: Background Assets app group must remain isolated from production",
+    );
   }
   if (issues.length) throw new ValidationError(issues);
   await execFileAsync("node", [path.join(nativeRoot, "scripts", "sync-product-metadata.mjs"), "--check"]);

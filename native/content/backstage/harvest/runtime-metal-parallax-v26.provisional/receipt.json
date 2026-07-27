@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "status": "BACKSTAGE_RUNTIME_METAL_V26_RESTRICTED_PARTIAL_PASS",
   "shippingState": "PROHIBITED",
-  "reviewedAt": "2026-07-25",
+  "reviewedAt": "2026-07-26",
   "sceneID": "lab-first-farmers-harvest-v26-parallax-proof",
   "sourceAuthority": {
     "reviewPath": "native/content/backstage/harvest/parallax-halo-qa-v26.review.json",
@@ -14,13 +14,13 @@
   "signedDevelopmentFixture": {
     "packageID": "vertical-slice-development-v1",
     "trustDomain": "the-long-west-vertical-slice-development-v1",
-    "manifestDigest": "41693073da0f3c5618845feb1783b3c3ff5ae56e26830331d72c244b47aa609a",
+    "manifestDigest": "589ea9be981a4bd6b8d8569b0ebd6a98ed1c856d8e54d39dc5281d4e9b513f53",
     "manifestPath": "native/phase2/runtime-fixture/compiled/vertical-slice-development-v1.runtimefixture/package-manifest.json",
-    "manifestSha256": "8729a5ab11c132a54490559ea30dcbcf36995c7d9176f81d9c34bf483ad46fb9",
+    "manifestSha256": "bf357e1480ef5d56ed76ece64a4335dea877406401d3df2f47442e38e782899e",
     "lineagePath": "native/phase2/runtime-fixture/fixture-lineage.json",
-    "lineageSha256": "0117a09c708e6ff0b975941558633d926ab113338f0258ef6e6b24b13366a979",
+    "lineageSha256": "90fd9f88c059e11498352012b787ef97954f71a195c58788d2490442e8690976",
     "trustReceiptPath": "native/phase2/runtime-fixture/vertical-slice-development-trust-receipt.json",
-    "trustReceiptSha256": "7668885df5f3c6e82e6a35e61c0310baa63e7048cbe211969970bda13aeacef4",
+    "trustReceiptSha256": "1edeb708b3d189b51ee6e240b4a7446ad3089ff165e75e0bf4f2b666e9176348",
     "sceneIsUnreferencedByJourneyBeat": true,
     "releaseBundleState": "EXCLUDED"
   },
@@ -75,11 +75,11 @@
     "reduceMotionComposition": "PRODUCTION_SHADER_PATH",
     "exactStaticCopy": "DEBUG_OFFSCREEN_DIAGNOSTIC_ONLY",
     "sourcePath": "native/ios/Sources/SceneRuntime/SceneMetalCompositor.swift",
-    "sourceSha256": "3881223a2e0d931ee9c2e29c4ee352ded573893e7761c2333cc8ef2861a1ad2f"
+    "sourceSha256": "d72c4c448e72ebcf6efd26437758fd2243b60a5c65319964f761006ac6294ab6"
   },
   "deterministicProof": {
     "testPath": "native/ios/Tests/ChapterRuntimeTests/SignedRuntimeFixtureTests.swift",
-    "testSha256": "73b682c17c8bc3183f99e79c6f25b5e402fb441393650efbc4dd1d9293881dab",
+    "testSha256": "0d4daf36d9381a6cac19df7fa5409b5c16df91a234d24f853f5be6edbbdce79f",
     "testIdentifier": "SignedRuntimeFixtureTests/testHarvestV26PartialPassUsesSignedProductionMetalPathAndRestoresExactly()",
     "cameraProgresses": [0, 0.5, 1],
     "deterministicTick": 4242,
@@ -94,7 +94,15 @@
       "viewport-transform",
       "pixel-dimension-mismatch"
     ],
-    "staticCopyNegativeResult": "PASS_ALL_REMAIN_ON_SHADER_PATH"
+    "staticCopyNegativeResult": "PASS_ALL_REMAIN_ON_SHADER_PATH",
+    "xcresultEvidence": {
+      "summarySha256": "ed9f1c0047d3ea45ff6bb3634e52c9e9becbfe12cb2f6a0732e034d43ddcefd9",
+      "testsSha256": "f04b7e3aecfc02c7965e9d686b725d837e99abfc9ae76941c4fc90195bcf80a5",
+      "activitySha256": "de36e46dbda222b9882811bbe8e4382562f0407d56f19408a5d2098296c4b3c8",
+      "frameHashLogSha256": "d8bdd66eace301a316db8cc96c747cdf52866677f646dca1aa50bd7d48ed9920",
+      "attachmentManifestSha256": "462210370b16ba455db7dc8cfd7047c616118f762ab1a6c277a0fadb18b6352c",
+      "attachmentSha256": "3178d181276f61613487f87a0e8bd755338911c2dc226344d274e728b2127125"
+    }
   },
   "renderedFrames": {
     "pixelSizeEach": [786, 1704],
@@ -122,7 +130,10 @@
     "platform": "iOS Simulator",
     "osVersion": "26.5",
     "osBuildNumber": "23F77",
-    "buildEnvironment": "LongWestJourney built with macOS 26.5.2"
+    "buildEnvironment": "LongWestJourney built with macOS 26.5.2",
+    "xcodeVersion": "26.6",
+    "xcodeBuildNumber": "17F113",
+    "testDurationSeconds": 1.6379280090332031
   },
   "visualReview": {
     "reviewer": "CODEX_LOCAL_ORIGINAL_RESOLUTION_REVIEW",

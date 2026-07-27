@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "id": "harvest-v26-destination-underlays-r1-visual-rejection",
+  "scope": "NON_SHIPPING_BACKSTAGE_ONLY",
+  "status": "CODEX_VISUAL_REVIEW_FAIL_REJECTED_NON_SHIPPING",
+  "reviewDate": "2026-07-26",
+  "authority": {
+    "editorApprovalClaimed": false,
+    "productionApprovalClaimed": false,
+    "shippingAllowed": false,
+    "integrationAllowed": false
+  },
+  "decision": {
+    "objectiveTechnicalQA": "PASS",
+    "visualAcceptance": "FAIL",
+    "disposition": "REPLACE",
+    "reason": "The deterministic source-only synthesis satisfies its numerical and provenance gates, but the rendered pixels do not preserve believable material, contour and occlusion continuity at the authored rail displacement.",
+    "prohibitedUses": [
+      "runtime integration",
+      "content-package inclusion",
+      "layer-production-contract promotion",
+      "editorial or production approval evidence"
+    ]
+  },
+  "candidates": [
+    {
+      "destinationId": "winter-store",
+      "receipt": {
+        "path": "native/content/backstage/harvest/winter-store-underlay-v26.r1.receipt.json",
+        "sha256": "faafb558c89e6709cfc66eae57ea142321c2670ea2aea271c741687379fae705"
+      },
+      "candidate": {
+        "path": "native/.build/visual-assets/harvest-destination-underlays-v26/winter-store-r1/winter-store.png",
+        "fileSha256": "e77643ff7f785e09e54b98597e16128478be5669ed0ebe8b667e988bc68aa67c",
+        "pixelSha256": "0abb78dd3450e81aeb5ae67648561a50f78546bbd30655d00b01fcc55693625f"
+      },
+      "finding": "Visible mottled brown reconstruction replaces the vessel interior beneath the hands and around the stool contact. The speckled texture and discontinuous edges break the basket, hand and support relationship when the foreground moves.",
+      "visualAcceptance": "FAIL"
+    },
+    {
+      "destinationId": "protected-reserve",
+      "receipt": {
+        "path": "native/content/backstage/harvest/protected-reserve-underlay-v26.r1.receipt.json",
+        "sha256": "41eef2376c73fb3f93c1387317e4537a1f59e1e66c4f4b2be44f9d6c73c3a51f"
+      },
+      "candidate": {
+        "path": "native/.build/visual-assets/harvest-destination-underlays-v26/protected-reserve-r1/protected-reserve.png",
+        "fileSha256": "49e7d03c237558738030112e24f924d5b3f6f132be1e7a9602dfd2c55fa1716a",
+        "pixelSha256": "fb9aa7a0b873b888e2d017a3583d235078baa0d6baba170b9bfb16ec0fe3b795"
+      },
+      "finding": "High-frequency mottling is visible across the clay bin rim, interior and front. It creates a false porous texture and interrupts the vessel contour, so the disoccluded region reads as a reconstruction patch rather than the same scene.",
+      "visualAcceptance": "FAIL"
+    }
+  ],
+  "replacementRequirement": "A new candidate must preserve coherent surface texture, object contour and human-contact occlusion under the measured displacement, then pass independent visual review in addition to the existing deterministic, provenance and numerical gates."
+}

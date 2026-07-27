@@ -825,6 +825,15 @@ public final class SceneMetalCompositor: NSObject, ObservableObject, MTKViewDele
             return transition(to: .failed(.sceneNotPrepared))
         }
 
+        // A production scene can contain many full-resolution state variants.
+        // Retaining every texture ever visited makes memory grow with reading
+        // time and turns a long session into avoidable thermal and battery
+        // load. Keep only the exact working set for the active composition.
+        let requiredTextureKeys = Set(preparation.textureRequests.map(\.key))
+        textureCache = textureCache.filter {
+            requiredTextureKeys.contains($0.key)
+        }
+
         let missingRequests = preparation.textureRequests.filter {
             textureCache[$0.key] == nil
         }

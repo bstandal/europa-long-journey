@@ -174,6 +174,34 @@ public struct ChapterSceneTransition: Equatable, Sendable {
     }
 }
 
+/// A display-only response for raw Trace, Pressure or Transform motion.
+/// `interactionPreview` is a pure reducer proposal; `presentation` retains the
+/// exact committed JourneyState and current signed texture set, adding only a
+/// shader-level contact response. Publishing it therefore cannot complete an
+/// interaction, emit effects, append history or become restoration authority.
+public enum ChapterSceneContinuousTouchSemantic: Equatable, Sendable {
+    case ordinary
+    case traceAnchor(Int)
+    case pressureStabilityBoundary(isStable: Bool)
+    case transformStage(Int)
+}
+
+public struct ChapterSceneContinuousTouchPreview: Equatable, Sendable {
+    public let presentation: ChapterScenePresentation
+    public let interactionPreview: SceneInteractionPreview
+    public let semantic: ChapterSceneContinuousTouchSemantic
+
+    public init(
+        presentation: ChapterScenePresentation,
+        interactionPreview: SceneInteractionPreview,
+        semantic: ChapterSceneContinuousTouchSemantic
+    ) {
+        self.presentation = presentation
+        self.interactionPreview = interactionPreview
+        self.semantic = semantic
+    }
+}
+
 public enum ChapterScenePostCommitIssue: String, Equatable, Sendable {
     case durableStateDivergedFromPreflight
     case audioConsequenceAuthorityInvalid
@@ -232,6 +260,8 @@ public enum ChapterSceneRuntimeControllerError: Error, Equatable, Sendable {
     case interactionStateMismatch
     case candidateJourneyRejected
     case candidateInteractionMismatch
+    case unsupportedContinuousTouchPreview
+    case continuousTouchPreviewFrameMismatch
 }
 
 /// The sole presentation bridge from durable `JourneyState` to SceneRuntime.
@@ -263,6 +293,14 @@ public final class ChapterSceneRuntimeController {
     private var transitionIsInFlight = false
     private var transitionWaiters: [TransitionWaiter] = []
     private var nextEphemeralResponseEpoch: UInt64 = 0
+
+    private struct ContinuousTouchProjection {
+        let committedState: JourneyState
+        var runtimeState: InteractionRuntimeState
+        var terminalSemantic: ChapterSceneContinuousTouchSemantic?
+    }
+
+    private var continuousTouchProjection: ContinuousTouchProjection?
 
     private struct GestureContactKey: Equatable {
         let subjectID: String?
@@ -338,6 +376,158 @@ public final class ChapterSceneRuntimeController {
         return try await finishAcceptedTransition { [self] in
             try await processTouch(intent, alphaSampler: alphaSampler)
         }
+    }
+
+    /// Produces immediate display feedback for high-frequency motion without
+    /// entering the transition slot or the durability boundary. The caller
+    /// supplies the exact frame currently on screen so an in-flight durable
+    /// update cannot make touch geometry or texture identity jump ahead of
+    /// what the user can see.
+    public func previewContinuousTouch(
+        _ intent: SceneTouchIntent,
+        displayedFramePlan: SceneFramePlan,
+        alphaSampler: (any SceneAlphaMaskSampling)? = nil
+    ) throws -> ChapterSceneContinuousTouchPreview {
+        let state = presentation.journeyState
+        let context = try interactionContext(state: state)
+        guard displayedFramePlan.sceneID == context.cursor.scene.id,
+              displayedFramePlan.viewportCropID == viewportCropID,
+              displayedFramePlan.reduceMotion == reduceMotion else {
+            throw ChapterSceneRuntimeControllerError
+                .continuousTouchPreviewFrameMismatch
+        }
+        let activeProjection: ContinuousTouchProjection?
+        if let continuousTouchProjection,
+           continuousTouchProjection.committedState == state,
+           continuousTouchProjection.runtimeState.interactionID
+                == context.interaction.id {
+            activeProjection = continuousTouchProjection
+        } else {
+            activeProjection = nil
+        }
+        let projectedRuntimeState = activeProjection?.runtimeState
+            ?? context.runtimeState
+        let resolution = try SceneTouchActionResolver.resolve(
+            intent,
+            scene: context.cursor.scene,
+            interaction: context.interaction,
+            runtimeState: projectedRuntimeState,
+            frame: displayedFramePlan,
+            accessibility: context.cursor.accessibility,
+            alphaSampler: alphaSampler
+        )
+        guard let action = resolution.action else {
+            throw ChapterSceneRuntimeControllerError
+                .unsupportedContinuousTouchPreview
+        }
+        switch action {
+        case .trace, .setPressure, .transform:
+            break
+        case .begin, .allocate, .commitAllocation, .place,
+             .advancePressure, .reset:
+            throw ChapterSceneRuntimeControllerError
+                .unsupportedContinuousTouchPreview
+        }
+        let interactionPreview = try SceneInteractionDriver.preview(
+            spec: context.interaction,
+            state: projectedRuntimeState,
+            input: .touch(action)
+        )
+        var semantic = continuousTouchSemantic(
+            before: projectedRuntimeState,
+            after: interactionPreview.candidateState,
+            interaction: context.interaction
+        )
+        if interactionPreview.candidateState.phase == .complete {
+            if activeProjection?.terminalSemantic == semantic {
+                semantic = .ordinary
+            }
+            continuousTouchProjection = ContinuousTouchProjection(
+                committedState: state,
+                runtimeState: projectedRuntimeState,
+                terminalSemantic: semantic == .ordinary
+                    ? activeProjection?.terminalSemantic : semantic
+            )
+        } else {
+            continuousTouchProjection = ContinuousTouchProjection(
+                committedState: state,
+                runtimeState: interactionPreview.candidateState,
+                terminalSemantic: nil
+            )
+        }
+        let previewFrame = try continuousTouchFeedbackFrame(
+            displayedFramePlan,
+            resolution: resolution,
+            intent: intent
+        )
+        let previewPresentation = ChapterScenePresentation(
+            cursor: presentation.cursor,
+            journeyState: state,
+            framePlan: previewFrame,
+            metalPreparationPlan: try SceneMetalPreparationPlanner.make(
+                from: previewFrame
+            ),
+            semanticInteractionModel:
+                presentation.semanticInteractionModel,
+            interactionFeedback: nil,
+            directManipulation: nil
+        )
+        return ChapterSceneContinuousTouchPreview(
+            presentation: previewPresentation,
+            interactionPreview: interactionPreview,
+            semantic: semantic
+        )
+    }
+
+    public func resetContinuousTouchPreview() {
+        continuousTouchProjection = nil
+    }
+
+    /// Ends display-only raw motion on the exact presentation the caller has
+    /// already published. The controller's durable presentation may be newer
+    /// while the route prepares its textures, so this deliberately never
+    /// projects from or mutates that newer authority.
+    @discardableResult
+    public func neutralizeContinuousTouchPreview(
+        displayedPresentation: ChapterScenePresentation
+    ) throws
+        -> ChapterScenePresentation {
+        continuousTouchProjection = nil
+        let displayedFrame = displayedPresentation.framePlan
+        guard displayedFrame.sceneID
+                == displayedPresentation.cursor.scene.id,
+              displayedFrame.viewportCropID == viewportCropID,
+              displayedFrame.reduceMotion == reduceMotion else {
+            throw ChapterSceneRuntimeControllerError
+                .continuousTouchPreviewFrameMismatch
+        }
+        let neutralFrame = SceneFramePlan(
+            sceneID: displayedFrame.sceneID,
+            viewportCropID: displayedFrame.viewportCropID,
+            viewport: displayedFrame.viewport,
+            deterministicTick: displayedFrame.deterministicTick,
+            reduceMotion: displayedFrame.reduceMotion,
+            camera: displayedFrame.camera,
+            drawCommands: displayedFrame.drawCommands,
+            atmosphere: displayedFrame.atmosphere,
+            interactionSourceHitRegion:
+                displayedFrame.interactionSourceHitRegion,
+            interactionHitRegions: displayedFrame.interactionHitRegions,
+            interactionResponse: nil,
+            safeTextRegions: displayedFrame.safeTextRegions
+        )
+        return ChapterScenePresentation(
+            cursor: displayedPresentation.cursor,
+            journeyState: displayedPresentation.journeyState,
+            framePlan: neutralFrame,
+            metalPreparationPlan: try SceneMetalPreparationPlanner.make(
+                from: neutralFrame
+            ),
+            semanticInteractionModel:
+                displayedPresentation.semanticInteractionModel,
+            interactionFeedback: nil,
+            directManipulation: nil
+        )
     }
 
     private func processTouch(
@@ -839,6 +1029,124 @@ public final class ChapterSceneRuntimeController {
                 interactionFeedback: interactionFeedback,
                 directManipulation: directManipulation
             )
+        )
+    }
+
+    private func continuousTouchSemantic(
+        before: InteractionRuntimeState,
+        after: InteractionRuntimeState,
+        interaction: InteractionSpec
+    ) -> ChapterSceneContinuousTouchSemantic {
+        switch (interaction.grammar, before.progress, after.progress) {
+        case let (
+            .trace,
+            .trace(previous),
+            .trace(candidate)
+        ) where candidate.reachedAnchorCount
+            == previous.reachedAnchorCount + 1:
+            return .traceAnchor(previous.reachedAnchorCount)
+
+        case let (
+            .pressure(configuration),
+            .pressure(previous),
+            .pressure(candidate)
+        ):
+            let wasStable = configuration.stableRange.contains(
+                netPressure(configuration, progress: previous)
+            )
+            let isStable = configuration.stableRange.contains(
+                netPressure(configuration, progress: candidate)
+            )
+            return wasStable == isStable
+                ? .ordinary
+                : .pressureStabilityBoundary(isStable: isStable)
+
+        case let (
+            .transform,
+            .transform(previous),
+            .transform(candidate)
+        ) where candidate.completedStageCount
+            == previous.completedStageCount + 1:
+            return .transformStage(previous.completedStageCount)
+
+        default:
+            return .ordinary
+        }
+    }
+
+    private func netPressure(
+        _ configuration: PressureInteractionSpec,
+        progress: PressureProgress
+    ) -> Double {
+        configuration.forces.reduce(0) { partial, force in
+            partial + force.direction * (
+                progress.values.first(where: {
+                    $0.forceID == force.id
+                })?.magnitude ?? force.initialMagnitude
+            )
+        }
+    }
+
+    private func continuousTouchFeedbackFrame(
+        _ displayedFramePlan: SceneFramePlan,
+        resolution: SceneTouchActionResolution,
+        intent: SceneTouchIntent
+    ) throws -> SceneFramePlan {
+        guard let targetID = resolution.targetID else {
+            throw ChapterSceneRuntimeControllerError
+                .unsupportedContinuousTouchPreview
+        }
+        let targetRegions = displayedFramePlan.interactionHitRegions.filter {
+            $0.interactionTargetID == targetID
+        }
+        guard targetRegions.count == 1,
+              let targetRegion = targetRegions.first,
+              displayedFramePlan.drawCommands.contains(where: { command in
+                  guard case let .layer(layerID, _) = command.source else {
+                      return false
+                  }
+                  return layerID == targetRegion.layerID
+              }) else {
+            throw ChapterSceneRuntimeControllerError
+                .continuousTouchPreviewFrameMismatch
+        }
+        let rawContactAmount: Double = switch intent {
+        case let .trace(viewportPoint):
+            0.3 + 0.5 * min(
+                1,
+                max(0, (viewportPoint.x + viewportPoint.y) * 0.5)
+            )
+        case let .adjustTarget(_, amount):
+            0.2 + 0.8 * min(1, max(0, amount))
+        default:
+            throw ChapterSceneRuntimeControllerError
+                .unsupportedContinuousTouchPreview
+        }
+        let response = SceneInteractionResponsePlan(
+            phase: .contact,
+            targetID: targetID,
+            transferLayerID: targetRegion.layerID,
+            viewportMaterialPosition: nil,
+            viewportTransferPath: [],
+            progress: min(1, max(0, resolution.progress)),
+            contactAmount: rawContactAmount,
+            resistanceAmount: 0
+        )
+        return SceneFramePlan(
+            sceneID: displayedFramePlan.sceneID,
+            viewportCropID: displayedFramePlan.viewportCropID,
+            viewport: displayedFramePlan.viewport,
+            deterministicTick: displayedFramePlan.deterministicTick,
+            reduceMotion: displayedFramePlan.reduceMotion,
+            camera: displayedFramePlan.camera,
+            drawCommands: displayedFramePlan.drawCommands,
+            atmosphere: displayedFramePlan.atmosphere,
+            interactionSourceHitRegion:
+                displayedFramePlan.interactionSourceHitRegion,
+            interactionHitRegions:
+                displayedFramePlan.interactionHitRegions,
+            interactionResponse: response,
+            safeTextRegions: displayedFramePlan.safeTextRegions
         )
     }
 

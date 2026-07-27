@@ -151,6 +151,59 @@ final class JourneyDomainTests: XCTestCase {
         XCTAssertEqual(transform.phase, .complete)
     }
 
+    func testPressureLeavingStableRangeImmediatelyResetsHoldAndRequiresANewContinuousPeriod()
+        throws {
+        var pressure = InteractionRuntimeState(spec: Fixtures.pressure)
+
+        _ = try InteractionReducer.reduce(
+            state: &pressure,
+            spec: Fixtures.pressure,
+            action: .setPressure(forceID: "defence", magnitude: 0.5)
+        )
+        _ = try InteractionReducer.reduce(
+            state: &pressure,
+            spec: Fixtures.pressure,
+            action: .advancePressure(elapsedMillis: 250)
+        )
+        guard case let .pressure(firstStablePeriod) = pressure.progress else {
+            return XCTFail("Expected Pressure progress")
+        }
+        XCTAssertEqual(firstStablePeriod.stableMillis, 250)
+
+        _ = try InteractionReducer.reduce(
+            state: &pressure,
+            spec: Fixtures.pressure,
+            action: .setPressure(forceID: "defence", magnitude: 0.2)
+        )
+        guard case let .pressure(unstable) = pressure.progress else {
+            return XCTFail("Expected Pressure progress")
+        }
+        XCTAssertEqual(unstable.stableMillis, 0)
+
+        _ = try InteractionReducer.reduce(
+            state: &pressure,
+            spec: Fixtures.pressure,
+            action: .setPressure(forceID: "defence", magnitude: 0.5)
+        )
+        _ = try InteractionReducer.reduce(
+            state: &pressure,
+            spec: Fixtures.pressure,
+            action: .advancePressure(elapsedMillis: 249)
+        )
+        XCTAssertEqual(pressure.phase, .active)
+        guard case let .pressure(secondStablePeriod) = pressure.progress else {
+            return XCTFail("Expected Pressure progress")
+        }
+        XCTAssertEqual(secondStablePeriod.stableMillis, 249)
+
+        _ = try InteractionReducer.reduce(
+            state: &pressure,
+            spec: Fixtures.pressure,
+            action: .advancePressure(elapsedMillis: 251)
+        )
+        XCTAssertEqual(pressure.phase, .complete)
+    }
+
     func testResetCanClearActiveWorkButCannotUndoACompletedInteraction() throws {
         var active = InteractionRuntimeState(spec: Fixtures.allocate)
         _ = try InteractionReducer.reduce(
@@ -483,6 +536,14 @@ final class JourneyDomainTests: XCTestCase {
                 action: .transform(controlID: "heat", amount: 0.4)
             ),
             [.haptic(.drag), .checkpoint(.interactionChanged)]
+        )
+        XCTAssertEqual(
+            interactionEffects(
+                spec: Fixtures.transform,
+                action: .transform(controlID: "heat", amount: 0.75)
+            ),
+            [.haptic(.break), .checkpoint(.interactionChanged)],
+            "A non-final Transform stage must break at its authored threshold"
         )
         XCTAssertEqual(
             interactionEffects(

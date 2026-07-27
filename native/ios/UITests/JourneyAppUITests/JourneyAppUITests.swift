@@ -6,12 +6,140 @@ final class JourneyAppUITests: XCTestCase {
         continueAfterFailure = false
     }
 
+    func testSignedFirstFarmersStartsAtCanonicalOpeningAndAdvancesIntoCrossing()
+        throws {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "--ui-testing-reset-state",
+            "--ui-testing-signed-runtime-fixture",
+        ]
+        app.launch()
+
+        XCTAssertTrue(
+            app.descendants(matching: .any)[
+                "chapter-runtime-first-farmers"
+            ].waitForExistence(timeout: 12)
+        )
+        let opening = app.descendants(matching: .any)[
+            "chapter-beat-beat-first-farmers-river-world"
+        ]
+        XCTAssertTrue(opening.waitForExistence(timeout: 5))
+        let advance = app.buttons["chapter-continue"]
+        for _ in 0 ..< 5 where !advance.isHittable { opening.swipeUp() }
+        XCTAssertTrue(advance.isHittable)
+        advance.tap()
+
+        XCTAssertTrue(
+            app.descendants(matching: .any)[
+                "chapter-beat-beat-first-farmers-household-crosses"
+            ].waitForExistence(timeout: 8)
+        )
+        XCTAssertTrue(
+            app.descendants(matching: .any)[
+                "chapter-semantic-trace-route"
+            ].exists
+        )
+        XCTAssertFalse(
+            app.descendants(matching: .any)[
+                "signed-runtime-failure-diagnostic"
+            ].exists
+        )
+    }
+
+    func testSignedFirstFarmersThreeRecordsPreparesWithoutIntegrityFailure()
+        throws {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "--ui-testing-reset-state",
+            "--ui-testing-signed-runtime-fixture",
+            "--ui-testing-signed-runtime-fixture-beat=beat-first-farmers-three-records",
+        ]
+        app.launch()
+
+        XCTAssertTrue(
+            app.descendants(matching: .any)[
+                "chapter-runtime-first-farmers"
+            ].waitForExistence(timeout: 12)
+        )
+        let failureDiagnostic = app.descendants(matching: .any)[
+            "signed-runtime-failure-diagnostic"
+        ]
+        let beat = app.descendants(matching: .any)[
+            "chapter-beat-beat-first-farmers-three-records"
+        ]
+        let audioRuntime = app.descendants(matching: .any)[
+            "global-responsive-audio-runtime-state"
+        ]
+        let lifecycle = app.descendants(matching: .any)[
+            "global-causal-lifecycle-state"
+        ]
+        XCTAssertTrue(
+            beat.waitForExistence(timeout: 12),
+            "Runtime failure: \(String(describing: failureDiagnostic.value)); "
+                + "audio: \(String(describing: audioRuntime.value)); "
+                + "lifecycle: \(String(describing: lifecycle.value))"
+        )
+        XCTAssertFalse(
+            failureDiagnostic.exists,
+            "Runtime failure: \(String(describing: failureDiagnostic.value))"
+        )
+    }
+
+    func testSignedFirstFarmersOpensEveryAuthoredBeatThroughProductionRoute()
+        throws {
+        let beatIDs = [
+            "beat-first-farmers-river-world",
+            "beat-first-farmers-household-crosses",
+            "beat-first-farmers-living-system",
+            "beat-first-farmers-european-ground",
+            "beat-first-farmers-inhabited-frontier",
+            "beat-first-farmers-harvest-allocation",
+            "beat-first-farmers-stored-future",
+            "beat-first-farmers-gorge-contact",
+            "beat-first-farmers-three-records",
+            "beat-first-farmers-frontier-consequence",
+            "beat-first-farmers-house-assembly",
+            "beat-first-farmers-plot-remains",
+            "beat-first-farmers-paternal-lines",
+            "beat-first-farmers-land-transformation",
+            "beat-first-farmers-growth-breaks",
+            "beat-first-farmers-continent-remade",
+            "beat-first-farmers-before-steppe",
+        ]
+
+        for beatID in beatIDs {
+            let app = XCUIApplication()
+            app.launchArguments = [
+                "--ui-testing-reset-state",
+                "--ui-testing-signed-runtime-fixture",
+                "--ui-testing-signed-runtime-fixture-beat=\(beatID)",
+            ]
+            app.launch()
+
+            let failureDiagnostic = app.descendants(matching: .any)[
+                "signed-runtime-failure-diagnostic"
+            ]
+            XCTAssertTrue(
+                app.descendants(matching: .any)[
+                    "chapter-beat-\(beatID)"
+                ].waitForExistence(timeout: 12),
+                "\(beatID): \(String(describing: failureDiagnostic.value))"
+            )
+            XCTAssertFalse(
+                failureDiagnostic.exists,
+                "\(beatID): \(String(describing: failureDiagnostic.value))"
+            )
+            app.terminate()
+        }
+    }
+
     func testSignedRuntimeFixtureUsesProductionRouteAndColdRestoresExactly()
         throws {
         let app = XCUIApplication()
         app.launchArguments = [
             "--ui-testing-reset-state",
             "--ui-testing-signed-runtime-fixture",
+            "--ui-testing-signed-runtime-fixture-beat=beat-first-farmers-harvest-allocation",
         ]
         app.launch()
 
@@ -47,7 +175,10 @@ final class JourneyAppUITests: XCTestCase {
         XCTAssertTrue(exactStateBeforeKill.contains(":"))
 
         app.terminate()
-        app.launchArguments = ["--ui-testing-signed-runtime-fixture"]
+        app.launchArguments = [
+            "--ui-testing-signed-runtime-fixture",
+            "--ui-testing-signed-runtime-fixture-beat=beat-first-farmers-harvest-allocation",
+        ]
         app.launch()
 
         XCTAssertTrue(productionRoute.waitForExistence(timeout: 12))
@@ -66,6 +197,7 @@ final class JourneyAppUITests: XCTestCase {
         app.launchArguments = [
             "--ui-testing-reset-state",
             "--ui-testing-signed-runtime-fixture",
+            "--ui-testing-signed-runtime-fixture-beat=beat-first-farmers-harvest-allocation",
         ]
         app.launch()
 
@@ -224,8 +356,10 @@ final class JourneyAppUITests: XCTestCase {
             timeout: 8
         )
         XCTAssertEqual(coldRuntime.stage, "interaction")
-        XCTAssertEqual(coldRuntime.phase, "engaged")
-        XCTAssertEqual(coldRuntime.durablePhase, "engaged")
+        // Lifecycle durability removes transient contact/resistance beds before
+        // persisting; interaction progress and the exact cursor remain intact.
+        XCTAssertEqual(coldRuntime.phase, "waiting")
+        XCTAssertEqual(coldRuntime.durablePhase, "waiting")
         XCTAssertEqual(coldRuntime.pending, "none")
         wait(for: semanticTrace, toHaveValue: "2 of 4 route points reached")
         XCTAssertTrue(hear.waitForExistence(timeout: 3))
@@ -1002,6 +1136,145 @@ final class JourneyAppUITests: XCTestCase {
             XCTAssertEqual(cursor, pre, restoredRuntime)
             XCTAssertNotEqual(cursor, partial, restoredRuntime)
         }
+    }
+
+    func testFailedConsequenceRelinquishStopsMutedGraphAndRetiresCursor()
+        throws {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "--ui-testing-reset-state",
+            "--ui-testing-signed-runtime-fixture",
+            "--ui-testing-signed-runtime-fixture-chapter=european-world",
+            "--ui-testing-ordered-exit-quiesce-recovery",
+            "--ui-testing-ordered-exit-consequence-relinquish-failure",
+        ]
+        app.launch()
+
+        let beat = app.descendants(matching: .any)[
+            "chapter-beat-beat-european-world-ocean-schedule"
+        ]
+        let touchSurface = app.descendants(matching: .any)[
+            "chapter-touch-surface"
+        ]
+        let semanticTrace = app.descendants(matching: .any)[
+            "chapter-semantic-trace-ocean-route"
+        ]
+        let phaseState = app.descendants(matching: .any)[
+            "responsive-audio-presentation-state"
+        ]
+        let audit = app.descendants(matching: .any)[
+            "ordered-exit-audio-diagnostic"
+        ]
+        let lifecycle = app.descendants(matching: .any)[
+            "global-causal-lifecycle-state"
+        ]
+        let runtime = app.descendants(matching: .any)[
+            "global-responsive-audio-runtime-state"
+        ]
+        XCTAssertTrue(beat.waitForExistence(timeout: 12))
+        XCTAssertTrue(touchSurface.waitForExistence(timeout: 5))
+        XCTAssertTrue(semanticTrace.waitForExistence(timeout: 3))
+        XCTAssertTrue(phaseState.waitForExistence(timeout: 3))
+        XCTAssertTrue(audit.waitForExistence(timeout: 3))
+        XCTAssertTrue(lifecycle.waitForExistence(timeout: 3))
+        XCTAssertTrue(runtime.waitForExistence(timeout: 3))
+
+        let hear = app.buttons["chapter-audio-hear-scene"]
+        reveal(hear, in: beat)
+        hear.tap()
+        resumeResponsiveAudioIfNeeded(
+            phaseState: phaseState,
+            hearButton: hear
+        )
+        wait(for: phaseState, toHaveValue: "playing:waiting", timeout: 8)
+
+        let anchors = [
+            CGVector(dx: 0.2142857, dy: 0.5571429),
+            CGVector(dx: 0.4, dy: 0.5285714),
+            CGVector(dx: 0.6, dy: 0.5),
+            CGVector(dx: 0.7857143, dy: 0.4714286),
+        ].map { touchSurface.coordinate(withNormalizedOffset: $0) }
+        anchors[0].press(forDuration: 0.15, thenDragTo: anchors[1])
+        wait(
+            for: semanticTrace,
+            toHaveValue: "2 of 4 route points reached",
+            timeout: 8
+        )
+        anchors[1].press(forDuration: 0.1, thenDragTo: anchors[2])
+        wait(
+            for: semanticTrace,
+            toHaveValue: "3 of 4 route points reached",
+            timeout: 8
+        )
+        anchors[2].press(forDuration: 0.1, thenDragTo: anchors[3])
+
+        let consequencePlaying = XCTNSPredicateExpectation(
+            predicate: NSPredicate(
+                format:
+                    "value CONTAINS %@ AND value CONTAINS %@ AND enabled == true",
+                "playback=playing",
+                "stage=consequence"
+            ),
+            object: runtime
+        )
+        XCTAssertEqual(
+            XCTWaiter().wait(for: [consequencePlaying], timeout: 10),
+            .completed,
+            String(describing: runtime.value)
+        )
+
+        let returnToRoad = app.buttons["Return to the road"].firstMatch
+        XCTAssertTrue(returnToRoad.waitForExistence(timeout: 3))
+        returnToRoad.tap()
+
+        wait(for: audit, toHaveValueContaining: ";final=1", timeout: 12)
+        let settled = XCTNSPredicateExpectation(
+            predicate: NSPredicate(
+                format:
+                    "value CONTAINS %@ AND value CONTAINS %@ AND "
+                        + "value CONTAINS %@",
+                "route=chapter:european-world",
+                "ordered=0",
+                "chapterPending=0"
+            ),
+            object: lifecycle
+        )
+        XCTAssertEqual(
+            XCTWaiter().wait(for: [settled], timeout: 8),
+            .completed,
+            "Audit: \(String(describing: audit.value)); lifecycle: "
+                + String(describing: lifecycle.value)
+        )
+        let graphStopped = XCTNSPredicateExpectation(
+            predicate: NSPredicate(
+                format: "NOT (value CONTAINS %@) AND enabled == true",
+                "playback=playing"
+            ),
+            object: runtime
+        )
+        XCTAssertEqual(
+            XCTWaiter().wait(for: [graphStopped], timeout: 3),
+            .completed,
+            String(describing: runtime.value)
+        )
+
+        let auditValue = try XCTUnwrap(audit.value as? String)
+        let fields = Self.diagnosticFields(
+            in: auditValue.split(separator: ";").map(String.init)[...]
+        )
+        for (field, expected) in [
+            "transportPaused": "0",
+            "fallbackRecovered": "0",
+            "controllerDiscarded": "1",
+            "cursorRetired": "1",
+            "pumpStopped": "1",
+            "appendDelta": "0",
+            "route": "chapter",
+            "final": "1",
+        ] {
+            XCTAssertEqual(fields[field], expected, auditValue)
+        }
+        XCTAssertEqual(fields["sequenceBefore"], fields["sequenceAfter"])
     }
 
     func testOrderedExitRetirementPreservesInstalledSuccessorAndBinding()
@@ -1833,8 +2106,10 @@ final class JourneyAppUITests: XCTestCase {
             timeout: 8
         )
         XCTAssertEqual(restored.stage, "interaction")
-        XCTAssertEqual(restored.phase, "engaged")
-        XCTAssertEqual(restored.durablePhase, "engaged")
+        // `normalizeEphemeralResponsiveAudioPhaseForDurability` makes a cold
+        // process resume from the neutral bed, never a transient response.
+        XCTAssertEqual(restored.phase, "waiting")
+        XCTAssertEqual(restored.durablePhase, "waiting")
         XCTAssertEqual(restored.pending, "none")
         XCTAssertEqual(restored.liveCursor, exactCursor)
         XCTAssertEqual(restored.durableCursor, exactCursor)
@@ -1852,6 +2127,7 @@ final class JourneyAppUITests: XCTestCase {
             "--ui-testing-reset-state",
             "--ui-testing-signed-runtime-fixture",
             "--ui-testing-signed-runtime-fixture-chapter=european-world",
+            "--ui-testing-signed-runtime-fixture-beat=beat-first-farmers-harvest-allocation",
         ]
         app.launch()
 
@@ -1910,7 +2186,9 @@ final class JourneyAppUITests: XCTestCase {
             toHaveValue: "2 of 4 route points reached",
             timeout: 8
         )
-        wait(for: phaseState, toHaveValue: "silent:engaged", timeout: 8)
+        // Prove the 180 ms response has already cleared before backgrounding;
+        // only the same-process lifecycle memory may restore `engaged` below.
+        wait(for: phaseState, toHaveValue: "silent:waiting", timeout: 3)
         let silentAfterTrace = try waitForResponsiveAudioPlaybackState(
             runtimeState,
             playback: "paused",
@@ -2002,6 +2280,7 @@ final class JourneyAppUITests: XCTestCase {
                 "--ui-testing-reset-state",
                 "--ui-testing-signed-runtime-fixture",
                 "--ui-testing-signed-runtime-fixture-chapter=\(chapter.id)",
+                "--ui-testing-signed-runtime-fixture-beat=\(chapter.beat)",
             ]
             app.launch()
             XCTAssertTrue(
@@ -2825,6 +3104,51 @@ final class JourneyAppUITests: XCTestCase {
         )
     }
 
+    func testContinuousInputVisualFeedbackAndJournalCadenceStayEnergyBounded()
+        throws {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "--ui-testing-reset-state",
+            "--ui-testing-signed-runtime-fixture",
+            "--ui-testing-signed-runtime-fixture-chapter=european-world",
+            "--ui-testing-continuous-input-energy",
+        ]
+        app.launch()
+
+        XCTAssertTrue(
+            app.descendants(matching: .any)[
+                "chapter-runtime-european-world"
+            ].waitForExistence(timeout: 12)
+        )
+        let diagnostic = app.descendants(matching: .any)[
+            "continuous-input-energy-diagnostic"
+        ]
+        let run = app.buttons["continuous-input-energy-run"]
+        XCTAssertTrue(diagnostic.waitForExistence(timeout: 5))
+        XCTAssertTrue(run.waitForExistence(timeout: 5))
+        XCTAssertTrue(run.isHittable)
+
+        run.tap()
+        wait(
+            for: diagnostic,
+            toHaveValueContaining: "result=pass",
+            timeout: 8
+        )
+        let value = try XCTUnwrap(diagnostic.value as? String)
+        for fragment in [
+            "visual=120;",
+            "visualUnder50=1;",
+            "authorityUnchanged=1;",
+            "ordinary=trace:5,pressure:5,transform:5;",
+            "protected=trace-0,pressure-enter,pressure-exit,"
+                + "transform-0,transform-1,preview-fallback,terminal;",
+            "discrete=pressure-hold:1,voice-over:1;",
+            "result=pass",
+        ] {
+            XCTAssertTrue(value.contains(fragment), value)
+        }
+    }
+
     func testSaturatedContinuousInputRemainsOneTrackedFIFOThroughLifecycleCancellation()
         throws {
         let app = XCUIApplication()
@@ -2917,9 +3241,15 @@ final class JourneyAppUITests: XCTestCase {
         cancelRoute.tap()
         wait(
             for: diagnostic,
-            toHaveValueContaining: "dropped=10;",
+            toHaveValueContaining: "cycle=2;phase=cancelling;",
             timeout: 3
         )
+        value = try XCTUnwrap(diagnostic.value as? String)
+        XCTAssertTrue(
+            value.contains("accepted=1,2,3,4,5,6,7,8,10;"),
+            value
+        )
+        XCTAssertTrue(value.contains("dropped=-;"), value)
         XCTAssertTrue(release.waitForExistence(timeout: 3))
         release.tap()
         wait(
@@ -2928,15 +3258,15 @@ final class JourneyAppUITests: XCTestCase {
             timeout: 15
         )
         value = try XCTUnwrap(diagnostic.value as? String)
-        let cancelledOrder = "1,2,3,4,5,6,7,8"
+        let cancelledOrder = "1,2,3,4,5,6,7,8,10"
         for fragment in [
             "accepted=\(cancelledOrder);",
             "performed=\(cancelledOrder);",
             "completed=\(cancelledOrder);",
             "coalesced=9;",
-            "dropped=10;",
+            "dropped=-;",
             "current=-;deferred=-;pending=0;",
-            "reservations=0/8;",
+            "reservations=0/9;",
             "task=0;tracked=-;active=0/1;untracked=-;",
             "lifecycle=0;deactivation=0;route=0",
         ] {

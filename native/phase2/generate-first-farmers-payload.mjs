@@ -26,25 +26,49 @@ const harvestResponsiveAudioPath = path.join(
   repositoryRoot,
   "native/audio/score-soundscape/harvest-responsive-v1/work-object.json",
 );
+const harvestResponsiveAudioReceiptPath = path.join(
+  repositoryRoot,
+  "native/audio/score-soundscape/harvest-responsive-v1/render-receipt.json",
+);
 const longhouseResponsiveAudioPath = path.join(
   repositoryRoot,
   "native/audio/score-soundscape/longhouse-responsive-v1/longhouse-responsive-work-object.json",
+);
+const longhouseResponsiveAudioReceiptPath = path.join(
+  repositoryRoot,
+  "native/audio/score-soundscape/longhouse-responsive-v1/render-receipt.json",
 );
 const continentRemadeResponsiveAudioPath = path.join(
   repositoryRoot,
   "native/audio/score-soundscape/continent-remade-responsive-v1/continent-remade-responsive-work-object.json",
 );
+const continentRemadeResponsiveAudioReceiptPath = path.join(
+  repositoryRoot,
+  "native/audio/score-soundscape/continent-remade-responsive-v1/render-receipt.json",
+);
 const moreMouthsResponsiveAudioPath = path.join(
   repositoryRoot,
   "native/audio/score-soundscape/more-mouths-responsive-v1/more-mouths-responsive-work-object.json",
+);
+const moreMouthsResponsiveAudioReceiptPath = path.join(
+  repositoryRoot,
+  "native/audio/score-soundscape/more-mouths-responsive-v1/render-receipt.json",
 );
 const householdCrossesResponsiveAudioPath = path.join(
   repositoryRoot,
   "native/audio/score-soundscape/household-crosses-responsive-v1/household-crosses-responsive-work-object.json",
 );
+const householdCrossesResponsiveAudioReceiptPath = path.join(
+  repositoryRoot,
+  "native/audio/score-soundscape/household-crosses-responsive-v1/render-receipt.json",
+);
 const threeRecordsResponsiveAudioPath = path.join(
   repositoryRoot,
   "native/audio/score-soundscape/three-records-responsive-v1/three-records-responsive-work-object.json",
+);
+const threeRecordsResponsiveAudioReceiptPath = path.join(
+  repositoryRoot,
+  "native/audio/score-soundscape/three-records-responsive-v1/render-receipt.json",
 );
 const payloadPath = path.join(generatedRoot, "first-farmers.content-package.json");
 const assetRequirementsPath = path.join(
@@ -598,18 +622,6 @@ function normalizeHapticSemantic(value) {
   return normalized;
 }
 
-function hapticProfile(kind) {
-  switch (kind) {
-    case "contact": return { intensity: 0.36, sharpness: 0.62 };
-    case "drag": return { intensity: 0.24, sharpness: 0.26 };
-    case "resistance": return { intensity: 0.58, sharpness: 0.34 };
-    case "transfer": return { intensity: 0.44, sharpness: 0.48 };
-    case "break": return { intensity: 0.72, sharpness: 0.78 };
-    case "seal": return { intensity: 0.64, sharpness: 0.52 };
-    default: throw new Error(`Missing haptic profile for ${kind}`);
-  }
-}
-
 function wordCount(text) {
   return text.trim().split(/\s+/u).filter(Boolean).length;
 }
@@ -670,17 +682,16 @@ function audioTimeline(chapterID, arcID, beat) {
       gain: 0.68,
     },
   ];
-  const semantics = (beat.interaction?.haptics ?? []).map(normalizeHapticSemantic);
-  const haptics = semantics.map((kind, index) => ({
-    sample: Math.round(beatDurationSamples * (index + 1) / (semantics.length + 1)),
-    kind,
-    ...hapticProfile(kind),
-  }));
+  // Interaction haptics belong to the deterministic interaction reducer and
+  // its semantic bridge. Scheduling the same semantics at arbitrary narration
+  // samples would replay historical actions without user input and could
+  // duplicate the live response after a restore.
+  (beat.interaction?.haptics ?? []).forEach(normalizeHapticSemantic);
   return {
     id: `audio-${beat.beatID}`,
     sampleRate,
     events: [...narrationEvents, ...nonNarrationEvents],
-    haptics,
+    haptics: [],
   };
 }
 
@@ -797,6 +808,119 @@ function publicResponsiveProgram(workObject) {
   return program;
 }
 
+const requiredResponsiveRuntimeInputIDs = [
+  "responsive-audio-program-runtime",
+  "responsive-audio-program-controller",
+  "responsive-audio-timeline-planner",
+  "responsive-audio-transport-contract",
+  "native-timeline-transport",
+  "durable-audio-completion-runtime",
+  "semantic-haptic-runtime",
+];
+
+function validateResponsiveAudioEvidence(workObject, renderReceipt) {
+  const prefix = workObject.id;
+  assert.equal(workObject.status, "PROVISIONAL_NON_SHIPPING", `${prefix}: invalid status`);
+  assert.equal(workObject.shippingState, "PROHIBITED", `${prefix}: invalid shipping state`);
+  assert.equal(
+    workObject.gates.responsiveProgramContract,
+    "PASS_LOCAL_SPEC_VALIDATION_REQUIRED_BY_SWIFT_TEST",
+    `${prefix}: responsive program contract is not locally validated`,
+  );
+  assert.equal(workObject.gates.exactOfflineMasters, "PASS", `${prefix}: offline masters missing`);
+  assert.equal(workObject.gates.sampleExactPhaseBeds, "PASS", `${prefix}: phase beds are not sample exact`);
+  assert.equal(
+    workObject.gates.narrationMaster,
+    "OPEN_MISSING_EDITOR_SELECTED_MASTER",
+    `${prefix}: narration state changed without a selected master`,
+  );
+  assert.equal(workObject.gates.shippingApproval, "PROHIBITED", `${prefix}: shipping gate drifted`);
+  assert.equal(workObject.provenance.runtimeGeneration, "PROHIBITED", `${prefix}: runtime generation enabled`);
+  assert.equal(workObject.provenance.incrementalCostNOK, 0, `${prefix}: non-zero production cost`);
+
+  const productionInputIDs = new Set(
+    workObject.provenance.productionInputs.map(({ id }) => id),
+  );
+  for (const inputID of requiredResponsiveRuntimeInputIDs) {
+    assert.ok(productionInputIDs.has(inputID), `${prefix}: missing runtime binding ${inputID}`);
+  }
+
+  assert.equal(workObject.timelines.length, 5, `${prefix}: expected five responsive timelines`);
+  assert.ok(
+    workObject.timelines.every(({ haptics }) => haptics.length === 0),
+    `${prefix}: responsive timeline haptics must remain runtime-semantic only`,
+  );
+  const interactionTimelineIDs = new Set(
+    workObject.responsiveProgram.interactionBeds.map(({ timelineID }) => timelineID),
+  );
+  assert.equal(interactionTimelineIDs.size, 3, `${prefix}: expected three interaction phase beds`);
+  assert.ok(
+    workObject.timelines
+      .filter(({ id }) => interactionTimelineIDs.has(id))
+      .every(({ events }) => events.every(({ role }) => role !== "narration")),
+    `${prefix}: looping interaction beds cannot contain narration`,
+  );
+
+  const timelineAssetPaths = [
+    ...new Set(
+      workObject.timelines.flatMap(({ events }) =>
+        events.flatMap(({ assetPath }) => assetPath ? [assetPath] : [])),
+    ),
+  ].sort();
+  const metadataPaths = workObject.audioAssetMetadata.map(({ path: assetPath }) => assetPath).sort();
+  assert.deepEqual(metadataPaths, timelineAssetPaths, `${prefix}: timeline and metadata assets differ`);
+
+  assert.ok(workObject.narrationSlots.length > 0, `${prefix}: narration slots missing`);
+  for (const slot of workObject.narrationSlots) {
+    assert.equal(slot.status, "MISSING_EDITOR_SELECTED_NARRATION_MASTER");
+    assert.equal(slot.shippingBlock, true);
+    assert.equal(
+      slot.insertionRule,
+      "ADD_NARRATION_EVENTS_ONLY_AFTER_EDITOR_VOICE_SELECTION_AND_EXACT_WORD_ALIGNMENT",
+    );
+    assert.equal(
+      metadataPaths.includes(slot.requiredAssetPath),
+      false,
+      `${prefix}: unselected narration master leaked into runtime assets`,
+    );
+  }
+
+  assert.equal(renderReceipt.status, "PROVISIONAL_NON_SHIPPING", `${prefix}: receipt status drifted`);
+  assert.equal(renderReceipt.shippingState, "PROHIBITED", `${prefix}: receipt shipping state drifted`);
+  assert.equal(
+    renderReceipt.reproducibility,
+    "PASS_SECOND_COMPLETE_OFFLINE_RENDER",
+    `${prefix}: offline render is not reproducible`,
+  );
+  assert.equal(renderReceipt.gates.exactPCMFormat, "PASS_48000_HZ_24_BIT_STEREO");
+  assert.equal(renderReceipt.gates.narration, "OPEN_MISSING_EDITOR_SELECTED_MASTER");
+  assert.equal(renderReceipt.gates.shippingApproval, "PROHIBITED");
+
+  const runtimeOutputs = renderReceipt.outputs.filter(({ packageAssetPath }) => packageAssetPath);
+  const outputPaths = runtimeOutputs.map(({ packageAssetPath }) => packageAssetPath).sort();
+  assert.deepEqual(outputPaths, metadataPaths, `${prefix}: receipt and runtime metadata assets differ`);
+  assert.equal(new Set(outputPaths).size, outputPaths.length, `${prefix}: duplicate package asset path`);
+  const metadataByPath = new Map(
+    workObject.audioAssetMetadata.map((metadata) => [metadata.path, metadata]),
+  );
+  for (const output of runtimeOutputs) {
+    const metadata = metadataByPath.get(output.packageAssetPath);
+    assert.ok(metadata, `${prefix}: missing metadata for ${output.packageAssetPath}`);
+    assert.equal(output.format.sampleRate, metadata.sampleRate);
+    assert.equal(output.format.frames, metadata.frameCount);
+    assert.equal(output.format.channels, metadata.channelCount);
+    assert.equal(output.format.bitDepth, 24);
+    assert.match(output.sha256, /^[0-9a-f]{64}$/u);
+    assert.ok(output.bytes > 0, `${prefix}: empty rendered package asset`);
+    assert.equal(output.incrementalCostNOK, 0);
+  }
+
+  return {
+    runtimeAssetCount: runtimeOutputs.length,
+    provisionalPCMBytes: runtimeOutputs.reduce((sum, { bytes }) => sum + bytes, 0),
+  };
+}
+
 function collectAssetPaths(value, owner = "contentPackage", output = []) {
   if (Array.isArray(value)) {
     value.forEach((item, index) => collectAssetPaths(item, `${owner}[${index}]`, output));
@@ -899,33 +1023,72 @@ export async function projectedPayloadDocuments() {
     worldSeedBytes,
     harvestFixtureBytes,
     harvestResponsiveAudioBytes,
+    harvestResponsiveAudioReceiptBytes,
     longhouseResponsiveAudioBytes,
+    longhouseResponsiveAudioReceiptBytes,
     continentRemadeResponsiveAudioBytes,
+    continentRemadeResponsiveAudioReceiptBytes,
     moreMouthsResponsiveAudioBytes,
+    moreMouthsResponsiveAudioReceiptBytes,
     householdCrossesResponsiveAudioBytes,
+    householdCrossesResponsiveAudioReceiptBytes,
     threeRecordsResponsiveAudioBytes,
+    threeRecordsResponsiveAudioReceiptBytes,
   ] = await Promise.all([
     readFile(draftPath),
     readFile(chapterPath),
     readFile(worldSeedPath),
     readFile(harvestFixturePath),
     readFile(harvestResponsiveAudioPath),
+    readFile(harvestResponsiveAudioReceiptPath),
     readFile(longhouseResponsiveAudioPath),
+    readFile(longhouseResponsiveAudioReceiptPath),
     readFile(continentRemadeResponsiveAudioPath),
+    readFile(continentRemadeResponsiveAudioReceiptPath),
     readFile(moreMouthsResponsiveAudioPath),
+    readFile(moreMouthsResponsiveAudioReceiptPath),
     readFile(householdCrossesResponsiveAudioPath),
+    readFile(householdCrossesResponsiveAudioReceiptPath),
     readFile(threeRecordsResponsiveAudioPath),
+    readFile(threeRecordsResponsiveAudioReceiptPath),
   ]);
   const draft = JSON.parse(draftBytes);
   const chapter = JSON.parse(chapterBytes);
   const worldSeed = JSON.parse(worldSeedBytes);
   const harvestFixture = JSON.parse(harvestFixtureBytes);
   const harvestResponsiveAudio = JSON.parse(harvestResponsiveAudioBytes);
+  const harvestResponsiveAudioReceipt = JSON.parse(harvestResponsiveAudioReceiptBytes);
   const longhouseResponsiveAudio = JSON.parse(longhouseResponsiveAudioBytes);
+  const longhouseResponsiveAudioReceipt = JSON.parse(longhouseResponsiveAudioReceiptBytes);
   const continentRemadeResponsiveAudio = JSON.parse(continentRemadeResponsiveAudioBytes);
+  const continentRemadeResponsiveAudioReceipt = JSON.parse(
+    continentRemadeResponsiveAudioReceiptBytes,
+  );
   const moreMouthsResponsiveAudio = JSON.parse(moreMouthsResponsiveAudioBytes);
+  const moreMouthsResponsiveAudioReceipt = JSON.parse(moreMouthsResponsiveAudioReceiptBytes);
   const householdCrossesResponsiveAudio = JSON.parse(householdCrossesResponsiveAudioBytes);
+  const householdCrossesResponsiveAudioReceipt = JSON.parse(
+    householdCrossesResponsiveAudioReceiptBytes,
+  );
   const threeRecordsResponsiveAudio = JSON.parse(threeRecordsResponsiveAudioBytes);
+  const threeRecordsResponsiveAudioReceipt = JSON.parse(threeRecordsResponsiveAudioReceiptBytes);
+  const responsiveAudioEvidence = [
+    [harvestResponsiveAudio, harvestResponsiveAudioReceipt],
+    [longhouseResponsiveAudio, longhouseResponsiveAudioReceipt],
+    [continentRemadeResponsiveAudio, continentRemadeResponsiveAudioReceipt],
+    [moreMouthsResponsiveAudio, moreMouthsResponsiveAudioReceipt],
+    [householdCrossesResponsiveAudio, householdCrossesResponsiveAudioReceipt],
+    [threeRecordsResponsiveAudio, threeRecordsResponsiveAudioReceipt],
+  ].map(([workObject, renderReceipt]) =>
+    validateResponsiveAudioEvidence(workObject, renderReceipt));
+  const responsiveRuntimeAssetCount = responsiveAudioEvidence.reduce(
+    (sum, { runtimeAssetCount }) => sum + runtimeAssetCount,
+    0,
+  );
+  const provisionalResponsivePCMBytes = responsiveAudioEvidence.reduce(
+    (sum, { provisionalPCMBytes }) => sum + provisionalPCMBytes,
+    0,
+  );
   const authoredResponsiveAudioByBeatID = new Map([
     [harvestResponsiveAudio.scope.beatID, harvestResponsiveAudio],
     [longhouseResponsiveAudio.scope.beatID, longhouseResponsiveAudio],
@@ -1049,24 +1212,48 @@ export async function projectedPayloadDocuments() {
         sha256: sha256(harvestResponsiveAudioBytes),
       },
       {
+        path: path.relative(repositoryRoot, harvestResponsiveAudioReceiptPath),
+        sha256: sha256(harvestResponsiveAudioReceiptBytes),
+      },
+      {
         path: path.relative(repositoryRoot, longhouseResponsiveAudioPath),
         sha256: sha256(longhouseResponsiveAudioBytes),
+      },
+      {
+        path: path.relative(repositoryRoot, longhouseResponsiveAudioReceiptPath),
+        sha256: sha256(longhouseResponsiveAudioReceiptBytes),
       },
       {
         path: path.relative(repositoryRoot, continentRemadeResponsiveAudioPath),
         sha256: sha256(continentRemadeResponsiveAudioBytes),
       },
       {
+        path: path.relative(repositoryRoot, continentRemadeResponsiveAudioReceiptPath),
+        sha256: sha256(continentRemadeResponsiveAudioReceiptBytes),
+      },
+      {
         path: path.relative(repositoryRoot, moreMouthsResponsiveAudioPath),
         sha256: sha256(moreMouthsResponsiveAudioBytes),
+      },
+      {
+        path: path.relative(repositoryRoot, moreMouthsResponsiveAudioReceiptPath),
+        sha256: sha256(moreMouthsResponsiveAudioReceiptBytes),
       },
       {
         path: path.relative(repositoryRoot, householdCrossesResponsiveAudioPath),
         sha256: sha256(householdCrossesResponsiveAudioBytes),
       },
       {
+        path: path.relative(repositoryRoot, householdCrossesResponsiveAudioReceiptPath),
+        sha256: sha256(householdCrossesResponsiveAudioReceiptBytes),
+      },
+      {
         path: path.relative(repositoryRoot, threeRecordsResponsiveAudioPath),
         sha256: sha256(threeRecordsResponsiveAudioBytes),
+      },
+      {
+        path: path.relative(repositoryRoot, threeRecordsResponsiveAudioReceiptPath),
+        sha256: sha256(threeRecordsResponsiveAudioReceiptBytes),
       },
     ],
     payloadPath: path.relative(repositoryRoot, payloadPath),
@@ -1102,6 +1289,17 @@ export async function projectedPayloadDocuments() {
       futureAssetState: "INTENTIONALLY_ABSENT_AND_COMPILATION_BLOCKING",
       interactiveAudioState: "SIX_PROVISIONAL_AUTHORED_PROGRAMS_WIRED_WITH_ZERO_REQUIREMENT_PLACEHOLDERS",
       hapticVocabulary: [...allowedHapticSemantics],
+    },
+    audioTechnicalProof: {
+      responsivePrograms: responsiveAudioPrograms.length,
+      responsiveTimelines: responsiveAudioPrograms.length * 5,
+      responsiveRuntimeAssets: responsiveRuntimeAssetCount,
+      provisionalPCMBytes: provisionalResponsivePCMBytes,
+      offlineAssetBinding: "PASS_RENDER_RECEIPTS_AND_PACKAGE_RELATIVE_PATHS",
+      snapshotRestoreContract: "PASS_COMMON_RUNTIME_BOUND_BY_EACH_WORK_OBJECT",
+      timedInteractionHaptics: "NONE_RUNTIME_SEMANTICS_ONLY",
+      narrationState: "OPEN_EDITOR_SELECTED_VOICE_AND_EXACT_ALIGNMENT",
+      shippingDeliveryEncodingAndDeviceBudget: "OPEN_PROVISIONAL_PCM_MASTERS",
     },
     claimsExcluded: [
       "editor approval",

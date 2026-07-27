@@ -59,12 +59,24 @@ export function validatePhysicalDeviceProtocol(protocol) {
 
   const runs = new Map(protocol.runOrder.map((run) => [run.runID, run]));
   assert.equal(runs.size, protocol.runOrder.length, "duplicate physical run ID");
-  assert.equal(runs.get("cold-restore")?.repetitions, 5);
+  assert.equal(runs.get("cold-restore")?.repetitions, 6);
+  assert.deepEqual(runs.get("cold-restore")?.requiredInteractionIDs, [
+    "interaction-first-farmers-a-household-crosses",
+    "interaction-first-farmers-the-harvest-had-to-last",
+    "interaction-first-farmers-at-the-iron-gates",
+    "interaction-first-farmers-the-house-outlives",
+    "interaction-first-farmers-more-mouths-more-land",
+    "interaction-first-farmers-a-continent-remade",
+  ]);
   assert.equal(runs.get("interaction-latency")?.repetitions, 20);
   assert.equal(runs.get("static-reference")?.repetitions, 3);
   assert.equal(runs.get("static-reference")?.durationMinutes, 30);
+  assert.equal(runs.get("first-farmers-static-reference")?.repetitions, 3);
+  assert.equal(runs.get("first-farmers-static-reference")?.durationMinutes, 30);
   assert.equal(runs.get("harvest-sustained")?.repetitions, 3);
   assert.equal(runs.get("harvest-sustained")?.durationMinutes, 30);
+  assert.equal(runs.get("first-farmers-sustained")?.repetitions, 3);
+  assert.equal(runs.get("first-farmers-sustained")?.durationMinutes, 30);
   assert.equal(runs.get("audio-restoration")?.repetitions, 10);
   assert.ok(runs.has("storage-pressure"));
 
@@ -97,6 +109,16 @@ export function validatePhysicalDeviceProtocol(protocol) {
   assert.equal(protocol.comparison.pairedBatteryRunsRequired, 3);
   assert.equal(protocol.comparison.medianDeterminesBatteryResult, true);
   assert.equal(protocol.comparison.appAndReferenceRunMustAlternate, true);
+  assert.deepEqual(protocol.comparison.pairedRunSets, [
+    {
+      referenceRunID: "static-reference",
+      appRunID: "harvest-sustained",
+    },
+    {
+      referenceRunID: "first-farmers-static-reference",
+      appRunID: "first-farmers-sustained",
+    },
+  ]);
   assert.equal(protocol.resultContract.notTestedIsFailure, true);
   assert.equal(protocol.resultContract.simulatorCannotSatisfyPhysicalGate, true);
   assert.equal(protocol.resultContract.localReportCannotSatisfyDisplayGates, true);
@@ -118,6 +140,20 @@ export function validatePhysicalDeviceProtocol(protocol) {
     actualDisplayGateSource: "RETAINED_METAL_SYSTEM_TRACE",
     networkingProhibited: true,
   });
+  assert.deepEqual(protocol.firstFarmersEvidenceContract, {
+    schemaPath: "quality/schemas/first-farmers-physical-evidence.schema.json",
+    validatorPath: "scripts/validate-first-farmers-physical-evidence.mjs",
+    requiredStatus: "PASS",
+    chapterID: "first-farmers",
+    productionPackageID: "essential-free-v1",
+    requiredBeatCount: 17,
+    requiredInteractionCount: 6,
+    requiredBatteryPairs: 3,
+    requiredColdRestoreCases: 6,
+    minimumSustainedDurationSeconds: 1800,
+    traceArtifactHashKind: "RETAINED_TRACE_ARCHIVE_FILE_SHA256",
+    missingEvidenceFails: true,
+  });
   return protocol;
 }
 
@@ -136,6 +172,16 @@ async function main() {
   );
   assert.equal(reportSchema.$defs.audio.properties.sampleRate.const, 48_000);
   assert.equal(reportSchema.$defs.sha256.pattern, "^[0-9a-f]{64}$");
+  const chapterEvidenceSchema = JSON.parse(
+    await readFile(
+      path.join(nativeRoot, protocol.firstFarmersEvidenceContract.schemaPath),
+      "utf8",
+    ),
+  );
+  assert.equal(chapterEvidenceSchema.additionalProperties, false);
+  assert.equal(chapterEvidenceSchema.properties.status.const, "PASS");
+  assert.equal(chapterEvidenceSchema.properties.batteryPairs.minItems, 3);
+  assert.equal(chapterEvidenceSchema.properties.coldRestoreRuns.minItems, 6);
   process.stdout.write(
     `Physical-device protocol locked: ${protocol.runOrder.length} run classes; physical execution remains pending.\n`,
   );

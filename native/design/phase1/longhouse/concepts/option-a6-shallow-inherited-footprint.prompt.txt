@@ -1,0 +1,13 @@
+Use case: precise-object-edit
+Asset type: Codex-provisional, non-shipping native iPhone 2.5D Longhouse concept, option A6 — SHALLOW INHERITED FOOTPRINT
+Input images: Image 1 is the sole edit target.
+
+Preserve Image 1's exact extreme-portrait camera, crop, horizon, forest, storm light, every person and anatomy, unfinished timber frame, every current post, loose timber, vessels, stone-and-ash hearth material, wattle rods, roof-fibre bundles, cordage, palette, and all object positions. Do not add, remove, move, resize or redesign any person, post, component source or structure. Change only the former-footprint marks and the worn threshold/approach surface in the lower and middle ground.
+
+The dark circular marks added in Image 1 read too much like fresh open pits. Replace them with one coherent older longhouse footprint slightly left of the standing frame: two perspective-aligned, roughly parallel rows of shallow, broad, irregular filled-post stains. Each stain must be matte dark-brown mixed loess with softened feathered edges, subtle compressed texture and no black centre, rim, depression, cast shadow or hole depth. Make the row spacing and repeated alignment legible when the full portrait is viewed at 390 points wide, while keeping the marks quiet and historical rather than graphic. Remove stray dark spots that do not belong to those two rows.
+
+Join this older footprint to the existing central drag corridor with a single reworn threshold and compacted approach track crossing the two generations. Show the threshold only through flattened loess, slightly darker organic wear, faint dragged fibre texture and gently compacted edges. It must not be a bright path, outlined rectangle, trench, grid, symbol or geometric overlay.
+
+Maintain three clearly different material states: old filled stains are shallow, diffuse and matte; any current open posthole is a small fresh earth cut with pale loess sides; accepted posts remain packed with wedges, tamped earth and displaced clods. Do not strengthen or alter anything else.
+
+No glow, luminous soil, black circles, rings, open-hole former footprint, outlines, labels, archaeological grid, UI, symbols, fantasy light, text or watermark.

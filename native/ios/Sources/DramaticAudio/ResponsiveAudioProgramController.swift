@@ -85,6 +85,162 @@ private extension ResponsiveAudioProgramSnapshot {
     }
 }
 
+#if os(iOS)
+private enum ResponsiveAudioCursorPositionProjection: Sendable {
+    case raw
+    case fixed(cursorSample: Int64, loopIteration: UInt64)
+}
+
+/// Immutable interpretation of one native mapping generation. The native
+/// feed owns the physical sample clock; this template supplies only the
+/// durable program identity that is valid for that exact generation.
+private struct ResponsiveAudioCursorProjectionTemplate: Sendable {
+    let snapshot: ResponsiveAudioProgramSnapshot
+    let authoredDurationSamples: Int64
+    let nativeTimelineID: AudioTimelineID
+    let positionProjection: ResponsiveAudioCursorPositionProjection
+
+    func project(
+        _ raw: NativeTimelineTransportSnapshot
+    ) -> ResponsiveAudioProgramSnapshot? {
+        guard raw.timelineID == nativeTimelineID else { return nil }
+        switch positionProjection {
+        case .raw:
+            return snapshot.replacingPosition(
+                cursorSample: raw.cursorSample,
+                loopIteration: raw.loopIteration
+            )
+        case let .fixed(cursorSample, loopIteration):
+            return snapshot.replacingPosition(
+                cursorSample: cursorSample,
+                loopIteration: loopIteration
+            )
+        }
+    }
+}
+
+private struct ResponsiveAudioCursorProjectionRegistration: Sendable {
+    let generation: UInt64
+    let template: ResponsiveAudioCursorProjectionTemplate
+}
+
+/// MainActor publishes generation-bound templates while the worker performs
+/// lock-bounded lookups from its own executor. A generation is overwritten
+/// only to install a deliberate forward alias after a newer public authority
+/// has become the controller's candidate.
+private final class ResponsiveAudioCursorProjectionRegistry:
+    @unchecked Sendable {
+    private let lock = NSLock()
+    private var templatesByGeneration: [
+        UInt64: ResponsiveAudioCursorProjectionTemplate
+    ] = [:]
+
+    func register(
+        _ registrations: [ResponsiveAudioCursorProjectionRegistration]
+    ) {
+        lock.lock()
+        for registration in registrations {
+            templatesByGeneration[registration.generation] =
+                registration.template
+        }
+        lock.unlock()
+    }
+
+    func template(
+        for generation: UInt64
+    ) -> ResponsiveAudioCursorProjectionTemplate? {
+        lock.lock()
+        defer { lock.unlock() }
+        return templatesByGeneration[generation]
+    }
+}
+
+/// Per-worker-binding monotonic projection state. Unknown generations are a
+/// normal publication race: retain the last accepted old-authority snapshot
+/// and wait for MainActor to publish the corresponding template.
+private final class ResponsiveAudioCursorProjector: @unchecked Sendable {
+    private let lock = NSLock()
+    private let durableAuthority: ResponsiveAudioProgramSnapshot
+    private let authorityAuthoredDurationSamples: Int64
+    private let registry: ResponsiveAudioCursorProjectionRegistry
+    private var lastAccepted: ResponsiveAudioProgramSnapshot
+
+    init(
+        durableAuthority: ResponsiveAudioProgramSnapshot,
+        authorityAuthoredDurationSamples: Int64,
+        registry: ResponsiveAudioCursorProjectionRegistry
+    ) {
+        self.durableAuthority = durableAuthority
+        self.authorityAuthoredDurationSamples =
+            authorityAuthoredDurationSamples
+        self.registry = registry
+        lastAccepted = durableAuthority
+    }
+
+    func project(
+        _ capture: NativeAudioCursorFeedCapture
+    ) -> ResponsiveAudioDurabilityCaptureResult {
+        lock.lock()
+        defer { lock.unlock() }
+
+        guard let template = registry.template(
+            for: capture.mappingGeneration
+        ), let current = template.project(capture.snapshot) else {
+            return .awaitingDurableAuthority(
+                projectedOldSnapshot: lastAccepted
+            )
+        }
+
+        let projected: ResponsiveAudioProgramSnapshot
+        let isVerified: Bool
+        if current.matchesNonPosition(of: durableAuthority) {
+            projected = current.replacingPositionFrom(
+                durableAuthority: durableAuthority
+            )
+            isVerified = true
+        } else if durableAuthority.stage == .interaction,
+                  current.stage == .interaction,
+                  template.authoredDurationSamples
+                    == authorityAuthoredDurationSamples {
+            projected = current.replacingPositionFrom(
+                durableAuthority: durableAuthority
+            )
+            isVerified = false
+        } else if durableAuthority.stage == .approach,
+                  current.stage == .interaction {
+            projected = durableAuthority.replacingPosition(
+                cursorSample: authorityAuthoredDurationSamples - 1,
+                loopIteration: 0
+            )
+            isVerified = false
+        } else if durableAuthority.stage == .consequence,
+                  current.stage == .completed {
+            projected = durableAuthority.replacingPosition(
+                cursorSample: authorityAuthoredDurationSamples - 1,
+                loopIteration: 0
+            )
+            isVerified = false
+        } else {
+            return .awaitingDurableAuthority(
+                projectedOldSnapshot: lastAccepted
+            )
+        }
+
+        guard projected.isMonotonic(after: lastAccepted) else {
+            return .awaitingDurableAuthority(
+                projectedOldSnapshot: lastAccepted
+            )
+        }
+        lastAccepted = projected
+        return isVerified
+            ? .verified(projected)
+            : .awaitingDurableAuthority(
+                projectedOldSnapshot: projected
+            )
+    }
+}
+#endif
+
 /// Main-actor bridge between the pure sample-clock runtime and the native
 /// AVAudioEngine transport. Every method that changes a durable cursor returns
 /// the exact Journey action the app must commit; the controller never writes
@@ -96,6 +252,10 @@ public final class ResponsiveAudioProgramController {
     private let timelinesByID: [AudioTimelineID: AudioTimeline]
     private let transport: any ResponsiveAudioTimelineTransport
     private let resolver: any OfflineAudioAssetResolving
+#if os(iOS)
+    private let activeAudioCursorProjectionRegistry =
+        ResponsiveAudioCursorProjectionRegistry()
+#endif
     private var preparedRuntimeCursor: Int64
     private var preparedRuntimeLoopIteration: UInt64
     private var automaticBoundaryGeneration: UInt64 = 0
@@ -205,6 +365,7 @@ public final class ResponsiveAudioProgramController {
         try runtime.resume()
         do {
             try transport.play()
+            registerAvailableProjectionMappings(for: runtime)
         } catch {
             _ = runtime.pause()
             throw error
@@ -275,6 +436,50 @@ public final class ResponsiveAudioProgramController {
         try synchronizeWithoutPausingTransport()
         return runtime.snapshot()
     }
+
+#if os(iOS)
+    /// Binds the worker directly to the native render clock without capturing
+    /// this MainActor controller. Generation-specific templates remain in a
+    /// shared lock-protected registry so a transport publication can race its
+    /// MainActor registration by returning an awaiting checkpoint, never by
+    /// mislabelling or throwing from the projection layer.
+    public func makeActiveAudioCursorBinding(
+        constrainedTo durableAuthority: ResponsiveAudioProgramSnapshot
+    ) throws -> ActiveAudioCursorBinding {
+        guard durableAuthority.programID == runtime.program.id,
+              let authorityTimeline = timelinesByID[
+                  durableAuthority.timelineID
+              ] else {
+            throw ResponsiveAudioProgramControllerError
+                .automaticBoundaryContractViolation(
+                    "cursor authority does not belong to this program"
+                )
+        }
+        let nativeBinding = try transport.activeAudioCursorBinding()
+        try registerProjectionMappings(
+            nativeBinding.mappingDescriptors,
+            for: runtime
+        )
+        let projector = ResponsiveAudioCursorProjector(
+            durableAuthority: durableAuthority,
+            authorityAuthoredDurationSamples:
+                authorityTimeline.authoredDurationSamples,
+            registry: activeAudioCursorProjectionRegistry
+        )
+        return try ActiveAudioCursorBinding(
+            renderedGraphSampleRate:
+                nativeBinding.renderedGraphSampleRate,
+            feed: ActiveAudioCursorFeed {
+                let capture = try nativeBinding.feed.capture()
+                return ActiveAudioCursorFeedCapture(
+                    result: projector.project(capture),
+                    renderedGraphSample: capture.renderedGraphSample
+                )
+            },
+            gate: nativeBinding.gateToken
+        )
+    }
+#endif
 
     /// Captures cursor movement for one already-durable sidecar authority.
     /// Public phase, causal and stage identity cannot rotate through this API;
@@ -653,6 +858,7 @@ public final class ResponsiveAudioProgramController {
                 )
             }
         )
+        registerAvailableProjectionMappings(for: candidate)
     }
 
     private func configureAutomaticBoundaryForCurrentRuntime() throws {
@@ -697,6 +903,7 @@ public final class ResponsiveAudioProgramController {
                 )
             }
         )
+        registerAvailableProjectionMappings(for: sourceRuntime)
     }
 
     private func acceptAutomaticBoundaryEvent(
@@ -761,6 +968,7 @@ public final class ResponsiveAudioProgramController {
             runtime = candidate
             preparedRuntimeCursor = candidate.cursorSample
             preparedRuntimeLoopIteration = candidate.loopIteration
+            registerAvailableProjectionMappings(for: candidate)
             automaticBoundaryGeneration &+= 1
             let action = JourneyAction.setResponsiveAudioSnapshot(
                 candidate.snapshot()
@@ -781,6 +989,176 @@ public final class ResponsiveAudioProgramController {
             )
         }
     }
+
+#if os(iOS)
+    /// Best-effort publication after a transport mutation. Legacy test
+    /// transports use the protocol's unsupported default; the production
+    /// transport publishes synchronously and therefore reaches this path.
+    private func registerAvailableProjectionMappings(
+        for sourceRuntime: ResponsiveAudioProgramRuntime
+    ) {
+        guard let nativeBinding = try? transport.activeAudioCursorBinding()
+        else { return }
+        try? registerProjectionMappings(
+            nativeBinding.mappingDescriptors,
+            for: sourceRuntime
+        )
+    }
+
+    private func registerProjectionMappings(
+        _ descriptors: [NativeAudioCursorMappingDescriptor],
+        for sourceRuntime: ResponsiveAudioProgramRuntime
+    ) throws {
+        guard !descriptors.isEmpty else { return }
+        let sourceSnapshot = sourceRuntime.snapshot()
+        var registrations: [ResponsiveAudioCursorProjectionRegistration] = []
+        registrations.reserveCapacity(descriptors.count)
+
+        switch sourceRuntime.stage {
+        case .approach:
+            let successor = try runtimeAtAutomaticBoundary(
+                from: sourceRuntime
+            )
+            for descriptor in descriptors {
+                if descriptor.snapshotAtBoundary.timelineID
+                    == sourceRuntime.timelineID {
+                    registrations.append(try projectionRegistration(
+                        descriptor,
+                        snapshot: sourceSnapshot,
+                        positionProjection: .raw
+                    ))
+                } else if let successor,
+                          descriptor.snapshotAtBoundary.timelineID
+                            == successor.timelineID {
+                    registrations.append(try projectionRegistration(
+                        descriptor,
+                        snapshot: successor.snapshot(),
+                        positionProjection: .raw
+                    ))
+                }
+            }
+
+        case .interaction:
+            // A phase or causal change becomes public before the short
+            // physical seam. Every still-published interaction generation is
+            // therefore a forward alias to the new durable identity while
+            // retaining its own raw position.
+            for descriptor in descriptors
+            where descriptor.snapshotAtBoundary.isPlaying {
+                registrations.append(try projectionRegistration(
+                    descriptor,
+                    snapshot: sourceSnapshot,
+                    positionProjection: .raw
+                ))
+            }
+
+        case .consequence:
+            let completed = try runtimeAtAutomaticBoundary(
+                from: sourceRuntime
+            )
+            for descriptor in descriptors {
+                if !descriptor.snapshotAtBoundary.isPlaying,
+                   let completed {
+                    registrations.append(try projectionRegistration(
+                        descriptor,
+                        snapshot: completed.snapshot(),
+                        positionProjection: .raw
+                    ))
+                } else if descriptor.snapshotAtBoundary.timelineID
+                    == sourceRuntime.timelineID {
+                    registrations.append(try projectionRegistration(
+                        descriptor,
+                        snapshot: sourceSnapshot,
+                        positionProjection: .raw
+                    ))
+                } else {
+                    // The durable interaction commit has released the
+                    // consequence, but the preceding loop may render until
+                    // the scheduled seam. It can verify only consequence
+                    // sample zero, never lend its looping position.
+                    registrations.append(try projectionRegistration(
+                        descriptor,
+                        snapshot: sourceSnapshot,
+                        positionProjection: .fixed(
+                            cursorSample: 0,
+                            loopIteration: 0
+                        )
+                    ))
+                }
+            }
+
+        case .completed:
+            for descriptor in descriptors {
+                registrations.append(try projectionRegistration(
+                    descriptor,
+                    snapshot: sourceSnapshot,
+                    positionProjection: .fixed(
+                        cursorSample: sourceSnapshot.cursorSample,
+                        loopIteration: 0
+                    )
+                ))
+            }
+        }
+        activeAudioCursorProjectionRegistry.register(registrations)
+    }
+
+    private func projectionRegistration(
+        _ descriptor: NativeAudioCursorMappingDescriptor,
+        snapshot: ResponsiveAudioProgramSnapshot,
+        positionProjection: ResponsiveAudioCursorPositionProjection
+    ) throws -> ResponsiveAudioCursorProjectionRegistration {
+        guard let timeline = timelinesByID[snapshot.timelineID] else {
+            throw ResponsiveAudioProgramControllerError
+                .missingTimeline(snapshot.timelineID)
+        }
+        return ResponsiveAudioCursorProjectionRegistration(
+            generation: descriptor.generation,
+            template: ResponsiveAudioCursorProjectionTemplate(
+                snapshot: snapshot,
+                authoredDurationSamples:
+                    timeline.authoredDurationSamples,
+                nativeTimelineID:
+                    try descriptorTimelineID(descriptor),
+                positionProjection: positionProjection
+            )
+        )
+    }
+
+    private func descriptorTimelineID(
+        _ descriptor: NativeAudioCursorMappingDescriptor
+    ) throws -> AudioTimelineID {
+        guard let timelineID = descriptor.snapshotAtBoundary.timelineID else {
+            throw ResponsiveAudioProgramControllerError
+                .automaticBoundaryContractViolation(
+                    "cursor mapping descriptor has no timeline"
+                )
+        }
+        return timelineID
+    }
+
+    private func runtimeAtAutomaticBoundary(
+        from sourceRuntime: ResponsiveAudioProgramRuntime
+    ) throws -> ResponsiveAudioProgramRuntime? {
+        guard sourceRuntime.stage == .approach
+                || sourceRuntime.stage == .consequence,
+              let timeline = timelinesByID[sourceRuntime.timelineID]
+        else { return nil }
+        var successor = sourceRuntime
+        if !successor.isPlaying {
+            try successor.resume()
+        }
+        try successor.advance(
+            bySamples: timeline.authoredDurationSamples
+                - successor.cursorSample
+        )
+        _ = successor.pause()
+        return successor
+    }
+#else
+    private func registerAvailableProjectionMappings(
+        for _: ResponsiveAudioProgramRuntime
+    ) {}
+#endif
 
     private func invalidateAutomaticBoundaryOwnership() {
         automaticBoundaryGeneration &+= 1

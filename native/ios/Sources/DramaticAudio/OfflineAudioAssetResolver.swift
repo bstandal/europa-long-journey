@@ -617,6 +617,7 @@ public enum ResponsiveAudioTimelineTransportContractError: Error, Equatable, Sen
     case causalMixUnsupported
     case outgoingTailUnsupported
     case automaticBoundaryUnsupported
+    case activeAudioCursorUnsupported
 }
 
 /// Narrow boundary used by the deterministic responsive program controller.
@@ -644,6 +645,9 @@ public protocol ResponsiveAudioTimelineTransport: AnyObject {
         resolver: any OfflineAudioAssetResolving,
         handler: @escaping (ResponsiveAudioAutomaticBoundaryEvent) -> Void
     ) throws
+#if os(iOS)
+    func activeAudioCursorBinding() throws -> NativeAudioCursorBinding
+#endif
     func stop()
 
     /// Initial deterministic program preparation. A transport that cannot
@@ -687,6 +691,13 @@ public extension ResponsiveAudioTimelineTransport {
         throw ResponsiveAudioTimelineTransportContractError
             .automaticBoundaryUnsupported
     }
+
+#if os(iOS)
+    func activeAudioCursorBinding() throws -> NativeAudioCursorBinding {
+        throw ResponsiveAudioTimelineTransportContractError
+            .activeAudioCursorUnsupported
+    }
+#endif
 
     func prepareResponsiveAudio(
         plan: ResponsiveAudioTimelineTransportPlan,

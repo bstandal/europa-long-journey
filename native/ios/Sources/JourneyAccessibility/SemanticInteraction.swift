@@ -315,10 +315,21 @@ public enum SemanticInteractionAdapter {
             return "\(Int((magnitude * 100).rounded())) percent"
         case let (.pressure(configuration), .pressure(progress), .holdPressure):
             return "\(progress.stableMillis) of \(configuration.requiredHoldMillis) milliseconds held"
-        case let (.transform, .transform(progress), .advanceTransform(stageID, _)):
-            return progress.completedStageCount > 0
-                ? "Historical stage \(stageID)"
-                : "\(Int((progress.currentAmount * 100).rounded())) percent"
+        case let (
+            .transform(configuration),
+            .transform(progress),
+            .advanceTransform(stageID, _)
+        ):
+            guard let stageIndex = configuration.stages.firstIndex(where: {
+                $0.id == stageID
+            }) else { return nil }
+            if stageIndex < progress.completedStageCount {
+                return "Complete"
+            }
+            if stageIndex == progress.completedStageCount {
+                return "\(Int((progress.currentAmount * 100).rounded())) percent"
+            }
+            return "Waiting"
         default:
             return nil
         }
