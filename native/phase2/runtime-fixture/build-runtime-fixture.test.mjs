@@ -8,7 +8,12 @@ import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 
 import {
+  requireChapter01ReviewComposition,
   requireRepresentativeFirstFarmersResponsiveAudio,
+  validateChapter01ReviewMatrix,
+  validateChapter01ReviewNarrationManifest,
+  validateChapter01ReviewRasterAssets,
+  validateChapter01ReviewTransitionManifest,
   validateFirstFarmersResponsiveAudioCandidateReceipt,
 } from "./build-runtime-fixture.mjs";
 import { requireResponsiveAudioDecodedBufferBudget } from "../../tooling/src/compile.mjs";
@@ -96,6 +101,52 @@ test("responsive audio candidate authority fails closed", async () => {
   }
 });
 
+test("Chapter 01 review matrix fails closed", async () => {
+  const matrix = JSON.parse(await readFile(
+    path.join(fixtureRoot, "chapter-01-review-matrix.json"),
+    "utf8",
+  ));
+  const validated = validateChapter01ReviewMatrix(matrix);
+  assert.equal(validated.worldsByID.size, 6);
+  assert.equal(validated.beatsByID.size, 17);
+  assert.equal(validated.worldIDBySceneID.size, 17);
+  for (const mutation of [
+    (candidate) => { candidate.shippingAllowed = true; },
+    (candidate) => { candidate.worlds.pop(); },
+    (candidate) => { candidate.beats[0].worldID = "review-world-missing"; },
+    (candidate) => { candidate.portraitContract.minimumEffectiveTargetPoints = 43; },
+    (candidate) => { candidate.portraitContract.masterCanvasPixels.width = 393; },
+    (candidate) => { candidate.portraitContract.baselineSourceRect.width = 1; },
+    (candidate) => { candidate.portraitContract.transparentOverlayLayers.pop(); },
+  ]) {
+    const candidate = structuredClone(matrix);
+    mutation(candidate);
+    assert.throws(() => validateChapter01ReviewMatrix(candidate));
+  }
+});
+
+test("Chapter 01 review transitions fail closed", async () => {
+  const manifest = JSON.parse(await readFile(
+    path.join(
+      fixtureRoot,
+      "../../audio/score-soundscape/chapter-01-review-transitions-v1/manifest.json",
+    ),
+    "utf8",
+  ));
+  const validated = validateChapter01ReviewTransitionManifest(manifest);
+  assert.equal(validated.byTransitionID.size, 3);
+  for (const mutation of [
+    (candidate) => { candidate.shippingUsePermitted = true; },
+    (candidate) => { candidate.transitions.pop(); },
+    (candidate) => { candidate.transitions[0].audio.path = "../escaped.m4a"; },
+    (candidate) => { candidate.transitions[1].audio.durationFrames = 0; },
+  ]) {
+    const candidate = structuredClone(manifest);
+    mutation(candidate);
+    assert.throws(() => validateChapter01ReviewTransitionManifest(candidate));
+  }
+});
+
 test("runtime fixture generator is byte-for-byte reproducible", async () => {
   await execFileAsync(process.execPath, [buildScript]);
   const first = await snapshot();
@@ -126,8 +177,10 @@ test("runtime fixture generator is byte-for-byte reproducible", async () => {
   );
   assert.equal(
     lineage.authorityShape,
-    "FULL_FIRST_FARMERS_LIVE_TEST_PLUS_FIVE_GRAMMAR_LAB_WITH_UNREFERENCED_V26_PARTIAL_PASS_PROOF",
+    "CHAPTER_01_REVIEW_CANDIDATE_PLUS_EXISTING_SUPPORT_LABS",
   );
+  assert.equal(lineage.milestone, "CHAPTER_01_REVIEW_READY");
+  assert.equal(lineage.milestoneStatus, "CANDIDATE_PENDING_REVIEW_GATES");
   assert.deepEqual(lineage.chapterIDs, [
     "first-farmers",
     "europe-holds-the-line",
@@ -147,8 +200,15 @@ test("runtime fixture generator is byte-for-byte reproducible", async () => {
     experienceLab.scenes.map(({ nativeInteractionID }) => nativeInteractionID),
   );
   assert.deepEqual(lineage.requiredGrammars, experienceLab.requiredGrammars);
-  assert.equal(lineage.visualSources.length, 19);
-  assert.equal(new Set(lineage.visualSources.map(({ sceneID }) => sceneID)).size, 19);
+  assert.equal(lineage.visualSources.length, 8);
+  assert.equal(
+    lineage.visualSources.filter(({ worldID }) => worldID).length,
+    6,
+  );
+  assert.equal(
+    new Set(lineage.visualSources.map(({ assetStemID }) => assetStemID)).size,
+    8,
+  );
   assert.equal(lineage.audioDerivations.length, 2);
   assert.equal(new Set(lineage.audioDerivations.map(({ sceneID }) => sceneID)).size, 2);
   assert.deepEqual(lineage.fullChapterProjection, {
@@ -158,7 +218,11 @@ test("runtime fixture generator is byte-for-byte reproducible", async () => {
     interactionCount: 6,
     sceneCount: 17,
     accessibilityCount: 17,
-    narrationState: "EXCLUDED_PENDING_EDITOR_APPROVAL",
+    worldCount: 6,
+    narrationCueCount: 37,
+    audioTimelineCount: 47,
+    transitionCount: 3,
+    narrationState: "PROVISIONAL_NON_SHIPPING_REVIEW",
   });
 
   const payload = JSON.parse(await readFile(
@@ -176,7 +240,7 @@ test("runtime fixture generator is byte-for-byte reproducible", async () => {
   assert.ok(payload.responsiveAudioPrograms.every(({ exitPolicy }) =>
     exitPolicy?.kind === "bounded-fade"
       && exitPolicy.durationSamples === 9_600));
-  assert.equal(payload.audioTimelines.length, 40);
+  assert.equal(payload.audioTimelines.length, 57);
   const responsiveAudio = requireRepresentativeFirstFarmersResponsiveAudio(payload);
   assert.deepEqual(responsiveAudio.programIDs, [
     "household-crosses-responsive-audio-v1",
@@ -246,7 +310,103 @@ test("runtime fixture generator is byte-for-byte reproducible", async () => {
   assert.equal(firstFarmers.arcs.length, 3);
   assert.equal(firstFarmersBeats.length, 17);
   assert.equal(firstFarmersBeats.filter(({ interaction }) => interaction).length, 6);
-  assert.equal(firstFarmersBeats.every(({ narrationCueIDs }) => narrationCueIDs.length === 0), true);
+  assert.equal(
+    new Set(firstFarmersBeats.flatMap(({ narrationCueIDs }) =>
+      narrationCueIDs)).size,
+    37,
+  );
+  const reviewMatrix = JSON.parse(await readFile(
+    path.join(fixtureRoot, "chapter-01-review-matrix.json"),
+    "utf8",
+  ));
+  const reviewWorldIndex = validateChapter01ReviewMatrix(reviewMatrix);
+  const rasterMasters = await validateChapter01ReviewRasterAssets(
+    reviewWorldIndex,
+    { root: path.join(fixtureRoot, "source"), requireFullDerivationSet: false },
+  );
+  assert.deepEqual(rasterMasters.masterCanvasPixels, {
+    width: 1179,
+    height: 2556,
+  });
+  assert.equal(rasterMasters.authoredOverscanFraction, 0.15);
+  assert.deepEqual(rasterMasters.baselineSourceRect, {
+    x: 0.15,
+    y: 0.15,
+    width: 0.7,
+    height: 0.7,
+  });
+  assert.equal(rasterMasters.worlds.length, 6);
+  for (const world of rasterMasters.worlds) {
+    assert.deepEqual(
+      world.semanticLayers.map(({ suffix }) => suffix),
+      ["background", "midground", "foreground", "mechanism-light"],
+    );
+    assert.equal(
+      new Set(world.semanticLayers.map(({ sha256 }) => sha256)).size,
+      4,
+    );
+    assert.ok(world.semanticLayers.slice(1).every(({ colorType, alphaRange }) =>
+      colorType === 6
+        && alphaRange.minimum === 0
+        && alphaRange.maximum === 255));
+  }
+  assert.deepEqual(
+    requireChapter01ReviewComposition(payload, reviewMatrix),
+    {
+      arcCount: 3,
+      beatCount: 17,
+      interactionCount: 6,
+      worldCount: 6,
+      narrationCueCount: 37,
+      timelineCount: 47,
+      transitionCount: 3,
+    },
+  );
+  const reviewBeatByID = new Map(reviewMatrix.beats.map((beat) => [beat.beatID, beat]));
+  const reviewWorldByID = new Map(reviewMatrix.worlds.map((world) => [world.id, world]));
+  for (const beat of firstFarmersBeats) {
+    const scene = payload.scenes.find(({ id }) => id === beat.sceneID);
+    const binding = reviewBeatByID.get(beat.id);
+    const world = reviewWorldByID.get(binding.worldID);
+    assert.deepEqual(scene.sceneCanvas.canvas, { width: 1179, height: 2556 });
+    assert.deepEqual(
+      scene.reduceMotionComposition.canvas,
+      { width: 1179, height: 2556 },
+    );
+    const staticUnderlay = scene.reduceMotionComposition.strata.find(
+      ({ kind }) => kind === "staticPlate",
+    );
+    if (beat.interaction) {
+      assert.equal(
+        staticUnderlay.assetPath,
+        `assets/${binding.worldID}-reduce-motion-state-before.png`,
+      );
+      const stateLayerIDs = scene.layers
+        .filter(({ stateVariants }) => stateVariants.length > 0)
+        .map(({ id }) => id);
+      const reduceMotionStateLayerIDs = scene.reduceMotionComposition.strata
+        .filter(({ kind }) => kind === "stateOverlay")
+        .map(({ layerID }) => layerID);
+      assert.ok(stateLayerIDs.every((id) => reduceMotionStateLayerIDs.includes(id)));
+    } else {
+      const stateIndex = world.interactionStateIDs.indexOf(binding.stateVariant);
+      const stateProgress = stateIndex / (world.interactionStateIDs.length - 1);
+      const suffix = stateProgress <= 0.25
+        ? "state-before"
+        : stateProgress >= 0.75
+          ? "state-completed"
+          : "state-active";
+      assert.equal(
+        scene.layers.find(({ id }) => id === "review-state-consequence")
+          ?.assetPath,
+        `assets/${binding.worldID}-${suffix}.png`,
+      );
+      assert.equal(
+        staticUnderlay.assetPath,
+        `assets/${binding.worldID}-reduce-motion-${suffix}.png`,
+      );
+    }
+  }
   const moreMouths = firstFarmersBeats.find(
     ({ id }) => id === "beat-first-farmers-more-mouths",
   );
@@ -321,10 +481,7 @@ test("runtime fixture generator is byte-for-byte reproducible", async () => {
     ],
   );
   const technicalAssetStemID = "lab-first-farmers-land-transformation";
-  const transparentTechnicalPlate =
-    `assets/${technicalAssetStemID}-technical-transparent.png`;
-  const transparentReduceMotionPlate =
-    `assets/${technicalAssetStemID}-technical-reduce-motion-foreground.png`;
+  const stateAssetStemID = "review-world-longhouse-settlement";
   const stageMaskPaths = [
     `assets/${technicalAssetStemID}-stage-new-hearths-alpha.png`,
     `assets/${technicalAssetStemID}-stage-field-edges-alpha.png`,
@@ -340,7 +497,7 @@ test("runtime fixture generator is byte-for-byte reproducible", async () => {
   for (const [index, layer] of stageLayers.entries()) {
     assert.equal(
       layer.assetPath,
-      `assets/${technicalAssetStemID}-base.png`,
+      `assets/${stateAssetStemID}-state-before.png`,
     );
     assert.deepEqual(
       layer.stateVariants.map(({ id, assetPath, masks }) => ({
@@ -351,30 +508,30 @@ test("runtime fixture generator is byte-for-byte reproducible", async () => {
       [
         {
           id: "before",
-          assetPath: `assets/${technicalAssetStemID}-base.png`,
+          assetPath: `assets/${stateAssetStemID}-state-before.png`,
           alphaMaskAssetPath: stageMaskPaths[index],
         },
         {
           id: "active",
-          assetPath: `assets/${technicalAssetStemID}-state-active.png`,
+          assetPath: `assets/${stateAssetStemID}-state-active.png`,
           alphaMaskAssetPath: stageMaskPaths[index],
         },
         {
           id: "completed",
-          assetPath: `assets/${technicalAssetStemID}-state-completed.png`,
+          assetPath: `assets/${stateAssetStemID}-state-completed.png`,
           alphaMaskAssetPath: stageMaskPaths[index],
         },
       ],
     );
   }
-  for (const layerID of [
-    "inhabited-world",
-    "foreground-occlusion",
-    "mechanism-light",
+  for (const [layerID, suffix] of [
+    ["far-landscape", "background"],
+    ["inhabited-world", "midground"],
+    ["foreground-occlusion", "foreground"],
+    ["mechanism-light", "mechanism-light"],
   ]) {
     const layer = moreMouthsScene.layers.find(({ id }) => id === layerID);
-    assert.equal(layer?.assetPath, transparentTechnicalPlate);
-    assert.deepEqual(layer?.masks, {});
+    assert.equal(layer?.assetPath, `assets/${stateAssetStemID}-${suffix}.png`);
   }
   assert.deepEqual(
     moreMouthsScene.reduceMotionComposition.strata,
@@ -382,7 +539,7 @@ test("runtime fixture generator is byte-for-byte reproducible", async () => {
       {
         id: "static-underlay",
         kind: "staticPlate",
-        assetPath: `assets/${technicalAssetStemID}-reduce-motion-underlay.png`,
+        assetPath: `assets/${stateAssetStemID}-reduce-motion-state-before.png`,
       },
       {
         id: "stage-new-hearths-state",
@@ -402,7 +559,12 @@ test("runtime fixture generator is byte-for-byte reproducible", async () => {
       {
         id: "static-foreground",
         kind: "staticPlate",
-        assetPath: transparentReduceMotionPlate,
+        assetPath: `assets/${stateAssetStemID}-reduce-motion-foreground.png`,
+      },
+      {
+        id: "static-mechanism-light",
+        kind: "staticPlate",
+        assetPath: `assets/${stateAssetStemID}-reduce-motion-mechanism-light.png`,
       },
     ],
   );
@@ -414,10 +576,8 @@ test("runtime fixture generator is byte-for-byte reproducible", async () => {
     accessibilityID: "accessibility-beat-first-farmers-more-mouths",
     interactionID: "interaction-first-farmers-more-mouths-more-land",
     technicalAssetStemID,
-    transparentOcclusionPlate:
-      lineage.moreMouthsTechnicalLiveSlice.transparentOcclusionPlate,
-    transparentReduceMotionForeground:
-      lineage.moreMouthsTechnicalLiveSlice.transparentReduceMotionForeground,
+    stateAssetStemID,
+    semanticLayers: lineage.moreMouthsTechnicalLiveSlice.semanticLayers,
     stageMasks: lineage.moreMouthsTechnicalLiveSlice.stageMasks,
     statePurpose:
       "VERIFY_VISIBLE_ORDERED_TRANSFORM_RESPONSE_AND_PERSISTENCE_ON_DEVICE",
@@ -429,16 +589,23 @@ test("runtime fixture generator is byte-for-byte reproducible", async () => {
       "shipping asset approval",
     ],
   });
-  assert.equal(
-    lineage.moreMouthsTechnicalLiveSlice.transparentOcclusionPlate
-      .packageAssetPath,
-    transparentTechnicalPlate,
+  assert.deepEqual(
+    lineage.moreMouthsTechnicalLiveSlice.semanticLayers.map(
+      ({ suffix, packageAssetPath }) => ({ suffix, packageAssetPath }),
+    ),
+    [
+      "background",
+      "midground",
+      "foreground",
+      "mechanism-light",
+    ].map((suffix) => ({
+      suffix,
+      packageAssetPath: `assets/${stateAssetStemID}-${suffix}.png`,
+    })),
   );
-  assert.equal(
-    lineage.moreMouthsTechnicalLiveSlice.transparentReduceMotionForeground
-      .packageAssetPath,
-    transparentReduceMotionPlate,
-  );
+  assert.equal(new Set(
+    lineage.moreMouthsTechnicalLiveSlice.semanticLayers.map(({ sha256 }) => sha256),
+  ).size, 4);
   assert.deepEqual(
     lineage.moreMouthsTechnicalLiveSlice.stageMasks.map(
       ({ stageID, pixelBounds, packageAssetPath }) => ({
@@ -475,15 +642,11 @@ test("runtime fixture generator is byte-for-byte reproducible", async () => {
     [...experienceLab.requiredGrammars].sort(),
   );
   for (const expected of experienceLab.scenes) {
-    const canonicalMoreMouths = expected.nativeInteractionID
-      === "interaction-first-farmers-more-mouths-more-land";
-    const expectedBeatID = canonicalMoreMouths
-      ? "beat-first-farmers-more-mouths"
-      : expected.beatID;
-    const expectedSceneID = canonicalMoreMouths
-      ? "scene-first-farmers-settlement-growth"
-      : expected.labSceneID;
-    const beat = beats.find(({ id }) => id === expectedBeatID);
+    const beat = expected.contentID === "first-farmers"
+      ? beats.find(({ interaction }) =>
+        interaction?.id === expected.nativeInteractionID)
+      : beats.find(({ id }) => id === expected.beatID);
+    const expectedSceneID = beat?.sceneID ?? expected.labSceneID;
     const scene = payload.scenes.find(({ id }) => id === expectedSceneID);
     assert.equal(beat?.sceneID, expectedSceneID);
     assert.equal(beat?.interaction?.id, expected.nativeInteractionID);
@@ -554,7 +717,53 @@ test("runtime fixture generator is byte-for-byte reproducible", async () => {
         .filter(({ role }) => role !== "silence")
         .map(({ assetPath }) => assetPath),
     ).size,
-    93,
+    133,
+  );
+  const narrationManifest = JSON.parse(await readFile(
+    path.join(
+      fixtureRoot,
+      "../../audio/narration/review/chapter-01/manifest.json",
+    ),
+    "utf8",
+  ));
+  const validatedNarration = validateChapter01ReviewNarrationManifest(
+    narrationManifest,
+  );
+  assert.equal(validatedNarration.byCueID.size, 37);
+  const transitionManifest = JSON.parse(await readFile(
+    path.join(
+      fixtureRoot,
+      "../../audio/score-soundscape/chapter-01-review-transitions-v1/manifest.json",
+    ),
+    "utf8",
+  ));
+  const validatedTransitions = validateChapter01ReviewTransitionManifest(
+    transitionManifest,
+  );
+  assert.equal(validatedTransitions.byTransitionID.size, 3);
+  assert.equal(lineage.chapter01Review.status, "NON_SHIPPING_REVIEW");
+  assert.equal(lineage.chapter01Review.shippingState, "PROHIBITED");
+  assert.equal(
+    lineage.chapter01Review.milestoneStatus,
+    "CANDIDATE_PENDING_REVIEW_GATES",
+  );
+  assert.equal(lineage.chapter01Review.worldIDs.length, 6);
+  assert.equal(lineage.chapter01Review.beatBindings.length, 17);
+  assert.deepEqual(lineage.chapter01Review.rasterMasters.masterCanvasPixels, {
+    width: 1179,
+    height: 2556,
+  });
+  assert.equal(lineage.chapter01Review.rasterMasters.worlds.length, 6);
+  assert.ok(lineage.chapter01Review.rasterMasters.worlds.every(({ semanticLayers }) =>
+    semanticLayers.length === 4
+      && new Set(semanticLayers.map(({ sha256 }) => sha256)).size === 4));
+  assert.equal(lineage.chapter01Review.narration.cueCount, 37);
+  assert.equal(lineage.chapter01Review.narration.cues.length, 37);
+  assert.equal(lineage.chapter01Review.transitions.transitionCount, 3);
+  assert.equal(lineage.chapter01Review.transitions.items.length, 3);
+  assert.equal(
+    lineage.chapter01Review.narration.combinedBindingSHA256,
+    "1e07b4bc34a95f2326856e2962c80e76f1bff68b05eba027c093f48978e84c6f",
   );
   assert.equal(lineage.responsiveAudioCandidate.status, "PROVISIONAL_NON_SHIPPING");
   assert.equal(lineage.responsiveAudioCandidate.shippingState, "PROHIBITED");
@@ -588,8 +797,15 @@ test("runtime fixture generator is byte-for-byte reproducible", async () => {
   ));
   const manifestByPath = new Map(manifest.files.map((record) => [record.path, record]));
   for (const assetPath of [
-    transparentTechnicalPlate,
-    transparentReduceMotionPlate,
+    ...[
+      "background",
+      "midground",
+      "foreground",
+      "mechanism-light",
+      "reduce-motion-state-before",
+      "reduce-motion-foreground",
+      "reduce-motion-mechanism-light",
+    ].map((suffix) => `assets/${stateAssetStemID}-${suffix}.png`),
     ...stageMaskPaths,
   ]) {
     assert.ok(manifestByPath.has(assetPath), assetPath);
@@ -605,6 +821,24 @@ test("runtime fixture generator is byte-for-byte reproducible", async () => {
       path: output.candidateRelativePath,
       bytes: output.bytes,
       sha256: output.sha256,
+    });
+  }
+  for (const cue of narrationManifest.cues) {
+    const packagePath =
+      `audio/first-farmers/review-narration/${path.basename(cue.repositoryPath)}`;
+    assert.deepEqual(manifestByPath.get(packagePath), {
+      path: packagePath,
+      bytes: cue.bytes,
+      sha256: cue.sha256,
+    });
+  }
+  for (const transition of transitionManifest.transitions) {
+    const packagePath =
+      `audio/first-farmers/review-transitions/${path.basename(transition.audio.path)}`;
+    assert.deepEqual(manifestByPath.get(packagePath), {
+      path: packagePath,
+      bytes: transition.audio.bytes,
+      sha256: transition.audio.sha256,
     });
   }
   const missingProgram = structuredClone(payload);

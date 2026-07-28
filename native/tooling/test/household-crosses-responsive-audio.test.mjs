@@ -121,15 +121,8 @@ test("Household Crosses state beds retain one sample position and carry no narra
       { timelineID: "household-crosses-consequence-v1", startSample: 744_000, durationSamples: 216_000 },
     ],
   );
-  assert.deepEqual(work.editorialBlocks, [{
-    code: "F5",
-    manuscriptSegmentID: "ff-crossing-02",
-    status: "UNRESOLVED_EDITOR_DECISION",
-    issue: "SOWING_SEASON_FORMULATION_REMAINS_UNRESOLVED",
-    publicProseMutation: "PROHIBITED",
-    shippingBlock: true,
-  }]);
-  assert.equal(work.gates.narrationF5SowingSeason, "OPEN_EDITOR_DECISION_SHIPPING_BLOCK");
+  assert.deepEqual(work.editorialBlocks, []);
+  assert.equal(work.gates.narrationF5SowingSeason, "PASS_EDITOR_REPAIR_BOUND_TO_FROZEN_TEXT");
   assert.deepEqual(work.acousticBoundaries.soundscapeProhibitedClaims, [
     "sail, mast, rigging or wind propulsion",
     "specific paddle, oar, rowing action or cadence",

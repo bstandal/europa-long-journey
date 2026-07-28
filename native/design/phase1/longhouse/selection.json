@@ -18,7 +18,7 @@
     },
     {
       "path": "native/blueprint/arc-matrix.json",
-      "sha256": "d5b2e9f619a6420c9ac8a497fa451951ef8a66ced0a3b95af287e54d41e35722"
+      "sha256": "8f4926f574ec0046b116ebca9f85a3246a8a2587cda023f94ab1b1ad10f58162"
     },
     {
       "path": "native/blueprint/interaction-mapping.json",
@@ -26,11 +26,11 @@
     },
     {
       "path": "native/blueprint/authored-interaction-effects-01-12.json",
-      "sha256": "287818002d840c148b5b0e9c1de5c17696d7e23bc6b94540af4da5aa854a5063"
+      "sha256": "042006533ef0672c8a819dbcb043e6ceda6bdf05430c48ea0d2b47fd9ddf4333"
     },
     {
       "path": "native/phase2/editor-review/first-farmers/first-farmers-native-draft-v1.json",
-      "sha256": "4c3a0a2a4f9a3ec5361d2e34c2f6dd21072f27176e60c881f013c93f76e4a5dd"
+      "sha256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a"
     }
   ],
   "visualReferences": [

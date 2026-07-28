@@ -1,16 +1,21 @@
-# The First Farmers — private editor decision queue
+# The First Farmers — private editor decision record
 
-Status: `BACKSTAGE_ONLY_NO_PUBLIC_CHANGE_APPLIED`
+Status: `BACKSTAGE_EDITOR_DECISIONS_APPLIED_FOR_CHAPTER_01_REVIEW`
 
-Four factual repairs touch the approved interaction or ending. They remain
-unapplied until the editor-in-chief decides. Each recommendation keeps the
-chapter's thesis, causal spine and Europe-centred weight intact.
+Milestone: `CHAPTER_01_REVIEW_READY`
+
+Decision date: 27 July 2026
+
+The editor-in-chief approved all four factual repairs for the frozen
+37-segment review manuscript. Each repair is applied without changing the
+chapter's thesis, causal spine or Europe-centred weight. This decision grants
+neither final public-wording approval nor production or shipping approval.
 
 ## 1. Seed reserve and sowing season — F5
 
 Finding: `ff-finding-thessaly-sowing-season`
 
-Decision recommended: approve.
+Decision: approved by the editor-in-chief and applied for Chapter 01 review.
 
 Keep the allocation mechanism. Rename the public destination from `Spring
 seed` to `Seed grain`. Replace the spring and thaw cues with the interval from
@@ -27,7 +32,7 @@ Stable IDs may retain `spring-seed`; IDs are not public wording.
 
 Finding: `ff-finding-physical-house-outlives-builders`
 
-Decision recommended: approve.
+Decision: approved by the editor-in-chief and applied for Chapter 01 review.
 
 Move continuity from one timber building to the inherited plot and rebuilding
 sequence. Replace:
@@ -44,7 +49,7 @@ The house, inheritance and later-steppe handoff remain unchanged.
 
 Finding: `ff-finding-longhouse-universal-build-order`
 
-Decision recommended: approve.
+Decision: approved by the editor-in-chief and applied for Chapter 01 review.
 
 Retain the `Assemble` grammar and make the recovered structural dependency the
 only forced order. Posts come first. Hearth, storage and roof become available
@@ -65,7 +70,7 @@ sequence for fitting the interior and roof.
 
 Finding: `ff-finding-first-farmer-languages-gone`
 
-Decision recommended: approve.
+Decision: approved by the editor-in-chief and applied for Chapter 01 review.
 
 Preserve the ending's contrast without claiming extinction of every language
 lineage. Replace:

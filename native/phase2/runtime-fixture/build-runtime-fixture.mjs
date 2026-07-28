@@ -45,7 +45,36 @@ const trustReceiptPath = path.join(
   "vertical-slice-development-trust-receipt.json",
 );
 const lineagePath = path.join(fixtureRoot, "fixture-lineage.json");
+const chapter01ReviewMatrixPath = path.join(
+  fixtureRoot,
+  "chapter-01-review-matrix.json",
+);
+const chapter01ReviewNarrationManifestPath = path.join(
+  nativeRoot,
+  "audio/narration/review/chapter-01/manifest.json",
+);
+const chapter01ReviewTransitionManifestPath = path.join(
+  nativeRoot,
+  "audio/score-soundscape/chapter-01-review-transitions-v1/manifest.json",
+);
 const version = Object.freeze({ major: 1, minor: 0, patch: 0 });
+const chapter01ReviewMasterCanvas = Object.freeze({
+  width: 1179,
+  height: 2556,
+});
+const chapter01ReviewOverscanFraction = 0.15;
+const chapter01ReviewBaselineSourceRect = Object.freeze({
+  x: chapter01ReviewOverscanFraction,
+  y: chapter01ReviewOverscanFraction,
+  width: 1 - chapter01ReviewOverscanFraction * 2,
+  height: 1 - chapter01ReviewOverscanFraction * 2,
+});
+const chapter01ReviewSemanticAssetSuffixes = Object.freeze([
+  "background",
+  "midground",
+  "foreground",
+  "mechanism-light",
+]);
 const firstFarmersResponsiveAudioCandidateRoot = path.join(
   nativeRoot,
   "audio/score-soundscape/distribution-cache/first-farmers-aac-lc-384-alac-fallback-v1",
@@ -73,10 +102,6 @@ const moreMouthsTechnicalLiveSlice = Object.freeze({
   accessibilityID: "accessibility-beat-first-farmers-more-mouths",
   interactionID: "interaction-first-farmers-more-mouths-more-land",
   assetStemID: "lab-first-farmers-land-transformation",
-  transparentAssetPath:
-    "assets/lab-first-farmers-land-transformation-technical-transparent.png",
-  transparentReduceMotionAssetPath:
-    "assets/lab-first-farmers-land-transformation-technical-reduce-motion-foreground.png",
   stageMasks: Object.freeze([
     Object.freeze({
       stageID: "new-hearths",
@@ -100,75 +125,7 @@ const moreMouthsTechnicalLiveSlice = Object.freeze({
 });
 
 const experienceLabPath = path.join(nativeRoot, "phase1/experience-lab.json");
-const visualSources = Object.freeze({
-  "scene-first-farmers-iron-gates-dawn": path.join(
-    repositoryRoot,
-    "site/assets/source/first-farmers/before-the-fields.png",
-  ),
-  "scene-first-farmers-aegean-crossing": path.join(
-    repositoryRoot,
-    "site/assets/source/first-farmers/crossing-the-sea.png",
-  ),
-  "scene-first-farmers-thessaly-landing": path.join(
-    repositoryRoot,
-    "site/assets/source/first-farmers/crossing-the-sea.png",
-  ),
-  "scene-first-farmers-thessaly-first-season": path.join(
-    repositoryRoot,
-    "site/assets/source/first-farmers/before-the-fields.png",
-  ),
-  "scene-first-farmers-danube-arrival": path.join(
-    repositoryRoot,
-    "site/assets/source/first-farmers/at-the-iron-gates.png",
-  ),
-  "lab-first-farmers-harvest-allocation": path.join(
-    nativeRoot,
-    "design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
-  ),
-  "scene-first-farmers-store-committed": path.join(
-    nativeRoot,
-    "design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
-  ),
-  "scene-first-farmers-iron-gates-contact": path.join(
-    repositoryRoot,
-    "site/assets/source/first-farmers/at-the-iron-gates.png",
-  ),
-  "scene-first-farmers-iron-gates-transformation": path.join(
-    repositoryRoot,
-    "site/assets/source/first-farmers/at-the-iron-gates.png",
-  ),
-  "scene-first-farmers-danube-to-loess": path.join(
-    repositoryRoot,
-    "site/assets/source/first-farmers/at-the-iron-gates.png",
-  ),
-  "lab-first-farmers-house-assembly": path.join(
-    nativeRoot,
-    "design/phase1/longhouse/concepts/option-a4-inherited-ground-readable.png",
-  ),
-  "scene-first-farmers-longhouse-rebuilt": path.join(
-    repositoryRoot,
-    "site/assets/source/first-farmers/house-outlives-builders.png",
-  ),
-  "scene-first-farmers-household-descent": path.join(
-    repositoryRoot,
-    "site/public/assets/chapters/first-farmers/one-house-one-clearing.webp",
-  ),
-  "lab-first-farmers-land-transformation": path.join(
-    repositoryRoot,
-    "site/public/assets/chapters/first-farmers/more-mouths-more-land-v2.webp",
-  ),
-  "scene-first-farmers-local-contraction": path.join(
-    repositoryRoot,
-    "site/public/assets/chapters/first-farmers/empty-houses-regrowth.webp",
-  ),
-  "scene-first-farmers-europe-transformation": path.join(
-    repositoryRoot,
-    "site/assets/source/first-farmers/more-mouths-more-land.png",
-  ),
-  "scene-first-farmers-steppe-handoff": path.join(
-    repositoryRoot,
-    "site/public/assets/chapters/first-farmers/one-house-one-clearing.webp",
-  ),
+const supportingVisualSources = Object.freeze({
   "lab-frontiers-northern-valleys-pressure": path.join(
     repositoryRoot,
     "site/public/assets/chapters/europe-holds-the-line/02-northern-valleys-keep-crown.avif",
@@ -266,6 +223,296 @@ function isSafePackagePath(value) {
   }
   return value.split("/").every((component) =>
     component.length > 0 && component !== "." && component !== "..");
+}
+
+export function validateChapter01ReviewMatrix(matrix) {
+  requireCondition(
+    matrix?.schemaVersion === 1
+      && matrix.matrixID === "chapter-01-review-matrix-v1"
+      && matrix.milestone === "CHAPTER_01_REVIEW_READY"
+      && matrix.status === "NON_SHIPPING_REVIEW"
+      && matrix.shippingAllowed === false
+      && matrix.chapterID === "first-farmers"
+      && matrix.publicContentSchemaMutation === false
+      && isSafePackagePath(matrix.sourceDraft?.path)
+      && isLowercaseSHA256(matrix.sourceDraft?.sha256),
+    "Chapter 01 review matrix authority drifted",
+  );
+  requireCondition(
+    matrix.portraitContract?.orientation === "portrait"
+      && matrix.portraitContract?.overscanRequired === true
+      && matrix.portraitContract?.masterCanvasPixels?.width
+        === chapter01ReviewMasterCanvas.width
+      && matrix.portraitContract?.masterCanvasPixels?.height
+        === chapter01ReviewMasterCanvas.height
+      && matrix.portraitContract?.authoredOverscanFraction
+        === chapter01ReviewOverscanFraction
+      && JSON.stringify(matrix.portraitContract?.baselineSourceRect)
+        === JSON.stringify(chapter01ReviewBaselineSourceRect)
+      && matrix.portraitContract?.minimumEffectiveTargetPoints === 44
+      && matrix.portraitContract?.reduceMotionUsesStaticConsequenceComposition
+        === true
+      && JSON.stringify(matrix.portraitContract?.layers) === JSON.stringify([
+        "background",
+        "inhabited-material-midground",
+        "foreground",
+        "mechanism-light",
+      ])
+      && matrix.portraitContract?.transparentOverlayLayers?.join(",")
+        === "inhabited-material-midground,foreground,mechanism-light",
+    "Chapter 01 review matrix portrait contract drifted",
+  );
+  requireCondition(
+    Array.isArray(matrix.worlds) && matrix.worlds.length === 6
+      && Array.isArray(matrix.beats) && matrix.beats.length === 17,
+    "Chapter 01 review matrix must contain six worlds and seventeen beats",
+  );
+
+  const worldsByID = new Map();
+  const sourcePaths = new Set();
+  for (const world of matrix.worlds) {
+    requireCondition(
+      typeof world?.id === "string"
+        && world.id.startsWith("review-world-")
+        && !worldsByID.has(world.id)
+        && isSafePackagePath(world.sourceAsset)
+        && !world.sourceAsset.startsWith("content/public/")
+        && typeof world.sourceStatus === "string"
+        && Array.isArray(world.interactionStateIDs)
+        && world.interactionStateIDs.length > 0
+        && typeof world.reduceMotion?.compositionID === "string"
+        && Array.isArray(world.reduceMotion?.consequenceStateIDs)
+        && !sourcePaths.has(world.sourceAsset),
+      `${world?.id ?? "review-world"}: invalid review world`,
+    );
+    const resolvedSource = path.resolve(repositoryRoot, world.sourceAsset);
+    requireCondition(
+      !path.relative(repositoryRoot, resolvedSource).startsWith(".."),
+      `${world.id}: source asset escapes the repository`,
+    );
+    sourcePaths.add(world.sourceAsset);
+    worldsByID.set(world.id, { ...world, resolvedSource });
+  }
+
+  const expectedWorldBeatCounts = new Map([
+    ["review-world-iron-gates-danube", 5],
+    ["review-world-aegean-crossing", 1],
+    ["review-world-thessaly-first-field", 2],
+    ["review-world-harvest-store", 2],
+    ["review-world-longhouse-settlement", 5],
+    ["review-world-european-farming-belt", 2],
+  ]);
+  requireCondition(
+    [...worldsByID.keys()].every((worldID) =>
+      expectedWorldBeatCounts.has(worldID))
+      && worldsByID.size === expectedWorldBeatCounts.size,
+    "Chapter 01 review world IDs drifted",
+  );
+
+  const beatsByID = new Map();
+  const worldIDBySceneID = new Map();
+  const worldBeatCounts = new Map();
+  for (const beat of matrix.beats) {
+    const world = worldsByID.get(beat?.worldID);
+    requireCondition(
+      typeof beat?.beatID === "string"
+        && typeof beat?.sceneID === "string"
+        && world !== undefined
+        && typeof beat.cameraVariant === "string"
+        && typeof beat.lightVariant === "string"
+        && typeof beat.stateVariant === "string"
+        && world.interactionStateIDs.includes(beat.stateVariant)
+        && !beatsByID.has(beat.beatID)
+        && !worldIDBySceneID.has(beat.sceneID),
+      `${beat?.beatID ?? "review-beat"}: invalid review beat binding`,
+    );
+    beatsByID.set(beat.beatID, beat);
+    worldIDBySceneID.set(beat.sceneID, beat.worldID);
+    worldBeatCounts.set(
+      beat.worldID,
+      (worldBeatCounts.get(beat.worldID) ?? 0) + 1,
+    );
+  }
+  requireCondition(
+    [...expectedWorldBeatCounts].every(([worldID, count]) =>
+      worldBeatCounts.get(worldID) === count),
+    "Chapter 01 review world beat distribution drifted",
+  );
+  return {
+    worldsByID,
+    beatsByID,
+    worldIDBySceneID,
+    portraitContract: matrix.portraitContract,
+    sourceDraftSHA256: matrix.sourceDraft?.sha256,
+  };
+}
+
+export function validateChapter01ReviewNarrationManifest(manifest) {
+  requireCondition(
+    manifest?.schemaVersion === 1
+      && manifest.manifestID === "chapter-01-review-narration-v1"
+      && manifest.status === "NON_SHIPPING_REVIEW"
+      && manifest.shippingState === "PROHIBITED"
+      && manifest.milestone === "CHAPTER_01_REVIEW_READY"
+      && manifest.chapterID === "first-farmers"
+      && manifest.locale === "en"
+      && manifest.sampleRate === 48_000
+      && manifest.cueCount === 37
+      && manifest.engine === "Qwen3-TTS Base"
+      && manifest.candidateID === "voice-candidate-05"
+      && manifest.runtimeGenerationPermitted === false
+      && manifest.shippingUsePermitted === false
+      && isLowercaseSHA256(manifest.manuscriptDraftSHA256)
+      && isLowercaseSHA256(manifest.combinedBindingSHA256)
+      && Array.isArray(manifest.cues)
+      && manifest.cues.length === 37,
+    "Chapter 01 review narration manifest authority drifted",
+  );
+  const byCueID = new Map();
+  const segmentIDs = new Set();
+  const repositoryPaths = new Set();
+  for (const cue of manifest.cues) {
+    requireCondition(
+      typeof cue?.cueID === "string"
+        && cue.cueID.startsWith("narration-")
+        && typeof cue.manuscriptSegmentID === "string"
+        && cue.cueID === `narration-${cue.manuscriptSegmentID}`
+        && isLowercaseSHA256(cue.manuscriptSegmentSHA256)
+        && isSafePackagePath(cue.repositoryPath)
+        && cue.repositoryPath.startsWith(
+          "native/audio/narration/review/chapter-01/cues/",
+        )
+        && cue.repositoryPath.endsWith(".m4a")
+        && cue.sampleRate === 48_000
+        && Number.isSafeInteger(cue.durationSamples)
+        && cue.durationSamples > 0
+        && Number.isSafeInteger(cue.bytes)
+        && cue.bytes > 0
+        && isLowercaseSHA256(cue.sha256)
+        && !byCueID.has(cue.cueID)
+        && !segmentIDs.has(cue.manuscriptSegmentID)
+        && !repositoryPaths.has(cue.repositoryPath),
+      `${cue?.cueID ?? "review-narration"}: invalid review narration cue`,
+    );
+    byCueID.set(cue.cueID, cue);
+    segmentIDs.add(cue.manuscriptSegmentID);
+    repositoryPaths.add(cue.repositoryPath);
+  }
+  return { byCueID };
+}
+
+async function loadChapter01ReviewNarration() {
+  const manifestBytes = await readFile(chapter01ReviewNarrationManifestPath);
+  let manifest;
+  try {
+    manifest = JSON.parse(manifestBytes);
+  } catch {
+    throw new Error("Chapter 01 review narration manifest is not valid JSON");
+  }
+  const validated = validateChapter01ReviewNarrationManifest(manifest);
+  for (const cue of validated.byCueID.values()) {
+    const file = path.resolve(repositoryRoot, cue.repositoryPath);
+    requireCondition(
+      !path.relative(repositoryRoot, file).startsWith(".."),
+      `${cue.cueID}: narration path escapes the repository`,
+    );
+    const bytes = await readFile(file).catch(() => null);
+    requireCondition(
+      bytes !== null
+        && bytes.byteLength === cue.bytes
+        && sha256(bytes) === cue.sha256,
+      `${cue.cueID}: review narration asset is absent or changed`,
+    );
+  }
+  return {
+    manifest,
+    manifestBytes,
+    manifestSHA256: sha256(manifestBytes),
+    byCueID: validated.byCueID,
+  };
+}
+
+export function validateChapter01ReviewTransitionManifest(manifest) {
+  requireCondition(
+    manifest?.schemaVersion === 1
+      && manifest.manifestID === "chapter-01-review-transitions-v1"
+      && manifest.status === "NON_SHIPPING_REVIEW"
+      && manifest.shippingState === "PROHIBITED"
+      && manifest.milestone === "CHAPTER_01_REVIEW_READY"
+      && manifest.chapterID === "first-farmers"
+      && manifest.sampleRate === 48_000
+      && manifest.channelCount === 2
+      && manifest.transitionCount === 3
+      && manifest.derivedWithoutNewComposition === true
+      && manifest.runtimeGenerationPermitted === false
+      && manifest.shippingUsePermitted === false
+      && Array.isArray(manifest.transitions)
+      && manifest.transitions.length === 3,
+    "Chapter 01 review transition manifest authority drifted",
+  );
+  const expected = [
+    ["transition-aegean-thessaly-v1", "aegean-crossing", "thessaly-first-field"],
+    ["transition-store-iron-gates-v1", "harvest-store", "iron-gates-danube"],
+    ["transition-farming-belt-steppe-v1", "european-farming-belt", "steppe-transition"],
+  ];
+  const byTransitionID = new Map();
+  for (const [index, transition] of manifest.transitions.entries()) {
+    const [transitionID, fromWorld, toWorld] = expected[index];
+    const audio = transition?.audio;
+    requireCondition(
+      transition?.transitionID === transitionID
+        && transition.fromWorld === fromWorld
+        && transition.toWorld === toWorld
+        && transition.derivation?.newCompositionAdded === false
+        && isSafePackagePath(audio?.path)
+        && audio.path.startsWith(
+          "native/audio/score-soundscape/chapter-01-review-transitions-v1/audio/",
+        )
+        && audio.path.endsWith(`/${transitionID}.m4a`)
+        && audio.sampleRate === 48_000
+        && audio.channelCount === 2
+        && Number.isSafeInteger(audio.durationFrames)
+        && audio.durationFrames > 0
+        && Number.isSafeInteger(audio.bytes)
+        && audio.bytes > 0
+        && isLowercaseSHA256(audio.sha256)
+        && !byTransitionID.has(transitionID),
+      `${transitionID}: invalid Chapter 01 review transition`,
+    );
+    byTransitionID.set(transitionID, transition);
+  }
+  return { byTransitionID };
+}
+
+async function loadChapter01ReviewTransitions() {
+  const manifestBytes = await readFile(chapter01ReviewTransitionManifestPath);
+  let manifest;
+  try {
+    manifest = JSON.parse(manifestBytes);
+  } catch {
+    throw new Error("Chapter 01 review transition manifest is not valid JSON");
+  }
+  const validated = validateChapter01ReviewTransitionManifest(manifest);
+  for (const transition of validated.byTransitionID.values()) {
+    const file = path.resolve(repositoryRoot, transition.audio.path);
+    requireCondition(
+      !path.relative(repositoryRoot, file).startsWith(".."),
+      `${transition.transitionID}: transition path escapes the repository`,
+    );
+    const bytes = await readFile(file).catch(() => null);
+    requireCondition(
+      bytes !== null
+        && bytes.byteLength === transition.audio.bytes
+        && sha256(bytes) === transition.audio.sha256,
+      `${transition.transitionID}: review transition asset is absent or changed`,
+    );
+  }
+  return {
+    manifest,
+    manifestBytes,
+    manifestSHA256: sha256(manifestBytes),
+    byTransitionID: validated.byTransitionID,
+  };
 }
 
 export function validateFirstFarmersResponsiveAudioCandidateReceipt(
@@ -436,8 +683,37 @@ async function installFirstFarmersResponsiveAudioCandidates(candidates) {
   }
 }
 
+function reviewNarrationPackagePath(cue) {
+  return `audio/first-farmers/review-narration/${path.basename(cue.repositoryPath)}`;
+}
+
+async function installChapter01ReviewNarration(reviewNarration) {
+  for (const cue of reviewNarration.byCueID.values()) {
+    const source = path.resolve(repositoryRoot, cue.repositoryPath);
+    const packagePath = reviewNarrationPackagePath(cue);
+    const destination = path.join(sourceRoot, ...packagePath.split("/"));
+    await mkdir(path.dirname(destination), { recursive: true });
+    await copyFile(source, destination);
+  }
+}
+
+function reviewTransitionPackagePath(transition) {
+  return `audio/first-farmers/review-transitions/${path.basename(transition.audio.path)}`;
+}
+
+async function installChapter01ReviewTransitions(reviewTransitions) {
+  for (const transition of reviewTransitions.byTransitionID.values()) {
+    const source = path.resolve(repositoryRoot, transition.audio.path);
+    const packagePath = reviewTransitionPackagePath(transition);
+    const destination = path.join(sourceRoot, ...packagePath.split("/"));
+    await mkdir(path.dirname(destination), { recursive: true });
+    await copyFile(source, destination);
+  }
+}
+
 async function renderRaster(source, destination, tailFilter) {
-  const common = "scale=393:852:force_original_aspect_ratio=increase,crop=393:852";
+  const { width, height } = chapter01ReviewMasterCanvas;
+  const common = `scale=${width}:${height}:force_original_aspect_ratio=increase,crop=${width}:${height}`;
   const filter = tailFilter ? `${common},${tailFilter}` : common;
   await execFileAsync("ffmpeg", [
     "-hide_banner",
@@ -451,14 +727,153 @@ async function renderRaster(source, destination, tailFilter) {
   ]);
 }
 
+function transparentRasterFilter(toneFilter, alphaExpression) {
+  return `${toneFilter},format=rgba,geq=`
+    + `r='r(X,Y)':g='g(X,Y)':b='b(X,Y)':a='${alphaExpression}'`;
+}
+
+const midgroundAlphaExpression =
+  "255*max(0,min(1,(Y-H*0.18)/(H*0.12)))"
+  + "*max(0,min(1,(H*0.82-Y)/(H*0.12)))"
+  + "*max(0,min(1,(X-W*0.06)/(W*0.12)))"
+  + "*max(0,min(1,(W*0.94-X)/(W*0.12)))";
+const foregroundAlphaExpression =
+  "255*max(0,min(1,(Y-H*0.58)/(H*0.16)))";
+const mechanismLightAlphaExpression =
+  "256*max(0,min(1,1-(pow((X-W*0.52)/(W*0.24),2)"
+  + "+pow((Y-H*0.58)/(H*0.18),2))))";
+const interactionOverlayAlphaExpression =
+  "255*max(0,min(1,1-(pow((X-W*0.5)/(W*0.34),2)"
+  + "+pow((Y-H*0.62)/(H*0.28),2))))";
+
+const chapter01ReviewRasterSpecifications = Object.freeze([
+  [
+    "background",
+    "eq=contrast=0.9:brightness=-0.065:saturation=0.72,boxblur=2:1",
+  ],
+  [
+    "midground",
+    transparentRasterFilter(
+      "eq=contrast=1.04:brightness=-0.005:saturation=0.94",
+      midgroundAlphaExpression,
+    ),
+  ],
+  [
+    "foreground",
+    transparentRasterFilter(
+      "eq=contrast=1.1:brightness=-0.025:saturation=0.86",
+      foregroundAlphaExpression,
+    ),
+  ],
+  [
+    "mechanism-light",
+    transparentRasterFilter(
+      "eq=contrast=1.13:brightness=0.045:saturation=1.02",
+      mechanismLightAlphaExpression,
+    ),
+  ],
+  [
+    "interaction-overlay",
+    transparentRasterFilter(
+      "eq=contrast=1.08:brightness=0.01:saturation=0.98",
+      interactionOverlayAlphaExpression,
+    ),
+  ],
+  [
+    "transparent",
+    transparentRasterFilter(
+      "eq=contrast=1:brightness=0:saturation=1",
+      "0",
+    ),
+  ],
+  [
+    "state-before",
+    transparentRasterFilter(
+      "eq=contrast=0.9:brightness=-0.14:saturation=0.52",
+      midgroundAlphaExpression,
+    ),
+  ],
+  [
+    "state-active",
+    transparentRasterFilter(
+      "eq=contrast=1.06:brightness=0.015:saturation=0.98",
+      midgroundAlphaExpression,
+    ),
+  ],
+  [
+    "state-completed",
+    transparentRasterFilter(
+      "eq=contrast=1.12:brightness=0.035:saturation=1.08",
+      midgroundAlphaExpression,
+    ),
+  ],
+  [
+    "reduce-motion-state-before",
+    "eq=contrast=0.88:brightness=-0.1:saturation=0.58",
+  ],
+  [
+    "reduce-motion-state-active",
+    "eq=contrast=1.02:brightness=-0.025:saturation=0.86",
+  ],
+  [
+    "reduce-motion-state-completed",
+    "eq=contrast=1.08:brightness=0.01:saturation=0.96",
+  ],
+  [
+    "reduce-motion-foreground",
+    transparentRasterFilter(
+      "eq=contrast=1.06:brightness=-0.035:saturation=0.8",
+      foregroundAlphaExpression,
+    ),
+  ],
+  [
+    "reduce-motion-mechanism-light",
+    transparentRasterFilter(
+      "eq=contrast=1.09:brightness=0.025:saturation=0.9",
+      mechanismLightAlphaExpression,
+    ),
+  ],
+]);
+
+const supportingRasterSpecifications = Object.freeze([
+  ["base", "eq=contrast=1.02:brightness=-0.025:saturation=0.92"],
+  ["state-before", "eq=contrast=0.9:brightness=-0.14:saturation=0.52"],
+  ["state-active", "eq=contrast=1.06:brightness=0.015:saturation=0.98"],
+  ["state-completed", "eq=contrast=1.12:brightness=0.035:saturation=1.08"],
+  ["reduce-motion-underlay", "eq=contrast=0.94:brightness=-0.06:saturation=0.76"],
+  ["reduce-motion-foreground", "eq=contrast=1.18:brightness=-0.18:saturation=0.64"],
+  ["alpha", "format=gray,eq=contrast=0.22:brightness=0.72"],
+  ["occlusion", "format=gray,negate,eq=contrast=0.55:brightness=0.18"],
+  ["depth", "format=gray,eq=contrast=0.72:brightness=0.08"],
+  ["light", "format=gray,eq=contrast=1.65:brightness=-0.12"],
+]);
+
+async function renderAlphaMask(source, destination) {
+  await execFileAsync("ffmpeg", [
+    "-hide_banner",
+    "-loglevel", "error",
+    "-y",
+    "-i", source,
+    "-vf", "alphaextract,format=gray",
+    "-frames:v", "1",
+    "-map_metadata", "-1",
+    destination,
+  ]);
+}
+
 async function renderTechnicalMask(destination, pixelBounds) {
-  const { x, y, width, height } = pixelBounds;
+  const scaleX = chapter01ReviewMasterCanvas.width / 393;
+  const scaleY = chapter01ReviewMasterCanvas.height / 852;
+  const x = Math.round(pixelBounds.x * scaleX);
+  const y = Math.round(pixelBounds.y * scaleY);
+  const width = Math.round(pixelBounds.width * scaleX);
+  const height = Math.round(pixelBounds.height * scaleY);
   await execFileAsync("ffmpeg", [
     "-hide_banner",
     "-loglevel", "error",
     "-y",
     "-f", "lavfi",
-    "-i", "color=c=black:s=393x852:r=1",
+    "-i", `color=c=black:s=${chapter01ReviewMasterCanvas.width}x${chapter01ReviewMasterCanvas.height}:r=1`,
     "-vf",
     `drawbox=x=${x}:y=${y}:w=${width}:h=${height}:color=white:t=fill,gblur=sigma=12,format=gray`,
     "-frames:v", "1",
@@ -467,26 +882,30 @@ async function renderTechnicalMask(destination, pixelBounds) {
   ]);
 }
 
-async function renderAssets() {
+function fixtureVisualSources(reviewWorldIndex) {
+  return Object.freeze({
+    ...Object.fromEntries(
+      [...reviewWorldIndex.worldsByID].map(([worldID, world]) => [
+        worldID,
+        world.resolvedSource,
+      ]),
+    ),
+    ...supportingVisualSources,
+  });
+}
+
+async function renderAssets(reviewWorldIndex, visualSources) {
   const assetRoot = path.join(sourceRoot, "assets");
   const audioRoot = path.join(sourceRoot, "audio");
   const renderedPaths = [];
   await mkdir(assetRoot, { recursive: true });
   await mkdir(audioRoot, { recursive: true });
 
-  const rasterSpecifications = [
-    ["base", "eq=contrast=1.02:brightness=-0.025:saturation=0.92"],
-    ["state-before", "eq=contrast=0.9:brightness=-0.14:saturation=0.52"],
-    ["state-active", "eq=contrast=1.06:brightness=0.015:saturation=0.98"],
-    ["state-completed", "eq=contrast=1.12:brightness=0.035:saturation=1.08"],
-    ["reduce-motion-underlay", "eq=contrast=0.94:brightness=-0.06:saturation=0.76"],
-    ["reduce-motion-foreground", "eq=contrast=1.18:brightness=-0.18:saturation=0.64"],
-    ["alpha", "format=gray,eq=contrast=0.22:brightness=0.72"],
-    ["occlusion", "format=gray,negate,eq=contrast=0.55:brightness=0.18"],
-    ["depth", "format=gray,eq=contrast=0.72:brightness=0.08"],
-    ["light", "format=gray,eq=contrast=1.65:brightness=-0.12"],
-  ];
   for (const [sceneID, source] of Object.entries(visualSources)) {
+    const isReviewWorld = reviewWorldIndex.worldsByID.has(sceneID);
+    const rasterSpecifications = isReviewWorld
+      ? chapter01ReviewRasterSpecifications
+      : supportingRasterSpecifications;
     for (const [suffix, filter] of rasterSpecifications) {
       const relative = `assets/${sceneID}-${suffix}.png`;
       await renderRaster(
@@ -496,21 +915,32 @@ async function renderAssets() {
       );
       renderedPaths.push(relative);
     }
+    if (isReviewWorld) {
+      for (const [sourceSuffix, maskSuffix] of [
+        ["midground", "midground-alpha"],
+        ["foreground", "foreground-alpha"],
+        ["mechanism-light", "mechanism-light-alpha"],
+        ["interaction-overlay", "interaction-overlay-alpha"],
+        ["state-active", "state-alpha"],
+      ]) {
+        const relative = `assets/${sceneID}-${maskSuffix}.png`;
+        await renderAlphaMask(
+          path.join(assetRoot, `${sceneID}-${sourceSuffix}.png`),
+          path.join(sourceRoot, ...relative.split("/")),
+        );
+        renderedPaths.push(relative);
+      }
+    }
   }
 
-  const moreMouthsSource = visualSources[moreMouthsTechnicalLiveSlice.assetStemID];
-  const transparentRelative = moreMouthsTechnicalLiveSlice.transparentAssetPath;
-  for (const relative of [
-    transparentRelative,
-    moreMouthsTechnicalLiveSlice.transparentReduceMotionAssetPath,
-  ]) {
-    await renderRaster(
-      moreMouthsSource,
-      path.join(sourceRoot, ...relative.split("/")),
-      "format=rgba,colorchannelmixer=aa=0",
-    );
-    renderedPaths.push(relative);
-  }
+  const moreMouthsWorldID = reviewWorldIndex.worldIDBySceneID.get(
+    moreMouthsTechnicalLiveSlice.sceneID,
+  );
+  const moreMouthsSource = visualSources[moreMouthsWorldID];
+  requireCondition(
+    moreMouthsSource !== undefined,
+    "More Mouths review world source is unavailable",
+  );
   for (const stageMask of moreMouthsTechnicalLiveSlice.stageMasks) {
     await renderTechnicalMask(
       path.join(sourceRoot, ...stageMask.assetPath.split("/")),
@@ -548,6 +978,144 @@ async function renderAssets() {
     renderedPaths.push(packagePath);
   }
   return renderedPaths;
+}
+
+function pngHeader(bytes, label) {
+  const signature = "89504e470d0a1a0a";
+  requireCondition(
+    bytes.length >= 26
+      && bytes.subarray(0, 8).toString("hex") === signature
+      && bytes.subarray(12, 16).toString("ascii") === "IHDR",
+    `${label}: expected a PNG with an IHDR header`,
+  );
+  return {
+    width: bytes.readUInt32BE(16),
+    height: bytes.readUInt32BE(20),
+    bitDepth: bytes[24],
+    colorType: bytes[25],
+  };
+}
+
+async function alphaRange(file) {
+  const { stdout, stderr } = await execFileAsync("ffmpeg", [
+    "-hide_banner",
+    "-loglevel", "error",
+    "-i", file,
+    "-vf", "alphaextract,signalstats,metadata=print:file=-",
+    "-frames:v", "1",
+    "-f", "null",
+    "-",
+  ]);
+  const metadata = `${stdout}\n${stderr}`;
+  const minimum = Number(metadata.match(/lavfi\.signalstats\.YMIN=(\d+)/u)?.[1]);
+  const maximum = Number(metadata.match(/lavfi\.signalstats\.YMAX=(\d+)/u)?.[1]);
+  requireCondition(
+    Number.isFinite(minimum) && Number.isFinite(maximum),
+    `${path.basename(file)}: alpha range could not be measured`,
+  );
+  return { minimum, maximum };
+}
+
+export async function validateChapter01ReviewRasterAssets(
+  reviewWorldIndex,
+  { root = sourceRoot, requireFullDerivationSet = true } = {},
+) {
+  const durableSuffixes = [
+    ...chapter01ReviewSemanticAssetSuffixes,
+    "midground-alpha",
+    "foreground-alpha",
+    "mechanism-light-alpha",
+  ];
+  const requiredSuffixes = requireFullDerivationSet ? [
+    ...chapter01ReviewRasterSpecifications.map(([suffix]) => suffix),
+    ...durableSuffixes.slice(chapter01ReviewSemanticAssetSuffixes.length),
+    "interaction-overlay-alpha",
+    "state-alpha",
+  ] : durableSuffixes;
+  const worlds = [];
+  for (const worldID of reviewWorldIndex.worldsByID.keys()) {
+    const records = new Map();
+    for (const suffix of requiredSuffixes) {
+      const packageAssetPath = assetPath(worldID, suffix);
+      const file = path.join(root, ...packageAssetPath.split("/"));
+      const bytes = await readFile(file);
+      const header = pngHeader(bytes, packageAssetPath);
+      requireCondition(
+        header.width === chapter01ReviewMasterCanvas.width
+          && header.height === chapter01ReviewMasterCanvas.height,
+        `${packageAssetPath}: ${header.width}x${header.height} does not match the declared ${chapter01ReviewMasterCanvas.width}x${chapter01ReviewMasterCanvas.height} review master`,
+      );
+      records.set(suffix, {
+        suffix,
+        packageAssetPath,
+        bytes: bytes.byteLength,
+        sha256: sha256(bytes),
+        ...header,
+      });
+    }
+    const semanticLayers = chapter01ReviewSemanticAssetSuffixes.map(
+      (suffix) => records.get(suffix),
+    );
+    requireCondition(
+      new Set(semanticLayers.map(({ sha256: digest }) => digest)).size
+        === semanticLayers.length,
+      `${worldID}: shared semantic layers collapsed to cloned raster bytes`,
+    );
+    requireCondition(
+      new Set(["midground-alpha", "foreground-alpha", "mechanism-light-alpha"]
+        .map((suffix) => records.get(suffix).sha256)).size === 3,
+      `${worldID}: semantic layer masks collapsed to cloned raster bytes`,
+    );
+    const transparentSuffixes = requireFullDerivationSet
+      ? [
+        "midground",
+        "foreground",
+        "mechanism-light",
+        "interaction-overlay",
+        "state-before",
+        "state-active",
+        "state-completed",
+        "transparent",
+        "reduce-motion-foreground",
+        "reduce-motion-mechanism-light",
+      ]
+      : ["midground", "foreground", "mechanism-light"];
+    requireCondition(
+      transparentSuffixes.every((suffix) => records.get(suffix).colorType === 6),
+      `${worldID}: review overlays must be RGBA PNGs`,
+    );
+    for (const suffix of ["midground", "foreground", "mechanism-light"]) {
+      const range = await alphaRange(path.join(
+        root,
+        ...records.get(suffix).packageAssetPath.split("/"),
+      ));
+      requireCondition(
+        range.minimum === 0 && range.maximum === 255,
+        `${worldID}/${suffix}: semantic overlay must contain transparent and opaque pixels`,
+      );
+      records.get(suffix).alphaRange = range;
+    }
+    if (requireFullDerivationSet) {
+      requireCondition(
+        new Set(["state-before", "state-active", "state-completed"]
+          .map((suffix) => records.get(suffix).sha256)).size === 3,
+        `${worldID}: review consequence states collapsed to cloned raster bytes`,
+      );
+      requireCondition(
+        new Set(["reduce-motion-state-before", "reduce-motion-state-active",
+          "reduce-motion-state-completed"]
+          .map((suffix) => records.get(suffix).sha256)).size === 3,
+        `${worldID}: Reduce Motion consequence plates collapsed to cloned raster bytes`,
+      );
+    }
+    worlds.push({ worldID, semanticLayers });
+  }
+  return {
+    masterCanvasPixels: { ...chapter01ReviewMasterCanvas },
+    authoredOverscanFraction: chapter01ReviewOverscanFraction,
+    baselineSourceRect: { ...chapter01ReviewBaselineSourceRect },
+    worlds,
+  };
 }
 
 function collectReferencedAssetPaths(value, key = undefined, paths = new Set()) {
@@ -599,67 +1167,118 @@ function technicalMasks(sceneID) {
   };
 }
 
-function variantAssetPath(sceneID, variantID) {
+function variantAssetSuffix(variantID) {
   if ([
     "available", "before", "broken", "empty", "exhausted", "idle",
     "resting", "scarce",
   ].includes(variantID)) {
-    return assetPath(sceneID, "state-before");
+    return "state-before";
   }
   if ([
     "active", "receiving", "reduced", "resisted", "resisting", "tracing",
   ].includes(variantID)) {
-    return assetPath(sceneID, "state-active");
+    return "state-active";
   }
-  return assetPath(sceneID, "state-completed");
+  return "state-completed";
 }
 
-function rewriteMasks(masks, sceneID) {
-  const paths = technicalMasks(sceneID);
-  for (const key of Object.keys(paths)) {
-    if (masks[key]) masks[key] = paths[key];
-  }
+function variantAssetPath(sceneID, variantID) {
+  return assetPath(sceneID, variantAssetSuffix(variantID));
 }
 
-function rewriteAuthoredSceneAssets(scene, sceneID) {
-  scene.id = sceneID;
-  for (const layer of scene.layers) {
-    layer.assetPath = assetPath(sceneID, "base");
-    rewriteMasks(layer.masks, sceneID);
-    for (const variant of layer.stateVariants) {
-      variant.assetPath = variantAssetPath(sceneID, variant.id);
-      rewriteMasks(variant.masks, sceneID);
-    }
+function reviewLayerAssetSuffix(layer) {
+  if (layer.stateVariants.length > 0) return "state-before";
+  if (["far-landscape", "storm-sky"].includes(layer.id)) return "background";
+  if (["inhabited-world", "settlement"].includes(layer.id)) return "midground";
+  if (["foreground-occlusion", "foreground-occluders"].includes(layer.id)) {
+    return "foreground";
   }
+  if (layer.id === "mechanism-light") return "mechanism-light";
+  if (layer.id === "hands-and-grain") return "interaction-overlay";
+  return "transparent";
+}
+
+function reviewMasks(assetStemID, assetSuffix) {
+  if (["state-before", "state-active", "state-completed"].includes(assetSuffix)) {
+    return { alphaMaskAssetPath: assetPath(assetStemID, "state-alpha") };
+  }
+  if (["midground", "foreground", "mechanism-light", "interaction-overlay"]
+    .includes(assetSuffix)) {
+    const alphaMaskAssetPath = assetPath(assetStemID, `${assetSuffix}-alpha`);
+    return assetSuffix === "mechanism-light"
+      ? { alphaMaskAssetPath, lightMaskAssetPath: alphaMaskAssetPath }
+      : { alphaMaskAssetPath };
+  }
+  return {};
+}
+
+function installReviewReduceMotionAssets(scene, assetStemID) {
   const staticStrata = scene.reduceMotionComposition.strata.filter(
     ({ kind }) => kind === "staticPlate",
   );
-  for (const [index, stratum] of staticStrata.entries()) {
-    stratum.assetPath = index === 0
-      ? assetPath(sceneID, "reduce-motion-underlay")
-      : assetPath(sceneID, "reduce-motion-foreground");
+  requireCondition(
+    staticStrata.length >= 1,
+    `${scene.id}: Reduce Motion composition has no static underlay`,
+  );
+  staticStrata.forEach((stratum, index) => {
+    if (index === 0) {
+      stratum.assetPath = assetPath(assetStemID, "reduce-motion-state-before");
+    } else {
+      stratum.assetPath = assetPath(assetStemID, "transparent");
+    }
+  });
+  const foregroundStratum = staticStrata.length > 1
+    ? staticStrata.at(-1)
+    : {
+      id: "static-review-foreground",
+      kind: "staticPlate",
+      assetPath: assetPath(assetStemID, "reduce-motion-foreground"),
+    };
+  foregroundStratum.assetPath = assetPath(assetStemID, "reduce-motion-foreground");
+  if (staticStrata.length === 1) {
+    scene.reduceMotionComposition.strata.push(foregroundStratum);
   }
+  scene.reduceMotionComposition.strata.push({
+    id: "static-mechanism-light",
+    kind: "staticPlate",
+    assetPath: assetPath(assetStemID, "reduce-motion-mechanism-light"),
+  });
+}
+
+function rewriteAuthoredSceneAssets(scene, sceneID, assetStemID) {
+  scene.id = sceneID;
+  scene.sceneCanvas.canvas = { ...chapter01ReviewMasterCanvas };
+  scene.sceneCanvas.authoredOverscanFraction = chapter01ReviewOverscanFraction;
+  for (const crop of scene.sceneCanvas.viewportCrops) {
+    if (crop.id === "baseline-393x852") {
+      crop.sourceRect = { ...chapter01ReviewBaselineSourceRect };
+    }
+  }
+  scene.reduceMotionComposition.canvas = { ...chapter01ReviewMasterCanvas };
+  for (const crop of scene.reduceMotionComposition.viewportCrops) {
+    if (crop.id === "baseline-393x852") {
+      crop.sourceRect = { ...chapter01ReviewBaselineSourceRect };
+    }
+  }
+  for (const layer of scene.layers) {
+    const assetSuffix = reviewLayerAssetSuffix(layer);
+    layer.assetPath = assetPath(assetStemID, assetSuffix);
+    layer.masks = reviewMasks(assetStemID, assetSuffix);
+    for (const variant of layer.stateVariants) {
+      variant.assetPath = variantAssetPath(assetStemID, variant.id);
+      variant.masks = reviewMasks(assetStemID, variantAssetSuffix(variant.id));
+    }
+  }
+  installReviewReduceMotionAssets(scene, assetStemID);
   return scene;
 }
 
-function rewriteMoreMouthsTechnicalSceneAssets(scene) {
+function rewriteMoreMouthsTechnicalSceneAssets(scene, assetStemID) {
   requireCondition(
     scene.id === moreMouthsTechnicalLiveSlice.sceneID,
     "More Mouths technical scene must retain its canonical scene ID",
   );
-  const basePath = assetPath(moreMouthsTechnicalLiveSlice.assetStemID, "base");
-  const activePath = assetPath(
-    moreMouthsTechnicalLiveSlice.assetStemID,
-    "state-active",
-  );
-  const completedPath = assetPath(
-    moreMouthsTechnicalLiveSlice.assetStemID,
-    "state-completed",
-  );
-  const reduceMotionUnderlayPath = assetPath(
-    moreMouthsTechnicalLiveSlice.assetStemID,
-    "reduce-motion-underlay",
-  );
+  rewriteAuthoredSceneAssets(scene, scene.id, assetStemID);
   const masksByLayerID = new Map(
     moreMouthsTechnicalLiveSlice.stageMasks.map(({ stageID, assetPath }) => [
       `stage-${stageID}`,
@@ -670,42 +1289,137 @@ function rewriteMoreMouthsTechnicalSceneAssets(scene) {
   for (const layer of scene.layers) {
     const stageMasks = masksByLayerID.get(layer.id);
     if (stageMasks) {
-      layer.assetPath = basePath;
       layer.masks = structuredClone(stageMasks);
       for (const variant of layer.stateVariants) {
-        if (variant.id === "before") variant.assetPath = basePath;
-        else if (variant.id === "active") variant.assetPath = activePath;
-        else if (variant.id === "completed") variant.assetPath = completedPath;
-        else throw new Error(`More Mouths has unsupported state '${variant.id}'`);
+        requireCondition(
+          ["before", "active", "completed"].includes(variant.id),
+          `More Mouths has unsupported state '${variant.id}'`,
+        );
         variant.masks = structuredClone(stageMasks);
       }
-      continue;
-    }
-
-    if (layer.id === "far-landscape") {
-      layer.assetPath = basePath;
-      layer.masks = {};
-      continue;
-    }
-
-    // The technical fixture must not place a full-frame opaque plate above
-    // the three causal overlays. These transparent placeholders prove the
-    // runtime ordering without making any production-art claim.
-    layer.assetPath = moreMouthsTechnicalLiveSlice.transparentAssetPath;
-    layer.masks = {};
-    for (const variant of layer.stateVariants) {
-      variant.assetPath = moreMouthsTechnicalLiveSlice.transparentAssetPath;
-      variant.masks = {};
     }
   }
+  return scene;
+}
 
-  const staticStrata = scene.reduceMotionComposition.strata.filter(
-    ({ kind }) => kind === "staticPlate",
+function enforcePortraitTouchTargets(scene, minimumPoints = 44) {
+  const minimumWidth = minimumPoints / 393;
+  const minimumHeight = minimumPoints / 852;
+  for (const target of scene.interactionTargets ?? []) {
+    const points = target.hitRegion?.path;
+    if (!Array.isArray(points) || points.length < 3) continue;
+    const xs = points.map(({ x }) => x);
+    const ys = points.map(({ y }) => y);
+    const left = Math.min(...xs);
+    const right = Math.max(...xs);
+    const top = Math.min(...ys);
+    const bottom = Math.max(...ys);
+    const width = Math.max(right - left, minimumWidth);
+    const height = Math.max(bottom - top, minimumHeight);
+    const centerX = (left + right) / 2;
+    const centerY = (top + bottom) / 2;
+    const expandedLeft = Math.min(Math.max(centerX - width / 2, 0), 1 - width);
+    const expandedTop = Math.min(Math.max(centerY - height / 2, 0), 1 - height);
+    const expandedRight = expandedLeft + width;
+    const expandedBottom = expandedTop + height;
+    target.hitRegion.path = [
+      { x: expandedLeft, y: expandedTop },
+      { x: expandedRight, y: expandedTop },
+      { x: expandedRight, y: expandedBottom },
+      { x: expandedLeft, y: expandedBottom },
+    ];
+  }
+  return scene;
+}
+
+function reviewVariantUnit(value, byteOffset = 0) {
+  const digest = createHash("sha256").update(value).digest();
+  return digest[byteOffset % digest.length] / 255;
+}
+
+function reviewStateSuffix(reviewBeat, reviewWorld) {
+  const stateIndex = reviewWorld.interactionStateIDs.indexOf(
+    reviewBeat.stateVariant,
   );
-  for (const [index, stratum] of staticStrata.entries()) {
-    stratum.assetPath = index === 0
-      ? reduceMotionUnderlayPath
-      : moreMouthsTechnicalLiveSlice.transparentReduceMotionAssetPath;
+  const stateProgress = reviewWorld.interactionStateIDs.length === 1
+    ? 1
+    : stateIndex / (reviewWorld.interactionStateIDs.length - 1);
+  return stateProgress <= 0.25
+    ? "state-before"
+    : stateProgress >= 0.75
+      ? "state-completed"
+      : "state-active";
+}
+
+function applyReviewBeatVariants(scene, reviewBeat, reviewWorld) {
+  const cameraX = (reviewVariantUnit(reviewBeat.cameraVariant, 0) - 0.5) * 0.06;
+  const cameraY = (reviewVariantUnit(reviewBeat.cameraVariant, 1) - 0.5) * 0.04;
+  const cameraScale = 1.02 + reviewVariantUnit(reviewBeat.cameraVariant, 2) * 0.035;
+  const lastKeyframe = scene.cameraRail?.keyframes?.at(-1);
+  if (lastKeyframe) {
+    lastKeyframe.center = {
+      x: Math.min(0.56, Math.max(0.44, 0.5 + cameraX)),
+      y: Math.min(0.54, Math.max(0.46, 0.5 + cameraY)),
+    };
+    lastKeyframe.scale = cameraScale;
+  }
+  if (
+    reviewBeat.beatID === "beat-first-farmers-household-crosses"
+      || reviewBeat.beatID === "beat-first-farmers-harvest-allocation"
+  ) {
+    // The route's first anchor and the harvest resource both begin low in
+    // their portrait masters. Show the complete shared plate for these two
+    // interactions so the required touch points remain above the compact
+    // narrative sheet. Reduce Motion uses the identical crop and consequence
+    // geometry.
+    for (const composition of [
+      scene.sceneCanvas,
+      scene.reduceMotionComposition,
+    ]) {
+      for (const crop of composition?.viewportCrops ?? []) {
+        crop.sourceRect = { x: 0, y: 0, width: 1, height: 1 };
+      }
+    }
+    for (const keyframe of scene.cameraRail?.keyframes ?? []) {
+      keyframe.center = { x: 0.5, y: 0.5 };
+      keyframe.scale = 1;
+    }
+  }
+  const mechanismLight = scene.layers.find(({ id }) => id === "mechanism-light");
+  if (mechanismLight) {
+    mechanismLight.opacity = 0.82
+      + reviewVariantUnit(reviewBeat.lightVariant, 0) * 0.18;
+  }
+  if (!scene.interactionVisualBinding) {
+    const stateSuffix = reviewStateSuffix(reviewBeat, reviewWorld);
+    const inhabitedLayer = scene.layers.find(({ id }) =>
+      id === "inhabited-world");
+    const foregroundIndex = scene.layers.findIndex(({ id }) =>
+      ["foreground-occlusion", "foreground-occluders"].includes(id));
+    requireCondition(
+      inhabitedLayer !== undefined && foregroundIndex >= 0,
+      `${scene.id}: shared review layers cannot host the state consequence`,
+    );
+    const stateLayer = structuredClone(inhabitedLayer);
+    stateLayer.id = "review-state-consequence";
+    stateLayer.assetPath = assetPath(reviewBeat.worldID, stateSuffix);
+    stateLayer.masks = reviewMasks(reviewBeat.worldID, stateSuffix);
+    stateLayer.depth = Math.min(0.88, Math.max(0.12, inhabitedLayer.depth + 0.08));
+    stateLayer.opacity = 1;
+    stateLayer.stateVariants = [];
+    scene.layers.splice(foregroundIndex, 0, stateLayer);
+    scene.layers.forEach((layer, index) => { layer.order = index; });
+    const staticUnderlay = scene.reduceMotionComposition.strata.find(
+      ({ kind }) => kind === "staticPlate",
+    );
+    requireCondition(
+      staticUnderlay !== undefined,
+      `${scene.id}: Reduce Motion consequence underlay is missing`,
+    );
+    staticUnderlay.assetPath = assetPath(
+      reviewBeat.worldID,
+      `reduce-motion-${stateSuffix}`,
+    );
   }
   return scene;
 }
@@ -714,7 +1428,7 @@ function baselineCrop() {
   return {
     id: "baseline-393x852",
     viewport: { widthPoints: 393, heightPoints: 852 },
-    sourceRect: { x: 0.15, y: 0.15, width: 0.7, height: 0.7 },
+    sourceRect: { ...chapter01ReviewBaselineSourceRect },
     safeTextRegions: [
       { id: "narrative-copy", rect: { x: 0.08, y: 0.06, width: 0.84, height: 0.2 } },
       { id: "mechanism-caption", rect: { x: 0.12, y: 0.78, width: 0.76, height: 0.12 } },
@@ -769,9 +1483,9 @@ function technicalScene({
   return {
     id: sceneID,
     sceneCanvas: {
-      canvas: { width: 1179, height: 2556 },
+      canvas: { ...chapter01ReviewMasterCanvas },
       cameraTravelBounds: { x: 0.2, y: 0.2, width: 0.6, height: 0.6 },
-      authoredOverscanFraction: 0.15,
+      authoredOverscanFraction: chapter01ReviewOverscanFraction,
       viewportCrops: [baselineCrop()],
     },
     layers,
@@ -785,7 +1499,7 @@ function technicalScene({
     interactionTargets,
     interactionVisualBinding,
     reduceMotionComposition: {
-      canvas: { width: 1179, height: 2556 },
+      canvas: { ...chapter01ReviewMasterCanvas },
       viewportCrops: [baselineCrop()],
       strata: [
         {
@@ -1148,6 +1862,130 @@ export function projectFirstFarmersResponsiveAudio(
   };
 }
 
+function projectChapter01ReviewMainTimelines(
+  source,
+  projectedChapter,
+  candidates,
+  reviewNarration,
+  reviewTransitions,
+  reviewWorldIndex,
+) {
+  requireCondition(
+    reviewNarration.manifest.manuscriptDraftSHA256
+      === reviewWorldIndex.sourceDraftSHA256,
+    "Chapter 01 review narration is not bound to the review matrix manuscript",
+  );
+  const sourceTimelinesByID = new Map(
+    source.audioTimelines.map((timeline) => [timeline.id, timeline]),
+  );
+  const bedTimelineIDByWorldID = new Map([
+    ["review-world-iron-gates-danube", "three-records-approach-v1"],
+    ["review-world-aegean-crossing", "household-crosses-approach-v1"],
+    ["review-world-thessaly-first-field", "household-crosses-consequence-v1"],
+    ["review-world-harvest-store", "harvest-approach-v1"],
+    ["review-world-longhouse-settlement", "longhouse-approach-v1"],
+    ["review-world-european-farming-belt", "continent-remade-approach-v1"],
+  ]);
+  const transitionIDByDestinationBeatID = new Map([
+    ["beat-first-farmers-living-system", "transition-aegean-thessaly-v1"],
+    ["beat-first-farmers-gorge-contact", "transition-store-iron-gates-v1"],
+    ["beat-first-farmers-before-steppe", "transition-farming-belt-steppe-v1"],
+  ]);
+  const narrationCueIDs = new Set();
+  const timelines = [];
+  for (const beat of projectedChapter.arcs.flatMap(({ beats }) => beats)) {
+    const sourceTimeline = sourceTimelinesByID.get(`audio-${beat.id}`);
+    const reviewBeat = reviewWorldIndex.beatsByID.get(beat.id);
+    const bedTimeline = sourceTimelinesByID.get(
+      bedTimelineIDByWorldID.get(reviewBeat?.worldID),
+    );
+    requireCondition(
+      sourceTimeline !== undefined && bedTimeline !== undefined,
+      `${beat.id}: main or world-bed timeline is unavailable`,
+    );
+    const bedByRole = new Map(
+      bedTimeline.events
+        .filter(({ role }) => role !== "silence")
+        .map((event) => [event.role, event]),
+    );
+    const timeline = structuredClone(sourceTimeline);
+    let previousSourceNarrationEnd = 0;
+    let previousProjectedNarrationEnd = 0;
+    let narrationIndex = 0;
+    timeline.events = timeline.events.map((event) => {
+      if (event.role === "narration") {
+        const cue = reviewNarration.byCueID.get(event.cueID);
+        requireCondition(
+          cue !== undefined
+            && beat.narrationCueIDs.includes(event.cueID)
+            && event.narrationBinding?.manuscriptSegmentID
+              === cue.manuscriptSegmentID
+            && event.narrationBinding?.manuscriptSegmentSHA256
+              === cue.manuscriptSegmentSHA256,
+          `${event.cueID}: narration binding drifted before review projection`,
+        );
+        const sourceGap = narrationIndex === 0
+          ? event.startSample
+          : Math.max(0, event.startSample - previousSourceNarrationEnd);
+        const startSample = narrationIndex === 0
+          ? sourceGap
+          : previousProjectedNarrationEnd + sourceGap;
+        previousSourceNarrationEnd = event.startSample + event.durationSamples;
+        previousProjectedNarrationEnd = startSample + cue.durationSamples;
+        narrationIndex += 1;
+        narrationCueIDs.add(event.cueID);
+        return {
+          ...event,
+          startSample,
+          durationSamples: cue.durationSamples,
+          assetPath: reviewNarrationPackagePath(cue),
+        };
+      }
+      if (event.role === "silence") return event;
+      const bedEvent = bedByRole.get(event.role);
+      const output = candidates.bySourcePath.get(bedEvent?.assetPath);
+      requireCondition(
+        bedEvent !== undefined && output !== undefined,
+        `${timeline.id}/${event.cueID}: review world bed is unavailable`,
+      );
+      return {
+        ...event,
+        durationSamples: output.format.durationSamples,
+        assetPath: output.candidateRelativePath,
+      };
+    });
+    const transitionID = transitionIDByDestinationBeatID.get(beat.id);
+    if (transitionID !== undefined) {
+      const transition = reviewTransitions.byTransitionID.get(transitionID);
+      requireCondition(
+        transition !== undefined,
+        `${beat.id}: review transition is unavailable`,
+      );
+      timeline.events.push({
+        cueID: transitionID,
+        role: "soundscape",
+        startSample: 0,
+        durationSamples: transition.audio.durationFrames,
+        assetPath: reviewTransitionPackagePath(transition),
+        gain: 1,
+      });
+    }
+    timelines.push(timeline);
+  }
+  requireCondition(
+    timelines.length === 17
+      && narrationCueIDs.size === 37
+      && reviewNarration.byCueID.size === 37
+      && [...reviewNarration.byCueID.keys()].every((cueID) =>
+        narrationCueIDs.has(cueID))
+      && timelines.flatMap(({ events }) => events)
+        .filter(({ cueID }) => reviewTransitions.byTransitionID.has(cueID))
+        .length === 3,
+    "Chapter 01 review main timeline projection must bind 17 timelines, 37 cues and three transitions",
+  );
+  return timelines;
+}
+
 export function requireRepresentativeFirstFarmersResponsiveAudio(payload) {
   const programs = payload.responsiveAudioPrograms.filter(
     ({ scope }) => scope.chapterID === "first-farmers",
@@ -1200,6 +2038,273 @@ export function requireRepresentativeFirstFarmersResponsiveAudio(payload) {
   };
 }
 
+export function requireChapter01ReviewComposition(payload, reviewMatrix) {
+  const reviewWorldIndex = validateChapter01ReviewMatrix(reviewMatrix);
+  const chapter = payload.chapters.find(({ id }) => id === "first-farmers");
+  const beats = chapter?.arcs.flatMap(({ beats }) => beats) ?? [];
+  const interactions = beats.flatMap(({ interaction }) =>
+    interaction ? [interaction] : []);
+  const narrationCueIDs = new Set(beats.flatMap(({ narrationCueIDs }) =>
+    narrationCueIDs));
+  const mainTimelineIDs = new Set(beats.map(({ id }) => `audio-${id}`));
+  const responsiveTimelineIDs = new Set(
+    payload.responsiveAudioPrograms
+      .filter(({ scope }) => scope.chapterID === "first-farmers")
+      .flatMap(programTimelineIDs),
+  );
+  requireCondition(
+    chapter?.arcs.length === 3
+      && beats.length === 17
+      && interactions.length === 6
+      && narrationCueIDs.size === 37
+      && mainTimelineIDs.size === 17
+      && responsiveTimelineIDs.size === 30,
+    "Chapter 01 review structure must be 3/17/6/37/47",
+  );
+  const timelineByID = new Map(payload.audioTimelines.map((timeline) => [
+    timeline.id,
+    timeline,
+  ]));
+  requireCondition(
+    [...mainTimelineIDs, ...responsiveTimelineIDs].every((timelineID) =>
+      timelineByID.has(timelineID))
+      && [...mainTimelineIDs].every((timelineID) =>
+        timelineByID.get(timelineID).haptics.length === 0)
+      && [...responsiveTimelineIDs].every((timelineID) =>
+        timelineByID.get(timelineID).haptics.length === 0),
+    "Chapter 01 review timelines are incomplete or contain timed haptics",
+  );
+  const narrationEvents = [...mainTimelineIDs].flatMap((timelineID) =>
+    timelineByID.get(timelineID).events.filter(({ role }) => role === "narration"));
+  requireCondition(
+    narrationEvents.length === 37
+      && new Set(narrationEvents.map(({ cueID }) => cueID)).size === 37
+      && narrationEvents.every(({ cueID, narrationBinding, assetPath }) =>
+        narrationCueIDs.has(cueID)
+          && narrationBinding?.manuscriptSegmentSHA256
+          && assetPath.startsWith("audio/first-farmers/review-narration/")
+          && assetPath.endsWith(".m4a")),
+    "Chapter 01 review narration cue projection drifted",
+  );
+  const expectedTransitionTimelineIDs = new Map([
+    ["transition-aegean-thessaly-v1", "audio-beat-first-farmers-living-system"],
+    ["transition-store-iron-gates-v1", "audio-beat-first-farmers-gorge-contact"],
+    ["transition-farming-belt-steppe-v1", "audio-beat-first-farmers-before-steppe"],
+  ]);
+  const transitionEvents = [...mainTimelineIDs].flatMap((timelineID) =>
+    timelineByID.get(timelineID).events
+      .filter(({ cueID }) => expectedTransitionTimelineIDs.has(cueID))
+      .map((event) => ({ timelineID, event })));
+  requireCondition(
+    transitionEvents.length === 3
+      && transitionEvents.every(({ timelineID, event }) =>
+        expectedTransitionTimelineIDs.get(event.cueID) === timelineID
+          && event.role === "soundscape"
+          && event.startSample === 0
+          && event.durationSamples > 0
+          && event.assetPath
+            === `audio/first-farmers/review-transitions/${event.cueID}.m4a`),
+    "Chapter 01 review transition projection drifted",
+  );
+
+  const scenesByID = new Map(payload.scenes.map((scene) => [scene.id, scene]));
+  const worldIDs = new Set();
+  for (const beat of beats) {
+    const scene = scenesByID.get(beat.sceneID);
+    const reviewBeat = reviewWorldIndex.beatsByID.get(beat.id);
+    const reviewWorld = reviewWorldIndex.worldsByID.get(reviewBeat?.worldID);
+    const expectedStateSuffix = beat.interaction
+      ? "state-before"
+      : reviewStateSuffix(reviewBeat, reviewWorld);
+    requireCondition(
+      scene !== undefined
+        && reviewBeat?.sceneID === scene.id
+        && scene.layers.some(({ assetPath }) =>
+          assetPath.startsWith(`assets/${reviewBeat.worldID}-`))
+        && scene.reduceMotionComposition?.strata?.length > 0,
+      `${beat.id}: review scene/world/Reduce Motion projection drifted`,
+    );
+    requireCondition(
+      scene.sceneCanvas?.canvas?.width === chapter01ReviewMasterCanvas.width
+        && scene.sceneCanvas?.canvas?.height === chapter01ReviewMasterCanvas.height
+        && scene.sceneCanvas?.authoredOverscanFraction
+          === chapter01ReviewOverscanFraction
+        && scene.reduceMotionComposition?.canvas?.width
+          === chapter01ReviewMasterCanvas.width
+        && scene.reduceMotionComposition?.canvas?.height
+          === chapter01ReviewMasterCanvas.height,
+      `${scene.id}: declared canvas does not match the rendered review master`,
+    );
+    const semanticLayers = [
+      ["background", scene.layers.find(({ id }) =>
+        ["far-landscape", "storm-sky"].includes(id))],
+      ["midground", scene.layers.find(({ id }) =>
+        ["inhabited-world", "settlement"].includes(id))],
+      ["foreground", scene.layers.find(({ id }) =>
+        ["foreground-occlusion", "foreground-occluders"].includes(id))],
+      ["mechanism-light", scene.layers.find(({ id }) => id === "mechanism-light")],
+    ];
+    requireCondition(
+      semanticLayers.every(([suffix, layer]) =>
+        layer?.assetPath === assetPath(reviewBeat.worldID, suffix))
+        && new Set(semanticLayers.map(([, layer]) => layer.assetPath)).size === 4,
+      `${scene.id}: shared four-layer world is missing distinct semantic assets`,
+    );
+    for (const [suffix, layer] of semanticLayers.slice(1)) {
+      const maskSuffix = suffix.startsWith("state-")
+        ? "state-alpha"
+        : `${suffix}-alpha`;
+      requireCondition(
+        layer.masks?.alphaMaskAssetPath
+          === assetPath(reviewBeat.worldID, maskSuffix),
+        `${scene.id}/${layer.id}: semantic overlay lost its alpha mask`,
+      );
+    }
+    const statefulLayerIDs = scene.layers
+      .filter(({ stateVariants }) => stateVariants.length > 0)
+      .map(({ id }) => id);
+    const reduceMotionStateLayerIDs = scene.reduceMotionComposition.strata
+      .filter(({ kind }) => kind === "stateOverlay")
+      .map(({ layerID }) => layerID);
+    requireCondition(
+      statefulLayerIDs.every((layerID) =>
+        reduceMotionStateLayerIDs.includes(layerID)),
+      `${scene.id}: Reduce Motion lost an interactive consequence layer`,
+    );
+    const staticUnderlay = scene.reduceMotionComposition.strata.find(
+      ({ kind }) => kind === "staticPlate",
+    );
+    requireCondition(
+      staticUnderlay?.assetPath === assetPath(
+        reviewBeat.worldID,
+        `reduce-motion-${expectedStateSuffix}`,
+      ),
+      `${scene.id}: Reduce Motion does not project the beat's ${expectedStateSuffix} consequence`,
+    );
+    requireCondition(
+      scene.reduceMotionComposition.strata.some(({ kind, assetPath: pathValue }) =>
+        kind === "staticPlate"
+          && pathValue === assetPath(
+            reviewBeat.worldID,
+            "reduce-motion-foreground",
+          )),
+      `${scene.id}: Reduce Motion lost the foreground consequence`,
+    );
+    requireCondition(
+      scene.reduceMotionComposition.strata.some(({ id, kind, assetPath: pathValue }) =>
+        id === "static-mechanism-light"
+          && kind === "staticPlate"
+          && pathValue === assetPath(
+            reviewBeat.worldID,
+            "reduce-motion-mechanism-light",
+          )),
+      `${scene.id}: Reduce Motion lost the mechanism-light consequence`,
+    );
+    if (!beat.interaction) {
+      const stateLayer = scene.layers.find(({ id }) =>
+        id === "review-state-consequence");
+      requireCondition(
+        stateLayer?.assetPath === assetPath(reviewBeat.worldID, expectedStateSuffix),
+        `${scene.id}: normal and Reduce Motion state projections diverged`,
+      );
+    }
+    worldIDs.add(reviewBeat.worldID);
+    for (const target of scene.interactionTargets ?? []) {
+      const xs = target.hitRegion.path.map(({ x }) => x);
+      const ys = target.hitRegion.path.map(({ y }) => y);
+      requireCondition(
+        (Math.max(...xs) - Math.min(...xs)) * 393 >= 44 - 1e-6
+          && (Math.max(...ys) - Math.min(...ys)) * 852
+            >= 44 - 1e-6,
+        `${scene.id}/${target.interactionTargetID}: touch target is below 44 points`,
+      );
+      if (beat.interaction) {
+        const crop = scene.sceneCanvas.viewportCrops.find(
+          ({ id }) => id === "baseline-393x852",
+        );
+        requireCondition(
+          crop !== undefined,
+          `${scene.id}: interactive portrait crop is unavailable`,
+        );
+        const centerY = (Math.min(...ys) + Math.max(...ys)) / 2;
+        const viewportCenterY = (centerY - crop.sourceRect.y)
+          / crop.sourceRect.height;
+        requireCondition(
+          viewportCenterY >= 0 && viewportCenterY < 0.82,
+          `${scene.id}/${target.interactionTargetID}: target center is hidden by the interactive narrative sheet`,
+        );
+      }
+    }
+    if (beat.interaction && scene.interactionVisualBinding?.grammar === "allocate") {
+      const crop = scene.sceneCanvas.viewportCrops.find(
+        ({ id }) => id === "baseline-393x852",
+      );
+      const resourcePath = scene.interactionVisualBinding.configuration
+        ?.resource?.hitRegion?.path;
+      requireCondition(
+        crop !== undefined
+          && Array.isArray(resourcePath)
+          && resourcePath.length >= 3,
+        `${scene.id}: allocation resource touch region is unavailable`,
+      );
+      const resourceCenterY = resourcePath.reduce(
+        (sum, { y }) => sum + y,
+        0,
+      ) / resourcePath.length;
+      const resourceViewportCenterY = (resourceCenterY - crop.sourceRect.y)
+        / crop.sourceRect.height;
+      requireCondition(
+        resourceViewportCenterY >= 0 && resourceViewportCenterY < 0.82,
+        `${scene.id}: allocation resource center is hidden by the interactive narrative sheet`,
+      );
+    }
+  }
+  requireCondition(
+    worldIDs.size === 6,
+    "Chapter 01 review scenes must share exactly six worlds",
+  );
+
+  const trace = interactions.find(({ grammar }) => grammar === "trace");
+  const allocate = interactions.find(({ grammar }) => grammar === "allocate");
+  const assemble = interactions.find(({ grammar }) => grammar === "assemble");
+  const transforms = interactions.filter(({ grammar }) => grammar === "transform");
+  const traceBeat = beats.find(({ interaction }) =>
+    interaction?.grammar === "trace");
+  const traceScene = scenesByID.get(traceBeat?.sceneID);
+  const traceCrop = traceScene?.sceneCanvas.viewportCrops.find(
+    ({ id }) => id === "baseline-393x852",
+  );
+  requireCondition(
+    trace?.configuration?.anchors?.length === 4
+      && traceCrop !== undefined
+      && trace.configuration.anchors.every(({ y }) => {
+        const viewportY = (y - traceCrop.sourceRect.y)
+          / traceCrop.sourceRect.height;
+        return viewportY >= 0 && viewportY < 0.82;
+      })
+      && allocate?.configuration?.totalUnits === 12
+      && allocate?.configuration?.destinations?.map(({ minimumUnits }) =>
+        minimumUnits)
+        .join(",") === "4,2,3"
+      && assemble?.configuration?.components?.map(({ id, prerequisites }) =>
+        `${id}:${prerequisites.join("+")}`).join(",")
+        === "posts:,hearth:posts,storage:posts,roof:posts"
+      && transforms.length === 3
+      && transforms.every(({ configuration }) =>
+        configuration.stages.length === 3),
+    "Chapter 01 review interaction contract drifted",
+  );
+  return {
+    arcCount: chapter.arcs.length,
+    beatCount: beats.length,
+    interactionCount: interactions.length,
+    worldCount: worldIDs.size,
+    narrationCueCount: narrationCueIDs.size,
+    timelineCount: mainTimelineIDs.size + responsiveTimelineIDs.size,
+    transitionCount: transitionEvents.length,
+  };
+}
+
 function approvedArc(documents, contentID, arcID) {
   const chapter = documents.arcs.chapters.find((item) => item.contentID === contentID);
   const arc = chapter?.arcs.find((item) => item.arcID === arcID);
@@ -1233,120 +2338,6 @@ function revealNodeEffect(id, nodeID, kind, form, position, attributes = []) {
     mutation: "reveal-node",
     node: { id: nodeID, kind, form, position, attributes },
   };
-}
-
-function makeAssembleProjection(source) {
-  const sceneID = "lab-first-farmers-house-assembly";
-  const sourceBeat = source.chapters[0].arcs
-    .flatMap(({ beats }) => beats)
-    .find(({ interaction }) => interaction?.id === "interaction-first-farmers-the-house-outlives");
-  if (!sourceBeat) throw new Error("Missing authored house assembly beat");
-  const beat = structuredClone(sourceBeat);
-  beat.id = "beat-first-farmers-house-assembly";
-  beat.sceneID = sceneID;
-  beat.narrationCueIDs = [];
-  beat.interaction.accessibilityID = "accessibility-lab-first-farmers-house-assembly";
-  const mechanism = local(
-    `${sceneID}-mechanism-focus`,
-    "Posts, hearth, storage and roof make one house; rebuilding fixes the household to remembered ground.",
-  );
-  const sourcePositions = [
-    [0.2, 0.36], [0.36, 0.36], [0.52, 0.36], [0.68, 0.36],
-  ];
-  const slotPositions = [
-    [0.2, 0.64], [0.36, 0.64], [0.52, 0.64], [0.68, 0.64],
-  ];
-  const components = beat.interaction.configuration.components;
-  const componentLayers = components.map(({ id }, index) =>
-    technicalLayer(sceneID, `component-${id}`, index + 1, ["available", "resisted", "placed"]));
-  const targets = components.flatMap(({ id }, index) => [
-    {
-      interactionTargetID: `component-${id}-source`,
-      layerID: `component-${id}`,
-      hitRegion: targetRegion(...sourcePositions[index], 0.1, 0.1),
-      accessibilityElementID: `assemble-${id}`,
-    },
-    {
-      interactionTargetID: `component-${id}-slot`,
-      layerID: `component-${id}`,
-      hitRegion: targetRegion(...slotPositions[index], 0.1, 0.1),
-      accessibilityElementID: `assemble-${id}`,
-    },
-  ]);
-  const scene = technicalScene({
-    sceneID,
-    accessibilityID: beat.interaction.accessibilityID,
-    mechanism,
-    layers: [
-      technicalLayer(sceneID, "background", 0, [], { depth: 0.08, parallaxFactor: 0.02 }),
-      ...componentLayers,
-      technicalLayer(sceneID, "foreground", components.length + 1, [], {
-        depth: 0.92,
-        parallaxFactor: 0.08,
-      }),
-    ],
-    interactionTargets: targets,
-    interactionVisualBinding: {
-      grammar: "assemble",
-      configuration: {
-        interactionID: beat.interaction.id,
-        components: components.map(({ id }) => ({
-          componentID: id,
-          sourceInteractionTargetID: `component-${id}-source`,
-          slotInteractionTargetID: `component-${id}-slot`,
-          layerID: `component-${id}`,
-          availableVariantID: "available",
-          resistedVariantID: "resisted",
-          placedVariantID: "placed",
-        })),
-      },
-    },
-    atmosphere: {
-      kind: "smoke",
-      density: 0.13,
-      velocity: { dx: 0.03, dy: -0.08 },
-      deterministicSeed: 19910411,
-    },
-  });
-  const controls = components.map(({ id }) => ({
-    id: `assemble-${id}`,
-    role: "action",
-    label: local(`${beat.id}-${id}-label`, id.replaceAll("-", " ")),
-    actions: [action(
-      "activate",
-      `${beat.id}-${id}-place-label`,
-      `Place ${id.replaceAll("-", " ")}`,
-      { command: "place-component", targetID: id },
-    )],
-  }));
-  return { beat, scene, accessibility: makeAccessibility(beat, mechanism, controls) };
-}
-
-function makeTransformProjection(source) {
-  const sourceBeat = source.chapters[0].arcs
-    .flatMap(({ beats }) => beats)
-    .find(({ interaction }) =>
-      interaction?.id === moreMouthsTechnicalLiveSlice.interactionID);
-  const sourceScene = source.scenes.find(({ id }) => id === sourceBeat?.sceneID);
-  const sourceAccessibility = source.accessibility.find(
-    ({ id }) => id === sourceBeat?.interaction?.accessibilityID,
-  );
-  if (!sourceBeat || !sourceScene || !sourceAccessibility) {
-    throw new Error("Missing authored land transformation projection");
-  }
-  requireCondition(
-    sourceBeat.id === moreMouthsTechnicalLiveSlice.beatID
-      && sourceScene.id === moreMouthsTechnicalLiveSlice.sceneID
-      && sourceAccessibility.id === moreMouthsTechnicalLiveSlice.accessibilityID,
-    "More Mouths canonical identity drifted before technical projection",
-  );
-  const beat = structuredClone(sourceBeat);
-  beat.narrationCueIDs = [];
-  const scene = rewriteMoreMouthsTechnicalSceneAssets(
-    structuredClone(sourceScene),
-  );
-  const accessibility = structuredClone(sourceAccessibility);
-  return { beat, scene, accessibility };
 }
 
 function makePressureProjection(documents) {
@@ -1623,17 +2614,18 @@ function validateExperienceLabCoverage(payload, experienceLab) {
       (beat.interaction?.completionEffects ?? beat.completionEffects).map(({ id }) => id)),
   ]));
   for (const expected of experienceLab.scenes) {
-    const isCanonicalMoreMouths =
-      expected.nativeInteractionID === moreMouthsTechnicalLiveSlice.interactionID;
-    const expectedBeatID = isCanonicalMoreMouths
-      ? moreMouthsTechnicalLiveSlice.beatID
-      : expected.beatID;
-    const expectedSceneID = isCanonicalMoreMouths
-      ? moreMouthsTechnicalLiveSlice.sceneID
-      : expected.labSceneID;
     const chapter = payload.chapters.find(({ id }) => id === expected.contentID);
-    const arc = chapter?.arcs.find(({ id }) => id === expected.arcID);
-    const beat = arc?.beats.find(({ id }) => id === expectedBeatID);
+    const canonicalFirstFarmersBeat = expected.contentID === "first-farmers"
+      ? chapter?.arcs.flatMap(({ beats }) => beats).find(({ interaction }) =>
+        interaction?.id === expected.nativeInteractionID)
+      : undefined;
+    const arc = canonicalFirstFarmersBeat
+      ? chapter?.arcs.find(({ beats }) => beats.some(({ id }) =>
+        id === canonicalFirstFarmersBeat.id))
+      : chapter?.arcs.find(({ id }) => id === expected.arcID);
+    const beat = canonicalFirstFarmersBeat
+      ?? arc?.beats.find(({ id }) => id === expected.beatID);
+    const expectedSceneID = beat?.sceneID ?? expected.labSceneID;
     const scene = payload.scenes.find(({ id }) => id === expectedSceneID);
     if (!chapter || !arc || !beat || !scene) {
       issues.push(`${expectedSceneID}: chapter, arc, beat and scene are required`);
@@ -1688,68 +2680,63 @@ function validateExperienceLabCoverage(payload, experienceLab) {
   if (issues.length) throw new Error(issues.join("\n"));
 }
 
-function buildPayload(source, documents, experienceLab, responsiveAudioCandidates) {
+function buildPayload(
+  source,
+  documents,
+  experienceLab,
+  responsiveAudioCandidates,
+  reviewWorldIndex,
+  reviewNarration,
+  reviewTransitions,
+) {
   const sourceChapter = source.chapters.find(({ id }) => id === "first-farmers");
   const sourceBeats = sourceChapter?.arcs.flatMap(({ beats }) => beats) ?? [];
-  const harvestSourceBeat = sourceBeats.find(({ id }) =>
-    id === "beat-first-farmers-harvest-allocation");
-  const harvestSourceScene = source.scenes.find(({ id }) => id === "harvest-allocation-option-1");
-  if (!sourceChapter || sourceChapter.arcs.length !== 3 || sourceBeats.length !== 17
-      || !harvestSourceBeat || !harvestSourceScene) {
+  if (!sourceChapter || sourceChapter.arcs.length !== 3 || sourceBeats.length !== 17) {
     throw new Error("The authored First Farmers chapter source is incomplete");
   }
 
-  const harvestBeat = structuredClone(harvestSourceBeat);
-  const harvestSceneID = "lab-first-farmers-harvest-allocation";
-  harvestBeat.sceneID = harvestSceneID;
-  harvestBeat.narrationCueIDs = [];
-  harvestBeat.interaction.accessibilityID = "accessibility-lab-first-farmers-harvest-allocation";
-  const harvestScene = rewriteAuthoredSceneAssets(structuredClone(harvestSourceScene), harvestSceneID);
-  harvestScene.accessibilityID = harvestBeat.interaction.accessibilityID;
-  const harvestAccessibility = structuredClone(source.accessibility.find(
-    ({ id }) => id === harvestSourceBeat.interaction.accessibilityID,
-  ));
-  if (!harvestAccessibility) throw new Error("Harvest accessibility source is missing");
-  harvestAccessibility.id = harvestBeat.interaction.accessibilityID;
-
-  const assemble = makeAssembleProjection(source);
-  const transform = makeTransformProjection(source);
   const firstFarmers = structuredClone(sourceChapter);
-  const beatSubstitutions = new Map([
-    ["beat-first-farmers-harvest-allocation", harvestBeat],
-    ["beat-first-farmers-raise-longhouse", assemble.beat],
-    ["beat-first-farmers-more-mouths", transform.beat],
-  ]);
-  firstFarmers.arcs = firstFarmers.arcs.map((arc) => ({
-    ...arc,
-    beats: arc.beats.map((sourceBeat) => {
-      const beat = structuredClone(beatSubstitutions.get(sourceBeat.id) ?? sourceBeat);
-      // The live fixture deliberately excludes the still-unapproved narrator
-      // attempts. Responsive authored-state audio remains active for every
-      // principal interaction.
-      beat.narrationCueIDs = [];
-      return beat;
-    }),
-  }));
   // The authored draft carries a provisional convenience mutation that is
   // intentionally outside the approved WorldEffect ledger. The six approved
   // interaction effects already carry the complete chapter causal state.
   firstFarmers.completionEffects = [];
 
-  const replacedSceneIDs = new Set([
-    "harvest-allocation-option-1",
-    "scene-first-farmers-longhouse-assembly",
-    "scene-first-farmers-settlement-growth",
-  ]);
-  const chapterScenesByID = new Map(
-    source.scenes
-      .filter(({ id }) => !replacedSceneIDs.has(id))
-      .map((scene) => {
-        const projection = rewriteAuthoredSceneAssets(structuredClone(scene), scene.id);
-        return [projection.id, projection];
-      }),
-  );
-  for (const scene of [harvestScene, assemble.scene, transform.scene]) {
+  const sourceScenesByID = new Map(source.scenes.map((scene) => [scene.id, scene]));
+  const chapterScenesByID = new Map();
+  for (const beat of firstFarmers.arcs.flatMap(({ beats }) => beats)) {
+    const reviewBeat = reviewWorldIndex.beatsByID.get(beat.id);
+    const sourceScene = sourceScenesByID.get(beat.sceneID);
+    requireCondition(
+      reviewBeat?.sceneID === beat.sceneID && sourceScene !== undefined,
+      `${beat.id}: review matrix or authored scene identity drifted`,
+    );
+    const scene = beat.id === moreMouthsTechnicalLiveSlice.beatID
+      ? rewriteMoreMouthsTechnicalSceneAssets(
+        structuredClone(sourceScene),
+        reviewBeat.worldID,
+      )
+      : rewriteAuthoredSceneAssets(
+        structuredClone(sourceScene),
+        beat.sceneID,
+        reviewBeat.worldID,
+      );
+    if (beat.id === "beat-first-farmers-harvest-allocation") {
+      requireCondition(
+        typeof localizedEnglish(scene.mechanismFocus) === "string",
+        "Harvest review projection is missing its mechanism focus",
+      );
+      scene.mechanismFocus.launchEnglish =
+        "One finite harvest, divided into twelve equal illustrative runtime shares, must become winter food, protected reserve and seed grain before the grain in the foreground is exhausted.";
+    }
+    applyReviewBeatVariants(
+      scene,
+      reviewBeat,
+      reviewWorldIndex.worldsByID.get(reviewBeat.worldID),
+    );
+    enforcePortraitTouchTargets(
+      scene,
+      44,
+    );
     chapterScenesByID.set(scene.id, scene);
   }
   const chapterScenes = firstFarmers.arcs
@@ -1759,21 +2746,10 @@ function buildPayload(source, documents, experienceLab, responsiveAudioCandidate
     throw new Error("The live First Farmers chapter does not project exactly one scene per beat");
   }
 
-  const replacedAccessibilityIDs = new Set([
-    harvestSourceBeat.interaction.accessibilityID,
-    sourceBeats.find(({ id }) => id === "beat-first-farmers-raise-longhouse")
-      ?.interaction?.accessibilityID,
-    sourceBeats.find(({ id }) => id === "beat-first-farmers-more-mouths")
-      ?.interaction?.accessibilityID,
-  ]);
   const chapterAccessibilityByID = new Map(
     source.accessibility
-      .filter(({ id }) => !replacedAccessibilityIDs.has(id))
       .map((accessibility) => [accessibility.id, structuredClone(accessibility)]),
   );
-  for (const accessibility of [harvestAccessibility, assemble.accessibility, transform.accessibility]) {
-    chapterAccessibilityByID.set(accessibility.id, accessibility);
-  }
   const chapterAccessibility = chapterScenes.map((scene) =>
     chapterAccessibilityByID.get(scene.accessibilityID));
   if (chapterAccessibility.some((accessibility) => !accessibility)) {
@@ -1787,6 +2763,14 @@ function buildPayload(source, documents, experienceLab, responsiveAudioCandidate
     source,
     firstFarmers,
     responsiveAudioCandidates,
+  );
+  const firstFarmersMainTimelines = projectChapter01ReviewMainTimelines(
+    source,
+    firstFarmers,
+    responsiveAudioCandidates,
+    reviewNarration,
+    reviewTransitions,
+    reviewWorldIndex,
   );
   const supportingInteractiveRecords = [
     { chapterID: "europe-holds-the-line", arcID: "europe-holds-the-line-arc-01", beat: pressure.beat, sceneID: pressure.scene.id },
@@ -1825,6 +2809,7 @@ function buildPayload(source, documents, experienceLab, responsiveAudioCandidate
       harvestParallaxProof.scene,
     ],
     audioTimelines: [
+      ...firstFarmersMainTimelines,
       ...firstFarmersAudio.timelines,
       ...supportingAudio.flatMap(({ timelines }) => timelines),
     ],
@@ -1861,6 +2846,37 @@ async function launchConfiguration() {
 }
 
 async function main() {
+  const [
+    sourcePayload,
+    blueprint,
+    experienceLab,
+    responsiveAudioCandidates,
+    reviewMatrix,
+    reviewNarration,
+    reviewTransitions,
+  ] = await Promise.all([
+    readFile(sourcePayloadPath, "utf8").then(JSON.parse),
+    readBlueprintProjectionDocuments(blueprintRoot),
+    readFile(experienceLabPath, "utf8").then(JSON.parse),
+    loadFirstFarmersResponsiveAudioCandidates(),
+    readFile(chapter01ReviewMatrixPath, "utf8").then(JSON.parse),
+    loadChapter01ReviewNarration(),
+    loadChapter01ReviewTransitions(),
+  ]);
+  const reviewWorldIndex = validateChapter01ReviewMatrix(reviewMatrix);
+  const reviewDraftPath = path.resolve(
+    repositoryRoot,
+    reviewMatrix.sourceDraft?.path ?? "",
+  );
+  requireCondition(
+    !path.relative(repositoryRoot, reviewDraftPath).startsWith("..")
+      && sha256(await readFile(reviewDraftPath)) === reviewMatrix.sourceDraft?.sha256,
+    "Chapter 01 review matrix is not bound to the frozen manuscript bytes",
+  );
+
+  // Resolve and verify every immutable input before replacing the last usable
+  // fixture. A missing review cue or stale receipt must fail without leaving
+  // the development package half-deleted.
   for (const target of [sourceRoot, path.dirname(packageRoot), backstageRoot]) {
     await rm(target, { recursive: true, force: true });
   }
@@ -1868,31 +2884,32 @@ async function main() {
     await rm(target, { force: true });
   }
   await mkdir(path.join(sourceRoot, "chapters"), { recursive: true });
-  const renderedPaths = await renderAssets();
 
-  const [
-    sourcePayload,
-    blueprint,
-    experienceLab,
-    responsiveAudioCandidates,
-  ] = await Promise.all([
-    readFile(sourcePayloadPath, "utf8").then(JSON.parse),
-    readBlueprintProjectionDocuments(blueprintRoot),
-    readFile(experienceLabPath, "utf8").then(JSON.parse),
-    loadFirstFarmersResponsiveAudioCandidates(),
-  ]);
+  const visualSources = fixtureVisualSources(reviewWorldIndex);
+  const renderedPaths = await renderAssets(reviewWorldIndex, visualSources);
+  const chapter01ReviewRasterMasters =
+    await validateChapter01ReviewRasterAssets(reviewWorldIndex);
   const payload = buildPayload(
     sourcePayload,
     blueprint,
     experienceLab,
     responsiveAudioCandidates,
+    reviewWorldIndex,
+    reviewNarration,
+    reviewTransitions,
   );
   const responsiveAudioProjection =
     requireRepresentativeFirstFarmersResponsiveAudio(payload);
+  const chapter01ReviewComposition = requireChapter01ReviewComposition(
+    payload,
+    reviewMatrix,
+  );
   await removeUnreferencedRenderedAssets(payload, renderedPaths);
   await installFirstFarmersResponsiveAudioCandidates(
     responsiveAudioCandidates,
   );
+  await installChapter01ReviewNarration(reviewNarration);
+  await installChapter01ReviewTransitions(reviewTransitions);
   const firstFarmersProjection = payload.chapters.find(({ id }) => id === "first-farmers");
   const firstFarmersProjectedBeats = firstFarmersProjection.arcs.flatMap(({ beats }) => beats);
   const payloadPath = path.join(
@@ -1932,8 +2949,10 @@ async function main() {
   await writeJSON(lineagePath, {
     schemaVersion: 1,
     status: "CODEX_PROVISIONAL_NON_SHIPPING_TECHNICAL_FIXTURE",
+    milestone: "CHAPTER_01_REVIEW_READY",
+    milestoneStatus: "CANDIDATE_PENDING_REVIEW_GATES",
     authorityShape:
-      "FULL_FIRST_FARMERS_LIVE_TEST_PLUS_FIVE_GRAMMAR_LAB_WITH_UNREFERENCED_V26_PARTIAL_PASS_PROOF",
+      "CHAPTER_01_REVIEW_CANDIDATE_PLUS_EXISTING_SUPPORT_LABS",
     chapterIDs: payload.chapters.map(({ id }) => id),
     fullChapterProjection: {
       contentID: "first-farmers",
@@ -1943,7 +2962,11 @@ async function main() {
         .filter(({ interaction }) => interaction).length,
       sceneCount: firstFarmersProjectedBeats.length,
       accessibilityCount: firstFarmersProjectedBeats.length,
-      narrationState: "EXCLUDED_PENDING_EDITOR_APPROVAL",
+      worldCount: chapter01ReviewComposition.worldCount,
+      narrationCueCount: chapter01ReviewComposition.narrationCueCount,
+      audioTimelineCount: chapter01ReviewComposition.timelineCount,
+      transitionCount: chapter01ReviewComposition.transitionCount,
+      narrationState: "PROVISIONAL_NON_SHIPPING_REVIEW",
     },
     labSceneIDs: experienceLab.scenes.map(({ labSceneID }) => labSceneID),
     interactionIDs: experienceLab.scenes.map(({ nativeInteractionID }) => nativeInteractionID),
@@ -1960,14 +2983,68 @@ async function main() {
     shippingState: verticalSliceDevelopmentIdentity.shippingState,
     visualSources: await Promise.all(
       Object.entries(visualSources).map(async ([assetStemID, file]) => ({
-        sceneID: assetStemID === moreMouthsTechnicalLiveSlice.assetStemID
-          ? moreMouthsTechnicalLiveSlice.sceneID
-          : assetStemID,
+        ...(reviewWorldIndex.worldsByID.has(assetStemID)
+          ? {
+            worldID: assetStemID,
+            sourceStatus: reviewWorldIndex.worldsByID.get(assetStemID)
+              .sourceStatus,
+          }
+          : { sceneID: assetStemID }),
         assetStemID,
         ...await fileRecord(file),
       })),
     ),
     visualSourceStatus: "CODEX_PROVISIONAL_NON_SHIPPING_TECHNICAL_INPUT",
+    chapter01Review: {
+      status: "NON_SHIPPING_REVIEW",
+      shippingState: "PROHIBITED",
+      milestone: "CHAPTER_01_REVIEW_READY",
+      milestoneStatus: "CANDIDATE_PENDING_REVIEW_GATES",
+      matrix: await fileRecord(chapter01ReviewMatrixPath),
+      frozenDraft: await fileRecord(reviewDraftPath),
+      composition: chapter01ReviewComposition,
+      rasterMasters: chapter01ReviewRasterMasters,
+      worldIDs: [...reviewWorldIndex.worldsByID.keys()],
+      beatBindings: reviewMatrix.beats,
+      narration: {
+        manifest: await fileRecord(chapter01ReviewNarrationManifestPath),
+        manifestSHA256: reviewNarration.manifestSHA256,
+        status: reviewNarration.manifest.status,
+        shippingState: reviewNarration.manifest.shippingState,
+        cueCount: reviewNarration.byCueID.size,
+        combinedBindingSHA256:
+          reviewNarration.manifest.combinedBindingSHA256,
+        cues: await Promise.all(
+          [...reviewNarration.byCueID.values()].map(async (cue) => ({
+            cueID: cue.cueID,
+            manuscriptSegmentID: cue.manuscriptSegmentID,
+            manuscriptSegmentSHA256: cue.manuscriptSegmentSHA256,
+            packageAssetPath: reviewNarrationPackagePath(cue),
+            ...await fileRecord(path.resolve(repositoryRoot, cue.repositoryPath)),
+          })),
+        ),
+      },
+      transitions: {
+        manifest: await fileRecord(chapter01ReviewTransitionManifestPath),
+        manifestSHA256: reviewTransitions.manifestSHA256,
+        status: reviewTransitions.manifest.status,
+        shippingState: reviewTransitions.manifest.shippingState,
+        transitionCount: reviewTransitions.byTransitionID.size,
+        items: await Promise.all(
+          [...reviewTransitions.byTransitionID.values()].map(
+            async (transition) => ({
+              transitionID: transition.transitionID,
+              fromWorld: transition.fromWorld,
+              toWorld: transition.toWorld,
+              packageAssetPath: reviewTransitionPackagePath(transition),
+              ...await fileRecord(
+                path.resolve(repositoryRoot, transition.audio.path),
+              ),
+            }),
+          ),
+        ),
+      },
+    },
     moreMouthsTechnicalLiveSlice: {
       status: "CODEX_PROVISIONAL_NON_SHIPPING_CAUSAL_STATE_PROOF",
       shippingState: "PROHIBITED",
@@ -1976,22 +3053,25 @@ async function main() {
       accessibilityID: moreMouthsTechnicalLiveSlice.accessibilityID,
       interactionID: moreMouthsTechnicalLiveSlice.interactionID,
       technicalAssetStemID: moreMouthsTechnicalLiveSlice.assetStemID,
-      transparentOcclusionPlate: {
-        packageAssetPath: moreMouthsTechnicalLiveSlice.transparentAssetPath,
-        ...await fileRecord(path.join(
-          sourceRoot,
-          ...moreMouthsTechnicalLiveSlice.transparentAssetPath.split("/"),
-        )),
-      },
-      transparentReduceMotionForeground: {
-        packageAssetPath:
-          moreMouthsTechnicalLiveSlice.transparentReduceMotionAssetPath,
-        ...await fileRecord(path.join(
-          sourceRoot,
-          ...moreMouthsTechnicalLiveSlice.transparentReduceMotionAssetPath
-            .split("/"),
-        )),
-      },
+      stateAssetStemID: reviewWorldIndex.worldIDBySceneID.get(
+        moreMouthsTechnicalLiveSlice.sceneID,
+      ),
+      semanticLayers: await Promise.all(
+        chapter01ReviewSemanticAssetSuffixes.map(async (suffix) => {
+          const worldID = reviewWorldIndex.worldIDBySceneID.get(
+            moreMouthsTechnicalLiveSlice.sceneID,
+          );
+          const packageAssetPath = assetPath(worldID, suffix);
+          return {
+            suffix,
+            packageAssetPath,
+            ...await fileRecord(path.join(
+              sourceRoot,
+              ...packageAssetPath.split("/"),
+            )),
+          };
+        }),
+      ),
       stageMasks: await Promise.all(
         moreMouthsTechnicalLiveSlice.stageMasks.map(async (stage) => ({
           stageID: stage.stageID,

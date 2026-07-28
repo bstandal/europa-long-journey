@@ -16,7 +16,7 @@
     "denominator": 4
   },
   "tempoBPM": 54,
-  "direction": "Four material dependencies gather around one low ground. Accepted work adds weight and habitation; wrong order tightens without cinematic alarm or construction triumph.",
+  "direction": "Four material parts gather around one low ground. Posts establish the frame first; hearth, storage and roof may then enter in any order. A non-post part offered before the posts tightens without cinematic alarm or construction triumph.",
   "motifs": [
     {
       "id": "foundation-fifth",
@@ -122,7 +122,7 @@
       "stems": [
         {
           "id": "ground",
-          "role": "The marked plot remains fixed while the next dependency waits",
+          "role": "The marked plot remains fixed until posts establish the frame; after that the remaining parts share no order",
           "instrument": { "bank": 0, "program": 43, "label": "Contrabass" },
           "gainDB": -18,
           "pan": -0.18,
@@ -175,7 +175,7 @@
         },
         {
           "id": "frame",
-          "role": "Post figures gather more tightly as valid dependencies are placed",
+          "role": "Post figures gather first; accepted hearth, storage and roof material may then enter in any order",
           "instrument": { "bank": 0, "program": 42, "label": "Cello" },
           "gainDB": -18,
           "pan": 0.1,
@@ -207,7 +207,7 @@
       "stems": [
         {
           "id": "ground",
-          "role": "The plot remains unchanged when a component lacks its prerequisite",
+          "role": "The plot remains unchanged when hearth, storage or roof is offered before the posts",
           "instrument": { "bank": 0, "program": 43, "label": "Contrabass" },
           "gainDB": -15,
           "pan": -0.2,
@@ -218,7 +218,7 @@
         },
         {
           "id": "frame",
-          "role": "A compact semitone knot marks unsupported weight without failure spectacle",
+          "role": "A compact semitone knot marks a non-post part offered before the frame, without failure spectacle",
           "instrument": { "bank": 0, "program": 42, "label": "Cello" },
           "gainDB": -17,
           "pan": 0.05,
@@ -230,7 +230,7 @@
         },
         {
           "id": "inhabited",
-          "role": "Domestic colour withdraws until the component returns to a supported order",
+          "role": "Domestic colour withdraws until the posts stand; no order is imposed on the three remaining parts",
           "instrument": { "bank": 0, "program": 15, "label": "Dulcimer" },
           "gainDB": -25,
           "pan": 0.3,

@@ -6,7 +6,7 @@ let package = Package(
     name: "LongWestNative",
     defaultLocalization: "en",
     platforms: [
-        .macOS(.v14),
+        .macOS(.v15),
         .iOS("26.4"),
     ],
     products: [

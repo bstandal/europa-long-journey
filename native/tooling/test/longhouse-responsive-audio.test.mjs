@@ -40,6 +40,13 @@ test("the Longhouse responsive program is receipt-bound, deterministic and non-s
 
 test("Longhouse state beds retain one sample position and carry no narration or timed haptics", async () => {
   const { work } = await fullValidation();
+  assert.deepEqual(work.interactionDependency, {
+    prerequisiteComponentID: "posts",
+    requiredFirst: true,
+    remainingComponentIDs: ["hearth", "storage", "roof"],
+    remainingOrder: "ANY_ORDER",
+    resistanceOnlyBeforePrerequisite: true,
+  });
   assert.deepEqual(
     work.responsiveProgram.interactionBeds.map(({ phase, timelineID }) => ({ phase, timelineID })),
     [

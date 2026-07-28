@@ -15,6 +15,7 @@ const targets = Object.freeze([
   ["continent-remade-responsive-v1", "continent-remade-responsive-work-object.json"],
   ["more-mouths-responsive-v1", "more-mouths-responsive-work-object.json"],
   ["household-crosses-responsive-v1", "household-crosses-responsive-work-object.json"],
+  ["three-records-responsive-v1", "three-records-responsive-work-object.json"],
 ]);
 
 function fail(message) {

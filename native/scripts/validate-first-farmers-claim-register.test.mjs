@@ -41,10 +41,10 @@ test("validates the sealed First Farmers register and covers every narrative seg
   assert.equal(result.findingCount, 15);
   assert.equal(result.coveredSegmentCount, 37);
   assert.deepEqual(result.summary, sourceRegister.summary);
-  assert.equal(result.summary.closedDefects.F2, 1);
-  assert.equal(result.summary.closedDefects.F5, 1);
-  assert.equal(result.summary.openDefects.F2, 1);
-  assert.equal(result.summary.openDefects.F5, 1);
+  assert.equal(result.summary.closedDefects.F2, 2);
+  assert.equal(result.summary.closedDefects.F3, 2);
+  assert.equal(result.summary.closedDefects.F5, 2);
+  assert.ok(Object.values(result.summary.openDefects).every((count) => count === 0));
 });
 
 test("records only the two narrative-writer repairs as closed", () => {
@@ -58,18 +58,21 @@ test("records only the two narrative-writer repairs as closed", () => {
   assert.ok(resolved.every((finding) => finding.resolution.editorialFrameChanged === false));
 });
 
-test("queues every remaining editor decision privately and no closed repair", () => {
-  const editorDecisionIDs = sourceRegister.findings
-    .filter((finding) => finding.result === "EDITOR_DECISION")
-    .map((finding) => finding.id);
-  const closedIDs = sourceRegister.findings
-    .filter((finding) => finding.resolution?.status === "CLOSED")
-    .map((finding) => finding.id);
+test("records all four editor decisions as closed and applied backstage", () => {
+  const editorDecisions = sourceRegister.findings
+    .filter((finding) => finding.result === "EDITOR_DECISION");
 
-  assert.equal(editorDecisionIDs.length, 4);
-  assert.match(decisionQueueSource, /BACKSTAGE_ONLY_NO_PUBLIC_CHANGE_APPLIED/u);
-  for (const findingID of editorDecisionIDs) assert.ok(decisionQueueSource.includes(findingID));
-  for (const findingID of closedIDs) assert.ok(!decisionQueueSource.includes(findingID));
+  assert.equal(editorDecisions.length, 4);
+  assert.ok(editorDecisions.every((finding) => finding.editorDecision?.status === "CLOSED"));
+  assert.ok(editorDecisions.every((finding) =>
+    finding.editorDecision?.decidedBy === "EDITOR_IN_CHIEF"));
+  assert.ok(editorDecisions.every((finding) =>
+    finding.editorDecision?.narrativeRepair?.status === "APPLIED"));
+  assert.match(
+    decisionQueueSource,
+    /BACKSTAGE_EDITOR_DECISIONS_APPLIED_FOR_CHAPTER_01_REVIEW/u,
+  );
+  for (const finding of editorDecisions) assert.ok(decisionQueueSource.includes(finding.id));
 });
 
 test("rejects a register when the sealed source draft hash drifts", async () => {
@@ -142,6 +145,17 @@ test("rejects a narrative-writer closure of an editor decision", async () => {
   await assert.rejects(
     validateFirstFarmersClaimRegister({ repositoryRoot, register, draft: sourceDraft }),
     /only NARROW, REPLACE or REMOVE may be closed/u,
+  );
+});
+
+test("rejects an editor decision attributed to anyone but the editor-in-chief", async () => {
+  const register = clone(sourceRegister);
+  const finding = register.findings.find((candidate) => candidate.editorDecision);
+  finding.editorDecision.decidedBy = "VERIFIER";
+
+  await assert.rejects(
+    validateFirstFarmersClaimRegister({ repositoryRoot, register, draft: sourceDraft }),
+    /decidedBy: EDITOR_IN_CHIEF required/u,
   );
 });
 

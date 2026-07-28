@@ -52,6 +52,17 @@
       "durationSamples": 9600
     }
   },
+  "interactionDependency": {
+    "prerequisiteComponentID": "posts",
+    "requiredFirst": true,
+    "remainingComponentIDs": [
+      "hearth",
+      "storage",
+      "roof"
+    ],
+    "remainingOrder": "ANY_ORDER",
+    "resistanceOnlyBeforePrerequisite": true
+  },
   "timelines": [
     {
       "id": "longhouse-approach-v1",
@@ -346,7 +357,7 @@
       "timelineID": "longhouse-approach-v1",
       "status": "MISSING_EDITOR_SELECTED_NARRATION_MASTER",
       "requiredAssetPath": "audio/first-farmers/longhouse-responsive-v1/approach/narration-selected-master-required.wav",
-      "sourceDocumentSHA256": "4c3a0a2a4f9a3ec5361d2e34c2f6dd21072f27176e60c881f013c93f76e4a5dd",
+      "sourceDocumentSHA256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a",
       "segments": [
         {
           "manuscriptSegmentID": "ff-house-01",
@@ -354,7 +365,7 @@
         },
         {
           "manuscriptSegmentID": "ff-house-02",
-          "manuscriptSegmentSHA256": "be680f2d5df935bc86bb30c644eb67d1d0320610971b8e56746c2057e77f58d5"
+          "manuscriptSegmentSHA256": "ec15361294d85562014de84b713ce650446c0383b9412c9c8f366975448dbf7e"
         }
       ],
       "insertionRule": "ADD_NARRATION_EVENTS_ONLY_AFTER_EDITOR_VOICE_SELECTION_AND_EXACT_WORD_ALIGNMENT",
@@ -364,7 +375,7 @@
       "timelineID": "longhouse-consequence-v1",
       "status": "MISSING_EDITOR_SELECTED_NARRATION_MASTER",
       "requiredAssetPath": "audio/first-farmers/longhouse-responsive-v1/consequence/narration-selected-master-required.wav",
-      "sourceDocumentSHA256": "4c3a0a2a4f9a3ec5361d2e34c2f6dd21072f27176e60c881f013c93f76e4a5dd",
+      "sourceDocumentSHA256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a",
       "segments": [
         {
           "manuscriptSegmentID": "ff-plot-01",
@@ -449,7 +460,7 @@
       "startSample": 557760,
       "durationSamples": 9600,
       "id": "unsupported-hold",
-      "reason": "Stop the rejected load cleanly before the unchanged dependency order returns."
+      "reason": "Stop the rejected load cleanly before the posts-first condition returns."
     },
     {
       "timelineID": "longhouse-consequence-v1",
@@ -499,20 +510,20 @@
       {
         "id": "longhouse-responsive-score-source",
         "path": "native/audio/score-soundscape/longhouse-responsive-v1/score-source.json",
-        "bytes": 12570,
-        "sha256": "7738fe22923cb0ccf5ccc5c6afa4233618219a0d8589da2e693c6a481d349f32"
+        "bytes": 12779,
+        "sha256": "765bb01f38bd7c22fa0369b7ffb006e9c2571d2b9535f0405232e7abe61625fa"
       },
       {
         "id": "longhouse-responsive-soundscape-source",
         "path": "native/audio/score-soundscape/longhouse-responsive-v1/soundscape-source.json",
-        "bytes": 11324,
-        "sha256": "d3b36f9b397606c63452d05a3f64372976e4ac2170f43a01f6beeebd0c64a171"
+        "bytes": 11377,
+        "sha256": "601b1c8e90ec478070c23a85c21eeaf670fa432c6be66c19306e3103ec5a580b"
       },
       {
         "id": "first-farmers-manuscript-source",
         "path": "native/phase2/editor-review/first-farmers/first-farmers-native-draft-v1.json",
-        "bytes": 42780,
-        "sha256": "4c3a0a2a4f9a3ec5361d2e34c2f6dd21072f27176e60c881f013c93f76e4a5dd"
+        "bytes": 42857,
+        "sha256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a"
       },
       {
         "id": "native-audio-bible",
@@ -535,8 +546,8 @@
       {
         "id": "responsive-audio-program-controller",
         "path": "native/ios/Sources/DramaticAudio/ResponsiveAudioProgramController.swift",
-        "bytes": 33867,
-        "sha256": "743305b7f890c4c4ea51a69e6551d611f6849fbff627af764753e05508972241"
+        "bytes": 50562,
+        "sha256": "0393cc006447c4b439b3907b57a7a3932cdf16be05f092d14b75774faccf2ef9"
       },
       {
         "id": "responsive-audio-timeline-planner",
@@ -547,14 +558,14 @@
       {
         "id": "responsive-audio-transport-contract",
         "path": "native/ios/Sources/DramaticAudio/OfflineAudioAssetResolver.swift",
-        "bytes": 26432,
-        "sha256": "277eb7e1f9dfcceda0ce28d10e692f456f99d9e94a998efe58dbeece4904275d"
+        "bytes": 26761,
+        "sha256": "5740dace88181205755e55b6dfcf17ce9ee651cda4339223f48c608141a726b7"
       },
       {
         "id": "native-timeline-transport",
         "path": "native/ios/Sources/DramaticAudio/NativeTimelineTransport.swift",
-        "bytes": 156660,
-        "sha256": "bd97001ddf65824eaa84be7c5466cad67af526dbc02353e0ae79f33e6f4199b9"
+        "bytes": 190410,
+        "sha256": "9c0ea9fc9da683830e26562276f8763778b653b9f2adb80564a49482c5255408"
       },
       {
         "id": "durable-audio-completion-runtime",
@@ -577,8 +588,8 @@
       {
         "id": "longhouse-responsive-renderer",
         "path": "native/tooling/src/longhouse-responsive-audio.mjs",
-        "bytes": 45197,
-        "sha256": "fee98ac127a4d0b8efede5f3d2d6969f067183b2ddf4013b4c8d9dd0be9a73de"
+        "bytes": 46182,
+        "sha256": "17bdf21fdddd5779b6befb6f2529711e3625b57a5d6efa8ef75c33ad67005bdb"
       },
       {
         "id": "score-soundscape-toolchain",

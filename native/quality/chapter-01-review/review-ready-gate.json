@@ -1,0 +1,295 @@
+{
+  "schemaVersion": 1,
+  "gateID": "chapter-01-review-ready-v1",
+  "milestone": "CHAPTER_01_REVIEW_READY",
+  "status": "CANDIDATE",
+  "chapterID": "first-farmers",
+  "shippingState": "PROHIBITED",
+  "shippingAllowed": false,
+  "publicContentSchemaMutation": false,
+  "purpose": "Editor-facing Chapter 01 simulator review; this is neither production approval nor shipping approval.",
+  "sources": {
+    "draft": "native/phase2/editor-review/first-farmers/first-farmers-native-draft-v1.json",
+    "textFreeze": "native/content/backstage/first-farmers/chapter-01-review-text-freeze-v1.json",
+    "reviewMatrix": "native/phase2/runtime-fixture/chapter-01-review-matrix.json",
+    "contentPackage": "native/phase2/generated/first-farmers.content-package.json",
+    "narrationManifest": "native/audio/narration/review/chapter-01/manifest.json",
+    "transitionManifest": "native/audio/score-soundscape/chapter-01-review-transitions-v1/manifest.json",
+    "runtimeFixture": "native/phase2/runtime-fixture/compiled/vertical-slice-development-v1.runtimefixture",
+    "trustReceipt": "native/phase2/runtime-fixture/vertical-slice-development-trust-receipt.json",
+    "launchProject": "native/ios/project.yml",
+    "fixtureLoader": "native/ios/Sources/JourneyApp/DevelopmentSignedRuntimeFixtureAppContent.swift",
+    "releaseBoundary": "native/scripts/validate-release-app-boundary.mjs",
+    "receiptTemplates": "native/quality/chapter-01-review/templates/receipt-templates.json"
+  },
+  "expectedCounts": {
+    "arcs": 3,
+    "beats": 17,
+    "interactions": 6,
+    "reviewWorlds": 6,
+    "narrationCues": 37,
+    "firstFarmersAudioTimelines": 47,
+    "reviewTransitions": 3
+  },
+  "canonical": {
+    "arcIDs": [
+      "first-farmers-arc-01",
+      "first-farmers-arc-02",
+      "first-farmers-arc-03"
+    ],
+    "worldIDs": [
+      "review-world-iron-gates-danube",
+      "review-world-aegean-crossing",
+      "review-world-thessaly-first-field",
+      "review-world-harvest-store",
+      "review-world-longhouse-settlement",
+      "review-world-european-farming-belt"
+    ],
+    "transitionIDs": [
+      "transition-aegean-thessaly-v1",
+      "transition-store-iron-gates-v1",
+      "transition-farming-belt-steppe-v1"
+    ],
+    "saveIdentityFields": [
+      "chapterID",
+      "arcID",
+      "beatID",
+      "interactionID"
+    ],
+    "beatSaveAnchors": [
+      {
+        "arcID": "first-farmers-arc-01",
+        "beatID": "beat-first-farmers-river-world",
+        "sceneID": "scene-first-farmers-iron-gates-dawn",
+        "interactionID": null
+      },
+      {
+        "arcID": "first-farmers-arc-01",
+        "beatID": "beat-first-farmers-household-crosses",
+        "sceneID": "scene-first-farmers-aegean-crossing",
+        "interactionID": "interaction-first-farmers-a-household-crosses"
+      },
+      {
+        "arcID": "first-farmers-arc-01",
+        "beatID": "beat-first-farmers-living-system",
+        "sceneID": "scene-first-farmers-thessaly-landing",
+        "interactionID": null
+      },
+      {
+        "arcID": "first-farmers-arc-01",
+        "beatID": "beat-first-farmers-european-ground",
+        "sceneID": "scene-first-farmers-thessaly-first-season",
+        "interactionID": null
+      },
+      {
+        "arcID": "first-farmers-arc-01",
+        "beatID": "beat-first-farmers-inhabited-frontier",
+        "sceneID": "scene-first-farmers-danube-arrival",
+        "interactionID": null
+      },
+      {
+        "arcID": "first-farmers-arc-02",
+        "beatID": "beat-first-farmers-harvest-allocation",
+        "sceneID": "harvest-allocation-option-1",
+        "interactionID": "interaction-first-farmers-the-harvest-had-to-last"
+      },
+      {
+        "arcID": "first-farmers-arc-02",
+        "beatID": "beat-first-farmers-stored-future",
+        "sceneID": "scene-first-farmers-store-committed",
+        "interactionID": null
+      },
+      {
+        "arcID": "first-farmers-arc-02",
+        "beatID": "beat-first-farmers-gorge-contact",
+        "sceneID": "scene-first-farmers-iron-gates-contact",
+        "interactionID": null
+      },
+      {
+        "arcID": "first-farmers-arc-02",
+        "beatID": "beat-first-farmers-three-records",
+        "sceneID": "scene-first-farmers-iron-gates-transformation",
+        "interactionID": "interaction-first-farmers-at-the-iron-gates"
+      },
+      {
+        "arcID": "first-farmers-arc-02",
+        "beatID": "beat-first-farmers-frontier-consequence",
+        "sceneID": "scene-first-farmers-danube-to-loess",
+        "interactionID": null
+      },
+      {
+        "arcID": "first-farmers-arc-03",
+        "beatID": "beat-first-farmers-raise-longhouse",
+        "sceneID": "scene-first-farmers-longhouse-assembly",
+        "interactionID": "interaction-first-farmers-the-house-outlives"
+      },
+      {
+        "arcID": "first-farmers-arc-03",
+        "beatID": "beat-first-farmers-plot-remains",
+        "sceneID": "scene-first-farmers-longhouse-rebuilt",
+        "interactionID": null
+      },
+      {
+        "arcID": "first-farmers-arc-03",
+        "beatID": "beat-first-farmers-paternal-lines",
+        "sceneID": "scene-first-farmers-household-descent",
+        "interactionID": null
+      },
+      {
+        "arcID": "first-farmers-arc-03",
+        "beatID": "beat-first-farmers-more-mouths",
+        "sceneID": "scene-first-farmers-settlement-growth",
+        "interactionID": "interaction-first-farmers-more-mouths-more-land"
+      },
+      {
+        "arcID": "first-farmers-arc-03",
+        "beatID": "beat-first-farmers-growth-breaks",
+        "sceneID": "scene-first-farmers-local-contraction",
+        "interactionID": null
+      },
+      {
+        "arcID": "first-farmers-arc-03",
+        "beatID": "beat-first-farmers-continent-remade",
+        "sceneID": "scene-first-farmers-europe-transformation",
+        "interactionID": "interaction-first-farmers-a-continent-remade"
+      },
+      {
+        "arcID": "first-farmers-arc-03",
+        "beatID": "beat-first-farmers-before-steppe",
+        "sceneID": "scene-first-farmers-steppe-handoff",
+        "interactionID": null
+      }
+    ],
+    "narrationCueIDs": [
+      "narration-ff-river-world-01",
+      "narration-ff-river-world-02",
+      "narration-ff-crossing-01",
+      "narration-ff-crossing-02",
+      "narration-ff-system-01",
+      "narration-ff-system-02",
+      "narration-ff-ground-01",
+      "narration-ff-ground-02",
+      "narration-ff-frontier-01",
+      "narration-ff-frontier-02",
+      "narration-ff-harvest-01",
+      "narration-ff-harvest-02",
+      "narration-ff-harvest-03",
+      "narration-ff-harvest-04",
+      "narration-ff-harvest-05",
+      "narration-ff-stored-future-01",
+      "narration-ff-stored-future-02",
+      "narration-ff-contact-01",
+      "narration-ff-contact-02",
+      "narration-ff-records-01",
+      "narration-ff-records-02",
+      "narration-ff-frontier-consequence-01",
+      "narration-ff-frontier-consequence-02",
+      "narration-ff-house-01",
+      "narration-ff-house-02",
+      "narration-ff-plot-01",
+      "narration-ff-plot-02",
+      "narration-ff-descent-01",
+      "narration-ff-descent-02",
+      "narration-ff-growth-01",
+      "narration-ff-growth-02",
+      "narration-ff-contraction-01",
+      "narration-ff-contraction-02",
+      "narration-ff-continent-01",
+      "narration-ff-continent-02",
+      "narration-ff-ending-01",
+      "narration-ff-ending-02"
+    ],
+    "audioTimelineIDs": [
+      "audio-beat-first-farmers-river-world",
+      "audio-beat-first-farmers-household-crosses",
+      "household-crosses-approach-v1",
+      "household-crosses-waiting-bed-v1",
+      "household-crosses-engaged-bed-v1",
+      "household-crosses-resistance-bed-v1",
+      "household-crosses-consequence-v1",
+      "audio-beat-first-farmers-living-system",
+      "audio-beat-first-farmers-european-ground",
+      "audio-beat-first-farmers-inhabited-frontier",
+      "audio-beat-first-farmers-harvest-allocation",
+      "harvest-approach-v1",
+      "harvest-waiting-bed-v1",
+      "harvest-engaged-bed-v1",
+      "harvest-resistance-bed-v1",
+      "harvest-consequence-v1",
+      "audio-beat-first-farmers-stored-future",
+      "audio-beat-first-farmers-gorge-contact",
+      "audio-beat-first-farmers-three-records",
+      "three-records-approach-v1",
+      "three-records-waiting-bed-v1",
+      "three-records-engaged-bed-v1",
+      "three-records-resistance-bed-v1",
+      "three-records-consequence-v1",
+      "audio-beat-first-farmers-frontier-consequence",
+      "audio-beat-first-farmers-raise-longhouse",
+      "longhouse-approach-v1",
+      "longhouse-waiting-bed-v1",
+      "longhouse-engaged-bed-v1",
+      "longhouse-resistance-bed-v1",
+      "longhouse-consequence-v1",
+      "audio-beat-first-farmers-plot-remains",
+      "audio-beat-first-farmers-paternal-lines",
+      "audio-beat-first-farmers-more-mouths",
+      "more-mouths-approach-v1",
+      "more-mouths-waiting-bed-v1",
+      "more-mouths-engaged-bed-v1",
+      "more-mouths-resistance-bed-v1",
+      "more-mouths-consequence-v1",
+      "audio-beat-first-farmers-growth-breaks",
+      "audio-beat-first-farmers-continent-remade",
+      "continent-remade-approach-v1",
+      "continent-remade-waiting-bed-v1",
+      "continent-remade-engaged-bed-v1",
+      "continent-remade-resistance-bed-v1",
+      "continent-remade-consequence-v1",
+      "audio-beat-first-farmers-before-steppe"
+    ]
+  },
+  "requiredEvidence": [
+    {
+      "id": "automated-suites",
+      "type": "AUTOMATED_SUITES",
+      "path": "native/quality/chapter-01-review/evidence/automated-suites.receipt.json"
+    },
+    {
+      "id": "fixture-determinism",
+      "type": "FIXTURE_DETERMINISM",
+      "path": "native/quality/chapter-01-review/evidence/fixture-determinism.receipt.json"
+    },
+    {
+      "id": "simulator-traversal",
+      "type": "SIMULATOR_TRAVERSAL",
+      "path": "native/quality/chapter-01-review/evidence/simulator-traversal.receipt.json"
+    },
+    {
+      "id": "interaction-recordings",
+      "type": "INTERACTION_RECORDINGS",
+      "path": "native/quality/chapter-01-review/evidence/interaction-recordings.receipt.json"
+    },
+    {
+      "id": "restore-matrix",
+      "type": "RESTORE_MATRIX",
+      "path": "native/quality/chapter-01-review/evidence/restore-matrix.receipt.json"
+    },
+    {
+      "id": "audio-restore",
+      "type": "AUDIO_RESTORE",
+      "path": "native/quality/chapter-01-review/evidence/audio-restore.receipt.json"
+    },
+    {
+      "id": "accessibility",
+      "type": "ACCESSIBILITY",
+      "path": "native/quality/chapter-01-review/evidence/accessibility.receipt.json"
+    },
+    {
+      "id": "offline",
+      "type": "OFFLINE",
+      "path": "native/quality/chapter-01-review/evidence/offline.receipt.json"
+    }
+  ],
+  "promotionRule": "Status may change from CANDIDATE to PASS only after every source invariant and every required evidence receipt validates. PASS remains non-shipping."
+}

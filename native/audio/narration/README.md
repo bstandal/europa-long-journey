@@ -207,6 +207,16 @@ protects the terminal representative result. `v12_voxcpm2_presynthesis.py
 validate` protects the later closed pre-synthesis proof. All three validators
 run in the offline native verification path.
 
+Chapter 01 has one separate, editor-authorised review exception under
+`NON_SHIPPING_REVIEW`. It does not alter the V12 production authority. Two
+bounded VoxCPM2 probes were generated from candidates 05 and 06; neither passed
+the word-accuracy, retained-silence and decoder-collapse gates. The authorised
+fallback therefore renders all 37 frozen Chapter 01 segments with Qwen3-TTS
+Base candidate 05. The decision, probe evidence, exact cue hashes and encoded
+valid-frame durations used by AVAudioFile live under
+`native/audio/narration/review/chapter-01/`. Ordinary
+Release and shipping content packages must reject that directory.
+
 P1.07 and P1.08 remain open. There is no passing narration master, candidate
 promotion, editor voice choice, final pronunciation approval, artistic
 approval or shipping approval.

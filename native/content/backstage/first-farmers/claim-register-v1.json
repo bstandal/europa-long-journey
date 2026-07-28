@@ -6,10 +6,10 @@
   "shippingBoundary": "BACKSTAGE_ONLY_DO_NOT_PACKAGE",
   "sourceDraft": {
     "path": "native/phase2/editor-review/first-farmers/first-farmers-native-draft-v1.json",
-    "sha256": "4c3a0a2a4f9a3ec5361d2e34c2f6dd21072f27176e60c881f013c93f76e4a5dd"
+    "sha256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a"
   },
   "verification": {
-    "verifiedAt": "2026-07-24",
+    "verifiedAt": "2026-07-27",
     "publicMutationAuthorized": false,
     "verifierMayWritePublicProse": false,
     "editorialContractRemainsAuthoritative": true,
@@ -653,54 +653,54 @@
           "beatID": "beat-first-farmers-household-crosses",
           "segmentID": "ff-crossing-02",
           "fieldPath": "/narrative/segments/1/text",
-          "exactClaim": "what must remain untouched for spring"
+          "exactClaim": "what must remain untouched for the next sowing"
         },
         {
           "beatID": "beat-first-farmers-european-ground",
           "segmentID": "ff-ground-01",
           "fieldPath": "/narrative/segments/0/text",
-          "exactClaim": "A household has placed next spring inside European ground."
+          "exactClaim": "A household has opened European ground to the next sowing."
         },
         {
           "beatID": "beat-first-farmers-harvest-allocation",
           "segmentID": "ff-harvest-04",
           "fieldPath": "/narrative/segments/3/text",
-          "exactClaim": "Spring seed is food refused in winter: the next field held inside the present harvest."
+          "exactClaim": "Seed grain is food refused in winter: the next field held inside the present harvest."
         },
         {
           "beatID": "beat-first-farmers-harvest-allocation",
           "segmentID": "ff-harvest-05",
           "fieldPath": "/narrative/segments/4/text",
-          "exactClaim": "enlarge the spring sowing"
+          "exactClaim": "enlarge the next sowing"
         },
         {
           "beatID": "beat-first-farmers-harvest-allocation",
           "fieldPath": "/interaction/destinations/2/title",
-          "exactValue": "Spring seed",
-          "exactClaim": "Spring seed"
+          "exactValue": "Seed grain",
+          "exactClaim": "Seed grain"
         },
         {
           "beatID": "beat-first-farmers-stored-future",
           "segmentID": "ff-stored-future-01",
           "fieldPath": "/narrative/segments/0/text",
-          "exactClaim": "winter consumption must stop before it consumes spring"
+          "exactClaim": "winter consumption must stop before it consumes the grain kept for sowing"
         },
         {
           "beatID": "beat-first-farmers-stored-future",
           "fieldPath": "/sceneDirection/livingMotion/0",
-          "exactValue": "snow then thaw outside",
-          "exactClaim": "snow then thaw outside"
+          "exactValue": "winter dark then autumn rain outside",
+          "exactClaim": "winter dark then autumn rain outside"
         },
         {
           "beatID": "beat-first-farmers-stored-future",
           "fieldPath": "/sceneDirection/mechanismLight",
-          "exactClaim": "on the first thaw"
+          "exactClaim": "with the autumn rain"
         },
         {
           "beatID": "beat-first-farmers-before-steppe",
           "segmentID": "ff-ending-01",
           "fieldPath": "/narrative/segments/0/text",
-          "exactClaim": "A seed withheld in winter"
+          "exactClaim": "Seed grain kept for sowing"
         }
       ],
       "sourceIDs": [
@@ -708,7 +708,19 @@
       ],
       "sourceBasis": "For Early Neolithic Greece's Mediterranean cereal regime, Perlès identifies autumn as the probable sowing season. Spring sowing is possible in special wet or floodplain conditions, but the draft presents it as the governing Thessalian cereal calendar without such a setting.",
       "factualConflict": "The Harvest interaction, its visual season change and the chapter refrain make spring sowing the ordinary rule for emmer and einkorn in Thessaly.",
-      "smallestCorrection": "Preserve the causal triad of consumption, protected reserve and next sowing. Change only the seasonal identity and all linked thaw or spring cues to a defensible post-harvest-to-autumn-rain cycle. This touches an editor-approved interaction and requires the editor-in-chief's decision."
+      "smallestCorrection": "Preserve the causal triad of consumption, protected reserve and next sowing. Change only the seasonal identity and all linked thaw or spring cues to a defensible post-harvest-to-autumn-rain cycle. This touches an editor-approved interaction and requires the editor-in-chief's decision.",
+      "editorDecision": {
+        "status": "CLOSED",
+        "decidedAt": "2026-07-27",
+        "decidedBy": "EDITOR_IN_CHIEF",
+        "decision": "APPROVE_SMALLEST_CORRECTION",
+        "narrativeRepair": {
+          "status": "APPLIED",
+          "appliedAt": "2026-07-27",
+          "appliedBy": "NARRATIVE_WRITER",
+          "editorialFrameChanged": false
+        }
+      }
     },
     {
       "id": "ff-finding-physical-house-outlives-builders",
@@ -719,7 +731,7 @@
           "beatID": "beat-first-farmers-frontier-consequence",
           "segmentID": "ff-frontier-consequence-02",
           "fieldPath": "/narrative/segments/1/text",
-          "exactClaim": "The next structure must outlast its builders."
+          "exactClaim": "The next house plot must outlast its first timbers."
         }
       ],
       "sourceIDs": [
@@ -727,7 +739,19 @@
       ],
       "sourceBasis": "Radiocarbon modelling at Vráble gives individual LBK houses a median use-life of about 20–30 years. Settlement and plot continuity can span generations, but the physical timber building cannot be made to carry a general requirement that it outlive its builders.",
       "factualConflict": "The line assigns documented multi-generational continuity to the individual structure rather than to the house plot, rebuilding sequence or household institution.",
-      "smallestCorrection": "Move the outliving mechanism from the first timber structure to the worked plot and repeated rebuilding. Keep the arc's inheritance mechanism and title only if their referent is the house-as-continuity rather than one building. This is part of the approved causal spine and requires the editor-in-chief's decision."
+      "smallestCorrection": "Move the outliving mechanism from the first timber structure to the worked plot and repeated rebuilding. Keep the arc's inheritance mechanism and title only if their referent is the house-as-continuity rather than one building. This is part of the approved causal spine and requires the editor-in-chief's decision.",
+      "editorDecision": {
+        "status": "CLOSED",
+        "decidedAt": "2026-07-27",
+        "decidedBy": "EDITOR_IN_CHIEF",
+        "decision": "APPROVE_SMALLEST_CORRECTION",
+        "narrativeRepair": {
+          "status": "APPLIED",
+          "appliedAt": "2026-07-27",
+          "appliedBy": "NARRATIVE_WRITER",
+          "editorialFrameChanged": false
+        }
+      }
     },
     {
       "id": "ff-finding-longhouse-universal-build-order",
@@ -738,17 +762,15 @@
           "beatID": "beat-first-farmers-raise-longhouse",
           "segmentID": "ff-house-02",
           "fieldPath": "/narrative/segments/1/text",
-          "exactClaim": "Assemble the house in causal order."
+          "exactClaim": "Raise the load-bearing frame. Then make the shelter fit for a household."
         },
         {
           "beatID": "beat-first-farmers-raise-longhouse",
           "fieldPath": "/interaction/components/3/prerequisites",
           "exactValue": [
-            "posts",
-            "hearth",
-            "storage"
+            "posts"
           ],
-          "exactClaim": "The roof is locked behind posts, hearth and storage."
+          "exactClaim": "The roof becomes available once the posts stand."
         }
       ],
       "sourceIDs": [
@@ -756,7 +778,19 @@
       ],
       "sourceBasis": "Postholes establish the load-bearing frame, but the above-ground form, internal functions and actual sequence of fitting hearth, storage and roofing are reconstructed. Pavlů explicitly treats these functional readings as hypotheses rather than a recovered universal building order.",
       "factualConflict": "The interaction turns a designed gameplay dependency—hearth and storage must precede the roof—into a materially resisted historical order that the evidence cannot establish.",
-      "smallestCorrection": "Ground mandatory resistance only in structural dependencies supported by the post pattern. Do not claim a recovered universal order for hearth, storage and roof. Preserve the Assemble grammar and inheritance consequence. Because this changes an approved core interaction, it requires the editor-in-chief's decision."
+      "smallestCorrection": "Ground mandatory resistance only in structural dependencies supported by the post pattern. Do not claim a recovered universal order for hearth, storage and roof. Preserve the Assemble grammar and inheritance consequence. Because this changes an approved core interaction, it requires the editor-in-chief's decision.",
+      "editorDecision": {
+        "status": "CLOSED",
+        "decidedAt": "2026-07-27",
+        "decidedBy": "EDITOR_IN_CHIEF",
+        "decision": "APPROVE_SMALLEST_CORRECTION",
+        "narrativeRepair": {
+          "status": "APPLIED",
+          "appliedAt": "2026-07-27",
+          "appliedBy": "NARRATIVE_WRITER",
+          "editorialFrameChanged": false
+        }
+      }
     },
     {
       "id": "ff-finding-first-farmer-languages-gone",
@@ -767,7 +801,7 @@
           "beatID": "beat-first-farmers-before-steppe",
           "segmentID": "ff-ending-01",
           "fieldPath": "/narrative/segments/0/text",
-          "exactClaim": "The languages of the first farming households are gone."
+          "exactClaim": "Their voices were never written down. Their structure remains."
         }
       ],
       "sourceIDs": [
@@ -775,7 +809,19 @@
       ],
       "sourceBasis": "The first farmers' languages are unattested. Linguistic work can identify non-Indo-European farmer substrate vocabulary surviving in later Indo-European languages, but cannot demonstrate that every language lineage of the first farming households disappeared without descendants.",
       "factualConflict": "The categorical extinction claim exceeds what the linguistic record can establish and disregards demonstrable substrate survival.",
-      "smallestCorrection": "Retain the contrast between lost speech and enduring material structure without asserting complete extinction of every linguistic lineage. The claim opens the approved ending and therefore requires the editor-in-chief's decision."
+      "smallestCorrection": "Retain the contrast between lost speech and enduring material structure without asserting complete extinction of every linguistic lineage. The claim opens the approved ending and therefore requires the editor-in-chief's decision.",
+      "editorDecision": {
+        "status": "CLOSED",
+        "decidedAt": "2026-07-27",
+        "decidedBy": "EDITOR_IN_CHIEF",
+        "decision": "APPROVE_SMALLEST_CORRECTION",
+        "narrativeRepair": {
+          "status": "APPLIED",
+          "appliedAt": "2026-07-27",
+          "appliedBy": "NARRATIVE_WRITER",
+          "editorialFrameChanged": false
+        }
+      }
     }
   ],
   "summary": {
@@ -786,19 +832,19 @@
     "EDITOR_DECISION": 4,
     "openDefects": {
       "F1": 0,
-      "F2": 1,
-      "F3": 2,
+      "F2": 0,
+      "F3": 0,
       "F4": 0,
-      "F5": 1,
+      "F5": 0,
       "F6": 0,
       "F7": 0
     },
     "closedDefects": {
       "F1": 0,
-      "F2": 1,
-      "F3": 0,
+      "F2": 2,
+      "F3": 2,
       "F4": 0,
-      "F5": 1,
+      "F5": 2,
       "F6": 0,
       "F7": 0
     }

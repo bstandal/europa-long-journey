@@ -170,6 +170,44 @@ test('live-test signing is isolated from production push, CloudKit and app-group
   );
 });
 
+test('live-test bootstrap compiles out Apple commerce while Debug and Release retain it', async () => {
+  const model = await source('Sources/JourneyApp/JourneyModel.swift');
+  const bootstrap = model.slice(
+    model.indexOf('    func bootstrap() async {'),
+    model.indexOf('    private func beginObservingRuntimeContent() async {'),
+  );
+  const appleCommerceBootstrap = bootstrap.match(
+    /#if !NON_SHIPPING_LIVE_TEST\n([\s\S]*?)#endif/g,
+  ) ?? [];
+
+  assert.equal(appleCommerceBootstrap.length, 2);
+  assert.match(
+    appleCommerceBootstrap[0],
+    /await prepareCommerceForRestoration\(\)/,
+  );
+  assert.match(
+    appleCommerceBootstrap[1],
+    /await configureCommerceAfterRestoration\(\)/,
+  );
+  assert.doesNotMatch(
+    bootstrap.replaceAll(/#if !NON_SHIPPING_LIVE_TEST\n[\s\S]*?#endif/g, ''),
+    /prepareCommerceForRestoration|configureCommerceAfterRestoration/,
+  );
+
+  const commerceImplementation = model.slice(
+    model.indexOf('#if !NON_SHIPPING_LIVE_TEST\n    /// Loads only the authenticated local ownership snapshot'),
+    model.indexOf('    private func applyEntitlementSnapshot'),
+  );
+  assert.ok(commerceImplementation.startsWith('#if !NON_SHIPPING_LIVE_TEST'));
+  assert.match(commerceImplementation, /StoreKit2Provider\(\)/);
+  assert.match(commerceImplementation, /commerceClient\.productDetails\(\)/);
+  assert.match(
+    commerceImplementation,
+    /commerceClient\.refreshCurrentEntitlements\(\)/,
+  );
+  assert.ok(commerceImplementation.trimEnd().endsWith('#endif'));
+});
+
 test('app chapter route is coordinator-driven and the public content tree remains empty', async () => {
   const model = await source('Sources/JourneyApp/JourneyModel.swift');
   const rootView = await source('Sources/JourneyApp/RootView.swift');

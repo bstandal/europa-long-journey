@@ -92,7 +92,10 @@ function computedSummary(findings) {
   for (const finding of findings) {
     output[finding.result] += 1;
     if (finding.defectCode !== null) {
-      const bucket = finding.resolution?.status === "CLOSED" ? "closedDefects" : "openDefects";
+      const bucket = finding.resolution?.status === "CLOSED"
+        || finding.editorDecision?.status === "CLOSED"
+        ? "closedDefects"
+        : "openDefects";
       output[bucket][finding.defectCode] += 1;
     }
   }
@@ -184,7 +187,7 @@ export async function validateFirstFarmersClaimRegister({
       "sourceBasis",
       "factualConflict",
       "smallestCorrection",
-    ], ["resolution"], location);
+    ], ["resolution", "editorDecision"], location);
     requireCondition(stableIDPattern.test(finding.id), `${location}.id: stable kebab-case ID required`);
     requireCondition(!findingIDs.has(finding.id), `${location}.id: duplicate '${finding.id}'`);
     findingIDs.add(finding.id);
@@ -199,6 +202,7 @@ export async function validateFirstFarmersClaimRegister({
       requireCondition(finding.factualConflict === null, `${location}.factualConflict: PASS cannot carry a conflict`);
       requireCondition(finding.smallestCorrection === null, `${location}.smallestCorrection: PASS cannot prescribe a correction`);
       requireCondition(finding.resolution === undefined, `${location}.resolution: PASS cannot carry a repair resolution`);
+      requireCondition(finding.editorDecision === undefined, `${location}.editorDecision: PASS cannot carry an editor decision`);
     } else {
       requireCondition(allowedDefects.has(finding.defectCode), `${location}.defectCode: F1–F7 required`);
       requireNonEmptyString(finding.factualConflict, `${location}.factualConflict`);
@@ -221,6 +225,32 @@ export async function validateFirstFarmersClaimRegister({
       requireCondition(finding.resolution.repairKind === finding.result, `${location}.resolution.repairKind: must equal finding result`);
       requireNonEmptyString(finding.resolution.originalClaim, `${location}.resolution.originalClaim`);
       requireCondition(finding.resolution.editorialFrameChanged === false, `${location}.resolution.editorialFrameChanged: must remain false`);
+    }
+
+    if (finding.editorDecision !== undefined) {
+      requireCondition(finding.result === "EDITOR_DECISION", `${location}.editorDecision: requires an EDITOR_DECISION finding`);
+      requireCondition(finding.resolution === undefined, `${location}.editorDecision: cannot coexist with a verifier repair resolution`);
+      requireExactKeys(finding.editorDecision, [
+        "status",
+        "decidedAt",
+        "decidedBy",
+        "decision",
+        "narrativeRepair",
+      ], [], `${location}.editorDecision`);
+      requireCondition(finding.editorDecision.status === "CLOSED", `${location}.editorDecision.status: CLOSED required`);
+      requireCondition(/^\d{4}-\d{2}-\d{2}$/u.test(finding.editorDecision.decidedAt), `${location}.editorDecision.decidedAt: YYYY-MM-DD required`);
+      requireCondition(finding.editorDecision.decidedBy === "EDITOR_IN_CHIEF", `${location}.editorDecision.decidedBy: EDITOR_IN_CHIEF required`);
+      requireCondition(finding.editorDecision.decision === "APPROVE_SMALLEST_CORRECTION", `${location}.editorDecision.decision: approved smallest correction required`);
+      requireExactKeys(finding.editorDecision.narrativeRepair, [
+        "status",
+        "appliedAt",
+        "appliedBy",
+        "editorialFrameChanged",
+      ], [], `${location}.editorDecision.narrativeRepair`);
+      requireCondition(finding.editorDecision.narrativeRepair.status === "APPLIED", `${location}.editorDecision.narrativeRepair.status: APPLIED required`);
+      requireCondition(/^\d{4}-\d{2}-\d{2}$/u.test(finding.editorDecision.narrativeRepair.appliedAt), `${location}.editorDecision.narrativeRepair.appliedAt: YYYY-MM-DD required`);
+      requireCondition(finding.editorDecision.narrativeRepair.appliedBy === "NARRATIVE_WRITER", `${location}.editorDecision.narrativeRepair.appliedBy: NARRATIVE_WRITER required`);
+      requireCondition(finding.editorDecision.narrativeRepair.editorialFrameChanged === false, `${location}.editorDecision.narrativeRepair.editorialFrameChanged: must remain false`);
     }
 
     for (const [locationIndex, claimLocation] of finding.locations.entries()) {

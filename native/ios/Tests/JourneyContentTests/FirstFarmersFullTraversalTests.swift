@@ -47,10 +47,123 @@ final class FirstFarmersFullTraversalTests: XCTestCase {
         }
     }
 
+    func testChapter01ReviewRestoreMatrixCoversEveryBeatBoundaryAndInteractionMidpoint()
+        throws {
+        let envelope = try loadEnvelope()
+        let coordinator = ChapterCoordinator(repository: envelope.repository)
+        var state = try envelope.initialJourneyState()
+        state = try apply(
+            coordinator.beginActions(chapterID: "first-farmers", state: state),
+            to: state,
+            coordinator: coordinator,
+            restoringAfterEveryAction: false
+        )
+
+        var checkpoints: [RestoreMatrixCheckpoint] = []
+        while case .chapter("first-farmers") = state.route {
+            let cursor = try coordinator.currentCursor(state: state)
+            let entry = try restoreCheckpoint(
+                phase: "entry",
+                beatID: cursor.beat.id,
+                interactionID: cursor.beat.interaction?.id,
+                state: state,
+                coordinator: coordinator
+            )
+            state = entry.state
+            checkpoints.append(entry.checkpoint)
+
+            if let interaction = cursor.beat.interaction {
+                let actions = try canonicalCompletionActions(for: interaction)
+                let midpointAfterActionCount = max(1, actions.count / 2)
+                for (index, action) in actions.enumerated() {
+                    state = try apply(
+                        [.interact(spec: interaction, action: action)],
+                        to: state,
+                        coordinator: coordinator,
+                        restoringAfterEveryAction: false
+                    )
+                    if index + 1 == midpointAfterActionCount {
+                        XCTAssertNotEqual(
+                            state.activeChapter?.interaction?.phase,
+                            .complete,
+                            interaction.id.rawValue
+                        )
+                        let midpoint = try restoreCheckpoint(
+                            phase: "mid-interaction",
+                            beatID: cursor.beat.id,
+                            interactionID: interaction.id,
+                            state: state,
+                            coordinator: coordinator
+                        )
+                        state = midpoint.state
+                        checkpoints.append(midpoint.checkpoint)
+                    }
+                }
+                XCTAssertEqual(state.activeChapter?.interaction?.phase, .complete)
+            }
+
+            let exit = try restoreCheckpoint(
+                phase: "exit",
+                beatID: cursor.beat.id,
+                interactionID: cursor.beat.interaction?.id,
+                state: state,
+                coordinator: coordinator
+            )
+            state = exit.state
+            checkpoints.append(exit.checkpoint)
+            state = try apply(
+                coordinator.advanceActions(state: state).actions,
+                to: state,
+                coordinator: coordinator,
+                restoringAfterEveryAction: false
+            )
+        }
+
+        let entries = checkpoints.filter { $0.phase == "entry" }
+        let exits = checkpoints.filter { $0.phase == "exit" }
+        let midpoints = checkpoints.filter { $0.phase == "mid-interaction" }
+        XCTAssertEqual(entries.map(\.beatID), Self.expectedBeatIDs.map(\.rawValue))
+        XCTAssertEqual(exits.map(\.beatID), Self.expectedBeatIDs.map(\.rawValue))
+        XCTAssertEqual(midpoints.count, 6)
+        XCTAssertEqual(Set(midpoints.compactMap(\.interactionID)).count, 6)
+        XCTAssertTrue(checkpoints.allSatisfy { $0.beforeSHA256 == $0.afterSHA256 })
+        XCTAssertEqual(state.route, .world)
+        XCTAssertTrue(state.completedChapterIDs.contains("first-farmers"))
+
+        let receipt = RestoreMatrixReceipt(
+            formatVersion: 1,
+            chapterID: "first-farmers",
+            checkpoints: checkpoints,
+            finalStateSHA256: try digest(state)
+        )
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.sortedKeys, .withoutEscapingSlashes]
+        let receiptJSON = String(
+            decoding: try encoder.encode(receipt),
+            as: UTF8.self
+        )
+        print("CHAPTER_01_RESTORE_MATRIX=\(receiptJSON)")
+    }
+
     private struct TraversalResult {
         let state: JourneyState
         let visitedBeatIDs: [BeatID]
         let interactionIDs: [InteractionID]
+    }
+
+    private struct RestoreMatrixCheckpoint: Codable {
+        let phase: String
+        let beatID: String
+        let interactionID: String?
+        let beforeSHA256: String
+        let afterSHA256: String
+    }
+
+    private struct RestoreMatrixReceipt: Codable {
+        let formatVersion: Int
+        let chapterID: String
+        let checkpoints: [RestoreMatrixCheckpoint]
+        let finalStateSHA256: String
     }
 
     private func traverse(restoringAfterEveryAction: Bool) throws -> TraversalResult {
@@ -175,6 +288,30 @@ final class FirstFarmersFullTraversalTests: XCTestCase {
         }
         _ = try coordinator.currentCursor(state: restored)
         return restored
+    }
+
+    private func restoreCheckpoint(
+        phase: String,
+        beatID: BeatID,
+        interactionID: InteractionID?,
+        state: JourneyState,
+        coordinator: ChapterCoordinator
+    ) throws -> (state: JourneyState, checkpoint: RestoreMatrixCheckpoint) {
+        let beforeSHA256 = try digest(state)
+        let restored = try coldRestore(state, coordinator: coordinator)
+        let afterSHA256 = try digest(restored)
+        XCTAssertEqual(restored, state, "\(phase):\(beatID)")
+        XCTAssertEqual(afterSHA256, beforeSHA256, "\(phase):\(beatID)")
+        return (
+            restored,
+            RestoreMatrixCheckpoint(
+                phase: phase,
+                beatID: beatID.rawValue,
+                interactionID: interactionID?.rawValue,
+                beforeSHA256: beforeSHA256,
+                afterSHA256: afterSHA256
+            )
+        )
     }
 
     private func canonicalCompletionActions(

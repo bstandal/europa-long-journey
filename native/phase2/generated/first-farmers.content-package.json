@@ -152,7 +152,7 @@
                   },
                   {
                     "id": "ff-crossing-02",
-                    "launchEnglish": "The knowledge travels inside people. They know when to break the soil, how deep to set the seed, which animals to breed, where to keep grain dry and what must remain untouched for spring. Remove any one part and the rest becomes harder to sustain. Carry the household west."
+                    "launchEnglish": "The knowledge travels inside people. They know when to break the soil, how deep to set the seed, which animals to breed, where to keep grain dry and what must remain untouched for the next sowing. Remove any one part and the rest becomes harder to sustain. Carry the household west."
                   }
                 ],
                 "actionPrompt": {
@@ -261,7 +261,7 @@
                 "paragraphs": [
                   {
                     "id": "ff-ground-01",
-                    "launchEnglish": "A roof closes against rain. Hooves mark the same enclosure night after night. A strip of earth darkens under the digging stick. The work is modest, but its direction is absolute. A household has placed next spring inside European ground."
+                    "launchEnglish": "A roof closes against rain. Hooves mark the same enclosure night after night. A strip of earth darkens under the digging stick. The work is modest, but its direction is absolute. A household has opened European ground to the next sowing."
                   },
                   {
                     "id": "ff-ground-02",
@@ -317,7 +317,7 @@
           "targetDurationMinutes": 9,
           "situation": {
             "id": "first-farmers-arc-02-situation",
-            "launchEnglish": "A farming household faces winter, spoilage and the obligation to reserve seed for spring."
+            "launchEnglish": "A farming household faces winter, spoilage and the obligation to reserve seed for the next sowing."
           },
           "mechanism": {
             "id": "first-farmers-arc-02-mechanism",
@@ -363,11 +363,11 @@
                   },
                   {
                     "id": "ff-harvest-04",
-                    "launchEnglish": "And part must remain untouched. Spring seed is food refused in winter: the next field held inside the present harvest."
+                    "launchEnglish": "And part must remain untouched. Seed grain is food refused in winter: the next field held inside the present harvest."
                   },
                   {
                     "id": "ff-harvest-05",
-                    "launchEnglish": "Meet every obligation. What remains can ease winter, absorb loss or enlarge the spring sowing. The same grain cannot do all three."
+                    "launchEnglish": "Meet every obligation. What remains can ease winter, absorb loss or enlarge the next sowing. The same grain cannot do all three."
                   }
                 ],
                 "actionPrompt": {
@@ -417,7 +417,7 @@
                     "node": {
                       "id": "trace-seasonal-store",
                       "kind": "institution",
-                      "form": "A divided store binding winter food, reserve and spring seed",
+                      "form": "A divided store binding winter food, reserve and seed grain",
                       "position": {
                         "x": 0.56,
                         "y": 0.62
@@ -455,7 +455,7 @@
                 "paragraphs": [
                   {
                     "id": "ff-stored-future-01",
-                    "launchEnglish": "Nothing has been created. The harvest has been divided across present hunger, future loss and the field to come. Every valid choice leaves the same obligation behind: winter consumption must stop before it consumes spring."
+                    "launchEnglish": "Nothing has been created. The harvest has been divided across present hunger, future loss and the field to come. Every valid choice leaves the same obligation behind: winter consumption must stop before it consumes the grain kept for sowing."
                   },
                   {
                     "id": "ff-stored-future-02",
@@ -592,7 +592,7 @@
                   },
                   {
                     "id": "ff-frontier-consequence-02",
-                    "launchEnglish": "Upstream, the route reaches deep loess: ground that yields to cultivation and timber that can raise a house. Grain can now outlast a season. The next structure must outlast its builders."
+                    "launchEnglish": "Upstream, the route reaches deep loess: ground that yields to cultivation and timber that can raise a house. Grain can now outlast a season. The next house plot must outlast its first timbers."
                   }
                 ]
               },
@@ -652,7 +652,7 @@
                   },
                   {
                     "id": "ff-house-02",
-                    "launchEnglish": "Assemble the house in causal order. Every piece changes what the household can preserve, repair and pass forward."
+                    "launchEnglish": "Raise the load-bearing frame. Then make the shelter fit for a household. Every piece changes what the household can preserve, repair and pass forward."
                   }
                 ],
                 "actionPrompt": {
@@ -696,9 +696,7 @@
                       "id": "roof",
                       "targetSlot": "shelter",
                       "prerequisites": [
-                        "posts",
-                        "hearth",
-                        "storage"
+                        "posts"
                       ]
                     }
                   ]
@@ -998,7 +996,7 @@
                 "paragraphs": [
                   {
                     "id": "ff-ending-01",
-                    "launchEnglish": "The languages of the first farming households are gone. Their structure remains. A seed withheld in winter, a store raised from damp, a field cleared for another year and a house rebuilt beside its dead have fixed growing populations to inherited ground."
+                    "launchEnglish": "Their voices were never written down. Their structure remains. Seed grain kept for sowing, a store raised from damp, a field cleared for another year and a house rebuilt beside its dead have fixed growing populations to inherited ground."
                   },
                   {
                     "id": "ff-ending-02",
@@ -3253,7 +3251,7 @@
       },
       "mechanismFocus": {
         "id": "scene-harvest-mechanism-focus",
-        "launchEnglish": "One finite harvest, divided into twelve equal illustrative runtime shares, must become winter food, protected reserve and spring seed before the grain in the foreground is exhausted."
+        "launchEnglish": "One finite harvest, divided into twelve equal illustrative runtime shares, must become winter food, protected reserve and seed grain before the grain in the foreground is exhausted."
       },
       "accessibilityID": "accessibility-beat-first-farmers-harvest-allocation"
     },
@@ -3491,7 +3489,7 @@
       },
       "mechanismFocus": {
         "id": "scene-first-farmers-store-committed-mechanism-focus",
-        "launchEnglish": "Light leaves the hearth and arrives at the seed vessel on the first thaw."
+        "launchEnglish": "Light leaves the hearth and arrives at the seed vessel with the autumn rain."
       },
       "accessibilityID": "accessibility-beat-first-farmers-stored-future"
     },
@@ -5212,7 +5210,7 @@
       },
       "mechanismFocus": {
         "id": "scene-first-farmers-longhouse-assembly-mechanism-focus",
-        "launchEnglish": "Frame, hearth, store and roof become one household system whose dependencies remain visible."
+        "launchEnglish": "Posts establish the frame; hearth, store and roof then become one working household system in any order."
       },
       "accessibilityID": "accessibility-beat-first-farmers-raise-longhouse"
     },
@@ -7310,12 +7308,12 @@
           "cueID": "narration-ff-crossing-02",
           "role": "narration",
           "startSample": 872452,
-          "durationSamples": 1022609,
+          "durationSamples": 1064348,
           "assetPath": "requirements/first-farmers/audio/narration/ff-crossing-02.m4a",
           "gain": 1,
           "narrationBinding": {
             "manuscriptSegmentID": "ff-crossing-02",
-            "manuscriptSegmentSHA256": "3a0aebb10f020192508a0f664064fc03843feeaf5f70946f6deaeadecbcf91c4",
+            "manuscriptSegmentSHA256": "f975c91529a3c07afaf1f87c5f492ba37417d39823976a2a6ed3b92a75da2e75",
             "scope": {
               "chapterID": "first-farmers",
               "arcID": "first-farmers-arc-01",
@@ -7613,12 +7611,12 @@
           "cueID": "narration-ff-ground-01",
           "role": "narration",
           "startSample": 0,
-          "durationSamples": 834783,
+          "durationSamples": 855652,
           "assetPath": "requirements/first-farmers/audio/narration/ff-ground-01.m4a",
           "gain": 1,
           "narrationBinding": {
             "manuscriptSegmentID": "ff-ground-01",
-            "manuscriptSegmentSHA256": "09f495de3ba76e81e5d70d5310f5b1504dce18cdad2a83036276892930182df7",
+            "manuscriptSegmentSHA256": "7bddca3ffc685306f5138a78ea75072ed73151de9da640fc8bcae85aa4350e7c",
             "scope": {
               "chapterID": "first-farmers",
               "arcID": "first-farmers-arc-01",
@@ -7629,7 +7627,7 @@
         {
           "cueID": "narration-ff-ground-02",
           "role": "narration",
-          "startSample": 851583,
+          "startSample": 872452,
           "durationSamples": 897391,
           "assetPath": "requirements/first-farmers/audio/narration/ff-ground-02.m4a",
           "gain": 1,
@@ -7799,7 +7797,7 @@
           "gain": 1,
           "narrationBinding": {
             "manuscriptSegmentID": "ff-harvest-04",
-            "manuscriptSegmentSHA256": "0b9301865264ed5df18f692beeb526687aba8aa6465dd87a43b8ebde79e128c6",
+            "manuscriptSegmentSHA256": "c0c18499a1ba91729197b2b3aefb8711831af899dee81f46593b95414080c42c",
             "scope": {
               "chapterID": "first-farmers",
               "arcID": "first-farmers-arc-02",
@@ -7816,7 +7814,7 @@
           "gain": 1,
           "narrationBinding": {
             "manuscriptSegmentID": "ff-harvest-05",
-            "manuscriptSegmentSHA256": "af0581c8ef8f8ebdf98dccc0dd98ffd6e1fcfc7beb45b794bcac96ed89def0b3",
+            "manuscriptSegmentSHA256": "6a26b1eb81bd0420738c35a2c1afd2fdf3d8fbbd02035aae45b7466994b6b936",
             "scope": {
               "chapterID": "first-farmers",
               "arcID": "first-farmers-arc-02",
@@ -8049,12 +8047,12 @@
           "cueID": "narration-ff-stored-future-01",
           "role": "narration",
           "startSample": 0,
-          "durationSamples": 730435,
+          "durationSamples": 813913,
           "assetPath": "requirements/first-farmers/audio/narration/ff-stored-future-01.m4a",
           "gain": 1,
           "narrationBinding": {
             "manuscriptSegmentID": "ff-stored-future-01",
-            "manuscriptSegmentSHA256": "c22c8a9d2909dcd74fa9704aebef30ebae711f4caefe80fb1d902df322bec388",
+            "manuscriptSegmentSHA256": "7b332eb38373e2708939e3d9129de7c2ac56929df417ed55299a2674dba090cd",
             "scope": {
               "chapterID": "first-farmers",
               "arcID": "first-farmers-arc-02",
@@ -8065,7 +8063,7 @@
         {
           "cueID": "narration-ff-stored-future-02",
           "role": "narration",
-          "startSample": 747235,
+          "startSample": 830713,
           "durationSamples": 855652,
           "assetPath": "requirements/first-farmers/audio/narration/ff-stored-future-02.m4a",
           "gain": 1,
@@ -8536,12 +8534,12 @@
           "cueID": "narration-ff-frontier-consequence-02",
           "role": "narration",
           "startSample": 914191,
-          "durationSamples": 646957,
+          "durationSamples": 688696,
           "assetPath": "requirements/first-farmers/audio/narration/ff-frontier-consequence-02.m4a",
           "gain": 1,
           "narrationBinding": {
             "manuscriptSegmentID": "ff-frontier-consequence-02",
-            "manuscriptSegmentSHA256": "fc71f01cdd7f68107ec650d165940158323c86946ea8160386f8420ecfb833e5",
+            "manuscriptSegmentSHA256": "61a833e2bcfd178acf647e72b68a7be0b3d9849026242e5795107b90d76c5159",
             "scope": {
               "chapterID": "first-farmers",
               "arcID": "first-farmers-arc-02",
@@ -8601,12 +8599,12 @@
           "cueID": "narration-ff-house-02",
           "role": "narration",
           "startSample": 914191,
-          "durationSamples": 375652,
+          "durationSamples": 500870,
           "assetPath": "requirements/first-farmers/audio/narration/ff-house-02.m4a",
           "gain": 1,
           "narrationBinding": {
             "manuscriptSegmentID": "ff-house-02",
-            "manuscriptSegmentSHA256": "be680f2d5df935bc86bb30c644eb67d1d0320610971b8e56746c2057e77f58d5",
+            "manuscriptSegmentSHA256": "ec15361294d85562014de84b713ce650446c0383b9412c9c8f366975448dbf7e",
             "scope": {
               "chapterID": "first-farmers",
               "arcID": "first-farmers-arc-03",
@@ -9544,12 +9542,12 @@
           "cueID": "narration-ff-ending-01",
           "role": "narration",
           "startSample": 0,
-          "durationSamples": 876522,
+          "durationSamples": 813913,
           "assetPath": "requirements/first-farmers/audio/narration/ff-ending-01.m4a",
           "gain": 1,
           "narrationBinding": {
             "manuscriptSegmentID": "ff-ending-01",
-            "manuscriptSegmentSHA256": "440a310ce5533865f5b9410942aee6d03172846fa23255eee87286dceed217a4",
+            "manuscriptSegmentSHA256": "40441b803508af6fb42d4ac38cfe00ad24055765a40d047be51b2b7b32a23545",
             "scope": {
               "chapterID": "first-farmers",
               "arcID": "first-farmers-arc-03",
@@ -9560,7 +9558,7 @@
         {
           "cueID": "narration-ff-ending-02",
           "role": "narration",
-          "startSample": 893322,
+          "startSample": 830713,
           "durationSamples": 772174,
           "assetPath": "requirements/first-farmers/audio/narration/ff-ending-02.m4a",
           "gain": 1,
@@ -10128,7 +10126,7 @@
           "role": "narration",
           "label": {
             "id": "ff-crossing-02",
-            "launchEnglish": "The knowledge travels inside people. They know when to break the soil, how deep to set the seed, which animals to breed, where to keep grain dry and what must remain untouched for spring. Remove any one part and the rest becomes harder to sustain. Carry the household west."
+            "launchEnglish": "The knowledge travels inside people. They know when to break the soil, how deep to set the seed, which animals to breed, where to keep grain dry and what must remain untouched for the next sowing. Remove any one part and the rest becomes harder to sustain. Carry the household west."
           },
           "actions": []
         },
@@ -10233,7 +10231,7 @@
           "role": "narration",
           "label": {
             "id": "ff-ground-01",
-            "launchEnglish": "A roof closes against rain. Hooves mark the same enclosure night after night. A strip of earth darkens under the digging stick. The work is modest, but its direction is absolute. A household has placed next spring inside European ground."
+            "launchEnglish": "A roof closes against rain. Hooves mark the same enclosure night after night. A strip of earth darkens under the digging stick. The work is modest, but its direction is absolute. A household has opened European ground to the next sowing."
           },
           "actions": []
         },
@@ -10350,7 +10348,7 @@
           "role": "narration",
           "label": {
             "id": "ff-harvest-04",
-            "launchEnglish": "And part must remain untouched. Spring seed is food refused in winter: the next field held inside the present harvest."
+            "launchEnglish": "And part must remain untouched. Seed grain is food refused in winter: the next field held inside the present harvest."
           },
           "actions": []
         },
@@ -10359,7 +10357,7 @@
           "role": "narration",
           "label": {
             "id": "ff-harvest-05",
-            "launchEnglish": "Meet every obligation. What remains can ease winter, absorb loss or enlarge the spring sowing. The same grain cannot do all three."
+            "launchEnglish": "Meet every obligation. What remains can ease winter, absorb loss or enlarge the next sowing. The same grain cannot do all three."
           },
           "actions": []
         },
@@ -10453,7 +10451,7 @@
           "role": "adjustable",
           "label": {
             "id": "beat-first-farmers-harvest-allocation-seed-label",
-            "launchEnglish": "Spring seed"
+            "launchEnglish": "Seed grain"
           },
           "value": {
             "id": "beat-first-farmers-harvest-allocation-seed-value",
@@ -10464,7 +10462,7 @@
               "kind": "increment",
               "label": {
                 "id": "beat-first-farmers-harvest-allocation-seed-increment-label",
-                "launchEnglish": "Move one share to spring seed"
+                "launchEnglish": "Move one share to seed grain"
               },
               "token": {
                 "command": "allocate",
@@ -10476,7 +10474,7 @@
               "kind": "decrement",
               "label": {
                 "id": "beat-first-farmers-harvest-allocation-seed-decrement-label",
-                "launchEnglish": "Return one share from spring seed"
+                "launchEnglish": "Return one share from seed grain"
               },
               "token": {
                 "command": "allocate",
@@ -10512,7 +10510,7 @@
       "id": "accessibility-beat-first-farmers-stored-future",
       "sceneSummary": {
         "id": "beat-first-farmers-stored-future-scene-summary",
-        "launchEnglish": "The Year Is Bound. Light leaves the hearth and arrives at the seed vessel on the first thaw."
+        "launchEnglish": "The Year Is Bound. Light leaves the hearth and arrives at the seed vessel with the autumn rain."
       },
       "elements": [
         {
@@ -10529,7 +10527,7 @@
           "role": "narration",
           "label": {
             "id": "ff-stored-future-01",
-            "launchEnglish": "Nothing has been created. The harvest has been divided across present hunger, future loss and the field to come. Every valid choice leaves the same obligation behind: winter consumption must stop before it consumes spring."
+            "launchEnglish": "Nothing has been created. The harvest has been divided across present hunger, future loss and the field to come. Every valid choice leaves the same obligation behind: winter consumption must stop before it consumes the grain kept for sowing."
           },
           "actions": []
         },
@@ -10547,7 +10545,7 @@
           "role": "mechanism",
           "label": {
             "id": "scene-first-farmers-store-committed-mechanism-focus",
-            "launchEnglish": "Light leaves the hearth and arrives at the seed vessel on the first thaw."
+            "launchEnglish": "Light leaves the hearth and arrives at the seed vessel with the autumn rain."
           },
           "actions": []
         }
@@ -10739,7 +10737,7 @@
           "role": "narration",
           "label": {
             "id": "ff-frontier-consequence-02",
-            "launchEnglish": "Upstream, the route reaches deep loess: ground that yields to cultivation and timber that can raise a house. Grain can now outlast a season. The next structure must outlast its builders."
+            "launchEnglish": "Upstream, the route reaches deep loess: ground that yields to cultivation and timber that can raise a house. Grain can now outlast a season. The next house plot must outlast its first timbers."
           },
           "actions": []
         },
@@ -10758,7 +10756,7 @@
       "id": "accessibility-beat-first-farmers-raise-longhouse",
       "sceneSummary": {
         "id": "beat-first-farmers-raise-longhouse-scene-summary",
-        "launchEnglish": "Raise the House. Frame, hearth, store and roof become one household system whose dependencies remain visible."
+        "launchEnglish": "Raise the House. Posts establish the frame; hearth, store and roof then become one working household system in any order."
       },
       "elements": [
         {
@@ -10784,7 +10782,7 @@
           "role": "narration",
           "label": {
             "id": "ff-house-02",
-            "launchEnglish": "Assemble the house in causal order. Every piece changes what the household can preserve, repair and pass forward."
+            "launchEnglish": "Raise the load-bearing frame. Then make the shelter fit for a household. Every piece changes what the household can preserve, repair and pass forward."
           },
           "actions": []
         },
@@ -10793,7 +10791,7 @@
           "role": "mechanism",
           "label": {
             "id": "scene-first-farmers-longhouse-assembly-mechanism-focus",
-            "launchEnglish": "Frame, hearth, store and roof become one household system whose dependencies remain visible."
+            "launchEnglish": "Posts establish the frame; hearth, store and roof then become one working household system in any order."
           },
           "actions": []
         },
@@ -11261,7 +11259,7 @@
           "role": "narration",
           "label": {
             "id": "ff-ending-01",
-            "launchEnglish": "The languages of the first farming households are gone. Their structure remains. A seed withheld in winter, a store raised from damp, a field cleared for another year and a house rebuilt beside its dead have fixed growing populations to inherited ground."
+            "launchEnglish": "Their voices were never written down. Their structure remains. Seed grain kept for sowing, a store raised from damp, a field cleared for another year and a house rebuilt beside its dead have fixed growing populations to inherited ground."
           },
           "actions": []
         },

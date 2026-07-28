@@ -368,7 +368,7 @@
       "timelineID": "household-crosses-approach-v1",
       "status": "MISSING_EDITOR_SELECTED_NARRATION_MASTER",
       "requiredAssetPath": "audio/first-farmers/household-crosses-responsive-v1/approach/narration-selected-master-required.wav",
-      "sourceDocumentSHA256": "4c3a0a2a4f9a3ec5361d2e34c2f6dd21072f27176e60c881f013c93f76e4a5dd",
+      "sourceDocumentSHA256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a",
       "segments": [
         {
           "manuscriptSegmentID": "ff-crossing-01",
@@ -376,7 +376,7 @@
         },
         {
           "manuscriptSegmentID": "ff-crossing-02",
-          "manuscriptSegmentSHA256": "3a0aebb10f020192508a0f664064fc03843feeaf5f70946f6deaeadecbcf91c4"
+          "manuscriptSegmentSHA256": "f975c91529a3c07afaf1f87c5f492ba37417d39823976a2a6ed3b92a75da2e75"
         }
       ],
       "insertionRule": "ADD_NARRATION_EVENTS_ONLY_AFTER_EDITOR_VOICE_SELECTION_AND_EXACT_WORD_ALIGNMENT",
@@ -386,7 +386,7 @@
       "timelineID": "household-crosses-consequence-v1",
       "status": "MISSING_EDITOR_SELECTED_NARRATION_MASTER",
       "requiredAssetPath": "audio/first-farmers/household-crosses-responsive-v1/consequence/narration-selected-master-required.wav",
-      "sourceDocumentSHA256": "4c3a0a2a4f9a3ec5361d2e34c2f6dd21072f27176e60c881f013c93f76e4a5dd",
+      "sourceDocumentSHA256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a",
       "segments": [
         {
           "manuscriptSegmentID": "ff-system-01",
@@ -447,16 +447,7 @@
     "loopedTimelineHaptics": "FORBIDDEN",
     "accessibilityRule": "HAPTICS_NEVER_CARRY_THE_ONLY_CAUSAL_SIGNAL"
   },
-  "editorialBlocks": [
-    {
-      "code": "F5",
-      "manuscriptSegmentID": "ff-crossing-02",
-      "status": "UNRESOLVED_EDITOR_DECISION",
-      "issue": "SOWING_SEASON_FORMULATION_REMAINS_UNRESOLVED",
-      "publicProseMutation": "PROHIBITED",
-      "shippingBlock": true
-    }
-  ],
+  "editorialBlocks": [],
   "acousticBoundaries": {
     "scoreProhibitedClaims": [
       "martial scoring",
@@ -567,8 +558,8 @@
       {
         "id": "first-farmers-manuscript-source",
         "path": "native/phase2/editor-review/first-farmers/first-farmers-native-draft-v1.json",
-        "bytes": 42780,
-        "sha256": "4c3a0a2a4f9a3ec5361d2e34c2f6dd21072f27176e60c881f013c93f76e4a5dd"
+        "bytes": 42857,
+        "sha256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a"
       },
       {
         "id": "native-audio-bible",
@@ -591,8 +582,8 @@
       {
         "id": "responsive-audio-program-controller",
         "path": "native/ios/Sources/DramaticAudio/ResponsiveAudioProgramController.swift",
-        "bytes": 33867,
-        "sha256": "743305b7f890c4c4ea51a69e6551d611f6849fbff627af764753e05508972241"
+        "bytes": 50562,
+        "sha256": "0393cc006447c4b439b3907b57a7a3932cdf16be05f092d14b75774faccf2ef9"
       },
       {
         "id": "responsive-audio-timeline-planner",
@@ -603,14 +594,14 @@
       {
         "id": "responsive-audio-transport-contract",
         "path": "native/ios/Sources/DramaticAudio/OfflineAudioAssetResolver.swift",
-        "bytes": 26432,
-        "sha256": "277eb7e1f9dfcceda0ce28d10e692f456f99d9e94a998efe58dbeece4904275d"
+        "bytes": 26761,
+        "sha256": "5740dace88181205755e55b6dfcf17ce9ee651cda4339223f48c608141a726b7"
       },
       {
         "id": "native-timeline-transport",
         "path": "native/ios/Sources/DramaticAudio/NativeTimelineTransport.swift",
-        "bytes": 156660,
-        "sha256": "bd97001ddf65824eaa84be7c5466cad67af526dbc02353e0ae79f33e6f4199b9"
+        "bytes": 190410,
+        "sha256": "9c0ea9fc9da683830e26562276f8763778b653b9f2adb80564a49482c5255408"
       },
       {
         "id": "durable-audio-completion-runtime",
@@ -633,8 +624,8 @@
       {
         "id": "household-crosses-responsive-renderer",
         "path": "native/tooling/src/household-crosses-responsive-audio.mjs",
-        "bytes": 57266,
-        "sha256": "feb8921ba51ba24f9fce84755f4b6dd99bdaebe7a7d215a80948f74815094ade"
+        "bytes": 56710,
+        "sha256": "b836586e63cdbf42c4a6029f953dd1e1e1051f49dff9f07fd0236eba4ea5a882"
       },
       {
         "id": "score-soundscape-toolchain",
@@ -674,7 +665,7 @@
     "narrationMaster": "OPEN_MISSING_EDITOR_SELECTED_MASTER",
     "narrationWordAlignment": "OPEN_MISSING_EDITOR_SELECTED_MASTER",
     "integratedLoudnessCalibration": "OPEN_UNTIL_NARRATION_MASTER_IS_BOUND",
-    "narrationF5SowingSeason": "OPEN_EDITOR_DECISION_SHIPPING_BLOCK",
+    "narrationF5SowingSeason": "PASS_EDITOR_REPAIR_BOUND_TO_FROZEN_TEXT",
     "artisticApproval": "OPEN",
     "editorApproval": "OPEN",
     "shippingApproval": "PROHIBITED",
@@ -685,7 +676,6 @@
     "artistic approval",
     "shipping approval",
     "final narration integration",
-    "resolved ff-crossing-02 sowing-season F5",
     "physical-device quality"
   ]
 }

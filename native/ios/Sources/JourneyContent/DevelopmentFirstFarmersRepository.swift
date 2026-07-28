@@ -160,6 +160,10 @@ public struct DevelopmentFirstFarmersRepository: ChapterContentRepository {
         return result
     }
 
+    public func audioTimeline(_ id: AudioTimelineID) -> AudioTimeline? {
+        timelineByID[id]
+    }
+
     public func responsiveAudioProgram(
         for interactionID: InteractionID
     ) -> ResponsiveAudioProgramSpec? {

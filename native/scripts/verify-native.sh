@@ -26,6 +26,7 @@ node --test "$NATIVE_ROOT/phase2"/*.test.mjs
 node "$NATIVE_ROOT/phase2/validate-first-farmers-draft.mjs"
 node "$NATIVE_ROOT/phase2/generate-first-farmers-chapter.mjs" --check
 node "$NATIVE_ROOT/phase2/generate-first-farmers-payload.mjs" --check
+node "$NATIVE_ROOT/scripts/validate-chapter-01-review-ready.mjs"
 
 NARRATION_ROOT="$NATIVE_ROOT/audio/narration"
 uv run --project "$NARRATION_ROOT" --frozen --offline \
@@ -84,6 +85,21 @@ xcodebuild -quiet \
   CODE_SIGNING_ALLOWED=NO \
   clean build test
 
+# The ordinary Debug scheme exercises the signed fixture boundary, but it
+# cannot compile the direct-launch contract guarded by NON_SHIPPING_LIVE_TEST.
+# Keep one focused live-test pass in the standard gate so that the editor-facing
+# build must open Chapter 01 without fixture arguments and retain its place
+# across a hard kill, then complete all 17 beats and six interactions.
+xcodebuild -quiet \
+  -project LongWestJourney.xcodeproj \
+  -scheme LongWestJourneyLiveTest \
+  -destination "platform=iOS Simulator,name=iPhone 17 Pro" \
+  CODE_SIGNING_ALLOWED=NO \
+  test \
+  -only-testing:JourneyAppUITests/JourneyAppUITests/testLiveFirstFarmersNeedsNoFixtureArgumentAndRestoresAfterHardKill \
+  -only-testing:JourneyAppUITests/JourneyAppUITests/testSignedFirstFarmersTraversesSeventeenBeatsWithSixPhysicalInteractions
+print -r -- "CHAPTER_01_LIVE_UI_TRAVERSAL beats=17 interactions=6"
+
 RELEASE_DERIVED="$(mktemp -d "${TMPDIR:-/tmp}/long-west-release-boundary.XXXXXX")"
 trap 'rm -rf -- "$RELEASE_DERIVED"' EXIT
 xcodebuild -quiet \
@@ -99,3 +115,5 @@ RELEASE_APP="$RELEASE_DERIVED/Build/Products/Release-iphonesimulator/LongWestJou
 node "$NATIVE_ROOT/scripts/validate-release-app-boundary.mjs" \
   --app "$RELEASE_APP" \
   --mode boundary-only
+
+print -r -- "CHAPTER_01_NATIVE_VERIFY=PASS"

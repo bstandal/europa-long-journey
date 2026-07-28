@@ -94,6 +94,48 @@ struct ChapterRuntimeRouteIdentity: Equatable, Hashable {
     let reduceMotion: Bool
 }
 
+#if DEBUG || NON_SHIPPING_LIVE_TEST
+/// Private authority for the review build's one finite, user-paced timeline
+/// per beat. It is derived from the same signed package and route identity as
+/// the scene runtime; it never enters a content package or public schema.
+struct NonShippingReviewPrimaryAudioAuthority: Codable, Equatable, Sendable {
+    let formatVersion: Int
+    let contentRevision: UInt64
+    let chapterID: ChapterID
+    let packageID: PackageID
+    let packageManifestDigest: String
+    let beatID: BeatID
+    let timelineID: AudioTimelineID
+
+    init(
+        identity: ChapterRuntimeRouteIdentity,
+        timelineID: AudioTimelineID
+    ) {
+        formatVersion = 1
+        contentRevision = identity.contentRevision
+        chapterID = identity.chapterID
+        packageID = identity.packageID
+        packageManifestDigest = identity.packageManifestDigest
+        beatID = identity.beatID
+        self.timelineID = timelineID
+    }
+}
+
+struct NonShippingReviewPrimaryAudioBinding: Sendable {
+    let authority: NonShippingReviewPrimaryAudioAuthority
+    let timeline: AudioTimeline
+    let resolver: any OfflineAudioAssetResolving
+    let journalCursorSample: Int64
+    let cursorDirectoryURL: URL
+
+    var narrationCueIDs: [AudioCueID] {
+        timeline.events.compactMap { event in
+            event.role == .narration ? event.cueID : nil
+        }
+    }
+}
+#endif
+
 enum JourneyChapterRuntimeError: Error, Equatable {
     case routeAuthorityUnavailable
     case routeAuthorityChanged
@@ -354,6 +396,7 @@ final class JourneyModel: ObservableObject {
         "none"
     @Published private var responsiveAudioPresentationSyncDiagnosticForTesting =
         "none"
+    @Published private var responsiveAudioLastEphemeralPhaseForTesting = "none"
     @Published private(set) var contentAuthorityBarrierDiagnosticForTesting =
         "none"
     @Published private(set) var contentAuthorityAudioDiagnosticForTesting =
@@ -466,6 +509,7 @@ final class JourneyModel: ObservableObject {
             + ";durable=\(committedState.activeChapter?.responsiveAudioSnapshot?.interactionPhase?.rawValue ?? "none")"
             + ";pending=\(pendingResponsiveAudioPhaseIntent?.rawValue ?? "none")"
             + ";pause=\(pauseReason)"
+            + ";lastEphemeral=\(responsiveAudioLastEphemeralPhaseForTesting)"
             + ";liveCursor=\(liveCursor);durableCursor=\(durableCursor)"
             + ";journalCursor=\(journalCursor)"
             + ";route=\(responsiveAudioRouteChangeDiagnosticForTesting)"
@@ -902,9 +946,9 @@ final class JourneyModel: ObservableObject {
     }
 
     var signedRuntimeProgressDigestForTesting: String {
-        guard ProcessInfo.processInfo.arguments.contains(
-            DevelopmentSignedRuntimeFixtureAppContent.launchArgument
-        ) else { return "" }
+        guard DevelopmentSignedRuntimeFixtureAppContent.isActive else {
+            return ""
+        }
         let encoder = JSONEncoder()
         encoder.outputFormatting = [.sortedKeys]
         let bytes = (try? encoder.encode(committedState)) ?? Data()
@@ -1604,13 +1648,11 @@ final class JourneyModel: ObservableObject {
         // while the controller rolls back; no capture may race that rejected
         // cursor into the recoverable sidecar.
         await stopResponsiveAudioCursorWorkerForOrderedExit()
-#if DEBUG
-        beginOrderedExitAudioAuditForTesting(controller: controller)
-#endif
         let finalSnapshot: ResponsiveAudioProgramSnapshot
         if controller.runtime.stage == .consequence,
            controller.runtime.isPlaying {
 #if DEBUG
+            beginOrderedExitAudioAuditForTesting(controller: controller)
             armOrderedExitConsequenceRelinquishProbeForTesting(
                 controller: controller
             )
@@ -1642,10 +1684,16 @@ final class JourneyModel: ObservableObject {
                 throw error
             }
         } else {
+            // The off-MainActor worker may have persisted a newer cursor than
+            // the deterministic runtime last observed. Once that worker is
+            // stopped, synchronize one exact pre-pause C0 so every accepted
+            // sidecar capture precedes the transactional fallback.
+            let exactFailureFallback = try controller
+                .checkpointForDurability()
 #if DEBUG
+            beginOrderedExitAudioAuditForTesting(controller: controller)
             armOrderedExitTransportProbeForTesting(controller: controller)
 #endif
-            let exactFailureFallback = controller.runtime.snapshot()
             do {
                 let action = try controller.quiesceForSuspension(.routeChange)
                 guard case let .setResponsiveAudioSnapshot(snapshot) = action
@@ -1831,9 +1879,8 @@ final class JourneyModel: ObservableObject {
         switch access(to: chapterID) {
         case .included, .purchased:
 #if DEBUG || NON_SHIPPING_LIVE_TEST
-            if ProcessInfo.processInfo.arguments.contains(
-                DevelopmentSignedRuntimeFixtureAppContent.launchArgument
-            ), let snapshot = runtimeContentSnapshot,
+            if DevelopmentSignedRuntimeFixtureAppContent.isActive,
+               let snapshot = runtimeContentSnapshot,
                let verifiedChapter = snapshot.repository.catalogEntry(
                    chapterID
                ) {
@@ -1953,6 +2000,142 @@ final class JourneyModel: ObservableObject {
             reduceMotion: reduceMotion
         )
     }
+
+#if DEBUG || NON_SHIPPING_LIVE_TEST
+    /// The main beat timeline is deliberately available only to the signed
+    /// non-shipping live fixture. Its assets are still resolved through the
+    /// accepted package manifest; this seam does not admit loose review files.
+    func nonShippingReviewPrimaryAudioTimelineID(
+        for identity: ChapterRuntimeRouteIdentity
+    ) -> AudioTimelineID? {
+        guard DevelopmentSignedRuntimeFixtureAppContent.isActive,
+              chapterRuntimeRouteIdentity(
+                  for: identity.chapterID,
+                  viewportCropID: identity.viewportCropID,
+                  reduceMotion: identity.reduceMotion
+              ) == identity,
+              chapterCursor?.beat.id == identity.beatID,
+              chapterCursor?.audioTimelineIDs.count == 1 else {
+            return nil
+        }
+        return chapterCursor?.audioTimelineIDs[0]
+    }
+
+    func nonShippingReviewPrimaryAudioBinding(
+        for identity: ChapterRuntimeRouteIdentity
+    ) throws -> NonShippingReviewPrimaryAudioBinding? {
+        guard let timelineID = nonShippingReviewPrimaryAudioTimelineID(
+                  for: identity
+              ), let coordinator = chapterCoordinator,
+              let timeline = coordinator.repository.audioTimeline(timelineID),
+              timeline.events.contains(where: { $0.role == .narration }),
+              let runtimeAuthority = currentChapterRuntimeAuthority(),
+              let packageRootURL = runtimeAuthority.packageRootURL(
+                  for: identity.packageID
+              ), let verifiedPackage = runtimeAuthority.verifiedPackage(
+                  for: identity.packageID
+              ), verifiedPackage.manifest.manifestDigest
+                  == identity.packageManifestDigest else {
+            return nil
+        }
+        let resolver = try ManifestBoundAudioAssetResolver(
+            verifiedPackage: verifiedPackage,
+            activatedPackageRoot: packageRootURL
+        )
+        let narration = committedState.activeChapter?.narration
+        let cueIDs = Set(timeline.events.compactMap { event in
+            event.role == .narration ? event.cueID : nil
+        })
+        let journalCursor: Int64
+        if let cueID = narration?.cueID,
+           cueIDs.contains(cueID),
+           let sampleOffset = narration?.sampleOffset,
+           sampleOffset >= 0,
+           sampleOffset <= timeline.authoredDurationSamples {
+            journalCursor = sampleOffset
+        } else {
+            journalCursor = 0
+        }
+        return NonShippingReviewPrimaryAudioBinding(
+            authority: NonShippingReviewPrimaryAudioAuthority(
+                identity: identity,
+                timelineID: timelineID
+            ),
+            timeline: timeline,
+            resolver: resolver,
+            journalCursorSample: journalCursor,
+            cursorDirectoryURL: storageURL.appendingPathComponent(
+                "non-shipping-review-primary-audio-cursor-v1",
+                isDirectory: true
+            )
+        )
+    }
+
+    func nonShippingReviewPrimaryAudioRequiresResume(
+        for identity: ChapterRuntimeRouteIdentity,
+        timelineID: AudioTimelineID
+    ) -> Bool {
+        guard nonShippingReviewPrimaryAudioTimelineID(for: identity)
+                == timelineID,
+              let timeline = chapterCoordinator?.repository.audioTimeline(
+                  timelineID
+              ), let narration = committedState.activeChapter?.narration,
+              narration.isEnabled,
+              !narration.isPlaying,
+              let cueID = narration.cueID else { return false }
+        return timeline.events.contains {
+            $0.role == .narration && $0.cueID == cueID
+        }
+    }
+
+    /// Enqueues the finite-timeline cursor before any subsequently admitted
+    /// route or suspension action. The high-frequency crash cursor is stored
+    /// separately off MainActor; ordinary Journey persistence receives only
+    /// explicit start and exact pause boundaries.
+    func recordNonShippingReviewPrimaryAudioCursor(
+        cueID: AudioCueID,
+        sampleOffset: Int64,
+        isPlaying: Bool,
+        expectedIdentity: ChapterRuntimeRouteIdentity
+    ) {
+        guard DevelopmentSignedRuntimeFixtureAppContent.isActive,
+              chapterRuntimeRouteIdentity(
+                  for: expectedIdentity.chapterID,
+                  viewportCropID: expectedIdentity.viewportCropID,
+                  reduceMotion: expectedIdentity.reduceMotion
+              ) == expectedIdentity,
+              let timelineID = nonShippingReviewPrimaryAudioTimelineID(
+                  for: expectedIdentity
+              ), let timeline = chapterCoordinator?.repository.audioTimeline(
+                  timelineID
+              ), sampleOffset >= 0,
+              sampleOffset <= timeline.authoredDurationSamples,
+              timeline.events.contains(where: {
+                  $0.role == .narration && $0.cueID == cueID
+              }) else { return }
+        let action = JourneyAction.setNarration(
+            cueID: cueID,
+            sampleOffset: sampleOffset,
+            enabled: true,
+            playing: isPlaying
+        )
+        guard !isPlaying,
+              let reservation = reserveChapterRuntimeInput(
+                  expectedIdentity
+              ) else {
+            enqueue([action])
+            return
+        }
+        // The synchronous reservation is visible before SwiftUI parent/child
+        // lifecycle ordering can diverge. Suspension and ordered route exits
+        // therefore wait for this exact finite-timeline pause to become
+        // durable, just as they wait for an already-admitted scene action.
+        Task { @MainActor [self] in
+            defer { finishChapterRuntimeInputReservation(reservation) }
+            try? await enqueueAndAwaitDurability([action])
+        }
+    }
+#endif
 
     private var chapterRuntimeInputAdmissionState:
         ChapterRuntimeInputAdmissionPolicy.State {
@@ -2944,6 +3127,11 @@ final class JourneyModel: ObservableObject {
             // while contact, resistance and the return to waiting are live
             // authored transport states only.
             _ = try controller.selectInteractionPhase(phase)
+#if DEBUG
+            if phase != .waiting {
+                responsiveAudioLastEphemeralPhaseForTesting = phase.rawValue
+            }
+#endif
         } catch {
             controller.stopWithoutPersisting()
             responsiveAudioController = nil
@@ -3055,6 +3243,7 @@ final class JourneyModel: ObservableObject {
                 responsiveAudioPresentationSyncDiagnosticForTesting =
                     "controller-error,type="
                     + Self.responsiveAudioCursorErrorType(error)
+                    + ",value=\(String(reflecting: error))"
 #endif
                 throw error
             }
@@ -3665,9 +3854,8 @@ final class JourneyModel: ObservableObject {
             }
             actions.append(contentsOf: entryActions)
 #if DEBUG || NON_SHIPPING_LIVE_TEST
-            if ProcessInfo.processInfo.arguments.contains(
-                DevelopmentSignedRuntimeFixtureAppContent.launchArgument
-            ), let targetBeatID =
+            if DevelopmentSignedRuntimeFixtureAppContent.isActive,
+               let targetBeatID =
                 DevelopmentSignedRuntimeFixtureAppContent.targetBeatID(),
                coordinator.repository.chapter(chapter.id)?.arcs
                 .flatMap(\.beats).contains(where: {
@@ -4254,6 +4442,7 @@ final class JourneyModel: ObservableObject {
         }
         responsiveAudioController = controller
 #if DEBUG
+        responsiveAudioLastEphemeralPhaseForTesting = "none"
         responsiveAudioControllerBindingForTesting &+= 1
         responsiveAudioDurableCursorForTesting = plan.snapshot
         responsiveAudioAuthorityProbeTransportForTesting = (
@@ -4420,6 +4609,11 @@ final class JourneyModel: ObservableObject {
         }
         do {
             _ = try controller.selectInteractionPhase(phase)
+#if DEBUG
+            if phase != .waiting {
+                responsiveAudioLastEphemeralPhaseForTesting = phase.rawValue
+            }
+#endif
             pendingResponsiveAudioPhaseIntent = nil
             return false
         } catch {
@@ -4961,7 +5155,7 @@ final class JourneyModel: ObservableObject {
               let durableSnapshot = committedState.activeChapter?
                 .responsiveAudioSnapshot,
               let authority = try responsiveAudioCursorAuthority(
-                for: controller
+                  for: controller
               ) else {
 #if DEBUG
             recordResponsiveAudioStartAdmissionRejection(
@@ -5035,7 +5229,8 @@ final class JourneyModel: ObservableObject {
             throw JourneyChapterRuntimeError.routeAuthorityChanged
         }
         let binding = try controller.makeActiveAudioCursorBinding(
-            constrainedTo: durableSnapshot
+            constrainedTo: durableSnapshot,
+            permittingEphemeralInteractionPhaseNormalization: true
         )
         let activationToken = ActiveAudioCursorActivationToken()
         // Publish before entering the actor. An automatic native boundary can
@@ -5455,7 +5650,8 @@ final class JourneyModel: ObservableObject {
             throw JourneyChapterRuntimeError.authoredAudioUnavailable
         }
         let binding = try controller.makeActiveAudioCursorBinding(
-            constrainedTo: nextSnapshot
+            constrainedTo: nextSnapshot,
+            permittingEphemeralInteractionPhaseNormalization: true
         )
         let priorProtection = responsiveAudioCursorProtection
         priorProtection?.setPersistedSnapshotObserver(nil)
@@ -5567,12 +5763,16 @@ final class JourneyModel: ObservableObject {
 
     func bootstrap() async {
         await restoreExperiencePreferences()
+#if !NON_SHIPPING_LIVE_TEST
         await prepareCommerceForRestoration()
+#endif
         await beginObservingRuntimeContent()
         await bootstrapDownloads()
         await bootstrapFutureReleases()
         await restore()
+#if !NON_SHIPPING_LIVE_TEST
         await configureCommerceAfterRestoration()
+#endif
     }
 
     private func beginObservingRuntimeContent() async {
@@ -6946,9 +7146,8 @@ final class JourneyModel: ObservableObject {
         launchSnapshot: VerifiedJourneyContentSnapshot?
     ) throws -> JourneyState {
 #if DEBUG || NON_SHIPPING_LIVE_TEST
-        if ProcessInfo.processInfo.arguments.contains(
-            DevelopmentSignedRuntimeFixtureAppContent.launchArgument
-        ), let launchSnapshot {
+        if DevelopmentSignedRuntimeFixtureAppContent.isActive,
+           let launchSnapshot {
             return JourneyState(
                 world: try WorldGraph(seed: launchSnapshot.repository.worldSeed)
             )
@@ -6981,9 +7180,7 @@ final class JourneyModel: ObservableObject {
         }
 #endif
 #if DEBUG || NON_SHIPPING_LIVE_TEST
-        if ProcessInfo.processInfo.arguments.contains(
-            DevelopmentSignedRuntimeFixtureAppContent.launchArgument
-        ) {
+        if DevelopmentSignedRuntimeFixtureAppContent.isActive {
             return []
         }
 #endif
@@ -7007,9 +7204,7 @@ final class JourneyModel: ObservableObject {
         }
 #endif
 #if DEBUG || NON_SHIPPING_LIVE_TEST
-        if ProcessInfo.processInfo.arguments.contains(
-            DevelopmentSignedRuntimeFixtureAppContent.launchArgument
-        ) {
+        if DevelopmentSignedRuntimeFixtureAppContent.isActive {
             return []
         }
 #endif
@@ -7169,9 +7364,8 @@ final class JourneyModel: ObservableObject {
     }
 
     private func openSignedRuntimeFixtureIfNeeded() {
-        guard ProcessInfo.processInfo.arguments.contains(
-            DevelopmentSignedRuntimeFixtureAppContent.launchArgument
-        ), persistenceFailure == nil,
+        guard DevelopmentSignedRuntimeFixtureAppContent.isActive,
+              persistenceFailure == nil,
            !persistenceIsLocked,
            !chapterTransitionIsPending else { return }
         let targetChapterID =
@@ -7328,6 +7522,7 @@ final class JourneyModel: ObservableObject {
         enqueueOrderedJourneyTransition([.showWorld])
     }
 
+#if !NON_SHIPPING_LIVE_TEST
     /// Loads only the authenticated local ownership snapshot before Journey
     /// restoration. A paid saved route can therefore never become visible
     /// under an unknown entitlement while StoreKit is still being contacted.
@@ -7387,6 +7582,7 @@ final class JourneyModel: ObservableObject {
             storeDisplayPrice = nil
         }
     }
+#endif
 
     private func applyEntitlementSnapshot(_ snapshot: EntitlementSnapshot?) {
         entitlementSnapshot = snapshot

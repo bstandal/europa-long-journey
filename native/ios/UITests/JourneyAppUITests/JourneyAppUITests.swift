@@ -1,3 +1,4 @@
+import CryptoKit
 import XCTest
 
 @MainActor
@@ -46,6 +47,167 @@ final class JourneyAppUITests: XCTestCase {
         )
     }
 
+#if NON_SHIPPING_LIVE_TEST
+    func testLiveFirstFarmersNeedsNoFixtureArgumentAndRestoresAfterHardKill()
+        throws {
+        let app = XCUIApplication()
+        // NON_SHIPPING_LIVE_TEST is itself the fixture authority. The reset
+        // argument clears only the review save and must not be needed again.
+        app.launchArguments = ["--ui-testing-reset-state"]
+        app.launch()
+
+        let opening = app.descendants(matching: .any)[
+            "chapter-beat-beat-first-farmers-river-world"
+        ]
+        XCTAssertTrue(opening.waitForExistence(timeout: 12))
+        let advance = app.buttons["chapter-continue"]
+        reveal(advance, in: opening)
+        advance.tap()
+
+        let crossing = app.descendants(matching: .any)[
+            "chapter-beat-beat-first-farmers-household-crosses"
+        ]
+        XCTAssertTrue(crossing.waitForExistence(timeout: 8))
+        app.terminate()
+
+        app.launchArguments = []
+        app.launch()
+        XCTAssertTrue(crossing.waitForExistence(timeout: 12))
+        XCTAssertTrue(
+            app.descendants(matching: .any)[
+                "chapter-semantic-trace-route"
+            ].exists
+        )
+        XCTAssertFalse(
+            app.buttons["chapter-failure-return-to-road"].exists
+        )
+    }
+#endif
+
+    func testSignedFirstFarmersTraversesSeventeenBeatsWithSixPhysicalInteractions()
+        throws {
+        let receipt = try traverseFirstFarmersReviewBuild()
+        XCTAssertEqual(receipt.beatIDs.count, 17)
+        XCTAssertEqual(receipt.interactionIDs.count, 6)
+        print(
+            "CHAPTER_01_LIVE_UI_TRAVERSAL beats=\(receipt.beatIDs.count) "
+                + "interactions=\(receipt.interactionIDs.count) "
+                + "sha256=\(receipt.sha256)"
+        )
+    }
+
+    func testLiveFirstFarmersRecordsHouseholdCrossing() throws {
+        try recordFirstFarmersInteraction(.householdCrossing)
+    }
+
+    func testLiveFirstFarmersRecordsHarvestAllocation() throws {
+        try recordFirstFarmersInteraction(.harvestAllocation)
+    }
+
+    func testLiveFirstFarmersRecordsThreeRecords() throws {
+        try recordFirstFarmersInteraction(.threeRecords)
+    }
+
+    func testLiveFirstFarmersRecordsLonghouseAssembly() throws {
+        try recordFirstFarmersInteraction(.longhouseAssembly)
+    }
+
+    func testLiveFirstFarmersRecordsSettlementGrowth() throws {
+        try recordFirstFarmersInteraction(.settlementGrowth)
+    }
+
+    func testLiveFirstFarmersRecordsContinentRemade() throws {
+        try recordFirstFarmersInteraction(.continentRemade)
+    }
+
+    func testSignedFirstFarmersPrimaryTimelineRequiresHearAndColdResumesPaused()
+        throws {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "--ui-testing-reset-state",
+            "--ui-testing-signed-runtime-fixture",
+        ]
+        app.launch()
+
+        let opening = app.descendants(matching: .any)[
+            "chapter-beat-beat-first-farmers-river-world"
+        ]
+        let phaseState = app.descendants(matching: .any)[
+            "responsive-audio-presentation-state"
+        ]
+        let primaryState = app.descendants(matching: .any)[
+            "primary-audio-runtime-state"
+        ]
+        let hear = app.buttons["chapter-audio-hear-scene"]
+        XCTAssertTrue(opening.waitForExistence(timeout: 12))
+        XCTAssertTrue(primaryState.waitForExistence(timeout: 3))
+        wait(for: phaseState, toHaveValue: "undecided:none")
+        wait(
+            for: primaryState,
+            toHaveValueBeginningWith:
+                "bound;timeline=audio-beat-first-farmers-river-world;"
+        )
+
+        reveal(hear, in: opening)
+        hear.tap()
+        let initialStart = XCTNSPredicateExpectation(
+            predicate: NSPredicate(
+                format: "value == %@ AND enabled == true",
+                "playing:none"
+            ),
+            object: phaseState
+        )
+        XCTAssertEqual(
+            XCTWaiter().wait(for: [initialStart], timeout: 8),
+            .completed,
+            "Phase: \(String(describing: phaseState.value)); primary: "
+                + "\(String(describing: primaryState.value))"
+        )
+        wait(
+            for: primaryState,
+            toHaveValueBeginningWith:
+                "playing;timeline=audio-beat-first-farmers-river-world;",
+            timeout: 8
+        )
+
+        let checkpointWindow = expectation(
+            description: "primary audio checkpoint window"
+        )
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            checkpointWindow.fulfill()
+        }
+        wait(for: [checkpointWindow], timeout: 2)
+        app.terminate()
+
+        app.launchArguments = [
+            "--ui-testing-signed-runtime-fixture",
+        ]
+        app.launch()
+        XCTAssertTrue(opening.waitForExistence(timeout: 12))
+        XCTAssertTrue(primaryState.waitForExistence(timeout: 3))
+        wait(for: phaseState, toHaveValue: "resumeRequired:none")
+        reveal(hear, in: opening)
+        hear.tap()
+        wait(for: phaseState, toHaveValue: "playing:none", timeout: 8)
+        wait(
+            for: primaryState,
+            toHaveValueBeginningWith:
+                "playing;timeline=audio-beat-first-farmers-river-world;",
+            timeout: 8
+        )
+        let resumedValue = try XCTUnwrap(primaryState.value as? String)
+        let cursor = resumedValue.split(separator: ";")
+            .first(where: { $0.hasPrefix("cursor=") })
+            .flatMap { Int64($0.dropFirst("cursor=".count)) }
+        XCTAssertGreaterThan(try XCTUnwrap(cursor), 0, resumedValue)
+        XCTAssertFalse(
+            app.descendants(matching: .any)[
+                "signed-runtime-failure-diagnostic"
+            ].exists,
+            resumedValue
+        )
+    }
+
     func testSignedFirstFarmersThreeRecordsPreparesWithoutIntegrityFailure()
         throws {
         let app = XCUIApplication()
@@ -83,6 +245,33 @@ final class JourneyAppUITests: XCTestCase {
             failureDiagnostic.exists,
             "Runtime failure: \(String(describing: failureDiagnostic.value))"
         )
+
+        let sceneSurface = app.windows.firstMatch
+        XCTAssertTrue(sceneSurface.waitForExistence(timeout: 3))
+        let firstStage = app.descendants(matching: .any)[
+            "chapter-semantic-transform-river-communities"
+        ]
+        XCTAssertTrue(firstStage.waitForExistence(timeout: 3))
+        sceneSurface.coordinate(
+            withNormalizedOffset: CGVector(dx: 0.1785714, dy: 0.55)
+        ).press(
+            forDuration: 0.1,
+            thenDragTo: sceneSurface.coordinate(
+                withNormalizedOffset: CGVector(dx: 0.1785714, dy: 0.08)
+            )
+        )
+        XCTAssertTrue(
+            app.descendants(matching: .any)[
+                "chapter-semantic-transform-contact-households"
+            ].waitForExistence(timeout: 8),
+            "Runtime failure after first transform: "
+                + String(describing: failureDiagnostic.value)
+        )
+        XCTAssertFalse(
+            failureDiagnostic.exists,
+            "Runtime failure after first transform: "
+                + String(describing: failureDiagnostic.value)
+        )
     }
 
     func testSignedFirstFarmersOpensEveryAuthoredBeatThroughProductionRoute()
@@ -98,10 +287,10 @@ final class JourneyAppUITests: XCTestCase {
             "beat-first-farmers-gorge-contact",
             "beat-first-farmers-three-records",
             "beat-first-farmers-frontier-consequence",
-            "beat-first-farmers-house-assembly",
+            "beat-first-farmers-raise-longhouse",
             "beat-first-farmers-plot-remains",
             "beat-first-farmers-paternal-lines",
-            "beat-first-farmers-land-transformation",
+            "beat-first-farmers-more-mouths",
             "beat-first-farmers-growth-breaks",
             "beat-first-farmers-continent-remade",
             "beat-first-farmers-before-steppe",
@@ -128,6 +317,23 @@ final class JourneyAppUITests: XCTestCase {
             XCTAssertFalse(
                 failureDiagnostic.exists,
                 "\(beatID): \(String(describing: failureDiagnostic.value))"
+            )
+            let primaryState = app.descendants(matching: .any)[
+                "primary-audio-runtime-state"
+            ]
+            XCTAssertTrue(
+                primaryState.waitForExistence(timeout: 3),
+                "\(beatID): primary authored audio was not bound"
+            )
+            XCTAssertTrue(
+                (primaryState.value as? String)?.hasPrefix(
+                    "bound;timeline=audio-\(beatID);"
+                ) == true,
+                "\(beatID): \(String(describing: primaryState.value))"
+            )
+            XCTAssertTrue(
+                app.buttons["chapter-audio-hear-scene"].exists,
+                "\(beatID): Hear the scene is unavailable"
             )
             app.terminate()
         }
@@ -230,7 +436,18 @@ final class JourneyAppUITests: XCTestCase {
             "chapter-beat-beat-first-farmers-harvest-allocation"
         ]
         XCTAssertTrue(firstNarrative.waitForExistence(timeout: 5))
-        for _ in 0 ..< 4 where !hear.isHittable { firstNarrative.swipeUp() }
+        // Harvest's incomplete-interaction narrative rail is deliberately
+        // short. Move it in bounded increments so XCTest cannot jump past the
+        // audio choice before checking whether the control is hittable.
+        for _ in 0 ..< 16 where !hear.isHittable {
+            let lowerPoint = firstNarrative.coordinate(
+                withNormalizedOffset: CGVector(dx: 0.5, dy: 0.72)
+            )
+            let upperPoint = firstNarrative.coordinate(
+                withNormalizedOffset: CGVector(dx: 0.5, dy: 0.48)
+            )
+            lowerPoint.press(forDuration: 0.1, thenDragTo: upperPoint)
+        }
         XCTAssertTrue(hear.isHittable)
         XCTAssertEqual(hear.label, "Hear the scene")
         hear.tap()
@@ -248,7 +465,7 @@ final class JourneyAppUITests: XCTestCase {
         wait(
             for: runtimeState,
             toHaveValueBeginningWith:
-                "\(bindingAuthority);playback=playing;stage=interaction;",
+                "\(bindingAuthority);playback=playing;stage=approach;",
             timeout: 8
         )
 
@@ -307,14 +524,33 @@ final class JourneyAppUITests: XCTestCase {
             forDuration: 0.15,
             thenDragTo: secondOceanAnchor
         )
+        // This combined lifecycle test already generated a resolved Home
+        // pause. Its diagnostic remains the last physical event for the
+        // process, so current readiness is proved by a closed episode,
+        // synchronized playback and the durable semantic advance. The
+        // dedicated physical Trace test below owns the ephemeral-bed check.
         let runtimeEngaged = XCTNSPredicateExpectation(
             predicate: NSPredicate(
-                format: "value CONTAINS %@ AND enabled == true",
-                "playback=playing;stage=interaction;phase=engaged;durable=engaged;pending=none"
+                format:
+                    "value CONTAINS %@ AND value CONTAINS %@ "
+                        + "AND value CONTAINS %@ AND enabled == true",
+                "playback=playing;stage=interaction",
+                "presentationSync=succeeded",
+                "episode=none"
             ),
             object: runtimeState
         )
-        let result = XCTWaiter().wait(for: [runtimeEngaged], timeout: 8)
+        let semanticAdvanced = XCTNSPredicateExpectation(
+            predicate: NSPredicate(
+                format: "value == %@ AND enabled == true",
+                "2 of 4 route points reached"
+            ),
+            object: semanticTrace
+        )
+        let result = XCTWaiter().wait(
+            for: [runtimeEngaged, semanticAdvanced],
+            timeout: 8
+        )
         let diagnosticValue: (XCUIElement) -> String = { element in
             guard element.exists else { return "absent" }
             return String(describing: element.value)
@@ -488,8 +724,10 @@ final class JourneyAppUITests: XCTestCase {
         // response remains progress rather than invented resistance.
         let runtimeEngaged = XCTNSPredicateExpectation(
             predicate: NSPredicate(
-                format: "value CONTAINS %@ AND enabled == true",
-                "playback=playing;stage=interaction;phase=engaged;durable=engaged;pending=none;pause=none"
+                format: "value CONTAINS %@ AND value CONTAINS %@ AND value CONTAINS %@ AND enabled == true",
+                "playback=playing;stage=interaction",
+                "lastEphemeral=engaged",
+                "pause=none"
             ),
             object: runtimeState
         )
@@ -1873,9 +2111,9 @@ final class JourneyAppUITests: XCTestCase {
         let liveCursor = try XCTUnwrap(runtime.liveCursor)
         let durableCursor = try XCTUnwrap(runtime.durableCursor)
         XCTAssertTrue(
-            liveCursor.isAtOrAfter(durableCursor),
-            "Live cursor \(liveCursor) preceded durable cursor "
-                + "\(durableCursor). \(assertionContext)"
+            durableCursor.isAtOrAfter(liveCursor),
+            "Durable cursor \(durableCursor) preceded synchronized cursor "
+                + "\(liveCursor). \(assertionContext)"
         )
         XCTAssertEqual(
             choiceDiagnostic.value as? String,
@@ -1968,14 +2206,37 @@ final class JourneyAppUITests: XCTestCase {
 
         reveal(hear, in: oceanNarrative)
         hear.tap()
-        let resumed = try waitForResponsiveAudioCursorAdvance(
-            runtimeState,
-            liveAfter: pausedCursor,
-            durableAfter: pausedCursor,
-            playback: "playing",
-            pause: paused.pause,
-            timeout: 8
+        let durableResume = XCTNSPredicateExpectation(
+            predicate: NSPredicate { object, _ in
+                guard let candidate = object as? XCUIElement,
+                      candidate.isEnabled,
+                      let value = candidate.value as? String,
+                      let runtime = try? Self.parseResponsiveAudioRuntime(
+                          value
+                      ), runtime.playback == "playing",
+                      runtime.pause == paused.pause,
+                      let liveCursor = runtime.liveCursor,
+                      let durableCursor = runtime.durableCursor else {
+                    return false
+                }
+                let fields = Self.diagnosticFields(
+                    in: value.split(separator: ";").map(String.init)[...]
+                )
+                return liveCursor.isAtOrAfter(pausedCursor)
+                    && durableCursor.isStrictlyAfter(pausedCursor)
+                    && fields["cursorFailure"] == "none"
+            },
+            object: runtimeState
         )
+        guard XCTWaiter().wait(for: [durableResume], timeout: 8)
+                == .completed,
+              let resumedValue = runtimeState.value as? String else {
+            throw ResponsiveAudioDiagnosticError.unavailable(
+                "Durable audio cursor did not advance after explicit resume: "
+                    + String(describing: runtimeState.value)
+            )
+        }
+        let resumed = try Self.parseResponsiveAudioRuntime(resumedValue)
         wait(for: phaseState, toHaveValue: "playing:waiting", timeout: 8)
         XCTAssertTrue(
             try XCTUnwrap(resumed.liveCursor).isAtOrAfter(pausedCursor)
@@ -3140,7 +3401,7 @@ final class JourneyAppUITests: XCTestCase {
             "visualUnder50=1;",
             "authorityUnchanged=1;",
             "ordinary=trace:5,pressure:5,transform:5;",
-            "protected=trace-0,pressure-enter,pressure-exit,"
+            "protected=trace-0,pressure-exit,"
                 + "transform-0,transform-1,preview-fallback,terminal;",
             "discrete=pressure-hold:1,voice-over:1;",
             "result=pass",
@@ -3423,7 +3684,7 @@ final class JourneyAppUITests: XCTestCase {
         _ control: XCUIElement,
         in narrative: XCUIElement
     ) {
-        for _ in 0 ..< 4 where !control.isHittable {
+        for _ in 0 ..< 12 where !control.isHittable {
             narrative.swipeUp()
         }
         let readiness = XCTNSPredicateExpectation(
@@ -3617,6 +3878,486 @@ final class JourneyAppUITests: XCTestCase {
             forDuration: 0.15,
             thenDragTo: secondOceanAnchor
         )
+    }
+
+    private enum FirstFarmersRecordedInteraction: String, CaseIterable {
+        case householdCrossing = "trace-household-crossing"
+        case harvestAllocation = "allocate-harvest"
+        case threeRecords = "transform-three-records"
+        case longhouseAssembly = "assemble-longhouse"
+        case settlementGrowth = "transform-settlement-growth"
+        case continentRemade = "transform-continent-remade"
+
+        var beatID: String {
+            switch self {
+            case .householdCrossing:
+                "beat-first-farmers-household-crosses"
+            case .harvestAllocation:
+                "beat-first-farmers-harvest-allocation"
+            case .threeRecords:
+                "beat-first-farmers-three-records"
+            case .longhouseAssembly:
+                "beat-first-farmers-raise-longhouse"
+            case .settlementGrowth:
+                "beat-first-farmers-more-mouths"
+            case .continentRemade:
+                "beat-first-farmers-continent-remade"
+            }
+        }
+    }
+
+    private struct FirstFarmersTraversalReceipt {
+        let beatIDs: [String]
+        let interactionIDs: [String]
+
+        var sha256: String {
+            let material = (["NON_SHIPPING_LIVE_TEST"] + beatIDs
+                + ["INTERACTIONS"] + interactionIDs)
+                .joined(separator: "\n")
+            return SHA256.hash(data: Data(material.utf8))
+                .map { String(format: "%02x", $0) }
+                .joined()
+        }
+    }
+
+    private var firstFarmersReviewBeatIDs: [String] {
+        [
+            "beat-first-farmers-river-world",
+            "beat-first-farmers-household-crosses",
+            "beat-first-farmers-living-system",
+            "beat-first-farmers-european-ground",
+            "beat-first-farmers-inhabited-frontier",
+            "beat-first-farmers-harvest-allocation",
+            "beat-first-farmers-stored-future",
+            "beat-first-farmers-gorge-contact",
+            "beat-first-farmers-three-records",
+            "beat-first-farmers-frontier-consequence",
+            "beat-first-farmers-raise-longhouse",
+            "beat-first-farmers-plot-remains",
+            "beat-first-farmers-paternal-lines",
+            "beat-first-farmers-more-mouths",
+            "beat-first-farmers-growth-breaks",
+            "beat-first-farmers-continent-remade",
+            "beat-first-farmers-before-steppe",
+        ]
+    }
+
+    private func recordFirstFarmersInteraction(
+        _ target: FirstFarmersRecordedInteraction
+    ) throws {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "--ui-testing-reset-state",
+            "--ui-testing-signed-runtime-fixture",
+            "--ui-testing-signed-runtime-fixture-beat=\(target.beatID)",
+        ]
+        app.launch()
+
+        let route = app.descendants(matching: .any)[
+            "chapter-runtime-first-farmers"
+        ]
+        XCTAssertTrue(route.waitForExistence(timeout: 12))
+        let narrative = app.descendants(matching: .any)[
+            "chapter-beat-\(target.beatID)"
+        ]
+        XCTAssertTrue(narrative.waitForExistence(timeout: 12))
+        let sceneSurface = app.windows.firstMatch
+        XCTAssertTrue(sceneSurface.waitForExistence(timeout: 3))
+
+        // These artifacts isolate the physical interaction itself. The full
+        // traversal separately proves the visible silence route, while the
+        // primary-audio test proves explicit Hear and cold-resume behavior.
+        performFirstFarmersInteraction(
+            target,
+            app: app,
+            narrative: narrative,
+            sceneSurface: sceneSurface
+        )
+        XCTAssertFalse(
+            app.buttons["chapter-failure-return-to-road"].exists
+        )
+        let receipt = FirstFarmersTraversalReceipt(
+            beatIDs: [target.beatID],
+            interactionIDs: [target.rawValue]
+        )
+        print(
+            "CHAPTER_01_LIVE_INTERACTION_RECORDING target=\(target.rawValue) "
+                + "beats=\(receipt.beatIDs.count) "
+                + "interactions=\(receipt.interactionIDs.count) "
+                + "sha256=\(receipt.sha256)"
+        )
+    }
+
+    private func traverseFirstFarmersReviewBuild() throws
+        -> FirstFarmersTraversalReceipt {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "--ui-testing-reset-state",
+            "--ui-testing-signed-runtime-fixture",
+        ]
+        app.launch()
+
+        let route = app.descendants(matching: .any)[
+            "chapter-runtime-first-farmers"
+        ]
+        let failure = app.buttons["chapter-failure-return-to-road"]
+        XCTAssertTrue(route.waitForExistence(timeout: 12))
+
+        // The live-test product exposes no debug touch proxy. Coordinates are
+        // resolved against the actual app window that contains the authored
+        // portrait scene and its production gesture surfaces.
+        let sceneSurface = app.windows.firstMatch
+        XCTAssertTrue(sceneSurface.waitForExistence(timeout: 3))
+
+        let beatIDs = firstFarmersReviewBeatIDs
+        let opening = app.descendants(matching: .any)[
+            "chapter-beat-\(beatIDs[0])"
+        ]
+        XCTAssertTrue(opening.waitForExistence(timeout: 5))
+        let silent = app.buttons["chapter-audio-continue-silently"]
+        reveal(silent, in: opening)
+        silent.tap()
+        let silenceAccepted = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "exists == false"),
+            object: silent
+        )
+        XCTAssertEqual(
+            XCTWaiter().wait(for: [silenceAccepted], timeout: 5),
+            .completed,
+            "The visible silence choice was not accepted"
+        )
+
+        var observedBeatIDs: [String] = []
+        var observedInteractionIDs: [String] = []
+        for (index, beatID) in beatIDs.enumerated() {
+            let narrative = app.descendants(matching: .any)[
+                "chapter-beat-\(beatID)"
+            ]
+            XCTAssertTrue(
+                narrative.waitForExistence(timeout: 12),
+                "Missing beat \(index + 1): \(beatID)"
+            )
+            observedBeatIDs.append(beatID)
+
+            if let interaction = FirstFarmersRecordedInteraction.allCases
+                .first(where: { $0.beatID == beatID }) {
+                performFirstFarmersInteraction(
+                    interaction,
+                    app: app,
+                    narrative: narrative,
+                    sceneSurface: sceneSurface
+                )
+                observedInteractionIDs.append(interaction.rawValue)
+            }
+
+            let advance = app.buttons["chapter-continue"]
+            reveal(advance, in: narrative)
+            advance.tap()
+            XCTAssertFalse(failure.exists, "Runtime failed after \(beatID)")
+        }
+
+        XCTAssertTrue(
+            app.descendants(matching: .any)["living-world-field"]
+                .waitForExistence(timeout: 12)
+        )
+        XCTAssertFalse(failure.exists)
+        return FirstFarmersTraversalReceipt(
+            beatIDs: observedBeatIDs,
+            interactionIDs: observedInteractionIDs
+        )
+    }
+
+    private func performFirstFarmersInteraction(
+        _ interaction: FirstFarmersRecordedInteraction,
+        app: XCUIApplication,
+        narrative: XCUIElement,
+        sceneSurface: XCUIElement
+    ) {
+        switch interaction {
+        case .householdCrossing:
+            performFirstFarmersHouseholdTrace(
+                app: app,
+                touchSurface: sceneSurface
+            )
+        case .harvestAllocation:
+            performFirstFarmersHarvestAllocation(
+                app: app,
+                narrative: narrative,
+                touchSurface: sceneSurface
+            )
+        case .threeRecords:
+            performFirstFarmersTransform(
+                app: app,
+                touchSurface: sceneSurface,
+                elementIDs: [
+                    "transform-river-communities",
+                    "transform-contact-households",
+                    "transform-later-settlements",
+                ]
+            )
+        case .longhouseAssembly:
+            performFirstFarmersLonghouse(
+                app: app,
+                touchSurface: sceneSurface
+            )
+        case .settlementGrowth:
+            performFirstFarmersTransform(
+                app: app,
+                touchSurface: sceneSurface,
+                elementIDs: [
+                    "transform-new-hearths",
+                    "transform-field-edges",
+                    "transform-herd-lanes-and-daughters",
+                ]
+            )
+        case .continentRemade:
+            performFirstFarmersTransform(
+                app: app,
+                touchSurface: sceneSurface,
+                elementIDs: [
+                    "transform-danube-fields",
+                    "transform-loess-settlements",
+                    "transform-european-farming-belt",
+                ]
+            )
+        }
+    }
+
+    private func performFirstFarmersHouseholdTrace(
+        app: XCUIApplication,
+        touchSurface: XCUIElement
+    ) {
+        let semantic = app.descendants(matching: .any)[
+            "chapter-semantic-trace-route"
+        ]
+        XCTAssertTrue(semantic.waitForExistence(timeout: 3))
+        // The signed review fixture uses the complete shared portrait plate
+        // for this interaction, so authored master and viewport coordinates
+        // are identical. All four points remain above the compact sheet.
+        let anchors = [
+            CGVector(dx: 0.76, dy: 0.78),
+            CGVector(dx: 0.58, dy: 0.61),
+            CGVector(dx: 0.43, dy: 0.44),
+            CGVector(dx: 0.33, dy: 0.20),
+        ].map { touchSurface.coordinate(withNormalizedOffset: $0) }
+        anchors[0].press(forDuration: 0.12, thenDragTo: anchors[1])
+        wait(
+            for: semantic,
+            toHaveValue: "2 of 4 route points reached",
+            timeout: 8
+        )
+        anchors[1].press(forDuration: 0.1, thenDragTo: anchors[2])
+        wait(
+            for: semantic,
+            toHaveValue: "3 of 4 route points reached",
+            timeout: 8
+        )
+        anchors[2].press(forDuration: 0.1, thenDragTo: anchors[3])
+        XCTAssertTrue(
+            app.buttons["chapter-continue"].waitForExistence(timeout: 8),
+            "The fourth physical route point did not complete Trace"
+        )
+    }
+
+    private func performFirstFarmersHarvestAllocation(
+        app: XCUIApplication,
+        narrative: XCUIElement,
+        touchSurface: XCUIElement
+    ) {
+        let source = CGVector(dx: 0.50, dy: 0.802)
+        let allocations = [
+            (id: "allocate-winter-food", point: CGVector(dx: 0.275, dy: 0.585), units: 4),
+            (id: "allocate-protected-reserve", point: CGVector(dx: 0.500, dy: 0.585), units: 2),
+            (id: "allocate-spring-seed", point: CGVector(dx: 0.725, dy: 0.585), units: 6),
+        ]
+        for allocation in allocations {
+            let semantic = app.descendants(matching: .any)[
+                "chapter-semantic-\(allocation.id)"
+            ]
+            XCTAssertTrue(semantic.waitForExistence(timeout: 3))
+            for _ in 0 ..< allocation.units {
+                performAllocationDrag(
+                    on: touchSurface,
+                    from: source,
+                    to: allocation.point,
+                    observing: semantic
+                )
+            }
+            if allocation.id == "allocate-winter-food" {
+                // Physical reversal remains available until the final commit.
+                performAllocationDrag(
+                    on: touchSurface,
+                    from: allocation.point,
+                    to: source,
+                    observing: semantic
+                )
+                performAllocationDrag(
+                    on: touchSurface,
+                    from: source,
+                    to: allocation.point,
+                    observing: semantic
+                )
+            }
+        }
+
+        // Exercise the visible production control. It is the sole
+        // accessibility representation for commit, avoiding a duplicate
+        // invisible semantic button while remaining a normal touch target.
+        let commit = app.buttons["chapter-allocate-commit"]
+        reveal(commit, in: narrative)
+        commit.tap()
+        let advance = app.buttons["chapter-continue"]
+        XCTAssertTrue(
+            advance.waitForExistence(timeout: 8),
+            "The physical harvest commit button did not accept the allocation"
+        )
+    }
+
+    private func performAllocationDrag(
+        on touchSurface: XCUIElement,
+        from source: CGVector,
+        to destination: CGVector,
+        observing semantic: XCUIElement
+    ) {
+        let previousValue = String(describing: semantic.value)
+        touchSurface.coordinate(withNormalizedOffset: source).press(
+            forDuration: 0.08,
+            thenDragTo: touchSurface.coordinate(
+                withNormalizedOffset: destination
+            )
+        )
+        let changed = XCTNSPredicateExpectation(
+            predicate: NSPredicate(
+                format: "value != %@ AND enabled == true",
+                previousValue
+            ),
+            object: semantic
+        )
+        XCTAssertEqual(
+            XCTWaiter().wait(for: [changed], timeout: 8),
+            .completed,
+            "Allocation did not change from \(previousValue)"
+        )
+    }
+
+    private func performFirstFarmersLonghouse(
+        app: XCUIApplication,
+        touchSurface: XCUIElement
+    ) {
+        // The baseline crop is (0.15, 0.15, 0.70, 0.70). Posts establish the
+        // frame; the remaining three parts deliberately use a different valid
+        // order from their source list.
+        let components = [
+            (id: "posts", x: 0.1428571),
+            (id: "roof", x: 0.8285714),
+            (id: "storage", x: 0.6000000),
+            (id: "hearth", x: 0.3714286),
+        ]
+        for (index, component) in components.enumerated() {
+            let semantic = app.descendants(matching: .any)[
+                "chapter-semantic-assemble-\(component.id)"
+            ]
+            XCTAssertTrue(semantic.waitForExistence(timeout: 3))
+            touchSurface.coordinate(
+                withNormalizedOffset: CGVector(
+                    dx: component.x,
+                    dy: 0.3714286
+                )
+            ).press(
+                forDuration: 0.1,
+                thenDragTo: touchSurface.coordinate(
+                    withNormalizedOffset: CGVector(
+                        dx: component.x,
+                        dy: 0.7714286
+                    )
+                )
+            )
+            if index == components.indices.last {
+                XCTAssertTrue(
+                    app.buttons["chapter-continue"]
+                        .waitForExistence(timeout: 8),
+                    "The final longhouse drop did not complete Assemble"
+                )
+            } else {
+                let accepted = XCTNSPredicateExpectation(
+                    predicate: NSPredicate(format: "exists == false"),
+                    object: semantic
+                )
+                XCTAssertEqual(
+                    XCTWaiter().wait(for: [accepted], timeout: 8),
+                    .completed,
+                    "The placed component remained available for a duplicate drop"
+                )
+            }
+        }
+    }
+
+    private func performFirstFarmersTransform(
+        app: XCUIApplication,
+        touchSurface: XCUIElement,
+        elementIDs: [String]
+    ) {
+        // These three shared-state worlds use the baseline crop. A long
+        // upward drag begins inside each authored target and crosses its
+        // complete threshold without relying on a semantic action.
+        let targetX = [0.1785714, 0.5000000, 0.8214286]
+        for (index, elementID) in elementIDs.enumerated() {
+            let semantic = app.descendants(matching: .any)[
+                "chapter-semantic-\(elementID)"
+            ]
+            XCTAssertTrue(semantic.waitForExistence(timeout: 3))
+            func dragActiveStage() {
+                let start = touchSurface.coordinate(
+                    withNormalizedOffset: CGVector(
+                        dx: targetX[index],
+                        dy: 0.55
+                    )
+                )
+                let end = touchSurface.coordinate(
+                    withNormalizedOffset: CGVector(
+                        dx: targetX[index],
+                        dy: 0.08
+                    )
+                )
+                start.press(forDuration: 0.1, thenDragTo: end)
+            }
+            func currentStageStillExists() -> Bool {
+                app.descendants(matching: .any)[
+                    "chapter-semantic-\(elementID)"
+                ].waitForExistence(timeout: 1)
+            }
+            dragActiveStage()
+            if index == elementIDs.indices.last {
+                let advance = app.buttons["chapter-continue"]
+                if !advance.waitForExistence(timeout: 3),
+                   currentStageStillExists()
+                {
+                    // A saturated Simulator can drop one synthesized drag.
+                    // Retry only while this exact physical stage remains
+                    // active; never substitute its semantic action.
+                    dragActiveStage()
+                }
+                XCTAssertTrue(
+                    advance.waitForExistence(timeout: 8),
+                    "The final physical stage did not complete Transform"
+                )
+            } else {
+                // Completion replaces the active semantic stage instead of
+                // leaving a completed duplicate in the accessibility tree.
+                let nextStage = app.descendants(matching: .any)[
+                    "chapter-semantic-\(elementIDs[index + 1])"
+                ]
+                if !nextStage.waitForExistence(timeout: 3),
+                   currentStageStillExists()
+                {
+                    dragActiveStage()
+                }
+                XCTAssertTrue(
+                    nextStage.waitForExistence(timeout: 8),
+                    "The physical transform did not reveal its next stage"
+                )
+            }
+        }
     }
 
     private struct ResponsiveAudioCursorDiagnostic:

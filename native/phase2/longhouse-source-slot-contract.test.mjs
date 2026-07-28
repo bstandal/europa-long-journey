@@ -93,7 +93,11 @@ function assertRectEqual(actual, expected, message) {
   }
 }
 
-function assertLonghouseSourceSlotContract(scene, authority) {
+function assertLonghouseSourceSlotContract(
+  scene,
+  authority,
+  { allowsMinimumTouchExpansion = false } = {},
+) {
   assert.equal(scene.interactionVisualBinding.grammar, "assemble");
   assert.equal(
     scene.interactionVisualBinding.configuration.interactionID,
@@ -147,8 +151,28 @@ function assertLonghouseSourceSlotContract(scene, authority) {
     assert.equal(authored.layerID, component.layerID);
     assert.equal(authored.sourceInteractionTargetID, component.sourceInteractionTargetID);
     assert.equal(authored.slotInteractionTargetID, component.slotInteractionTargetID);
-    assertRectEqual(sourceBounds, authored.sourceHitRegion, component.componentID);
-    assertRectEqual(slotBounds, authored.slotHitRegion, component.componentID);
+    if (allowsMinimumTouchExpansion) {
+      for (const [actual, expected, role] of [
+        [sourceBounds, authored.sourceHitRegion, "source"],
+        [slotBounds, authored.slotHitRegion, "slot"],
+      ]) {
+        const actualCenter = center(actual);
+        const expectedCenter = center(expected);
+        assert.ok(
+          Math.abs(actualCenter.x - expectedCenter.x) < 1e-9
+            && Math.abs(actualCenter.y - expectedCenter.y) < 1e-9,
+          `${component.componentID} ${role} touch expansion moved its authored center`,
+        );
+        assert.ok(
+          actual.width + 1e-9 >= expected.width
+            && actual.height + 1e-9 >= expected.height,
+          `${component.componentID} ${role} touch expansion shrank authored geometry`,
+        );
+      }
+    } else {
+      assertRectEqual(sourceBounds, authored.sourceHitRegion, component.componentID);
+      assertRectEqual(slotBounds, authored.slotHitRegion, component.componentID);
+    }
     const sourceCenter = center(sourceBounds);
     const slotCenter = center(slotBounds);
     assert.ok(
@@ -192,9 +216,13 @@ test("runtime source and signed development fixture carry the same Longhouse pro
     readJSON(fixtureCompiledPath),
     readJSON(interactionContractPath),
   ]);
-  const sourceScene = sceneWithID(source, "lab-first-farmers-house-assembly");
-  const compiledScene = sceneWithID(compiled, "lab-first-farmers-house-assembly");
-  assertLonghouseSourceSlotContract(sourceScene, contract.runtimeVisualBinding);
+  const sourceScene = sceneWithID(source, "scene-first-farmers-longhouse-assembly");
+  const compiledScene = sceneWithID(compiled, "scene-first-farmers-longhouse-assembly");
+  assertLonghouseSourceSlotContract(
+    sourceScene,
+    contract.runtimeVisualBinding,
+    { allowsMinimumTouchExpansion: true },
+  );
   assert.deepEqual(compiledScene, sourceScene);
 });
 

@@ -2523,6 +2523,32 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
         _ = audioDurabilityEpoch?.transportWillStop()
     }
 
+    /// `AVAudioEngine.start()` may return before the source node publishes its
+    /// first live timestamp. Zero is a valid manual-render position but is not
+    /// a live graph origin: scheduling from it would put the 12,000-sample
+    /// durability prefix in a different sample domain from the render thread.
+    /// Poll only from this control path; the real-time callback remains a
+    /// lock-free atomic publisher.
+    private func waitForInitialLiveRenderClockAnchor(
+        after baselineGraphSample: Int64
+    ) throws -> NativeRenderClockAnchor {
+        let timeout = AVAudioTime.hostTime(forSeconds: 0.100)
+        let startedAt = mach_absolute_time()
+        let deadline = startedAt.addingReportingOverflow(timeout)
+        guard !deadline.overflow else {
+            throw NativeTimelineTransportError.renderClockUnavailable
+        }
+        repeat {
+            if let anchor = renderClockStorage.loadCoherentAnchor(),
+               anchor.graphSampleEnd > baselineGraphSample,
+               anchor.hostTimeAtGraphSampleEnd != nil {
+                return anchor
+            }
+            usleep(250)
+        } while mach_absolute_time() < deadline.partialValue
+        throw NativeTimelineTransportError.renderClockUnavailable
+    }
+
     @discardableResult
     private func publishCurrentAudioCursorMapping(
         request: ResponsiveAudioTimelineTransportPlan,
@@ -2609,6 +2635,9 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
         do {
             try stageAutomaticBoundaryCandidateIfNeeded()
             engine.prepare()
+            let liveRenderBaseline = isManualRendering
+                ? nil
+                : renderClockStorage.loadCoherentAnchor()?.graphSampleEnd ?? 0
             try engine.start()
             let leadSeconds = isManualRendering ? 0 : 0.100
             let leadFrames = AVAudioFramePosition(
@@ -2625,20 +2654,25 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
                 graphStartSample = AUEventSampleTime(sample)
                 renderClockBaseGraphSampleTime = sample
             } else {
-                let startHost = mach_absolute_time().addingReportingOverflow(
+                let anchor = try waitForInitialLiveRenderClockAnchor(
+                    after: liveRenderBaseline ?? 0
+                )
+                guard let anchorHost = anchor.hostTimeAtGraphSampleEnd else {
+                    throw NativeTimelineTransportError.renderClockUnavailable
+                }
+                let startHost = anchorHost.addingReportingOverflow(
                     AVAudioTime.hostTime(forSeconds: leadSeconds)
                 )
                 guard !startHost.overflow else {
                     throw NativeTimelineTransportError.renderClockUnavailable
                 }
-                startTime = AVAudioTime(hostTime: startHost.partialValue)
-                let renderedEnd = renderClockStorage.latestGraphSampleEnd.load(
-                    ordering: .acquiring
+                let graphStart = anchor.graphSampleEnd.addingReportingOverflow(
+                    leadFrames
                 )
-                let graphStart = renderedEnd.addingReportingOverflow(leadFrames)
                 guard !graphStart.overflow else {
                     throw NativeTimelineTransportError.renderClockUnavailable
                 }
+                startTime = AVAudioTime(hostTime: startHost.partialValue)
                 graphStartSample = AUEventSampleTime(graphStart.partialValue)
                 renderClockBaseGraphSampleTime = graphStart.partialValue
             }

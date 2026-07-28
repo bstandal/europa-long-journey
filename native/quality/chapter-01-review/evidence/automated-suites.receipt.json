@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "receiptID": "automated-suites-chapter-01-review-v1",
+  "type": "AUTOMATED_SUITES",
+  "milestone": "CHAPTER_01_REVIEW_READY",
+  "status": "PASS",
+  "chapterID": "first-farmers",
+  "shippingState": "PROHIBITED",
+  "subjectSHA256": "8951433810be0d2d1893858026253cd7835a0fcb3d57cd193053cbaebf369efb",
+  "suites": [
+    {
+      "id": "editorial-regression-and-f1-f7",
+      "command": "node native/scripts/validate-first-farmers-claim-register.mjs && node native/phase2/validate-first-farmers-draft.mjs",
+      "exitCode": 0,
+      "errorCount": 0
+    },
+    {
+      "id": "tooling",
+      "command": "native/scripts/verify-native.sh",
+      "exitCode": 0,
+      "errorCount": 0
+    },
+    {
+      "id": "swiftpm",
+      "command": "cd native/ios && swift test",
+      "exitCode": 0,
+      "errorCount": 0
+    },
+    {
+      "id": "fixture",
+      "command": "node --test native/phase2/runtime-fixture/build-runtime-fixture.test.mjs",
+      "exitCode": 0,
+      "errorCount": 0
+    },
+    {
+      "id": "xcode-ui",
+      "command": "cd native/ios && xcodebuild -quiet -project LongWestJourney.xcodeproj -scheme LongWestJourney -destination 'platform=iOS Simulator,name=iPhone 17 Pro' CODE_SIGNING_ALLOWED=NO clean build test",
+      "exitCode": 0,
+      "errorCount": 0
+    },
+    {
+      "id": "sanitizer",
+      "command": "node native/scripts/validate-thread-sanitizer-receipt.mjs",
+      "exitCode": 0,
+      "errorCount": 0
+    },
+    {
+      "id": "release-boundary",
+      "command": "native/scripts/verify-native.sh",
+      "exitCode": 0,
+      "errorCount": 0
+    }
+  ],
+  "artifacts": [
+    {
+      "role": "full-verification-log",
+      "path": "native/quality/chapter-01-review/evidence/artifacts/full-verification-final.log",
+      "bytes": 371197,
+      "sha256": "cf0fb859bb67bd10973eb7e1cf236ff53d217e82b84327203d90ca50965b09ed"
+    }
+  ]
+}

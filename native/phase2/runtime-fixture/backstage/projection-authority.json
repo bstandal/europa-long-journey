@@ -47,10 +47,10 @@
     "effect-european-world-steam-keeps-the-appointment",
     "effect-european-world-twenty-states-agree-on-the-signal"
   ],
-  "payloadSHA256": "e79cbef203219bc8f2f85eebd9cdf9576195bb6f5c70db5d0589b74b5539c82a",
+  "payloadSHA256": "d850402979ce968a50f680f66fa86586ed8f7284a2cabb705e5299ac575ec6df",
   "contractSliceSHA256": "0d2b54985ec6496350a96365944666317c501b5f894f99b7602b8b63ad974f98",
-  "arcSliceSHA256": "f567e3838ab459f9581bfe40c7f5dbc2889f160b7d8c09b0715000892af3b66e",
+  "arcSliceSHA256": "fe8f675e752110a9970d2b4bb98f077bfce40985d665aafffa9a24e155524e4a",
   "interactionSliceSHA256": "9cce157867aaaf7ae7412bf41dcbc511c6de5bca5e46353f65c88ec8d479e957",
-  "worldEffectSliceSHA256": "cad62e42da85796aac6b9f39949ab60b42c4630f460337426b5595ecaebe83e5",
-  "projectionSHA256": "03c146482f533f119f712ffbd4eaed17e0c2b44bf8c9bd3a84a6970b08857462"
+  "worldEffectSliceSHA256": "183d0db80ee25b3a091dbc3a3d2f19a1c1852b4250595d6fd6217a910b387fcb",
+  "projectionSHA256": "f959a653d7cb6e1215505629c6b25ff524f985c7c64cacc7a0af252d70a136a9"
 }

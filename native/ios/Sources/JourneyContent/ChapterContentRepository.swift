@@ -16,6 +16,7 @@ public protocol ChapterContentRepository: Sendable {
     func contentVersion(for chapterID: ChapterID) -> SchemaVersion?
     func location(of arcID: ArcID) -> ArcContentLocation?
     func location(of beatID: BeatID) -> BeatContentLocation?
+    func audioTimeline(_ id: AudioTimelineID) -> AudioTimeline?
     func audioTimelineIDs(for beatID: BeatID) -> [AudioTimelineID]?
     func responsiveAudioProgram(
         for interactionID: InteractionID
@@ -23,6 +24,13 @@ public protocol ChapterContentRepository: Sendable {
     func responsiveAudioTimelines(
         for interactionID: InteractionID
     ) -> [AudioTimeline]?
+}
+
+public extension ChapterContentRepository {
+    /// Test repositories that do not carry authored beat audio can retain
+    /// their narrow fixture surface. Production repositories override this
+    /// lookup with their verified timeline index.
+    func audioTimeline(_: AudioTimelineID) -> AudioTimeline? { nil }
 }
 
 extension ContentRepository: ChapterContentRepository {}

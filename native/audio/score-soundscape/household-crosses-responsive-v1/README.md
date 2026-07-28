@@ -25,10 +25,11 @@ the loop beds. The Trace reducer owns origin and accepted-anchor `contact`,
 throttled viable-route `drag`, and the durable destination `seal`; the
 destination never emits preliminary contact.
 
-Narration remains missing. `ff-crossing-02` also retains an unresolved F5
-sowing-season editor decision. The work object must preserve both shipping
-blocks without changing the approved prose. Artistic, editor, physical-device
-and shipping approval remain open.
+Narration remains missing. The editor-in-chief resolved the former F5
+sowing-season issue for the Chapter 01 review text by replacing the spring
+formulation with the next sowing. The work object binds that exact frozen
+segment and retains every separate artistic, physical-device and shipping
+gate.
 
 Run:
 

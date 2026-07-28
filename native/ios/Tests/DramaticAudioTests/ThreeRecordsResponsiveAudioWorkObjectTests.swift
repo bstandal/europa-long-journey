@@ -206,7 +206,7 @@ final class ThreeRecordsResponsiveAudioWorkObjectTests: XCTestCase {
                 ],
                 [
                     "b00525cb8d6e7d560a7adfe0b1894976ae43ca38638fb22f51af0a5f7495781d",
-                    "fc71f01cdd7f68107ec650d165940158323c86946ea8160386f8420ecfb833e5",
+                    "61a833e2bcfd178acf647e72b68a7be0b3d9849026242e5795107b90d76c5159",
                 ],
             ]
         )

@@ -441,7 +441,10 @@ test("Harvest reuses the Phase 1 SceneSpec and every other asset path is an expl
   const harvest = payload.scenes.find(({ id }) => id === fixture.scene.id);
   const expectedHarvest = structuredClone(fixture.scene);
   expectedHarvest.accessibilityID = "accessibility-beat-first-farmers-harvest-allocation";
+  expectedHarvest.mechanismFocus.launchEnglish =
+    "One finite harvest, divided into twelve equal illustrative runtime shares, must become winter food, protected reserve and seed grain before the grain in the foreground is exhausted.";
   assert.deepEqual(harvest, expectedHarvest);
+  assert.ok(!harvest.mechanismFocus.launchEnglish.includes("spring seed"));
 
   const harvestPaths = new Set(collectAssetPaths(fixture.scene));
   const payloadPaths = [...new Set(collectAssetPaths(payload))].sort();

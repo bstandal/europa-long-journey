@@ -462,6 +462,9 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.journey.ui-tests
         GENERATE_INFOPLIST_FILE: YES
+      configs:
+        NON_SHIPPING_LIVE_TEST:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) NON_SHIPPING_LIVE_TEST"
 
 schemes:
   ExperiencePreferences:
@@ -500,7 +503,7 @@ schemes:
       gatherCoverageData: true
       targets:
         - name: LongWestNativeTests
-          parallelizable: true
+          parallelizable: false
         - name: ReleaseDiscoveryTests
           parallelizable: true
         - name: ExperiencePreferencesTests
@@ -514,6 +517,12 @@ schemes:
     build:
       targets:
         JourneyApp: all
+        JourneyAppUITests: [test]
+    test:
+      config: NON_SHIPPING_LIVE_TEST
+      targets:
+        - name: JourneyAppUITests
+          parallelizable: false
     run:
       config: NON_SHIPPING_LIVE_TEST
       debugEnabled: false

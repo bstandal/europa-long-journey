@@ -688,6 +688,12 @@ async function buildWorkObject({ scoreSource, soundscapeSource, draft, inputs, o
   assert(assembly && consequence, "Longhouse manuscript beats are missing");
   assert(assembly.interaction?.id === "interaction-first-farmers-the-house-outlives", "Longhouse interaction ID drifted");
   assert(assembly.interaction.grammar === "assemble", "Longhouse interaction grammar drifted");
+  assert(JSON.stringify(assembly.interaction.components) === JSON.stringify([
+    { id: "posts", targetSlot: "frame", prerequisites: [] },
+    { id: "hearth", targetSlot: "centre", prerequisites: ["posts"] },
+    { id: "storage", targetSlot: "dry-bay", prerequisites: ["posts"] },
+    { id: "roof", targetSlot: "shelter", prerequisites: ["posts"] },
+  ]), "Longhouse posts-first/free-remainder dependency drifted");
   assert(JSON.stringify(assembly.interaction.haptics) === JSON.stringify(activeLonghouseHaptics), "Longhouse haptic subset drifted");
   const authored = soundscapeSource.regions.map((region, index) => timeline(
     region,
@@ -759,6 +765,13 @@ async function buildWorkObject({ scoreSource, soundscapeSource, draft, inputs, o
         kind: "bounded-fade",
         durationSamples: 9_600,
       },
+    },
+    interactionDependency: {
+      prerequisiteComponentID: "posts",
+      requiredFirst: true,
+      remainingComponentIDs: ["hearth", "storage", "roof"],
+      remainingOrder: "ANY_ORDER",
+      resistanceOnlyBeforePrerequisite: true,
     },
     timelines,
     audioAssetMetadata: metadata,
@@ -919,6 +932,13 @@ function validateWorkObject(work) {
   assert(work.trustDomain === "BACKSTAGE_AUDIO_PRODUCTION", "work object trust domain drifted");
   assert(work.scope.beatID === "beat-first-farmers-raise-longhouse", "work object beat scope drifted");
   assert(work.responsiveProgram.id === work.id, "responsive program identity drifted");
+  assert(JSON.stringify(work.interactionDependency) === JSON.stringify({
+    prerequisiteComponentID: "posts",
+    requiredFirst: true,
+    remainingComponentIDs: ["hearth", "storage", "roof"],
+    remainingOrder: "ANY_ORDER",
+    resistanceOnlyBeforePrerequisite: true,
+  }), "Longhouse audio dependency contract drifted");
   assert(work.responsiveProgram.approachTimelineID === "longhouse-approach-v1", "approach timeline drifted");
   assert(work.responsiveProgram.consequenceTimelineID === "longhouse-consequence-v1", "consequence timeline drifted");
   assert(JSON.stringify(work.responsiveProgram.exitPolicy) === JSON.stringify({

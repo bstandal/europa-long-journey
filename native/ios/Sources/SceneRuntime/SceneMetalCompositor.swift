@@ -825,24 +825,28 @@ public final class SceneMetalCompositor: NSObject, ObservableObject, MTKViewDele
             return transition(to: .failed(.sceneNotPrepared))
         }
 
-        // A production scene can contain many full-resolution state variants.
-        // Retaining every texture ever visited makes memory grow with reading
-        // time and turns a long session into avoidable thermal and battery
-        // load. Keep only the exact working set for the active composition.
+        // Build the next texture working set locally. The displayed scene may
+        // still receive direct-manipulation updates while missing textures are
+        // decoded, so its cache must remain intact until the replacement can
+        // be committed atomically.
         let requiredTextureKeys = Set(preparation.textureRequests.map(\.key))
-        textureCache = textureCache.filter {
+        var candidateTextureCache = textureCache.filter {
             requiredTextureKeys.contains($0.key)
         }
 
         let missingRequests = preparation.textureRequests.filter {
-            textureCache[$0.key] == nil
+            candidateTextureCache[$0.key] == nil
         }
         if missingRequests.isEmpty {
-            return commit(
+            let committed = commit(
                 preparation,
-                using: textureCache,
+                using: candidateTextureCache,
                 transientResponse: framePlan.interactionResponse
             )
+            if case .sceneReady = committed {
+                textureCache = candidateTextureCache
+            }
+            return committed
         }
 
         let deviceReference = MetalDeviceReference(value: device)
@@ -866,13 +870,21 @@ public final class SceneMetalCompositor: NSObject, ObservableObject, MTKViewDele
         }
 
         // Decoded textures remain local until every missing request succeeds.
-        // A failed preparation therefore cannot partially mutate the cache.
-        textureCache.merge(textures) { _, replacement in replacement }
-        return commit(
+        // A failed preparation therefore cannot evict or partially mutate the
+        // cache backing the scene that is still on screen.
+        candidateTextureCache.merge(textures) { _, replacement in replacement }
+        let committed = commit(
             preparation,
-            using: textureCache,
+            using: candidateTextureCache,
             transientResponse: framePlan.interactionResponse
         )
+        if case .sceneReady = committed {
+            // A production scene can contain many full-resolution state
+            // variants. Retain only the exact replacement working set after
+            // its draw packet is ready.
+            textureCache = candidateTextureCache
+        }
+        return committed
     }
 
     /// Advances camera, deterministic tick, interaction response or a state

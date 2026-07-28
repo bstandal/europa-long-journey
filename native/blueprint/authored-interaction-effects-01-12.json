@@ -99,7 +99,7 @@
       "nativeInteractionID": "interaction-first-farmers-the-harvest-had-to-last",
       "worldTraceID": "trace-seasonal-store",
       "operation": "establish",
-      "beforeState": "One finite harvest lies on the floor while winter food, spoilage and next spring's seed compete for the same grain.",
+      "beforeState": "One finite harvest lies on the floor while winter food, spoilage and seed grain for the next sowing compete for the same grain.",
       "afterState": "The divided store binds present consumption to reserve, seed and the next agricultural year."
     },
     {

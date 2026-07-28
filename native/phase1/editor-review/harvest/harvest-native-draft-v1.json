@@ -21,7 +21,7 @@
     },
     {
       "path": "native/blueprint/arc-matrix.json",
-      "sha256": "d5b2e9f619a6420c9ac8a497fa451951ef8a66ced0a3b95af287e54d41e35722"
+      "sha256": "8f4926f574ec0046b116ebca9f85a3246a8a2587cda023f94ab1b1ad10f58162"
     },
     {
       "path": "native/phase1/fixtures/harvest-option-1.scene.json",
@@ -29,7 +29,7 @@
     },
     {
       "path": "native/design/phase1/harvest/scene-production-brief.md",
-      "sha256": "4cfc0ee996e30c8d7543f894675a3f77ddd18bb935f9fe6607bf3337a5a8ced8"
+      "sha256": "30409f71f9268b7f12e0d7c76be5554691355c8385e06d230693e2f89efc9315"
     }
   ],
   "interactionRecommendation": {
@@ -51,7 +51,7 @@
       {
         "id": "seed",
         "minimumUnits": 3,
-        "title": "Spring seed"
+        "title": "Seed grain"
       }
     ],
     "surplusUnitsAfterObligations": 3,
@@ -59,7 +59,7 @@
     "invalidTerminalState": "REMAINS_ACTIVE_WITH_EXACT_UNMET_OBLIGATION_AND_FULL_REVERSIBILITY",
     "persistentLocalState": "EXACT_FINAL_DISTRIBUTION",
     "persistentWorldEffect": "ONE_SHARED_DOCUMENTED_EFFECT_FOR_EVERY_VALID_DISTRIBUTION",
-    "worldBefore": "One finite harvest lies on the floor while winter food, spoilage and next spring's seed compete for the same grain.",
+    "worldBefore": "One finite harvest lies on the floor while winter food, spoilage and seed grain for the next sowing compete for the same grain.",
     "worldAfter": "The divided store binds present consumption to reserve, seed and the next agricultural year."
   },
   "manuscript": {
@@ -90,13 +90,13 @@
         "id": "harvest-spring-seed",
         "role": "narration",
         "entry": "focusSeed",
-        "text": "And part must remain untouched. Spring seed is food refused in winter: the next field held inside the present harvest."
+        "text": "And part must remain untouched. Seed grain is food refused in winter: the next field held inside the present harvest."
       },
       {
         "id": "harvest-surplus",
         "role": "narration",
         "entry": "allMinimumsMet",
-        "text": "The household's obligations are met. What remains can ease winter, absorb loss or enlarge the spring sowing. The same grain cannot do all three."
+        "text": "The household's obligations are met. What remains can ease winter, absorb loss or enlarge the next sowing. The same grain cannot do all three."
       },
       {
         "id": "harvest-consequence",
@@ -124,16 +124,16 @@
     {
       "id": "reserve",
       "standard": "Protected reserve",
-      "focused": "Grain closed here stands against damp, pests and scarcity. More held back cannot be eaten now or put into the spring field."
+      "focused": "Grain closed here stands against damp, pests and scarcity. More held back cannot be eaten now or put into the next field."
     },
     {
       "id": "seed",
-      "standard": "Spring seed",
-      "focused": "Grain kept here returns to the soil in spring. More seed leaves less winter food and reserve."
+      "standard": "Seed grain",
+      "focused": "Grain kept here returns to the soil at the next sowing. More seed leaves less winter food and reserve."
     }
   ],
   "accessibility": {
-    "sceneSummary": "One finite harvest lies beneath a dry shelter. Allocate it among winter food at the hearth, a protected reserve and spring seed. Grain moved to one use leaves the other two.",
+    "sceneSummary": "One finite harvest lies beneath a dry shelter. Allocate it among winter food at the hearth, a protected reserve and seed grain for the next sowing. Grain moved to one use leaves the other two.",
     "sourceLabel": "Undivided harvest",
     "adjustmentActions": [
       "increment",

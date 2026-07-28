@@ -28,7 +28,7 @@ async function render() {
   const approvalLines = approval.status === "APPROVED_BY_EDITOR_IN_CHIEF"
     ? [
         `Approval status: \`${approval.status}\`  `,
-        `Approved: ${approval.approvedAt}  `,
+        `Approved: ${approval.approvedAt}`,
         `Decision reference: \`${approval.decisionReference}\``,
         "",
         "The editor-in-chief approved all 24 contracts and 55 arcs after selecting the four recommended resolutions recorded in `editor-review.md`. Those resolutions are applied in the authoritative contract files bound by `editor-approval.json`.",

@@ -1,5 +1,8 @@
 import ChapterRuntime
 import ContentKit
+#if DEBUG || NON_SHIPPING_LIVE_TEST
+import DramaticAudio
+#endif
 import Foundation
 import JourneyAccessibility
 import JourneyContent
@@ -10,6 +13,194 @@ import QualityInstrumentation
 import SceneRuntime
 import SwiftUI
 import UIKit
+
+#if DEBUG || NON_SHIPPING_LIVE_TEST
+private struct NonShippingReviewPrimaryAudioCheckpoint: Codable, Sendable {
+    let authority: NonShippingReviewPrimaryAudioAuthority
+    let cursorSample: Int64
+}
+
+/// One non-shipping, authority-bound crash cursor for the finite main beat
+/// timeline. Its 125 ms cadence and native render-clock feed run outside
+/// MainActor, so rapid direct manipulation cannot push recovery beyond the
+/// 250 ms review limit.
+private actor NonShippingReviewPrimaryAudioCursorStore {
+    typealias Failure = @Sendable (UUID) -> Void
+
+    private static let cadenceNanoseconds: UInt64 = 125_000_000
+
+    private let directoryURL: URL
+    private let fileURL: URL
+    private var activeToken: UUID?
+    private var cadenceTask: Task<Void, Never>?
+    private var newestCursorSample: Int64 = 0
+
+    init(directoryURL: URL) {
+        self.directoryURL = directoryURL
+        fileURL = directoryURL.appendingPathComponent(
+            "cursor.json",
+            isDirectory: false
+        )
+    }
+
+    func recover(
+        authority: NonShippingReviewPrimaryAudioAuthority,
+        maximumCursorSample: Int64
+    ) -> Int64? {
+        guard maximumCursorSample >= 0,
+              let bytes = try? Data(contentsOf: fileURL),
+              let checkpoint = try? JSONDecoder().decode(
+                  NonShippingReviewPrimaryAudioCheckpoint.self,
+                  from: bytes
+              ), checkpoint.authority == authority,
+              checkpoint.cursorSample >= 0,
+              checkpoint.cursorSample <= maximumCursorSample else {
+            return nil
+        }
+        return checkpoint.cursorSample
+    }
+
+    func reset(
+        authority: NonShippingReviewPrimaryAudioAuthority
+    ) {
+        guard let bytes = try? Data(contentsOf: fileURL),
+              let checkpoint = try? JSONDecoder().decode(
+                  NonShippingReviewPrimaryAudioCheckpoint.self,
+                  from: bytes
+              ), checkpoint.authority == authority else { return }
+        try? FileManager.default.removeItem(at: fileURL)
+        newestCursorSample = 0
+    }
+
+    func start(
+        token: UUID,
+        authority: NonShippingReviewPrimaryAudioAuthority,
+        maximumCursorSample: Int64,
+        feed: NativeAudioCursorFeed,
+        gateToken: NativeAudioDurabilityGate.EpochToken,
+        maximumUndurableGraphSampleCount: Int64,
+        failure: @escaping Failure
+    ) throws {
+        cadenceTask?.cancel()
+        try FileManager.default.createDirectory(
+            at: directoryURL,
+            withIntermediateDirectories: true
+        )
+        activeToken = token
+        newestCursorSample = recover(
+            authority: authority,
+            maximumCursorSample: maximumCursorSample
+        ) ?? 0
+        cadenceTask = Task { [weak self] in
+            await self?.run(
+                token: token,
+                authority: authority,
+                maximumCursorSample: maximumCursorSample,
+                feed: feed,
+                gateToken: gateToken,
+                maximumUndurableGraphSampleCount:
+                    maximumUndurableGraphSampleCount,
+                failure: failure
+            )
+        }
+    }
+
+    func finish(
+        token: UUID,
+        authority: NonShippingReviewPrimaryAudioAuthority,
+        cursorSample: Int64,
+        maximumCursorSample: Int64
+    ) {
+        guard activeToken == token else { return }
+        cadenceTask?.cancel()
+        cadenceTask = nil
+        defer { activeToken = nil }
+        guard cursorSample >= newestCursorSample,
+              cursorSample <= maximumCursorSample else { return }
+        try? persist(
+            NonShippingReviewPrimaryAudioCheckpoint(
+                authority: authority,
+                cursorSample: cursorSample
+            )
+        )
+    }
+
+    func cancel(token: UUID) {
+        guard activeToken == token else { return }
+        cadenceTask?.cancel()
+        cadenceTask = nil
+        activeToken = nil
+    }
+
+    private func run(
+        token: UUID,
+        authority: NonShippingReviewPrimaryAudioAuthority,
+        maximumCursorSample: Int64,
+        feed: NativeAudioCursorFeed,
+        gateToken: NativeAudioDurabilityGate.EpochToken,
+        maximumUndurableGraphSampleCount: Int64,
+        failure: @escaping Failure
+    ) async {
+        do {
+            while !Task.isCancelled {
+                guard activeToken == token else { return }
+                let capture = try feed.capture()
+                guard capture.snapshot.timelineID == authority.timelineID,
+                      capture.snapshot.cursorSample >= 0,
+                      capture.snapshot.cursorSample <= maximumCursorSample,
+                      capture.snapshot.cursorSample >= newestCursorSample,
+                      gateToken.claimCapture(
+                          atRenderedGraphSample:
+                              capture.renderedGraphSample
+                      ) else {
+                    throw NativeAudioCursorFeedError.unavailable
+                }
+                try persist(
+                    NonShippingReviewPrimaryAudioCheckpoint(
+                        authority: authority,
+                        cursorSample: capture.snapshot.cursorSample
+                    )
+                )
+                newestCursorSample = capture.snapshot.cursorSample
+                let cutoff = capture.renderedGraphSample
+                    .addingReportingOverflow(
+                        maximumUndurableGraphSampleCount
+                    )
+                guard !cutoff.overflow,
+                      gateToken.authorizeAudio(
+                          throughRenderedGraphSample: cutoff.partialValue
+                      ) else {
+                    throw NativeAudioCursorFeedError.unavailable
+                }
+                if !capture.snapshot.isPlaying
+                    || capture.snapshot.cursorSample == maximumCursorSample {
+                    cadenceTask = nil
+                    activeToken = nil
+                    return
+                }
+                try await Task.sleep(
+                    nanoseconds: Self.cadenceNanoseconds
+                )
+            }
+        } catch is CancellationError {
+            return
+        } catch {
+            guard activeToken == token else { return }
+            cadenceTask = nil
+            activeToken = nil
+            failure(token)
+        }
+    }
+
+    private func persist(
+        _ checkpoint: NonShippingReviewPrimaryAudioCheckpoint
+    ) throws {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.sortedKeys]
+        try encoder.encode(checkpoint).write(to: fileURL, options: .atomic)
+    }
+}
+#endif
 
 #if DEBUG
 private extension Notification.Name {
@@ -193,6 +384,7 @@ final class ProductionChapterRouteSession: ObservableObject {
         "none"
     @Published private(set) var responsiveAudioBindingReadyForTesting =
         "not-ready"
+    @Published private(set) var primaryAudioDiagnosticForTesting = "unbound"
     private var responsiveAudioActivationDiagnosticForTesting = "none"
     private var traceTouchSampleCountForTesting = 0
     private var firstTraceViewportPointForTesting: SceneFramePoint?
@@ -356,7 +548,28 @@ final class ProductionChapterRouteSession: ObservableObject {
         let playbackLease: ResponsiveAudioPlaybackStartLease
     }
 
+#if DEBUG || NON_SHIPPING_LIVE_TEST
+    private struct PrimaryAudioRouteKey: Equatable {
+        let routeIdentity: ChapterRuntimeRouteIdentity
+        let timelineID: AudioTimelineID
+    }
+
+    private struct PrimaryAudioPlayback {
+        let routeKey: PrimaryAudioRouteKey
+        let binding: NonShippingReviewPrimaryAudioBinding
+        let transport: NativeTimelineTransport
+        let cursorStore: NonShippingReviewPrimaryAudioCursorStore
+        let cursorToken: UUID
+    }
+#endif
+
     private var responsiveAudioRouteKey: ResponsiveAudioRouteKey?
+#if DEBUG || NON_SHIPPING_LIVE_TEST
+    private var primaryAudioRouteKey: PrimaryAudioRouteKey?
+    private var primaryAudioPlayback: PrimaryAudioPlayback?
+    private var primaryAudioCursorStore:
+        NonShippingReviewPrimaryAudioCursorStore?
+#endif
     /// The latest active or resisted response seen in this live view session.
     /// A restored controller deliberately has no transient feedback, so this
     /// value is consulted only by the matching physical-pause refresh below.
@@ -370,6 +583,14 @@ final class ProductionChapterRouteSession: ObservableObject {
     private var responsiveAudioPolicy = ChapterResponsiveAudioSessionPolicy()
     private var responsiveAudioAuthorizedStartEpoch:
         ResponsiveAudioPlaybackStartEpoch?
+
+    var hasAuthoredAudio: Bool {
+#if DEBUG || NON_SHIPPING_LIVE_TEST
+        responsiveAudioRouteKey != nil || primaryAudioRouteKey != nil
+#else
+        responsiveAudioRouteKey != nil
+#endif
+    }
 
     init(
         performanceRecorder: (any PerformanceRecording)? =
@@ -993,6 +1214,7 @@ final class ProductionChapterRouteSession: ObservableObject {
 #endif
         cancelOutstandingPerformanceActions()
         cancelEphemeralResponseCleanup()
+        pausePrimaryAudioForBoundary()
         routeGeneration &+= 1
         let generation = routeGeneration
 #if DEBUG
@@ -1047,6 +1269,9 @@ final class ProductionChapterRouteSession: ObservableObject {
             "activate-\(generation)-bind-silent:\(responsiveAudioChoice.rawValue)"
 #endif
         responsiveAudioRouteKey = nil
+#if DEBUG || NON_SHIPPING_LIVE_TEST
+        primaryAudioRouteKey = nil
+#endif
         desiredResponsiveAudioPhase = nil
         lastMeaningfulResponsiveAudioPhaseForLifecycle = nil
         if pendingPhysicalPauseRefresh?.identity != identity {
@@ -1241,6 +1466,7 @@ final class ProductionChapterRouteSession: ObservableObject {
         deactivationIsPending = false
         cancelOutstandingPerformanceActions()
         cancelEphemeralResponseCleanup()
+        pausePrimaryAudioForBoundary()
         routeGeneration &+= 1
         lifecyclePresentationRefreshTask?.cancel()
         lifecyclePresentationRefreshTask = nil
@@ -1267,12 +1493,16 @@ final class ProductionChapterRouteSession: ObservableObject {
         chapterInputAdmissionDiagnosticForTesting = "none"
         chapterInputResolutionDiagnosticForTesting = "none"
         responsiveAudioBindingReadyForTesting = "not-ready"
+        primaryAudioDiagnosticForTesting = "unbound"
         traceTouchSampleCountForTesting = 0
         firstTraceViewportPointForTesting = nil
 #endif
         reportedAssetFailureAuthority = nil
         responsiveAudioPolicy.deactivate()
         responsiveAudioRouteKey = nil
+#if DEBUG || NON_SHIPPING_LIVE_TEST
+        primaryAudioRouteKey = nil
+#endif
         desiredResponsiveAudioPhase = nil
         responsiveAudioChoice = responsiveAudioPolicy.choice
 #if DEBUG
@@ -1486,6 +1716,18 @@ final class ProductionChapterRouteSession: ObservableObject {
         latestContinuousJournalInput = nil
         pressureInputProtectionPolicy.reset()
         neutralizeContinuousTouchPreview()
+        pausePrimaryAudioForBoundary()
+        requireExplicitResponsiveAudioResume()
+    }
+
+    /// The finite main timeline records its sample-exact pause before the
+    /// ordered beat transition enters Journey's queue. Responsive interaction
+    /// audio remains owned by the model's existing ordered-exit transaction.
+    func prepareForBeatExit(
+        expectedIdentity: ChapterRuntimeRouteIdentity
+    ) {
+        guard identity == expectedIdentity else { return }
+        pausePrimaryAudioForBoundary()
     }
 
     /// The same explicit action serves touch and VoiceOver. A new chapter
@@ -1493,14 +1735,18 @@ final class ProductionChapterRouteSession: ObservableObject {
     /// an explicit resume rather than starting sound on return.
     func hearScene(expectedIdentity: ChapterRuntimeRouteIdentity) {
         let inputIsAdmitted = admitsInput(for: expectedIdentity)
-        let hasProgram = presentation?.cursor.responsiveAudioProgram != nil
+        let hasProgram = responsiveAudioRouteKey != nil
+#if DEBUG || NON_SHIPPING_LIVE_TEST
+        let hasPrimaryTimeline = primaryAudioRouteKey != nil
+#else
+        let hasPrimaryTimeline = false
+#endif
         guard inputIsAdmitted,
               !inputIsPending,
-              hasProgram,
+              hasProgram || hasPrimaryTimeline,
               responsiveAudioChoice != .starting,
               responsiveAudioChoice != .playing,
               let model,
-              let routeKey = responsiveAudioRouteKey,
               let attempt = responsiveAudioPolicy.chooseSound() else {
 #if DEBUG
             responsiveAudioBindingReadyForTesting =
@@ -1509,6 +1755,7 @@ final class ProductionChapterRouteSession: ObservableObject {
                     + "input=\(inputIsPending ? 1 : 0);"
                     + "refresh=\(lifecyclePresentationRefreshIsPending ? 1 : 0);"
                     + "program=\(hasProgram ? 1 : 0);"
+                    + "primary=\(hasPrimaryTimeline ? 1 : 0);"
                     + "routeKey=\(responsiveAudioRouteKey == nil ? 0 : 1);"
                     + "choice=\(responsiveAudioChoice.rawValue)"
 #endif
@@ -1519,19 +1766,32 @@ final class ProductionChapterRouteSession: ObservableObject {
         responsiveAudioChoiceDiagnosticForTesting =
             "choose-sound:\(responsiveAudioChoice.rawValue)"
 #endif
-        startResponsiveAudioPlayback(
-            attempt,
-            routeKey: routeKey,
-            startEpoch:
-                model.responsiveAudioPlaybackStartEpochForCurrentLifecycle()
-        )
+        let startEpoch = model
+            .responsiveAudioPlaybackStartEpochForCurrentLifecycle()
+        if let routeKey = responsiveAudioRouteKey {
+            startResponsiveAudioPlayback(
+                attempt,
+                routeKey: routeKey,
+                startEpoch: startEpoch
+            )
+            return
+        }
+#if DEBUG || NON_SHIPPING_LIVE_TEST
+        if let primaryAudioRouteKey {
+            startPrimaryAudioPlayback(
+                attempt,
+                routeKey: primaryAudioRouteKey,
+                startEpoch: startEpoch
+            )
+        }
+#endif
     }
 
     func continueInSilence(expectedIdentity: ChapterRuntimeRouteIdentity) {
         guard admitsInput(for: expectedIdentity),
               !inputIsPending,
               responsiveAudioChoice == .undecided,
-              presentation?.cursor.responsiveAudioProgram != nil else { return }
+              hasAuthoredAudio else { return }
         responsiveAudioPolicy.continueInSilence()
         responsiveAudioChoice = responsiveAudioPolicy.choice
 #if DEBUG
@@ -1543,6 +1803,7 @@ final class ProductionChapterRouteSession: ObservableObject {
     func requireExplicitResponsiveAudioResume() {
         guard responsiveAudioChoice == .playing
                 || responsiveAudioChoice == .starting else { return }
+        pausePrimaryAudioForBoundary()
         responsiveAudioPlaybackTask?.cancel()
         responsiveAudioPlaybackTask = nil
         responsiveAudioAuthorizedStartEpoch = nil
@@ -1823,6 +2084,252 @@ final class ProductionChapterRouteSession: ObservableObject {
         }
     }
 
+#if DEBUG || NON_SHIPPING_LIVE_TEST
+    private func narrationCueID(
+        in timeline: AudioTimeline,
+        at cursorSample: Int64
+    ) -> AudioCueID? {
+        let narration = timeline.events.filter { $0.role == .narration }
+        return narration.last(where: { $0.startSample <= cursorSample })?
+            .cueID ?? narration.first?.cueID
+    }
+
+    private func startPrimaryAudioComponent(
+        routeKey: PrimaryAudioRouteKey,
+        startEpoch: ResponsiveAudioPlaybackStartEpoch,
+        model: JourneyModel,
+        generation: UInt64,
+        recordsJournalStart: Bool = true
+    ) async -> Bool {
+        do {
+            guard let binding = try model
+                    .nonShippingReviewPrimaryAudioBinding(
+                        for: routeKey.routeIdentity
+                    ), binding.authority.timelineID == routeKey.timelineID,
+                  !binding.narrationCueIDs.isEmpty else { return false }
+            let paths = Array(Set(
+                binding.timeline.events
+                    .filter { $0.role != .silence }
+                    .compactMap(\.assetPath)
+            )).sorted()
+            try await OfflineAudioAssetPrewarmer.prewarm(
+                paths: paths,
+                resolver: binding.resolver
+            )
+            try Task.checkCancellation()
+            guard routeGeneration == generation,
+                  primaryAudioRouteKey == routeKey,
+                  identity == routeKey.routeIdentity,
+                  startEpoch == model
+                    .responsiveAudioPlaybackStartEpochForCurrentLifecycle(),
+                  model.chapterRuntimeRouteIdentity(
+                      for: routeKey.routeIdentity.chapterID,
+                      viewportCropID: routeKey.routeIdentity.viewportCropID,
+                      reduceMotion: routeKey.routeIdentity.reduceMotion
+                  ) == routeKey.routeIdentity else { return false }
+
+            let cursorStore: NonShippingReviewPrimaryAudioCursorStore
+            if let primaryAudioCursorStore {
+                cursorStore = primaryAudioCursorStore
+            } else {
+                let store = NonShippingReviewPrimaryAudioCursorStore(
+                    directoryURL: binding.cursorDirectoryURL
+                )
+                primaryAudioCursorStore = store
+                cursorStore = store
+            }
+            let recoveredCursor = await cursorStore.recover(
+                authority: binding.authority,
+                maximumCursorSample:
+                    binding.timeline.authoredDurationSamples
+            ) ?? 0
+            var cursorSample = max(
+                binding.journalCursorSample,
+                recoveredCursor
+            )
+            // A completed finite cue can be replayed only by another explicit
+            // Hear action; AVAudioEngine has no playable frame at the sentinel.
+            if cursorSample >= binding.timeline.authoredDurationSamples {
+                cursorSample = 0
+                await cursorStore.reset(authority: binding.authority)
+            }
+
+            let transport = NativeTimelineTransport(
+                preferences: model.experiencePreferences
+            )
+            try transport.prepare(
+                timeline: binding.timeline,
+                cursorSample: cursorSample,
+                resolver: binding.resolver
+            )
+            try transport.play()
+            let nativeCursor = try transport.activeAudioCursorBinding()
+            let cursorToken = UUID()
+            primaryAudioPlayback = PrimaryAudioPlayback(
+                routeKey: routeKey,
+                binding: binding,
+                transport: transport,
+                cursorStore: cursorStore,
+                cursorToken: cursorToken
+            )
+#if DEBUG
+            primaryAudioDiagnosticForTesting =
+                "playing;timeline=\(routeKey.timelineID.rawValue);cursor=\(cursorSample)"
+#endif
+            try await cursorStore.start(
+                token: cursorToken,
+                authority: binding.authority,
+                maximumCursorSample:
+                    binding.timeline.authoredDurationSamples,
+                feed: nativeCursor.feed,
+                gateToken: nativeCursor.gateToken,
+                maximumUndurableGraphSampleCount: Int64(
+                    nativeCursor.renderedGraphSampleRate / 4
+                ),
+                failure: { [weak self] failedToken in
+                    Task { @MainActor [weak self] in
+                        self?.failPrimaryAudioCursor(
+                            token: failedToken,
+                            routeKey: routeKey
+                        )
+                    }
+                }
+            )
+            guard let cueID = narrationCueID(
+                in: binding.timeline,
+                at: cursorSample
+            ) else {
+                pausePrimaryAudioForBoundary()
+                return false
+            }
+            if recordsJournalStart {
+                model.recordNonShippingReviewPrimaryAudioCursor(
+                    cueID: cueID,
+                    sampleOffset: cursorSample,
+                    isPlaying: true,
+                    expectedIdentity: routeKey.routeIdentity
+                )
+            }
+            return true
+        } catch is CancellationError {
+            pausePrimaryAudioForBoundary()
+            return false
+        } catch {
+#if DEBUG
+            failureDiagnosticForTesting = String(reflecting: error)
+            primaryAudioDiagnosticForTesting =
+                "failed;error=\(String(reflecting: error))"
+#endif
+            pausePrimaryAudioForBoundary()
+            return false
+        }
+    }
+
+    private func startPrimaryAudioPlayback(
+        _ attempt: ChapterResponsiveAudioPlaybackAttempt,
+        routeKey: PrimaryAudioRouteKey,
+        startEpoch: ResponsiveAudioPlaybackStartEpoch
+    ) {
+        guard let model else { return }
+        responsiveAudioPlaybackTask?.cancel()
+        let generation = routeGeneration
+        responsiveAudioPlaybackTask = Task { @MainActor [weak self, weak model] in
+            guard let self, let model else { return }
+            let started = await self.startPrimaryAudioComponent(
+                routeKey: routeKey,
+                startEpoch: startEpoch,
+                model: model,
+                generation: generation
+            )
+            let mayPublish = started
+                && !Task.isCancelled
+                && self.routeGeneration == generation
+                && self.primaryAudioRouteKey == routeKey
+                && startEpoch == model
+                    .responsiveAudioPlaybackStartEpochForCurrentLifecycle()
+            if !mayPublish {
+                self.pausePrimaryAudioForBoundary()
+            }
+            guard self.responsiveAudioPolicy.completePlayback(
+                attempt,
+                didStart: mayPublish
+            ) else {
+                self.pausePrimaryAudioForBoundary()
+                return
+            }
+            self.responsiveAudioPlaybackTask = nil
+            self.responsiveAudioAuthorizedStartEpoch = mayPublish
+                ? startEpoch : nil
+            self.responsiveAudioChoice = self.responsiveAudioPolicy.choice
+#if DEBUG
+            self.responsiveAudioChoiceDiagnosticForTesting =
+                "primary-playback-complete:"
+                    + self.responsiveAudioChoice.rawValue
+#endif
+        }
+    }
+#endif
+
+    private func pausePrimaryAudioForBoundary() {
+#if DEBUG || NON_SHIPPING_LIVE_TEST
+        guard let playback = primaryAudioPlayback else { return }
+        primaryAudioPlayback = nil
+        let snapshot: NativeTimelineTransportSnapshot
+        do {
+            snapshot = try playback.transport.pause()
+        } catch {
+            snapshot = playback.transport.snapshot()
+        }
+        playback.transport.stop()
+        let cursorSample = min(
+            max(snapshot.cursorSample, 0),
+            playback.binding.timeline.authoredDurationSamples
+        )
+#if DEBUG
+        primaryAudioDiagnosticForTesting =
+            "paused;timeline=\(playback.routeKey.timelineID.rawValue);cursor=\(cursorSample)"
+#endif
+        if let cueID = narrationCueID(
+            in: playback.binding.timeline,
+            at: cursorSample
+        ) {
+            model?.recordNonShippingReviewPrimaryAudioCursor(
+                cueID: cueID,
+                sampleOffset: cursorSample,
+                isPlaying: false,
+                expectedIdentity: playback.routeKey.routeIdentity
+            )
+        }
+        Task {
+            await playback.cursorStore.finish(
+                token: playback.cursorToken,
+                authority: playback.binding.authority,
+                cursorSample: cursorSample,
+                maximumCursorSample:
+                    playback.binding.timeline.authoredDurationSamples
+            )
+        }
+#endif
+    }
+
+#if DEBUG || NON_SHIPPING_LIVE_TEST
+    private func failPrimaryAudioCursor(
+        token: UUID,
+        routeKey: PrimaryAudioRouteKey
+    ) {
+        guard primaryAudioPlayback?.cursorToken == token,
+              primaryAudioPlayback?.routeKey == routeKey else { return }
+        pausePrimaryAudioForBoundary()
+        responsiveAudioPolicy.requireExplicitResume()
+        responsiveAudioChoice = responsiveAudioPolicy.choice
+#if DEBUG
+        failureDiagnosticForTesting =
+            "non-shipping primary audio cursor persistence failed"
+        primaryAudioDiagnosticForTesting = "failed"
+#endif
+    }
+#endif
+
     private func startResponsiveAudioPlayback(
         _ attempt: ChapterResponsiveAudioPlaybackAttempt,
         routeKey: ResponsiveAudioRouteKey,
@@ -1833,12 +2340,43 @@ final class ProductionChapterRouteSession: ObservableObject {
         let generation = routeGeneration
         responsiveAudioPlaybackTask = Task { @MainActor [weak self, weak model] in
             guard let self, let model else { return }
+#if DEBUG || NON_SHIPPING_LIVE_TEST
+            let primaryKey = self.primaryAudioRouteKey
+            let primaryStarted: Bool
+            if let primaryKey {
+                primaryStarted = await self.startPrimaryAudioComponent(
+                    routeKey: primaryKey,
+                    startEpoch: startEpoch,
+                    model: model,
+                    generation: generation,
+                    // The responsive session is the durable consent record
+                    // for a combined scene. Its cursor sidecar protects a
+                    // hard kill, while explicit pause still journals the
+                    // primary cue. A second start record here would race the
+                    // scene controller's deliberately audio-only rebase.
+                    recordsJournalStart: false
+                )
+            } else {
+                primaryStarted = true
+            }
+            guard primaryStarted else {
+                guard self.responsiveAudioPolicy.completePlayback(
+                    attempt,
+                    didStart: false
+                ) else { return }
+                self.responsiveAudioPlaybackTask = nil
+                self.responsiveAudioAuthorizedStartEpoch = nil
+                self.responsiveAudioChoice = self.responsiveAudioPolicy.choice
+                return
+            }
+#endif
             let started = await model.startResponsiveAudioPlayback(
                 startEpoch: startEpoch
             )
             guard !Task.isCancelled,
                   self.routeGeneration == generation,
                   self.responsiveAudioRouteKey == routeKey else {
+                self.pausePrimaryAudioForBoundary()
                 return
             }
 
@@ -1926,6 +2464,9 @@ final class ProductionChapterRouteSession: ObservableObject {
             let mayPublishPlayback = started
                 && (presentationWasSynchronized
                     || replacementWillPublishCurrentAuthority)
+            if !mayPublishPlayback {
+                self.pausePrimaryAudioForBoundary()
+            }
             guard self.responsiveAudioPolicy.completePlayback(
                 attempt,
                 didStart: mayPublishPlayback
@@ -2381,11 +2922,20 @@ final class ProductionChapterRouteSession: ObservableObject {
                 displayedFramePlan: displayedPresentation.framePlan,
                 alphaSampler: alphaSampler
             )
-            if publishesVisualResponse {
+            let previewProtection = protection(for: preview.semantic)
+            // A durable input owns asynchronous texture preparation. Keep the
+            // last published frame stable until that atomic replacement is
+            // ready; subsequent raw samples still retain their causal
+            // classification and durability priority.
+            if publishesVisualResponse, !inputIsPending {
                 let compositorState = compositor.update(
                     preview.presentation.framePlan
                 )
                 guard case .sceneReady = compositorState else {
+#if DEBUG
+                    failureDiagnosticForTesting =
+                        "continuous-preview-compositor:\(compositorState)"
+#endif
                     routeReplacementIsPending = true
                     failure = ProductionChapterRouteFailure(
                         kind: .rendererUnavailable,
@@ -2395,7 +2945,7 @@ final class ProductionChapterRouteSession: ObservableObject {
                 }
                 presentation = preview.presentation
             }
-            return .classified(protection(for: preview.semantic))
+            return .classified(previewProtection)
         } catch let error as SceneTouchActionResolverError {
             switch error {
             case .targetNotHit, .wrongTarget:
@@ -2513,6 +3063,10 @@ final class ProductionChapterRouteSession: ObservableObject {
         guard let runtime, let displayedPresentation = presentation else {
             return false
         }
+        if inputIsPending {
+            runtime.controller.resetContinuousTouchPreview()
+            return true
+        }
         do {
             let neutral = try runtime.controller
                 .neutralizeContinuousTouchPreview(
@@ -2527,7 +3081,13 @@ final class ProductionChapterRouteSession: ObservableObject {
                 )
                 return false
             }
-            cancelEphemeralResponseCleanup()
+            // Finger-up ends only the display-rate preview. A committed
+            // response may already own the controller and its authored
+            // cleanup timer; cancelling that timer here would strand the
+            // responsive-audio bed in engaged or resistance. The timer is
+            // fenced by the controller's response token below, so it remains
+            // safe when this neutral display projection no longer carries
+            // the token itself.
             presentation = neutral
             return true
         } catch {
@@ -3202,78 +3762,93 @@ final class ProductionChapterRouteSession: ObservableObject {
         sameProcessLifecyclePhase:
             ResponsiveInteractionAudioPhase? = nil
     ) {
-        guard let program = presentation.cursor.responsiveAudioProgram else {
-            if responsiveAudioRouteKey != nil {
-                responsiveAudioPlaybackTask?.cancel()
-                responsiveAudioPlaybackTask = nil
-                responsiveAudioRouteKey = nil
-                responsiveAudioAuthorizedStartEpoch = nil
-                _ = responsiveAudioPolicy.bind(
+        let program = presentation.cursor.responsiveAudioProgram
+        let nextResponsiveKey = program.map { program in
+            ResponsiveAudioRouteKey(
+                routeIdentity: identity,
+                playbackLease: ResponsiveAudioPlaybackStartLease(
                     chapterID: identity.chapterID,
-                    hasResponsiveAudio: false
+                    packageID: identity.packageID,
+                    packageManifestDigest: identity.packageManifestDigest,
+                    beatID: identity.beatID,
+                    programID: program.id,
+                    programScope: program.scope
                 )
-                responsiveAudioChoice = responsiveAudioPolicy.choice
-#if DEBUG
-                responsiveAudioChoiceDiagnosticForTesting =
-                    "program-removed:\(responsiveAudioChoice.rawValue)"
-#endif
-            }
-            desiredResponsiveAudioPhase = nil
-            clearRememberedResponsiveAudioLifecyclePhase()
-            return
-        }
-        let nextKey = ResponsiveAudioRouteKey(
-            routeIdentity: identity,
-            playbackLease: ResponsiveAudioPlaybackStartLease(
-                chapterID: identity.chapterID,
-                packageID: identity.packageID,
-                packageManifestDigest: identity.packageManifestDigest,
-                beatID: identity.beatID,
-                programID: program.id,
-                programScope: program.scope
             )
-        )
-        let previousKey = responsiveAudioRouteKey
-        if previousKey != nextKey {
-#if DEBUG
-            let bindingChange: String
-            if let previousKey {
-                if previousKey.routeIdentity != identity {
-                    bindingChange = "route-identity"
-                } else if previousKey.playbackLease.programID != program.id {
-                    bindingChange = "program"
-                } else {
-                    bindingChange = "unknown"
-                }
-            } else {
-                bindingChange = "initial"
+        }
+#if DEBUG || NON_SHIPPING_LIVE_TEST
+        let nextPrimaryKey = model?
+            .nonShippingReviewPrimaryAudioTimelineID(for: identity)
+            .map {
+                PrimaryAudioRouteKey(
+                    routeIdentity: identity,
+                    timelineID: $0
+                )
             }
+        let bindingChanged = responsiveAudioRouteKey != nextResponsiveKey
+            || primaryAudioRouteKey != nextPrimaryKey
+#else
+        let bindingChanged = responsiveAudioRouteKey != nextResponsiveKey
 #endif
+        if bindingChanged {
             responsiveAudioPlaybackTask?.cancel()
             responsiveAudioPlaybackTask = nil
-            responsiveAudioRouteKey = nextKey
+            pausePrimaryAudioForBoundary()
+            responsiveAudioRouteKey = nextResponsiveKey
+#if DEBUG || NON_SHIPPING_LIVE_TEST
+            primaryAudioRouteKey = nextPrimaryKey
+#endif
             desiredResponsiveAudioPhase = nil
             clearRememberedResponsiveAudioLifecyclePhase()
+#if DEBUG || NON_SHIPPING_LIVE_TEST
+            let primaryRequiresResume = nextPrimaryKey.map { key in
+                model?.nonShippingReviewPrimaryAudioRequiresResume(
+                    for: identity,
+                    timelineID: key.timelineID
+                ) == true
+            } ?? false
+            let hasPrimaryTimeline = nextPrimaryKey != nil
+#else
+            let primaryRequiresResume = false
+            let hasPrimaryTimeline = false
+#endif
             let action = responsiveAudioPolicy.bind(
                 chapterID: identity.chapterID,
-                hasResponsiveAudio: true,
+                hasResponsiveAudio: nextResponsiveKey != nil
+                    || hasPrimaryTimeline,
                 restoredSessionIsActive: presentation.journeyState
                     .activeChapter?.responsiveAudioSessionIsActive == true
+                    || primaryRequiresResume
             )
             responsiveAudioChoice = responsiveAudioPolicy.choice
 #if DEBUG
             responsiveAudioChoiceDiagnosticForTesting =
-                "program-bind-\(bindingChange)-generation-\(routeGeneration):"
+                "audio-bind-generation-\(routeGeneration):"
                     + responsiveAudioChoice.rawValue
                     + ":\(responsiveAudioActivationDiagnosticForTesting)"
+            primaryAudioDiagnosticForTesting = nextPrimaryKey.map {
+                "bound;timeline=\($0.timelineID.rawValue);cursor=unknown"
+            } ?? "unbound"
 #endif
             if case let .startAuthorizedPlayback(attempt) = action {
                 if let startEpoch = responsiveAudioAuthorizedStartEpoch {
-                    startResponsiveAudioPlayback(
-                        attempt,
-                        routeKey: nextKey,
-                        startEpoch: startEpoch
-                    )
+                    if let nextResponsiveKey {
+                        startResponsiveAudioPlayback(
+                            attempt,
+                            routeKey: nextResponsiveKey,
+                            startEpoch: startEpoch
+                        )
+                    }
+#if DEBUG || NON_SHIPPING_LIVE_TEST
+                    if nextResponsiveKey == nil,
+                       let nextPrimaryKey {
+                        startPrimaryAudioPlayback(
+                            attempt,
+                            routeKey: nextPrimaryKey,
+                            startEpoch: startEpoch
+                        )
+                    }
+#endif
                 } else {
                     _ = responsiveAudioPolicy.completePlayback(
                         attempt,
@@ -3282,6 +3857,11 @@ final class ProductionChapterRouteSession: ObservableObject {
                     responsiveAudioChoice = responsiveAudioPolicy.choice
                 }
             }
+        }
+        guard program != nil else {
+            desiredResponsiveAudioPhase = nil
+            clearRememberedResponsiveAudioLifecyclePhase()
+            return
         }
         let resolvedPhase = SceneResponsiveAudioPhaseResolver.phase(
             interactionPhase: presentation.journeyState.activeChapter?
@@ -3352,8 +3932,8 @@ final class ProductionChapterRouteSession: ObservableObject {
                       self.routeGeneration == generation,
                       self.identity == identity,
                       self.runtime?.controller === runtime.controller,
-                      self.presentation?.ephemeralResponseCleanupToken
-                        == token else {
+                      runtime.controller.presentation
+                        .ephemeralResponseCleanupToken == token else {
                     return
                 }
                 guard let cleared = try await model
@@ -3533,7 +4113,9 @@ struct ProductionChapterView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            ZStack(alignment: .bottom) {
+            let returnControlBottomGuide = geometry.size.height
+                - geometry.safeAreaInsets.top - 8
+            ZStack(alignment: .bottomLeading) {
                 Color.black.opacity(0.001)
                     .frame(width: 1, height: 1)
                     .accessibilityElement()
@@ -3677,6 +4259,12 @@ struct ProductionChapterView: View {
 #endif
 
                 if let presentation {
+                    let interactionIsIncomplete =
+                        presentation.cursor.beat.interaction != nil
+                        && presentation.journeyState.activeChapter?
+                            .interaction?.phase != .complete
+                    let narrativeHeightFraction =
+                        interactionIsIncomplete ? 0.18 : 0.43
                     ZStack {
                         SceneMetalSurface(
                             compositor: session.compositor,
@@ -3743,7 +4331,11 @@ struct ProductionChapterView: View {
                         session: session,
                         identity: identity
                     )
-                    .frame(maxHeight: geometry.size.height * 0.43, alignment: .bottom)
+                    .frame(
+                        maxHeight: geometry.size.height
+                            * narrativeHeightFraction,
+                        alignment: .bottom
+                    )
 #if DEBUG
                     Color.black.opacity(0.001)
                         .frame(width: 1, height: 1)
@@ -3767,6 +4359,14 @@ struct ProductionChapterView: View {
                             model.responsiveAudioRuntimeDiagnosticForTesting
                         )
                         .accessibilityIdentifier("responsive-audio-runtime-state")
+                    Color.black.opacity(0.001)
+                        .frame(width: 1, height: 1)
+                        .accessibilityElement()
+                        .accessibilityLabel("Primary authored audio runtime")
+                        .accessibilityValue(
+                            session.primaryAudioDiagnosticForTesting
+                        )
+                        .accessibilityIdentifier("primary-audio-runtime-state")
                     Color.black.opacity(0.001)
                         .frame(width: 1, height: 1)
                         .accessibilityElement()
@@ -3840,37 +4440,46 @@ struct ProductionChapterView: View {
                     SceneMetalSurface(
                         compositor: session.compositor,
                         onReturnToRoad: {
+                            session.prepareForBeatExit(
+                                expectedIdentity: identity
+                            )
                             model.showWorld(expectedIdentity: identity)
                         }
                     )
                     .accessibilityHidden(true)
                 }
 
-                VStack {
-                    HStack {
-                        Button("Return to the road") {
-                            model.showWorld(expectedIdentity: identity)
-                        }
-                            .font(.subheadline.weight(.medium))
-                            .foregroundStyle(Color(red: 0.86, green: 0.70, blue: 0.40))
-                            .padding(.horizontal, 16)
-                            .frame(minHeight: 44)
-                            .background(.black.opacity(0.62), in: Capsule())
-                            .disabled(
-                                model.chapterTransitionIsPending
-                                    || session.inputIsPending
-                                    || session
-                                        .lifecyclePresentationRefreshIsPending
-                            )
-                        Spacer()
-                    }
-                    Spacer()
+                // A full-height transparent container above the scene makes
+                // system VoiceOver treat the narrative and interaction
+                // controls beneath it as occluded. Align the real button
+                // directly so its visual, touch and AX bounds stay identical.
+                Button("Return to the road") {
+                    session.prepareForBeatExit(
+                        expectedIdentity: identity
+                    )
+                    model.showWorld(expectedIdentity: identity)
                 }
-                .padding(.horizontal, 18)
-                .padding(.top, geometry.safeAreaInsets.top + 8)
+                    .font(.subheadline.weight(.medium))
+                    .foregroundStyle(Color(red: 0.86, green: 0.70, blue: 0.40))
+                    .padding(.horizontal, 16)
+                    .frame(minHeight: 44)
+                    .background(.black.opacity(0.62), in: Capsule())
+                    .disabled(
+                        model.chapterTransitionIsPending
+                            || session.inputIsPending
+                            || session.lifecyclePresentationRefreshIsPending
+                            || session.responsiveAudioChoice == .starting
+                    )
+                    .padding(.leading, 18)
+                    .alignmentGuide(.bottom) { _ in
+                        returnControlBottomGuide
+                    }
 
                 if let failure = session.failure {
                     ChapterRouteFailureSurface(message: failure.message) {
+                        session.prepareForBeatExit(
+                            expectedIdentity: identity
+                        )
                         model.showWorldRecoveringChapterFailure(
                             expectedIdentity: identity
                         )
@@ -3947,17 +4556,17 @@ private struct ChapterNarrativeSurface: View {
                     .tracking(1.6)
                     .foregroundStyle(Color(red: 0.74, green: 0.63, blue: 0.43))
                 Text(presentation.cursor.beat.narrative.heading.launchEnglish)
-                    .font(.system(size: 30, weight: .regular, design: .serif))
+                    .font(.system(.title, design: .serif, weight: .regular))
                     .foregroundStyle(Color(red: 0.95, green: 0.93, blue: 0.87))
                     .accessibilityAddTraits(.isHeader)
                 ForEach(presentation.cursor.beat.narrative.paragraphs) { paragraph in
                     Text(paragraph.launchEnglish)
-                        .font(.system(size: 17, weight: .regular, design: .serif))
+                        .font(.system(.body, design: .serif, weight: .regular))
                         .lineSpacing(5)
                         .foregroundStyle(Color(red: 0.84, green: 0.83, blue: 0.79))
                 }
 
-                if presentation.cursor.responsiveAudioProgram != nil,
+                if session.hasAuthoredAudio,
                    session.responsiveAudioChoice != .playing {
                     ChapterResponsiveAudioChoiceSurface(
                         choice: session.responsiveAudioChoice,
@@ -3984,22 +4593,29 @@ private struct ChapterNarrativeSurface: View {
                     .foregroundStyle(Color(red: 0.90, green: 0.73, blue: 0.43))
 
                     if case .allocate = interaction.grammar {
-                        Button("Set the allocation") {
+                        Button {
                             session.submitTouch(
                                 .commitAllocation,
                                 expectedIdentity: identity
                             )
+                        } label: {
+                            Text("Set the allocation")
+                                .frame(minWidth: 44, minHeight: 44)
                         }
                         .buttonStyle(.borderedProminent)
                         .tint(Color(red: 0.82, green: 0.64, blue: 0.34))
                         .foregroundStyle(.black)
                         .disabled(session.inputIsPending)
-                        .accessibilityHidden(true)
+                        .accessibilityLabel("Set the stores")
+                        .accessibilityIdentifier("chapter-allocate-commit")
                     }
                 }
 
                 if canAdvance {
                     Button {
+                        session.prepareForBeatExit(
+                            expectedIdentity: identity
+                        )
                         model.advanceCurrentBeat(expectedIdentity: identity)
                     } label: {
                         HStack {
@@ -4021,6 +4637,7 @@ private struct ChapterNarrativeSurface: View {
                         model.chapterTransitionIsPending
                             || session.inputIsPending
                             || session.lifecyclePresentationRefreshIsPending
+                            || session.responsiveAudioChoice == .starting
                     )
                     .accessibilityIdentifier("chapter-continue")
                 }
@@ -4141,7 +4758,11 @@ private struct ChapterSemanticInteractionSurface: View {
     var body: some View {
         VStack(spacing: 0) {
             if let semanticModel {
-                ForEach(semanticModel.controls) { control in
+                ForEach(
+                    semanticModel.controls.filter {
+                        $0.id != "commit-allocation"
+                    }
+                ) { control in
                     SemanticControlElement(control: control, submit: submit)
                 }
             }

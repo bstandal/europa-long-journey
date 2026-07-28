@@ -161,7 +161,7 @@ final class FirstFarmersPayloadProjectionTests: XCTestCase {
         }
     }
 
-    func testHarvestSceneIsThePhaseOneContractWithOnlyAccessibilityRebound() throws {
+    func testHarvestSceneKeepsThePhaseOneContractBeforeTheSharedWorldReviewRebind() throws {
         let files = try payloadFiles()
         let payloadRoot = try XCTUnwrap(
             JSONSerialization.jsonObject(with: files.payload) as? [String: Any]
@@ -170,13 +170,85 @@ final class FirstFarmersPayloadProjectionTests: XCTestCase {
             JSONSerialization.jsonObject(with: files.harvestFixture) as? [String: Any]
         )
         let scenes = try XCTUnwrap(payloadRoot["scenes"] as? [[String: Any]])
-        var projected = try XCTUnwrap(
+        let projected = try XCTUnwrap(
             scenes.first { $0["id"] as? String == "harvest-allocation-option-1" }
         )
         var expected = try XCTUnwrap(fixtureRoot["scene"] as? [String: Any])
-        projected.removeValue(forKey: "accessibilityID")
-        expected.removeValue(forKey: "accessibilityID")
+        expected["accessibilityID"] = "accessibility-beat-first-farmers-harvest-allocation"
+        var expectedMechanismFocus = try XCTUnwrap(
+            expected["mechanismFocus"] as? [String: Any]
+        )
+        expectedMechanismFocus["launchEnglish"] =
+            "One finite harvest, divided into twelve equal illustrative runtime shares, must become winter food, protected reserve and seed grain before the grain in the foreground is exhausted."
+        expected["mechanismFocus"] = expectedMechanismFocus
         XCTAssertEqual(projected as NSDictionary, expected as NSDictionary)
+
+        let reviewRoot = try XCTUnwrap(
+            JSONSerialization.jsonObject(
+                with: reviewFixtureChapter()
+            ) as? [String: Any]
+        )
+        let reviewScenes = try XCTUnwrap(reviewRoot["scenes"] as? [[String: Any]])
+        let reviewHarvest = try XCTUnwrap(
+            reviewScenes.first { $0["id"] as? String == "harvest-allocation-option-1" }
+        )
+        let reviewStoredFuture = try XCTUnwrap(
+            reviewScenes.first {
+                $0["id"] as? String == "scene-first-farmers-store-committed"
+            }
+        )
+        XCTAssertEqual(
+            reviewHarvest["accessibilityID"] as? String,
+            "accessibility-beat-first-farmers-harvest-allocation"
+        )
+        XCTAssertEqual(
+            try XCTUnwrap(
+                reviewHarvest["mechanismFocus"] as? [String: Any]
+            )["launchEnglish"] as? String,
+            expectedMechanismFocus["launchEnglish"] as? String
+        )
+
+        for scene in [reviewHarvest, reviewStoredFuture] {
+            let sharedWorldAssets = jsonStringValues(in: scene).filter {
+                $0.hasPrefix("assets/")
+            }
+            XCTAssertFalse(sharedWorldAssets.isEmpty)
+            XCTAssertTrue(sharedWorldAssets.allSatisfy {
+                $0.hasPrefix("assets/review-world-harvest-store-")
+            })
+        }
+
+        let sceneCanvas = try XCTUnwrap(reviewHarvest["sceneCanvas"] as? [String: Any])
+        let motionComposition = try XCTUnwrap(
+            reviewHarvest["reduceMotionComposition"] as? [String: Any]
+        )
+        for composition in [sceneCanvas, motionComposition] {
+            let crops = try XCTUnwrap(composition["viewportCrops"] as? [[String: Any]])
+            XCTAssertEqual(
+                crops.compactMap { $0["id"] as? String },
+                ["baseline-393x852", "largest-430x932"]
+            )
+            for crop in crops {
+                let sourceRect = try XCTUnwrap(crop["sourceRect"] as? [String: Any])
+                XCTAssertEqual(sourceRect as NSDictionary, [
+                    "x": 0,
+                    "y": 0,
+                    "width": 1,
+                    "height": 1,
+                ] as NSDictionary)
+            }
+        }
+
+        let cameraRail = try XCTUnwrap(reviewHarvest["cameraRail"] as? [String: Any])
+        let keyframes = try XCTUnwrap(cameraRail["keyframes"] as? [[String: Any]])
+        XCTAssertEqual(keyframes.count, 4)
+        for keyframe in keyframes {
+            XCTAssertEqual(keyframe["scale"] as? Double, 1)
+            XCTAssertEqual(
+                try XCTUnwrap(keyframe["center"] as? [String: Any]) as NSDictionary,
+                ["x": 0.5, "y": 0.5] as NSDictionary
+            )
+        }
     }
 
     func testCanonicalDecoderFailsClosedOnMissingVisualBindingAndNarrationHashDrift() throws {
@@ -614,6 +686,34 @@ final class FirstFarmersPayloadProjectionTests: XCTestCase {
 #endif
     }
 
+    private func reviewFixtureChapter() throws -> Data {
+#if os(iOS)
+        let bundle = Bundle(for: FirstFarmersPayloadProjectionTests.self)
+        let runtimeFixture = try XCTUnwrap(
+            bundle.url(
+                forResource: "vertical-slice-development-v1",
+                withExtension: "runtimefixture"
+            )
+        )
+        return try Data(
+            contentsOf: runtimeFixture
+                .appending(path: "chapters")
+                .appending(path: "vertical-slice-development-v1.json")
+        )
+#else
+        let root = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+        return try Data(
+            contentsOf: root.appending(
+                path: "phase2/runtime-fixture/compiled/vertical-slice-development-v1.runtimefixture/chapters/vertical-slice-development-v1.json"
+            )
+        )
+#endif
+    }
+
     private func mutateJSON(
         _ data: Data,
         mutation: (inout [String: Any]) -> Void
@@ -640,6 +740,19 @@ final class FirstFarmersPayloadProjectionTests: XCTestCase {
             return array.reduce(into: []) { keys, item in
                 keys.formUnion(jsonKeys(in: item))
             }
+        }
+        return []
+    }
+
+    private func jsonStringValues(in value: Any) -> [String] {
+        if let string = value as? String {
+            return [string]
+        }
+        if let dictionary = value as? [String: Any] {
+            return dictionary.values.flatMap(jsonStringValues(in:))
+        }
+        if let array = value as? [Any] {
+            return array.flatMap(jsonStringValues(in:))
         }
         return []
     }

@@ -1,0 +1,315 @@
+{
+  "schemaVersion": 1,
+  "freezeID": "first-farmers-chapter-01-review-text-v1",
+  "milestone": "CHAPTER_01_REVIEW_READY",
+  "status": "CHAPTER_01_REVIEW_TEXT_FROZEN",
+  "shippingBoundary": "BACKSTAGE_ONLY_DO_NOT_PACKAGE",
+  "chapterID": "first-farmers",
+  "locale": "en",
+  "frozenAt": "2026-07-27",
+  "authority": "EDITOR_IN_CHIEF_APPROVED_REVIEW_TEXT",
+  "sourceDraft": {
+    "path": "native/phase2/editor-review/first-farmers/first-farmers-native-draft-v1.json",
+    "sha256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a"
+  },
+  "segmentCount": 37,
+  "combinedBindingSha256": "1e07b4bc34a95f2326856e2962c80e76f1bff68b05eba027c093f48978e84c6f",
+  "segments": [
+    {
+      "ordinal": 1,
+      "arcID": "first-farmers-arc-01",
+      "beatID": "beat-first-farmers-river-world",
+      "sceneID": "scene-first-farmers-iron-gates-dawn",
+      "segmentID": "ff-river-world-01",
+      "textSha256": "d594d0b6749f99a1434bd1107002f147fae9b83c148ee80db0d814e40893217b"
+    },
+    {
+      "ordinal": 2,
+      "arcID": "first-farmers-arc-01",
+      "beatID": "beat-first-farmers-river-world",
+      "sceneID": "scene-first-farmers-iron-gates-dawn",
+      "segmentID": "ff-river-world-02",
+      "textSha256": "8c769caeac7cc0a40cef261776691faedb48e129ad2d54f2c83eb29b4c2819ed"
+    },
+    {
+      "ordinal": 3,
+      "arcID": "first-farmers-arc-01",
+      "beatID": "beat-first-farmers-household-crosses",
+      "sceneID": "scene-first-farmers-aegean-crossing",
+      "segmentID": "ff-crossing-01",
+      "textSha256": "c79a713d8cd503a9162a11d454047c67a1bcf4fe666c417bcc73e226eedfc814"
+    },
+    {
+      "ordinal": 4,
+      "arcID": "first-farmers-arc-01",
+      "beatID": "beat-first-farmers-household-crosses",
+      "sceneID": "scene-first-farmers-aegean-crossing",
+      "segmentID": "ff-crossing-02",
+      "textSha256": "f975c91529a3c07afaf1f87c5f492ba37417d39823976a2a6ed3b92a75da2e75"
+    },
+    {
+      "ordinal": 5,
+      "arcID": "first-farmers-arc-01",
+      "beatID": "beat-first-farmers-living-system",
+      "sceneID": "scene-first-farmers-thessaly-landing",
+      "segmentID": "ff-system-01",
+      "textSha256": "eba6cc338ba47652b40f61c691a6bd9b8202f02cd2e8cf03dfbf74633524acd9"
+    },
+    {
+      "ordinal": 6,
+      "arcID": "first-farmers-arc-01",
+      "beatID": "beat-first-farmers-living-system",
+      "sceneID": "scene-first-farmers-thessaly-landing",
+      "segmentID": "ff-system-02",
+      "textSha256": "47f3fae60bd1231e24713284b8838373fcc5837e533d78892ba554db2794d108"
+    },
+    {
+      "ordinal": 7,
+      "arcID": "first-farmers-arc-01",
+      "beatID": "beat-first-farmers-european-ground",
+      "sceneID": "scene-first-farmers-thessaly-first-season",
+      "segmentID": "ff-ground-01",
+      "textSha256": "7bddca3ffc685306f5138a78ea75072ed73151de9da640fc8bcae85aa4350e7c"
+    },
+    {
+      "ordinal": 8,
+      "arcID": "first-farmers-arc-01",
+      "beatID": "beat-first-farmers-european-ground",
+      "sceneID": "scene-first-farmers-thessaly-first-season",
+      "segmentID": "ff-ground-02",
+      "textSha256": "2efc44180d87686996f3efeb2d31bf7e4b97179f68f76033b867189c742f93ac"
+    },
+    {
+      "ordinal": 9,
+      "arcID": "first-farmers-arc-01",
+      "beatID": "beat-first-farmers-inhabited-frontier",
+      "sceneID": "scene-first-farmers-danube-arrival",
+      "segmentID": "ff-frontier-01",
+      "textSha256": "8871730f1efe9a56408c1338d8eb6c60ca7e36676887b2ef90d2500c3067e978"
+    },
+    {
+      "ordinal": 10,
+      "arcID": "first-farmers-arc-01",
+      "beatID": "beat-first-farmers-inhabited-frontier",
+      "sceneID": "scene-first-farmers-danube-arrival",
+      "segmentID": "ff-frontier-02",
+      "textSha256": "e20325e22646a941816b1fc5189e0a09bb6652bc47f516aee478b258126e37ea"
+    },
+    {
+      "ordinal": 11,
+      "arcID": "first-farmers-arc-02",
+      "beatID": "beat-first-farmers-harvest-allocation",
+      "sceneID": "harvest-allocation-option-1",
+      "segmentID": "ff-harvest-01",
+      "textSha256": "25c0bea25bc110538c54d8afa0d8953daf46db5831a96439bb1eb768da625a2c"
+    },
+    {
+      "ordinal": 12,
+      "arcID": "first-farmers-arc-02",
+      "beatID": "beat-first-farmers-harvest-allocation",
+      "sceneID": "harvest-allocation-option-1",
+      "segmentID": "ff-harvest-02",
+      "textSha256": "3650b9b85212dc3cf034a133934a8e44cf52730d526b550f2f8bf4dfa0342fad"
+    },
+    {
+      "ordinal": 13,
+      "arcID": "first-farmers-arc-02",
+      "beatID": "beat-first-farmers-harvest-allocation",
+      "sceneID": "harvest-allocation-option-1",
+      "segmentID": "ff-harvest-03",
+      "textSha256": "c0243773aae4744e82f975bc974709d7b0c4701dd67c6acf1100af1e4259d315"
+    },
+    {
+      "ordinal": 14,
+      "arcID": "first-farmers-arc-02",
+      "beatID": "beat-first-farmers-harvest-allocation",
+      "sceneID": "harvest-allocation-option-1",
+      "segmentID": "ff-harvest-04",
+      "textSha256": "c0c18499a1ba91729197b2b3aefb8711831af899dee81f46593b95414080c42c"
+    },
+    {
+      "ordinal": 15,
+      "arcID": "first-farmers-arc-02",
+      "beatID": "beat-first-farmers-harvest-allocation",
+      "sceneID": "harvest-allocation-option-1",
+      "segmentID": "ff-harvest-05",
+      "textSha256": "6a26b1eb81bd0420738c35a2c1afd2fdf3d8fbbd02035aae45b7466994b6b936"
+    },
+    {
+      "ordinal": 16,
+      "arcID": "first-farmers-arc-02",
+      "beatID": "beat-first-farmers-stored-future",
+      "sceneID": "scene-first-farmers-store-committed",
+      "segmentID": "ff-stored-future-01",
+      "textSha256": "7b332eb38373e2708939e3d9129de7c2ac56929df417ed55299a2674dba090cd"
+    },
+    {
+      "ordinal": 17,
+      "arcID": "first-farmers-arc-02",
+      "beatID": "beat-first-farmers-stored-future",
+      "sceneID": "scene-first-farmers-store-committed",
+      "segmentID": "ff-stored-future-02",
+      "textSha256": "75ba56ed3e6213bd54afb9681e62a71aeb18dd18d17a0db313deef0b6e480388"
+    },
+    {
+      "ordinal": 18,
+      "arcID": "first-farmers-arc-02",
+      "beatID": "beat-first-farmers-gorge-contact",
+      "sceneID": "scene-first-farmers-iron-gates-contact",
+      "segmentID": "ff-contact-01",
+      "textSha256": "b3a13eb3467b0943a193c6f51d3561107ec9b5a34acc293a3835173fdf786380"
+    },
+    {
+      "ordinal": 19,
+      "arcID": "first-farmers-arc-02",
+      "beatID": "beat-first-farmers-gorge-contact",
+      "sceneID": "scene-first-farmers-iron-gates-contact",
+      "segmentID": "ff-contact-02",
+      "textSha256": "b15cef14ce338b79996a141470d716f8f8daf246d7c64b391506f3a7fab0d5c1"
+    },
+    {
+      "ordinal": 20,
+      "arcID": "first-farmers-arc-02",
+      "beatID": "beat-first-farmers-three-records",
+      "sceneID": "scene-first-farmers-iron-gates-transformation",
+      "segmentID": "ff-records-01",
+      "textSha256": "2e0bb347d1c361da279ad76505fa9741e0e0026b82b06d81677a13bf9e258ac5"
+    },
+    {
+      "ordinal": 21,
+      "arcID": "first-farmers-arc-02",
+      "beatID": "beat-first-farmers-three-records",
+      "sceneID": "scene-first-farmers-iron-gates-transformation",
+      "segmentID": "ff-records-02",
+      "textSha256": "84f1d3f284fff9f26af1e53fa49f7ccf608a2ab827ce4168949e949c813569a8"
+    },
+    {
+      "ordinal": 22,
+      "arcID": "first-farmers-arc-02",
+      "beatID": "beat-first-farmers-frontier-consequence",
+      "sceneID": "scene-first-farmers-danube-to-loess",
+      "segmentID": "ff-frontier-consequence-01",
+      "textSha256": "b00525cb8d6e7d560a7adfe0b1894976ae43ca38638fb22f51af0a5f7495781d"
+    },
+    {
+      "ordinal": 23,
+      "arcID": "first-farmers-arc-02",
+      "beatID": "beat-first-farmers-frontier-consequence",
+      "sceneID": "scene-first-farmers-danube-to-loess",
+      "segmentID": "ff-frontier-consequence-02",
+      "textSha256": "61a833e2bcfd178acf647e72b68a7be0b3d9849026242e5795107b90d76c5159"
+    },
+    {
+      "ordinal": 24,
+      "arcID": "first-farmers-arc-03",
+      "beatID": "beat-first-farmers-raise-longhouse",
+      "sceneID": "scene-first-farmers-longhouse-assembly",
+      "segmentID": "ff-house-01",
+      "textSha256": "8d58fa47d1c2d1046144617dbc426829e6e97f7b303703d9e5fdcfb374dcbd61"
+    },
+    {
+      "ordinal": 25,
+      "arcID": "first-farmers-arc-03",
+      "beatID": "beat-first-farmers-raise-longhouse",
+      "sceneID": "scene-first-farmers-longhouse-assembly",
+      "segmentID": "ff-house-02",
+      "textSha256": "ec15361294d85562014de84b713ce650446c0383b9412c9c8f366975448dbf7e"
+    },
+    {
+      "ordinal": 26,
+      "arcID": "first-farmers-arc-03",
+      "beatID": "beat-first-farmers-plot-remains",
+      "sceneID": "scene-first-farmers-longhouse-rebuilt",
+      "segmentID": "ff-plot-01",
+      "textSha256": "25c57a692d42215f9dad585f95e5a532940a561b154a4cd45a2dcec61e48f0c8"
+    },
+    {
+      "ordinal": 27,
+      "arcID": "first-farmers-arc-03",
+      "beatID": "beat-first-farmers-plot-remains",
+      "sceneID": "scene-first-farmers-longhouse-rebuilt",
+      "segmentID": "ff-plot-02",
+      "textSha256": "3d4cd32d1629038991c31214d314958cb7c987281ce10d0969dbc1ce24299430"
+    },
+    {
+      "ordinal": 28,
+      "arcID": "first-farmers-arc-03",
+      "beatID": "beat-first-farmers-paternal-lines",
+      "sceneID": "scene-first-farmers-household-descent",
+      "segmentID": "ff-descent-01",
+      "textSha256": "ccae67cbd5d1999d37766e032282c9fc62bc448760d29fe6de536282f1cb38e0"
+    },
+    {
+      "ordinal": 29,
+      "arcID": "first-farmers-arc-03",
+      "beatID": "beat-first-farmers-paternal-lines",
+      "sceneID": "scene-first-farmers-household-descent",
+      "segmentID": "ff-descent-02",
+      "textSha256": "3d4a0a01f3f6806dcc38ee8d47c557ac59070157c4a338d58ec86c9d4de28879"
+    },
+    {
+      "ordinal": 30,
+      "arcID": "first-farmers-arc-03",
+      "beatID": "beat-first-farmers-more-mouths",
+      "sceneID": "scene-first-farmers-settlement-growth",
+      "segmentID": "ff-growth-01",
+      "textSha256": "fb9573d71921970acc3f2dc0559b5fbc2419284fe0e62792bac2616bc8c220ac"
+    },
+    {
+      "ordinal": 31,
+      "arcID": "first-farmers-arc-03",
+      "beatID": "beat-first-farmers-more-mouths",
+      "sceneID": "scene-first-farmers-settlement-growth",
+      "segmentID": "ff-growth-02",
+      "textSha256": "6092523b95d92a45ce2594bd668ccc82b6d0058351245de9dadce26b27ecfb39"
+    },
+    {
+      "ordinal": 32,
+      "arcID": "first-farmers-arc-03",
+      "beatID": "beat-first-farmers-growth-breaks",
+      "sceneID": "scene-first-farmers-local-contraction",
+      "segmentID": "ff-contraction-01",
+      "textSha256": "86522dfaa6ba0a9dd3a354eca21ba07c1e13342270961509bffd7784fb5d6272"
+    },
+    {
+      "ordinal": 33,
+      "arcID": "first-farmers-arc-03",
+      "beatID": "beat-first-farmers-growth-breaks",
+      "sceneID": "scene-first-farmers-local-contraction",
+      "segmentID": "ff-contraction-02",
+      "textSha256": "ada857e9ba3467a7776a6d0b251c3df1ac105e8a90fb1cfa8115947ddc8dfec7"
+    },
+    {
+      "ordinal": 34,
+      "arcID": "first-farmers-arc-03",
+      "beatID": "beat-first-farmers-continent-remade",
+      "sceneID": "scene-first-farmers-europe-transformation",
+      "segmentID": "ff-continent-01",
+      "textSha256": "9c585dbce0f1e50c0124df665066cd247809cb7fbc3e699bdea9d38efaa62321"
+    },
+    {
+      "ordinal": 35,
+      "arcID": "first-farmers-arc-03",
+      "beatID": "beat-first-farmers-continent-remade",
+      "sceneID": "scene-first-farmers-europe-transformation",
+      "segmentID": "ff-continent-02",
+      "textSha256": "e941816d25a5318bbd3ac26a21dd1fc5b6f38026f58e084216680bc6ae9bab9a"
+    },
+    {
+      "ordinal": 36,
+      "arcID": "first-farmers-arc-03",
+      "beatID": "beat-first-farmers-before-steppe",
+      "sceneID": "scene-first-farmers-steppe-handoff",
+      "segmentID": "ff-ending-01",
+      "textSha256": "40441b803508af6fb42d4ac38cfe00ad24055765a40d047be51b2b7b32a23545"
+    },
+    {
+      "ordinal": 37,
+      "arcID": "first-farmers-arc-03",
+      "beatID": "beat-first-farmers-before-steppe",
+      "sceneID": "scene-first-farmers-steppe-handoff",
+      "segmentID": "ff-ending-02",
+      "textSha256": "87bcc4ebe491ee78cab66182dff4560547dda0ad365ef2e0ad2ca711e16e4f85"
+    }
+  ]
+}

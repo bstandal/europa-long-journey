@@ -14,13 +14,13 @@
   "signedDevelopmentFixture": {
     "packageID": "vertical-slice-development-v1",
     "trustDomain": "the-long-west-vertical-slice-development-v1",
-    "manifestDigest": "589ea9be981a4bd6b8d8569b0ebd6a98ed1c856d8e54d39dc5281d4e9b513f53",
+    "manifestDigest": "a761522302648c3d8721757dc1c4b7ff9da93a1a7535bc28d8f28216235b0f85",
     "manifestPath": "native/phase2/runtime-fixture/compiled/vertical-slice-development-v1.runtimefixture/package-manifest.json",
-    "manifestSha256": "bf357e1480ef5d56ed76ece64a4335dea877406401d3df2f47442e38e782899e",
+    "manifestSha256": "ad4d3fd5df0cf9e5c17c0474e6134c27664f7fd93095258408b83dbe26da284d",
     "lineagePath": "native/phase2/runtime-fixture/fixture-lineage.json",
-    "lineageSha256": "90fd9f88c059e11498352012b787ef97954f71a195c58788d2490442e8690976",
+    "lineageSha256": "5824193072c9aa0d47a33623aca60a91c65f863a8f32d8b16ddffb80332f4734",
     "trustReceiptPath": "native/phase2/runtime-fixture/vertical-slice-development-trust-receipt.json",
-    "trustReceiptSha256": "1edeb708b3d189b51ee6e240b4a7446ad3089ff165e75e0bf4f2b666e9176348",
+    "trustReceiptSha256": "c11499e6c522d94c09b3e1911a6de2c032aebd01d0860f16527a0e79b8e780bc",
     "sceneIsUnreferencedByJourneyBeat": true,
     "releaseBundleState": "EXCLUDED"
   },

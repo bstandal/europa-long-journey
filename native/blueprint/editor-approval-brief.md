@@ -6,8 +6,8 @@
 Approval scope: 24 chapter contracts, 55 native arcs, 290 source movements, 99 principal interactions, 23 supporting source interactions and 48 cumulative world traces.
 
 Approval status: `APPROVED_BY_EDITOR_IN_CHIEF`  
-Approved: 2026-07-23T19:14:44Z  
-Decision reference: `codex-user-approval-four-phase0-decisions-2026-07-23`
+Approved: 2026-07-27T10:06:53Z
+Decision reference: `codex-user-approved-chapter-01-review-plan-2026-07-27`
 
 The editor-in-chief approved all 24 contracts and 55 arcs after selecting the four recommended resolutions recorded in `editor-review.md`. Those resolutions are applied in the authoritative contract files bound by `editor-approval.json`.
 

@@ -581,6 +581,62 @@ final class AContinentRemadeSignedRuntimeTests: XCTestCase {
             file: file,
             line: line
         )
+        let expectedNormalSources: [SceneDrawSource] = [
+            .layer(SceneLayerID("far-landscape"), variantID: nil),
+            .layer(SceneLayerID("inhabited-world"), variantID: nil),
+        ] + zip(stages, expectedVariants).map {
+            .layer(SceneLayerID("stage-\($0.0.id)"), variantID: $0.1)
+        } + [
+            .layer(SceneLayerID("foreground-occlusion"), variantID: nil),
+            .layer(SceneLayerID("mechanism-light"), variantID: nil),
+        ]
+        XCTAssertEqual(
+            normalFrame.drawCommands.map(\.source),
+            expectedNormalSources,
+            "The normal composition must retain the shared four world layers around the state overlays.",
+            file: file,
+            line: line
+        )
+        let expectedWorldAssets: [(SceneLayerID, String)] = [
+            (
+                SceneLayerID("far-landscape"),
+                "assets/review-world-european-farming-belt-background.png"
+            ),
+            (
+                SceneLayerID("inhabited-world"),
+                "assets/review-world-european-farming-belt-midground.png"
+            ),
+            (
+                SceneLayerID("foreground-occlusion"),
+                "assets/review-world-european-farming-belt-foreground.png"
+            ),
+            (
+                SceneLayerID("mechanism-light"),
+                "assets/review-world-european-farming-belt-mechanism-light.png"
+            ),
+        ]
+        for (layerID, assetPath) in expectedWorldAssets {
+            let command = normalFrame.drawCommands.first {
+                $0.source == .layer(layerID, variantID: nil)
+            }
+            XCTAssertEqual(
+                command?.asset.packagePath,
+                assetPath,
+                "The shared layer \(layerID) resolved the wrong signed asset.",
+                file: file,
+                line: line
+            )
+        }
+        let mechanismLight = normalFrame.drawCommands.first {
+            $0.source == .layer(SceneLayerID("mechanism-light"), variantID: nil)
+        }
+        XCTAssertEqual(mechanismLight?.blendMode, .screen, file: file, line: line)
+        XCTAssertEqual(
+            mechanismLight?.masks.light?.packagePath,
+            "assets/review-world-european-farming-belt-mechanism-light-alpha.png",
+            file: file,
+            line: line
+        )
         let expected = Dictionary(
             uniqueKeysWithValues: zip(stages, expectedVariants).map {
                 (SceneLayerID("stage-\($0.0.id)"), $0.1)
@@ -598,6 +654,21 @@ final class AContinentRemadeSignedRuntimeTests: XCTestCase {
             file: file,
             line: line
         )
+        let expectedReducedSources: [SceneDrawSource] = [
+            .reduceMotionStaticStratum("static-underlay"),
+        ] + zip(stages, expectedVariants).map {
+            .layer(SceneLayerID("stage-\($0.0.id)"), variantID: $0.1)
+        } + [
+            .reduceMotionStaticStratum("static-foreground"),
+            .reduceMotionStaticStratum("static-mechanism-light"),
+        ]
+        XCTAssertEqual(
+            reduced.drawCommands.map(\.source),
+            expectedReducedSources,
+            "Reduce Motion must preserve every consequence overlay and both foreground strata.",
+            file: file,
+            line: line
+        )
         XCTAssertEqual(
             Set(reduced.drawCommands.compactMap { command -> String? in
                 guard case let .reduceMotionStaticStratum(id) = command.source else {
@@ -605,10 +676,34 @@ final class AContinentRemadeSignedRuntimeTests: XCTestCase {
                 }
                 return id
             }),
-            Set(["static-underlay", "static-foreground"]),
+            Set([
+                "static-underlay",
+                "static-foreground",
+                "static-mechanism-light",
+            ]),
             file: file,
             line: line
         )
+        let expectedReducedAssets = [
+            "static-underlay":
+                "assets/review-world-european-farming-belt-reduce-motion-state-before.png",
+            "static-foreground":
+                "assets/review-world-european-farming-belt-reduce-motion-foreground.png",
+            "static-mechanism-light":
+                "assets/review-world-european-farming-belt-reduce-motion-mechanism-light.png",
+        ]
+        for (stratumID, assetPath) in expectedReducedAssets {
+            let command = reduced.drawCommands.first {
+                $0.source == .reduceMotionStaticStratum(stratumID)
+            }
+            XCTAssertEqual(
+                command?.asset.packagePath,
+                assetPath,
+                "Reduce Motion stratum \(stratumID) resolved the wrong signed asset.",
+                file: file,
+                line: line
+            )
+        }
     }
 
     private func selectedStageVariants(

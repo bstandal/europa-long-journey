@@ -1405,7 +1405,7 @@ function validateWorkObject(work, soundscapeSource) {
     ],
     [
       { manuscriptSegmentID: "ff-frontier-consequence-01", manuscriptSegmentSHA256: "b00525cb8d6e7d560a7adfe0b1894976ae43ca38638fb22f51af0a5f7495781d" },
-      { manuscriptSegmentID: "ff-frontier-consequence-02", manuscriptSegmentSHA256: "fc71f01cdd7f68107ec650d165940158323c86946ea8160386f8420ecfb833e5" },
+      { manuscriptSegmentID: "ff-frontier-consequence-02", manuscriptSegmentSHA256: "61a833e2bcfd178acf647e72b68a7be0b3d9849026242e5795107b90d76c5159" },
     ],
   ]), "Three Records narration manuscript hashes drifted");
   assert(work.authoredQuiet.length === 5, "five scoped quiet bindings required");

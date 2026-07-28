@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "status": "PROVISIONAL_CODEX_COMPLETE_AWAITING_FINAL_EDITOR_GATE",
+  "status": "CHAPTER_01_REVIEW_TEXT_FROZEN",
   "shippingState": "PROHIBITED",
   "chapterID": "first-farmers",
   "title": "The First Farmers",
@@ -18,7 +18,7 @@
     },
     {
       "path": "native/blueprint/arc-matrix.json",
-      "sha256": "d5b2e9f619a6420c9ac8a497fa451951ef8a66ced0a3b95af287e54d41e35722"
+      "sha256": "8f4926f574ec0046b116ebca9f85a3246a8a2587cda023f94ab1b1ad10f58162"
     },
     {
       "path": "native/blueprint/interaction-mapping.json",
@@ -26,7 +26,7 @@
     },
     {
       "path": "native/blueprint/authored-interaction-effects-01-12.json",
-      "sha256": "287818002d840c148b5b0e9c1de5c17696d7e23bc6b94540af4da5aa854a5063"
+      "sha256": "042006533ef0672c8a819dbcb043e6ceda6bdf05430c48ea0d2b47fd9ddf4333"
     }
   ],
   "chapterContract": {
@@ -36,11 +36,11 @@
     "handoff": "The settled continent now possesses fields, stores and paternal lines that steppe mobility can seize, reorder and inherit."
   },
   "pacing": {
-    "estimatedNarratedWords": 1322,
+    "estimatedNarratedWords": 1334,
     "narrationRateWordsPerMinute": 138,
-    "estimatedNarrationMinutes": 9.6,
+    "estimatedNarrationMinutes": 9.7,
     "estimatedInteractionMinutes": 14.4,
-    "estimatedAuthoredSilenceAndTransitionsMinutes": 4,
+    "estimatedAuthoredSilenceAndTransitionsMinutes": 3.9,
     "firstMeaningfulActionSeconds": 68,
     "maximumPermittedPassiveIntervalSeconds": 90,
     "checkpointRule": "Every beat boundary is durable; every interaction is continuously durable; narration resumes paused at the exact stored sample.",
@@ -100,7 +100,7 @@
               },
               {
                 "id": "ff-crossing-02",
-                "text": "The knowledge travels inside people. They know when to break the soil, how deep to set the seed, which animals to breed, where to keep grain dry and what must remain untouched for spring. Remove any one part and the rest becomes harder to sustain. Carry the household west."
+                "text": "The knowledge travels inside people. They know when to break the soil, how deep to set the seed, which animals to breed, where to keep grain dry and what must remain untouched for the next sowing. Remove any one part and the rest becomes harder to sustain. Carry the household west."
               }
             ],
             "actionPrompt": "Carry the household"
@@ -171,7 +171,7 @@
             "segments": [
               {
                 "id": "ff-ground-01",
-                "text": "A roof closes against rain. Hooves mark the same enclosure night after night. A strip of earth darkens under the digging stick. The work is modest, but its direction is absolute. A household has placed next spring inside European ground."
+                "text": "A roof closes against rain. Hooves mark the same enclosure night after night. A strip of earth darkens under the digging stick. The work is modest, but its direction is absolute. A household has opened European ground to the next sowing."
               },
               {
                 "id": "ff-ground-02",
@@ -219,7 +219,7 @@
       "arcID": "first-farmers-arc-02",
       "title": "The Harvest Had to Last",
       "targetDurationMinutes": 9,
-      "situation": "A farming household faces winter, spoilage and the obligation to reserve seed for spring.",
+      "situation": "A farming household faces winter, spoilage and the obligation to reserve seed for the next sowing.",
       "mechanism": "Food, reserve and seed compete inside one finite store while river and farming communities exchange people and practices.",
       "turn": "Grain eaten now cannot answer scarcity or return to the soil.",
       "consequence": "Farming becomes a discipline of deferred use and inherited obligation.",
@@ -238,8 +238,8 @@
               {"id": "ff-harvest-01", "text": "A field changed the shape of the year. The grain before you has been cut, dried and threshed. Nothing more will grow before winter. This store must answer three claims."},
               {"id": "ff-harvest-02", "text": "Part will be eaten. Grain carried to the hearth becomes winter food. Once consumed, it cannot answer a longer season or return to the soil."},
               {"id": "ff-harvest-03", "text": "Part must be kept against loss. Dry grain is lifted from the earth and closed away from damp, insects and hungry animals."},
-              {"id": "ff-harvest-04", "text": "And part must remain untouched. Spring seed is food refused in winter: the next field held inside the present harvest."},
-              {"id": "ff-harvest-05", "text": "Meet every obligation. What remains can ease winter, absorb loss or enlarge the spring sowing. The same grain cannot do all three."}
+              {"id": "ff-harvest-04", "text": "And part must remain untouched. Seed grain is food refused in winter: the next field held inside the present harvest."},
+              {"id": "ff-harvest-05", "text": "Meet every obligation. What remains can ease winter, absorb loss or enlarge the next sowing. The same grain cannot do all three."}
             ],
             "actionPrompt": "Divide the harvest"
           },
@@ -252,7 +252,7 @@
             "destinations": [
               {"id": "food", "title": "Winter food", "minimumUnits": 4},
               {"id": "reserve", "title": "Protected reserve", "minimumUnits": 2},
-              {"id": "seed", "title": "Spring seed", "minimumUnits": 3}
+              {"id": "seed", "title": "Seed grain", "minimumUnits": 3}
             ],
             "surplusUnits": 3,
             "completionRule": "SOURCE_EXHAUSTED_AND_EVERY_MINIMUM_MET",
@@ -286,7 +286,7 @@
             "segments": [
               {
                 "id": "ff-stored-future-01",
-                "text": "Nothing has been created. The harvest has been divided across present hunger, future loss and the field to come. Every valid choice leaves the same obligation behind: winter consumption must stop before it consumes spring."
+                "text": "Nothing has been created. The harvest has been divided across present hunger, future loss and the field to come. Every valid choice leaves the same obligation behind: winter consumption must stop before it consumes the grain kept for sowing."
               },
               {
                 "id": "ff-stored-future-02",
@@ -296,9 +296,9 @@
           },
           "sceneDirection": {
             "camera": "Pull back only after commit; the three stores remain in the same frame while seasons pass beyond the doorway.",
-            "livingMotion": ["snow then thaw outside", "grain level fixed", "hearth consumption", "first green shoot"],
-            "mechanismLight": "Light leaves the hearth and arrives at the seed vessel on the first thaw.",
-            "sound": "Authored silence across the season change; one low return of the farming motif at germination."
+            "livingMotion": ["winter dark then autumn rain outside", "grain level fixed", "hearth consumption", "seed vessel opened"],
+            "mechanismLight": "Light leaves the hearth and arrives at the seed vessel with the autumn rain.",
+            "sound": "Authored silence across the season change; one low return of the farming motif at the next sowing."
           }
         },
         {
@@ -390,7 +390,7 @@
               },
               {
                 "id": "ff-frontier-consequence-02",
-                "text": "Upstream, the route reaches deep loess: ground that yields to cultivation and timber that can raise a house. Grain can now outlast a season. The next structure must outlast its builders."
+                "text": "Upstream, the route reaches deep loess: ground that yields to cultivation and timber that can raise a house. Grain can now outlast a season. The next house plot must outlast its first timbers."
               }
             ]
           },
@@ -424,7 +424,7 @@
             "heading": "Raise the House",
             "segments": [
               {"id": "ff-house-01", "text": "The plot begins as cuts in the soil. Posts must carry the frame. The hearth must sit where work, food and warmth can return each day. Storage must remain dry and close enough to guard. A roof must bind the parts into shelter."},
-              {"id": "ff-house-02", "text": "Assemble the house in causal order. Every piece changes what the household can preserve, repair and pass forward."}
+              {"id": "ff-house-02", "text": "Raise the load-bearing frame. Then make the shelter fit for a household. Every piece changes what the household can preserve, repair and pass forward."}
             ],
             "actionPrompt": "Build the house that can be rebuilt"
           },
@@ -435,11 +435,11 @@
               {"id": "posts", "targetSlot": "frame", "prerequisites": []},
               {"id": "hearth", "targetSlot": "centre", "prerequisites": ["posts"]},
               {"id": "storage", "targetSlot": "dry-bay", "prerequisites": ["posts"]},
-              {"id": "roof", "targetSlot": "shelter", "prerequisites": ["posts", "hearth", "storage"]}
+              {"id": "roof", "targetSlot": "shelter", "prerequisites": ["posts"]}
             ],
             "causalContract": {
-              "immediateResponse": "Each accepted part takes weight, casts shadow and changes the available next action; a wrong order meets material resistance.",
-              "visibleMechanism": "Frame, hearth, store and roof become one household system whose dependencies remain visible.",
+              "immediateResponse": "Each accepted part takes weight and casts shadow; a part offered before the load-bearing frame stands meets material resistance.",
+              "visibleMechanism": "Posts establish the frame; hearth, store and roof then become one working household system in any order.",
               "historicalConsequence": "A complete house plot can be repaired, inherited and rebuilt after its first timbers fail.",
               "persistentTrace": "trace-european-farming-belt"
             },
@@ -607,7 +607,7 @@
             "eyebrow": "By 3300 BC",
             "heading": "Europe Had Become a Continent of Fields, Herds and Long-Lived Settlements",
             "segments": [
-              {"id": "ff-ending-01", "text": "The languages of the first farming households are gone. Their structure remains. A seed withheld in winter, a store raised from damp, a field cleared for another year and a house rebuilt beside its dead have fixed growing populations to inherited ground."},
+              {"id": "ff-ending-01", "text": "Their voices were never written down. Their structure remains. Seed grain kept for sowing, a store raised from damp, a field cleared for another year and a house rebuilt beside its dead have fixed growing populations to inherited ground."},
               {"id": "ff-ending-02", "text": "East of this settled continent, another order is gathering power across open grass. It will not meet an empty Europe. It will meet fields to seize, stores to command, houses to inherit and paternal lines to reorder."}
             ]
           },
@@ -665,8 +665,8 @@
     ]
   },
   "approvalBoundary": {
-    "alreadyApproved": ["chapter contract", "three-arc structure", "six principal interactions", "world-effect chain"],
+    "alreadyApproved": ["chapter contract", "three-arc structure", "six principal interactions", "world-effect chain", "four factual repairs for the Chapter 01 review", "37-segment Chapter 01 review-text freeze"],
     "notClaimed": ["final public wording", "final scene art", "final narration performance", "final score", "launch-package approval", "shipping approval"],
-    "nextMachineWork": "Compile this proposal into non-shipping canonical fixtures, bind every scene and accessibility path, then produce visual and audio candidates before presenting one consolidated editor gate."
+    "nextMachineWork": "Bind the frozen segments to non-shipping narration cues, shared review worlds and the signed Chapter 01 review fixture."
   }
 }

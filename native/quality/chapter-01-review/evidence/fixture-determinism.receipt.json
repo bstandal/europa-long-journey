@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptID": "fixture-determinism-chapter-01-review-v1",
+  "type": "FIXTURE_DETERMINISM",
+  "milestone": "CHAPTER_01_REVIEW_READY",
+  "status": "PASS",
+  "chapterID": "first-farmers",
+  "shippingState": "PROHIBITED",
+  "subjectSHA256": "8951433810be0d2d1893858026253cd7835a0fcb3d57cd193053cbaebf369efb",
+  "firstBuildSHA256": "844a71e74d3b968752b723146859608902e9dc22da74e0fbccee31d78350358a",
+  "secondBuildSHA256": "844a71e74d3b968752b723146859608902e9dc22da74e0fbccee31d78350358a",
+  "trustReceiptSHA256": "c11499e6c522d94c09b3e1911a6de2c032aebd01d0860f16527a0e79b8e780bc",
+  "byteIdentical": true,
+  "signatureVerified": true,
+  "trustBoundaryUnchanged": true,
+  "ordinaryReleaseRejectsReviewResources": true
+}

@@ -163,17 +163,21 @@ private final class ResponsiveAudioCursorProjector: @unchecked Sendable {
     private let durableAuthority: ResponsiveAudioProgramSnapshot
     private let authorityAuthoredDurationSamples: Int64
     private let registry: ResponsiveAudioCursorProjectionRegistry
+    private let permitsEphemeralInteractionPhaseNormalization: Bool
     private var lastAccepted: ResponsiveAudioProgramSnapshot
 
     init(
         durableAuthority: ResponsiveAudioProgramSnapshot,
         authorityAuthoredDurationSamples: Int64,
-        registry: ResponsiveAudioCursorProjectionRegistry
+        registry: ResponsiveAudioCursorProjectionRegistry,
+        permitsEphemeralInteractionPhaseNormalization: Bool
     ) {
         self.durableAuthority = durableAuthority
         self.authorityAuthoredDurationSamples =
             authorityAuthoredDurationSamples
         self.registry = registry
+        self.permitsEphemeralInteractionPhaseNormalization =
+            permitsEphemeralInteractionPhaseNormalization
         lastAccepted = durableAuthority
     }
 
@@ -200,12 +204,24 @@ private final class ResponsiveAudioCursorProjector: @unchecked Sendable {
             isVerified = true
         } else if durableAuthority.stage == .interaction,
                   current.stage == .interaction,
+                  current.formatVersion == durableAuthority.formatVersion,
+                  current.programID == durableAuthority.programID,
+                  current.causalStage == durableAuthority.causalStage,
+                  current.durableCompletionSequence
+                    == durableAuthority.durableCompletionSequence,
+                  let currentPhase = current.interactionPhase,
+                  let durablePhase = durableAuthority.interactionPhase,
+                  currentPhase != durablePhase,
                   template.authoredDurationSamples
                     == authorityAuthoredDurationSamples {
             projected = current.replacingPositionFrom(
                 durableAuthority: durableAuthority
             )
-            isVerified = false
+            // Scene contact and resistance beds are deliberately ephemeral.
+            // Cold recovery restores the durable neutral bed at this exact
+            // cursor. Journey opts into that normalization explicitly; strict
+            // bindings still await a new non-position authority.
+            isVerified = permitsEphemeralInteractionPhaseNormalization
         } else if durableAuthority.stage == .approach,
                   current.stage == .interaction {
             projected = durableAuthority.replacingPosition(
@@ -444,7 +460,8 @@ public final class ResponsiveAudioProgramController {
     /// MainActor registration by returning an awaiting checkpoint, never by
     /// mislabelling or throwing from the projection layer.
     public func makeActiveAudioCursorBinding(
-        constrainedTo durableAuthority: ResponsiveAudioProgramSnapshot
+        constrainedTo durableAuthority: ResponsiveAudioProgramSnapshot,
+        permittingEphemeralInteractionPhaseNormalization: Bool = false
     ) throws -> ActiveAudioCursorBinding {
         guard durableAuthority.programID == runtime.program.id,
               let authorityTimeline = timelinesByID[
@@ -455,6 +472,17 @@ public final class ResponsiveAudioProgramController {
                     "cursor authority does not belong to this program"
                 )
         }
+        if permittingEphemeralInteractionPhaseNormalization,
+           durableAuthority.stage == .interaction {
+            guard let durablePhase = durableAuthority.interactionPhase,
+                  runtime.program.interactionBed(for: durablePhase)?.timelineID
+                    == durableAuthority.timelineID else {
+                throw ResponsiveAudioProgramControllerError
+                    .automaticBoundaryContractViolation(
+                        "ephemeral cursor normalization requires a canonical interaction bed"
+                    )
+            }
+        }
         let nativeBinding = try transport.activeAudioCursorBinding()
         try registerProjectionMappings(
             nativeBinding.mappingDescriptors,
@@ -464,7 +492,9 @@ public final class ResponsiveAudioProgramController {
             durableAuthority: durableAuthority,
             authorityAuthoredDurationSamples:
                 authorityTimeline.authoredDurationSamples,
-            registry: activeAudioCursorProjectionRegistry
+            registry: activeAudioCursorProjectionRegistry,
+            permitsEphemeralInteractionPhaseNormalization:
+                permittingEphemeralInteractionPhaseNormalization
         )
         return try ActiveAudioCursorBinding(
             renderedGraphSampleRate:

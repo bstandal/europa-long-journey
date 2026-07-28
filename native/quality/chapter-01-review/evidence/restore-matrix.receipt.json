@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "receiptID": "restore-matrix-chapter-01-review-v1",
+  "type": "RESTORE_MATRIX",
+  "milestone": "CHAPTER_01_REVIEW_READY",
+  "status": "PASS",
+  "chapterID": "first-farmers",
+  "shippingState": "PROHIBITED",
+  "subjectSHA256": "8951433810be0d2d1893858026253cd7835a0fcb3d57cd193053cbaebf369efb",
+  "beatEntry": [
+    { "beatID": "beat-first-farmers-river-world", "passed": true },
+    { "beatID": "beat-first-farmers-household-crosses", "passed": true },
+    { "beatID": "beat-first-farmers-living-system", "passed": true },
+    { "beatID": "beat-first-farmers-european-ground", "passed": true },
+    { "beatID": "beat-first-farmers-inhabited-frontier", "passed": true },
+    { "beatID": "beat-first-farmers-harvest-allocation", "passed": true },
+    { "beatID": "beat-first-farmers-stored-future", "passed": true },
+    { "beatID": "beat-first-farmers-gorge-contact", "passed": true },
+    { "beatID": "beat-first-farmers-three-records", "passed": true },
+    { "beatID": "beat-first-farmers-frontier-consequence", "passed": true },
+    { "beatID": "beat-first-farmers-raise-longhouse", "passed": true },
+    { "beatID": "beat-first-farmers-plot-remains", "passed": true },
+    { "beatID": "beat-first-farmers-paternal-lines", "passed": true },
+    { "beatID": "beat-first-farmers-more-mouths", "passed": true },
+    { "beatID": "beat-first-farmers-growth-breaks", "passed": true },
+    { "beatID": "beat-first-farmers-continent-remade", "passed": true },
+    { "beatID": "beat-first-farmers-before-steppe", "passed": true }
+  ],
+  "beatExit": [
+    { "beatID": "beat-first-farmers-river-world", "passed": true },
+    { "beatID": "beat-first-farmers-household-crosses", "passed": true },
+    { "beatID": "beat-first-farmers-living-system", "passed": true },
+    { "beatID": "beat-first-farmers-european-ground", "passed": true },
+    { "beatID": "beat-first-farmers-inhabited-frontier", "passed": true },
+    { "beatID": "beat-first-farmers-harvest-allocation", "passed": true },
+    { "beatID": "beat-first-farmers-stored-future", "passed": true },
+    { "beatID": "beat-first-farmers-gorge-contact", "passed": true },
+    { "beatID": "beat-first-farmers-three-records", "passed": true },
+    { "beatID": "beat-first-farmers-frontier-consequence", "passed": true },
+    { "beatID": "beat-first-farmers-raise-longhouse", "passed": true },
+    { "beatID": "beat-first-farmers-plot-remains", "passed": true },
+    { "beatID": "beat-first-farmers-paternal-lines", "passed": true },
+    { "beatID": "beat-first-farmers-more-mouths", "passed": true },
+    { "beatID": "beat-first-farmers-growth-breaks", "passed": true },
+    { "beatID": "beat-first-farmers-continent-remade", "passed": true },
+    { "beatID": "beat-first-farmers-before-steppe", "passed": true }
+  ],
+  "midInteraction": [
+    { "interactionID": "interaction-first-farmers-a-household-crosses", "passed": true },
+    { "interactionID": "interaction-first-farmers-the-harvest-had-to-last", "passed": true },
+    { "interactionID": "interaction-first-farmers-at-the-iron-gates", "passed": true },
+    { "interactionID": "interaction-first-farmers-the-house-outlives", "passed": true },
+    { "interactionID": "interaction-first-farmers-more-mouths-more-land", "passed": true },
+    { "interactionID": "interaction-first-farmers-a-continent-remade", "passed": true }
+  ],
+  "coldReturnStartsPaused": true,
+  "loopCursorPreserved": true,
+  "finalStateSHA256": "5a5695bb311c3700489b2a40a63d94d0a8b47882d674d7f8160bda82c69b5500",
+  "artifacts": [
+    {
+      "role": "restore-matrix-log",
+      "path": "native/quality/chapter-01-review/evidence/artifacts/restore-matrix-final.log",
+      "bytes": 10437,
+      "sha256": "63e40803590f87c494adf12345394955f477de8dafcc5bd6a1a675f4bd64c555"
+    }
+  ]
+}

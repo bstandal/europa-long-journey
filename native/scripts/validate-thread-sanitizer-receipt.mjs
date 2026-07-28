@@ -78,8 +78,8 @@ export async function validateThreadSanitizerReceipt(receipt) {
     "LongWestNativeTests/VerifiedFutureReleaseRepositoryAuthorityTests",
   ]);
   assert.deepEqual(receipt.result, {
-    total: 194,
-    passed: 194,
+    total: 199,
+    passed: 199,
     failed: 0,
     skipped: 0,
     expectedFailures: 0,
@@ -110,7 +110,7 @@ async function main() {
   const receiptPath = path.join(
     iosRoot,
     "qa",
-    "thread-sanitizer-focused-2026-07-26.receipt.json",
+    "thread-sanitizer-focused-2026-07-27.receipt.json",
   );
   const receipt = JSON.parse(await readFile(receiptPath, "utf8"));
   await validateThreadSanitizerReceipt(receipt);

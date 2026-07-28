@@ -84,7 +84,7 @@ function effect(effectID) {
         node: {
           id: "trace-seasonal-store",
           kind: "institution",
-          form: "A divided store binding winter food, reserve and spring seed",
+          form: "A divided store binding winter food, reserve and seed grain",
           position: { x: 0.56, y: 0.62 },
           attributes: [
             { key: "obligations", value: 3 },

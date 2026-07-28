@@ -44,7 +44,7 @@ hashes and prompts are recorded in
 ## Historical action
 
 One finite harvest fills the foreground. It must become winter food, protected
-reserve and spring seed. Grain taken for one purpose cannot answer another.
+reserve and seed grain. Grain taken for one purpose cannot answer another.
 The scene makes deferred use visible: present consumption is bound to scarcity
 and to the field that must be sown next year.
 
@@ -80,7 +80,7 @@ the upper-left.
    trees, dwellings, smoke, people, animals and work recede through continuous
    depth. This is an operating settlement rather than scenery behind a game.
 3. **Three destinations, `y 0.49–0.68`.** Winter food sits left, protected
-   reserve at the centre and spring seed right. Each is a physical activity and
+   reserve at the centre and seed grain right. Each is a physical activity and
    storage condition, not an empty ring. All three remain legible at once.
 4. **The finite harvest, `y 0.65–0.96`.** Loose grain on coarse cloth dominates
    the near foreground. Its changing silhouette is the clearest statement of
@@ -107,7 +107,7 @@ glowing track or diagrammatic overlay may remain in the rebuilt art.
   final act is physical closure: lid, seal, lashing or secured opening. The
   current raised circular structure is only a silhouette reference and must be
   rebuilt as a storage practice defensible for the place and date.
-- **Spring seed, right.** Selected grain is kept apart at the edge of prepared
+- **Seed grain, right.** Selected grain is kept apart at the edge of prepared
   ground. The final state shows sound seed committed to the next sowing. It
   must not jump forward to green shoots or imply that allocation itself makes
   the crop grow.
@@ -498,7 +498,7 @@ verified repair; it does not grant production approval.
       remove modern tailoring and generic fantasy costume.
 - [ ] Verify every tool material and working edge; no metal agriculture enters
       the scene by visual habit.
-- [ ] Keep spring seed visibly separate and sound. Do not show germination,
+- [ ] Keep seed grain visibly separate and sound. Do not show germination,
       flowering or future yield as an immediate consequence.
 - [ ] Keep winter food as provision and work, not ceremonial abundance.
 - [ ] Keep the protected reserve dry, separate and closed without inventing a

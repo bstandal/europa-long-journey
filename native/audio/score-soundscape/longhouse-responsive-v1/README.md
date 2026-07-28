@@ -4,11 +4,12 @@ This directory contains the editable, provisional score and soundscape program
 for `Raise the House`. It is backstage production material and cannot enter a
 shipping package.
 
-The program makes the assembly dependency audible. Low ground and post tones
-remain stable while accepted components add timber work, lashing, hearth and
-roof weather. A rejected order narrows into wood strain without advancing the
-historical state. Completion leaves the assembled house sounding inhabited,
-then holds a named silence before the inherited plot is heard.
+The program makes the single assembly dependency audible. Low ground and post
+tones remain stable until the posts stand. Hearth, storage and roof material
+may then enter in any order. Offering one of those three parts before the posts
+narrows into wood strain without advancing the historical state. Completion
+leaves the assembled house sounding inhabited, then holds a named silence
+before the inherited plot is heard.
 
 `score-source.json` contains every note, phrase, instrument binding and stem.
 `soundscape-source.json` binds all material layers to the repository's seeded

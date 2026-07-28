@@ -23,7 +23,7 @@ struct LongWestJourneyApp: App {
             processStartMonotonicNanosecondsSinceBoot:
                 processStartMonotonicNanosecondsSinceBoot
         )
-#if DEBUG
+#if DEBUG || NON_SHIPPING_LIVE_TEST
         if ProcessInfo.processInfo.arguments.contains("--ui-testing-reset-state") {
             for directoryName in [
                 "journey-progress-v1",
@@ -33,6 +33,7 @@ struct LongWestJourneyApp: App {
                 "future-content-delivery-v1",
                 "release-discovery-local-v1",
                 "release-install-contracts-local-v1",
+                "non-shipping-review-primary-audio-cursor-v1",
             ] {
                 try? FileManager.default.removeItem(
                     at: applicationSupport.appendingPathComponent(
@@ -42,6 +43,8 @@ struct LongWestJourneyApp: App {
                 )
             }
         }
+#endif
+#if DEBUG
         if ProcessInfo.processInfo.arguments.contains(
             "--ui-testing-reset-release-discovery"
         ) {

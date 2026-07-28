@@ -1,0 +1,440 @@
+{
+  "schemaVersion": 1,
+  "manifestID": "chapter-01-review-narration-v1",
+  "status": "NON_SHIPPING_REVIEW",
+  "shippingState": "PROHIBITED",
+  "chapterID": "first-farmers",
+  "sampleRate": 48000,
+  "manuscriptDraftSHA256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a",
+  "combinedBindingSHA256": "1e07b4bc34a95f2326856e2962c80e76f1bff68b05eba027c093f48978e84c6f",
+  "milestone": "CHAPTER_01_REVIEW_READY",
+  "locale": "en",
+  "cueCount": 37,
+  "engine": "Qwen3-TTS Base",
+  "candidateID": "voice-candidate-05",
+  "technicalSelection": {
+    "path": "native/audio/narration/review/chapter-01/probe-selection.json",
+    "bytes": 13950,
+    "sha256": "049432e1b14e08d665620bf697f08ce92ee35bf9fa5e3ceb410d00b23fcd7fad"
+  },
+  "authorization": {
+    "path": "native/audio/narration/review/chapter-01/review-authorization.json",
+    "bytes": 1929,
+    "sha256": "8ee929f5f53b7dd4a0fb751091ec5660001598cf90cff1e45f1b56e1e994a538"
+  },
+  "manuscript": {
+    "draft": {
+      "path": "native/phase2/editor-review/first-farmers/first-farmers-native-draft-v1.json",
+      "bytes": 42857,
+      "sha256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a"
+    },
+    "reviewTextFreeze": {
+      "path": "native/content/backstage/first-farmers/chapter-01-review-text-freeze-v1.json",
+      "bytes": 12067,
+      "sha256": "793893503efe0c0c1e0f62ce6bfac5705f6974b35ec12d4a6c64d7e25642321f"
+    },
+    "segmentCount": 37,
+    "segmentManifestSHA256": "5a1accd96a975486aa65bc67ae23ca17e7160ac79ad52b1bbc98efbd12fe0079",
+    "combinedBindingSHA256": "1e07b4bc34a95f2326856e2962c80e76f1bff68b05eba027c093f48978e84c6f"
+  },
+  "durationSource": "encoded AAC valid frames at 48 kHz",
+  "runtimeGenerationPermitted": false,
+  "shippingUsePermitted": false,
+  "cues": [
+    {
+      "cueID": "narration-ff-river-world-01",
+      "manuscriptSegmentID": "ff-river-world-01",
+      "manuscriptSegmentSHA256": "d594d0b6749f99a1434bd1107002f147fae9b83c148ee80db0d814e40893217b",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-river-world-01.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 968880,
+      "bytes": 459032,
+      "sha256": "ff90441ac98c5d4a9bc68f9d06bc531d916273222034d845999cded3d4e43160"
+    },
+    {
+      "cueID": "narration-ff-river-world-02",
+      "manuscriptSegmentID": "ff-river-world-02",
+      "manuscriptSegmentSHA256": "8c769caeac7cc0a40cef261776691faedb48e129ad2d54f2c83eb29b4c2819ed",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-river-world-02.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 973248,
+      "bytes": 435493,
+      "sha256": "2a6e7b6e8c2da90ff7075162a90ba0c02cf0402be6fbcc689de951227e9b481c"
+    },
+    {
+      "cueID": "narration-ff-crossing-01",
+      "manuscriptSegmentID": "ff-crossing-01",
+      "manuscriptSegmentSHA256": "c79a713d8cd503a9162a11d454047c67a1bcf4fe666c417bcc73e226eedfc814",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-crossing-01.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 716976,
+      "bytes": 337065,
+      "sha256": "054ed88fab7ade8ed7a9ee08f77ea7d9b4f9f40956029990d9b4df3d18ca2fec"
+    },
+    {
+      "cueID": "narration-ff-crossing-02",
+      "manuscriptSegmentID": "ff-crossing-02",
+      "manuscriptSegmentSHA256": "f975c91529a3c07afaf1f87c5f492ba37417d39823976a2a6ed3b92a75da2e75",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-crossing-02.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 874032,
+      "bytes": 395788,
+      "sha256": "a3e46141ac4d5f7644958abb38b20b7945853bf7cc9c781b481cf7306876cbb6"
+    },
+    {
+      "cueID": "narration-ff-system-01",
+      "manuscriptSegmentID": "ff-system-01",
+      "manuscriptSegmentSHA256": "eba6cc338ba47652b40f61c691a6bd9b8202f02cd2e8cf03dfbf74633524acd9",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-system-01.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 872160,
+      "bytes": 390160,
+      "sha256": "88853d9ce7e814d5b91858af8aba26dfe7bb746f7c01af06b1c4fbcf7307c42e"
+    },
+    {
+      "cueID": "narration-ff-system-02",
+      "manuscriptSegmentID": "ff-system-02",
+      "manuscriptSegmentSHA256": "47f3fae60bd1231e24713284b8838373fcc5837e533d78892ba554db2794d108",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-system-02.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 873312,
+      "bytes": 395924,
+      "sha256": "9f68f538ae76513693ae8bf74a4e38e32fc0abc27379b4113fb150f12a3abe77"
+    },
+    {
+      "cueID": "narration-ff-ground-01",
+      "manuscriptSegmentID": "ff-ground-01",
+      "manuscriptSegmentSHA256": "7bddca3ffc685306f5138a78ea75072ed73151de9da640fc8bcae85aa4350e7c",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-ground-01.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 717888,
+      "bytes": 314859,
+      "sha256": "e925d0fd0b80838e365738b4e1b9e27020a558b4a7cf6d9159f02d67d1db92f3"
+    },
+    {
+      "cueID": "narration-ff-ground-02",
+      "manuscriptSegmentID": "ff-ground-02",
+      "manuscriptSegmentSHA256": "2efc44180d87686996f3efeb2d31bf7e4b97179f68f76033b867189c742f93ac",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-ground-02.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 860928,
+      "bytes": 381052,
+      "sha256": "a179cf4dabd7aa0d882739a298a723c4e4bb28c4cbaeefd990697d12c382ad5b"
+    },
+    {
+      "cueID": "narration-ff-frontier-01",
+      "manuscriptSegmentID": "ff-frontier-01",
+      "manuscriptSegmentSHA256": "8871730f1efe9a56408c1338d8eb6c60ca7e36676887b2ef90d2500c3067e978",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-frontier-01.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 835824,
+      "bytes": 384023,
+      "sha256": "288ee4028ee77b7dc4f204b9df49e836f48d1a990a7065b8d2130dc65ee4ee28"
+    },
+    {
+      "cueID": "narration-ff-frontier-02",
+      "manuscriptSegmentID": "ff-frontier-02",
+      "manuscriptSegmentSHA256": "e20325e22646a941816b1fc5189e0a09bb6652bc47f516aee478b258126e37ea",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-frontier-02.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 380832,
+      "bytes": 174315,
+      "sha256": "b4299e365f7a48b245847d6ea25356cbc011c1ca56a35501b1cd6e5daa76ff0b"
+    },
+    {
+      "cueID": "narration-ff-harvest-01",
+      "manuscriptSegmentID": "ff-harvest-01",
+      "manuscriptSegmentSHA256": "25c0bea25bc110538c54d8afa0d8953daf46db5831a96439bb1eb768da625a2c",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-harvest-01.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 524592,
+      "bytes": 228339,
+      "sha256": "e1370fad0ddefd2d2abab89e9fa93c5b7d197414d899239e9289ef5b29b9c5ed"
+    },
+    {
+      "cueID": "narration-ff-harvest-02",
+      "manuscriptSegmentID": "ff-harvest-02",
+      "manuscriptSegmentSHA256": "3650b9b85212dc3cf034a133934a8e44cf52730d526b550f2f8bf4dfa0342fad",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-harvest-02.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 428016,
+      "bytes": 193899,
+      "sha256": "155adca97fe9d20805da443ea446e053b8703e8d03e32407f3d1e8140fc13f2f"
+    },
+    {
+      "cueID": "narration-ff-harvest-03",
+      "manuscriptSegmentID": "ff-harvest-03",
+      "manuscriptSegmentSHA256": "c0243773aae4744e82f975bc974709d7b0c4701dd67c6acf1100af1e4259d315",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-harvest-03.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 372528,
+      "bytes": 177670,
+      "sha256": "69deb120116fa2ab434d5fc8719bfd6263847d598337521c428a16150edf4840"
+    },
+    {
+      "cueID": "narration-ff-harvest-04",
+      "manuscriptSegmentID": "ff-harvest-04",
+      "manuscriptSegmentSHA256": "c0c18499a1ba91729197b2b3aefb8711831af899dee81f46593b95414080c42c",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-harvest-04.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 409344,
+      "bytes": 182360,
+      "sha256": "722c496bfd0f071da9baa994523d340960148372ee490e9e43293af56820b716"
+    },
+    {
+      "cueID": "narration-ff-harvest-05",
+      "manuscriptSegmentID": "ff-harvest-05",
+      "manuscriptSegmentSHA256": "6a26b1eb81bd0420738c35a2c1afd2fdf3d8fbbd02035aae45b7466994b6b936",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-harvest-05.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 470352,
+      "bytes": 203305,
+      "sha256": "2dc64586b5793c92f326b34f03098ef396c09b5d2d7cde36221e6366326fa1dc"
+    },
+    {
+      "cueID": "narration-ff-stored-future-01",
+      "manuscriptSegmentID": "ff-stored-future-01",
+      "manuscriptSegmentSHA256": "7b332eb38373e2708939e3d9129de7c2ac56929df417ed55299a2674dba090cd",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-stored-future-01.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 751248,
+      "bytes": 337941,
+      "sha256": "25c1058bf1cb7e5437d5146a0aa923fa969c872a5022a4b289b090a57fd457cd"
+    },
+    {
+      "cueID": "narration-ff-stored-future-02",
+      "manuscriptSegmentID": "ff-stored-future-02",
+      "manuscriptSegmentSHA256": "75ba56ed3e6213bd54afb9681e62a71aeb18dd18d17a0db313deef0b6e480388",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-stored-future-02.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 735120,
+      "bytes": 350121,
+      "sha256": "1c2ea5b96e36e5990eae1b103ea5dac704ef48070e4c25c8c40d95efd7c9b893"
+    },
+    {
+      "cueID": "narration-ff-contact-01",
+      "manuscriptSegmentID": "ff-contact-01",
+      "manuscriptSegmentSHA256": "b3a13eb3467b0943a193c6f51d3561107ec9b5a34acc293a3835173fdf786380",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-contact-01.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 720144,
+      "bytes": 341403,
+      "sha256": "df583b1d3ae09b0a3a5668f0cf65036ca7059630eac5abe58805958431fb3c18"
+    },
+    {
+      "cueID": "narration-ff-contact-02",
+      "manuscriptSegmentID": "ff-contact-02",
+      "manuscriptSegmentSHA256": "b15cef14ce338b79996a141470d716f8f8daf246d7c64b391506f3a7fab0d5c1",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-contact-02.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 850752,
+      "bytes": 387733,
+      "sha256": "e3cef20c01c8ef9f88dac84dd414f0af932d762e57838328128b7c649829f55e"
+    },
+    {
+      "cueID": "narration-ff-records-01",
+      "manuscriptSegmentID": "ff-records-01",
+      "manuscriptSegmentSHA256": "2e0bb347d1c361da279ad76505fa9741e0e0026b82b06d81677a13bf9e258ac5",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-records-01.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 687840,
+      "bytes": 317712,
+      "sha256": "106878cc4a3ac2ab8a5ae878ddb780d6c9a207069c9a0571e837db5c15fc8ca4"
+    },
+    {
+      "cueID": "narration-ff-records-02",
+      "manuscriptSegmentID": "ff-records-02",
+      "manuscriptSegmentSHA256": "84f1d3f284fff9f26af1e53fa49f7ccf608a2ab827ce4168949e949c813569a8",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-records-02.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 649392,
+      "bytes": 293380,
+      "sha256": "00fbf887df4d556176e41aefbfaab34a182e08b058186b636744b862b722c9c1"
+    },
+    {
+      "cueID": "narration-ff-frontier-consequence-01",
+      "manuscriptSegmentID": "ff-frontier-consequence-01",
+      "manuscriptSegmentSHA256": "b00525cb8d6e7d560a7adfe0b1894976ae43ca38638fb22f51af0a5f7495781d",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-frontier-consequence-01.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 899232,
+      "bytes": 407477,
+      "sha256": "0030619c20b0b3dbd14d873e0b44de11b48e83605a381f0b75b0573079a1bfa7"
+    },
+    {
+      "cueID": "narration-ff-frontier-consequence-02",
+      "manuscriptSegmentID": "ff-frontier-consequence-02",
+      "manuscriptSegmentSHA256": "61a833e2bcfd178acf647e72b68a7be0b3d9849026242e5795107b90d76c5159",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-frontier-consequence-02.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 611472,
+      "bytes": 273890,
+      "sha256": "7478ba1536386045520a8b707c2315c272e91ce5c8c2960c509fce18f3f8347f"
+    },
+    {
+      "cueID": "narration-ff-house-01",
+      "manuscriptSegmentID": "ff-house-01",
+      "manuscriptSegmentSHA256": "8d58fa47d1c2d1046144617dbc426829e6e97f7b303703d9e5fdcfb374dcbd61",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-house-01.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 787248,
+      "bytes": 354188,
+      "sha256": "3df4579be9a17f4e98c9ed61b77a3ac5e8eb3034d789a72dab935a9c3c7a97bc"
+    },
+    {
+      "cueID": "narration-ff-house-02",
+      "manuscriptSegmentID": "ff-house-02",
+      "manuscriptSegmentSHA256": "ec15361294d85562014de84b713ce650446c0383b9412c9c8f366975448dbf7e",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-house-02.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 457536,
+      "bytes": 211666,
+      "sha256": "b142869476553d96d200dbd36b79a0cc42d634f0ad59100cbedf93e62f6b9a7d"
+    },
+    {
+      "cueID": "narration-ff-plot-01",
+      "manuscriptSegmentID": "ff-plot-01",
+      "manuscriptSegmentSHA256": "25c57a692d42215f9dad585f95e5a532940a561b154a4cd45a2dcec61e48f0c8",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-plot-01.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 633840,
+      "bytes": 290263,
+      "sha256": "49269c13df090cebc69faa444ee64f0c4b6a21ae0bccac164f7fbdb15112b3d0"
+    },
+    {
+      "cueID": "narration-ff-plot-02",
+      "manuscriptSegmentID": "ff-plot-02",
+      "manuscriptSegmentSHA256": "3d4cd32d1629038991c31214d314958cb7c987281ce10d0969dbc1ce24299430",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-plot-02.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 680016,
+      "bytes": 320914,
+      "sha256": "b1e29e367e2cbb72de72bcfeb82a010f3c0d4de1027ce28f152d6fb1c93225c5"
+    },
+    {
+      "cueID": "narration-ff-descent-01",
+      "manuscriptSegmentID": "ff-descent-01",
+      "manuscriptSegmentSHA256": "ccae67cbd5d1999d37766e032282c9fc62bc448760d29fe6de536282f1cb38e0",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-descent-01.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 716688,
+      "bytes": 333719,
+      "sha256": "dba6a18e230d8a2271e58d7b1c67640616caa379d0e363318ebf5a17c29f4c2d"
+    },
+    {
+      "cueID": "narration-ff-descent-02",
+      "manuscriptSegmentID": "ff-descent-02",
+      "manuscriptSegmentSHA256": "3d4a0a01f3f6806dcc38ee8d47c557ac59070157c4a338d58ec86c9d4de28879",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-descent-02.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 543120,
+      "bytes": 255690,
+      "sha256": "4a6499ff7173f110c2289c32d1a8166df457035505328397214c951c80d69723"
+    },
+    {
+      "cueID": "narration-ff-growth-01",
+      "manuscriptSegmentID": "ff-growth-01",
+      "manuscriptSegmentSHA256": "fb9573d71921970acc3f2dc0559b5fbc2419284fe0e62792bac2616bc8c220ac",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-growth-01.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 727776,
+      "bytes": 333051,
+      "sha256": "b7e27f9f3d65e62108d62054c5bc474c17653ec4056a7e9eefff914608d4a754"
+    },
+    {
+      "cueID": "narration-ff-growth-02",
+      "manuscriptSegmentID": "ff-growth-02",
+      "manuscriptSegmentSHA256": "6092523b95d92a45ce2594bd668ccc82b6d0058351245de9dadce26b27ecfb39",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-growth-02.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 412896,
+      "bytes": 187837,
+      "sha256": "a1049fd2b82d9480b2e3be60a8ef80fb6c159e8c9033f0bebfebed2e1206f677"
+    },
+    {
+      "cueID": "narration-ff-contraction-01",
+      "manuscriptSegmentID": "ff-contraction-01",
+      "manuscriptSegmentSHA256": "86522dfaa6ba0a9dd3a354eca21ba07c1e13342270961509bffd7784fb5d6272",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-contraction-01.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 712416,
+      "bytes": 326451,
+      "sha256": "c2707dcb76c54042876b74f8be5ee28ae4c1ec7989509a90819eefc60ff5ad4a"
+    },
+    {
+      "cueID": "narration-ff-contraction-02",
+      "manuscriptSegmentID": "ff-contraction-02",
+      "manuscriptSegmentSHA256": "ada857e9ba3467a7776a6d0b251c3df1ac105e8a90fb1cfa8115947ddc8dfec7",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-contraction-02.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 709056,
+      "bytes": 324459,
+      "sha256": "4afe312d96fe68590ae38233342981c6b5693d67f789d3cf7b4ad5439fd1d506"
+    },
+    {
+      "cueID": "narration-ff-continent-01",
+      "manuscriptSegmentID": "ff-continent-01",
+      "manuscriptSegmentSHA256": "9c585dbce0f1e50c0124df665066cd247809cb7fbc3e699bdea9d38efaa62321",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-continent-01.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 741216,
+      "bytes": 344750,
+      "sha256": "dcae7586fb77608625d6c912917f0b25055b2146fbcfa4f76d8d55ed4fca9684"
+    },
+    {
+      "cueID": "narration-ff-continent-02",
+      "manuscriptSegmentID": "ff-continent-02",
+      "manuscriptSegmentSHA256": "e941816d25a5318bbd3ac26a21dd1fc5b6f38026f58e084216680bc6ae9bab9a",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-continent-02.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 721392,
+      "bytes": 325581,
+      "sha256": "a76bf69a16f148587531817d58b46ee0e74bbe0c911d84deeae82d08ff1cc107"
+    },
+    {
+      "cueID": "narration-ff-ending-01",
+      "manuscriptSegmentID": "ff-ending-01",
+      "manuscriptSegmentSHA256": "40441b803508af6fb42d4ac38cfe00ad24055765a40d047be51b2b7b32a23545",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-ending-01.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 697152,
+      "bytes": 336399,
+      "sha256": "ab89af8b4cb3776a2d3c2080ebd750d2f2ee6393aad9bdaff02053906db53249"
+    },
+    {
+      "cueID": "narration-ff-ending-02",
+      "manuscriptSegmentID": "ff-ending-02",
+      "manuscriptSegmentSHA256": "87bcc4ebe491ee78cab66182dff4560547dda0ad365ef2e0ad2ca711e16e4f85",
+      "repositoryPath": "native/audio/narration/review/chapter-01/cues/narration-ff-ending-02.m4a",
+      "sampleRate": 48000,
+      "durationSamples": 646224,
+      "bytes": 305997,
+      "sha256": "4d95b190a6782aaabe50e1cd441124cff521415bbf5c363d0a540c68d9f649cd"
+    }
+  ],
+  "generation": {
+    "offline": true,
+    "oneWholeChapterCandidate": true,
+    "reference": {
+      "path": "native/audio/narration/work/cast-v1-2026-07-24/references/voice-candidate-05-reference.wav",
+      "bytes": 2119782,
+      "sha256": "a832c5fd5ac65d5b7392f69a93f14ed0b1dfbb3ba88bb7b2d34328b215acab04"
+    },
+    "model": {
+      "repository": "mlx-community/Qwen3-TTS-12Hz-1.7B-Base-bf16",
+      "revision": "a6eb4f68e4b056f1215157bb696209bc82a6db48",
+      "verifiedWeightFiles": [
+        {
+          "path": "model.safetensors",
+          "bytes": 3857414009,
+          "sha256": "81fb76175ff74e69be25fef2cc3e54f016df3034f1514c8e1c89da06a3510cff"
+        },
+        {
+          "path": "speech_tokenizer/model.safetensors",
+          "bytes": 682293092,
+          "sha256": "836b7b357f5ea43e889936a3709af68dfe3751881acefe4ecf0dbd30ba571258"
+        }
+      ]
+    }
+  }
+}

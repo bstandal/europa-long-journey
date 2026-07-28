@@ -16,7 +16,7 @@
   "threeRecordsDependencyPolicy": "SEED_EFFECT_ID_ONLY_NO_ASSET_AUDIO_PROSE_OR_RUNTIME_LOAD",
   "currentDependencyAuthority": {
     "source": "native/phase2/editor-review/first-farmers/first-farmers-native-draft-v1.json",
-    "sha256": "4c3a0a2a4f9a3ec5361d2e34c2f6dd21072f27176e60c881f013c93f76e4a5dd",
+    "sha256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a",
     "components": [
       {
         "id": "posts",
@@ -41,9 +41,7 @@
         "id": "roof",
         "targetSlot": "shelter",
         "prerequisites": [
-          "posts",
-          "hearth",
-          "storage"
+          "posts"
         ]
       }
     ]
@@ -161,7 +159,7 @@
   },
   "causalContract": {
     "immediateResponse": "The handled material lifts from its source, carries its own weight and meets either material resistance or an accepted bearing point.",
-    "visibleMechanism": "Packed posts take the frame; hearth and dry storage become working parts of the sheltered household; roof fibre settles only when the authored dependency state permits it.",
+    "visibleMechanism": "Packed posts take the frame; hearth, dry storage and roof fibre become working parts of the sheltered household in any order once that frame stands.",
     "historicalConsequence": "The completed timber decays while the threshold, old post marks, worked ground and rebuilt frame retain the household plot.",
     "completionEffectID": "effect-first-farmers-the-house-outlives",
     "persistentTraceID": "trace-european-farming-belt"

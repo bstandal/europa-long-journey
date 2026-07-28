@@ -140,7 +140,7 @@
         },
         {
           "id": "timber-work", "material": "work",
-          "visibleSource": "Posts seated and crosspieces set as the dependency order advances",
+          "visibleSource": "Posts seated first, followed by hearth, storage or roof work in the order chosen",
           "generator": { "algorithm": "distant-material-work-v1", "seed": 251161, "density": 0.42, "colour": 0.5 },
           "gainDB": -17, "pan": 0.38, "loop": true
         }
@@ -162,31 +162,31 @@
       "layers": [
         {
           "id": "weather-ground", "material": "rain",
-          "visibleSource": "Open ground remaining unchanged beneath an unsupported component",
+          "visibleSource": "Open ground remaining unchanged when a non-post component is offered before the posts",
           "generator": { "algorithm": "rain-on-earth-v1", "seed": 251167, "density": 0.32, "colour": 0.36 },
           "gainDB": -26, "pan": -0.22, "loop": true
         },
         {
           "id": "hearth-fire", "material": "fire",
-          "visibleSource": "The edge fire continuing while the rejected house component remains unplaced",
+          "visibleSource": "The edge fire continuing while a non-post component waits for the posts",
           "generator": { "algorithm": "small-hearth-fire-v1", "seed": 251171, "density": 0.1, "colour": 0.5 },
           "gainDB": -37, "pan": -0.5, "loop": true
         },
         {
           "id": "daub-chaff", "material": "grain",
-          "visibleSource": "Loose chaff-tempered daub stopped short of an unsupported wall line",
+          "visibleSource": "Loose chaff-tempered daub stopped short while the load-bearing posts are absent",
           "generator": { "algorithm": "dry-grain-contact-v1", "seed": 251177, "density": 0.2, "colour": 0.7 },
           "gainDB": -27, "pan": 0.08, "loop": true
         },
         {
           "id": "fibre-lashing", "material": "textile",
-          "visibleSource": "A plant-fibre tie held under strain at the rejected joint",
+          "visibleSource": "A plant-fibre tie held under strain before the posts can receive it",
           "generator": { "algorithm": "woven-fibre-friction-v1", "seed": 251179, "density": 0.62, "colour": 0.69 },
           "gainDB": -14, "pan": 0.28, "loop": true
         },
         {
           "id": "timber-work", "material": "work",
-          "visibleSource": "One unsupported timber meeting the frame without seating",
+          "visibleSource": "One non-post part meeting the empty postholes without seating",
           "generator": { "algorithm": "distant-material-work-v1", "seed": 251183, "density": 0.34, "colour": 0.58 },
           "gainDB": -18, "pan": 0.36, "loop": true
         }
@@ -194,7 +194,7 @@
       "silenceWindows": [
         {
           "id": "unsupported-hold", "atSeconds": 11.62, "durationSeconds": 0.2,
-          "reason": "Stop the rejected load cleanly before the unchanged dependency order returns.",
+          "reason": "Stop the rejected load cleanly before the posts-first condition returns.",
           "entry": "authored-cut", "exit": "authored-return"
         }
       ]

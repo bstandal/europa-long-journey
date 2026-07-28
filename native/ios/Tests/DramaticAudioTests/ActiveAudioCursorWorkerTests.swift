@@ -6,6 +6,61 @@ import JourneyDomain
 import XCTest
 
 final class ActiveAudioCursorWorkerTests: XCTestCase {
+    func testPeriodicCursorWritesContinueWhileMainActorIsBusy()
+        async throws {
+        let fixture = try Fixture()
+        let writes = DurableWriteProbe()
+        let store = try ResponsiveAudioCursorCheckpointStore(
+            directoryURL: temporaryDirectory(),
+            durableWrite: writes.write
+        )
+        let session = try await store.beginSession(
+            authority: fixture.authority()
+        )
+        let feed = FeedProbe([
+            .init(
+                result: .verified(fixture.snapshot(cursor: 2_200)),
+                renderedGraphSample: 100
+            ),
+            .init(
+                result: .verified(fixture.snapshot(cursor: 8_200)),
+                renderedGraphSample: 6_100
+            ),
+            .init(
+                result: .verified(fixture.snapshot(cursor: 14_200)),
+                renderedGraphSample: 12_100
+            ),
+            .init(
+                result: .verified(fixture.snapshot(cursor: 20_200)),
+                renderedGraphSample: 18_100
+            ),
+        ])
+        let worker = ActiveAudioCursorWorker(store: store)
+        let protection = try protection(
+            from: await worker.start(
+                token: ActiveAudioCursorActivationToken(),
+                binding: try makeBinding(feed: feed, gate: GateProbe()),
+                session: session
+            )
+        )
+
+        // Rapid scene input is serialized on MainActor. The crash-cursor
+        // cadence must remain independent of that executor so its 250 ms
+        // authority window cannot be consumed by gesture processing.
+        await MainActor.run {
+            Thread.sleep(forTimeInterval: 0.35)
+        }
+        try await waitUntil {
+            writes.callCount >= 3
+        }
+
+        XCTAssertGreaterThanOrEqual(writes.callCount, 3)
+        XCTAssertGreaterThanOrEqual(feed.callCount, 3)
+        await worker.stop()
+        let terminal = await protection.terminalResult()
+        XCTAssertEqual(terminal, .stopped)
+    }
+
     func testInitialCheckpointMustBecomeDurableBeforeGateAuthorization()
         async throws {
         let fixture = try Fixture()
@@ -1221,7 +1276,10 @@ private struct Fixture {
     init(generation: UInt64 = 3, baseCursor: Int64 = 2_000) throws {
         interaction = InteractionSpec(
             id: "worker-interaction",
-            prompt: "Move",
+            prompt: LocalizedStringSpec(
+                id: "worker-interaction-prompt",
+                launchEnglish: "Move"
+            ),
             grammar: .trace(
                 TraceInteractionSpec(
                     anchors: [

@@ -6,6 +6,7 @@ import CoreGraphics
 import CryptoKit
 import Foundation
 import ImageIO
+import JourneyAccessibility
 import JourneyContent
 import JourneyDomain
 import Metal
@@ -29,19 +30,29 @@ final class SignedRuntimeFixtureTests: XCTestCase {
         let chapterID: ChapterID
         let beatID: BeatID
         let sceneID: SceneID
-        let assetStemID: String
         let interactionID: InteractionID
         let effectID: WorldEffectID
         let seedEffectIDs: [WorldEffectID]
 
-        var baseAssetPath: String {
-            "assets/\(assetStemID)-base.png"
-        }
     }
 
     private struct MoreMouthsFrameEvidence {
         let normalSHA256: String
         let reduceMotionSHA256: String
+    }
+
+    private enum FirstFarmersReviewInputMode: String, CaseIterable {
+        case touch
+        case voiceOver
+        case reduceMotion
+
+        var usesReduceMotion: Bool { self == .reduceMotion }
+    }
+
+    private struct FirstFarmersReviewTraversalReceipt {
+        let state: JourneyState
+        let interactionIDs: [InteractionID]
+        let initialSemanticSHA256ByInteraction: [InteractionID: String]
     }
 
     private static let chapterID: ChapterID = "first-farmers"
@@ -60,6 +71,8 @@ final class SignedRuntimeFixtureTests: XCTestCase {
         "accessibility-beat-first-farmers-more-mouths"
     private static let moreMouthsTechnicalAssetStem =
         "lab-first-farmers-land-transformation"
+    private static let moreMouthsWorldAssetStem =
+        "review-world-longhouse-settlement"
     private static let harvestProofSceneID: SceneID =
         "lab-first-farmers-harvest-v26-parallax-proof"
     private static let harvestProofAssetSHA256 = [
@@ -81,8 +94,7 @@ final class SignedRuntimeFixtureTests: XCTestCase {
             grammar: .allocate,
             chapterID: "first-farmers",
             beatID: "beat-first-farmers-harvest-allocation",
-            sceneID: "lab-first-farmers-harvest-allocation",
-            assetStemID: "lab-first-farmers-harvest-allocation",
+            sceneID: "harvest-allocation-option-1",
             interactionID: "interaction-first-farmers-the-harvest-had-to-last",
             effectID: "effect-first-farmers-the-harvest-had-to-last",
             seedEffectIDs: []
@@ -90,9 +102,8 @@ final class SignedRuntimeFixtureTests: XCTestCase {
         LabCase(
             grammar: .assemble,
             chapterID: "first-farmers",
-            beatID: "beat-first-farmers-house-assembly",
-            sceneID: "lab-first-farmers-house-assembly",
-            assetStemID: "lab-first-farmers-house-assembly",
+            beatID: "beat-first-farmers-raise-longhouse",
+            sceneID: "scene-first-farmers-longhouse-assembly",
             interactionID: "interaction-first-farmers-the-house-outlives",
             effectID: "effect-first-farmers-the-house-outlives",
             seedEffectIDs: ["effect-first-farmers-at-the-iron-gates"]
@@ -102,7 +113,6 @@ final class SignedRuntimeFixtureTests: XCTestCase {
             chapterID: "first-farmers",
             beatID: "beat-first-farmers-more-mouths",
             sceneID: "scene-first-farmers-settlement-growth",
-            assetStemID: "lab-first-farmers-land-transformation",
             interactionID: "interaction-first-farmers-more-mouths-more-land",
             effectID: "effect-first-farmers-more-mouths-more-land",
             seedEffectIDs: ["effect-first-farmers-the-house-outlives"]
@@ -112,7 +122,6 @@ final class SignedRuntimeFixtureTests: XCTestCase {
             chapterID: "europe-holds-the-line",
             beatID: "beat-frontiers-northern-valleys-pressure",
             sceneID: "lab-frontiers-northern-valleys-pressure",
-            assetStemID: "lab-frontiers-northern-valleys-pressure",
             interactionID: "interaction-europe-holds-the-line-northern-valleys-keep-crown",
             effectID: "effect-europe-holds-the-line-northern-valleys-keep-crown",
             seedEffectIDs: []
@@ -122,7 +131,6 @@ final class SignedRuntimeFixtureTests: XCTestCase {
             chapterID: "european-world",
             beatID: "beat-european-world-ocean-schedule",
             sceneID: "lab-european-world-ocean-schedule",
-            assetStemID: "lab-european-world-ocean-schedule",
             interactionID: "interaction-european-world-steam-keeps-the-appointment",
             effectID: "effect-european-world-steam-keeps-the-appointment",
             seedEffectIDs: []
@@ -496,18 +504,35 @@ final class SignedRuntimeFixtureTests: XCTestCase {
         )
 
         let stem = Self.moreMouthsTechnicalAssetStem
-        let transparentPath = "assets/\(stem)-technical-transparent.png"
-        let transparentReduceMotionPath =
-            "assets/\(stem)-technical-reduce-motion-foreground.png"
+        let worldStem = Self.moreMouthsWorldAssetStem
         let maskPaths = stages.map { "assets/\(stem)-stage-\($0.id)-alpha.png" }
+        let semanticLayerPaths = [
+            "assets/\(worldStem)-background.png",
+            "assets/\(worldStem)-midground.png",
+            "assets/\(worldStem)-foreground.png",
+            "assets/\(worldStem)-mechanism-light.png",
+        ]
+        let semanticLayerMaskPaths = [
+            "assets/\(worldStem)-midground-alpha.png",
+            "assets/\(worldStem)-foreground-alpha.png",
+            "assets/\(worldStem)-mechanism-light-alpha.png",
+        ]
+        let statePaths = [
+            "assets/\(worldStem)-state-before.png",
+            "assets/\(worldStem)-state-active.png",
+            "assets/\(worldStem)-state-completed.png",
+        ]
+        let reduceMotionPaths = [
+            "assets/\(worldStem)-reduce-motion-state-before.png",
+            "assets/\(worldStem)-reduce-motion-state-active.png",
+            "assets/\(worldStem)-reduce-motion-state-completed.png",
+            "assets/\(worldStem)-reduce-motion-foreground.png",
+            "assets/\(worldStem)-reduce-motion-mechanism-light.png",
+        ]
         let requiredPaths = [
-            "assets/\(stem)-base.png",
-            "assets/\(stem)-state-active.png",
-            "assets/\(stem)-state-completed.png",
-            "assets/\(stem)-reduce-motion-underlay.png",
-            transparentPath,
-            transparentReduceMotionPath,
-        ] + maskPaths
+            "assets/\(worldStem)-state-alpha.png",
+        ] + semanticLayerPaths + semanticLayerMaskPaths + statePaths
+            + reduceMotionPaths + maskPaths
         let manifestByPath = Dictionary(
             uniqueKeysWithValues: fixture.verifiedPackage.manifest.files.map {
                 ($0.path, $0)
@@ -516,8 +541,37 @@ final class SignedRuntimeFixtureTests: XCTestCase {
         for path in requiredPaths {
             XCTAssertNotNil(manifestByPath[path], path)
         }
+        XCTAssertEqual(
+            Set(semanticLayerPaths.compactMap { manifestByPath[$0]?.sha256 }).count,
+            semanticLayerPaths.count,
+            "The four semantic world layers must remain byte-distinct."
+        )
+        XCTAssertEqual(
+            Set(statePaths.compactMap { manifestByPath[$0]?.sha256 }).count,
+            statePaths.count,
+            "Before, active and completed consequences must remain byte-distinct."
+        )
+        XCTAssertEqual(
+            Set(reduceMotionPaths.prefix(3).compactMap {
+                manifestByPath[$0]?.sha256
+            }).count,
+            3,
+            "Reduce Motion must retain three distinct consequence states."
+        )
 
         let scene = cursor.scene
+        XCTAssertEqual(
+            scene.layers.map(\.id),
+            [
+                "far-landscape",
+                "inhabited-world",
+                "stage-new-hearths",
+                "stage-field-edges",
+                "stage-herd-lanes-and-daughters",
+                "foreground-occlusion",
+                "mechanism-light",
+            ]
+        )
         let stageLayers = stages.map { stage in
             scene.layers.first { $0.id == SceneLayerID("stage-\(stage.id)") }
         }
@@ -528,7 +582,10 @@ final class SignedRuntimeFixtureTests: XCTestCase {
         )
         XCTAssertEqual(Set(maskPaths).count, stages.count)
         for (index, layer) in stageLayers.compactMap({ $0 }).enumerated() {
-            XCTAssertEqual(layer.assetPath, "assets/\(stem)-base.png")
+            XCTAssertEqual(
+                layer.assetPath,
+                "assets/\(worldStem)-state-before.png"
+            )
             XCTAssertEqual(
                 layer.stateVariants.map { variant in
                     (
@@ -538,38 +595,58 @@ final class SignedRuntimeFixtureTests: XCTestCase {
                     )
                 }.map { "\($0.0)|\($0.1)|\($0.2 ?? "nil")" },
                 [
-                    "before|assets/\(stem)-base.png|\(maskPaths[index])",
-                    "active|assets/\(stem)-state-active.png|\(maskPaths[index])",
-                    "completed|assets/\(stem)-state-completed.png|\(maskPaths[index])",
+                    "before|assets/\(worldStem)-state-before.png|\(maskPaths[index])",
+                    "active|assets/\(worldStem)-state-active.png|\(maskPaths[index])",
+                    "completed|assets/\(worldStem)-state-completed.png|\(maskPaths[index])",
                 ]
             )
         }
-        for layerID in [
-            "inhabited-world",
-            "foreground-occlusion",
-            "mechanism-light",
-        ] {
+        let semanticLayers = [
+            (
+                id: "far-landscape",
+                assetPath: "assets/\(worldStem)-background.png",
+                alphaMaskPath: nil as String?,
+                lightMaskPath: nil as String?
+            ),
+            (
+                id: "inhabited-world",
+                assetPath: "assets/\(worldStem)-midground.png",
+                alphaMaskPath: "assets/\(worldStem)-midground-alpha.png",
+                lightMaskPath: nil
+            ),
+            (
+                id: "foreground-occlusion",
+                assetPath: "assets/\(worldStem)-foreground.png",
+                alphaMaskPath: "assets/\(worldStem)-foreground-alpha.png",
+                lightMaskPath: nil
+            ),
+            (
+                id: "mechanism-light",
+                assetPath: "assets/\(worldStem)-mechanism-light.png",
+                alphaMaskPath: "assets/\(worldStem)-mechanism-light-alpha.png",
+                lightMaskPath: "assets/\(worldStem)-mechanism-light-alpha.png"
+            ),
+        ]
+        for expectation in semanticLayers {
             let layer = try XCTUnwrap(
-                scene.layers.first { $0.id == SceneLayerID(layerID) }
+                scene.layers.first { $0.id == SceneLayerID(expectation.id) }
             )
-            XCTAssertEqual(layer.assetPath, transparentPath, layerID)
-            XCTAssertEqual(layer.masks, SceneLayerMaskSet(), layerID)
+            XCTAssertEqual(layer.assetPath, expectation.assetPath, expectation.id)
+            XCTAssertEqual(
+                layer.masks.alphaMaskAssetPath,
+                expectation.alphaMaskPath,
+                expectation.id
+            )
+            XCTAssertEqual(
+                layer.masks.lightMaskAssetPath,
+                expectation.lightMaskPath,
+                expectation.id
+            )
+            XCTAssertTrue(layer.stateVariants.isEmpty, expectation.id)
         }
-        let transparent = try decodeBGRA8SRGBPNG(
-            at: fixture.packageRoot.appending(path: transparentPath)
-        )
         XCTAssertEqual(
-            alphaPixelCount(in: transparent, atLeast: 1),
-            0,
-            "The technical foreground plates must not obscure a stage."
-        )
-        let transparentReduceMotion = try decodeBGRA8SRGBPNG(
-            at: fixture.packageRoot.appending(path: transparentReduceMotionPath)
-        )
-        XCTAssertEqual(
-            alphaPixelCount(in: transparentReduceMotion, atLeast: 1),
-            0,
-            "The Reduce Motion foreground must not obscure a stage."
+            scene.layers.first { $0.id == "mechanism-light" }?.blendMode,
+            .screen
         )
         var maskDigests: Set<String> = []
         for path in maskPaths {
@@ -727,8 +804,8 @@ final class SignedRuntimeFixtureTests: XCTestCase {
         let firstFarmersAudioPaths = audioPaths.filter {
             $0.hasPrefix("audio/first-farmers/")
         }
-        XCTAssertEqual(audioPaths.count, 93)
-        XCTAssertEqual(firstFarmersAudioPaths.count, 91)
+        XCTAssertEqual(audioPaths.count, 133)
+        XCTAssertEqual(firstFarmersAudioPaths.count, 131)
         XCTAssertTrue(firstFarmersAudioPaths.allSatisfy { $0.hasSuffix(".m4a") })
         XCTAssertEqual(
             audioPaths.filter { !$0.hasPrefix("audio/first-farmers/") },
@@ -901,6 +978,46 @@ final class SignedRuntimeFixtureTests: XCTestCase {
                 try apply(action, reducer: reducer, to: &state)
             }
         }
+    }
+
+    func testAllSixFirstFarmersInteractionsConvergeForTouchVoiceOverAndReduceMotion()
+        async throws {
+        let fixture = try loadFixture()
+        var receipts: [
+            FirstFarmersReviewInputMode: FirstFarmersReviewTraversalReceipt
+        ] = [:]
+        for mode in FirstFarmersReviewInputMode.allCases {
+            receipts[mode] = try await traverseFirstFarmersReview(
+                fixture: fixture,
+                mode: mode
+            )
+        }
+
+        let touch = try XCTUnwrap(receipts[.touch])
+        let voiceOver = try XCTUnwrap(receipts[.voiceOver])
+        let reduced = try XCTUnwrap(receipts[.reduceMotion])
+        XCTAssertEqual(touch.interactionIDs.count, 6)
+        XCTAssertEqual(Set(touch.interactionIDs).count, 6)
+        XCTAssertEqual(voiceOver.interactionIDs, touch.interactionIDs)
+        XCTAssertEqual(reduced.interactionIDs, touch.interactionIDs)
+        XCTAssertEqual(voiceOver.state, touch.state)
+        XCTAssertEqual(reduced.state, touch.state)
+        XCTAssertEqual(
+            voiceOver.initialSemanticSHA256ByInteraction,
+            touch.initialSemanticSHA256ByInteraction
+        )
+        XCTAssertEqual(
+            reduced.initialSemanticSHA256ByInteraction,
+            touch.initialSemanticSHA256ByInteraction
+        )
+
+        let finalSHA256 = try stateHash(touch.state)
+        XCTAssertEqual(try stateHash(voiceOver.state), finalSHA256)
+        XCTAssertEqual(try stateHash(reduced.state), finalSHA256)
+        XCTAssertEqual(finalSHA256.utf8.count, 64)
+        XCTAssertEqual(touch.state.route, .world)
+        XCTAssertTrue(touch.state.completedChapterIDs.contains(Self.chapterID))
+        print("CHAPTER_01_ACCESSIBILITY_FINAL_SHA256=\(finalSHA256)")
     }
 
     func testTouchAndVoiceOverReachTheSameSignedFixtureFinalHash() async throws {
@@ -1222,9 +1339,14 @@ final class SignedRuntimeFixtureTests: XCTestCase {
                 state: try stateAtBeat(lab, fixture: activeFixture),
                 chapterID: lab.chapterID
             )
+            let tamperedAssetPath = try XCTUnwrap(
+                runtime.controller.presentation.framePlan.drawCommands.first?
+                    .asset.packagePath,
+                "\(lab.grammar.rawValue) must render at least one signed asset"
+            )
 
             try replaceOneByte(
-                at: active.packageURL.appending(path: lab.baseAssetPath)
+                at: active.packageURL.appending(path: tamperedAssetPath)
             )
             let compositor = SceneMetalCompositor()
             XCTAssertEqual(compositor.configure(device: device), .readyForScene)
@@ -1233,7 +1355,7 @@ final class SignedRuntimeFixtureTests: XCTestCase {
             )
             XCTAssertEqual(
                 rejectedMetalState,
-                .failed(.assetVerificationFailed(lab.baseAssetPath)),
+                .failed(.assetVerificationFailed(tamperedAssetPath)),
                 lab.grammar.rawValue
             )
             XCTAssertThrowsError(
@@ -1318,11 +1440,14 @@ final class SignedRuntimeFixtureTests: XCTestCase {
                 fixture: activeFixture
             )
         )
+        let tamperedAssetPath = try XCTUnwrap(
+            activeRuntime.controller.presentation.framePlan.drawCommands.first?
+                .asset.packagePath,
+            "The active signed scene must render at least one asset"
+        )
 
         try replaceOneByte(
-            at: active.packageURL.appending(
-                path: "assets/lab-first-farmers-harvest-allocation-base.png"
-            )
+            at: active.packageURL.appending(path: tamperedAssetPath)
         )
         if let device = MTLCreateSystemDefaultDevice() {
             let compositor = SceneMetalCompositor()
@@ -1333,9 +1458,7 @@ final class SignedRuntimeFixtureTests: XCTestCase {
             XCTAssertEqual(
                 rejectedMetalState,
                 .failed(
-                    .assetVerificationFailed(
-                        "assets/lab-first-farmers-harvest-allocation-base.png"
-                    )
+                    .assetVerificationFailed(tamperedAssetPath)
                 )
             )
         }
@@ -1377,9 +1500,7 @@ final class SignedRuntimeFixtureTests: XCTestCase {
         let quarantineActivator = try PackageActivator(rootURL: quarantineRoot)
         let loneActive = try await activateFixture(fixture, with: quarantineActivator)
         try replaceOneByte(
-            at: loneActive.packageURL.appending(
-                path: "assets/lab-first-farmers-harvest-allocation-base.png"
-            )
+            at: loneActive.packageURL.appending(path: tamperedAssetPath)
         )
         XCTAssertThrowsError(
             try ContentPackageVerifier.verifyPackage(
@@ -1525,6 +1646,479 @@ final class SignedRuntimeFixtureTests: XCTestCase {
             try apply(action, reducer: reducer, to: &state)
         }
         return state
+    }
+
+    private func traverseFirstFarmersReview(
+        fixture: FixtureAuthority,
+        mode: FirstFarmersReviewInputMode
+    ) async throws -> FirstFarmersReviewTraversalReceipt {
+        var state = try activeJourneyState(fixture)
+        let coordinator = ChapterCoordinator(repository: fixture.repository)
+        let reducer = JourneyReducer()
+        var interactionIDs: [InteractionID] = []
+        var semanticSHA256ByInteraction: [InteractionID: String] = [:]
+
+        while state.route == .chapter(Self.chapterID) {
+            let cursor = try coordinator.currentCursor(state: state)
+            let runtime = try await makeRuntime(
+                fixture: fixture,
+                state: state,
+                reduceMotion: mode.usesReduceMotion
+            )
+            let initialPresentation = runtime.controller.presentation
+            XCTAssertEqual(
+                initialPresentation.framePlan.reduceMotion,
+                mode.usesReduceMotion,
+                cursor.beat.id.rawValue
+            )
+
+            if let interaction = cursor.beat.interaction {
+                interactionIDs.append(interaction.id)
+                let semanticModel = try XCTUnwrap(
+                    initialPresentation.semanticInteractionModel,
+                    "\(interaction.id) omitted its authored semantic controls"
+                )
+                assertReviewSemanticAndLayoutInvariants(
+                    semanticModel,
+                    frame: initialPresentation.framePlan,
+                    interaction: interaction,
+                    interactionID: interaction.id
+                )
+                let semanticEncoder = JSONEncoder()
+                semanticEncoder.outputFormatting = [.sortedKeys]
+                semanticSHA256ByInteraction[interaction.id] = sha256(
+                    try semanticEncoder.encode(semanticModel)
+                )
+
+                switch mode {
+                case .touch, .reduceMotion:
+                    try await completeFirstFarmersInteractionWithTouch(
+                        interaction,
+                        runtime: runtime
+                    )
+                case .voiceOver:
+                    try await completeFirstFarmersInteractionWithVoiceOver(
+                        interaction,
+                        runtime: runtime
+                    )
+                }
+                let completed = runtime.controller.presentation.journeyState
+                XCTAssertEqual(
+                    completed.activeChapter?.interaction?.phase,
+                    .complete,
+                    interaction.id.rawValue
+                )
+                for effect in interaction.completionEffects {
+                    XCTAssertEqual(
+                        completed.world.appliedEffects.filter {
+                            $0.id == effect.id
+                        },
+                        [effect],
+                        interaction.id.rawValue
+                    )
+                }
+                state = completed
+            } else {
+                state = initialPresentation.journeyState
+            }
+
+            for action in try coordinator.advanceActions(state: state).actions {
+                try apply(action, reducer: reducer, to: &state)
+            }
+        }
+
+        return FirstFarmersReviewTraversalReceipt(
+            state: state,
+            interactionIDs: interactionIDs,
+            initialSemanticSHA256ByInteraction:
+                semanticSHA256ByInteraction
+        )
+    }
+
+    private func completeFirstFarmersInteractionWithTouch(
+        _ interaction: InteractionSpec,
+        runtime: VerifiedChapterSceneRuntime
+    ) async throws {
+        switch interaction.grammar {
+        case let .trace(configuration):
+            for anchor in configuration.anchors {
+                let transition = try await runtime.controller.submitTouch(
+                    .trace(
+                        viewportPoint: viewportPoint(
+                            for: anchor,
+                            in: runtime.controller.presentation.framePlan
+                        )
+                    )
+                )
+                XCTAssertNil(transition.postCommitIssue)
+            }
+
+        case let .allocate(configuration):
+            guard case let .allocate(visual)? = runtime.controller
+                    .presentation.cursor.scene.interactionVisualBinding else {
+                throw FixtureTestError.rejectedBootstrapAction
+            }
+            let sampler = SceneImageAlphaMaskSampler()
+            let initialSource = try XCTUnwrap(
+                runtime.controller.presentation.framePlan
+                    .interactionSourceHitRegion
+            )
+            try sampler.prewarm(initialSource.selectedVariantAlphaMask)
+            var targets = configuration.destinations.map {
+                (destinationID: $0.id, units: $0.minimumUnits)
+            }
+            if let last = targets.indices.last {
+                let allocated = targets.reduce(0) { $0 + $1.units }
+                targets[last].units += configuration.totalUnits - allocated
+            }
+            for allocation in targets {
+                let binding = try XCTUnwrap(
+                    visual.destinations.first {
+                        $0.destinationID == allocation.destinationID
+                    }
+                )
+                for units in 1 ... allocation.units {
+                    let frame = runtime.controller.presentation.framePlan
+                    let source = try XCTUnwrap(
+                        frame.interactionSourceHitRegion
+                    )
+                    let destination = try target(
+                        binding.interactionTargetID,
+                        in: runtime
+                    )
+                    let transition = try await runtime.controller.submitTouch(
+                        .allocateDrop(
+                            sourceViewportPoint: centroid(source.viewportPath),
+                            destinationViewportPoint:
+                                centroid(destination.viewportPath),
+                            destinationUnits: units,
+                            progress: 0.8
+                        ),
+                        alphaSampler: sampler
+                    )
+                    XCTAssertNil(transition.postCommitIssue)
+                }
+            }
+            let committed = try await runtime.controller.submitTouch(
+                .commitAllocation
+            )
+            XCTAssertNil(committed.postCommitIssue)
+
+        case let .assemble(configuration):
+            guard case let .assemble(visual)? = runtime.controller
+                    .presentation.cursor.scene.interactionVisualBinding else {
+                throw FixtureTestError.rejectedBootstrapAction
+            }
+            var remaining = configuration.components
+            var placed: Set<String> = []
+            while !remaining.isEmpty {
+                guard let index = remaining.firstIndex(where: {
+                    Set($0.prerequisites).isSubset(of: placed)
+                }) else {
+                    throw FixtureTestError.rejectedBootstrapAction
+                }
+                let component = remaining.remove(at: index)
+                let binding = try XCTUnwrap(
+                    visual.components.first {
+                        $0.componentID == component.id
+                    }
+                )
+                let slotID = try XCTUnwrap(
+                    binding.slotInteractionTargetID
+                )
+                let source = try target(
+                    binding.sourceInteractionTargetID,
+                    in: runtime
+                )
+                let slot = try target(slotID, in: runtime)
+                let transition = try await runtime.controller.submitTouch(
+                    .assembleDrop(
+                        sourceViewportPoint: centroid(source.viewportPath),
+                        slotViewportPoint: centroid(slot.viewportPath),
+                        progress: 1
+                    )
+                )
+                XCTAssertNil(transition.postCommitIssue)
+                placed.insert(component.id)
+            }
+
+        case let .transform(configuration):
+            guard case let .transform(visual)? = runtime.controller
+                    .presentation.cursor.scene.interactionVisualBinding else {
+                throw FixtureTestError.rejectedBootstrapAction
+            }
+            for stage in configuration.stages {
+                let binding = try XCTUnwrap(
+                    visual.stages.first { $0.stageID == stage.id }
+                )
+                let hit = try target(
+                    binding.interactionTargetID,
+                    in: runtime
+                )
+                let transition = try await runtime.controller.submitTouch(
+                    .adjustTarget(
+                        viewportPoint: centroid(hit.viewportPath),
+                        amount: stage.requiredAmount
+                    )
+                )
+                XCTAssertNil(transition.postCommitIssue)
+            }
+
+        case .pressure:
+            throw FixtureTestError.rejectedBootstrapAction
+        }
+    }
+
+    private func completeFirstFarmersInteractionWithVoiceOver(
+        _ interaction: InteractionSpec,
+        runtime: VerifiedChapterSceneRuntime
+    ) async throws {
+        var actionCount = 0
+        while runtime.controller.presentation.journeyState.activeChapter?
+                .interaction?.phase != .complete {
+            actionCount += 1
+            guard actionCount <= 128,
+                  let semantic = runtime.controller.presentation
+                    .semanticInteractionModel else {
+                throw FixtureTestError.rejectedBootstrapAction
+            }
+
+            let selected: (SemanticControl, AccessibilityActionSpec)?
+            switch interaction.grammar {
+            case .trace:
+                selected = semanticAction(in: semantic) {
+                    $0.token == .traceNext
+                }
+
+            case let .allocate(configuration):
+                guard case let .allocate(progress)? = runtime.controller
+                        .presentation.journeyState.activeChapter?
+                        .interaction?.progress else {
+                    throw FixtureTestError.rejectedBootstrapAction
+                }
+                var targets = configuration.destinations.map {
+                    (destinationID: $0.id, units: $0.minimumUnits)
+                }
+                if let last = targets.indices.last {
+                    let allocated = targets.reduce(0) { $0 + $1.units }
+                    targets[last].units +=
+                        configuration.totalUnits - allocated
+                }
+                if let target = targets.first(where: { target in
+                    let current = progress.allocations.first {
+                        $0.destinationID == target.destinationID
+                    }?.units ?? 0
+                    return current < target.units
+                }) {
+                    selected = semanticAction(in: semantic) { action in
+                        guard action.kind == .increment,
+                              case let .allocate(destinationID, _) =
+                                action.token else { return false }
+                        return destinationID == target.destinationID
+                    }
+                } else {
+                    selected = semanticAction(in: semantic) {
+                        $0.token == .commitAllocation
+                    }
+                }
+
+            case let .assemble(configuration):
+                guard case let .assemble(progress)? = runtime.controller
+                        .presentation.journeyState.activeChapter?
+                        .interaction?.progress,
+                      let component = configuration.components.first(where: {
+                          candidate in
+                          !progress.placements.contains {
+                              $0.componentID == candidate.id
+                          } && candidate.prerequisites.allSatisfy {
+                              prerequisite in
+                              progress.placements.contains {
+                                  $0.componentID == prerequisite
+                              }
+                          }
+                      }) else {
+                    throw FixtureTestError.rejectedBootstrapAction
+                }
+                selected = semanticAction(in: semantic) { action in
+                    guard case let .placeComponent(componentID) =
+                            action.token else { return false }
+                    return componentID == component.id
+                }
+
+            case let .transform(configuration):
+                guard case let .transform(progress)? = runtime.controller
+                        .presentation.journeyState.activeChapter?
+                        .interaction?.progress,
+                      progress.completedStageCount
+                        < configuration.stages.count else {
+                    throw FixtureTestError.rejectedBootstrapAction
+                }
+                let stage = configuration.stages[
+                    progress.completedStageCount
+                ]
+                selected = semanticAction(in: semantic) { action in
+                    guard action.kind == .increment,
+                          case let .advanceTransform(stageID, _) =
+                            action.token else { return false }
+                    return stageID == stage.id
+                }
+
+            case .pressure:
+                throw FixtureTestError.rejectedBootstrapAction
+            }
+
+            let (control, action) = try XCTUnwrap(selected)
+            let transition = try await runtime.controller.submitVoiceOver(
+                elementID: control.id,
+                authoredAction: action
+            )
+            XCTAssertNil(transition.postCommitIssue)
+        }
+    }
+
+    private func semanticAction(
+        in model: SemanticInteractionModel,
+        matching predicate: (AccessibilityActionSpec) -> Bool
+    ) -> (SemanticControl, AccessibilityActionSpec)? {
+        for control in model.controls {
+            if let action = control.actions.first(where: predicate) {
+                return (control, action)
+            }
+        }
+        return nil
+    }
+
+    private func assertReviewSemanticAndLayoutInvariants(
+        _ model: SemanticInteractionModel,
+        frame: SceneFramePlan,
+        interaction: InteractionSpec,
+        interactionID: InteractionID,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
+        XCTAssertFalse(model.label.isEmpty, file: file, line: line)
+        XCTAssertFalse(model.controls.isEmpty, file: file, line: line)
+        for control in model.controls where control.kind != .status {
+            XCTAssertFalse(control.label.isEmpty, file: file, line: line)
+            XCTAssertFalse(
+                control.actions.isEmpty,
+                "\(interactionID): \(control.id)",
+                file: file,
+                line: line
+            )
+            XCTAssertTrue(
+                control.actions.allSatisfy {
+                    !$0.label.launchEnglish.isEmpty
+                },
+                "\(interactionID): \(control.id)",
+                file: file,
+                line: line
+            )
+        }
+
+        // Dynamic Type and Increased Contrast affect presentation only. The
+        // required action inventory is the style-free semantic model above;
+        // Reduce Motion must publish it byte-identically. Physical paths are
+        // checked separately in final viewport points.
+        for region in frame.interactionHitRegions {
+            assertMinimumTouchSize(
+                region.viewportPath,
+                viewport: frame.viewport,
+                label: "\(interactionID): \(region.interactionTargetID)",
+                file: file,
+                line: line
+            )
+        }
+        if let source = frame.interactionSourceHitRegion {
+            assertMinimumTouchSize(
+                source.viewportPath,
+                viewport: frame.viewport,
+                label: "\(interactionID): source",
+                file: file,
+                line: line
+            )
+        }
+
+        // The incomplete-interaction narrative occupies the bottom 18% of
+        // the portrait route. Every point required to finish with touch must
+        // remain in the unobscured scene area above that boundary.
+        let narrativeBoundary = 0.82
+        for region in frame.interactionHitRegions {
+            assertTouchPointIsUnobscured(
+                centroid(region.viewportPath),
+                narrativeBoundary: narrativeBoundary,
+                label: "\(interactionID): \(region.interactionTargetID)",
+                file: file,
+                line: line
+            )
+        }
+        if let source = frame.interactionSourceHitRegion {
+            assertTouchPointIsUnobscured(
+                centroid(source.viewportPath),
+                narrativeBoundary: narrativeBoundary,
+                label: "\(interactionID): source",
+                file: file,
+                line: line
+            )
+        }
+        if case let .trace(configuration) = interaction.grammar {
+            for (index, anchor) in configuration.anchors.enumerated() {
+                assertTouchPointIsUnobscured(
+                    viewportPoint(for: anchor, in: frame),
+                    narrativeBoundary: narrativeBoundary,
+                    label: "\(interactionID): trace anchor \(index + 1)",
+                    file: file,
+                    line: line
+                )
+            }
+        }
+    }
+
+    private func assertTouchPointIsUnobscured(
+        _ point: SceneFramePoint,
+        narrativeBoundary: Double,
+        label: String,
+        file: StaticString,
+        line: UInt
+    ) {
+        XCTAssertTrue((0 ... 1).contains(point.x), label, file: file, line: line)
+        XCTAssertTrue((0 ... 1).contains(point.y), label, file: file, line: line)
+        XCTAssertLessThanOrEqual(
+            point.y,
+            narrativeBoundary,
+            "\(label) is covered by the interaction narrative",
+            file: file,
+            line: line
+        )
+    }
+
+    private func assertMinimumTouchSize(
+        _ path: [SceneFramePoint],
+        viewport: SceneFrameSize,
+        label: String,
+        file: StaticString,
+        line: UInt
+    ) {
+        let xs = path.map(\.x)
+        let ys = path.map(\.y)
+        guard let minimumX = xs.min(), let maximumX = xs.max(),
+              let minimumY = ys.min(), let maximumY = ys.max() else {
+            return XCTFail("\(label) has no touch path", file: file, line: line)
+        }
+        XCTAssertGreaterThanOrEqual(
+            (maximumX - minimumX) * viewport.width,
+            44,
+            label,
+            file: file,
+            line: line
+        )
+        XCTAssertGreaterThanOrEqual(
+            (maximumY - minimumY) * viewport.height,
+            44,
+            label,
+            file: file,
+            line: line
+        )
     }
 
     private func stateAtBeat(
@@ -2155,13 +2749,43 @@ final class SignedRuntimeFixtureTests: XCTestCase {
             line: line
         )
         XCTAssertEqual(
-            Set(reducedFrame.drawCommands.compactMap { command -> String? in
+            Dictionary(
+                uniqueKeysWithValues: reducedFrame.drawCommands.compactMap {
+                    command -> (String, String)? in
                 guard case let .reduceMotionStaticStratum(id) = command.source else {
                     return nil
                 }
-                return id
+                return (id, command.asset.packagePath)
             }),
-            Set(["static-underlay", "static-foreground"]),
+            [
+                "static-underlay":
+                    "assets/\(Self.moreMouthsWorldAssetStem)-reduce-motion-state-before.png",
+                "static-foreground":
+                    "assets/\(Self.moreMouthsWorldAssetStem)-reduce-motion-foreground.png",
+                "static-mechanism-light":
+                    "assets/\(Self.moreMouthsWorldAssetStem)-reduce-motion-mechanism-light.png",
+            ],
+            file: file,
+            line: line
+        )
+        let expectedStateAssets = Dictionary(
+            uniqueKeysWithValues: expected.map { layerID, variantID in
+                (
+                    layerID,
+                    "assets/\(Self.moreMouthsWorldAssetStem)-state-\(variantID).png"
+                )
+            }
+        )
+        XCTAssertEqual(
+            selectedStageAssetPaths(in: normalFrame, stages: stages),
+            expectedStateAssets,
+            file: file,
+            line: line
+        )
+        XCTAssertEqual(
+            selectedStageAssetPaths(in: reducedFrame, stages: stages),
+            expectedStateAssets,
+            "Reduce Motion must bind the same before/active/completed consequences.",
             file: file,
             line: line
         )
@@ -2197,6 +2821,25 @@ final class SignedRuntimeFixtureTests: XCTestCase {
                     return nil
                 }
                 return (layerID, variantID)
+            }
+        )
+    }
+
+    private func selectedStageAssetPaths(
+        in frame: SceneFramePlan,
+        stages: [TransformationStage]
+    ) -> [SceneLayerID: String] {
+        let stageLayerIDs = Set(
+            stages.map { SceneLayerID("stage-\($0.id)") }
+        )
+        return Dictionary(
+            uniqueKeysWithValues: frame.drawCommands.compactMap { command in
+                guard case let .layer(layerID, variantID?) = command.source,
+                      stageLayerIDs.contains(layerID),
+                      !variantID.isEmpty else {
+                    return nil
+                }
+                return (layerID, command.asset.packagePath)
             }
         )
     }

@@ -79,6 +79,7 @@ const receiptPath = path.join(generatedRoot, "first-farmers.payload-receipt.json
 
 const sampleRate = 48_000;
 const narrationWordsPerMinute = 138;
+const reviewSeedGrainMechanismFocus = "One finite harvest, divided into twelve equal illustrative runtime shares, must become winter food, protected reserve and seed grain before the grain in the foreground is exhausted.";
 const activationRule = "EVERY_PATH_MUST_BE_REPLACED_BY_A_VERIFIED_PACKAGE_ASSET_AND_EVERY_INTERACTIVE_BEAT_MUST_BIND_A_PRODUCTION_AUTHORED_VALIDATED_RESPONSIVE_AUDIO_PROGRAM_BEFORE_COMPILATION";
 const allowedHapticSemantics = new Set([
   "contact",
@@ -462,6 +463,7 @@ function harvestScene(beat, fixture) {
   assert.equal(fixture.nativeInteractionID, beat.interaction.id);
   const scene = deepClone(fixture.scene);
   scene.accessibilityID = `accessibility-${beat.beatID}`;
+  scene.mechanismFocus.launchEnglish = reviewSeedGrainMechanismFocus;
   return scene;
 }
 
@@ -1009,10 +1011,11 @@ function assertHarvestSceneReuse(payload, harvestFixture, beat) {
   assert.ok(projected, "Harvest scene was not projected");
   const expected = deepClone(harvestFixture.scene);
   expected.accessibilityID = `accessibility-${beat.beatID}`;
+  expected.mechanismFocus.launchEnglish = reviewSeedGrainMechanismFocus;
   assert.deepEqual(
     projected,
     expected,
-    "Harvest projection must reuse the validated Phase 1 SceneSpec with only the package accessibility binding rebound",
+    "Harvest projection must reuse the validated Phase 1 SceneSpec with only its review copy and package accessibility binding rebound",
   );
 }
 
@@ -1285,7 +1288,7 @@ export async function projectedPayloadDocuments() {
     },
     wireProof: {
       canonicalValidator: "validateContentPackagePayload",
-      harvestSceneReuse: "EXACT_PHASE1_SCENE_WITH_ACCESSIBILITY_ID_REBOUND",
+      harvestSceneReuse: "EXACT_PHASE1_SCENE_WITH_REVIEW_COPY_AND_ACCESSIBILITY_ID_REBOUND",
       futureAssetState: "INTENTIONALLY_ABSENT_AND_COMPILATION_BLOCKING",
       interactiveAudioState: "SIX_PROVISIONAL_AUTHORED_PROGRAMS_WIRED_WITH_ZERO_REQUIREMENT_PLACEHOLDERS",
       hapticVocabulary: [...allowedHapticSemantics],

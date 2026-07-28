@@ -897,16 +897,7 @@ async function buildWorkObject({ scoreSource, soundscapeSource, draft, inputs, o
       loopedTimelineHaptics: "FORBIDDEN",
       accessibilityRule: "HAPTICS_NEVER_CARRY_THE_ONLY_CAUSAL_SIGNAL",
     },
-    editorialBlocks: [
-      {
-        code: "F5",
-        manuscriptSegmentID: "ff-crossing-02",
-        status: "UNRESOLVED_EDITOR_DECISION",
-        issue: "SOWING_SEASON_FORMULATION_REMAINS_UNRESOLVED",
-        publicProseMutation: "PROHIBITED",
-        shippingBlock: true,
-      },
-    ],
+    editorialBlocks: [],
     acousticBoundaries: {
       scoreProhibitedClaims: scoreSource.prohibitedClaims,
       soundscapeProhibitedClaims: soundscapeSource.prohibitedClaims,
@@ -941,7 +932,7 @@ async function buildWorkObject({ scoreSource, soundscapeSource, draft, inputs, o
       narrationMaster: "OPEN_MISSING_EDITOR_SELECTED_MASTER",
       narrationWordAlignment: "OPEN_MISSING_EDITOR_SELECTED_MASTER",
       integratedLoudnessCalibration: "OPEN_UNTIL_NARRATION_MASTER_IS_BOUND",
-      narrationF5SowingSeason: "OPEN_EDITOR_DECISION_SHIPPING_BLOCK",
+      narrationF5SowingSeason: "PASS_EDITOR_REPAIR_BOUND_TO_FROZEN_TEXT",
       artisticApproval: "OPEN",
       editorApproval: "OPEN",
       shippingApproval: "PROHIBITED",
@@ -952,7 +943,6 @@ async function buildWorkObject({ scoreSource, soundscapeSource, draft, inputs, o
       "artistic approval",
       "shipping approval",
       "final narration integration",
-      "resolved ff-crossing-02 sowing-season F5",
       "physical-device quality",
     ],
   };
@@ -1026,7 +1016,7 @@ export async function renderHouseholdCrossesResponsiveAudio({ verifyReproducibil
       authoredSilence: "PASS_SAMPLE_ZERO_WINDOWS",
       truePeak: "PASS_ALL_PREVIEWS_AT_OR_BELOW_MINUS_1_DBTP",
       narration: "OPEN_MISSING_EDITOR_SELECTED_MASTER",
-      narrationF5SowingSeason: "OPEN_EDITOR_DECISION_SHIPPING_BLOCK",
+      narrationF5SowingSeason: "PASS_EDITOR_REPAIR_BOUND_TO_FROZEN_TEXT",
       artisticApproval: "OPEN",
       editorApproval: "OPEN",
       shippingApproval: "PROHIBITED",
@@ -1111,23 +1101,14 @@ function validateWorkObject(work) {
   })))) === JSON.stringify([
     [
       { manuscriptSegmentID: "ff-crossing-01", manuscriptSegmentSHA256: "c79a713d8cd503a9162a11d454047c67a1bcf4fe666c417bcc73e226eedfc814" },
-      { manuscriptSegmentID: "ff-crossing-02", manuscriptSegmentSHA256: "3a0aebb10f020192508a0f664064fc03843feeaf5f70946f6deaeadecbcf91c4" },
+      { manuscriptSegmentID: "ff-crossing-02", manuscriptSegmentSHA256: "f975c91529a3c07afaf1f87c5f492ba37417d39823976a2a6ed3b92a75da2e75" },
     ],
     [
       { manuscriptSegmentID: "ff-system-01", manuscriptSegmentSHA256: "eba6cc338ba47652b40f61c691a6bd9b8202f02cd2e8cf03dfbf74633524acd9" },
       { manuscriptSegmentID: "ff-system-02", manuscriptSegmentSHA256: "47f3fae60bd1231e24713284b8838373fcc5837e533d78892ba554db2794d108" },
     ],
   ]), "Household Crosses narration manuscript hashes drifted");
-  assert(JSON.stringify(work.editorialBlocks) === JSON.stringify([
-    {
-      code: "F5",
-      manuscriptSegmentID: "ff-crossing-02",
-      status: "UNRESOLVED_EDITOR_DECISION",
-      issue: "SOWING_SEASON_FORMULATION_REMAINS_UNRESOLVED",
-      publicProseMutation: "PROHIBITED",
-      shippingBlock: true,
-    },
-  ]), "Household Crosses F5 shipping block drifted");
+  assert(JSON.stringify(work.editorialBlocks) === JSON.stringify([]), "Household Crosses resolved F5 block drifted");
   assert(JSON.stringify(work.acousticBoundaries) === JSON.stringify({
     scoreProhibitedClaims: [
       "martial scoring",
@@ -1145,7 +1126,7 @@ function validateWorkObject(work) {
       "procedural tones represented as documented waves or historical evidence",
     ],
   }), "Household Crosses acoustic boundaries drifted");
-  assert(work.gates.narrationF5SowingSeason === "OPEN_EDITOR_DECISION_SHIPPING_BLOCK", "Household Crosses F5 gate drifted");
+  assert(work.gates.narrationF5SowingSeason === "PASS_EDITOR_REPAIR_BOUND_TO_FROZEN_TEXT", "Household Crosses F5 gate drifted");
   assert(work.provenance.incrementalCostNOK === 0, "work object introduced incremental cost");
   assert(work.gates.artisticApproval === "OPEN" && work.gates.shippingApproval === "PROHIBITED", "work object fabricated approval");
 }
@@ -1176,7 +1157,7 @@ export async function validateHouseholdCrossesResponsiveAudio() {
   validateWorkObject(work);
   assert(receipt.id === "household-crosses-responsive-audio-render-v1", "receipt identity drifted");
   assert(receipt.status === "PROVISIONAL_NON_SHIPPING" && receipt.shippingState === "PROHIBITED", "receipt approval boundary drifted");
-  assert(receipt.gates?.narrationF5SowingSeason === "OPEN_EDITOR_DECISION_SHIPPING_BLOCK", "receipt F5 shipping block drifted");
+  assert(receipt.gates?.narrationF5SowingSeason === "PASS_EDITOR_REPAIR_BOUND_TO_FROZEN_TEXT", "receipt F5 repair binding drifted");
   assert(receipt.gates?.shippingApproval === "PROHIBITED", "receipt fabricated shipping approval");
   const expectedInputs = await productionInputs();
   assert(JSON.stringify(receipt.productionInputs) === JSON.stringify(expectedInputs), "receipt production inputs drifted");

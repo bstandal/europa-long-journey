@@ -264,28 +264,31 @@ final class HouseholdCrossesResponsiveAudioWorkObjectTests: XCTestCase {
             segmentIDsByTimeline["household-crosses-consequence-v1"],
             ["ff-system-01", "ff-system-02"]
         )
+        let segmentHashesByTimeline = Dictionary(
+            uniqueKeysWithValues: work.narrationSlots.map { slot in
+                (
+                    slot.timelineID.rawValue,
+                    slot.segments.map(\.manuscriptSegmentSHA256)
+                )
+            }
+        )
+        XCTAssertEqual(
+            segmentHashesByTimeline["household-crosses-approach-v1"],
+            [
+                "c79a713d8cd503a9162a11d454047c67a1bcf4fe666c417bcc73e226eedfc814",
+                "f975c91529a3c07afaf1f87c5f492ba37417d39823976a2a6ed3b92a75da2e75",
+            ]
+        )
         let audiblePaths = Set(work.timelines.flatMap { timeline in
             timeline.events.compactMap(\.assetPath)
         })
         XCTAssertTrue(work.narrationSlots.allSatisfy { slot in
             !audiblePaths.contains(slot.requiredAssetPath)
         })
-        XCTAssertEqual(
-            work.editorialBlocks,
-            [
-                HouseholdCrossesEditorialBlock(
-                    code: "F5",
-                    manuscriptSegmentID: "ff-crossing-02",
-                    status: "UNRESOLVED_EDITOR_DECISION",
-                    issue: "SOWING_SEASON_FORMULATION_REMAINS_UNRESOLVED",
-                    publicProseMutation: "PROHIBITED",
-                    shippingBlock: true
-                ),
-            ]
-        )
+        XCTAssertTrue(work.editorialBlocks.isEmpty)
         XCTAssertEqual(
             work.gates.narrationF5SowingSeason,
-            "OPEN_EDITOR_DECISION_SHIPPING_BLOCK"
+            "PASS_EDITOR_REPAIR_BOUND_TO_FROZEN_TEXT"
         )
         XCTAssertEqual(
             work.acousticBoundaries.soundscapeProhibitedClaims,

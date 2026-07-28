@@ -17,6 +17,10 @@ final class ResponsiveAudioCursorProjectionTests: XCTestCase {
         let binding = try controller.makeActiveAudioCursorBinding(
             constrainedTo: authority
         )
+        _ = try controller.makeActiveAudioCursorBinding(
+            constrainedTo: authority,
+            permittingEphemeralInteractionPhaseNormalization: true
+        )
         let generation = try transport.currentGeneration()
 
         transport.setCapture(
@@ -94,6 +98,10 @@ final class ResponsiveAudioCursorProjectionTests: XCTestCase {
         let newBinding = try controller.makeActiveAudioCursorBinding(
             constrainedTo: engagedAuthority
         )
+        let normalizingOldBinding = try controller.makeActiveAudioCursorBinding(
+            constrainedTo: waitingAuthority,
+            permittingEphemeralInteractionPhaseNormalization: true
+        )
 
         // The old physical bed is still rendering before the scheduled seam.
         transport.setCapture(
@@ -120,6 +128,15 @@ final class ResponsiveAudioCursorProjectionTests: XCTestCase {
         XCTAssertEqual(awaiting.timelineID, waitingAuthority.timelineID)
         XCTAssertEqual(awaiting.cursorSample, 1_600)
         XCTAssertEqual(awaiting.loopIteration, 2)
+
+        let normalizedCapture = try await Task.detached {
+            try normalizingOldBinding.feed.capture()
+        }.value
+        let normalized = try Self.verifiedSnapshot(normalizedCapture)
+        XCTAssertEqual(normalized.interactionPhase, .waiting)
+        XCTAssertEqual(normalized.timelineID, waitingAuthority.timelineID)
+        XCTAssertEqual(normalized.cursorSample, 1_600)
+        XCTAssertEqual(normalized.loopIteration, 2)
     }
 
     @MainActor

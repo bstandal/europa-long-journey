@@ -91,7 +91,7 @@
               },
               {
                 "id": "ff-crossing-02",
-                "launchEnglish": "The knowledge travels inside people. They know when to break the soil, how deep to set the seed, which animals to breed, where to keep grain dry and what must remain untouched for spring. Remove any one part and the rest becomes harder to sustain. Carry the household west."
+                "launchEnglish": "The knowledge travels inside people. They know when to break the soil, how deep to set the seed, which animals to breed, where to keep grain dry and what must remain untouched for the next sowing. Remove any one part and the rest becomes harder to sustain. Carry the household west."
               }
             ],
             "actionPrompt": {
@@ -200,7 +200,7 @@
             "paragraphs": [
               {
                 "id": "ff-ground-01",
-                "launchEnglish": "A roof closes against rain. Hooves mark the same enclosure night after night. A strip of earth darkens under the digging stick. The work is modest, but its direction is absolute. A household has placed next spring inside European ground."
+                "launchEnglish": "A roof closes against rain. Hooves mark the same enclosure night after night. A strip of earth darkens under the digging stick. The work is modest, but its direction is absolute. A household has opened European ground to the next sowing."
               },
               {
                 "id": "ff-ground-02",
@@ -256,7 +256,7 @@
       "targetDurationMinutes": 9,
       "situation": {
         "id": "first-farmers-arc-02-situation",
-        "launchEnglish": "A farming household faces winter, spoilage and the obligation to reserve seed for spring."
+        "launchEnglish": "A farming household faces winter, spoilage and the obligation to reserve seed for the next sowing."
       },
       "mechanism": {
         "id": "first-farmers-arc-02-mechanism",
@@ -302,11 +302,11 @@
               },
               {
                 "id": "ff-harvest-04",
-                "launchEnglish": "And part must remain untouched. Spring seed is food refused in winter: the next field held inside the present harvest."
+                "launchEnglish": "And part must remain untouched. Seed grain is food refused in winter: the next field held inside the present harvest."
               },
               {
                 "id": "ff-harvest-05",
-                "launchEnglish": "Meet every obligation. What remains can ease winter, absorb loss or enlarge the spring sowing. The same grain cannot do all three."
+                "launchEnglish": "Meet every obligation. What remains can ease winter, absorb loss or enlarge the next sowing. The same grain cannot do all three."
               }
             ],
             "actionPrompt": {
@@ -356,7 +356,7 @@
                 "node": {
                   "id": "trace-seasonal-store",
                   "kind": "institution",
-                  "form": "A divided store binding winter food, reserve and spring seed",
+                  "form": "A divided store binding winter food, reserve and seed grain",
                   "position": {
                     "x": 0.56,
                     "y": 0.62
@@ -394,7 +394,7 @@
             "paragraphs": [
               {
                 "id": "ff-stored-future-01",
-                "launchEnglish": "Nothing has been created. The harvest has been divided across present hunger, future loss and the field to come. Every valid choice leaves the same obligation behind: winter consumption must stop before it consumes spring."
+                "launchEnglish": "Nothing has been created. The harvest has been divided across present hunger, future loss and the field to come. Every valid choice leaves the same obligation behind: winter consumption must stop before it consumes the grain kept for sowing."
               },
               {
                 "id": "ff-stored-future-02",
@@ -531,7 +531,7 @@
               },
               {
                 "id": "ff-frontier-consequence-02",
-                "launchEnglish": "Upstream, the route reaches deep loess: ground that yields to cultivation and timber that can raise a house. Grain can now outlast a season. The next structure must outlast its builders."
+                "launchEnglish": "Upstream, the route reaches deep loess: ground that yields to cultivation and timber that can raise a house. Grain can now outlast a season. The next house plot must outlast its first timbers."
               }
             ]
           },
@@ -591,7 +591,7 @@
               },
               {
                 "id": "ff-house-02",
-                "launchEnglish": "Assemble the house in causal order. Every piece changes what the household can preserve, repair and pass forward."
+                "launchEnglish": "Raise the load-bearing frame. Then make the shelter fit for a household. Every piece changes what the household can preserve, repair and pass forward."
               }
             ],
             "actionPrompt": {
@@ -635,9 +635,7 @@
                   "id": "roof",
                   "targetSlot": "shelter",
                   "prerequisites": [
-                    "posts",
-                    "hearth",
-                    "storage"
+                    "posts"
                   ]
                 }
               ]
@@ -937,7 +935,7 @@
             "paragraphs": [
               {
                 "id": "ff-ending-01",
-                "launchEnglish": "The languages of the first farming households are gone. Their structure remains. A seed withheld in winter, a store raised from damp, a field cleared for another year and a house rebuilt beside its dead have fixed growing populations to inherited ground."
+                "launchEnglish": "Their voices were never written down. Their structure remains. Seed grain kept for sowing, a store raised from damp, a field cleared for another year and a house rebuilt beside its dead have fixed growing populations to inherited ground."
               },
               {
                 "id": "ff-ending-02",

@@ -74,7 +74,7 @@ export async function validateFirstFarmersDraft({ repositoryRoot, draft } = {}) 
   assert.equal(record.schemaVersion, 1, "First Farmers draft schema drifted");
   assert.equal(
     record.status,
-    "PROVISIONAL_CODEX_COMPLETE_AWAITING_FINAL_EDITOR_GATE",
+    "CHAPTER_01_REVIEW_TEXT_FROZEN",
     "First Farmers draft cannot claim editor approval",
   );
   assert.equal(record.shippingState, "PROHIBITED", "First Farmers draft cannot ship");
@@ -262,6 +262,8 @@ export async function validateFirstFarmersDraft({ repositoryRoot, draft } = {}) 
   assert.equal(new Set(beatIDs).size, beatIDs.length, "First Farmers beat IDs are not unique");
   assert.equal(new Set(sceneIDs).size, sceneIDs.length, "First Farmers scene IDs are not unique");
   assert.equal(new Set(segmentIDs).size, segmentIDs.length, "First Farmers segment IDs are not unique");
+  assert.equal(beatIDs.length, 17, "First Farmers review requires exactly 17 beats");
+  assert.equal(segmentIDs.length, 37, "First Farmers review requires exactly 37 frozen segments");
   assert.equal(record.accessibilityContract.sceneSummariesRequired, sceneIDs.length);
   assert.equal(calculatedWords, record.pacing.estimatedNarratedWords, "Narrated word budget drifted");
   assert.equal(
@@ -326,11 +328,65 @@ export async function validateFirstFarmersDraft({ repositoryRoot, draft } = {}) 
       { id: "seed", minimumUnits: 3 },
     ],
   );
+  assert.deepEqual(
+    harvest.destinations.map(({ title }) => title),
+    ["Winter food", "Protected reserve", "Seed grain"],
+    "Harvest public obligations drifted from the approved review wording",
+  );
   const minimumTotal = harvest.destinations.reduce((sum, item) => sum + item.minimumUnits, 0);
   assert.equal(harvest.surplusUnits, harvest.totalUnits - minimumTotal);
   assert.ok(harvest.surplusUnits >= 2, "Harvest needs a real surplus choice");
   assert.equal(harvest.completionRule, "SOURCE_EXHAUSTED_AND_EVERY_MINIMUM_MET");
   assert.ok(!JSON.stringify(harvest).includes("requiredUnits"), "Harvest reintroduced a hidden exact answer");
+
+  const beatsByID = new Map(record.arcs.flatMap(({ beats }) => beats)
+    .map((beat) => [beat.beatID, beat]));
+  assert.equal(
+    record.arcs.find(({ arcID }) => arcID === "first-farmers-arc-02")?.situation,
+    "A farming household faces winter, spoilage and the obligation to reserve seed for the next sowing.",
+    "Arc 02 seasonal obligation drifted from the approved next-sowing wording",
+  );
+  const segmentText = (beatID, segmentID) => beatsByID.get(beatID).narrative.segments
+    .find(({ id }) => id === segmentID).text;
+  assert.ok(
+    segmentText("beat-first-farmers-harvest-allocation", "ff-harvest-04")
+      .includes("Seed grain is food refused in winter: the next field held inside the present harvest."),
+    "Seed-grain factual repair drifted",
+  );
+  assert.ok(
+    segmentText("beat-first-farmers-frontier-consequence", "ff-frontier-consequence-02")
+      .includes("The next house plot must outlast its first timbers."),
+    "Longhouse-plot factual repair drifted",
+  );
+  assert.ok(
+    segmentText("beat-first-farmers-before-steppe", "ff-ending-01")
+      .startsWith("Their voices were never written down. Their structure remains."),
+    "First Farmers ending factual repair drifted",
+  );
+  const longhouse = beatsByID.get("beat-first-farmers-raise-longhouse").interaction;
+  assert.deepEqual(
+    longhouse.components.map(({ id, prerequisites }) => ({ id, prerequisites })),
+    [
+      { id: "posts", prerequisites: [] },
+      { id: "hearth", prerequisites: ["posts"] },
+      { id: "storage", prerequisites: ["posts"] },
+      { id: "roof", prerequisites: ["posts"] },
+    ],
+    "Longhouse must require posts first and permit the remaining three parts in any order",
+  );
+  const deprecatedSeasonalPhrases = [
+    "what must remain untouched for spring",
+    "placed next spring",
+    "Spring seed",
+    "spring sowing",
+    "reserve seed for spring",
+    "snow then thaw",
+    "first thaw",
+  ];
+  const draftBytes = JSON.stringify(record);
+  for (const phrase of deprecatedSeasonalPhrases) {
+    assert.ok(!draftBytes.includes(phrase), `Deprecated Chapter 01 seasonal wording returned: ${phrase}`);
+  }
 
   assert.equal(record.editorialRegression.publicResearchApparatus, false);
   assert.equal(record.editorialRegression.publicCaveatsAdded, 0);

@@ -58,6 +58,11 @@ final class ContentRepositoryTests: XCTestCase {
         XCTAssertEqual(repository.interaction(interaction.id), interaction)
 
         let timeline = try XCTUnwrap(repository.audioTimeline("timeline-paid-pack-01"))
+        let chapterRepository: any ChapterContentRepository = repository
+        XCTAssertEqual(
+            chapterRepository.audioTimeline("timeline-paid-pack-01"),
+            timeline
+        )
         XCTAssertEqual(
             repository.audioTimeline(containing: "sound-paid-pack-01"),
             timeline

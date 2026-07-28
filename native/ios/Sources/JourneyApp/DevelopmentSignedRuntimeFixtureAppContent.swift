@@ -21,6 +21,18 @@ enum DevelopmentSignedRuntimeFixtureAppContent {
     static let beatArgumentPrefix =
         "--ui-testing-signed-runtime-fixture-beat="
 
+    /// The signed review package is the complete content authority for the
+    /// dedicated live-test product. Debug builds retain the explicit launch
+    /// argument so ordinary development runs cannot enter the fixture by
+    /// accident.
+    static var isActive: Bool {
+#if NON_SHIPPING_LIVE_TEST
+        true
+#else
+        ProcessInfo.processInfo.arguments.contains(launchArgument)
+#endif
+    }
+
     private static let packageID = PackageID("vertical-slice-development-v1")
     private static let keyID = "vertical-slice-development-key-v1"
     private static let trustDomain = "the-long-west-vertical-slice-development-v1"
