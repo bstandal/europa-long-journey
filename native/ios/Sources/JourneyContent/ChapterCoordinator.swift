@@ -31,6 +31,11 @@ public enum ChapterCoordinatorError: Error, Equatable, Sendable, CustomStringCon
     case responsiveAudioUnavailable(InteractionID)
     case responsiveAudioSnapshotMismatch(InteractionID)
     case unexpectedResponsiveAudio(BeatID)
+    case reviewAlreadyOpen
+    case reviewNotOpen
+    case reviewUnavailable(ChapterID)
+    case reviewBeatUnavailable(BeatID)
+    case reviewRecordMismatch(BeatID)
 
     public var description: String {
         switch self {
@@ -90,7 +95,99 @@ public enum ChapterCoordinatorError: Error, Equatable, Sendable, CustomStringCon
             "The saved responsive-audio cursor does not match the authored interaction: \(id)"
         case let .unexpectedResponsiveAudio(id):
             "A non-interactive beat carries responsive-audio state: \(id)"
+        case .reviewAlreadyOpen:
+            "A chapter review is already open"
+        case .reviewNotOpen:
+            "No chapter review is open"
+        case let .reviewUnavailable(id):
+            "No exact completed scene records are available for chapter \(id)"
+        case let .reviewBeatUnavailable(id):
+            "The completed scene is not available for review: \(id)"
+        case let .reviewRecordMismatch(id):
+            "The completed scene record no longer matches verified content: \(id)"
         }
+    }
+}
+
+public struct ChapterReviewCursor: Equatable, Sendable {
+    public let packageID: PackageID
+    public let contentVersion: SchemaVersion
+    public let chapter: ChapterSpec
+    public let arc: ArcSpec
+    public let beat: BeatSpec
+    public let scene: SceneSpec
+    public let accessibility: AccessibilitySpec
+    public let audioTimelineIDs: [AudioTimelineID]
+    public let record: CompletedBeatReviewRecord
+    public let arcIndex: Int
+    public let beatIndex: Int
+    public let absoluteBeatIndex: Int
+
+    init(
+        packageID: PackageID,
+        contentVersion: SchemaVersion,
+        chapter: ChapterSpec,
+        arc: ArcSpec,
+        beat: BeatSpec,
+        scene: SceneSpec,
+        accessibility: AccessibilitySpec,
+        audioTimelineIDs: [AudioTimelineID],
+        record: CompletedBeatReviewRecord,
+        arcIndex: Int,
+        beatIndex: Int,
+        absoluteBeatIndex: Int
+    ) {
+        self.packageID = packageID
+        self.contentVersion = contentVersion
+        self.chapter = chapter
+        self.arc = arc
+        self.beat = beat
+        self.scene = scene
+        self.accessibility = accessibility
+        self.audioTimelineIDs = audioTimelineIDs
+        self.record = record
+        self.arcIndex = arcIndex
+        self.beatIndex = beatIndex
+        self.absoluteBeatIndex = absoluteBeatIndex
+    }
+}
+
+/// Pure projection consumed by the chapter header, visited-scene sheet and
+/// Previous/Next review controls.
+public struct ChapterReviewProjection: Equatable, Sendable {
+    public let cursors: [ChapterReviewCursor]
+    public let selectedIndex: Int
+    public let visitedBeatCount: Int
+    public let totalBeatCount: Int
+
+    public var selected: ChapterReviewCursor { cursors[selectedIndex] }
+    public var previousBeatID: BeatID? {
+        selectedIndex > 0 ? cursors[selectedIndex - 1].beat.id : nil
+    }
+    public var nextBeatID: BeatID? {
+        selectedIndex + 1 < cursors.count ? cursors[selectedIndex + 1].beat.id : nil
+    }
+
+    init(
+        cursors: [ChapterReviewCursor],
+        selectedIndex: Int,
+        visitedBeatCount: Int,
+        totalBeatCount: Int
+    ) {
+        self.cursors = cursors
+        self.selectedIndex = selectedIndex
+        self.visitedBeatCount = visitedBeatCount
+        self.totalBeatCount = totalBeatCount
+    }
+}
+
+public struct ChapterReviewActionPlan: Equatable, Sendable {
+    public let action: JourneyAction
+    public let projection: ChapterReviewProjection
+
+    init(action: JourneyAction, projection: ChapterReviewProjection) {
+        self.action = action
+        self.projection = projection
     }
 }
 
@@ -336,6 +433,67 @@ public struct ChapterCoordinator: Sendable {
         )
     }
 
+    /// Opens an exact archived beat without moving the causal Journey route.
+    /// A nil beat selects the first archived record, which is the completed
+    /// chapter entry point from the living world.
+    public func openReviewPlan(
+        chapterID: ChapterID,
+        beatID: BeatID? = nil,
+        state: JourneyState
+    ) throws -> ChapterReviewActionPlan {
+        guard state.chapterReview == nil else {
+            throw ChapterCoordinatorError.reviewAlreadyOpen
+        }
+        let projection = try reviewProjection(
+            chapterID: chapterID,
+            selectedBeatID: beatID,
+            state: state
+        )
+        return ChapterReviewActionPlan(
+            action: .openBeatReview(
+                chapterID: chapterID,
+                beatID: projection.selected.beat.id
+            ),
+            projection: projection
+        )
+    }
+
+    public func moveReviewPlan(
+        to beatID: BeatID,
+        state: JourneyState
+    ) throws -> ChapterReviewActionPlan {
+        guard let review = state.chapterReview else {
+            throw ChapterCoordinatorError.reviewNotOpen
+        }
+        let projection = try reviewProjection(
+            chapterID: review.chapterID,
+            selectedBeatID: beatID,
+            state: state
+        )
+        return ChapterReviewActionPlan(
+            action: .moveBeatReview(beatID: beatID),
+            projection: projection
+        )
+    }
+
+    public func currentReviewProjection(
+        state: JourneyState
+    ) throws -> ChapterReviewProjection {
+        guard let review = state.chapterReview else {
+            throw ChapterCoordinatorError.reviewNotOpen
+        }
+        guard let session = state.chapterSession(review.chapterID),
+              session.packageID == review.packageID,
+              session.contentVersion == review.contentVersion else {
+            throw ChapterCoordinatorError.reviewUnavailable(review.chapterID)
+        }
+        return try reviewProjection(
+            chapterID: review.chapterID,
+            selectedBeatID: review.beatID,
+            state: state
+        )
+    }
+
     private func resolveCursor(
         chapterID: ChapterID,
         state: JourneyState,
@@ -465,6 +623,153 @@ public struct ChapterCoordinator: Sendable {
             responsiveAudioTimelineIDs: responsiveAudioTimelineIDs,
             arcIndex: beatLocation.arcIndex,
             beatIndex: beatLocation.beatIndex
+        )
+    }
+
+    private func reviewProjection(
+        chapterID: ChapterID,
+        selectedBeatID: BeatID?,
+        state: JourneyState
+    ) throws -> ChapterReviewProjection {
+        guard let session = state.chapterSession(chapterID),
+              let chapter = repository.chapter(chapterID),
+              let packageID = repository.packageID(for: chapterID),
+              let contentVersion = repository.contentVersion(for: chapterID) else {
+            throw ChapterCoordinatorError.reviewUnavailable(chapterID)
+        }
+        try validateSessionIdentity(
+            session,
+            packageID: packageID,
+            contentVersion: contentVersion,
+            state: state
+        )
+        switch state.route {
+        case let .chapter(activeChapterID):
+            guard activeChapterID == chapterID else {
+                throw ChapterCoordinatorError.reviewUnavailable(chapterID)
+            }
+        case .world:
+            guard state.completedChapterIDs.contains(chapterID) else {
+                throw ChapterCoordinatorError.reviewUnavailable(chapterID)
+            }
+        case .prologue:
+            throw ChapterCoordinatorError.reviewUnavailable(chapterID)
+        }
+
+        guard let currentArcID = session.arcID,
+              let currentBeatID = session.beatID,
+              let currentArcLocation = repository.location(of: currentArcID),
+              let currentBeatLocation = repository.location(of: currentBeatID),
+              currentArcLocation.chapterID == chapterID,
+              currentBeatLocation.chapterID == chapterID,
+              currentBeatLocation.arcID == currentArcID,
+              currentBeatLocation.arcIndex == currentArcLocation.arcIndex else {
+            throw ChapterCoordinatorError.malformedCompletionPrefix(chapterID)
+        }
+        try validateCompletionPrefix(
+            session: session,
+            chapter: chapter,
+            currentArcIndex: currentArcLocation.arcIndex,
+            currentBeatIndex: currentBeatLocation.beatIndex
+        )
+        try validateCompletedBeatConsequences(
+            session: session,
+            chapter: chapter,
+            world: state.world
+        )
+
+        let cursors = try session.completedBeatReviewRecords.map { record in
+            try reviewCursor(
+                record: record,
+                session: session,
+                chapter: chapter,
+                packageID: packageID,
+                contentVersion: contentVersion
+            )
+        }.sorted { $0.absoluteBeatIndex < $1.absoluteBeatIndex }
+        guard !cursors.isEmpty else {
+            throw ChapterCoordinatorError.reviewUnavailable(chapterID)
+        }
+        let selected = selectedBeatID ?? cursors[0].beat.id
+        guard let selectedIndex = cursors.firstIndex(where: {
+            $0.beat.id == selected
+        }) else {
+            throw ChapterCoordinatorError.reviewBeatUnavailable(selected)
+        }
+        return ChapterReviewProjection(
+            cursors: cursors,
+            selectedIndex: selectedIndex,
+            visitedBeatCount: session.completedBeatIDs.count,
+            totalBeatCount: chapter.arcs.reduce(0) { $0 + $1.beats.count }
+        )
+    }
+
+    private func reviewCursor(
+        record: CompletedBeatReviewRecord,
+        session: ChapterSession,
+        chapter: ChapterSpec,
+        packageID: PackageID,
+        contentVersion: SchemaVersion
+    ) throws -> ChapterReviewCursor {
+        let fail = ChapterCoordinatorError.reviewRecordMismatch(record.beatID)
+        guard record.isStructurallyValid,
+              record.packageID == packageID,
+              record.contentVersion == contentVersion,
+              record.chapterID == chapter.id,
+              session.completedBeatIDs.contains(record.beatID),
+              let location = repository.location(of: record.beatID),
+              location.chapterID == chapter.id,
+              chapter.arcs.indices.contains(location.arcIndex),
+              chapter.arcs[location.arcIndex].beats.indices.contains(location.beatIndex) else {
+            throw fail
+        }
+        let arc = chapter.arcs[location.arcIndex]
+        let beat = arc.beats[location.beatIndex]
+        guard arc.id == record.arcID,
+              beat.id == record.beatID,
+              let scene = repository.scene(beat.sceneID),
+              scene.id == record.sceneVisualSnapshot.sceneID,
+              let accessibility = repository.accessibility(scene.accessibilityID),
+              record.completionContract == (try completionContract(
+                  packageID: packageID,
+                  contentVersion: contentVersion,
+                  chapter: chapter,
+                  arcIndex: location.arcIndex,
+                  beatIndex: location.beatIndex
+              )) else {
+            throw fail
+        }
+        switch (beat.interaction, record.interaction) {
+        case (nil, nil):
+            break
+        case let (interaction?, runtime?) where InteractionReducer.terminalState(
+            runtime,
+            matches: interaction
+        ):
+            break
+        default:
+            throw fail
+        }
+        let absoluteBeatIndex = chapter.arcs.prefix(location.arcIndex)
+            .reduce(0) { $0 + $1.beats.count } + location.beatIndex
+        guard record.arcIndex == location.arcIndex,
+              record.beatIndex == location.beatIndex,
+              record.absoluteBeatIndex == absoluteBeatIndex else {
+            throw fail
+        }
+        return ChapterReviewCursor(
+            packageID: packageID,
+            contentVersion: contentVersion,
+            chapter: chapter,
+            arc: arc,
+            beat: beat,
+            scene: scene,
+            accessibility: accessibility,
+            audioTimelineIDs: repository.audioTimelineIDs(for: beat.id) ?? [],
+            record: record,
+            arcIndex: location.arcIndex,
+            beatIndex: location.beatIndex,
+            absoluteBeatIndex: absoluteBeatIndex
         )
     }
 

@@ -3,14 +3,12 @@ import XCTest
 @testable import ExperiencePreferences
 
 final class ExperiencePreferencesTests: XCTestCase {
-    func testStableDefaultsRequireExplicitNarrationPlayback() throws {
+    func testStableDefaultsEnableOneAuthoredSoundSystem() throws {
         let preferences = ExperiencePreferences.standard
 
-        XCTAssertEqual(preferences.schemaVersion, 1)
+        XCTAssertEqual(preferences.schemaVersion, 2)
+        XCTAssertTrue(preferences.soundEnabled)
         XCTAssertTrue(preferences.narrationEnabled)
-        XCTAssertEqual(preferences.narrationPlaybackPolicy, .explicitUserActionOnly)
-        XCTAssertTrue(preferences.scoreEnabled)
-        XCTAssertTrue(preferences.soundscapeEnabled)
         XCTAssertTrue(preferences.hapticsEnabled)
         XCTAssertFalse(preferences.cellularDownloadsEnabled)
         XCTAssertFalse(preferences.automaticDeepDiveDownloadsEnabled)
@@ -28,13 +26,13 @@ final class ExperiencePreferencesTests: XCTestCase {
             "cellularDownloadsEnabled",
             "hapticsEnabled",
             "narrationEnabled",
-            "narrationPlaybackPolicy",
             "schemaVersion",
-            "scoreEnabled",
-            "soundscapeEnabled",
+            "soundEnabled",
         ])
-        XCTAssertEqual(object["narrationPlaybackPolicy"] as? String, "explicitUserActionOnly")
         XCTAssertNil(object["autoplay"])
+        XCTAssertNil(object["narrationPlaybackPolicy"])
+        XCTAssertNil(object["scoreEnabled"])
+        XCTAssertNil(object["soundscapeEnabled"])
         XCTAssertNil(object["dynamicType"])
         XCTAssertNil(object["reduceMotion"])
         XCTAssertNil(object["increaseContrast"])
@@ -57,9 +55,8 @@ final class ExperiencePreferencesTests: XCTestCase {
         let directory = try temporaryDirectory()
         defer { try? FileManager.default.removeItem(at: directory) }
         let stored = ExperiencePreferences(
+            soundEnabled: false,
             narrationEnabled: false,
-            scoreEnabled: false,
-            soundscapeEnabled: false,
             hapticsEnabled: false,
             cellularDownloadsEnabled: true,
             automaticDeepDiveDownloadsEnabled: true
@@ -72,7 +69,6 @@ final class ExperiencePreferencesTests: XCTestCase {
 
         XCTAssertEqual(result.preferences, stored)
         XCTAssertEqual(result.origin, .stored)
-        XCTAssertEqual(result.preferences.narrationPlaybackPolicy, .explicitUserActionOnly)
     }
 
     func testVersionZeroMigratesAtomicallyAndDefaultsNewDownloadChoiceOff() async throws {
@@ -93,9 +89,8 @@ final class ExperiencePreferencesTests: XCTestCase {
 
         XCTAssertEqual(result.origin, .migrated(fromSchemaVersion: 0))
         XCTAssertEqual(result.preferences, ExperiencePreferences(
+            soundEnabled: true,
             narrationEnabled: false,
-            scoreEnabled: true,
-            soundscapeEnabled: false,
             hapticsEnabled: true,
             cellularDownloadsEnabled: true,
             automaticDeepDiveDownloadsEnabled: false
@@ -106,7 +101,63 @@ final class ExperiencePreferencesTests: XCTestCase {
         )
         XCTAssertEqual(rewritten, result.preferences)
         XCTAssertEqual(rewritten.schemaVersion, ExperiencePreferences.currentSchemaVersion)
-        XCTAssertEqual(rewritten.narrationPlaybackPolicy, .explicitUserActionOnly)
+    }
+
+    func testVersionZeroWithEveryLegacyAudioLayerOffMigratesSoundOff() async throws {
+        let directory = try temporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let store = try ExperiencePreferencesStore(directoryURL: directory)
+        let legacy = try jsonData([
+            "schemaVersion": 0,
+            "narrationEnabled": false,
+            "scoreEnabled": false,
+            "soundscapeEnabled": false,
+            "hapticsEnabled": true,
+            "cellularDownloadsEnabled": false,
+        ])
+        try legacy.write(to: store.preferencesFileURL, options: .atomic)
+
+        let result = try await store.load()
+
+        XCTAssertEqual(result.origin, .migrated(fromSchemaVersion: 0))
+        XCTAssertFalse(result.preferences.soundEnabled)
+        XCTAssertFalse(result.preferences.narrationEnabled)
+    }
+
+    func testVersionOneMigrationUnifiesEveryLegacyAudioCombination() async throws {
+        for mask in 0 ..< 8 {
+            let directory = try temporaryDirectory()
+            defer { try? FileManager.default.removeItem(at: directory) }
+            let store = try ExperiencePreferencesStore(directoryURL: directory)
+            let narrationEnabled = mask & 1 != 0
+            let scoreEnabled = mask & 2 != 0
+            let soundscapeEnabled = mask & 4 != 0
+            let legacy = try legacyV1Document(
+                narrationEnabled: narrationEnabled,
+                scoreEnabled: scoreEnabled,
+                soundscapeEnabled: soundscapeEnabled
+            )
+            try legacy.write(to: store.preferencesFileURL, options: .atomic)
+
+            let result = try await store.load()
+
+            XCTAssertEqual(result.origin, .migrated(fromSchemaVersion: 1))
+            XCTAssertEqual(
+                result.preferences.soundEnabled,
+                narrationEnabled || scoreEnabled || soundscapeEnabled
+            )
+            XCTAssertEqual(result.preferences.narrationEnabled, narrationEnabled)
+            XCTAssertFalse(result.preferences.hapticsEnabled)
+            XCTAssertTrue(result.preferences.cellularDownloadsEnabled)
+            XCTAssertTrue(result.preferences.automaticDeepDiveDownloadsEnabled)
+            XCTAssertEqual(
+                try JSONDecoder().decode(
+                    ExperiencePreferences.self,
+                    from: Data(contentsOf: store.preferencesFileURL)
+                ),
+                result.preferences
+            )
+        }
     }
 
     func testFailedMigrationLeavesVersionZeroDocumentUntouched() async throws {
@@ -167,12 +218,14 @@ final class ExperiencePreferencesTests: XCTestCase {
         )
     }
 
-    func testAutoplayPolicyInStoredJSONIsRejectedAndPreservedAsCorruption() async throws {
+    func testInvalidPlaybackPolicyInVersionOneIsRejectedAndPreserved() async throws {
         let directory = try temporaryDirectory()
         defer { try? FileManager.default.removeItem(at: directory) }
         let store = try ExperiencePreferencesStore(directoryURL: directory)
-        let autoplay = try currentDocument(
-            schemaVersion: 1,
+        let autoplay = try legacyV1Document(
+            narrationEnabled: true,
+            scoreEnabled: true,
+            soundscapeEnabled: true,
             narrationPlaybackPolicy: "autoplay"
         )
         try autoplay.write(to: store.preferencesFileURL, options: .atomic)
@@ -180,7 +233,7 @@ final class ExperiencePreferencesTests: XCTestCase {
         let result = try await store.load()
         let preservedURL = try recoveredURL(from: result.origin)
 
-        XCTAssertEqual(result.preferences.narrationPlaybackPolicy, .explicitUserActionOnly)
+        XCTAssertEqual(result.preferences, .standard)
         XCTAssertEqual(try Data(contentsOf: preservedURL), autoplay)
     }
 
@@ -203,7 +256,7 @@ final class ExperiencePreferencesTests: XCTestCase {
         XCTAssertEqual(try Data(contentsOf: store.preferencesFileURL), future)
 
         do {
-            try await store.save(ExperiencePreferences(scoreEnabled: false))
+            try await store.save(ExperiencePreferences(soundEnabled: false))
             XCTFail("A future-schema canonical document must block writes")
         } catch {
             XCTAssertEqual(
@@ -240,16 +293,16 @@ final class ExperiencePreferencesTests: XCTestCase {
         let directory = try temporaryDirectory()
         defer { try? FileManager.default.removeItem(at: directory) }
         let store = try ExperiencePreferencesStore(directoryURL: directory)
-        let future = try jsonData(["schemaVersion": 2, "newSetting": true])
+        let future = try jsonData(["schemaVersion": 3, "newSetting": true])
         try future.write(to: store.preferencesFileURL, options: .atomic)
 
         do {
-            try await store.save(ExperiencePreferences(scoreEnabled: false))
+            try await store.save(ExperiencePreferences(soundEnabled: false))
             XCTFail("Save must inspect an existing canonical document")
         } catch {
             XCTAssertEqual(
                 error as? ExperiencePreferencesStoreError,
-                .futureSchemaWriteBlocked(2)
+                .futureSchemaWriteBlocked(3)
             )
         }
 
@@ -270,7 +323,7 @@ final class ExperiencePreferencesTests: XCTestCase {
         try future.write(to: store.preferencesFileURL, options: .atomic)
         _ = try await store.load()
 
-        let supported = ExperiencePreferences(scoreEnabled: false)
+        let supported = ExperiencePreferences(soundEnabled: false)
         try JSONEncoder().encode(supported).write(
             to: store.preferencesFileURL,
             options: .atomic
@@ -290,7 +343,7 @@ final class ExperiencePreferencesTests: XCTestCase {
         let store = try ExperiencePreferencesStore(directoryURL: directory)
         let unsupported = try JSONDecoder().decode(
             ExperiencePreferences.self,
-            from: currentDocument(schemaVersion: 7)
+            from: currentV2Document(schemaVersion: 7)
         )
 
         do {
@@ -308,7 +361,7 @@ final class ExperiencePreferencesTests: XCTestCase {
     func testFailedAtomicReplacementLeavesPriorValidDocumentUntouched() async throws {
         let directory = try temporaryDirectory()
         defer { try? FileManager.default.removeItem(at: directory) }
-        let original = ExperiencePreferences(scoreEnabled: false)
+        let original = ExperiencePreferences(soundEnabled: false)
         let initialStore = try ExperiencePreferencesStore(directoryURL: directory)
         try await initialStore.save(original)
         let originalBytes = try Data(contentsOf: initialStore.preferencesFileURL)
@@ -336,7 +389,7 @@ final class ExperiencePreferencesTests: XCTestCase {
         let store = try ExperiencePreferencesStore(directoryURL: directory)
         let corrupt = Data("corrupt-before-explicit-save".utf8)
         try corrupt.write(to: store.preferencesFileURL, options: .atomic)
-        let requested = ExperiencePreferences(soundscapeEnabled: false)
+        let requested = ExperiencePreferences(soundEnabled: false)
 
         try await store.save(requested)
 
@@ -433,9 +486,8 @@ final class ExperiencePreferencesTests: XCTestCase {
         let store = try ExperiencePreferencesStore(directoryURL: directory)
         let candidates = (0 ..< 48).map { index in
             ExperiencePreferences(
+                soundEnabled: index.isMultiple(of: 3),
                 narrationEnabled: index.isMultiple(of: 2),
-                scoreEnabled: index.isMultiple(of: 3),
-                soundscapeEnabled: index.isMultiple(of: 5),
                 hapticsEnabled: index.isMultiple(of: 7),
                 cellularDownloadsEnabled: index.isMultiple(of: 11),
                 automaticDeepDiveDownloadsEnabled: index.isMultiple(of: 13)
@@ -457,7 +509,6 @@ final class ExperiencePreferencesTests: XCTestCase {
         )
         XCTAssertTrue(candidates.contains(decoded))
         XCTAssertNoThrow(try decoded.validate())
-        XCTAssertEqual(decoded.narrationPlaybackPolicy, .explicitUserActionOnly)
     }
 
     private func temporaryDirectory() throws -> URL {
@@ -473,19 +524,32 @@ final class ExperiencePreferencesTests: XCTestCase {
         try JSONSerialization.data(withJSONObject: object, options: [.sortedKeys])
     }
 
-    private func currentDocument(
-        schemaVersion: Int,
-        narrationPlaybackPolicy: String = "explicitUserActionOnly"
-    ) throws -> Data {
+    private func currentV2Document(schemaVersion: Int) throws -> Data {
         try jsonData([
             "schemaVersion": schemaVersion,
+            "soundEnabled": true,
             "narrationEnabled": true,
-            "narrationPlaybackPolicy": narrationPlaybackPolicy,
-            "scoreEnabled": true,
-            "soundscapeEnabled": true,
             "hapticsEnabled": true,
             "cellularDownloadsEnabled": false,
             "automaticDeepDiveDownloadsEnabled": false,
+        ])
+    }
+
+    private func legacyV1Document(
+        narrationEnabled: Bool,
+        scoreEnabled: Bool,
+        soundscapeEnabled: Bool,
+        narrationPlaybackPolicy: String = "explicitUserActionOnly"
+    ) throws -> Data {
+        try jsonData([
+            "schemaVersion": 1,
+            "narrationEnabled": narrationEnabled,
+            "narrationPlaybackPolicy": narrationPlaybackPolicy,
+            "scoreEnabled": scoreEnabled,
+            "soundscapeEnabled": soundscapeEnabled,
+            "hapticsEnabled": false,
+            "cellularDownloadsEnabled": true,
+            "automaticDeepDiveDownloadsEnabled": true,
         ])
     }
 

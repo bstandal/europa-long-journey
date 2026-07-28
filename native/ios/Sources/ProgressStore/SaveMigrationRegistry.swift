@@ -369,6 +369,13 @@ public struct SaveMigrationRegistry: Sendable {
         }
 
         let declared = Set(declaration.fields)
+        try validateReviewMutation(
+            before: before.chapterReview,
+            after: after.chapterReview,
+            declaration: declaration,
+            packageID: packageID,
+            declared: declared
+        )
         if before.world != after.world,
            !declared.contains(.cumulativeWorldState) {
             throw SaveMigrationRegistryError.undeclaredFieldMutation(
@@ -391,7 +398,11 @@ public struct SaveMigrationRegistry: Sendable {
             let new = after.chapterSessions[index]
             guard old.chapterID == new.chapterID,
                   old.packageID == new.packageID,
-                  old.lastVisitedAtEpochMillis == new.lastVisitedAtEpochMillis else {
+                  old.lastVisitedAtEpochMillis == new.lastVisitedAtEpochMillis,
+                  old.completedBeatReviewRecords.count
+                    == new.completedBeatReviewRecords.count,
+                  old.completedBeatReviewRecords.map(\.formatVersion)
+                    == new.completedBeatReviewRecords.map(\.formatVersion) else {
                 throw failure
             }
             if old.packageID != packageID {
@@ -410,6 +421,10 @@ public struct SaveMigrationRegistry: Sendable {
                 || old.beatCompletionContract != new.beatCompletionContract
                 || old.completedBeatIDs != new.completedBeatIDs
                 || old.completedArcIDs != new.completedArcIDs
+                || !reviewRecordIdentitiesMatch(
+                    old.completedBeatReviewRecords,
+                    new.completedBeatReviewRecords
+                )
             try requireDeclared(
                 beatChanged,
                 field: .beatIdentity,
@@ -418,7 +433,9 @@ public struct SaveMigrationRegistry: Sendable {
                 declarationID: declaration.id
             )
             try requireDeclared(
-                old.interaction != new.interaction,
+                old.interaction != new.interaction
+                    || old.completedBeatReviewRecords.map(\.interaction)
+                        != new.completedBeatReviewRecords.map(\.interaction),
                 field: .interactionState,
                 declared: declared,
                 packageID: packageID,
@@ -427,6 +444,10 @@ public struct SaveMigrationRegistry: Sendable {
             let anchorsChanged = old.sceneVisualSnapshot != new.sceneVisualSnapshot
                 || old.cameraAnchor != new.cameraAnchor
                 || old.readingAnchor != new.readingAnchor
+                || !reviewRecordAnchorsMatch(
+                    old.completedBeatReviewRecords,
+                    new.completedBeatReviewRecords
+                )
             try requireDeclared(
                 anchorsChanged,
                 field: .cameraAndTextAnchors,
@@ -459,6 +480,78 @@ public struct SaveMigrationRegistry: Sendable {
             } else {
                 guard old == new else { throw failure }
             }
+        }
+    }
+
+    private func validateReviewMutation(
+        before: ChapterReviewState?,
+        after: ChapterReviewState?,
+        declaration: PackageSaveMigrationDeclaration,
+        packageID: PackageID,
+        declared: Set<PackageSaveMigrationField>
+    ) throws {
+        let failure = SaveMigrationRegistryError.identityOrAuthorityMutation(
+            packageID: packageID,
+            declarationID: declaration.id
+        )
+        switch (before, after) {
+        case (nil, nil):
+            return
+        case (nil, .some), (.some, nil):
+            throw failure
+        case let (old?, new?):
+            guard old.chapterID == new.chapterID,
+                  old.packageID == new.packageID else {
+                throw failure
+            }
+            guard old.packageID == packageID else {
+                guard old == new else { throw failure }
+                return
+            }
+            guard old.contentVersion == declaration.fromContentVersion,
+                  new.contentVersion == declaration.toContentVersion else {
+                throw SaveMigrationRegistryError.targetVersionMismatch(
+                    packageID: packageID,
+                    declarationID: declaration.id
+                )
+            }
+            try requireDeclared(
+                old.beatID != new.beatID,
+                field: .beatIdentity,
+                declared: declared,
+                packageID: packageID,
+                declarationID: declaration.id
+            )
+            try requireDeclared(
+                old.readingAnchor != new.readingAnchor,
+                field: .cameraAndTextAnchors,
+                declared: declared,
+                packageID: packageID,
+                declarationID: declaration.id
+            )
+        }
+    }
+
+    private func reviewRecordIdentitiesMatch(
+        _ old: [CompletedBeatReviewRecord],
+        _ new: [CompletedBeatReviewRecord]
+    ) -> Bool {
+        guard old.count == new.count else { return false }
+        return zip(old, new).allSatisfy { lhs, rhs in
+            lhs.formatVersion == rhs.formatVersion
+                && lhs.completionContract == rhs.completionContract
+        }
+    }
+
+    private func reviewRecordAnchorsMatch(
+        _ old: [CompletedBeatReviewRecord],
+        _ new: [CompletedBeatReviewRecord]
+    ) -> Bool {
+        guard old.count == new.count else { return false }
+        return zip(old, new).allSatisfy { lhs, rhs in
+            lhs.sceneVisualSnapshot == rhs.sceneVisualSnapshot
+                && lhs.cameraAnchor == rhs.cameraAnchor
+                && lhs.readingAnchor == rhs.readingAnchor
         }
     }
 

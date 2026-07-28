@@ -27,8 +27,14 @@ struct JourneyCommerceClient: Sendable {
 
 #if DEBUG
 extension JourneyCommerceClient {
-    static func developmentFixture(initiallyOwned: Bool) -> JourneyCommerceClient {
-        let fixture = DevelopmentJourneyCommerceFixture(initiallyOwned: initiallyOwned)
+    static func developmentFixture(
+        initiallyOwned: Bool,
+        restoresOwnership: Bool = false
+    ) -> JourneyCommerceClient {
+        let fixture = DevelopmentJourneyCommerceFixture(
+            initiallyOwned: initiallyOwned,
+            restoresOwnership: restoresOwnership
+        )
         return JourneyCommerceClient(
             currentSnapshot: { await fixture.currentSnapshot() },
             snapshotUpdates: { await fixture.snapshotUpdates() },
@@ -61,9 +67,11 @@ extension JourneyCommerceClient {
 
 private actor DevelopmentJourneyCommerceFixture {
     private var snapshot: EntitlementSnapshot
+    private let restoresOwnership: Bool
     private var continuation: AsyncStream<EntitlementSnapshot>.Continuation?
 
-    init(initiallyOwned: Bool) {
+    init(initiallyOwned: Bool, restoresOwnership: Bool) {
+        self.restoresOwnership = restoresOwnership
         let now = Date(timeIntervalSince1970: 1_700_000_000)
         snapshot = initiallyOwned
             ? EntitlementSnapshot(
@@ -114,6 +122,17 @@ private actor DevelopmentJourneyCommerceFixture {
     }
 
     func restore() -> EntitlementRefreshOutcome {
+        if restoresOwnership {
+            let now = Date(timeIntervalSince1970: 1_700_000_002)
+            snapshot = EntitlementSnapshot(
+                productID: LaunchContent.fullWorkStoreProductID,
+                state: .owned,
+                transactionID: 3,
+                originalTransactionID: 3,
+                purchaseDate: now,
+                lastValidatedAt: now
+            )
+        }
         continuation?.yield(snapshot)
         return .updated(snapshot)
     }

@@ -62,6 +62,8 @@ struct RootView: View {
                     .accessibilityElement()
                     .accessibilityLabel("Restoring your place")
                     .accessibilityIdentifier("journey-restoring")
+            } else if model.state.chapterReview != nil {
+                ChapterReviewRouteView(model: model)
             } else {
                 switch model.state.route {
                 case .prologue:
@@ -149,6 +151,18 @@ struct RootView: View {
                         .accessibilityIdentifier(
                             "suspension-persistence-retry-diagnostic"
                         )
+                    Color.black.opacity(0.001)
+                        .frame(width: 1, height: 1)
+                        .accessibilityElement()
+                        .accessibilityLabel(
+                            "Chapter redownload diagnostic"
+                        )
+                        .accessibilityValue(
+                            model.chapterRedownloadDiagnosticForTesting
+                        )
+                        .accessibilityIdentifier(
+                            "chapter-redownload-diagnostic"
+                        )
                 }
                 .allowsHitTesting(false)
 
@@ -164,6 +178,22 @@ struct RootView: View {
                     .zIndex(1_000)
                     .accessibilityIdentifier(
                         "release-ordered-recovery-epoch-probe"
+                    )
+                }
+
+                if model.chapterRedownloadProbeIsEnabledForTesting,
+                   model.offlineChapterRequest == nil {
+                    Button("Queue chapter redownload probe") {
+                        model.queueChapterRedownloadProbeForTesting()
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.orange)
+                    .frame(width: 260, height: 48)
+                    .padding(.leading, 20)
+                    .padding(.top, 80)
+                    .zIndex(1_000)
+                    .accessibilityIdentifier(
+                        "chapter-redownload-queue-probe"
                     )
                 }
             }
@@ -311,10 +341,9 @@ private struct PrologueView: View {
                             .tracking(3.2)
                             .foregroundStyle(Color(red: 0.72, green: 0.62, blue: 0.43))
                         Text(FoundationCatalog.manifest.product.workTitle)
-                            .font(.system(size: 45, weight: .light, design: .serif))
+                            .font(.system(.largeTitle, design: .serif, weight: .light))
                             .foregroundStyle(Color(red: 0.91, green: 0.89, blue: 0.82))
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.5)
+                            .fixedSize(horizontal: false, vertical: true)
 
                         Spacer()
 
@@ -347,11 +376,15 @@ private struct PrologueView: View {
                                 DragGesture(minimumDistance: 0)
                                     .onChanged { value in
                                         model.previewPrologue(
-                                            progress: value.location.x / max(track.size.width, 1)
+                                            progress: clampedProgress(
+                                                value.location.x / max(track.size.width, 1)
+                                            )
                                         )
                                     }
                                     .onEnded { value in
-                                        let progress = min(max(value.location.x / max(track.size.width, 1), 0), 1)
+                                        let progress = clampedProgress(
+                                            value.location.x / max(track.size.width, 1)
+                                        )
                                         model.persistPrologue(progress: progress)
                                         if progress >= 0.94 { model.completePrologue() }
                                     }
@@ -362,7 +395,9 @@ private struct PrologueView: View {
                             .accessibilityValue(
                                 "\(Int((model.state.prologue.traceProgress * 100).rounded())) percent"
                             )
-                            .accessibilityHint("Swipe up until the road is awake.")
+                            .accessibilityHint(
+                                "Swipe left or right to reveal the road, or activate Begin the journey."
+                            )
                             .accessibilityAdjustableAction { direction in
                                 let delta = direction == .increment ? 0.2 : -0.2
                                 let progress = min(
@@ -375,6 +410,16 @@ private struct PrologueView: View {
                             }
                         }
                         .frame(height: 44)
+
+                        Button("Begin the journey") {
+                            model.completePrologue()
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(Color(red: 0.82, green: 0.64, blue: 0.34))
+                        .foregroundStyle(.black)
+                        .controlSize(.large)
+                        .frame(maxWidth: .infinity, minHeight: 44)
+                        .accessibilityIdentifier("prologue-begin")
                     }
                     .padding(.horizontal, 28)
                     .padding(.top, max(24, geometry.safeAreaInsets.top + 12))
@@ -387,6 +432,11 @@ private struct PrologueView: View {
                 renderer.configure()
             }
         }
+    }
+
+    private func clampedProgress(_ value: Double) -> Double {
+        guard value.isFinite else { return 0 }
+        return min(max(value, 0), 1)
     }
 }
 
@@ -465,6 +515,9 @@ private struct WorldRouteView: View {
 
                         LivingWorldField(
                             world: model.state.world,
+                            chapterPresentations: FoundationCatalog.livingWorldChapters,
+                            chapters: FoundationCatalog.chapters,
+                            chapterStatus: chapterStatus,
                             retainedReleaseEntries:
                                 model.retainedFutureReleaseWorldEntries,
                             focus: model.releaseWorldFocus,
@@ -489,6 +542,7 @@ private struct WorldRouteView: View {
                             selectRetainedRelease: {
                                 _ = model.focusRetainedFutureRelease($0)
                             },
+                            selectChapter: model.selectChapter,
                             releaseAction: {
                                 guard let releaseID = model.releaseWorldFocus?
                                     .releaseID else { return }
@@ -506,9 +560,8 @@ private struct WorldRouteView: View {
 
                         ChapterRoad(
                             chapters: FoundationCatalog.chapters,
-                            completedChapterIDs: Set(model.state.completedChapterIDs),
                             activeChapterID: model.state.mostRecentlyVisitedChapterID,
-                            access: { model.access(to: $0) },
+                            chapterStatus: chapterStatus,
                             select: model.selectChapter
                         )
                         .padding(.top, 8)
@@ -554,6 +607,26 @@ private struct WorldRouteView: View {
                 .presentationDragIndicator(.hidden)
         }
     }
+
+    private func chapterStatus(_ chapterID: ChapterID) -> ChapterJourneyStatus {
+        if model.state.completedChapterIDs.contains(chapterID) {
+            return model.state.chapterSession(chapterID)?
+                .completedBeatReviewRecords.isEmpty == false
+                ? .review
+                : .completed
+        }
+        if model.state.chapterSession(chapterID) != nil {
+            return .resume
+        }
+        switch model.access(to: chapterID) {
+        case .included:
+            return .included
+        case .purchased:
+            return .begin
+        case .locked:
+            return .locked
+        }
+    }
 }
 
 private struct ExperienceSettingsView: View {
@@ -587,27 +660,19 @@ private struct ExperienceSettingsView: View {
                         .padding(.bottom, 18)
 
                         preferenceToggle(
+                            "Sound",
+                            identifier: "experience-setting-sound",
+                            isOn: Binding(
+                                get: { model.experiencePreferences.soundEnabled },
+                                set: { model.setSoundEnabled($0) }
+                            )
+                        )
+                        preferenceToggle(
                             "Narration",
                             identifier: "experience-setting-narration",
                             isOn: Binding(
                                 get: { model.experiencePreferences.narrationEnabled },
                                 set: { model.setNarrationEnabled($0) }
-                            )
-                        )
-                        preferenceToggle(
-                            "Score",
-                            identifier: "experience-setting-score",
-                            isOn: Binding(
-                                get: { model.experiencePreferences.scoreEnabled },
-                                set: { model.setScoreEnabled($0) }
-                            )
-                        )
-                        preferenceToggle(
-                            "Soundscape",
-                            identifier: "experience-setting-soundscape",
-                            isOn: Binding(
-                                get: { model.experiencePreferences.soundscapeEnabled },
-                                set: { model.setSoundscapeEnabled($0) }
                             )
                         )
                         preferenceToggle(
@@ -964,7 +1029,16 @@ private struct OfflineChaptersView: View {
 
     @ViewBuilder
     private var queueStatus: some View {
-        if let presentation = model.downloadPresentation {
+        if model.chapterRedownloadIsPreparing,
+           let packageID = model.offlineChapterRequest?.packageID {
+            statusPanel(
+                title: "Checking \(packageName(packageID))",
+                detail: "The installed files are being verified before this chapter continues.",
+                progress: nil,
+                commands: [],
+                showsActivity: true
+            )
+        } else if let presentation = model.downloadPresentation {
             switch presentation.applicationQueueState {
             case .idle, .completed:
                 if allowedCommands.contains(.refreshInstalledChapters) {
@@ -1134,12 +1208,20 @@ private struct OfflineChaptersView: View {
         title: String,
         detail: String,
         progress: Double?,
-        commands: [(String, DownloadPresentationCommand)]
+        commands: [(String, DownloadPresentationCommand)],
+        showsActivity: Bool = false
     ) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text(title)
-                .font(.system(.headline, design: .serif))
-                .foregroundStyle(primaryText)
+            HStack(spacing: 10) {
+                if showsActivity {
+                    ProgressView()
+                        .tint(accent)
+                        .accessibilityHidden(true)
+                }
+                Text(title)
+                    .font(.system(.headline, design: .serif))
+                    .foregroundStyle(primaryText)
+            }
             Text(detail)
                 .font(.footnote)
                 .foregroundStyle(.secondary)
@@ -1396,8 +1478,32 @@ private struct OfflinePackageCard: View {
     }
 }
 
+private enum ChapterJourneyStatus: String {
+    case included = "Included"
+    case begin = "Begin"
+    case resume = "Resume"
+    case review = "Review"
+    case completed = "Completed"
+    case locked = "Locked"
+
+    static let unavailableReviewAccessibilityValue =
+        "Completed. No archived scenes are available for review."
+
+    var systemImage: String {
+        switch self {
+        case .included, .begin: "arrow.right"
+        case .resume: "bookmark.fill"
+        case .review, .completed: "checkmark"
+        case .locked: "lock.fill"
+        }
+    }
+}
+
 private struct LivingWorldField: View {
     let world: WorldGraph
+    let chapterPresentations: [LivingWorldChapterPresentationSpec]
+    let chapters: [ChapterIndexEntry]
+    let chapterStatus: (ChapterID) -> ChapterJourneyStatus
     let retainedReleaseEntries: [ReleaseCatalogEntry]
     let focus: ReleaseDeepLinkIntent?
     let announcement: ReleaseAnnouncement?
@@ -1405,6 +1511,7 @@ private struct LivingWorldField: View {
     let releaseFailureMessage: String?
     let releaseActionIsPending: Bool
     let selectRetainedRelease: (ReleaseID) -> Void
+    let selectChapter: (ChapterID) -> Void
     let releaseAction: () -> Void
 
     private struct RetainedEntryPoint: Identifiable {
@@ -1412,6 +1519,14 @@ private struct LivingWorldField: View {
         let node: WorldNodeState
 
         var id: ReleaseID { entry.id }
+    }
+
+    private struct ChapterEntryPoint: Identifiable {
+        let presentation: LivingWorldChapterPresentationSpec
+        let chapter: ChapterIndexEntry
+        let node: WorldNodeState
+
+        var id: ChapterID { chapter.id }
     }
 
     private var visibleNodes: [WorldNodeState] {
@@ -1430,6 +1545,26 @@ private struct LivingWorldField: View {
             nodes[entry.placement.worldNodeID].map {
                 RetainedEntryPoint(entry: entry, node: $0)
             }
+        }
+    }
+
+    private var chapterEntryPoints: [ChapterEntryPoint] {
+        let nodes = Dictionary(
+            uniqueKeysWithValues: visibleNodes.map { ($0.id, $0) }
+        )
+        let chaptersByID = Dictionary(
+            uniqueKeysWithValues: chapters.map { ($0.id, $0) }
+        )
+        return chapterPresentations.compactMap { presentation in
+            guard let node = nodes[presentation.worldNodeID],
+                  let chapter = chaptersByID[presentation.chapterID] else {
+                return nil
+            }
+            return ChapterEntryPoint(
+                presentation: presentation,
+                chapter: chapter,
+                node: node
+            )
         }
     }
 
@@ -1530,6 +1665,74 @@ private struct LivingWorldField: View {
         }
         .overlay {
             GeometryReader { proxy in
+                ForEach(chapterEntryPoints) { point in
+                    let status = chapterStatus(point.id)
+                    let nodePoint = CGPoint(
+                        x: proxy.size.width * CGFloat(point.node.position.x),
+                        y: proxy.size.height * CGFloat(point.node.position.y)
+                    )
+
+                    Button {
+                        selectChapter(point.id)
+                    } label: {
+                        ZStack {
+                            Circle()
+                                .fill(Color(red: 0.025, green: 0.030, blue: 0.029))
+                            Circle()
+                                .stroke(
+                                    Color(red: 0.90, green: 0.70, blue: 0.34),
+                                    lineWidth: status == .resume ? 2.2 : 1.4
+                                )
+                            Image(systemName: status.systemImage)
+                                .font(.system(size: 11, weight: .semibold))
+                                .foregroundStyle(Color(red: 0.90, green: 0.70, blue: 0.34))
+                        }
+                        .frame(width: 44, height: 44)
+                        .contentShape(Circle())
+                    }
+                    .buttonStyle(.plain)
+                    .disabled(status == .completed)
+                    .frame(width: 44, height: 44)
+                    .position(nodePoint)
+                    .accessibilityLabel(
+                        "\(point.chapter.title.launchEnglish), \(point.chapter.period.launchEnglish), \(status.rawValue)"
+                    )
+                    .accessibilityHint(
+                        status == .locked
+                            ? "Opens the permanent unlock."
+                            : status == .completed
+                                ? "No archived scenes are available for review."
+                            : point.presentation.historicalInvitation.launchEnglish
+                    )
+                    .accessibilityValue(
+                        status == .completed
+                            ? ChapterJourneyStatus
+                                .unavailableReviewAccessibilityValue
+                            : ""
+                    )
+                    .accessibilityIdentifier(
+                        "chapter-world-entry-\(point.id.rawValue)"
+                    )
+
+                    VStack(alignment: .leading, spacing: 1) {
+                        Text(point.chapter.title.launchEnglish)
+                            .font(.system(.caption2, design: .serif, weight: .semibold))
+                            .lineLimit(2)
+                        Text(status.rawValue.uppercased())
+                            .font(.system(size: 9, weight: .bold))
+                            .tracking(0.9)
+                            .foregroundStyle(Color(red: 0.90, green: 0.70, blue: 0.34))
+                    }
+                    .foregroundStyle(Color(red: 0.92, green: 0.90, blue: 0.84))
+                    .padding(.horizontal, 7)
+                    .padding(.vertical, 5)
+                    .frame(width: 126, alignment: .leading)
+                    .background(.black.opacity(0.76), in: RoundedRectangle(cornerRadius: 3))
+                    .position(chapterCalloutPoint(for: point, size: proxy.size))
+                    .allowsHitTesting(false)
+                    .accessibilityHidden(true)
+                }
+
                 ForEach(retainedEntryPoints) { point in
                     Button {
                         selectRetainedRelease(point.id)
@@ -1602,7 +1805,7 @@ private struct LivingWorldField: View {
                 .accessibilityIdentifier("release-world-focus")
             }
         }
-        .accessibilityElement()
+        .accessibilityElement(children: .contain)
         .accessibilityIdentifier("living-world-field")
         .accessibilityLabel(
             "The historical world. \(visibleNodes.count) places revealed and \(activeTraces.count) roads active."
@@ -1686,6 +1889,29 @@ private struct LivingWorldField: View {
         return "\(1 - astronomicalYear) BC"
     }
 
+    private func chapterCalloutPoint(
+        for point: ChapterEntryPoint,
+        size: CGSize
+    ) -> CGPoint {
+        let base = CGPoint(
+            x: size.width * CGFloat(point.node.position.x),
+            y: size.height * CGFloat(point.node.position.y)
+        )
+        let horizontalOffset: CGFloat = point.node.position.x < 0.55 ? 82 : -82
+        let verticalOffset: CGFloat
+        if point.node.position.y > 0.68 {
+            verticalOffset = -40
+        } else if point.node.position.y < 0.32 {
+            verticalOffset = 42
+        } else {
+            verticalOffset = 0
+        }
+        return CGPoint(
+            x: min(max(63, base.x + horizontalOffset), size.width - 63),
+            y: min(max(24, base.y + verticalOffset), size.height - 24)
+        )
+    }
+
     private func markerPoint(
         for point: RetainedEntryPoint,
         size: CGSize
@@ -1704,13 +1930,22 @@ private struct LivingWorldField: View {
             x: size.width * CGFloat(point.node.position.x),
             y: size.height * CGFloat(point.node.position.y)
         )
-        guard siblings.count > 1,
-              let index = siblings.firstIndex(where: { $0.id == point.id }) else {
+        guard let index = siblings.firstIndex(where: { $0.id == point.id }) else {
             return base
         }
-        let angle = (-Double.pi / 2)
-            + (2 * Double.pi * Double(index) / Double(siblings.count))
-        let radius = 24.0
+        let safeBaseAngle: Double
+        if point.node.position.y < 0.35 {
+            safeBaseAngle = Double.pi / 2
+        } else if point.node.position.y > 0.65 {
+            safeBaseAngle = -Double.pi / 2
+        } else {
+            safeBaseAngle = point.node.position.x < 0.55 ? 0 : Double.pi
+        }
+        let angle = safeBaseAngle
+            + (siblings.count > 1
+                ? 2 * Double.pi * Double(index) / Double(siblings.count)
+                : 0)
+        let radius = 48.0
         return CGPoint(
             x: min(max(22, base.x + CGFloat(cos(angle) * radius)), size.width - 22),
             y: min(max(22, base.y + CGFloat(sin(angle) * radius)), size.height - 22)
@@ -1720,9 +1955,8 @@ private struct LivingWorldField: View {
 
 private struct ChapterRoad: View {
     let chapters: [ChapterIndexEntry]
-    let completedChapterIDs: Set<ChapterID>
     let activeChapterID: ChapterID?
-    let access: (ChapterID) -> ChapterAccess
+    let chapterStatus: (ChapterID) -> ChapterJourneyStatus
     let select: (ChapterID) -> Void
 
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
@@ -1812,9 +2046,8 @@ private struct ChapterRoad: View {
     private func roadNode(_ chapter: ChapterIndexEntry) -> some View {
         ChapterRoadNode(
             chapter: chapter,
-            access: access(chapter.id),
-            isCompleted: completedChapterIDs.contains(chapter.id),
-            isCurrent: activeChapterID == chapter.id
+            status: chapterStatus(chapter.id),
+            isCurrent: activeChapterID == chapter.id,
         ) {
             select(chapter.id)
         }
@@ -1835,14 +2068,16 @@ private struct ChapterRoad: View {
 
 private struct ChapterRoadNode: View {
     let chapter: ChapterIndexEntry
-    let access: ChapterAccess
-    let isCompleted: Bool
+    let status: ChapterJourneyStatus
     let isCurrent: Bool
     let action: () -> Void
 
     private var isLocked: Bool {
-        if case .locked = access { return true }
-        return false
+        status == .locked
+    }
+
+    private var isCompleted: Bool {
+        status == .review || status == .completed
     }
 
     var body: some View {
@@ -1878,18 +2113,39 @@ private struct ChapterRoadNode: View {
                         .font(.system(.title3, design: .serif, weight: .medium))
                         .foregroundStyle(Color(red: 0.91, green: 0.89, blue: 0.82))
                         .opacity(isLocked ? 0.72 : 1)
+                    Label(status.rawValue, systemImage: status.systemImage)
+                        .font(.caption2.weight(.semibold))
+                        .foregroundStyle(
+                            status == .locked
+                                ? Color.secondary
+                                : Color(red: 0.80, green: 0.61, blue: 0.30)
+                        )
                 }
                 .fixedSize(horizontal: false, vertical: true)
             }
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
+        .disabled(status == .completed)
         .accessibilityIdentifier("chapter-road-\(chapter.id)")
         .accessibilityLabel(
             "\(chapter.title.launchEnglish), \(chapter.period.launchEnglish)" +
-                (isLocked ? ", locked" : isCompleted ? ", completed" : "")
+                ", \(status.rawValue)"
         )
-        .accessibilityHint(isLocked ? "Opens the permanent unlock." : "Opens this road.")
+        .accessibilityHint(
+            isLocked
+                ? "Opens the permanent unlock."
+                : status == .completed
+                    ? "No archived scenes are available for review."
+                : status == .review
+                    ? "Opens this completed chapter for review."
+                    : "Opens this road."
+        )
+        .accessibilityValue(
+            status == .completed
+                ? ChapterJourneyStatus.unavailableReviewAccessibilityValue
+                : ""
+        )
     }
 }
 
@@ -1912,7 +2168,10 @@ private struct LockedRoadPurchaseView: View {
                     Spacer()
                     Button("Close") { model.dismissLockedRoad() }
                         .foregroundStyle(.secondary)
+                        .frame(minWidth: 44, minHeight: 44)
+                        .contentShape(Rectangle())
                         .disabled(operationIsRunning)
+                        .accessibilityIdentifier("locked-road-close")
                 }
 
                         Spacer(minLength: 40)
@@ -1981,7 +2240,7 @@ private struct LockedRoadPurchaseView: View {
                                 if model.purchaseState == .restoring {
                                     ProgressView()
                                 }
-                                Text("Restore purchase")
+                                Text("Restore Purchase")
                             }
                                 .frame(maxWidth: .infinity)
                         }
@@ -2010,11 +2269,166 @@ private struct LockedRoadPurchaseView: View {
     }
 }
 
+private struct ChapterReviewRouteView: View {
+    @ObservedObject var model: JourneyModel
+    @StateObject private var session = ChapterReviewRouteSession()
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.accessibilityVoiceOverEnabled)
+    private var voiceOverIsRunning
+    @AccessibilityFocusState private var problemHeadingIsFocused: Bool
+
+    private enum CropResolution {
+        case pending
+        case ready(String)
+        case viewportUnsupported
+        case incompatibleContent
+    }
+
+    var body: some View {
+        GeometryReader { geometry in
+            let canvasSize = SceneViewportCanvasMetrics.fullCanvasSize(
+                contentSize: SceneFrameSize(
+                    width: geometry.size.width,
+                    height: geometry.size.height
+                ),
+                safeAreaTop: geometry.safeAreaInsets.top,
+                safeAreaLeading: geometry.safeAreaInsets.leading,
+                safeAreaBottom: geometry.safeAreaInsets.bottom,
+                safeAreaTrailing: geometry.safeAreaInsets.trailing
+            )
+            if let projection = model.chapterReviewProjection {
+                switch cropResolution(
+                    scene: projection.selected.scene,
+                    viewport: canvasSize
+                ) {
+                case let .ready(cropID):
+                    ChapterReviewView(model: model, session: session)
+                        .task(
+                            id: "\(projection.selected.beat.id.rawValue):"
+                                + "\(cropID):\(reduceMotion)"
+                        ) {
+                            await session.activate(
+                                model: model,
+                                viewportCropID: cropID,
+                                reduceMotion: reduceMotion,
+                                voiceOverIsRunning: voiceOverIsRunning
+                            )
+                        }
+                case .pending:
+                    ChapterPreparingRouteView()
+                case .viewportUnsupported:
+                    reviewProblem(
+                        title: "This scene does not fit this display.",
+                        message: "Your saved place has not changed."
+                    )
+                case .incompatibleContent:
+                    if projection.selected.packageID
+                        == LaunchContent.essentialPackageID {
+                        reviewProblem(
+                            title: "This included chapter needs an app update.",
+                            message:
+                                "The scene files do not match this version of the app."
+                        )
+                    } else {
+                        reviewProblem(
+                            title: "This chapter needs to be downloaded again.",
+                            message:
+                                "The scene files do not match this version of the app.",
+                            redownload: {
+                                model.requestChapterRedownload(
+                                    chapterID:
+                                        projection.selected.chapter.id,
+                                    packageID:
+                                        projection.selected.packageID
+                                )
+                                model.closeReviewAndShowWorld()
+                            }
+                        )
+                    }
+                }
+            } else {
+                ChapterPreparingRouteView()
+            }
+        }
+    }
+
+    private func reviewProblem(
+        title: String,
+        message: String,
+        redownload: (() -> Void)? = nil
+    ) -> some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Spacer()
+            Text(title)
+                .font(.system(.title2, design: .serif, weight: .semibold))
+                .accessibilityAddTraits(.isHeader)
+                .accessibilityFocused($problemHeadingIsFocused)
+            Text(message).foregroundStyle(.secondary)
+            if let redownload {
+                Button(action: redownload) {
+                    Text("Download again")
+                        .frame(minHeight: 44)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(Color(red: 0.52, green: 0.37, blue: 0.20))
+            }
+            Button(action: { model.closeBeatReview() }) {
+                Text("Done")
+                    .frame(minHeight: 44)
+                    .contentShape(Rectangle())
+            }
+                .buttonStyle(.bordered)
+            Spacer()
+        }
+        .padding(28)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+        .background(Color(red: 0.035, green: 0.029, blue: 0.027))
+        .onAppear { problemHeadingIsFocused = true }
+    }
+
+    private func cropResolution(
+        scene: SceneSpec,
+        viewport: SceneFrameSize
+    ) -> CropResolution {
+        do {
+            return .ready(
+                try SceneViewportCropSelector.selectCropID(
+                    scene: scene,
+                    viewport: viewport,
+                    reduceMotion: reduceMotion
+                )
+            )
+        } catch let error as SceneViewportCropSelectionError {
+            switch error {
+            case .invalidViewportSize, .nonPortraitViewport:
+                return .pending
+            case .insufficientAuthoredCoverage:
+                return .viewportUnsupported
+            case .emptyAuthoredCropSet, .invalidAuthoredCrop,
+                 .duplicateAuthoredCropID,
+                 .normalAndReducedCropSetsMismatch,
+                 .ambiguousSelection:
+                return .incompatibleContent
+            }
+        } catch {
+            return .incompatibleContent
+        }
+    }
+}
+
 private struct ChapterRouteView: View {
     let chapterID: ChapterID
     @ObservedObject var model: JourneyModel
     @StateObject private var session = ProductionChapterRouteSession()
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    private enum CropResolution {
+        case pending
+        case ready(String)
+        case viewportUnsupported
+        case incompatibleContent
+    }
 
     var body: some View {
         GeometryReader { geometry in
@@ -2029,41 +2443,116 @@ private struct ChapterRouteView: View {
                 safeAreaTrailing: geometry.safeAreaInsets.trailing
             )
             if let cursor = model.chapterCursor,
-               cursor.chapter.id == chapterID,
-               let viewportCropID = try? SceneViewportCropSelector.selectCropID(
-                   scene: cursor.scene,
-                   viewport: canvasSize,
-                   reduceMotion: reduceMotion
-               ) {
-                if let identity = model.chapterRuntimeRouteIdentity(
-                    for: chapterID,
-                    viewportCropID: viewportCropID,
-                    reduceMotion: reduceMotion
+               cursor.chapter.id == chapterID {
+                switch cropResolution(
+                    scene: cursor.scene,
+                    viewport: canvasSize
                 ) {
-                    ProductionChapterView(
-                        model: model,
-                        session: session,
-                        identity: identity
-                    )
-                    .task(id: identity) {
-                        await session.activate(model: model, identity: identity)
-                    }
-                } else {
-#if DEBUG
-                    if chapterID == DevelopmentFirstFarmersRepository.chapterID {
-                        DevelopmentChapterDiagnosticView(model: model, cursor: cursor)
+                case let .ready(viewportCropID):
+                    if let identity = model.chapterRuntimeRouteIdentity(
+                        for: chapterID,
+                        viewportCropID: viewportCropID,
+                        reduceMotion: reduceMotion
+                    ) {
+                        ProductionChapterView(
+                            model: model,
+                            session: session,
+                            identity: identity
+                        )
+                        .task(id: identity) {
+                            await session.activate(model: model, identity: identity)
+                        }
+                    } else if model.chapterTransitionIsPending {
+                        ChapterPreparingRouteView()
                     } else {
-                        ChapterUnavailableRouteView(chapterID: chapterID, model: model)
-                    }
+#if DEBUG
+                        if chapterID == DevelopmentFirstFarmersRepository.chapterID {
+                            DevelopmentChapterDiagnosticView(model: model, cursor: cursor)
+                        } else {
+                            ChapterRouteProblemView(
+                                title: "This chapter could not be verified.",
+                                message: "Your saved place has not changed.",
+                                identifier: "chapter-incompatible-\(chapterID)",
+                                model: model
+                            )
+                        }
 #else
-                    ChapterUnavailableRouteView(chapterID: chapterID, model: model)
+                        ChapterRouteProblemView(
+                            title: "This chapter could not be verified.",
+                            message: "Your saved place has not changed.",
+                            identifier: "chapter-incompatible-\(chapterID)",
+                            model: model
+                        )
 #endif
+                    }
+                case .pending:
+                    ChapterPreparingRouteView()
+                case .viewportUnsupported:
+                    ChapterRouteProblemView(
+                        title: "This scene does not fit this display.",
+                        message: "Your saved place has not changed.",
+                        identifier: "chapter-viewport-unsupported-\(chapterID)",
+                        model: model
+                    )
+                case .incompatibleContent:
+                    if cursor.packageID == LaunchContent.essentialPackageID {
+                        ChapterRouteProblemView(
+                            title: "This included chapter needs an app update.",
+                            message: "The scene files do not match this version of the app.",
+                            identifier: "chapter-crop-incompatible-\(chapterID)",
+                            model: model
+                        )
+                    } else {
+                        ChapterRouteProblemView(
+                            title: "This chapter needs to be downloaded again.",
+                            message: "The scene files do not match this version of the app.",
+                            identifier: "chapter-crop-incompatible-\(chapterID)",
+                            model: model,
+                            redownload: {
+                                model.requestChapterRedownload(
+                                    chapterID: cursor.chapter.id,
+                                    packageID: cursor.packageID
+                                )
+                                model.showWorldRecoveringChapterFailure()
+                            }
+                        )
+                    }
                 }
+            } else if model.chapterTransitionIsPending {
+                ChapterPreparingRouteView()
             } else {
                 ChapterUnavailableRouteView(chapterID: chapterID, model: model)
             }
         }
         .onDisappear { session.deactivate() }
+    }
+
+    private func cropResolution(
+        scene: SceneSpec,
+        viewport: SceneFrameSize
+    ) -> CropResolution {
+        do {
+            return .ready(
+                try SceneViewportCropSelector.selectCropID(
+                    scene: scene,
+                    viewport: viewport,
+                    reduceMotion: reduceMotion
+                )
+            )
+        } catch let error as SceneViewportCropSelectionError {
+            switch error {
+            case .invalidViewportSize:
+                return .pending
+            case .nonPortraitViewport, .insufficientAuthoredCoverage:
+                return .viewportUnsupported
+            case .emptyAuthoredCropSet, .invalidAuthoredCrop,
+                 .duplicateAuthoredCropID,
+                 .normalAndReducedCropSetsMismatch, .ambiguousSelection:
+                return .incompatibleContent
+            }
+        } catch {
+            return .incompatibleContent
+        }
     }
 }
 
@@ -2104,6 +2593,7 @@ private struct DevelopmentChapterDiagnosticView: View {
                 VStack(alignment: .leading, spacing: 12) {
                     Button("Return to the road") { model.showWorld() }
                         .foregroundStyle(Color(red: 0.80, green: 0.61, blue: 0.30))
+                        .accessibilityIdentifier("chapter-road")
                     Text(cursor.chapter.title.launchEnglish)
                         .font(.system(.title3, design: .serif, weight: .medium))
                         .foregroundStyle(.secondary)
@@ -2147,6 +2637,80 @@ private struct DevelopmentChapterDiagnosticView: View {
 }
 #endif
 
+private struct ChapterPreparingRouteView: View {
+    var body: some View {
+        ZStack {
+            Color(red: 0.012, green: 0.015, blue: 0.016).ignoresSafeArea()
+            ProgressView()
+                .tint(Color(red: 0.80, green: 0.61, blue: 0.30))
+                .accessibilityLabel("Preparing the scene")
+        }
+        .accessibilityIdentifier("chapter-preparing")
+    }
+}
+
+private struct ChapterRouteProblemView: View {
+    let title: String
+    let message: String
+    let identifier: String
+    @ObservedObject var model: JourneyModel
+    let redownload: (() -> Void)?
+    @AccessibilityFocusState private var headingIsFocused: Bool
+
+    init(
+        title: String,
+        message: String,
+        identifier: String,
+        model: JourneyModel,
+        redownload: (() -> Void)? = nil
+    ) {
+        self.title = title
+        self.message = message
+        self.identifier = identifier
+        self.model = model
+        self.redownload = redownload
+    }
+
+    var body: some View {
+        ZStack {
+            Color(red: 0.012, green: 0.015, blue: 0.016).ignoresSafeArea()
+            VStack(alignment: .leading, spacing: 16) {
+                Text(title)
+                    .font(.system(.title2, design: .serif, weight: .semibold))
+                    .foregroundStyle(Color(red: 0.92, green: 0.90, blue: 0.84))
+                    .accessibilityAddTraits(.isHeader)
+                    .accessibilityFocused($headingIsFocused)
+                Text(message)
+                    .foregroundStyle(.secondary)
+                if let redownload {
+                    Button(action: redownload) {
+                        Text("Download again")
+                            .frame(minHeight: 44)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(Color(red: 0.72, green: 0.52, blue: 0.22))
+                    .accessibilityIdentifier(
+                        "chapter-problem-download-again"
+                    )
+                }
+                Button("Return to the road") {
+                    model.showWorldRecoveringChapterFailure()
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(Color(red: 0.72, green: 0.52, blue: 0.22))
+                .frame(minHeight: 44)
+                .accessibilityIdentifier("chapter-problem-return-to-road")
+            }
+            .padding(28)
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier(identifier)
+        .onAppear { headingIsFocused = true }
+    }
+}
+
 private struct ChapterUnavailableRouteView: View {
     let chapterID: ChapterID
     @ObservedObject var model: JourneyModel
@@ -2155,11 +2719,18 @@ private struct ChapterUnavailableRouteView: View {
         ZStack {
             Color(red: 0.012, green: 0.015, blue: 0.016).ignoresSafeArea()
             VStack(alignment: .leading, spacing: 14) {
-                Button("Return to the road") { model.showWorld() }
+                Button(action: { model.showWorld() }) {
+                    Text("Return to the road")
+                        .frame(minHeight: 44)
+                        .contentShape(Rectangle())
+                }
                     .font(.subheadline.weight(.medium))
                     .foregroundStyle(Color(red: 0.80, green: 0.61, blue: 0.30))
+                    .accessibilityIdentifier(
+                        "chapter-unavailable-return-to-road"
+                    )
                 Spacer()
-                Text("Chapter content is not installed.")
+                Text("Download this chapter to continue.")
                     .font(.body)
                     .foregroundStyle(.secondary)
                 Spacer()

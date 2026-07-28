@@ -66,12 +66,11 @@ final class DownloadInitiationPolicyTests: XCTestCase {
                     automaticDeepDiveDownloadsEnabled: automaticDeepDiveDownloadsEnabled
                 ))
 
-                for audioMask in 0 ..< 16 {
+                for audioMask in 0 ..< 8 {
                     let varied = DownloadInitiationPolicy(preferences: ExperiencePreferences(
-                        narrationEnabled: audioMask & 1 != 0,
-                        scoreEnabled: audioMask & 2 != 0,
-                        soundscapeEnabled: audioMask & 4 != 0,
-                        hapticsEnabled: audioMask & 8 != 0,
+                        soundEnabled: audioMask & 1 != 0,
+                        narrationEnabled: audioMask & 2 != 0,
+                        hapticsEnabled: audioMask & 4 != 0,
                         cellularDownloadsEnabled: cellularDownloadsEnabled,
                         automaticDeepDiveDownloadsEnabled:
                             automaticDeepDiveDownloadsEnabled

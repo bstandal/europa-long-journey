@@ -20,6 +20,10 @@ enum DevelopmentSignedRuntimeFixtureAppContent {
         "--ui-testing-signed-runtime-fixture-chapter="
     static let beatArgumentPrefix =
         "--ui-testing-signed-runtime-fixture-beat="
+    static let legacyCompletedWithoutReviewArgument =
+        "--ui-testing-legacy-completed-without-review"
+    static let worldReadyArgument =
+        "--ui-testing-signed-runtime-fixture-world-ready"
 
     /// The signed review package is the complete content authority for the
     /// dedicated live-test product. Debug builds retain the explicit launch
@@ -31,6 +35,18 @@ enum DevelopmentSignedRuntimeFixtureAppContent {
 #else
         ProcessInfo.processInfo.arguments.contains(launchArgument)
 #endif
+    }
+
+    static var usesLegacyCompletedWithoutReviewState: Bool {
+        isActive && ProcessInfo.processInfo.arguments.contains(
+            legacyCompletedWithoutReviewArgument
+        )
+    }
+
+    static var usesWorldReadyState: Bool {
+        isActive && ProcessInfo.processInfo.arguments.contains(
+            worldReadyArgument
+        )
     }
 
     private static let packageID = PackageID("vertical-slice-development-v1")

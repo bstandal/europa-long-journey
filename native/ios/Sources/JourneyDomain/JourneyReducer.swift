@@ -13,12 +13,23 @@ public struct JourneyReducer: Sendable {
 
     @discardableResult
     public func reduce(state: inout JourneyState, action: JourneyAction) -> [JourneyEffect] {
+        if state.chapterReview != nil, Self.requiresClosedReview(action) {
+            return [.rejected("Close review before changing the causal chapter state")]
+        }
         switch action {
         case .launch:
             state.prepareForColdRestore()
-            return []
+            guard state.chapterReview != nil,
+                  !reviewStateMatchesDurableSession(state) else {
+                return []
+            }
+            state.chapterReview = nil
+            return [.checkpoint(.reviewChanged)]
 
         case let .updatePrologueTrace(value):
+            guard value.isFinite else {
+                return [.rejected("Prologue trace progress must be finite")]
+            }
             let progress = min(max(value, state.prologue.traceProgress), 1)
             state.prologue.traceProgress = progress
             state.prologue.phase = progress > 0 ? .tracing : .dormant
@@ -32,6 +43,7 @@ public struct JourneyReducer: Sendable {
             state.prologue.traceProgress = 1
             state.prologue.phase = .awakened
             state.route = .world
+            state.chapterReview = nil
             return [
                 .haptic(.seal),
                 .worldChanged(effects.map(\.id)),
@@ -40,10 +52,12 @@ public struct JourneyReducer: Sendable {
 
         case .showWorld:
             state.route = .world
+            state.chapterReview = nil
             return [.checkpoint(.routeChanged)]
 
         case let .selectChapter(chapterID, packageID, contentVersion):
             state.route = .chapter(chapterID)
+            state.chapterReview = nil
             if let existing = state.chapterSession(chapterID) {
                 guard existing.packageID == packageID,
                       existing.contentVersion == contentVersion else {
@@ -61,6 +75,7 @@ public struct JourneyReducer: Sendable {
 
         case let .beginChapter(chapterID, packageID, contentVersion, arcID, beatID):
             state.route = .chapter(chapterID)
+            state.chapterReview = nil
             if var existing = state.chapterSession(chapterID) {
                 guard existing.packageID == packageID,
                       existing.contentVersion == contentVersion else {
@@ -93,6 +108,7 @@ public struct JourneyReducer: Sendable {
                 return [.rejected("The authored chapter opening did not match durable content state")]
             }
             state.route = .chapter(contract.chapterID)
+            state.chapterReview = nil
             var session = existing ?? ChapterSession(
                 chapterID: contract.chapterID,
                 packageID: contract.packageID,
@@ -119,6 +135,7 @@ public struct JourneyReducer: Sendable {
             state.activeChapter?.responsiveAudioChapterOpenNonce = nil
             state.activeChapter?.responsiveAudioSessionGeneration = 0
             state.activeChapter?.responsiveAudioSessionIsActive = false
+            state.activeChapter?.readingAnchor = nil
             return [.checkpoint(.beatChanged)]
 
         case let .enterAuthoredBeat(contract):
@@ -158,6 +175,7 @@ public struct JourneyReducer: Sendable {
             session.responsiveAudioChapterOpenNonce = nil
             session.responsiveAudioSessionGeneration = 0
             session.responsiveAudioSessionIsActive = false
+            session.readingAnchor = nil
             state.activeChapter = session
             return [.checkpoint(.beatChanged)]
 
@@ -378,9 +396,25 @@ public struct JourneyReducer: Sendable {
                       let interaction = contract.interactionIdentity,
                       session.interaction?.interactionID == interaction.id,
                       session.interaction?.phase == .complete,
+                      let sceneVisualSnapshot = session.sceneVisualSnapshot,
+                      session.reviewRecord(for: contract.beatID) == nil,
                       completionPositionMatches(contract, session: session),
                       appliedStatus(of: interaction.effects, in: state.world) == .all else {
                     return [.rejected("Only the completed authored interaction can complete this beat")]
+                }
+                let reviewRecord = CompletedBeatReviewRecord(
+                    completionContract: contract,
+                    sceneVisualSnapshot: sceneVisualSnapshot,
+                    interaction: session.interaction,
+                    cameraAnchor: session.cameraAnchor,
+                    readingAnchor: session.readingAnchor
+                )
+                guard reviewRecord.isStructurallyValid else {
+                    return [.rejected("The completed scene could not be archived exactly")]
+                }
+                session.completedBeatReviewRecords.append(reviewRecord)
+                session.completedBeatReviewRecords.sort {
+                    $0.absoluteBeatIndex < $1.absoluteBeatIndex
                 }
             }
             if !session.completedBeatIDs.contains(beatID) {
@@ -397,13 +431,29 @@ public struct JourneyReducer: Sendable {
                   installedVersionMatches(contract, state: state),
                   let effects = contract.documentaryEffects,
                   session.interaction == nil,
+                  let sceneVisualSnapshot = session.sceneVisualSnapshot,
                   completionPositionMatches(contract, session: session),
                   !session.completedBeatIDs.contains(contract.beatID),
+                  session.reviewRecord(for: contract.beatID) == nil,
                   appliedStatus(of: effects, in: state.world) == .none else {
                 return [.rejected("The documentary beat completion did not match authored content")]
             }
+            let reviewRecord = CompletedBeatReviewRecord(
+                completionContract: contract,
+                sceneVisualSnapshot: sceneVisualSnapshot,
+                interaction: nil,
+                cameraAnchor: session.cameraAnchor,
+                readingAnchor: session.readingAnchor
+            )
+            guard reviewRecord.isStructurallyValid else {
+                return [.rejected("The completed scene could not be archived exactly")]
+            }
             guard apply(effects, to: &state) else {
                 return [.rejected("The documentary beat effects were not internally consistent")]
+            }
+            session.completedBeatReviewRecords.append(reviewRecord)
+            session.completedBeatReviewRecords.sort {
+                $0.absoluteBeatIndex < $1.absoluteBeatIndex
             }
             session.completedBeatIDs.append(contract.beatID)
             session.completedBeatIDs.sort()
@@ -505,6 +555,7 @@ public struct JourneyReducer: Sendable {
                 state.completedChapterIDs.sort()
             }
             state.route = .world
+            state.chapterReview = nil
             return [
                 .haptic(.seal),
                 .worldChanged(contract.completionEffects.map(\.id)),
@@ -523,7 +574,115 @@ public struct JourneyReducer: Sendable {
             )
             state.installedContent.sort { $0.packageID < $1.packageID }
             return [.checkpoint(.contentChanged)]
+
+        case let .openBeatReview(chapterID, beatID):
+            guard state.chapterReview == nil,
+                  let session = state.chapterSession(chapterID),
+                  routePermitsReview(of: chapterID, state: state),
+                  let record = session.reviewRecord(for: beatID),
+                  reviewRecord(record, matches: session, state: state) else {
+                return [.rejected("Review requires an exact completed scene record")]
+            }
+            var pausedSession = session
+            pausedSession.narration.isPlaying = false
+            replace(pausedSession, in: &state)
+            state.chapterReview = ChapterReviewState(
+                chapterID: chapterID,
+                packageID: session.packageID,
+                contentVersion: session.contentVersion,
+                beatID: beatID
+            )
+            return [.checkpoint(.reviewChanged)]
+
+        case let .moveBeatReview(beatID):
+            guard var review = state.chapterReview,
+                  let session = state.chapterSession(review.chapterID),
+                  review.packageID == session.packageID,
+                  review.contentVersion == session.contentVersion,
+                  let record = session.reviewRecord(for: beatID),
+                  reviewRecord(record, matches: session, state: state),
+                  routePermitsReview(of: review.chapterID, state: state) else {
+                return [.rejected("Review can move only to an exact completed scene record")]
+            }
+            review.beatID = beatID
+            review.readingAnchor = nil
+            state.chapterReview = review
+            return [.checkpoint(.reviewChanged)]
+
+        case let .setReviewReadingAnchor(anchor):
+            guard var review = state.chapterReview else {
+                return [.rejected("A review reading anchor requires an open review")]
+            }
+            review.readingAnchor = anchor
+            state.chapterReview = review
+            return [.checkpoint(.reviewChanged)]
+
+        case .closeBeatReview:
+            guard state.chapterReview != nil else { return [] }
+            state.chapterReview = nil
+            return [.checkpoint(.reviewChanged)]
         }
+    }
+
+    private static func requiresClosedReview(_ action: JourneyAction) -> Bool {
+        switch action {
+        case .launch, .showWorld, .selectChapter, .beginChapter,
+             .beginAuthoredChapter, .recordChapterVisit, .suspendChapter,
+             .installContent, .openBeatReview, .moveBeatReview,
+             .setReviewReadingAnchor, .closeBeatReview:
+            return false
+        default:
+            return true
+        }
+    }
+
+    private func routePermitsReview(
+        of chapterID: ChapterID,
+        state: JourneyState
+    ) -> Bool {
+        switch state.route {
+        case let .chapter(activeChapterID):
+            return activeChapterID == chapterID
+        case .world:
+            return state.completedChapterIDs.contains(chapterID)
+        case .prologue:
+            return false
+        }
+    }
+
+    private func reviewRecord(
+        _ record: CompletedBeatReviewRecord,
+        matches session: ChapterSession,
+        state: JourneyState
+    ) -> Bool {
+        record.isStructurallyValid
+            && record.chapterID == session.chapterID
+            && record.packageID == session.packageID
+            && record.contentVersion == session.contentVersion
+            && session.completedBeatIDs.contains(record.beatID)
+            && installedVersionMatches(
+                packageID: record.packageID,
+                contentVersion: record.contentVersion,
+                state: state
+            )
+    }
+
+    private func reviewStateMatchesDurableSession(_ state: JourneyState) -> Bool {
+        guard let review = state.chapterReview,
+              let session = state.chapterSession(review.chapterID),
+              review.packageID == session.packageID,
+              review.contentVersion == session.contentVersion,
+              let record = session.reviewRecord(for: review.beatID) else {
+            return false
+        }
+        return routePermitsReview(of: review.chapterID, state: state)
+            && reviewRecord(record, matches: session, state: state)
+    }
+
+    private func replace(_ session: ChapterSession, in state: inout JourneyState) {
+        state.chapterSessions.removeAll { $0.chapterID == session.chapterID }
+        state.chapterSessions.append(session)
+        state.chapterSessions.sort { $0.chapterID < $1.chapterID }
     }
 
     private func apply(_ effects: [WorldEffect], to state: inout JourneyState) -> Bool {
@@ -586,6 +745,7 @@ public struct JourneyReducer: Sendable {
             && session.narration == NarrationCursor()
             && session.completedBeatIDs.isEmpty
             && session.completedArcIDs.isEmpty
+            && session.completedBeatReviewRecords.isEmpty
     }
 
     private func restoredInteractionMatches(

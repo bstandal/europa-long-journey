@@ -22,55 +22,55 @@
     },
     {
       "path": "native/audio/score-soundscape/harvest-responsive-v1/work-object.json",
-      "sha256": "8c706df9424371b4bcf197b71a5d60c3ee4c78f49ba82fd5d930452a96ccc418"
+      "sha256": "beaba63185225b22b1465244bc8758249d7b7005a4d283a80d40d7af609aa817"
     },
     {
       "path": "native/audio/score-soundscape/harvest-responsive-v1/render-receipt.json",
-      "sha256": "d0aaa353311a9866c6fd8b508f1e8c67bf1f30e7c778f35c4d1cfcef3f1f0f75"
+      "sha256": "cf7514b92111dac745c88abf9c2e875c2c327759c61e04bc7893c46cafec7d55"
     },
     {
       "path": "native/audio/score-soundscape/longhouse-responsive-v1/longhouse-responsive-work-object.json",
-      "sha256": "23dfd0fee96858efc90f093c7c2777b62f6e451ec16a13fadcdf6bb25c6a1497"
+      "sha256": "26da0e905a12d4213e0143b39a9e04b26f79a868922bf6046f1eb70a055fb756"
     },
     {
       "path": "native/audio/score-soundscape/longhouse-responsive-v1/render-receipt.json",
-      "sha256": "09c92f49bffffe51e02ea4bbd3e8122e1742291cca27e285756fac975e03e4de"
+      "sha256": "e5cf3cbaa7b76c118b5ebccabf4f47c2029a653a292b2cb970750ab46fca2dc1"
     },
     {
       "path": "native/audio/score-soundscape/continent-remade-responsive-v1/continent-remade-responsive-work-object.json",
-      "sha256": "8c2e956fbc26f53f4d6270495e35a11c8c6331d60a267331a0addffaf5ab474f"
+      "sha256": "9bed8d62c908a3e7c5bea6b25b5223954087c4b20e2a46d6b650eff2aa028d1c"
     },
     {
       "path": "native/audio/score-soundscape/continent-remade-responsive-v1/render-receipt.json",
-      "sha256": "992a6b9eeb9a83b7be277e89fe93af2555d7b765d94e68b09f596484c38be045"
+      "sha256": "6112a9d8d08ba5e7d091b9b5b1b890c182f71ca8e4fbec6074f302f668429f59"
     },
     {
       "path": "native/audio/score-soundscape/more-mouths-responsive-v1/more-mouths-responsive-work-object.json",
-      "sha256": "548e8e18eb21825ad95d510e3f2e60f7a5e86c0f7166d3830504087598e7af24"
+      "sha256": "d03c0e8f33c82df2418b5b95a108d04787a4e1aa7654af3b70862070e38b6d02"
     },
     {
       "path": "native/audio/score-soundscape/more-mouths-responsive-v1/render-receipt.json",
-      "sha256": "41952e36bb24d844c547ba58af10686c5545f2e8d592cadf6a2f70f2fc0c02b2"
+      "sha256": "34ca1018b4cdc0cb967727cf799cdce5ad21c51a202129335838c613412155cd"
     },
     {
       "path": "native/audio/score-soundscape/household-crosses-responsive-v1/household-crosses-responsive-work-object.json",
-      "sha256": "7da7b607b246da63558894bbc30439a760fc6d662ab71d126a788d237eaae2dd"
+      "sha256": "ab38721a1de536344b57e1d1112aba488014bd982353fc2f6bd0de24127ed874"
     },
     {
       "path": "native/audio/score-soundscape/household-crosses-responsive-v1/render-receipt.json",
-      "sha256": "3f3ad7e19e61151eb34dc315def022b2dd14154094a3c0f06122dc669e227203"
+      "sha256": "9d57b009235bc9e621fdb69e9d680619f86886e8d26696823da0502792bc797d"
     },
     {
       "path": "native/audio/score-soundscape/three-records-responsive-v1/three-records-responsive-work-object.json",
-      "sha256": "70f860b11a7c7569c028cdfd67fe983f3224d4c014e81544158263ec1223313e"
+      "sha256": "08799b37939c516d6bf9a99e9aba44eb7f4787080de334f9ea2bafca80de6b5a"
     },
     {
       "path": "native/audio/score-soundscape/three-records-responsive-v1/render-receipt.json",
-      "sha256": "9345101a1c0ec86027ed2a951ff81d562f71ffb7c6d4b0e7e7c18701c77bab35"
+      "sha256": "e0ce18164c46b4060a1020e1760de1194001574f842bee59e9b8d42cf12c38ce"
     }
   ],
   "payloadPath": "native/phase2/generated/first-farmers.content-package.json",
-  "payloadSHA256": "1a47d1185d512a87cacfc1a88d17148885f085cf9599744d1fbab87b1579ca0a",
+  "payloadSHA256": "fa69d84adf98b08558b825371f86024c89f30dea96145e3a3423364debd437b4",
   "assetRequirementsPath": "native/phase2/generated/first-farmers.asset-requirements.json",
   "assetRequirementsSHA256": "58ab0efc1a966112a288e71c28516f5e42382ecc600016c4e06b0777d92b2395",
   "manuscriptSHA256": "e80a3182afef57faa569e89f2c9f12613b4f5744f02b819553eb79a71ef673e7",

@@ -8,6 +8,20 @@ import AVFAudio
 #endif
 
 final class ExperienceAudioRoutingPolicyTests: XCTestCase {
+#if os(iOS)
+    func testExperienceAudioSessionRespectsSilentModeAndMixesWithOtherAudio() {
+        XCTAssertEqual(
+            NativeExperienceAudioSessionConfiguration.category,
+            .ambient
+        )
+        XCTAssertEqual(
+            NativeExperienceAudioSessionConfiguration.mode,
+            .default
+        )
+        XCTAssertTrue(NativeExperienceAudioSessionConfiguration.options.isEmpty)
+    }
+#endif
+
     func testStandardPreferencesRouteEveryAuthoredRoleAndBothHapticPaths() {
         let policy = ExperienceAudioRoutingPolicy(preferences: .standard)
 
@@ -20,7 +34,7 @@ final class ExperienceAudioRoutingPolicyTests: XCTestCase {
         XCTAssertTrue(policy.semanticHapticsAreEnabled)
     }
 
-    func testEachPreferenceControlsOnlyItsAuthoredOutputBoundary() {
+    func testSoundMutesTheAuthoredMixWhileNarrationRemainsOptional() {
         let narrationOff = ExperienceAudioRoutingPolicy(preferences: ExperiencePreferences(
             narrationEnabled: false
         ))
@@ -29,21 +43,15 @@ final class ExperienceAudioRoutingPolicyTests: XCTestCase {
         XCTAssertEqual(narrationOff.routing(for: .soundscape), .audible)
         XCTAssertEqual(narrationOff.routing(for: .spatialDetail), .audible)
 
-        let scoreOff = ExperienceAudioRoutingPolicy(preferences: ExperiencePreferences(
-            scoreEnabled: false
+        let soundOff = ExperienceAudioRoutingPolicy(preferences: ExperiencePreferences(
+            soundEnabled: false
         ))
-        XCTAssertEqual(scoreOff.routing(for: .narration), .audible)
-        XCTAssertEqual(scoreOff.routing(for: .score), .muted)
-        XCTAssertEqual(scoreOff.routing(for: .soundscape), .audible)
-        XCTAssertEqual(scoreOff.routing(for: .spatialDetail), .audible)
-
-        let soundscapeOff = ExperienceAudioRoutingPolicy(preferences: ExperiencePreferences(
-            soundscapeEnabled: false
-        ))
-        XCTAssertEqual(soundscapeOff.routing(for: .narration), .audible)
-        XCTAssertEqual(soundscapeOff.routing(for: .score), .audible)
-        XCTAssertEqual(soundscapeOff.routing(for: .soundscape), .muted)
-        XCTAssertEqual(soundscapeOff.routing(for: .spatialDetail), .muted)
+        XCTAssertEqual(soundOff.routing(for: .narration), .muted)
+        XCTAssertEqual(soundOff.routing(for: .score), .muted)
+        XCTAssertEqual(soundOff.routing(for: .soundscape), .muted)
+        XCTAssertEqual(soundOff.routing(for: .spatialDetail), .muted)
+        XCTAssertTrue(soundOff.timelineHapticsAreEnabled)
+        XCTAssertTrue(soundOff.semanticHapticsAreEnabled)
 
         let hapticsOff = ExperienceAudioRoutingPolicy(preferences: ExperiencePreferences(
             hapticsEnabled: false
@@ -58,9 +66,7 @@ final class ExperienceAudioRoutingPolicyTests: XCTestCase {
 
     func testMutedRolesUseZeroMixerVolumeWhileSilenceHasNoMixer() {
         let policy = ExperienceAudioRoutingPolicy(preferences: ExperiencePreferences(
-            narrationEnabled: false,
-            scoreEnabled: false,
-            soundscapeEnabled: false
+            soundEnabled: false
         ))
 
         XCTAssertEqual(policy.mixerOutputVolume(for: .narration), 0)
@@ -88,12 +94,11 @@ final class ExperienceAudioRoutingPolicyTests: XCTestCase {
             assetMetadata: Self.metadata
         )
 
-        for mask in 0 ..< 16 {
+        for mask in 0 ..< 8 {
             let preferences = ExperiencePreferences(
-                narrationEnabled: mask & 1 != 0,
-                scoreEnabled: mask & 2 != 0,
-                soundscapeEnabled: mask & 4 != 0,
-                hapticsEnabled: mask & 8 != 0
+                soundEnabled: mask & 1 != 0,
+                narrationEnabled: mask & 2 != 0,
+                hapticsEnabled: mask & 4 != 0
             )
             let policy = ExperienceAudioRoutingPolicy(preferences: preferences)
 
@@ -780,9 +785,8 @@ final class NativeExperiencePreferenceRoutingTests: XCTestCase {
         let directory = try temporaryDirectory()
         defer { try? FileManager.default.removeItem(at: directory) }
         let preferences = ExperiencePreferences(
+            soundEnabled: false,
             narrationEnabled: false,
-            scoreEnabled: false,
-            soundscapeEnabled: false
         )
         let transport = NativeTimelineTransport(preferences: preferences)
         let timeline = AudioTimeline(
@@ -831,9 +835,8 @@ final class NativeExperiencePreferenceRoutingTests: XCTestCase {
         defer { try? FileManager.default.removeItem(at: directory) }
         try writeAudioAssets(to: directory)
         let allOff = ExperiencePreferences(
+            soundEnabled: false,
             narrationEnabled: false,
-            scoreEnabled: false,
-            soundscapeEnabled: false,
             hapticsEnabled: false
         )
         let transport = NativeTimelineTransport(preferences: allOff)
@@ -3983,6 +3986,63 @@ final class NativeExperiencePreferenceRoutingTests: XCTestCase {
         XCTAssertFalse(transport.hapticsAreAvailable)
         XCTAssertTrue(scheduler.events.contains(.stoppedImmediately(1)))
         transport.stop()
+    }
+
+    @MainActor
+    func testFiniteEndBoundaryReleasesLeaseAndRetiresCursorFeed() throws {
+        let directory = try temporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let path = "finite-boundary.caf"
+        try writeAudioFile(
+            to: directory.appendingPathComponent(path),
+            channelCount: 2,
+            frameCount: 2_400,
+            constantAmplitude: 0.2
+        )
+        let timeline = oneShotTimeline(
+            id: "finite-boundary",
+            path: path,
+            durationSamples: 2_400,
+            includesHaptic: false
+        )
+        let resolver = PackageRootAudioAssetResolver(
+            packageRootURL: directory
+        )
+        let leaser = RecordingAudioSessionLeaser()
+        let transport = NativeTimelineTransport(
+            hapticScheduler: RecordingTimelineHapticScheduler(),
+            audioSessionLeaser: leaser
+        )
+        try transport.prepare(
+            timeline: timeline,
+            cursorSample: 0,
+            resolver: resolver
+        )
+        let completed = expectation(description: "finite timeline completed")
+        var snapshots: [NativeTimelineTransportSnapshot] = []
+        try transport.configureEndOfTimelineBoundary(resolver: resolver) {
+            snapshots.append($0)
+            completed.fulfill()
+        }
+        do {
+            try transport.play()
+        } catch {
+            transport.stop()
+            throw XCTSkip("Simulator audio engine unavailable: \(error)")
+        }
+        XCTAssertEqual(leaser.activeLeaseCount, 1)
+
+        wait(for: [completed], timeout: 2)
+
+        XCTAssertEqual(snapshots.count, 1)
+        XCTAssertEqual(snapshots.first?.cursorSample, 2_400)
+        XCTAssertEqual(snapshots.first?.isPlaying, false)
+        XCTAssertEqual(transport.state, .completed)
+        XCTAssertEqual(leaser.activeLeaseCount, 0)
+        XCTAssertEqual(leaser.releaseCount, 1)
+        XCTAssertThrowsError(try transport.activeAudioCursorBinding())
+        transport.stop()
+        XCTAssertEqual(leaser.releaseCount, 1)
     }
 
     @MainActor

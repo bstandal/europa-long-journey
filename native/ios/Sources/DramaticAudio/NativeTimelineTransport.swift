@@ -586,6 +586,15 @@ struct NativeAudioRouteFormat: Equatable, Sendable {
     let outputSampleRate: Double
 }
 
+/// One process-wide audio-session contract for the authored experience.
+/// Ambient playback respects the Silent switch and mixes with audio the user
+/// already has playing; the app intentionally has no background-audio mode.
+enum NativeExperienceAudioSessionConfiguration {
+    static let category: AVAudioSession.Category = .ambient
+    static let mode: AVAudioSession.Mode = .default
+    static let options: AVAudioSession.CategoryOptions = []
+}
+
 @MainActor
 protocol NativeAudioSessionLease: AnyObject {
     var routeFormat: NativeAudioRouteFormat { get }
@@ -617,9 +626,9 @@ private final class AVFoundationSystemAudioSessionController:
 
     func configureForPlayback(preferredSampleRate: Double) throws {
         try session.setCategory(
-            .playback,
-            mode: .default,
-            options: [.allowAirPlay, .allowBluetoothA2DP]
+            NativeExperienceAudioSessionConfiguration.category,
+            mode: NativeExperienceAudioSessionConfiguration.mode,
+            options: NativeExperienceAudioSessionConfiguration.options
         )
         try session.setPreferredSampleRate(preferredSampleRate)
     }
@@ -1702,6 +1711,22 @@ public final class NativeTimelineTransport: ResponsiveAudioTimelineTransport {
         } catch {
             invalidateAutomaticBoundary(clearRequest: true)
             throw error
+        }
+    }
+
+    /// Arms the exact terminal boundary for a finite authored timeline.
+    /// Completion drains the render epoch, releases the audio-session lease,
+    /// clears the cursor feed and publishes one terminal snapshot.
+    public func configureEndOfTimelineBoundary(
+        resolver: any OfflineAudioAssetResolving,
+        handler: @escaping (NativeTimelineTransportSnapshot) -> Void
+    ) throws {
+        try configureAutomaticBoundary(
+            successorPlan: nil,
+            resolver: resolver
+        ) { event in
+            guard case let .completed(snapshot) = event else { return }
+            handler(snapshot)
         }
     }
 

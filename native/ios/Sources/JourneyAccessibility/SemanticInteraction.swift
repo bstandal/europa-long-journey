@@ -79,10 +79,19 @@ public enum SemanticInteractionAdapter {
     ) throws -> SemanticInteractionModel {
         try requireMatching(spec: spec, accessibility: accessibility, state: state)
         let controls = accessibility.elements.compactMap { element -> SemanticControl? in
-            let available = element.actions.filter {
-                (try? interactionAction(for: $0, spec: spec, state: state)) != nil
+            // Narrative, heading, image and mechanism descriptions already
+            // live in the scene's primary accessibility tree. Projecting them
+            // again here makes VoiceOver repeat the same prose. This adapter
+            // owns only interaction controls and deliberately authored status.
+            guard element.role == .action
+                    || element.role == .adjustable
+                    || element.role == .status else {
+                return nil
             }
             let isOperable = element.role == .action || element.role == .adjustable
+            let available = isOperable ? element.actions.filter {
+                (try? interactionAction(for: $0, spec: spec, state: state)) != nil
+            } : []
             if isOperable, available.isEmpty { return nil }
             return SemanticControl(
                 id: element.id,
@@ -212,14 +221,32 @@ public enum SemanticInteractionAdapter {
             })?.units else {
                 throw SemanticInteractionError.unboundAction(destinationID)
             }
-            let delta = kind == .increment ? unitsPerStep : -unitsPerStep
-            let next = min(max(current + delta, 0), configuration.totalUnits)
+            let next: Int
+            if kind == .increment {
+                guard let maximum = InteractionReducer.maximumAllocatableUnits(
+                    for: destinationID,
+                    progress: progress,
+                    configuration: configuration
+                ) else {
+                    throw SemanticInteractionError.unboundAction(destinationID)
+                }
+                let (stepped, overflow) = current.addingReportingOverflow(unitsPerStep)
+                next = overflow ? maximum : min(stepped, maximum)
+            } else {
+                next = max(current - unitsPerStep, 0)
+            }
             guard next != current else {
                 throw SemanticInteractionError.actionUnavailable(destinationID)
             }
             return .allocate(destinationID: destinationID, units: next)
 
-        case (.allocate, .allocate, .activate, .commitAllocation):
+        case let (.allocate(configuration), .allocate(progress), .activate, .commitAllocation):
+            guard InteractionReducer.allocationCanCommit(
+                progress: progress,
+                configuration: configuration
+            ) else {
+                throw SemanticInteractionError.actionUnavailable("commit-allocation")
+            }
             return .commitAllocation
 
         case let (
@@ -293,7 +320,15 @@ public enum SemanticInteractionAdapter {
             return "\(progress.reachedAnchorCount) of \(configuration.anchors.count) route points reached"
         case let (.allocate(configuration), .allocate(progress), .allocate(destinationID, _)):
             let units = progress.allocations.first { $0.destinationID == destinationID }?.units ?? 0
-            return "\(units) \(configuration.resourceName)"
+            guard let destination = configuration.destinations.first(where: {
+                $0.id == destinationID
+            }) else { return nil }
+            let remaining = InteractionReducer.maximumAllocatableUnits(
+                for: destinationID,
+                progress: progress,
+                configuration: configuration
+            ).map { max($0 - units, 0) } ?? 0
+            return "Current \(units) \(configuration.resourceName.launchEnglish), minimum \(destination.minimumUnits), \(remaining) remaining"
         case let (
             .assemble(configuration),
             .assemble(progress),

@@ -3,9 +3,42 @@ import CryptoKit
 import DramaticAudio
 import Foundation
 @testable import JourneyContent
+import SceneRuntime
 import XCTest
 
 final class FirstFarmersPayloadProjectionTests: XCTestCase {
+    func testAllTwentyRuntimeScenesSelectAcrossTheLaunchViewportMatrix()
+        throws {
+        let payload = try ContentDocumentDecoder.decodePackage(
+            reviewFixtureChapter()
+        )
+        XCTAssertEqual(payload.scenes.count, 20)
+        let matrix: [(SceneFrameSize, String)] = [
+            (SceneFrameSize(width: 393, height: 852), "baseline-393x852"),
+            (SceneFrameSize(width: 402, height: 874), "baseline-393x852"),
+            (SceneFrameSize(width: 430, height: 932), "largest-430x932"),
+            (SceneFrameSize(width: 440, height: 956), "largest-430x932"),
+        ]
+        var successfulSelections = 0
+        for scene in payload.scenes {
+            for (viewport, expectedCropID) in matrix {
+                for reduceMotion in [false, true] {
+                    XCTAssertEqual(
+                        try SceneViewportCropSelector.selectCropID(
+                            scene: scene,
+                            viewport: viewport,
+                            reduceMotion: reduceMotion
+                        ),
+                        expectedCropID,
+                        "\(scene.id) at \(viewport), reduceMotion=\(reduceMotion)"
+                    )
+                    successfulSelections += 1
+                }
+            }
+        }
+        XCTAssertEqual(successfulSelections, 160)
+    }
+
     func testCanonicalDecoderAcceptsCompleteNonShippingFirstFarmersPayload() throws {
         let files = try payloadFiles()
         let payload = try ContentDocumentDecoder.decodePackage(files.payload)
@@ -230,12 +263,27 @@ final class FirstFarmersPayloadProjectionTests: XCTestCase {
             )
             for crop in crops {
                 let sourceRect = try XCTUnwrap(crop["sourceRect"] as? [String: Any])
-                XCTAssertEqual(sourceRect as NSDictionary, [
-                    "x": 0,
-                    "y": 0,
-                    "width": 1,
-                    "height": 1,
-                ] as NSDictionary)
+                if crop["id"] as? String == "baseline-393x852" {
+                    XCTAssertEqual(sourceRect as NSDictionary, [
+                        "x": 0,
+                        "y": 0,
+                        "width": 1,
+                        "height": 1,
+                    ] as NSDictionary)
+                } else {
+                    XCTAssertEqual(sourceRect["x"] as? Double, 0)
+                    XCTAssertEqual(
+                        try XCTUnwrap(sourceRect["y"] as? Double),
+                        0.000_114_641_336_390_441_94,
+                        accuracy: 0.000_000_000_001
+                    )
+                    XCTAssertEqual(sourceRect["width"] as? Double, 1)
+                    XCTAssertEqual(
+                        try XCTUnwrap(sourceRect["height"] as? Double),
+                        0.999_770_717_327_219_1,
+                        accuracy: 0.000_000_000_001
+                    )
+                }
             }
         }
 

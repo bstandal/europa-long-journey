@@ -1,10 +1,13 @@
 import ContentKit
 
-public enum ChapterResponsiveAudioChoice: String, Equatable, Sendable {
-    case undecided
+public enum ChapterAudioPlaybackState: String, Equatable, Sendable {
+    /// The bound scene has no responsive audio program.
+    case inactive
+    /// Authored audio is available and can start from a user-authorized entry
+    /// or an explicit sound-control action.
+    case ready
     case starting
     case playing
-    case silent
     case resumeRequired
 
     public var authorizesPlayback: Bool {
@@ -14,7 +17,7 @@ public enum ChapterResponsiveAudioChoice: String, Equatable, Sendable {
 
 public struct ChapterResponsiveAudioPlaybackAttempt: Equatable, Sendable {
     fileprivate enum Kind: Equatable, Sendable {
-        case explicitChoice
+        case userAuthorizedStart
         case authorizedRebind
     }
 
@@ -28,16 +31,22 @@ public enum ChapterResponsiveAudioBindingAction: Equatable, Sendable {
     case startAuthorizedPlayback(ChapterResponsiveAudioPlaybackAttempt)
 }
 
-/// Keeps one explicit sound decision for one uninterrupted chapter visit.
-/// Every runtime binding receives a new generation, so a completion from an
-/// older beat, program, crop or reduce-motion controller cannot publish state
-/// into its successor.
+/// Keeps playback authority for one uninterrupted chapter visit. A deliberate
+/// chapter entry or sound-control action calls `requestPlayback()`; rebinding
+/// the already-playing authored program does not ask the user again. Every
+/// runtime binding receives a new generation, so a completion from an older
+/// beat, program, crop or reduce-motion controller cannot publish state into
+/// its successor.
 public struct ChapterResponsiveAudioSessionPolicy: Equatable, Sendable {
-    public private(set) var choice: ChapterResponsiveAudioChoice = .undecided
+    public private(set) var playbackState: ChapterAudioPlaybackState = .inactive
 
     private var activeChapterID: ChapterID?
     private var bindingGeneration: UInt64 = 0
     private var responsiveAudioIsBound = false
+    /// Persists chapter playback intent through bindings that intentionally
+    /// contain no responsive program, while `playbackState` remains an honest
+    /// description of the currently bound scene.
+    private var retainedChapterPlaybackState: ChapterAudioPlaybackState = .inactive
 
     public init() {}
 
@@ -51,26 +60,36 @@ public struct ChapterResponsiveAudioSessionPolicy: Equatable, Sendable {
         let continuesChapter = activeChapterID == chapterID
         if !continuesChapter {
             activeChapterID = chapterID
-            choice = hasResponsiveAudio && restoredSessionIsActive
-                ? .resumeRequired
-                : .undecided
-        } else if choice == .starting {
+            retainedChapterPlaybackState = hasResponsiveAudio
+                ? (restoredSessionIsActive ? .resumeRequired : .ready)
+                : .inactive
+        } else if retainedChapterPlaybackState == .starting {
             // The controller that owned this start is being replaced. Keep the
             // user's intent visible, but require a fresh action before sound.
-            choice = .resumeRequired
+            retainedChapterPlaybackState = .resumeRequired
         } else if hasResponsiveAudio,
                   restoredSessionIsActive,
-                  choice == .undecided {
+                  retainedChapterPlaybackState == .ready {
             // A new route session may be presenting a crash- or suspension-
-            // restored audio session. Preserve its exact paused cursor, but do
-            // not mistake the new view process for fresh consent or autoplay.
-            choice = .resumeRequired
+            // restored audio session. Preserve its exact paused cursor and
+            // require a fresh resume action.
+            retainedChapterPlaybackState = .resumeRequired
+        } else if hasResponsiveAudio,
+                  retainedChapterPlaybackState == .inactive {
+            retainedChapterPlaybackState = restoredSessionIsActive
+                ? .resumeRequired
+                : .ready
         }
         responsiveAudioIsBound = hasResponsiveAudio
 
+        guard hasResponsiveAudio else {
+            playbackState = .inactive
+            return .none
+        }
+        playbackState = retainedChapterPlaybackState
+
         guard continuesChapter,
-              hasResponsiveAudio,
-              choice == .playing else {
+              playbackState == .playing else {
             return .none
         }
         return .startAuthorizedPlayback(
@@ -78,15 +97,15 @@ public struct ChapterResponsiveAudioSessionPolicy: Equatable, Sendable {
         )
     }
 
-    public mutating func chooseSound() -> ChapterResponsiveAudioPlaybackAttempt? {
+    public mutating func requestPlayback() -> ChapterResponsiveAudioPlaybackAttempt? {
         guard responsiveAudioIsBound,
               let activeChapterID,
-              choice != .starting,
-              choice != .playing else {
+              playbackState == .ready || playbackState == .resumeRequired else {
             return nil
         }
-        choice = .starting
-        return attempt(kind: .explicitChoice, chapterID: activeChapterID)
+        retainedChapterPlaybackState = .starting
+        playbackState = .starting
+        return attempt(kind: .userAuthorizedStart, chapterID: activeChapterID)
     }
 
     /// Returns false when a newer binding, background transition or route exit
@@ -98,31 +117,39 @@ public struct ChapterResponsiveAudioSessionPolicy: Equatable, Sendable {
     ) -> Bool {
         guard accepts(attempt) else { return false }
         switch attempt.kind {
-        case .explicitChoice:
-            guard choice == .starting else { return false }
+        case .userAuthorizedStart:
+            guard playbackState == .starting,
+                  retainedChapterPlaybackState == .starting else { return false }
         case .authorizedRebind:
-            guard choice == .playing else { return false }
+            guard playbackState == .playing,
+                  retainedChapterPlaybackState == .playing else { return false }
         }
-        choice = didStart ? .playing : .resumeRequired
+        retainedChapterPlaybackState = didStart ? .playing : .resumeRequired
+        playbackState = retainedChapterPlaybackState
         return true
     }
 
-    public mutating func continueInSilence() {
-        guard responsiveAudioIsBound, choice == .undecided else { return }
-        choice = .silent
+    public mutating func requireExplicitResume() {
+        guard retainedChapterPlaybackState == .playing
+                || retainedChapterPlaybackState == .starting else { return }
+        bindingGeneration &+= 1
+        retainedChapterPlaybackState = .resumeRequired
+        playbackState = responsiveAudioIsBound ? .resumeRequired : .inactive
     }
 
-    public mutating func requireExplicitResume() {
-        guard choice == .playing || choice == .starting else { return }
-        bindingGeneration &+= 1
-        choice = .resumeRequired
+    /// A one-shot authored timeline has reached its verified terminal sample.
+    /// Keep the binding available for an explicit replay, but invalidate the
+    /// completed playback generation so a scene rebind cannot restart it.
+    public mutating func completeFinitePlayback() {
+        requireExplicitResume()
     }
 
     public mutating func deactivate() {
         bindingGeneration &+= 1
         activeChapterID = nil
         responsiveAudioIsBound = false
-        choice = .undecided
+        retainedChapterPlaybackState = .inactive
+        playbackState = .inactive
     }
 
     public func accepts(_ attempt: ChapterResponsiveAudioPlaybackAttempt) -> Bool {

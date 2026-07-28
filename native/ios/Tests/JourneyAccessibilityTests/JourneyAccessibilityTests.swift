@@ -48,6 +48,177 @@ final class JourneyAccessibilityTests: XCTestCase {
         }
     }
 
+    func testSemanticProjectionExcludesNarrativePresentationRolesAndKeepsAuthoredStatus() throws {
+        let spec = trace()
+        let routeControl = try XCTUnwrap(accessibility(for: spec).elements.first)
+        let accessibility = AccessibilitySpec(
+            id: spec.accessibilityID,
+            sceneSummary: "A household crosses the water.",
+            elements: [
+                AccessibilityElementSpec(
+                    id: "scene-image",
+                    role: .image,
+                    label: "A household crosses the water."
+                ),
+                AccessibilityElementSpec(
+                    id: "scene-heading",
+                    role: .heading,
+                    label: "The crossing"
+                ),
+                AccessibilityElementSpec(
+                    id: "scene-narration",
+                    role: .narration,
+                    label: "A household crosses the water."
+                ),
+                AccessibilityElementSpec(
+                    id: "scene-mechanism",
+                    role: .mechanism,
+                    label: "A traced route"
+                ),
+                AccessibilityElementSpec(
+                    id: "route-status",
+                    role: .status,
+                    label: "Crossing status",
+                    value: "Awaiting the first bearing"
+                ),
+                routeControl,
+            ]
+        )
+
+        let model = try SemanticInteractionAdapter.model(
+            for: spec,
+            accessibility: accessibility,
+            state: InteractionRuntimeState(spec: spec)
+        )
+
+        XCTAssertEqual(model.controls.map(\.id), ["route-status", "route-control"])
+        XCTAssertEqual(model.controls.first?.kind, .status)
+        XCTAssertTrue(model.controls.first?.actions.isEmpty == true)
+        XCTAssertEqual(
+            model.controls.filter { $0.label == "A household crosses the water." }.count,
+            0,
+            "The primary scene tree owns narrative prose; the semantic interaction tree must not repeat it"
+        )
+    }
+
+    func testAllocationAnnouncesCurrentMinimumAndRemainingAndHidesUnavailableActions() throws {
+        let spec = allocate()
+        let accessibility = accessibility(for: spec)
+        var state = InteractionRuntimeState(spec: spec)
+        _ = try InteractionReducer.reduce(
+            state: &state,
+            spec: spec,
+            action: .allocate(destinationID: "seed", units: 3)
+        )
+        _ = try InteractionReducer.reduce(
+            state: &state,
+            spec: spec,
+            action: .allocate(destinationID: "winter", units: 1)
+        )
+
+        var model = try SemanticInteractionAdapter.model(
+            for: spec,
+            accessibility: accessibility,
+            state: state
+        )
+        let seed = try XCTUnwrap(model.controls.first { $0.id == "allocate-seed" })
+        XCTAssertEqual(seed.value, "Current 3 stores, minimum 1, 0 remaining")
+        XCTAssertEqual(seed.availableActions, [.decrement])
+        XCTAssertEqual(
+            model.controls.first { $0.id == "commit-stores" }?.availableActions,
+            [.activate]
+        )
+
+        _ = try InteractionReducer.reduce(
+            state: &state,
+            spec: spec,
+            action: .allocate(destinationID: "winter", units: 0)
+        )
+        _ = try InteractionReducer.reduce(
+            state: &state,
+            spec: spec,
+            action: .allocate(destinationID: "seed", units: 4)
+        )
+        model = try SemanticInteractionAdapter.model(
+            for: spec,
+            accessibility: accessibility,
+            state: state
+        )
+
+        XCTAssertEqual(
+            model.controls.first { $0.id == "allocate-seed" }?.availableActions,
+            [.decrement]
+        )
+        XCTAssertNil(model.controls.first { $0.id == "allocate-winter" })
+        XCTAssertNil(model.controls.first { $0.id == "commit-stores" })
+    }
+
+    func testAllAllocationDistributionsUseTheSameCanonicalLimitForTouchAndVoiceOver() throws {
+        let spec = base(
+            id: "allocate-twelve",
+            grammar: .allocate(
+                AllocateInteractionSpec(
+                    resourceName: "harvest units",
+                    totalUnits: 12,
+                    destinations: [
+                        AllocationDestination(id: "seed", minimumUnits: 1),
+                        AllocationDestination(id: "winter", minimumUnits: 1),
+                    ]
+                )
+            )
+        )
+        let accessibility = accessibility(for: spec)
+        let seedIncrement = try XCTUnwrap(
+            accessibility.elements.first { $0.id == "allocate-seed" }?.actions.first {
+                $0.kind == .increment
+            }
+        )
+
+        for seedUnits in 0 ... 12 {
+            for winterUnits in 0 ... (12 - seedUnits) {
+                var touch = InteractionRuntimeState(spec: spec)
+                _ = try InteractionReducer.reduce(
+                    state: &touch,
+                    spec: spec,
+                    action: .allocate(destinationID: "seed", units: seedUnits)
+                )
+                _ = try InteractionReducer.reduce(
+                    state: &touch,
+                    spec: spec,
+                    action: .allocate(destinationID: "winter", units: winterUnits)
+                )
+                var voiceOver = touch
+
+                let maximum = 12 - winterUnits
+                if seedUnits < maximum {
+                    _ = try InteractionReducer.reduce(
+                        state: &touch,
+                        spec: spec,
+                        action: .allocate(destinationID: "seed", units: seedUnits + 1)
+                    )
+                    _ = try SemanticInteractionAdapter.reduce(
+                        state: &voiceOver,
+                        elementID: "allocate-seed",
+                        authoredAction: seedIncrement,
+                        spec: spec,
+                        accessibility: accessibility
+                    )
+                    XCTAssertEqual(voiceOver, touch)
+                } else {
+                    let model = try SemanticInteractionAdapter.model(
+                        for: spec,
+                        accessibility: accessibility,
+                        state: voiceOver
+                    )
+                    XCTAssertFalse(
+                        model.controls.first { $0.id == "allocate-seed" }?
+                            .availableActions.contains(.increment) == true
+                    )
+                }
+            }
+        }
+    }
+
     func testModelKeepsBlockedAuthoredAssemblyActionOperableThroughReducerResistance() throws {
         let spec = assemble()
         let accessibility = accessibility(for: spec)

@@ -1,11 +1,16 @@
 #!/usr/bin/env node
 
 import assert from "node:assert/strict";
-import { readFile, readdir } from "node:fs/promises";
+import { mkdtemp, readFile, readdir, rm } from "node:fs/promises";
+import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
-import { validatePhysicalDeviceProtocol } from "./validate-physical-device-protocol.mjs";
+import {
+  validateConnectedPhysicalIPhoneInventory,
+  validatePhysicalDeviceProtocol,
+  validateRequiredPhysicalEvidence,
+} from "./validate-physical-device-protocol.mjs";
 
 const nativeRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const protocol = JSON.parse(
@@ -88,6 +93,84 @@ test("missing First Farmers physical evidence is a release failure", () => {
   assert.equal(chapterEvidenceSchema.properties.status.const, "PASS");
   assert.equal(chapterEvidenceSchema.properties.batteryPairs.minItems, 3);
   assert.equal(chapterEvidenceSchema.properties.coldRestoreRuns.minItems, 6);
+});
+
+test("the physical pass command binds one canonical receipt and artifact root", () => {
+  assert.equal(
+    protocol.firstFarmersEvidenceContract.evidencePath,
+    "quality/physical-device-evidence/first-farmers.receipt.json",
+  );
+  assert.equal(
+    protocol.firstFarmersEvidenceContract.artifactsRoot,
+    "quality/physical-device-evidence/artifacts",
+  );
+});
+
+test("missing canonical device evidence fails explicitly", async () => {
+  const emptyNativeRoot = await mkdtemp(
+    path.join(os.tmpdir(), "physical-device-evidence-missing-"),
+  );
+  try {
+    await assert.rejects(
+      validateRequiredPhysicalEvidence(protocol, {
+        nativeRootPath: emptyNativeRoot,
+      }),
+      /PHYSICAL_DEVICE_GATE=FAIL MISSING_DEVICE_EVIDENCE/u,
+    );
+  } finally {
+    await rm(emptyNativeRoot, { recursive: true, force: true });
+  }
+});
+
+function physicalIPhoneInventory({
+  tunnelState = "connected",
+  developerModeStatus = "enabled",
+  ddiServicesAvailable = true,
+} = {}) {
+  return {
+    result: {
+      devices: [
+        {
+          identifier: "test-core-device-id",
+          connectionProperties: { tunnelState },
+          deviceProperties: {
+            name: "Recorded test iPhone",
+            ddiServicesAvailable,
+            developerModeStatus,
+            osVersionNumber: "26.5.2",
+          },
+          hardwareProperties: {
+            deviceType: "iPhone",
+            reality: "physical",
+            platform: "iOS",
+            productType: "iPhone17,2",
+            marketingName: "iPhone 16 Pro Max",
+          },
+        },
+      ],
+    },
+  };
+}
+
+test("device preflight admits one connected developer-ready floor-class iPhone", () => {
+  const device = validateConnectedPhysicalIPhoneInventory(
+    physicalIPhoneInventory(),
+  );
+  assert.equal(device.productType, "iPhone17,2");
+  assert.equal(device.osVersion, "26.5.2");
+});
+
+test("offline or developer-disabled registered phones fail device preflight", () => {
+  assert.throws(
+    () => validateConnectedPhysicalIPhoneInventory(
+      physicalIPhoneInventory({
+        tunnelState: "unavailable",
+        developerModeStatus: "disabled",
+        ddiServicesAvailable: false,
+      }),
+    ),
+    /PHYSICAL_DEVICE_PREFLIGHT=FAIL no connected, developer-ready physical iPhone/u,
+  );
 });
 
 test("local completion proxies cannot replace retained display traces", () => {

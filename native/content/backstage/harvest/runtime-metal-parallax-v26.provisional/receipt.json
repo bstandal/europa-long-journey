@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "status": "BACKSTAGE_RUNTIME_METAL_V26_RESTRICTED_PARTIAL_PASS",
   "shippingState": "PROHIBITED",
-  "reviewedAt": "2026-07-26",
+  "reviewedAt": "2026-07-28",
   "sceneID": "lab-first-farmers-harvest-v26-parallax-proof",
   "sourceAuthority": {
     "reviewPath": "native/content/backstage/harvest/parallax-halo-qa-v26.review.json",
@@ -14,13 +14,13 @@
   "signedDevelopmentFixture": {
     "packageID": "vertical-slice-development-v1",
     "trustDomain": "the-long-west-vertical-slice-development-v1",
-    "manifestDigest": "a761522302648c3d8721757dc1c4b7ff9da93a1a7535bc28d8f28216235b0f85",
+    "manifestDigest": "4b0b7c2d33a61d0a43b22f33230bb9420fbbf3cd4a86de26e3ac886947e59c70",
     "manifestPath": "native/phase2/runtime-fixture/compiled/vertical-slice-development-v1.runtimefixture/package-manifest.json",
-    "manifestSha256": "ad4d3fd5df0cf9e5c17c0474e6134c27664f7fd93095258408b83dbe26da284d",
+    "manifestSha256": "606b6a60910952621a7a3cbc3707ec934c069905352d87aeff2322b258fad2d9",
     "lineagePath": "native/phase2/runtime-fixture/fixture-lineage.json",
-    "lineageSha256": "5824193072c9aa0d47a33623aca60a91c65f863a8f32d8b16ddffb80332f4734",
+    "lineageSha256": "28f4a0a45672d43f3a361ad8aa3268df0b14ae85cd221e17b32c74608aa074be",
     "trustReceiptPath": "native/phase2/runtime-fixture/vertical-slice-development-trust-receipt.json",
-    "trustReceiptSha256": "c11499e6c522d94c09b3e1911a6de2c032aebd01d0860f16527a0e79b8e780bc",
+    "trustReceiptSha256": "73261df6689dbc1724bff241fc0ff607c7cbd42a3399b0ef19d134dccf2410ca",
     "sceneIsUnreferencedByJourneyBeat": true,
     "releaseBundleState": "EXCLUDED"
   },
@@ -75,12 +75,13 @@
     "reduceMotionComposition": "PRODUCTION_SHADER_PATH",
     "exactStaticCopy": "DEBUG_OFFSCREEN_DIAGNOSTIC_ONLY",
     "sourcePath": "native/ios/Sources/SceneRuntime/SceneMetalCompositor.swift",
-    "sourceSha256": "d72c4c448e72ebcf6efd26437758fd2243b60a5c65319964f761006ac6294ab6"
+    "sourceSha256": "d0c5fcf35841ee302a6da168c5c2c9d4ff90493fce415d5354de2684ea6f1bbe"
   },
   "deterministicProof": {
     "testPath": "native/ios/Tests/ChapterRuntimeTests/SignedRuntimeFixtureTests.swift",
-    "testSha256": "0d4daf36d9381a6cac19df7fa5409b5c16df91a234d24f853f5be6edbbdce79f",
+    "testSha256": "5876469f1e896642d695c4fedb23be08928ea5f0715749809e14e1445c5e0019",
     "testIdentifier": "SignedRuntimeFixtureTests/testHarvestV26PartialPassUsesSignedProductionMetalPathAndRestoresExactly()",
+    "viewportCropID": "baseline-393x852",
     "cameraProgresses": [0, 0.5, 1],
     "deterministicTick": 4242,
     "saveSnapshotRoundTrip": "PASS_IDENTICAL_FRAME_PLAN_NORMAL_AND_REDUCE_MOTION",
@@ -96,11 +97,11 @@
     ],
     "staticCopyNegativeResult": "PASS_ALL_REMAIN_ON_SHADER_PATH",
     "xcresultEvidence": {
-      "summarySha256": "ed9f1c0047d3ea45ff6bb3634e52c9e9becbfe12cb2f6a0732e034d43ddcefd9",
-      "testsSha256": "f04b7e3aecfc02c7965e9d686b725d837e99abfc9ae76941c4fc90195bcf80a5",
-      "activitySha256": "de36e46dbda222b9882811bbe8e4382562f0407d56f19408a5d2098296c4b3c8",
-      "frameHashLogSha256": "d8bdd66eace301a316db8cc96c747cdf52866677f646dca1aa50bd7d48ed9920",
-      "attachmentManifestSha256": "462210370b16ba455db7dc8cfd7047c616118f762ab1a6c277a0fadb18b6352c",
+      "summarySha256": "dec950868dd4c93de91f9ff3fee4f8275dcca9cfda5e3aae298ae085883468f4",
+      "testsSha256": "ebecbacc7c82a276bc5c6195914c101550503447a38e5666d2ee4d71df1433e6",
+      "activitySha256": "90041b15c40075a27a267f9440841ca9a0075ecb3b9e05a11dcd1b78ad1cc38a",
+      "frameHashLogSha256": "51d2060ab19b0b5003d36ced66f299ab2b31d6be1b63328e7c1541378eec80d3",
+      "attachmentManifestSha256": "f23fb87d3e8ae7d1b0c4650493dc4262f35533a98944c3d06bb2ca351d20d1af",
       "attachmentSha256": "3178d181276f61613487f87a0e8bd755338911c2dc226344d274e728b2127125"
     }
   },
@@ -133,7 +134,7 @@
     "buildEnvironment": "LongWestJourney built with macOS 26.5.2",
     "xcodeVersion": "26.6",
     "xcodeBuildNumber": "17F113",
-    "testDurationSeconds": 1.6379280090332031
+    "testDurationSeconds": 0.5311259031295776
   },
   "visualReview": {
     "reviewer": "CODEX_LOCAL_ORIGINAL_RESOLUTION_REVIEW",
@@ -154,6 +155,7 @@
   },
   "passedScope": [
     "signed development fixture inventory",
+    "frozen 393 by 852 baseline crop only",
     "people, grain and foreground authored back-to-front ordering",
     "bounded camera extrema within the frozen v26 PARTIAL_PASS displacement envelope",
     "real Metal shader composition",
@@ -180,7 +182,7 @@
   "remainingBlockers": [
     "Production-resolution source-matched clean plates for the excluded settlement, shelter and allocation geometry.",
     "Authored state variants and their restored causal states.",
-    "Additional safe crops beyond the frozen 393 by 852 comparison crop.",
+    "Visual review of the newly authored 430 by 932 crop; this receipt proves only the frozen 393 by 852 comparison crop.",
     "Physical-device frame pacing, memory and thermal verification.",
     "Independent recoverable backup of irreplaceable masters."
   ]

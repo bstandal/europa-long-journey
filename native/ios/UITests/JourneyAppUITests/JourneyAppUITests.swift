@@ -47,6 +47,460 @@ final class JourneyAppUITests: XCTestCase {
         )
     }
 
+    func testPreviousReviewsCompletedSceneWithoutChangingCausalProgress()
+        throws {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "--ui-testing-reset-state",
+            "--ui-testing-signed-runtime-fixture",
+        ]
+        app.launch()
+
+        let opening = app.descendants(matching: .any)[
+            "chapter-beat-beat-first-farmers-river-world"
+        ]
+        XCTAssertTrue(opening.waitForExistence(timeout: 12))
+        let advance = app.buttons["chapter-continue"]
+        XCTAssertTrue(advance.waitForExistence(timeout: 3))
+        XCTAssertTrue(advance.isHittable)
+        advance.tap()
+
+        let currentBeat = app.descendants(matching: .any)[
+            "chapter-beat-beat-first-farmers-household-crosses"
+        ]
+        XCTAssertTrue(currentBeat.waitForExistence(timeout: 8))
+        let causalState = app.descendants(matching: .any)[
+            "signed-runtime-review-causal-state"
+        ]
+        XCTAssertTrue(causalState.waitForExistence(timeout: 3))
+        let stateBeforeReview = try XCTUnwrap(
+            causalState.value as? String
+        )
+
+        let previous = app.buttons["chapter-previous"]
+        XCTAssertTrue(previous.waitForExistence(timeout: 3))
+        XCTAssertTrue(previous.isHittable)
+        previous.tap()
+
+        XCTAssertTrue(
+            app.descendants(matching: .any)[
+                "chapter-review-beat-first-farmers-river-world"
+            ].waitForExistence(timeout: 8)
+        )
+        XCTAssertTrue(app.buttons["chapter-review-road"].exists)
+        XCTAssertTrue(app.buttons["chapter-review-sound-control"].exists)
+        let reviewSceneList = app.buttons[
+            "chapter-review-visited-scenes-open"
+        ]
+        XCTAssertTrue(reviewSceneList.exists)
+        XCTAssertTrue(reviewSceneList.isHittable)
+        XCTAssertGreaterThanOrEqual(reviewSceneList.frame.height, 44)
+        XCTAssertEqual(
+            app.buttons["chapter-review-previous"].label,
+            "Previous"
+        )
+        XCTAssertEqual(app.buttons["chapter-review-next"].label, "Next")
+        XCTAssertGreaterThanOrEqual(
+            app.buttons["chapter-review-previous"].frame.height,
+            44
+        )
+        XCTAssertGreaterThanOrEqual(
+            app.buttons["chapter-review-next"].frame.height,
+            44
+        )
+        reviewSceneList.tap()
+        XCTAssertTrue(
+            app.descendants(matching: .any)[
+                "chapter-review-visited-scenes-sheet"
+            ].waitForExistence(timeout: 3)
+        )
+        app.buttons["Done"].firstMatch.tap()
+        XCTAssertTrue(reviewSceneList.waitForExistence(timeout: 3))
+        let closeReview = app.buttons["chapter-review-close"]
+        XCTAssertEqual(closeReview.label, "Return to current")
+        XCTAssertTrue(closeReview.isHittable)
+        XCTAssertGreaterThanOrEqual(closeReview.frame.height, 44)
+        closeReview.tap()
+
+        XCTAssertTrue(currentBeat.waitForExistence(timeout: 8))
+        XCTAssertTrue(causalState.waitForExistence(timeout: 3))
+        let stateAfterReview = try XCTUnwrap(
+            causalState.value as? String
+        )
+        XCTAssertEqual(
+            stateAfterReview,
+            stateBeforeReview,
+            "Review changed the active beat or causal chapter state"
+        )
+    }
+
+    func testReviewPreviousAndNextMoveOnlyAmongArchivedScenes() throws {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "--ui-testing-reset-state",
+            "--ui-testing-signed-runtime-fixture",
+            "--ui-testing-signed-runtime-fixture-beat=beat-first-farmers-living-system",
+        ]
+        app.launch()
+
+        let currentBeat = app.descendants(matching: .any)[
+            "chapter-beat-beat-first-farmers-living-system"
+        ]
+        XCTAssertTrue(currentBeat.waitForExistence(timeout: 12))
+        let causalState = app.descendants(matching: .any)[
+            "signed-runtime-review-causal-state"
+        ]
+        XCTAssertTrue(causalState.waitForExistence(timeout: 3))
+        let stateBeforeReview = try XCTUnwrap(causalState.value as? String)
+
+        let openPrevious = app.buttons["chapter-previous"]
+        XCTAssertTrue(openPrevious.waitForExistence(timeout: 3))
+        XCTAssertTrue(openPrevious.isHittable)
+        openPrevious.tap()
+
+        let secondScene = app.descendants(matching: .any)[
+            "chapter-review-beat-first-farmers-household-crosses"
+        ]
+        XCTAssertTrue(secondScene.waitForExistence(timeout: 8))
+        let soundControl = app.buttons["chapter-review-sound-control"]
+        XCTAssertTrue(soundControl.waitForExistence(timeout: 3))
+        let secondSceneIsReady = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "enabled == true"),
+            object: soundControl
+        )
+        XCTAssertEqual(
+            XCTWaiter().wait(for: [secondSceneIsReady], timeout: 8),
+            .completed
+        )
+        let previous = app.buttons["chapter-review-previous"]
+        XCTAssertTrue(previous.isEnabled)
+        XCTAssertTrue(previous.isHittable)
+        previous.tap()
+
+        let firstScene = app.descendants(matching: .any)[
+            "chapter-review-beat-first-farmers-river-world"
+        ]
+        XCTAssertTrue(firstScene.waitForExistence(timeout: 8))
+        let firstSceneIsReady = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "enabled == true"),
+            object: soundControl
+        )
+        XCTAssertEqual(
+            XCTWaiter().wait(for: [firstSceneIsReady], timeout: 8),
+            .completed
+        )
+        let next = app.buttons["chapter-review-next"]
+        XCTAssertTrue(next.isEnabled)
+        XCTAssertTrue(next.isHittable)
+        next.tap()
+        XCTAssertTrue(secondScene.waitForExistence(timeout: 8))
+        XCTAssertFalse(
+            app.descendants(matching: .any)[
+                "chapter-review-beat-first-farmers-living-system"
+            ].exists,
+            "The active, uncompleted scene entered the review archive"
+        )
+
+        let closeReview = app.buttons["chapter-review-close"]
+        XCTAssertEqual(closeReview.label, "Return to current")
+        closeReview.tap()
+        XCTAssertTrue(currentBeat.waitForExistence(timeout: 8))
+        XCTAssertTrue(causalState.waitForExistence(timeout: 3))
+        XCTAssertEqual(causalState.value as? String, stateBeforeReview)
+    }
+
+    func testVisitedSceneListExcludesFutureScenes() {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "--ui-testing-reset-state",
+            "--ui-testing-signed-runtime-fixture",
+            "--ui-testing-signed-runtime-fixture-beat=beat-first-farmers-living-system",
+        ]
+        app.launch()
+
+        XCTAssertTrue(
+            app.descendants(matching: .any)[
+                "chapter-beat-beat-first-farmers-living-system"
+            ].waitForExistence(timeout: 12)
+        )
+        let openVisitedScenes = app.buttons["chapter-visited-scenes-open"]
+        XCTAssertTrue(openVisitedScenes.waitForExistence(timeout: 3))
+        XCTAssertTrue(openVisitedScenes.isHittable)
+        openVisitedScenes.tap()
+        XCTAssertTrue(
+            app.descendants(matching: .any)[
+                "chapter-visited-scenes-sheet"
+            ].waitForExistence(timeout: 5)
+        )
+
+        let firstVisited = app.descendants(matching: .any).matching(
+            NSPredicate(
+                format: "label CONTAINS %@",
+                "The River Already Held a World"
+            )
+        ).firstMatch
+        let secondVisited = app.descendants(matching: .any).matching(
+            NSPredicate(
+                format: "label CONTAINS %@",
+                "The Field Crosses the Sea"
+            )
+        ).firstMatch
+        let current = app.descendants(matching: .any).matching(
+            NSPredicate(
+                format: "label CONTAINS %@ AND label CONTAINS %@",
+                "Nothing Travels Alone",
+                "Current"
+            )
+        ).firstMatch
+        XCTAssertTrue(firstVisited.exists)
+        XCTAssertTrue(secondVisited.exists)
+        XCTAssertTrue(current.exists)
+
+        let future = app.descendants(matching: .any).matching(
+            NSPredicate(
+                format: "label CONTAINS %@",
+                "The First Season Takes Hold"
+            )
+        ).firstMatch
+        XCTAssertFalse(future.exists, "The scene list revealed a future scene")
+    }
+
+    func testReviewSurvivesHardKillAndReturnsToUnchangedCurrentScene()
+        throws {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "--ui-testing-reset-state",
+            "--ui-testing-signed-runtime-fixture",
+            "--ui-testing-signed-runtime-fixture-beat=beat-first-farmers-living-system",
+        ]
+        app.launch()
+
+        let currentBeat = app.descendants(matching: .any)[
+            "chapter-beat-beat-first-farmers-living-system"
+        ]
+        XCTAssertTrue(currentBeat.waitForExistence(timeout: 12))
+        let causalState = app.descendants(matching: .any)[
+            "signed-runtime-review-causal-state"
+        ]
+        XCTAssertTrue(causalState.waitForExistence(timeout: 3))
+        let stateBeforeReview = try XCTUnwrap(causalState.value as? String)
+
+        let openPrevious = app.buttons["chapter-previous"]
+        XCTAssertTrue(openPrevious.waitForExistence(timeout: 3))
+        openPrevious.tap()
+        let restoredReview = app.descendants(matching: .any)[
+            "chapter-review-beat-first-farmers-household-crosses"
+        ]
+        XCTAssertTrue(restoredReview.waitForExistence(timeout: 8))
+        app.terminate()
+
+        app.launchArguments = ["--ui-testing-signed-runtime-fixture"]
+        app.launch()
+        XCTAssertTrue(restoredReview.waitForExistence(timeout: 12))
+        let closeReview = app.buttons["chapter-review-close"]
+        XCTAssertTrue(closeReview.waitForExistence(timeout: 3))
+        XCTAssertEqual(closeReview.label, "Return to current")
+        closeReview.tap()
+
+        XCTAssertTrue(currentBeat.waitForExistence(timeout: 8))
+        XCTAssertTrue(causalState.waitForExistence(timeout: 3))
+        XCTAssertEqual(
+            causalState.value as? String,
+            stateBeforeReview,
+            "Restoring review changed causal chapter progress"
+        )
+    }
+
+    func testCompletedChapterReviewDoneReturnsToWorld() {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "--ui-testing-reset-state",
+            "--ui-testing-signed-runtime-fixture",
+            "--ui-testing-signed-runtime-fixture-beat=beat-first-farmers-before-steppe",
+        ]
+        app.launch()
+
+        XCTAssertTrue(
+            app.descendants(matching: .any)[
+                "chapter-beat-beat-first-farmers-before-steppe"
+            ].waitForExistence(timeout: 12)
+        )
+        let completeChapter = app.buttons["chapter-continue"]
+        XCTAssertTrue(completeChapter.waitForExistence(timeout: 3))
+        XCTAssertTrue(completeChapter.isHittable)
+        completeChapter.tap()
+        XCTAssertTrue(
+            app.descendants(matching: .any)["living-world-field"]
+                .waitForExistence(timeout: 12)
+        )
+
+        let completedChapter = app.buttons["chapter-road-first-farmers"]
+        for _ in 0 ..< 20 where !completedChapter.isHittable {
+            if completedChapter.frame.midY > app.frame.midY {
+                app.swipeUp()
+            } else {
+                app.swipeDown()
+            }
+        }
+        XCTAssertTrue(completedChapter.isHittable)
+        XCTAssertTrue(completedChapter.label.hasSuffix(", Review"))
+        completedChapter.tap()
+
+        XCTAssertTrue(
+            app.descendants(matching: .any)[
+                "chapter-review-beat-first-farmers-river-world"
+            ].waitForExistence(timeout: 8)
+        )
+        let done = app.buttons["chapter-review-close"]
+        XCTAssertTrue(done.isHittable)
+        XCTAssertEqual(done.label, "Done")
+        done.tap()
+        XCTAssertTrue(
+            app.descendants(matching: .any)["living-world-field"]
+                .waitForExistence(timeout: 8)
+        )
+        XCTAssertFalse(
+            app.descendants(matching: .any)["content-unavailable"].exists
+        )
+    }
+
+    func testAllThreeIncludedChaptersOpenFromMapAndRoad() {
+        let chapters = [
+            "first-farmers",
+            "europe-holds-the-line",
+            "european-world",
+        ]
+
+        for chapterID in chapters {
+            let app = XCUIApplication()
+            app.launchArguments = [
+                "--ui-testing-reset-state",
+                "--ui-testing-signed-runtime-fixture",
+                "--ui-testing-signed-runtime-fixture-world-ready",
+                "--ui-testing-signed-runtime-fixture-chapter=\(chapterID)",
+            ]
+            app.launch()
+
+            let runtime = app.descendants(matching: .any)[
+                "chapter-runtime-\(chapterID)"
+            ]
+            XCTAssertTrue(runtime.waitForExistence(timeout: 12), chapterID)
+            let roadControl = app.buttons["chapter-road"]
+            XCTAssertTrue(roadControl.waitForExistence(timeout: 3), chapterID)
+            roadControl.tap()
+            XCTAssertTrue(
+                app.descendants(matching: .any)["living-world-field"]
+                    .waitForExistence(timeout: 8),
+                chapterID
+            )
+
+            let mapEntry = app.buttons["chapter-world-entry-\(chapterID)"]
+            XCTAssertTrue(mapEntry.waitForExistence(timeout: 3), chapterID)
+            for _ in 0 ..< 12 where !mapEntry.isHittable {
+                app.swipeDown()
+            }
+            XCTAssertTrue(mapEntry.isHittable, chapterID)
+            XCTAssertEqual(
+                mapEntry.frame.width,
+                44,
+                accuracy: 0.001,
+                chapterID
+            )
+            XCTAssertEqual(
+                mapEntry.frame.height,
+                44,
+                accuracy: 0.001,
+                chapterID
+            )
+            XCTAssertTrue(mapEntry.label.hasSuffix(", Resume"), chapterID)
+            mapEntry.tap()
+            XCTAssertTrue(runtime.waitForExistence(timeout: 8), chapterID)
+
+            XCTAssertTrue(roadControl.waitForExistence(timeout: 3), chapterID)
+            roadControl.tap()
+            XCTAssertTrue(
+                app.descendants(matching: .any)["living-world-field"]
+                    .waitForExistence(timeout: 8),
+                chapterID
+            )
+            let roadEntry = app.buttons["chapter-road-\(chapterID)"]
+            XCTAssertTrue(roadEntry.waitForExistence(timeout: 3), chapterID)
+            for _ in 0 ..< 20 where !roadEntry.isHittable {
+                if roadEntry.frame.midY > app.frame.midY {
+                    app.swipeUp()
+                } else {
+                    app.swipeDown()
+                }
+            }
+            XCTAssertTrue(roadEntry.isHittable, chapterID)
+            XCTAssertTrue(roadEntry.label.hasSuffix(", Resume"), chapterID)
+            roadEntry.tap()
+            XCTAssertTrue(runtime.waitForExistence(timeout: 8), chapterID)
+            XCTAssertFalse(
+                app.buttons["chapter-failure-return-to-road"].exists,
+                chapterID
+            )
+            app.terminate()
+        }
+    }
+
+    func testAccessibilityXXXLLinearTraceCompletesThroughSharedReducer()
+        throws {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "--ui-testing-reset-state",
+            "--ui-testing-signed-runtime-fixture",
+            "--ui-testing-signed-runtime-fixture-beat=beat-first-farmers-household-crosses",
+            "-UIPreferredContentSizeCategoryName",
+            "UICTContentSizeCategoryAccessibilityXXXL",
+        ]
+        app.launch()
+
+        let beat = app.descendants(matching: .any)[
+            "chapter-beat-beat-first-farmers-household-crosses"
+        ]
+        XCTAssertTrue(beat.waitForExistence(timeout: 12))
+        let reducerDiagnostic = app.descendants(matching: .any)[
+            "chapter-input-resolution-diagnostic"
+        ]
+        XCTAssertTrue(reducerDiagnostic.waitForExistence(timeout: 3))
+        let advanceRoute = app.buttons[
+            "chapter-linear-trace-route-increment"
+        ]
+        XCTAssertTrue(advanceRoute.waitForExistence(timeout: 3))
+        XCTAssertTrue(advanceRoute.isHittable)
+        XCTAssertGreaterThanOrEqual(advanceRoute.frame.width, 44)
+        XCTAssertGreaterThanOrEqual(advanceRoute.frame.height, 44)
+        wait(
+            for: advanceRoute,
+            toHaveValue: "0 of 4 route points reached"
+        )
+
+        for reachedAnchorCount in 1 ... 3 {
+            advanceRoute.tap()
+            wait(
+                for: advanceRoute,
+                toHaveValue:
+                    "\(reachedAnchorCount) of 4 route points reached",
+                timeout: 8
+            )
+            XCTAssertTrue(advanceRoute.isHittable)
+        }
+        advanceRoute.tap()
+        wait(
+            for: reducerDiagnostic,
+            toHaveValue: "processed;traceReached=4",
+            timeout: 8
+        )
+
+        let continueButton = app.buttons["chapter-continue"]
+        XCTAssertTrue(continueButton.waitForExistence(timeout: 8))
+        XCTAssertTrue(continueButton.isHittable)
+        XCTAssertGreaterThanOrEqual(continueButton.frame.width, 44)
+        XCTAssertGreaterThanOrEqual(continueButton.frame.height, 44)
+        XCTAssertFalse(app.buttons["chapter-failure-return-to-road"].exists)
+    }
+
 #if NON_SHIPPING_LIVE_TEST
     func testLiveFirstFarmersNeedsNoFixtureArgumentAndRestoresAfterHardKill()
         throws {
@@ -120,7 +574,70 @@ final class JourneyAppUITests: XCTestCase {
         try recordFirstFarmersInteraction(.continentRemade)
     }
 
-    func testSignedFirstFarmersPrimaryTimelineRequiresHearAndColdResumesPaused()
+    func testContinentRemadeResponseCleanupSerializesTheNextTransformInput()
+        throws {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "--ui-testing-reset-state",
+            "--ui-testing-signed-runtime-fixture",
+            "--ui-testing-signed-runtime-fixture-beat=beat-first-farmers-continent-remade",
+        ]
+        app.launch()
+
+        XCTAssertTrue(
+            app.descendants(matching: .any)[
+                "chapter-runtime-first-farmers"
+            ].waitForExistence(timeout: 12)
+        )
+        XCTAssertTrue(
+            app.descendants(matching: .any)[
+                "chapter-beat-beat-first-farmers-continent-remade"
+            ].waitForExistence(timeout: 12)
+        )
+        let touchSurface = app.windows.firstMatch
+        XCTAssertTrue(touchSurface.waitForExistence(timeout: 3))
+
+        let firstStage = app.descendants(matching: .any)[
+            "chapter-semantic-transform-danube-fields"
+        ]
+        let secondStage = app.descendants(matching: .any)[
+            "chapter-semantic-transform-loess-settlements"
+        ]
+        let failure = app.buttons["chapter-failure-return-to-road"]
+        XCTAssertTrue(firstStage.waitForExistence(timeout: 3))
+
+        // An accepted Transform sample schedules response cleanup after 180 ms.
+        // This deliberately slow physical drag keeps later samples arriving
+        // beyond that boundary, proving that cleanup and the next input are
+        // serialized instead of turning the overlap into an audio failure.
+        touchSurface.coordinate(
+            withNormalizedOffset: CGVector(dx: 0.1785714, dy: 0.55)
+        ).press(
+            forDuration: 0.15,
+            thenDragTo: touchSurface.coordinate(
+                withNormalizedOffset: CGVector(dx: 0.1785714, dy: 0.08)
+            ),
+            withVelocity: .slow,
+            thenHoldForDuration: 0
+        )
+
+        XCTAssertTrue(
+            secondStage.waitForExistence(timeout: 12),
+            "The serialized Transform input did not reveal its next stage"
+        )
+        let diagnostic = app.descendants(matching: .any)[
+            "signed-runtime-failure-diagnostic"
+        ]
+        XCTAssertFalse(
+            failure.exists,
+            "Response cleanup rejected the next Transform input: "
+                + (diagnostic.exists
+                    ? String(describing: diagnostic.value)
+                    : "no diagnostic")
+        )
+    }
+
+    func testSignedFirstFarmersPrimaryTimelineUsesSoundControlAndColdResumesPaused()
         throws {
         let app = XCUIApplication()
         app.launchArguments = [
@@ -138,18 +655,22 @@ final class JourneyAppUITests: XCTestCase {
         let primaryState = app.descendants(matching: .any)[
             "primary-audio-runtime-state"
         ]
-        let hear = app.buttons["chapter-audio-hear-scene"]
+        let soundControl = app.buttons["chapter-sound-control"]
         XCTAssertTrue(opening.waitForExistence(timeout: 12))
         XCTAssertTrue(primaryState.waitForExistence(timeout: 3))
-        wait(for: phaseState, toHaveValue: "undecided:none")
+        wait(for: phaseState, toHaveValue: "ready:none")
         wait(
             for: primaryState,
             toHaveValueBeginningWith:
                 "bound;timeline=audio-beat-first-farmers-river-world;"
         )
 
-        reveal(hear, in: opening)
-        hear.tap()
+        XCTAssertTrue(soundControl.waitForExistence(timeout: 3))
+        XCTAssertTrue(soundControl.isHittable)
+        XCTAssertEqual(soundControl.label, "Resume sound")
+        XCTAssertGreaterThanOrEqual(soundControl.frame.width, 44)
+        XCTAssertGreaterThanOrEqual(soundControl.frame.height, 44)
+        soundControl.tap()
         let initialStart = XCTNSPredicateExpectation(
             predicate: NSPredicate(
                 format: "value == %@ AND enabled == true",
@@ -186,8 +707,9 @@ final class JourneyAppUITests: XCTestCase {
         XCTAssertTrue(opening.waitForExistence(timeout: 12))
         XCTAssertTrue(primaryState.waitForExistence(timeout: 3))
         wait(for: phaseState, toHaveValue: "resumeRequired:none")
-        reveal(hear, in: opening)
-        hear.tap()
+        XCTAssertTrue(soundControl.waitForExistence(timeout: 3))
+        XCTAssertEqual(soundControl.label, "Resume sound")
+        soundControl.tap()
         wait(for: phaseState, toHaveValue: "playing:none", timeout: 8)
         wait(
             for: primaryState,
@@ -332,8 +854,8 @@ final class JourneyAppUITests: XCTestCase {
                 "\(beatID): \(String(describing: primaryState.value))"
             )
             XCTAssertTrue(
-                app.buttons["chapter-audio-hear-scene"].exists,
-                "\(beatID): Hear the scene is unavailable"
+                app.buttons["chapter-sound-control"].exists,
+                "\(beatID): the fixed sound control is unavailable"
             )
             app.terminate()
         }
@@ -397,7 +919,7 @@ final class JourneyAppUITests: XCTestCase {
         )
     }
 
-    func testResponsiveChapterSoundRequiresChoiceResumeAndColdRestoreConsent()
+    func testResponsiveChapterSoundStartsAfterDeliberateEntryAndColdRestoreRequiresResume()
         throws {
         let app = XCUIApplication()
         app.launchArguments = [
@@ -415,7 +937,7 @@ final class JourneyAppUITests: XCTestCase {
         ]
         XCTAssertTrue(phaseState.waitForExistence(timeout: 12))
         XCTAssertTrue(runtimeState.waitForExistence(timeout: 3))
-        XCTAssertEqual(phaseState.value as? String, "undecided:waiting")
+        XCTAssertEqual(phaseState.value as? String, "ready:waiting")
         let initialRuntime = try XCTUnwrap(runtimeState.value as? String)
         let bindingAuthority = try XCTUnwrap(
             initialRuntime.split(separator: ";").first.map(String.init)
@@ -426,31 +948,15 @@ final class JourneyAppUITests: XCTestCase {
             ),
             initialRuntime
         )
-        XCTAssertEqual(
-            app.buttons["chapter-audio-continue-silently"].label,
-            "Continue in silence"
-        )
-
-        let hear = app.buttons["chapter-audio-hear-scene"]
+        let soundControl = app.buttons["chapter-sound-control"]
         let firstNarrative = app.descendants(matching: .any)[
             "chapter-beat-beat-first-farmers-harvest-allocation"
         ]
         XCTAssertTrue(firstNarrative.waitForExistence(timeout: 5))
-        // Harvest's incomplete-interaction narrative rail is deliberately
-        // short. Move it in bounded increments so XCTest cannot jump past the
-        // audio choice before checking whether the control is hittable.
-        for _ in 0 ..< 16 where !hear.isHittable {
-            let lowerPoint = firstNarrative.coordinate(
-                withNormalizedOffset: CGVector(dx: 0.5, dy: 0.72)
-            )
-            let upperPoint = firstNarrative.coordinate(
-                withNormalizedOffset: CGVector(dx: 0.5, dy: 0.48)
-            )
-            lowerPoint.press(forDuration: 0.1, thenDragTo: upperPoint)
-        }
-        XCTAssertTrue(hear.isHittable)
-        XCTAssertEqual(hear.label, "Hear the scene")
-        hear.tap()
+        XCTAssertTrue(soundControl.waitForExistence(timeout: 3))
+        XCTAssertTrue(soundControl.isHittable)
+        XCTAssertEqual(soundControl.label, "Resume sound")
+        soundControl.tap()
         _ = try waitForResponsiveAudioPlaybackState(
             runtimeState,
             playback: "playing",
@@ -471,12 +977,13 @@ final class JourneyAppUITests: XCTestCase {
 
         XCUIDevice.shared.press(.home)
         app.activate()
-        XCTAssertTrue(hear.waitForExistence(timeout: 5))
+        XCTAssertTrue(soundControl.waitForExistence(timeout: 5))
         wait(for: phaseState, toHaveValue: "resumeRequired:waiting")
-        hear.tap()
+        XCTAssertEqual(soundControl.label, "Resume sound")
+        soundControl.tap()
         wait(for: phaseState, toHaveValue: "playing:waiting")
 
-        app.buttons["Return to the road"].tap()
+        app.buttons["chapter-road"].tap()
         XCTAssertTrue(
             app.descendants(matching: .any)["living-world-field"]
                 .waitForExistence(timeout: 8)
@@ -490,8 +997,11 @@ final class JourneyAppUITests: XCTestCase {
                 "chapter-runtime-european-world"
             ].waitForExistence(timeout: 12)
         )
-        wait(for: phaseState, toHaveValue: "undecided:waiting")
-        XCTAssertTrue(hear.waitForExistence(timeout: 3))
+        // The road tap is the deliberate chapter-entry grant. Sound starts
+        // once the verified scene is bound, with no intermediate choice.
+        wait(for: phaseState, toHaveValue: "playing:waiting", timeout: 8)
+        XCTAssertTrue(soundControl.waitForExistence(timeout: 3))
+        XCTAssertEqual(soundControl.label, "Turn sound off")
         let oceanNarrative = app.descendants(matching: .any)[
             "chapter-beat-beat-european-world-ocean-schedule"
         ]
@@ -506,9 +1016,6 @@ final class JourneyAppUITests: XCTestCase {
         ]
         XCTAssertTrue(oceanNarrative.waitForExistence(timeout: 5))
         XCTAssertTrue(semanticTrace.waitForExistence(timeout: 3))
-        for _ in 0 ..< 4 where !hear.isHittable { oceanNarrative.swipeUp() }
-        hear.tap()
-        wait(for: phaseState, toHaveValue: "playing:waiting")
 
         // The first two authored ocean-route anchors at master (0.30, 0.54)
         // and (0.43, 0.52) project through the signed baseline crop to these
@@ -598,7 +1105,8 @@ final class JourneyAppUITests: XCTestCase {
         XCTAssertEqual(coldRuntime.durablePhase, "waiting")
         XCTAssertEqual(coldRuntime.pending, "none")
         wait(for: semanticTrace, toHaveValue: "2 of 4 route points reached")
-        XCTAssertTrue(hear.waitForExistence(timeout: 3))
+        XCTAssertTrue(soundControl.waitForExistence(timeout: 3))
+        XCTAssertEqual(soundControl.label, "Resume sound")
     }
 
     func testSignedEuropeanWorldPhysicalTraceEngagesResponsiveAudio() throws {
@@ -648,13 +1156,14 @@ final class JourneyAppUITests: XCTestCase {
         XCTAssertTrue(bindingReady.waitForExistence(timeout: 3))
         XCTAssertTrue(inputAdmissionDiagnostic.waitForExistence(timeout: 3))
         XCTAssertTrue(inputResolutionDiagnostic.waitForExistence(timeout: 3))
-        XCTAssertEqual(phaseState.value as? String, "undecided:waiting")
+        XCTAssertEqual(phaseState.value as? String, "ready:waiting")
         let initialBindingReadyValue = bindingReady.value as? String
 
-        let hear = app.buttons["chapter-audio-hear-scene"]
-        for _ in 0 ..< 4 where !hear.isHittable { oceanNarrative.swipeUp() }
-        XCTAssertTrue(hear.isHittable)
-        hear.tap()
+        let soundControl = app.buttons["chapter-sound-control"]
+        XCTAssertTrue(soundControl.waitForExistence(timeout: 3))
+        XCTAssertTrue(soundControl.isHittable)
+        XCTAssertEqual(soundControl.label, "Resume sound")
+        soundControl.tap()
         let started = XCTNSPredicateExpectation(
             predicate: NSPredicate(
                 format: "value == %@ AND enabled == true",
@@ -906,9 +1415,9 @@ final class JourneyAppUITests: XCTestCase {
         XCTAssertTrue(lifecycle.waitForExistence(timeout: 3))
         XCTAssertTrue(finalAdmission.waitForExistence(timeout: 3))
 
-        let hear = app.buttons["chapter-audio-hear-scene"]
-        reveal(hear, in: beat)
-        hear.tap()
+        let soundControl = app.buttons["chapter-sound-control"]
+        XCTAssertTrue(soundControl.waitForExistence(timeout: 3))
+        soundControl.tap()
         let playingOrResume = XCTNSPredicateExpectation(
             predicate: NSPredicate(
                 format: "value == %@ OR value == %@",
@@ -923,7 +1432,7 @@ final class JourneyAppUITests: XCTestCase {
             String(describing: phaseState.value)
         )
         if phaseState.value as? String == "resumeRequired:waiting" {
-            hear.tap()
+            soundControl.tap()
         }
         wait(for: phaseState, toHaveValue: "playing:waiting", timeout: 8)
 
@@ -1055,7 +1564,7 @@ final class JourneyAppUITests: XCTestCase {
 
         // A normal route boundary after recovery must use r2 authority and
         // must not revive stale pre-recovery authority or a deferred retry.
-        let returnToRoad = app.buttons["Return to the road"].firstMatch
+        let returnToRoad = app.buttons["chapter-road"].firstMatch
         XCTAssertTrue(returnToRoad.waitForExistence(timeout: 3))
         XCTAssertTrue(returnToRoad.isEnabled)
         returnToRoad.tap()
@@ -1117,9 +1626,9 @@ final class JourneyAppUITests: XCTestCase {
         XCTAssertTrue(orderedAudit.waitForExistence(timeout: 3))
         XCTAssertTrue(lifecycle.waitForExistence(timeout: 3))
 
-        let hear = app.buttons["chapter-audio-hear-scene"]
-        reveal(hear, in: beat)
-        hear.tap()
+        let soundControl = app.buttons["chapter-sound-control"]
+        XCTAssertTrue(soundControl.waitForExistence(timeout: 3))
+        soundControl.tap()
         let playingOrResume = XCTNSPredicateExpectation(
             predicate: NSPredicate(
                 format: "value == %@ OR value == %@",
@@ -1134,11 +1643,11 @@ final class JourneyAppUITests: XCTestCase {
             String(describing: phaseState.value)
         )
         if phaseState.value as? String == "resumeRequired:waiting" {
-            hear.tap()
+            soundControl.tap()
         }
         wait(for: phaseState, toHaveValue: "playing:waiting", timeout: 8)
 
-        let returnToRoad = app.buttons["Return to the road"].firstMatch
+        let returnToRoad = app.buttons["chapter-road"].firstMatch
         XCTAssertTrue(returnToRoad.waitForExistence(timeout: 3))
         XCTAssertTrue(returnToRoad.isEnabled)
         returnToRoad.tap()
@@ -1291,11 +1800,11 @@ final class JourneyAppUITests: XCTestCase {
         XCTAssertTrue(phaseState.waitForExistence(timeout: 3))
         XCTAssertTrue(orderedAudit.waitForExistence(timeout: 3))
 
-        let hear = app.buttons["chapter-audio-hear-scene"]
-        reveal(hear, in: beat)
-        hear.tap()
+        let soundControl = app.buttons["chapter-sound-control"]
+        XCTAssertTrue(soundControl.waitForExistence(timeout: 3))
+        soundControl.tap()
         wait(for: phaseState, toHaveValue: "playing:waiting", timeout: 8)
-        let returnToRoad = app.buttons["Return to the road"].firstMatch
+        let returnToRoad = app.buttons["chapter-road"].firstMatch
         XCTAssertTrue(returnToRoad.waitForExistence(timeout: 3))
         returnToRoad.tap()
         XCTAssertTrue(
@@ -1417,12 +1926,12 @@ final class JourneyAppUITests: XCTestCase {
         XCTAssertTrue(lifecycle.waitForExistence(timeout: 3))
         XCTAssertTrue(runtime.waitForExistence(timeout: 3))
 
-        let hear = app.buttons["chapter-audio-hear-scene"]
-        reveal(hear, in: beat)
-        hear.tap()
+        let soundControl = app.buttons["chapter-sound-control"]
+        XCTAssertTrue(soundControl.waitForExistence(timeout: 3))
+        soundControl.tap()
         resumeResponsiveAudioIfNeeded(
             phaseState: phaseState,
-            hearButton: hear
+            soundControl: soundControl
         )
         wait(for: phaseState, toHaveValue: "playing:waiting", timeout: 8)
 
@@ -1461,7 +1970,7 @@ final class JourneyAppUITests: XCTestCase {
             String(describing: runtime.value)
         )
 
-        let returnToRoad = app.buttons["Return to the road"].firstMatch
+        let returnToRoad = app.buttons["chapter-road"].firstMatch
         XCTAssertTrue(returnToRoad.waitForExistence(timeout: 3))
         returnToRoad.tap()
 
@@ -1553,14 +2062,14 @@ final class JourneyAppUITests: XCTestCase {
         XCTAssertTrue(lifecycle.waitForExistence(timeout: 3))
         XCTAssertTrue(runtime.waitForExistence(timeout: 3))
 
-        let hear = app.buttons["chapter-audio-hear-scene"]
-        reveal(hear, in: beat)
-        hear.tap()
+        let soundControl = app.buttons["chapter-sound-control"]
+        XCTAssertTrue(soundControl.waitForExistence(timeout: 3))
+        soundControl.tap()
         resumeResponsiveAudioIfNeeded(
             phaseState: phaseState,
-            hearButton: hear
+            soundControl: soundControl
         )
-        let returnToRoad = app.buttons["Return to the road"].firstMatch
+        let returnToRoad = app.buttons["chapter-road"].firstMatch
         XCTAssertTrue(returnToRoad.waitForExistence(timeout: 3))
         returnToRoad.tap()
 
@@ -1641,14 +2150,14 @@ final class JourneyAppUITests: XCTestCase {
         XCTAssertTrue(audit.waitForExistence(timeout: 3))
         XCTAssertTrue(lifecycle.waitForExistence(timeout: 3))
 
-        let hear = app.buttons["chapter-audio-hear-scene"]
-        reveal(hear, in: beat)
-        hear.tap()
+        let soundControl = app.buttons["chapter-sound-control"]
+        XCTAssertTrue(soundControl.waitForExistence(timeout: 3))
+        soundControl.tap()
         resumeResponsiveAudioIfNeeded(
             phaseState: phaseState,
-            hearButton: hear
+            soundControl: soundControl
         )
-        let returnToRoad = app.buttons["Return to the road"].firstMatch
+        let returnToRoad = app.buttons["chapter-road"].firstMatch
         XCTAssertTrue(returnToRoad.waitForExistence(timeout: 3))
         returnToRoad.tap()
 
@@ -1740,9 +2249,9 @@ final class JourneyAppUITests: XCTestCase {
         XCTAssertTrue(lifecycle.waitForExistence(timeout: 3))
         XCTAssertTrue(finalAdmission.waitForExistence(timeout: 3))
 
-        let hear = app.buttons["chapter-audio-hear-scene"]
-        reveal(hear, in: beat)
-        hear.tap()
+        let soundControl = app.buttons["chapter-sound-control"]
+        XCTAssertTrue(soundControl.waitForExistence(timeout: 3))
+        soundControl.tap()
         wait(for: phaseState, toHaveValue: "playing:waiting", timeout: 8)
         performEuropeanWorldPhysicalTrace(on: touchSurface)
 
@@ -1895,9 +2404,9 @@ final class JourneyAppUITests: XCTestCase {
         XCTAssertTrue(globalRuntime.waitForExistence(timeout: 3))
         XCTAssertTrue(globalLifecycle.waitForExistence(timeout: 3))
 
-        let hear = app.buttons["chapter-audio-hear-scene"]
-        reveal(hear, in: beat)
-        hear.tap()
+        let soundControl = app.buttons["chapter-sound-control"]
+        XCTAssertTrue(soundControl.waitForExistence(timeout: 3))
+        soundControl.tap()
         wait(for: phaseState, toHaveValue: "playing:waiting", timeout: 8)
 
         performEuropeanWorldPhysicalTrace(on: touchSurface)
@@ -2017,7 +2526,7 @@ final class JourneyAppUITests: XCTestCase {
         )
     }
 
-    func testResponsiveAudioViewDoesNotRequireResumeWithoutModelPause() throws {
+    func testResponsiveAudioSoundControlStartsWithoutModelPause() throws {
         let app = XCUIApplication()
         app.launchArguments = [
             "--ui-testing-reset-state",
@@ -2053,10 +2562,11 @@ final class JourneyAppUITests: XCTestCase {
             stage: "presentation"
         )
 
-        let hear = app.buttons["chapter-audio-hear-scene"]
-        for _ in 0 ..< 4 where !hear.isHittable { oceanNarrative.swipeUp() }
-        XCTAssertTrue(hear.isHittable)
-        hear.tap()
+        let soundControl = app.buttons["chapter-sound-control"]
+        XCTAssertTrue(soundControl.waitForExistence(timeout: 3))
+        XCTAssertTrue(soundControl.isHittable)
+        XCTAssertEqual(soundControl.label, "Resume sound")
+        soundControl.tap()
         let completedBinding = try waitForResponsiveAudioBinding(
             bindingReady,
             stage: "after-hear",
@@ -2162,9 +2672,11 @@ final class JourneyAppUITests: XCTestCase {
         )
         let initialLiveCursor = try XCTUnwrap(initialRuntime.liveCursor)
 
-        let hear = app.buttons["chapter-audio-hear-scene"]
-        reveal(hear, in: oceanNarrative)
-        hear.tap()
+        let soundControl = app.buttons["chapter-sound-control"]
+        XCTAssertTrue(soundControl.waitForExistence(timeout: 3))
+        XCTAssertTrue(soundControl.isHittable)
+        XCTAssertEqual(soundControl.label, "Resume sound")
+        soundControl.tap()
         _ = try waitForResponsiveAudioBinding(
             bindingReady,
             stage: "after-hear",
@@ -2204,8 +2716,9 @@ final class JourneyAppUITests: XCTestCase {
             String(describing: runtimeState.value)
         )
 
-        reveal(hear, in: oceanNarrative)
-        hear.tap()
+        XCTAssertTrue(soundControl.isHittable)
+        XCTAssertEqual(soundControl.label, "Resume sound")
+        soundControl.tap()
         let durableResume = XCTNSPredicateExpectation(
             predicate: NSPredicate { object, _ in
                 guard let candidate = object as? XCUIElement,
@@ -2294,9 +2807,11 @@ final class JourneyAppUITests: XCTestCase {
         )
         let initialLiveCursor = try XCTUnwrap(initialRuntime.liveCursor)
 
-        let hear = app.buttons["chapter-audio-hear-scene"]
-        reveal(hear, in: beat)
-        hear.tap()
+        let soundControl = app.buttons["chapter-sound-control"]
+        XCTAssertTrue(soundControl.waitForExistence(timeout: 3))
+        XCTAssertTrue(soundControl.isHittable)
+        XCTAssertEqual(soundControl.label, "Resume sound")
+        soundControl.tap()
         _ = try waitForResponsiveAudioBinding(
             bindingReady,
             stage: "after-hear",
@@ -2374,146 +2889,10 @@ final class JourneyAppUITests: XCTestCase {
         XCTAssertEqual(restored.pending, "none")
         XCTAssertEqual(restored.liveCursor, exactCursor)
         XCTAssertEqual(restored.durableCursor, exactCursor)
-        XCTAssertTrue(app.buttons["chapter-audio-hear-scene"].exists)
-        XCTAssertFalse(
-            app.buttons["chapter-audio-continue-silently"].exists
-        )
+        let restoredSoundControl = app.buttons["chapter-sound-control"]
+        XCTAssertTrue(restoredSoundControl.exists)
+        XCTAssertEqual(restoredSoundControl.label, "Resume sound")
         XCTAssertFalse(failureDiagnostic.exists)
-    }
-
-    func testSignedEuropeanWorldSilenceSurvivesLifecycleButNotChapterChange()
-        throws {
-        let app = XCUIApplication()
-        app.launchArguments = [
-            "--ui-testing-reset-state",
-            "--ui-testing-signed-runtime-fixture",
-            "--ui-testing-signed-runtime-fixture-chapter=european-world",
-            "--ui-testing-signed-runtime-fixture-beat=beat-first-farmers-harvest-allocation",
-        ]
-        app.launch()
-
-        let phaseState = app.descendants(matching: .any)[
-            "responsive-audio-presentation-state"
-        ]
-        let runtimeState = app.descendants(matching: .any)[
-            "responsive-audio-runtime-state"
-        ]
-        let bindingReady = app.descendants(matching: .any)[
-            "responsive-audio-binding-ready"
-        ]
-        let choiceDiagnostic = app.descendants(matching: .any)[
-            "responsive-audio-choice-diagnostic"
-        ]
-        let beat = app.descendants(matching: .any)[
-            "chapter-beat-beat-european-world-ocean-schedule"
-        ]
-        let semanticTrace = app.descendants(matching: .any)[
-            "chapter-semantic-trace-ocean-route"
-        ]
-        let touchSurface = app.descendants(matching: .any)[
-            "chapter-touch-surface"
-        ]
-        XCTAssertTrue(phaseState.waitForExistence(timeout: 12))
-        XCTAssertTrue(runtimeState.waitForExistence(timeout: 3))
-        XCTAssertTrue(bindingReady.waitForExistence(timeout: 3))
-        XCTAssertTrue(beat.waitForExistence(timeout: 5))
-        XCTAssertTrue(semanticTrace.waitForExistence(timeout: 3))
-        XCTAssertTrue(touchSurface.waitForExistence(timeout: 3))
-        _ = try waitForResponsiveAudioBinding(
-            bindingReady,
-            stage: "presentation"
-        )
-
-        let continueSilently = app.buttons[
-            "chapter-audio-continue-silently"
-        ]
-        reveal(continueSilently, in: beat)
-        continueSilently.tap()
-        wait(for: phaseState, toHaveValue: "silent:waiting")
-        wait(
-            for: choiceDiagnostic,
-            toHaveValue: "continue-silent:silent"
-        )
-        let silentBeforeTrace = try waitForResponsiveAudioPlaybackState(
-            runtimeState,
-            playback: "paused",
-            pause: "none"
-        )
-        XCTAssertNotNil(silentBeforeTrace.liveCursor)
-
-        performEuropeanWorldPhysicalTrace(on: touchSurface)
-        wait(
-            for: semanticTrace,
-            toHaveValue: "2 of 4 route points reached",
-            timeout: 8
-        )
-        // Prove the 180 ms response has already cleared before backgrounding;
-        // only the same-process lifecycle memory may restore `engaged` below.
-        wait(for: phaseState, toHaveValue: "silent:waiting", timeout: 3)
-        let silentAfterTrace = try waitForResponsiveAudioPlaybackState(
-            runtimeState,
-            playback: "paused",
-            pause: "none",
-            timeout: 8
-        )
-        XCTAssertEqual(silentAfterTrace.liveCursor, silentBeforeTrace.liveCursor)
-
-        XCUIDevice.shared.press(.home)
-        app.activate()
-        XCTAssertTrue(beat.waitForExistence(timeout: 8))
-        wait(
-            for: semanticTrace,
-            toHaveValue: "2 of 4 route points reached",
-            timeout: 8
-        )
-        wait(for: phaseState, toHaveValue: "silent:engaged", timeout: 8)
-        wait(
-            for: choiceDiagnostic,
-            toHaveValue: "continue-silent:silent",
-            timeout: 8
-        )
-        let silentAfterLifecycle = try waitForResponsiveAudioLifecyclePause(
-            runtimeState,
-            timeout: 8
-        )
-        XCTAssertEqual(
-            silentAfterLifecycle.liveCursor,
-            silentAfterTrace.liveCursor
-        )
-
-        app.buttons["Return to the road"].tap()
-        XCTAssertTrue(
-            app.descendants(matching: .any)["living-world-field"]
-                .waitForExistence(timeout: 8)
-        )
-        openFirstFarmers(in: app)
-        XCTAssertTrue(
-            app.descendants(matching: .any)[
-                "chapter-runtime-first-farmers"
-            ].waitForExistence(timeout: 12)
-        )
-        XCTAssertTrue(
-            app.descendants(matching: .any)[
-                "chapter-beat-beat-first-farmers-harvest-allocation"
-            ].waitForExistence(timeout: 5)
-        )
-        wait(for: phaseState, toHaveValue: "undecided:waiting", timeout: 8)
-        let nextChapterBinding = try waitForResponsiveAudioBinding(
-            bindingReady,
-            stage: "presentation",
-            timeout: 8
-        )
-        XCTAssertEqual(nextChapterBinding.status, "ready")
-        let nextChapterRuntime = try waitForResponsiveAudioPlaybackState(
-            runtimeState,
-            playback: "paused",
-            pause: silentAfterLifecycle.pause,
-            timeout: 8
-        )
-        XCTAssertNotNil(nextChapterRuntime.liveCursor)
-        XCTAssertTrue(
-            app.buttons["chapter-audio-continue-silently"].exists
-        )
     }
 
     func testSignedRuntimeFixtureOpensAllThreeLabChaptersThroughProductionRoute()
@@ -2566,6 +2945,38 @@ final class JourneyAppUITests: XCTestCase {
         }
     }
 
+    func testLegacyCompletedChapterWithoutArchiveIsVisibleAndDisabled()
+        throws {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "--ui-testing-reset-state",
+            "--ui-testing-signed-runtime-fixture",
+            "--ui-testing-legacy-completed-without-review",
+        ]
+        app.launch()
+
+        XCTAssertTrue(
+            app.descendants(matching: .any)["living-world-field"]
+                .waitForExistence(timeout: 12)
+        )
+        let unavailableReview =
+            "Completed. No archived scenes are available for review."
+        let worldEntry = app.buttons[
+            "chapter-world-entry-first-farmers"
+        ]
+        XCTAssertTrue(worldEntry.waitForExistence(timeout: 5))
+        XCTAssertEqual(worldEntry.value as? String, unavailableReview)
+        XCTAssertFalse(worldEntry.isEnabled)
+
+        let roadEntry = app.buttons["chapter-road-first-farmers"]
+        XCTAssertTrue(roadEntry.waitForExistence(timeout: 5))
+        XCTAssertEqual(roadEntry.value as? String, unavailableReview)
+        XCTAssertFalse(roadEntry.isEnabled)
+        XCTAssertFalse(
+            app.descendants(matching: .any)["content-unavailable"].exists
+        )
+    }
+
     func testPrologueCompleteCatalogAccessGateAndColdRestore() throws {
         let app = XCUIApplication()
         app.launchArguments = ["--ui-testing-reset-state"]
@@ -2588,7 +2999,7 @@ final class JourneyAppUITests: XCTestCase {
             ].exists
         )
         XCTAssertTrue(app.staticTexts["The River Already Held a World"].exists)
-        XCTAssertTrue(app.buttons["Return to the road"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["chapter-road"].waitForExistence(timeout: 5))
 
         app.terminate()
         app.launchArguments = [
@@ -2596,7 +3007,7 @@ final class JourneyAppUITests: XCTestCase {
             "--ui-testing-commerce-ready",
         ]
         app.launch()
-        XCTAssertTrue(app.buttons["Return to the road"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["chapter-road"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.staticTexts["The First Farmers"].exists)
         XCTAssertTrue(app.staticTexts["The River Already Held a World"].exists)
         XCTAssertTrue(
@@ -2605,7 +3016,7 @@ final class JourneyAppUITests: XCTestCase {
             ].exists
         )
 
-        app.buttons["Return to the road"].tap()
+        app.buttons["chapter-road"].tap()
         let lockedRoad = app.buttons["chapter-road-steppe-comes-west"]
         for _ in 0 ..< 3 where !lockedRoad.isHittable {
             app.swipeUp()
@@ -2616,7 +3027,7 @@ final class JourneyAppUITests: XCTestCase {
         let purchaseSurface = app.descendants(matching: .any)["locked-road-purchase"]
         XCTAssertTrue(purchaseSurface.waitForExistence(timeout: 5))
         XCTAssertTrue(app.staticTexts["Unlock all 24 chapters permanently."].exists)
-        XCTAssertFalse(app.buttons["Return to the road"].exists)
+        XCTAssertFalse(app.buttons["chapter-road"].exists)
     }
 
     func testReleaseOptInIsExplicitAndOfflineDeepLinkFocusesTheAuthoredWorldPlace()
@@ -2853,7 +3264,7 @@ final class JourneyAppUITests: XCTestCase {
             "--ui-testing-download-surface",
             "--ui-testing-commerce-ready",
             "-UIPreferredContentSizeCategoryName",
-            "UICTContentSizeCategoryAccessibilityExtraExtraExtraLarge",
+            "UICTContentSizeCategoryAccessibilityXXXL",
         ]
         app.launch()
         completePrologue(in: app)
@@ -2873,7 +3284,7 @@ final class JourneyAppUITests: XCTestCase {
         )
         XCTAssertFalse(app.descendants(matching: .any)["locked-road-purchase"].exists)
 
-        let returnToRoad = app.buttons["Return to the road"]
+        let returnToRoad = app.buttons["chapter-road"]
         XCTAssertTrue(returnToRoad.waitForExistence(timeout: 5))
         returnToRoad.tap()
         XCTAssertTrue(steppe.waitForExistence(timeout: 5))
@@ -2898,6 +3309,75 @@ final class JourneyAppUITests: XCTestCase {
         for _ in 0 ..< 4 where !unlock.isHittable { app.swipeUp() }
         XCTAssertTrue(unlock.isHittable)
         XCTAssertEqual(unlock.label, "Unlock for $24.99")
+    }
+
+    func testPurchaseFlowsDirectlyIntoDownloadAllWithoutReturningToTheRoad()
+        throws {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "--ui-testing-reset-state",
+            "--ui-testing-download-surface",
+            "--ui-testing-commerce-ready",
+        ]
+        app.launch()
+        completePrologue(in: app)
+        openLockedSteppeRoad(in: app)
+
+        let unlock = app.buttons["locked-road-unlock"]
+        XCTAssertTrue(unlock.waitForExistence(timeout: 5))
+        XCTAssertTrue(unlock.isHittable)
+        unlock.tap()
+
+        XCTAssertTrue(
+            app.descendants(matching: .any)["offline-chapters-surface"]
+                .waitForExistence(timeout: 5)
+        )
+        XCTAssertFalse(
+            app.descendants(matching: .any)["locked-road-purchase"].exists
+        )
+        let downloadAll = app.buttons["offline-chapters-download-all"]
+        XCTAssertTrue(downloadAll.waitForExistence(timeout: 3))
+        XCTAssertTrue(downloadAll.isHittable)
+        downloadAll.tap()
+
+        XCTAssertTrue(
+            app.staticTexts["Transferring Chapters 2–4"]
+                .waitForExistence(timeout: 5)
+        )
+        XCTAssertTrue(app.buttons["Pause after this group"].exists)
+    }
+
+    func testRestorePurchaseFlowsDirectlyIntoTheRequestedChapterDownload()
+        throws {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "--ui-testing-reset-state",
+            "--ui-testing-download-surface",
+            "--ui-testing-commerce-ready",
+            "--ui-testing-restorable-purchase",
+        ]
+        app.launch()
+        completePrologue(in: app)
+        openLockedSteppeRoad(in: app)
+
+        let restore = app.buttons["locked-road-restore"]
+        XCTAssertTrue(restore.waitForExistence(timeout: 5))
+        XCTAssertTrue(restore.isHittable)
+        XCTAssertEqual(restore.label, "Restore Purchase")
+        restore.tap()
+
+        XCTAssertTrue(
+            app.descendants(matching: .any)["offline-chapters-surface"]
+                .waitForExistence(timeout: 5)
+        )
+        XCTAssertFalse(
+            app.descendants(matching: .any)["locked-road-purchase"].exists
+        )
+        XCTAssertTrue(
+            app.descendants(matching: .any)["offline-package-paid-pack-01"]
+                .waitForExistence(timeout: 3)
+        )
+        XCTAssertTrue(app.buttons["offline-chapters-download-all"].exists)
     }
 
     func testDocumentaryBeatAdvancesIntoTheExactInteractiveSuccessor() throws {
@@ -2948,11 +3428,10 @@ final class JourneyAppUITests: XCTestCase {
         XCTAssertNotNil(progressFingerprintBeforeSettings)
 
         settingsButton.tap()
+        let sound = app.switches["experience-setting-sound"]
         let narration = app.switches["experience-setting-narration"]
-        let score = app.switches["experience-setting-score"]
-        let soundscape = app.switches["experience-setting-soundscape"]
         let haptics = app.switches["experience-setting-haptics"]
-        for toggle in [narration, score, soundscape, haptics] {
+        for toggle in [sound, narration, haptics] {
             XCTAssertTrue(toggle.waitForExistence(timeout: 3))
             XCTAssertEqual(toggle.value as? String, "1")
             XCTAssertGreaterThanOrEqual(toggle.frame.height, 44)
@@ -2964,7 +3443,7 @@ final class JourneyAppUITests: XCTestCase {
         XCTAssertFalse(app.staticTexts["Reduce Motion"].exists)
         XCTAssertFalse(app.staticTexts["Increased Contrast"].exists)
 
-        for toggle in [narration, score, soundscape, haptics] {
+        for toggle in [sound, narration, haptics] {
             toggle.tap()
             wait(for: toggle, toHaveValue: "0")
         }
@@ -2986,10 +3465,10 @@ final class JourneyAppUITests: XCTestCase {
         app.launch()
         XCTAssertTrue(settingsButton.waitForExistence(timeout: 5))
         settingsButton.tap()
+        XCTAssertTrue(sound.waitForExistence(timeout: 3))
+        XCTAssertEqual(sound.value as? String, "0")
         XCTAssertTrue(narration.waitForExistence(timeout: 3))
         XCTAssertEqual(narration.value as? String, "0")
-        XCTAssertEqual(score.value as? String, "0")
-        XCTAssertEqual(soundscape.value as? String, "0")
         XCTAssertEqual(haptics.value as? String, "0")
     }
 
@@ -3010,9 +3489,8 @@ final class JourneyAppUITests: XCTestCase {
         XCTAssertTrue(notice.waitForExistence(timeout: 3))
         XCTAssertEqual(notice.label, "Settings are read-only until this app is updated.")
         for identifier in [
+            "experience-setting-sound",
             "experience-setting-narration",
-            "experience-setting-score",
-            "experience-setting-soundscape",
             "experience-setting-haptics",
         ] {
             let toggle = app.switches[identifier]
@@ -3027,7 +3505,7 @@ final class JourneyAppUITests: XCTestCase {
         settingsButton.tap()
         XCTAssertTrue(notice.waitForExistence(timeout: 3))
         XCTAssertEqual(notice.label, "Settings are read-only until this app is updated.")
-        XCTAssertFalse(app.switches["experience-setting-score"].isEnabled)
+        XCTAssertFalse(app.switches["experience-setting-sound"].isEnabled)
     }
 
     func testOwnedOfflineChaptersStartAndPauseOnlyAtThePackageBoundary() throws {
@@ -3128,7 +3606,7 @@ final class JourneyAppUITests: XCTestCase {
         let paidRoad = app.buttons["chapter-road-steppe-comes-west"]
         XCTAssertTrue(paidRoad.waitForExistence(timeout: 5))
         XCTAssertFalse(app.descendants(matching: .any)["content-unavailable"].exists)
-        XCTAssertFalse(app.buttons["Return to the road"].exists)
+        XCTAssertFalse(app.buttons["chapter-road"].exists)
 
         app.terminate()
         app.launchArguments = arguments
@@ -3136,7 +3614,7 @@ final class JourneyAppUITests: XCTestCase {
 
         XCTAssertTrue(paidRoad.waitForExistence(timeout: 5))
         XCTAssertFalse(app.descendants(matching: .any)["content-unavailable"].exists)
-        XCTAssertFalse(app.buttons["Return to the road"].exists)
+        XCTAssertFalse(app.buttons["chapter-road"].exists)
     }
 
     func testUnownedOfflineSurfaceShowsOnlyIncludedChaptersAndNoPurchasePrompt() throws {
@@ -3191,6 +3669,66 @@ final class JourneyAppUITests: XCTestCase {
             app.buttons["offline-chapters-download-all"].waitForExistence(timeout: 3)
         )
         XCTAssertFalse(clear.exists)
+    }
+
+    func testChapterRedownloadIntentSurvivesTwoInstallerRejectionsAndDrainsTerminalObservation()
+        throws {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "--ui-testing-reset-state",
+            "--ui-testing-download-surface",
+            "--ui-testing-owned-downloads",
+            "--ui-testing-download-stale",
+            "--ui-testing-chapter-redownload-drain",
+        ]
+        app.launch()
+        completePrologue(in: app)
+
+        let diagnostic = app.descendants(matching: .any)[
+            "chapter-redownload-diagnostic"
+        ]
+        let queue = app.buttons["chapter-redownload-queue-probe"]
+        XCTAssertTrue(diagnostic.waitForExistence(timeout: 3))
+        XCTAssertTrue(queue.waitForExistence(timeout: 3))
+        XCTAssertTrue(queue.isHittable)
+        queue.tap()
+
+        wait(
+            for: diagnostic,
+            toHaveValue:
+                "phase=awaiting-installer;package=paid-pack-01",
+            timeout: 5
+        )
+        XCTAssertTrue(
+            app.descendants(matching: .any)["offline-chapters-surface"]
+                .waitForExistence(timeout: 3)
+        )
+        XCTAssertTrue(
+            app.staticTexts[
+                "The saved queue belongs to an earlier chapter set"
+            ].waitForExistence(timeout: 3)
+        )
+
+        let clear = app.buttons["Clear old queue"]
+        XCTAssertTrue(clear.exists)
+        XCTAssertTrue(clear.isHittable)
+        clear.tap()
+
+        // The fixture rejects two installer starts. During the second pending
+        // command it publishes a terminal installer state; only a subsequent
+        // deferred drain can reach the third, successful start.
+        wait(
+            for: diagnostic,
+            toHaveValue: "phase=started;package=paid-pack-01",
+            timeout: 8
+        )
+        XCTAssertTrue(
+            app.staticTexts["Transferring Chapters 2–4"]
+                .waitForExistence(timeout: 3)
+        )
+        XCTAssertTrue(app.buttons["Pause after this group"].exists)
+        XCTAssertFalse(app.buttons["offline-chapters-download-all"].exists)
+        XCTAssertFalse(app.staticTexts["offline-chapters-failure"].exists)
     }
 
     func testInsufficientStorageKeepsEarlierChaptersAndOffersAnExplicitRetry() throws {
@@ -3964,9 +4502,8 @@ final class JourneyAppUITests: XCTestCase {
         let sceneSurface = app.windows.firstMatch
         XCTAssertTrue(sceneSurface.waitForExistence(timeout: 3))
 
-        // These artifacts isolate the physical interaction itself. The full
-        // traversal separately proves the visible silence route, while the
-        // primary-audio test proves explicit Hear and cold-resume behavior.
+        // These artifacts isolate the physical interaction itself. Dedicated
+        // sound-control tests cover automatic start and cold-resume behavior.
         performFirstFarmersInteraction(
             target,
             app: app,
@@ -4014,18 +4551,6 @@ final class JourneyAppUITests: XCTestCase {
             "chapter-beat-\(beatIDs[0])"
         ]
         XCTAssertTrue(opening.waitForExistence(timeout: 5))
-        let silent = app.buttons["chapter-audio-continue-silently"]
-        reveal(silent, in: opening)
-        silent.tap()
-        let silenceAccepted = XCTNSPredicateExpectation(
-            predicate: NSPredicate(format: "exists == false"),
-            object: silent
-        )
-        XCTAssertEqual(
-            XCTWaiter().wait(for: [silenceAccepted], timeout: 5),
-            .completed,
-            "The visible silence choice was not accepted"
-        )
 
         var observedBeatIDs: [String] = []
         var observedInteractionIDs: [String] = []
@@ -4051,7 +4576,15 @@ final class JourneyAppUITests: XCTestCase {
             }
 
             let advance = app.buttons["chapter-continue"]
-            reveal(advance, in: narrative)
+            XCTAssertTrue(
+                advance.waitForExistence(timeout: 8),
+                "Missing primary action for beat \(index + 1): \(beatID)"
+            )
+            XCTAssertTrue(
+                advance.isHittable,
+                "The primary action required scrolling in beat "
+                    + "\(index + 1): \(beatID)"
+            )
             advance.tap()
             XCTAssertFalse(failure.exists, "Runtime failed after \(beatID)")
         }
@@ -4204,7 +4737,14 @@ final class JourneyAppUITests: XCTestCase {
         // accessibility representation for commit, avoiding a duplicate
         // invisible semantic button while remaining a normal touch target.
         let commit = app.buttons["chapter-allocate-commit"]
-        reveal(commit, in: narrative)
+        XCTAssertTrue(
+            commit.waitForExistence(timeout: 3),
+            "The harvest allocation action was unavailable"
+        )
+        XCTAssertTrue(
+            commit.isHittable,
+            "The harvest allocation action required scrolling"
+        )
         commit.tap()
         let advance = app.buttons["chapter-continue"]
         XCTAssertTrue(
@@ -4319,44 +4859,50 @@ final class JourneyAppUITests: XCTestCase {
                         dy: 0.08
                     )
                 )
-                start.press(forDuration: 0.1, thenDragTo: end)
+                start.press(forDuration: 0.15, thenDragTo: end)
             }
             func currentStageStillExists() -> Bool {
                 app.descendants(matching: .any)[
                     "chapter-semantic-\(elementID)"
                 ].waitForExistence(timeout: 1)
             }
-            dragActiveStage()
-            if index == elementIDs.indices.last {
-                let advance = app.buttons["chapter-continue"]
-                if !advance.waitForExistence(timeout: 3),
-                   currentStageStillExists()
-                {
-                    // A saturated Simulator can drop one synthesized drag.
-                    // Retry only while this exact physical stage remains
-                    // active; never substitute its semantic action.
-                    dragActiveStage()
-                }
-                XCTAssertTrue(
-                    advance.waitForExistence(timeout: 8),
-                    "The final physical stage did not complete Transform"
-                )
-            } else {
-                // Completion replaces the active semantic stage instead of
-                // leaving a completed duplicate in the accessibility tree.
-                let nextStage = app.descendants(matching: .any)[
+            let completion = index == elementIDs.indices.last
+                ? app.buttons["chapter-continue"]
+                : app.descendants(matching: .any)[
                     "chapter-semantic-\(elementIDs[index + 1])"
                 ]
-                if !nextStage.waitForExistence(timeout: 3),
-                   currentStageStillExists()
-                {
-                    dragActiveStage()
-                }
-                XCTAssertTrue(
-                    nextStage.waitForExistence(timeout: 8),
-                    "The physical transform did not reveal its next stage"
+            let road = app.buttons["chapter-road"]
+            let failure = app.buttons["chapter-failure-return-to-road"]
+
+            // Simulator saturation can discard a synthesized drag before it
+            // reaches the real production gesture. Retry only while the exact
+            // authored stage remains active, and always use physical input.
+            for _ in 0 ..< 3 where !completion.exists {
+                let inputReady = XCTNSPredicateExpectation(
+                    predicate: NSPredicate(
+                        format: "exists == true AND enabled == true"
+                    ),
+                    object: road
                 )
+                XCTAssertEqual(
+                    XCTWaiter().wait(for: [inputReady], timeout: 8),
+                    .completed,
+                    "Transform input did not become ready"
+                )
+                dragActiveStage()
+                if completion.waitForExistence(timeout: 3) { break }
+                XCTAssertFalse(
+                    failure.exists,
+                    "The signed runtime failed during Transform"
+                )
+                if !currentStageStillExists() { break }
             }
+            XCTAssertTrue(
+                completion.waitForExistence(timeout: 8),
+                index == elementIDs.indices.last
+                    ? "The final physical stage did not complete Transform"
+                    : "The physical transform did not reveal its next stage"
+            )
         }
     }
 
@@ -4702,7 +5248,7 @@ final class JourneyAppUITests: XCTestCase {
 
     private func resumeResponsiveAudioIfNeeded(
         phaseState: XCUIElement,
-        hearButton: XCUIElement
+        soundControl: XCUIElement
     ) {
         let playable = XCTNSPredicateExpectation(
             predicate: NSPredicate(
@@ -4721,12 +5267,30 @@ final class JourneyAppUITests: XCTestCase {
             return
         }
         if phaseState.value as? String == "resumeRequired:waiting" {
-            hearButton.tap()
+            soundControl.tap()
         }
         wait(
             for: phaseState,
             toHaveValue: "playing:waiting",
             timeout: 8
+        )
+    }
+
+    private func openLockedSteppeRoad(in app: XCUIApplication) {
+        let lockedRoad = app.buttons["chapter-road-steppe-comes-west"]
+        XCTAssertTrue(lockedRoad.waitForExistence(timeout: 5))
+        for _ in 0 ..< 20 where !lockedRoad.isHittable {
+            if lockedRoad.frame.midY > app.frame.midY {
+                app.swipeUp()
+            } else {
+                app.swipeDown()
+            }
+        }
+        XCTAssertTrue(lockedRoad.isHittable)
+        lockedRoad.tap()
+        XCTAssertTrue(
+            app.descendants(matching: .any)["locked-road-purchase"]
+                .waitForExistence(timeout: 5)
         )
     }
 

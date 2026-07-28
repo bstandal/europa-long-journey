@@ -118,6 +118,33 @@ function baselineCrop() {
   };
 }
 
+function largestCrop() {
+  return {
+    id: "largest-430x932",
+    viewport: { widthPoints: 430, heightPoints: 932 },
+    sourceRect: {
+      x: 0.15,
+      y: 0.15008024893547334,
+      width: 0.7,
+      height: 0.6998395021290533,
+    },
+    safeTextRegions: [
+      {
+        id: "narrative-copy",
+        rect: { x: 0.08, y: 0.06, width: 0.84, height: 0.2 },
+      },
+      {
+        id: "mechanism-caption",
+        rect: { x: 0.12, y: 0.78, width: 0.76, height: 0.12 },
+      },
+    ],
+  };
+}
+
+function launchCrops() {
+  return [baselineCrop(), largestCrop()];
+}
+
 function requirementAssetPath(sceneID, role, filename) {
   return `requirements/first-farmers/scenes/${sceneID}/${role}/${filename}`;
 }
@@ -370,7 +397,6 @@ function atmosphereFor(beat) {
 
 function genericScene(beat, interaction) {
   const sceneID = beat.sceneID;
-  const crop = baselineCrop();
   const baseLayers = [
     staticLayer(sceneID, "far-landscape", 0, 0.08, {
       parallaxFactor: 0.02,
@@ -433,7 +459,7 @@ function genericScene(beat, interaction) {
       canvas: { width: 1179, height: 2556 },
       cameraTravelBounds: { x: 0.2, y: 0.2, width: 0.6, height: 0.6 },
       authoredOverscanFraction: 0.15,
-      viewportCrops: [crop],
+      viewportCrops: launchCrops(),
     },
     layers,
     cameraRail: {
@@ -447,7 +473,7 @@ function genericScene(beat, interaction) {
     ...(visual.binding ? { interactionVisualBinding: visual.binding } : {}),
     reduceMotionComposition: {
       canvas: { width: 1179, height: 2556 },
-      viewportCrops: [crop],
+      viewportCrops: launchCrops(),
       strata: reduceMotionStrata,
     },
     mechanismFocus: local(`${sceneID}-mechanism-focus`, mechanism),

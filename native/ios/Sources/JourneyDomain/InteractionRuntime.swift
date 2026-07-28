@@ -167,6 +167,154 @@ public enum InteractionRuntimeError: Error, Equatable, Sendable {
 }
 
 public enum InteractionReducer {
+    private static func allocationConfigurationIsValid(
+        _ configuration: AllocateInteractionSpec
+    ) -> Bool {
+        guard configuration.totalUnits >= 0,
+              !configuration.destinations.isEmpty,
+              configuration.destinations.allSatisfy({
+                  !$0.id.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                      && $0.minimumUnits >= 0
+              }),
+              Set(configuration.destinations.map(\.id)).count
+                == configuration.destinations.count else {
+            return false
+        }
+        var minimumTotal = 0
+        for destination in configuration.destinations {
+            let (next, overflow) = minimumTotal.addingReportingOverflow(
+                destination.minimumUnits
+            )
+            guard !overflow, next <= configuration.totalUnits else { return false }
+            minimumTotal = next
+        }
+        return true
+    }
+
+    /// Highest value the destination can hold without exceeding the finite
+    /// authored resource. A nil result means the progress/configuration pair
+    /// is malformed or the destination is unknown.
+    public static func maximumAllocatableUnits(
+        for destinationID: String,
+        progress: AllocateProgress,
+        configuration: AllocateInteractionSpec
+    ) -> Int? {
+        guard allocationConfigurationIsValid(configuration),
+              configuration.destinations.contains(where: { $0.id == destinationID }),
+              progress.allocations.map(\.destinationID)
+                == configuration.destinations.map(\.id).sorted(),
+              progress.allocations.allSatisfy({ $0.units >= 0 }) else {
+            return nil
+        }
+        var allocatedElsewhere = 0
+        for allocation in progress.allocations
+            where allocation.destinationID != destinationID {
+            let (next, overflow) = allocatedElsewhere.addingReportingOverflow(
+                allocation.units
+            )
+            guard !overflow, next <= configuration.totalUnits else { return nil }
+            allocatedElsewhere = next
+        }
+        let maximum = configuration.totalUnits - allocatedElsewhere
+        guard let current = progress.allocations.first(where: {
+            $0.destinationID == destinationID
+        })?.units,
+        current <= maximum else {
+            return nil
+        }
+        return maximum
+    }
+
+    /// Canonical completion predicate shared by touch, VoiceOver and the
+    /// reducer's commit action.
+    public static func allocationCanCommit(
+        progress: AllocateProgress,
+        configuration: AllocateInteractionSpec
+    ) -> Bool {
+        guard allocationConfigurationIsValid(configuration),
+              progress.allocations.map(\.destinationID)
+                == configuration.destinations.map(\.id).sorted(),
+              progress.allocations.allSatisfy({ $0.units >= 0 }) else {
+            return false
+        }
+        var total = 0
+        for allocation in progress.allocations {
+            let (next, overflow) = total.addingReportingOverflow(allocation.units)
+            guard !overflow, next <= configuration.totalUnits else { return false }
+            total = next
+        }
+        guard total == configuration.totalUnits else { return false }
+        return configuration.destinations.allSatisfy { destination in
+            (progress.allocations.first(where: {
+                $0.destinationID == destination.id
+            })?.units ?? -1) >= destination.minimumUnits
+        }
+    }
+
+    /// JourneyContent uses this SPI to prove that an archived terminal result
+    /// still matches the currently verified authored grammar.
+    @_spi(JourneyContent)
+    public static func terminalState(
+        _ runtime: InteractionRuntimeState,
+        matches interaction: InteractionSpec
+    ) -> Bool {
+        guard runtime.phase == .complete,
+              runtime.interactionID == interaction.id else {
+            return false
+        }
+        switch (runtime.progress, interaction.grammar) {
+        case let (.trace(progress), .trace(configuration)):
+            return progress.reachedAnchorCount == configuration.anchors.count
+                && progress.lastPoint?.isUnitPoint != false
+
+        case let (.allocate(progress), .allocate(configuration)):
+            return allocationCanCommit(
+                progress: progress,
+                configuration: configuration
+            )
+
+        case let (.assemble(progress), .assemble(configuration)):
+            let componentByID = Dictionary(
+                uniqueKeysWithValues: configuration.components.map { ($0.id, $0) }
+            )
+            let placementIDs = progress.placements.map(\.componentID)
+            return placementIDs.count == configuration.components.count
+                && Set(placementIDs).count == placementIDs.count
+                && progress.placements.allSatisfy { placement in
+                    guard let component = componentByID[placement.componentID] else {
+                        return false
+                    }
+                    return placement.slotID == component.targetSlot
+                        && component.prerequisites.allSatisfy(placementIDs.contains)
+                }
+
+        case let (.pressure(progress), .pressure(configuration)):
+            let forceByID = Dictionary(
+                uniqueKeysWithValues: configuration.forces.map { ($0.id, $0) }
+            )
+            let valueIDs = progress.values.map(\.forceID)
+            return Set(valueIDs) == Set(forceByID.keys)
+                && Set(valueIDs).count == valueIDs.count
+                && progress.values.allSatisfy { value in
+                    guard let force = forceByID[value.forceID],
+                          value.magnitude.isFinite,
+                          (0 ... 1).contains(value.magnitude) else {
+                        return false
+                    }
+                    return force.userControllable
+                        || value.magnitude == force.initialMagnitude
+                }
+                && progress.stableMillis >= configuration.requiredHoldMillis
+
+        case let (.transform(progress), .transform(configuration)):
+            return progress.completedStageCount == configuration.stages.count
+                && progress.currentAmount == 0
+
+        default:
+            return false
+        }
+    }
+
     public static func reduce(
         state: inout InteractionRuntimeState,
         spec: InteractionSpec,
@@ -252,18 +400,21 @@ public enum InteractionReducer {
             }
 
         case let (.allocate(configuration), .allocate(progress), .allocate(destinationID, units)):
-            guard units >= 0,
-                  configuration.destinations.contains(where: { $0.id == destinationID }) else {
+            guard units >= 0 else {
                 return InteractionReduction(feedback: .resistance)
             }
             var next = progress
             guard let index = next.allocations.firstIndex(where: { $0.destinationID == destinationID }) else {
+                return InteractionReduction(feedback: .resistance)
+            }
+            guard let maximum = maximumAllocatableUnits(
+                for: destinationID,
+                progress: progress,
+                configuration: configuration
+            ) else {
                 throw InteractionRuntimeError.mismatchedGrammar
             }
-            let otherUnits = next.allocations.enumerated().reduce(0) {
-                $0 + ($1.offset == index ? 0 : $1.element.units)
-            }
-            guard otherUnits + units <= configuration.totalUnits else {
+            guard units <= maximum else {
                 return InteractionReduction(feedback: .resistance)
             }
             next.allocations[index].units = units
@@ -271,13 +422,10 @@ public enum InteractionReducer {
             feedback = .progress
 
         case let (.allocate(configuration), .allocate(progress), .commitAllocation):
-            let allocatedUnits = progress.allocations.reduce(0) { $0 + $1.units }
-            let matchesMinimums = configuration.destinations.allSatisfy { destination in
-                (progress.allocations.first(where: {
-                    $0.destinationID == destination.id
-                })?.units ?? -1) >= destination.minimumUnits
-            }
-            if allocatedUnits == configuration.totalUnits, matchesMinimums {
+            if allocationCanCommit(
+                progress: progress,
+                configuration: configuration
+            ) {
                 return complete(&state, effects: spec.completionEffects)
             }
             feedback = .resistance

@@ -1467,22 +1467,47 @@ public final class SceneMetalCompositor: NSObject, ObservableObject, MTKViewDele
         _ requests: [SceneMetalTextureRequest],
         device: any MTLDevice
     ) -> Result<DecodedTextures, TextureLoadFailure> {
-        let loader = MTKTextureLoader(device: device)
         var textures: [SceneMetalTextureKey: any MTLTexture] = [:]
         for request in requests {
-            let data: Data
-            do {
-                data = try SceneAssetDataLoader.load(request.asset)
-            } catch {
-                return .failure(.assetVerification(request.key.packagePath))
-            }
-            do {
-                textures[request.key] = try loader.newTexture(
-                    data: data,
-                    options: textureOptions(for: request.key.sampling)
-                )
-            } catch {
-                return .failure(.textureDecode(request.key.packagePath))
+            // MTKTextureLoader crosses ImageIO/CoreGraphics and Metal staging
+            // paths which create autoreleased Objective-C objects. Swift
+            // concurrency workers do not provide a useful per-asset drain
+            // boundary here; without one, the CPU decode backing for every
+            // full-resolution layer can survive until the whole batch (and,
+            // under a long-lived worker, longer) has completed. Keep the
+            // verified MTLTexture, but drain the signed Data bridge, loader and
+            // decode intermediates before admitting the next asset.
+            let decoded: Result<any MTLTexture, TextureLoadFailure> =
+                autoreleasepool {
+                    let data: Data
+                    do {
+                        data = try SceneAssetDataLoader.load(request.asset)
+                    } catch {
+                        return .failure(
+                            .assetVerification(request.key.packagePath)
+                        )
+                    }
+                    do {
+                        let loader = MTKTextureLoader(device: device)
+                        return .success(
+                            try loader.newTexture(
+                                data: data,
+                                options: textureOptions(
+                                    for: request.key.sampling
+                                )
+                            )
+                        )
+                    } catch {
+                        return .failure(
+                            .textureDecode(request.key.packagePath)
+                        )
+                    }
+                }
+            switch decoded {
+            case let .success(texture):
+                textures[request.key] = texture
+            case let .failure(failure):
+                return .failure(failure)
             }
         }
         return .success(DecodedTextures(values: textures))

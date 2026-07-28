@@ -98,6 +98,14 @@ public actor ExperiencePreferencesStore {
                 origin: .migrated(fromSchemaVersion: 0)
             )
 
+        case let .legacyV1(legacy):
+            let migrated = legacy.migrated()
+            try writeCurrent(migrated)
+            return ExperiencePreferencesLoadResult(
+                preferences: migrated,
+                origin: .migrated(fromSchemaVersion: 1)
+            )
+
         case let .future(version):
             let preservedURL = try preserve(
                 bytes,
@@ -137,7 +145,7 @@ public actor ExperiencePreferencesStore {
         guard FileManager.default.fileExists(atPath: preferencesFileURL.path) else { return }
         let bytes = try Data(contentsOf: preferencesFileURL)
         switch Self.classify(bytes) {
-        case .current, .legacyV0:
+        case .current, .legacyV0, .legacyV1:
             return
         case let .future(version):
             _ = try preserve(bytes, classification: "future-v\(version)")
@@ -192,6 +200,10 @@ public actor ExperiencePreferencesStore {
             guard let legacy = try? decoder.decode(LegacyExperiencePreferencesV0.self, from: bytes)
             else { return .corrupt }
             return .legacyV0(legacy)
+        case 1:
+            guard let legacy = try? decoder.decode(LegacyExperiencePreferencesV1.self, from: bytes)
+            else { return .corrupt }
+            return .legacyV1(legacy)
         case ExperiencePreferences.currentSchemaVersion:
             guard let preferences = try? decoder.decode(ExperiencePreferences.self, from: bytes),
                   (try? preferences.validate()) != nil else {
@@ -213,6 +225,7 @@ public actor ExperiencePreferencesStore {
 private enum StoredDocument {
     case current(ExperiencePreferences)
     case legacyV0(LegacyExperiencePreferencesV0)
+    case legacyV1(LegacyExperiencePreferencesV1)
     case future(Int)
     case corrupt
 }
@@ -231,12 +244,36 @@ private struct LegacyExperiencePreferencesV0: Codable {
 
     func migrated() -> ExperiencePreferences {
         ExperiencePreferences(
+            soundEnabled: narrationEnabled || scoreEnabled || soundscapeEnabled,
             narrationEnabled: narrationEnabled,
-            scoreEnabled: scoreEnabled,
-            soundscapeEnabled: soundscapeEnabled,
             hapticsEnabled: hapticsEnabled,
             cellularDownloadsEnabled: cellularDownloadsEnabled,
             automaticDeepDiveDownloadsEnabled: false
+        )
+    }
+}
+
+private enum LegacyNarrationPlaybackPolicyV1: String, Codable {
+    case explicitUserActionOnly
+}
+
+private struct LegacyExperiencePreferencesV1: Codable {
+    let schemaVersion: Int
+    let narrationEnabled: Bool
+    let narrationPlaybackPolicy: LegacyNarrationPlaybackPolicyV1
+    let scoreEnabled: Bool
+    let soundscapeEnabled: Bool
+    let hapticsEnabled: Bool
+    let cellularDownloadsEnabled: Bool
+    let automaticDeepDiveDownloadsEnabled: Bool
+
+    func migrated() -> ExperiencePreferences {
+        ExperiencePreferences(
+            soundEnabled: narrationEnabled || scoreEnabled || soundscapeEnabled,
+            narrationEnabled: narrationEnabled,
+            hapticsEnabled: hapticsEnabled,
+            cellularDownloadsEnabled: cellularDownloadsEnabled,
+            automaticDeepDiveDownloadsEnabled: automaticDeepDiveDownloadsEnabled
         )
     }
 }

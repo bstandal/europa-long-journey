@@ -12,7 +12,7 @@ const MAXIMUM_PHYSICAL_FOOTPRINT_BYTES = 500 * 1_024 * 1_024;
 const MAXIMUM_RESTORE_FRAME_NANOSECONDS = 1_500_000_000;
 const MAXIMUM_FULL_INTERACTIVITY_NANOSECONDS = 2_000_000_000;
 const REQUIRED_AUDIO_SAMPLE_RATE = 48_000;
-const MAXIMUM_HARD_KILL_AUDIO_ERROR_SAMPLES = 12_000;
+const MAXIMUM_HARD_KILL_AUDIO_LAG_SAMPLES = 12_000;
 
 export const firstFarmersBeatCoverage = Object.freeze([
   {
@@ -588,12 +588,15 @@ async function validateAudioRestorationRun(run, index, identity, context) {
     controlledPause.cursorSample,
     `${label} controlled-pause restoration drifted by one or more samples`,
   );
-  const hardKillErrorSamples = Math.abs(
-    hardKillRestoration.cursorSample - hardKillReference.cursorSample,
+  const hardKillLagSamples =
+    hardKillReference.cursorSample - hardKillRestoration.cursorSample;
+  assert.ok(
+    hardKillLagSamples >= 0,
+    `${label} hard-kill restoration advanced ahead of the last rendered cursor`,
   );
   assert.ok(
-    hardKillErrorSamples <= MAXIMUM_HARD_KILL_AUDIO_ERROR_SAMPLES,
-    `${label} hard-kill restoration exceeds 250 ms at 48 kHz`,
+    hardKillLagSamples <= MAXIMUM_HARD_KILL_AUDIO_LAG_SAMPLES,
+    `${label} hard-kill restoration is more than 250 ms behind at 48 kHz`,
   );
 
   await readBoundArtifact(

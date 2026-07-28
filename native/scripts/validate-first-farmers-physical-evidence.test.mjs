@@ -589,7 +589,28 @@ test("hard-kill restoration rejects more than 12000 samples at 48 kHz", async ()
     });
     await assert.rejects(
       validateFirstFarmersPhysicalEvidence(evidence, { artifactsRoot: root }),
-      /hard-kill restoration exceeds 250 ms at 48 kHz/u,
+      /hard-kill restoration is more than 250 ms behind at 48 kHz/u,
+    );
+  });
+});
+
+test("hard-kill restoration never advances ahead of the last rendered cursor", async () => {
+  await withFixture(async ({ evidence, root }) => {
+    const run = evidence.audioRestorationRuns[0];
+    await mutateRawReport(root, run.rawReport, (report) => {
+      const reference = report.audioCursorCheckpoints.find(
+        (checkpoint) => checkpoint.sequence
+          === run.hardKill.lastRenderedCheckpointSequence,
+      );
+      const restoration = report.audioCursorCheckpoints.find(
+        (checkpoint) => checkpoint.sequence
+          === run.hardKill.restorationCheckpointSequence,
+      );
+      restoration.cursorSample = reference.cursorSample + 1;
+    });
+    await assert.rejects(
+      validateFirstFarmersPhysicalEvidence(evidence, { artifactsRoot: root }),
+      /hard-kill restoration advanced ahead of the last rendered cursor/u,
     );
   });
 });

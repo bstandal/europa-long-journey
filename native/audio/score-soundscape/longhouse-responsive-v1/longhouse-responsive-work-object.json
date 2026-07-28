@@ -564,8 +564,8 @@
       {
         "id": "native-timeline-transport",
         "path": "native/ios/Sources/DramaticAudio/NativeTimelineTransport.swift",
-        "bytes": 190410,
-        "sha256": "9c0ea9fc9da683830e26562276f8763778b653b9f2adb80564a49482c5255408"
+        "bytes": 191598,
+        "sha256": "7afdd59a27679f49a7805edbd0946dcf0776ce8a90c992d28ba8c1c7e09ad257"
       },
       {
         "id": "durable-audio-completion-runtime",

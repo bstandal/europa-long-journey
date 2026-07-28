@@ -1,6 +1,81 @@
 # Native implementation status
 
-Status date: 26 July 2026
+Status date: 28 July 2026
+
+## Current UX implementation closure — 28 July 2026
+
+This section supersedes the older current-result claims below. Those entries
+remain as dated historical evidence and must not be read as the state of the
+present tree.
+
+The First Farmers non-shipping runtime and the shared chapter shell now
+implement the agreed chapter journey:
+
+- `Begin`, `Resume` and deliberate review entry can start the verified authored
+  sound directly. The former per-scene sound choice is removed. A fixed sound
+  control pauses and resumes at the stored sample position, while lifecycle,
+  route and VoiceOver transitions remain fail-closed.
+- Chapter chrome keeps `Road`, visited-scene navigation and sound available.
+  Narrative text scrolls independently of the fixed instruction and action
+  footer, including the linear accessibility layout.
+- Completed beats are archived as sealed, read-only review records. `Previous`,
+  `Next`, `Return to current` and completed-chapter `Done` do not rewind the
+  causal route or replay interaction effects.
+- Stable paragraph anchors restore the active reading position. Review stores
+  its reading position independently.
+- Included-chapter map and road entries share one route binding. Completed and
+  in-progress chapters open as review and resume respectively. The prologue
+  offers a button beside its horizontal gesture, and commerce remains one
+  purchase/download sheet.
+- Content failures are typed. An unresolved viewport no longer presents a
+  missing-package message, while missing, corrupt and incompatible content keep
+  their distinct recovery paths.
+
+Current automated verification for this tree is green:
+
+- native script tests: `105/105`;
+- Phase 1 tests: `6/6`;
+- Phase 2 tests: `27/27`;
+- narration and authored-audio tests: `155/155`;
+- native tooling tests: `236/236`;
+- SwiftPM tests: `872/872`;
+- connected Xcode unit and UI tests: `1006/1006` on an iOS Simulator;
+- isolated signed live tests: `2/2`, including all 17 First Farmers beats and
+  all six principal interactions; and
+- ordinary Release app development-resource boundary: `PASS`.
+
+The complete run exposed a timing race between ephemeral responsive-audio
+cleanup and the next Transform input. Scene mutation now waits for the cleanup
+token to quiesce and then revalidates route authority. The dedicated regression,
+the original Continent Remade UI case and the complete Xcode run all pass after
+the repair.
+
+The review-readiness validator is still `CANDIDATE`, with eight evidence
+blockers: stale automated-suite binding, stale fixture-determinism binding,
+pending simulator-traversal evidence, interaction recordings without the
+current subject SHA, stale restore-matrix binding, stale audio-restore binding,
+no accessibility `PASS` receipt and no offline `PASS` receipt. These receipts
+have not been rewritten from simulator results.
+
+The physical-device preflight fails because the registered phone, `Basta 16`,
+is unavailable, Developer Mode is disabled and its developer disk image is
+unavailable. The required
+`quality/physical-device-evidence/first-farmers.receipt.json` does not exist.
+The final manual Simulator visual inspection is also pending because the Mac is
+locked. Neither condition is reported as a pass.
+
+Production authority remains unchanged:
+
+- `content/public/` contains zero files;
+- there is no approved, signed, complete essential launch package or shipping
+  trust chain;
+- visual, narration, score, soundscape, haptic and complete-package editor
+  approvals remain open;
+- Chapters 13 and 21 remain development slices, and the other launch packages
+  are absent; and
+- physical VoiceOver, interruption, Silent Mode, Bluetooth/AirPlay,
+  hard-kill, performance, battery, StoreKit, hosted-download and offline gates
+  remain unexecuted on a release candidate.
 
 ## Gate state
 

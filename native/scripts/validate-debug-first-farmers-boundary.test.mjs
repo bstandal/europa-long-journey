@@ -79,7 +79,7 @@ test('signed fixture has one explicit release-optimized non-shipping trust domai
   );
   assert.match(
     model,
-    /#if DEBUG \|\| NON_SHIPPING_LIVE_TEST\n\s+private func appendSignedRuntimeFixtureSeekActions/,
+    /#if DEBUG \|\| NON_SHIPPING_LIVE_TEST(?:(?!#endif)[\s\S])*?private func appendSignedRuntimeFixtureSeekActions/,
   );
   assert.match(
     repository,

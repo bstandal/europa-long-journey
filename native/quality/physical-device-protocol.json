@@ -179,6 +179,8 @@
   "firstFarmersEvidenceContract": {
     "schemaPath": "quality/schemas/first-farmers-physical-evidence.schema.json",
     "validatorPath": "scripts/validate-first-farmers-physical-evidence.mjs",
+    "evidencePath": "quality/physical-device-evidence/first-farmers.receipt.json",
+    "artifactsRoot": "quality/physical-device-evidence/artifacts",
     "requiredStatus": "PASS",
     "chapterID": "first-farmers",
     "productionPackageID": "essential-free-v1",

@@ -59,6 +59,22 @@ function baselineCrop() {
   };
 }
 
+function largestCrop() {
+  return {
+    id: "largest-430x932",
+    viewport: { widthPoints: 430, heightPoints: 932 },
+    sourceRect: { x: 0.05, y: 0.05, width: 0.9, height: 0.9 },
+    safeTextRegions: [{
+      id: "opening-copy",
+      rect: { x: 0.08, y: 0.06, width: 0.84, height: 0.22 },
+    }],
+  };
+}
+
+function launchCrops() {
+  return [baselineCrop(), largestCrop()];
+}
+
 function masks(prefix = "layer") {
   return {
     alphaMaskAssetPath: `assets/${prefix}-alpha.png`,
@@ -232,7 +248,7 @@ async function buildPayload(packageID = verticalSliceDevelopmentIdentity.package
         canvas: { width: 1200, height: 2600 },
         cameraTravelBounds: { x: 0.2, y: 0.2, width: 0.6, height: 0.6 },
         authoredOverscanFraction: 0.16,
-        viewportCrops: [baselineCrop()],
+        viewportCrops: launchCrops(),
       },
       layers: [
         layer("harvest", 0, ["exhausted", "full"]),
@@ -312,7 +328,7 @@ async function buildPayload(packageID = verticalSliceDevelopmentIdentity.package
           { id: "winter-state", kind: "stateOverlay", layerID: "winter-store-layer" },
           { id: "static-foreground", kind: "staticPlate", assetPath: "assets/reduce-motion-foreground.heif" },
         ],
-        viewportCrops: [baselineCrop()],
+        viewportCrops: launchCrops(),
       },
       mechanismFocus: local("scene-harvest-mechanism", "One finite harvest divided across time"),
       accessibilityID: "access-harvest",
@@ -511,6 +527,22 @@ test("compiles and verifies a development-only vertical slice through the packag
   await assert.rejects(
     () => verifyDevelopmentVerticalSlice(output, result.trustReceipt, fixture.options),
     /size or SHA-256 mismatch/,
+  );
+});
+
+test("rejects a development slice without the largest launch viewport crop", async (context) => {
+  const fixture = await createFixture(context);
+  fixture.payload.scenes[0].sceneCanvas.viewportCrops.pop();
+  fixture.payload.scenes[0].reduceMotionComposition.viewportCrops.pop();
+  await writeFile(fixture.payloadPath, `${JSON.stringify(fixture.payload, null, 2)}\n`);
+
+  await assert.rejects(
+    () => compileDevelopmentVerticalSlice(
+      fixture.source,
+      path.join(fixture.temporary, "compiled"),
+      fixture.options,
+    ),
+    /exactly baseline-393x852 and largest-430x932 are required/u,
   );
 });
 

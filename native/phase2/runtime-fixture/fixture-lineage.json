@@ -1252,16 +1252,16 @@
   },
   "sourcePayload": {
     "path": "native/phase2/generated/first-farmers.content-package.json",
-    "bytes": 414226,
-    "sha256": "1a47d1185d512a87cacfc1a88d17148885f085cf9599744d1fbab87b1579ca0a"
+    "bytes": 442386,
+    "sha256": "fa69d84adf98b08558b825371f86024c89f30dea96145e3a3423364debd437b4"
   },
   "experienceLab": {
     "path": "native/phase1/experience-lab.json",
     "bytes": 3957,
     "sha256": "02b8ea56805415f5144dbfa18445302ce97b560525a1c6b4d375ed4f0478b3ba"
   },
-  "payloadSHA256": "d850402979ce968a50f680f66fa86586ed8f7284a2cabb705e5299ac575ec6df",
-  "manifestDigest": "a761522302648c3d8721757dc1c4b7ff9da93a1a7535bc28d8f28216235b0f85",
+  "payloadSHA256": "0e99e4f1f6e073333d5c91892d5906466fbf95472c806d19c61fe5d960b30885",
+  "manifestDigest": "4b0b7c2d33a61d0a43b22f33230bb9420fbbf3cd4a86de26e3ac886947e59c70",
   "compiledFiles": [
     {
       "path": "assets/harvest-v26-parallax-alpha-foreground.png",
@@ -2540,8 +2540,8 @@
     },
     {
       "path": "chapters/vertical-slice-development-v1.json",
-      "bytes": 430055,
-      "sha256": "d850402979ce968a50f680f66fa86586ed8f7284a2cabb705e5299ac575ec6df"
+      "bytes": 464103,
+      "sha256": "0e99e4f1f6e073333d5c91892d5906466fbf95472c806d19c61fe5d960b30885"
     }
   ],
   "claimsExcluded": [

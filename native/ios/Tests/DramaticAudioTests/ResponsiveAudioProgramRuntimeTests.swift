@@ -1061,9 +1061,8 @@ final class ResponsiveAudioProgramRuntimeTests: XCTestCase {
         )
         let before = controller.runtime.snapshot()
         let preferences = ExperiencePreferences(
+            soundEnabled: false,
             narrationEnabled: false,
-            scoreEnabled: false,
-            soundscapeEnabled: false,
             hapticsEnabled: false
         )
 

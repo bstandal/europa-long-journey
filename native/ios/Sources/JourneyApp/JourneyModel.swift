@@ -29,6 +29,44 @@ struct OfflineChapterRequest: Identifiable, Equatable {
     var id: ChapterID { chapterID }
 }
 
+#if DEBUG
+private struct ReviewCausalChapterProjection: Encodable {
+    let chapterID: ChapterID
+    let packageID: PackageID
+    let contentVersion: SchemaVersion
+    let arcID: ArcID?
+    let beatID: BeatID?
+    let beatCompletionContract: BeatCompletionContract?
+    let sceneVisualSnapshot: SceneVisualSnapshot?
+    let interaction: InteractionRuntimeState?
+    let completedBeatIDs: [BeatID]
+    let completedArcIDs: [ArcID]
+    let completedBeatReviewRecords: [CompletedBeatReviewRecord]
+
+    init(_ session: ChapterSession) {
+        chapterID = session.chapterID
+        packageID = session.packageID
+        contentVersion = session.contentVersion
+        arcID = session.arcID
+        beatID = session.beatID
+        beatCompletionContract = session.beatCompletionContract
+        sceneVisualSnapshot = session.sceneVisualSnapshot
+        interaction = session.interaction
+        completedBeatIDs = session.completedBeatIDs
+        completedArcIDs = session.completedArcIDs
+        completedBeatReviewRecords = session.completedBeatReviewRecords
+    }
+}
+
+private struct ReviewCausalStateProjection: Encodable {
+    let route: JourneyRoute
+    let prologue: PrologueState
+    let world: WorldGraph
+    let chapterSessions: [ReviewCausalChapterProjection]
+    let completedChapterIDs: [ChapterID]
+}
+#endif
+
 enum PurchasePresentationState: Equatable {
     case idle
     case purchasing
@@ -94,11 +132,62 @@ struct ChapterRuntimeRouteIdentity: Equatable, Hashable {
     let reduceMotion: Bool
 }
 
-#if DEBUG || NON_SHIPPING_LIVE_TEST
-/// Private authority for the review build's one finite, user-paced timeline
+private struct ChapterAudioEntryGrant: Equatable {
+    let chapterID: ChapterID
+    let token: UUID
+}
+
+private struct ChapterReviewAudioEntryGrant: Equatable {
+    let chapterID: ChapterID
+    let beatID: BeatID
+    let token: UUID
+}
+
+private struct ChapterAssetFailureReportTask {
+    let authority: PackageAssetFailureAuthority
+    let task: Task<AssetFailureReportOutcome?, Never>
+}
+
+private struct CompletedChapterAssetFailureReport {
+    let authority: PackageAssetFailureAuthority
+    let outcome: AssetFailureReportOutcome?
+}
+
+private struct ChapterRedownloadIntent {
+    enum Phase: Equatable {
+        case preparingFailedGeneration
+        case refreshingRecoveredGeneration
+        case awaitingInstaller
+    }
+
+    let token: UUID
+    let chapterID: ChapterID
+    let packageID: PackageID
+    let authority: PackageAssetFailureAuthority
+    var phase: Phase
+    var deferredInstallerRetryWasAttempted: Bool
+}
+
+private struct ChapterReviewRuntimeAuthorityBinding: Sendable {
+    let futureReleaseID: ReleaseID?
+    let authority: VerifiedChapterRuntimeContentAuthority
+}
+
+struct ChapterReviewRenderPlan: Equatable, Sendable {
+    let cursor: ChapterReviewCursor
+    let framePlan: SceneFramePlan
+    let metalPreparationPlan: SceneMetalPreparationPlan
+}
+
+struct ChapterReviewAudioBinding {
+    let timeline: AudioTimeline
+    let resolver: any OfflineAudioAssetResolving
+}
+
+/// Private authority for one finite, user-paced primary timeline
 /// per beat. It is derived from the same signed package and route identity as
 /// the scene runtime; it never enters a content package or public schema.
-struct NonShippingReviewPrimaryAudioAuthority: Codable, Equatable, Sendable {
+struct PrimaryAudioAuthority: Codable, Equatable, Sendable {
     let formatVersion: Int
     let contentRevision: UInt64
     let chapterID: ChapterID
@@ -121,8 +210,8 @@ struct NonShippingReviewPrimaryAudioAuthority: Codable, Equatable, Sendable {
     }
 }
 
-struct NonShippingReviewPrimaryAudioBinding: Sendable {
-    let authority: NonShippingReviewPrimaryAudioAuthority
+struct PrimaryAudioBinding: Sendable {
+    let authority: PrimaryAudioAuthority
     let timeline: AudioTimeline
     let resolver: any OfflineAudioAssetResolving
     let journalCursorSample: Int64
@@ -134,7 +223,6 @@ struct NonShippingReviewPrimaryAudioBinding: Sendable {
         }
     }
 }
-#endif
 
 enum JourneyChapterRuntimeError: Error, Equatable {
     case routeAuthorityUnavailable
@@ -462,6 +550,8 @@ final class JourneyModel: ObservableObject {
         JourneyUITestResponsiveAudioBindingContext?
     @Published private(set) var suspensionPersistenceRetryDiagnosticForTesting =
         "none"
+    @Published private(set) var chapterRedownloadDiagnosticForTesting =
+        "phase=idle;package=none"
     private var suspensionPersistenceRetryInjectionDidRun = false
     @Published private(set) var orderedRecoveryEpochProbeIsHoldingForTesting =
         false
@@ -596,12 +686,58 @@ final class JourneyModel: ObservableObject {
         orderedRecoveryEpochProbeHoldContinuation?.resume()
         orderedRecoveryEpochProbeHoldContinuation = nil
     }
+
+    var chapterRedownloadProbeIsEnabledForTesting: Bool {
+        ProcessInfo.processInfo.arguments.contains(
+            "--ui-testing-chapter-redownload-drain"
+        )
+    }
+
+    func queueChapterRedownloadProbeForTesting() {
+        guard chapterRedownloadProbeIsEnabledForTesting else { return }
+        let packageID = PackageID("paid-pack-01")
+        guard let package = LaunchContent.collectionManifest.packages
+            .first(where: { $0.id == packageID }),
+              let chapter = FoundationCatalog.chapters.first(where: {
+                  $0.packageID == packageID
+              }) else { return }
+        let manifestDigest = String(repeating: "a", count: 64)
+        let generation = InstalledPackageGeneration(
+            generationID: "ui-test-failed-paid-pack-01-generation",
+            packageID: packageID,
+            packageVersion: package.version,
+            manifestDigest: manifestDigest,
+            relativePath: "ui-test-paid-pack-01-generation",
+            activationSequence: 1
+        )
+        requestChapterRedownload(
+            chapterID: chapter.id,
+            packageID: packageID,
+            assetFailureAuthority: PackageAssetFailureAuthority(
+                snapshotRevision: 1,
+                packageID: packageID,
+                installedGeneration: generation,
+                manifestDigest: manifestDigest
+            )
+        )
+    }
+
+    private func recordChapterRedownloadMilestoneForTesting(
+        _ phase: String,
+        packageID: PackageID
+    ) {
+        guard chapterRedownloadProbeIsEnabledForTesting else { return }
+        chapterRedownloadDiagnosticForTesting =
+            "phase=\(phase);package=\(packageID.rawValue)"
+    }
 #endif
     @Published private(set) var entitlementSnapshot: EntitlementSnapshot?
     @Published private(set) var lockedRoad: LockedRoad?
     @Published private(set) var purchaseState = PurchasePresentationState.idle
     @Published private(set) var storeDisplayPrice: String?
     @Published private(set) var chapterCursor: ChapterCursor?
+    @Published private(set) var chapterReviewProjection:
+        ChapterReviewProjection?
     @Published private(set) var contentFailure: String?
     @Published private(set) var chapterTransitionIsPending = false
     @Published private(set) var experiencePreferences = ExperiencePreferences.standard
@@ -610,6 +746,7 @@ final class JourneyModel: ObservableObject {
     @Published private(set) var downloadPresentation: DownloadPresentationProjection?
     @Published private(set) var downloadFailure: DownloadSurfaceFailure?
     @Published private(set) var downloadCommandIsPending = false
+    @Published private(set) var chapterRedownloadIsPreparing = false
     @Published private(set) var offlineChapterRequest: OfflineChapterRequest?
     @Published private(set) var releaseWorldFocus: ReleaseDeepLinkIntent?
     @Published private(set) var futureReleaseDownloadSnapshot:
@@ -647,6 +784,22 @@ final class JourneyModel: ObservableObject {
     private var persistenceIsLocked = true
     private var prologuePreviewRevision: UInt64 = 0
     private var prologuePreview: ProloguePreview?
+    private var chapterAudioEntryGrant: ChapterAudioEntryGrant?
+    private var chapterReviewAudioEntryGrant:
+        ChapterReviewAudioEntryGrant?
+    private var chapterReviewReturnAudioAuthorization =
+        ChapterReviewReturnAudioAuthorization()
+    private var chapterAssetFailureReportTask:
+        ChapterAssetFailureReportTask?
+    private var completedChapterAssetFailureReport:
+        CompletedChapterAssetFailureReport?
+    private var chapterRedownloadIntent: ChapterRedownloadIntent?
+    /// A terminal installer update can arrive while the redownload command is
+    /// still awaiting its result. Preserve that causal wake-up until the
+    /// command releases its serialization gate; otherwise a second installer
+    /// race can leave a valid intent with no later event to drain it.
+    private var chapterRedownloadObservedTerminalUpdateWhileCommandPending =
+        false
     private let accessResolver = ChapterAccessResolver()
     private var responsiveAudioController: ResponsiveAudioProgramController?
     private var responsiveAudioCursorStore:
@@ -857,9 +1010,13 @@ final class JourneyModel: ObservableObject {
         if preparedCommerceClient == nil {
             let arguments = ProcessInfo.processInfo.arguments
             if arguments.contains("--ui-testing-commerce-ready")
-                || arguments.contains("--ui-testing-owned-downloads") {
+                || arguments.contains("--ui-testing-owned-downloads")
+                || arguments.contains("--ui-testing-restorable-purchase") {
                 preparedCommerceClient = .developmentFixture(
-                    initiallyOwned: arguments.contains("--ui-testing-owned-downloads")
+                    initiallyOwned: arguments.contains("--ui-testing-owned-downloads"),
+                    restoresOwnership: arguments.contains(
+                        "--ui-testing-restorable-purchase"
+                    )
                 )
             }
         }
@@ -957,18 +1114,47 @@ final class JourneyModel: ObservableObject {
         }.joined()
         return "\(lastCommittedSequence):\(digest)"
     }
+
+    var reviewCausalStateDigestForTesting: String {
+        guard DevelopmentSignedRuntimeFixtureAppContent.isActive else {
+            return ""
+        }
+        let projection = ReviewCausalStateProjection(
+            route: committedState.route,
+            prologue: committedState.prologue,
+            world: committedState.world,
+            chapterSessions: committedState.chapterSessions.map(
+                ReviewCausalChapterProjection.init
+            ),
+            completedChapterIDs: committedState.completedChapterIDs
+        )
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.sortedKeys]
+        let bytes = (try? encoder.encode(projection)) ?? Data()
+        return SHA256.hash(data: bytes).map {
+            String(format: "%02x", $0)
+        }.joined()
+    }
 #endif
 
     func setNarrationEnabled(_ enabled: Bool) {
         persistExperiencePreference(\.narrationEnabled, value: enabled)
     }
 
-    func setScoreEnabled(_ enabled: Bool) {
-        persistExperiencePreference(\.scoreEnabled, value: enabled)
+    func setSoundEnabled(_ enabled: Bool) {
+        // Turning sound off is a transport boundary, not merely a mixer
+        // preference. Stop and persist the live cursor synchronously before
+        // the preference write can yield to storage.
+        if !enabled {
+            requestSuspension(.audioRouteChange)
+        }
+        persistExperiencePreference(\.soundEnabled, value: enabled)
     }
 
-    func setSoundscapeEnabled(_ enabled: Bool) {
-        persistExperiencePreference(\.soundscapeEnabled, value: enabled)
+    /// Pauses authored transports without changing the stored Sound choice.
+    /// The exact cursor is persisted and playback must be resumed explicitly.
+    func pauseAuthoredAudioForExplicitResume() {
+        requestSuspension(.audioRouteChange)
     }
 
     func setHapticsEnabled(_ enabled: Bool) {
@@ -984,7 +1170,224 @@ final class JourneyModel: ObservableObject {
     }
 
     func dismissOfflineChapterRequest() {
+        if chapterAudioEntryGrant?.chapterID == offlineChapterRequest?.chapterID {
+            chapterAudioEntryGrant = nil
+        }
         offlineChapterRequest = nil
+    }
+
+    /// Quarantines the exact failed generation before asking the existing
+    /// verified installer for a fresh copy. The download sheet is presented
+    /// immediately, but an `installedCurrent` projection is never mistaken for
+    /// a completed reinstall.
+    func requestChapterRedownload(
+        chapterID: ChapterID,
+        packageID: PackageID,
+        assetFailureAuthority: PackageAssetFailureAuthority? = nil
+    ) {
+        guard packageID != LaunchContent.essentialPackageID,
+              FoundationCatalog.chapters.contains(where: {
+                  $0.id == chapterID && $0.packageID == packageID
+              }) else { return }
+        let authority = assetFailureAuthority
+            ?? chapterAssetFailureAuthority(
+                chapterID: chapterID,
+                packageID: packageID
+            )
+        chapterAudioEntryGrant = nil
+        offlineChapterRequest = OfflineChapterRequest(
+            chapterID: chapterID,
+            packageID: packageID
+        )
+        guard downloadClient != nil,
+              let authority,
+              authority.packageID == packageID else {
+            downloadFailure = downloadClient == nil
+                ? .configurationUnavailable
+                : .command(
+                    "The installed chapter could not be prepared for a new download."
+                )
+            return
+        }
+        downloadFailure = nil
+        if let intent = chapterRedownloadIntent,
+           intent.chapterID == chapterID,
+           intent.packageID == packageID,
+           intent.authority == authority {
+            drainChapterRedownloadIntentIfReady()
+            return
+        }
+        let token = UUID()
+        chapterRedownloadIntent = ChapterRedownloadIntent(
+            token: token,
+            chapterID: chapterID,
+            packageID: packageID,
+            authority: authority,
+            phase: .preparingFailedGeneration,
+            deferredInstallerRetryWasAttempted: false
+        )
+        chapterRedownloadObservedTerminalUpdateWhileCommandPending = false
+        chapterRedownloadIsPreparing = true
+#if DEBUG
+        recordChapterRedownloadMilestoneForTesting(
+            "preparing",
+            packageID: packageID
+        )
+#endif
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            let reportOutcome = await reportChapterAssetFailure(authority)
+            guard chapterRedownloadIntent?.token == token else { return }
+            if case .rolledBack? = reportOutcome {
+                // A fully verified predecessor already repaired the chapter.
+                // Refresh the download controller before dismissing recovery;
+                // its cached active-generation projection may still describe
+                // the failed successor that was just rolled back.
+                chapterRedownloadIntent?.phase =
+                    .refreshingRecoveredGeneration
+                drainChapterRedownloadIntentIfReady()
+                return
+            }
+            chapterRedownloadIsPreparing = false
+            chapterRedownloadIntent?.phase = .awaitingInstaller
+#if DEBUG
+            recordChapterRedownloadMilestoneForTesting(
+                "awaiting-installer",
+                packageID: packageID
+            )
+#endif
+            drainChapterRedownloadIntentIfReady()
+        }
+    }
+
+    private func drainChapterRedownloadIntentIfReady() {
+        guard !downloadCommandIsPending,
+              let intent = chapterRedownloadIntent,
+              let downloadClient else { return }
+        switch intent.phase {
+        case .preparingFailedGeneration:
+            return
+        case .refreshingRecoveredGeneration:
+            break
+        case .awaitingInstaller:
+            if let state = downloadPresentation?.applicationQueueState {
+                switch state {
+                case .idle, .completed:
+                    break
+                default:
+                    return
+                }
+            }
+        }
+
+        downloadCommandIsPending = true
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            var redrainAfterUnlock = false
+            defer {
+                downloadCommandIsPending = false
+                pausePaidQueueAfterCurrentPackageIfNeeded()
+                let observedTerminalUpdate =
+                    chapterRedownloadObservedTerminalUpdateWhileCommandPending
+                chapterRedownloadObservedTerminalUpdateWhileCommandPending =
+                    false
+                if redrainAfterUnlock || observedTerminalUpdate {
+                    Task { @MainActor [weak self] in
+                        await Task.yield()
+                        self?.drainChapterRedownloadIntentIfReady()
+                    }
+                }
+            }
+            do {
+                _ = try await downloadClient.execute(
+                    .refreshInstalledChapters
+                )
+                let refreshed = await downloadClient.snapshot()
+                applyDownloadSnapshot(refreshed)
+                guard chapterRedownloadIntent?.token == intent.token else {
+                    return
+                }
+                if intent.phase == .refreshingRecoveredGeneration {
+                    chapterRedownloadIntent = nil
+                    chapterRedownloadIsPreparing = false
+                    offlineChapterRequest = nil
+                    downloadFailure = nil
+                    return
+                }
+
+                if refreshed.currentInstalledPackageIDs.contains(
+                    intent.packageID
+                ) {
+                    chapterRedownloadIntent = nil
+                    downloadFailure = .command(
+                        "The installed chapter could not be released for a new download."
+                    )
+                    return
+                }
+                switch refreshed.installationState {
+                case .idle, .completed:
+                    break
+                default:
+                    return
+                }
+
+                let commandOutcome = try await downloadClient.execute(
+                    .requestSinglePackage(intent.packageID)
+                )
+                guard chapterRedownloadIntent?.token == intent.token else {
+                    return
+                }
+                if case let .request(result) = commandOutcome {
+                    presentDownloadRequestResult(result)
+                    switch result {
+                    case .started:
+                        downloadFailure = nil
+#if DEBUG
+                        recordChapterRedownloadMilestoneForTesting(
+                            "started",
+                            packageID: intent.packageID
+                        )
+#endif
+                        chapterRedownloadIntent = nil
+                    case .blocked:
+                        chapterRedownloadIntent = nil
+                    case let .noOperation(reason):
+                        chapterRedownloadIntent = nil
+                        if reason == .alreadyCurrent {
+                            downloadFailure = .command(
+                                "The installed chapter could not be released for a new download."
+                            )
+                        }
+                    case let .installerRejected(reason):
+                        if reason == .alreadyRunning
+                            || reason == .unresolvedQueue {
+                            if chapterRedownloadIntent?
+                                .deferredInstallerRetryWasAttempted == false {
+                                chapterRedownloadIntent?
+                                    .deferredInstallerRetryWasAttempted = true
+                                redrainAfterUnlock = true
+                            }
+                        } else {
+                            chapterRedownloadIntent = nil
+                        }
+                    }
+                }
+                applyDownloadSnapshot(await downloadClient.snapshot())
+            } catch {
+                guard chapterRedownloadIntent?.token == intent.token else {
+                    return
+                }
+                if intent.phase == .refreshingRecoveredGeneration {
+                    chapterRedownloadIsPreparing = false
+                    downloadFailure = .statusUnavailable
+                } else {
+                    chapterRedownloadIntent = nil
+                    downloadFailure = .command(
+                        "The chapter could not be downloaded again. Try once more from Offline chapters."
+                    )
+                }
+            }
+        }
     }
 
     func dismissDownloadFailure() {
@@ -1000,6 +1403,9 @@ final class JourneyModel: ObservableObject {
             defer {
                 downloadCommandIsPending = false
                 pausePaidQueueAfterCurrentPackageIfNeeded()
+                chapterRedownloadIntent?
+                    .deferredInstallerRetryWasAttempted = false
+                drainChapterRedownloadIntentIfReady()
             }
             do {
                 applyDownloadSnapshot(try await downloadClient.bootstrap())
@@ -1032,6 +1438,7 @@ final class JourneyModel: ObservableObject {
             defer {
                 downloadCommandIsPending = false
                 pausePaidQueueAfterCurrentPackageIfNeeded()
+                drainChapterRedownloadIntentIfReady()
             }
             do {
                 let outcome = try await downloadClient.execute(command)
@@ -1050,10 +1457,12 @@ final class JourneyModel: ObservableObject {
     func previewPrologue(progress: Double) {
         guard !persistenceIsLocked else { return }
         guard state.route == .prologue, state.prologue.phase != .awakened else { return }
+        guard progress.isFinite else { return }
+        let boundedProgress = min(max(progress, 0), 1)
 
         // Finger movement is deliberately ephemeral. It may animate the road,
         // but it cannot reveal the world or publish another lasting consequence.
-        state = prologuePreview(in: state, progress: progress)
+        state = prologuePreview(in: state, progress: boundedProgress)
         prologuePreviewRevision &+= 1
         prologuePreview = ProloguePreview(
             revision: prologuePreviewRevision,
@@ -1062,7 +1471,8 @@ final class JourneyModel: ObservableObject {
     }
 
     func persistPrologue(progress: Double) {
-        send(.updatePrologueTrace(progress))
+        guard progress.isFinite else { return }
+        send(.updatePrologueTrace(min(max(progress, 0), 1)))
     }
 
     func completePrologue() {
@@ -1296,15 +1706,34 @@ final class JourneyModel: ObservableObject {
                   .chapterRuntimeAuthority(for: releaseID) else {
             return false
         }
-        return openVerifiedChapter(
+        if committedState.completedChapterIDs.contains(chapter.id),
+           committedState.chapterSession(chapter.id)?
+                .completedBeatReviewRecords.isEmpty == false {
+            return beginBeatReview(
+                chapterID: chapter.id,
+                beatID: nil,
+                preferredAuthority: ChapterReviewRuntimeAuthorityBinding(
+                    futureReleaseID: releaseID,
+                    authority: authority
+                )
+            )
+        }
+        chapterAudioEntryGrant = ChapterAudioEntryGrant(
+            chapterID: chapter.id,
+            token: UUID()
+        )
+        let opened = openVerifiedChapter(
             chapter,
             authority: authority,
             futureReleaseID: releaseID
         )
+        if !opened { chapterAudioEntryGrant = nil }
+        return opened
     }
 
     func showWorld() {
         guard !chapterTransitionIsPending else { return }
+        chapterAudioEntryGrant = nil
         contentFailure = nil
         chapterTransitionIsPending = true
         enqueueOrderedJourneyTransition([.showWorld])
@@ -1317,6 +1746,7 @@ final class JourneyModel: ObservableObject {
               let reservation = reserveChapterRuntimeInput(
                   expectedIdentity
               ) else { return }
+        chapterAudioEntryGrant = nil
         contentFailure = nil
         chapterTransitionIsPending = true
         enqueueOrderedJourneyTransition(
@@ -1343,6 +1773,7 @@ final class JourneyModel: ObservableObject {
             showWorld(expectedIdentity: expectedIdentity)
             return
         }
+        chapterAudioEntryGrant = nil
         contentFailure = nil
         chapterTransitionIsPending = true
         enqueueOrderedJourneyTransition(
@@ -1363,6 +1794,7 @@ final class JourneyModel: ObservableObject {
             showWorld()
             return
         }
+        chapterAudioEntryGrant = nil
         contentFailure = nil
         chapterTransitionIsPending = true
         enqueueOrderedJourneyTransition(
@@ -1828,6 +2260,124 @@ final class JourneyModel: ObservableObject {
             )
     }
 
+    private func reviewRuntimeAuthorityMatches(
+        _ authority: VerifiedChapterRuntimeContentAuthority,
+        chapterID: ChapterID,
+        packageID: PackageID,
+        contentVersion: SchemaVersion
+    ) -> Bool {
+        authority.repository.packageID(for: chapterID) == packageID
+            && authority.repository.contentVersion(for: chapterID)
+                == contentVersion
+            && authority.packageRootURL(for: packageID) != nil
+            && authority.verifiedPackage(for: packageID) != nil
+    }
+
+    private func reviewRepositoryMatches(
+        _ coordinator: ChapterCoordinator,
+        chapterID: ChapterID,
+        packageID: PackageID,
+        contentVersion: SchemaVersion
+    ) -> Bool {
+        coordinator.repository.packageID(for: chapterID) == packageID
+            && coordinator.repository.contentVersion(for: chapterID)
+                == contentVersion
+    }
+
+    private func reviewRuntimeAuthorityBinding(
+        chapterID: ChapterID,
+        packageID: PackageID,
+        contentVersion: SchemaVersion,
+        preferred: ChapterReviewRuntimeAuthorityBinding? = nil
+    ) -> ChapterReviewRuntimeAuthorityBinding? {
+        if let preferred,
+           reviewRuntimeAuthorityMatches(
+               preferred.authority,
+               chapterID: chapterID,
+               packageID: packageID,
+               contentVersion: contentVersion
+           ) {
+            return preferred
+        }
+        if let authority = runtimeContentSnapshot?.chapterRuntimeAuthority,
+           reviewRuntimeAuthorityMatches(
+               authority,
+               chapterID: chapterID,
+               packageID: packageID,
+               contentVersion: contentVersion
+           ) {
+            return ChapterReviewRuntimeAuthorityBinding(
+                futureReleaseID: nil,
+                authority: authority
+            )
+        }
+        for releaseID in futureReleaseContentSnapshot.contentsByReleaseID.keys
+            .sorted() {
+            guard let authority = futureReleaseContentSnapshot
+                .chapterRuntimeAuthority(for: releaseID),
+                  reviewRuntimeAuthorityMatches(
+                      authority,
+                      chapterID: chapterID,
+                      packageID: packageID,
+                      contentVersion: contentVersion
+                  ) else {
+                continue
+            }
+            return ChapterReviewRuntimeAuthorityBinding(
+                futureReleaseID: releaseID,
+                authority: authority
+            )
+        }
+        return nil
+    }
+
+    @discardableResult
+    private func bindReviewRuntimeAuthority(
+        chapterID: ChapterID,
+        packageID: PackageID,
+        contentVersion: SchemaVersion,
+        preferred: ChapterReviewRuntimeAuthorityBinding? = nil
+    ) -> ChapterCoordinator? {
+        if let binding = reviewRuntimeAuthorityBinding(
+            chapterID: chapterID,
+            packageID: packageID,
+            contentVersion: contentVersion,
+            preferred: preferred
+        ) {
+            activeFutureReleaseID = binding.futureReleaseID
+            let coordinator = ChapterCoordinator(
+                repository: binding.authority.repository
+            )
+            chapterCoordinator = coordinator
+            return coordinator
+        }
+#if DEBUG
+        if let chapterCoordinator,
+           reviewRepositoryMatches(
+               chapterCoordinator,
+               chapterID: chapterID,
+               packageID: packageID,
+               contentVersion: contentVersion
+           ) {
+            return chapterCoordinator
+        }
+#endif
+        activeFutureReleaseID = nil
+        chapterCoordinator = nil
+        return nil
+    }
+
+    @discardableResult
+    private func bindReviewRuntimeAuthority(
+        _ review: ChapterReviewState
+    ) -> ChapterCoordinator? {
+        bindReviewRuntimeAuthority(
+            chapterID: review.chapterID,
+            packageID: review.packageID,
+            contentVersion: review.contentVersion
+        )
+    }
+
     private func releaseCatalogEntry(
         for releaseID: ReleaseID
     ) -> ReleaseCatalogEntry? {
@@ -1843,12 +2393,21 @@ final class JourneyModel: ObservableObject {
 
     private func currentChapterRuntimeAuthority()
         -> VerifiedChapterRuntimeContentAuthority? {
+        let routedChapterID: ChapterID? = switch committedState.route {
+        case let .chapter(chapterID): chapterID
+        case .prologue, .world:
+            committedState.chapterReview?.chapterID
+        }
         if let activeFutureReleaseID,
            let authority = futureReleaseContentSnapshot.chapterRuntimeAuthority(
                for: activeFutureReleaseID
-           ), case let .chapter(chapterID) = committedState.route,
+           ), let chapterID = routedChapterID,
            authority.repository.chapter(chapterID) != nil {
             return authority
+        }
+        if let chapterID = routedChapterID,
+           let future = installedFutureRelease(containing: chapterID) {
+            return future.authority
         }
         return runtimeContentSnapshot?.chapterRuntimeAuthority
     }
@@ -1876,26 +2435,66 @@ final class JourneyModel: ObservableObject {
         guard let chapter = FoundationCatalog.chapters.first(where: { $0.id == chapterID }) else {
             return
         }
+        if committedState.completedChapterIDs.contains(chapterID) {
+            guard committedState.chapterSession(chapterID)?
+                .completedBeatReviewRecords.isEmpty == false else {
+                return
+            }
+            guard openBeatReview(chapterID: chapterID, beatID: nil) else {
+                chapterAudioEntryGrant = nil
+                chapterReviewAudioEntryGrant = nil
+                contentFailure =
+                    "This completed scene could not be verified. Saved progress has not changed."
+                return
+            }
+            return
+        }
         switch access(to: chapterID) {
         case .included, .purchased:
+            chapterAudioEntryGrant = ChapterAudioEntryGrant(
+                chapterID: chapterID,
+                token: UUID()
+            )
 #if DEBUG || NON_SHIPPING_LIVE_TEST
             if DevelopmentSignedRuntimeFixtureAppContent.isActive,
                let snapshot = runtimeContentSnapshot,
                let verifiedChapter = snapshot.repository.catalogEntry(
                    chapterID
                ) {
-                _ = openVerifiedChapter(
+                if !openVerifiedChapter(
                     verifiedChapter,
                     snapshot: snapshot
-                )
+                ) {
+                    chapterAudioEntryGrant = nil
+                }
                 return
             }
 #endif
             openChapter(chapter)
+            if contentFailure != nil, offlineChapterRequest == nil {
+                chapterAudioEntryGrant = nil
+            }
         case .locked:
+            chapterAudioEntryGrant = nil
             purchaseState = .idle
             lockedRoad = LockedRoad(chapter: chapter)
         }
+    }
+
+    func consumeChapterAudioEntryGrant(
+        for identity: ChapterRuntimeRouteIdentity
+    ) -> Bool {
+        guard let grant = chapterAudioEntryGrant,
+              grant.chapterID == identity.chapterID,
+              chapterRuntimeRouteIdentity(
+                  for: identity.chapterID,
+                  viewportCropID: identity.viewportCropID,
+                  reduceMotion: identity.reduceMotion
+              ) == identity else {
+            return false
+        }
+        chapterAudioEntryGrant = nil
+        return true
     }
 
     func access(to chapterID: ChapterID) -> ChapterAccess {
@@ -1913,6 +2512,7 @@ final class JourneyModel: ObservableObject {
     }
 
     func dismissContentFailure() {
+        chapterAudioEntryGrant = nil
         contentFailure = nil
     }
 
@@ -1953,6 +2553,236 @@ final class JourneyModel: ObservableObject {
             }
             contentFailure = "This historical step could not be verified. Saved progress has not changed."
         }
+    }
+
+    func setReadingAnchor(
+        _ anchor: String?,
+        expectedIdentity: ChapterRuntimeRouteIdentity
+    ) {
+        guard chapterRuntimeRouteIdentity(
+                  for: expectedIdentity.chapterID,
+                  viewportCropID: expectedIdentity.viewportCropID,
+                  reduceMotion: expectedIdentity.reduceMotion
+              ) == expectedIdentity,
+              anchor == nil || chapterCursor?.beat.narrative.paragraphs
+                .contains(where: { $0.id.rawValue == anchor }) == true,
+              committedState.activeChapter?.readingAnchor != anchor else {
+            return
+        }
+        send(.setReadingAnchor(anchor))
+    }
+
+    @discardableResult
+    func openBeatReview(
+        chapterID: ChapterID,
+        beatID: BeatID?,
+        expectedIdentity: ChapterRuntimeRouteIdentity? = nil
+    ) -> Bool {
+        beginBeatReview(
+            chapterID: chapterID,
+            beatID: beatID,
+            expectedIdentity: expectedIdentity,
+            preferredAuthority: nil
+        )
+    }
+
+    @discardableResult
+    private func beginBeatReview(
+        chapterID: ChapterID,
+        beatID: BeatID?,
+        expectedIdentity: ChapterRuntimeRouteIdentity? = nil,
+        preferredAuthority: ChapterReviewRuntimeAuthorityBinding?
+    ) -> Bool {
+        guard !chapterTransitionIsPending,
+              committedState.chapterReview == nil,
+              let session = committedState.chapterSession(chapterID) else {
+            return false
+        }
+        let reviewCoordinator: ChapterCoordinator
+        if let expectedIdentity {
+            guard expectedIdentity.chapterID == chapterID,
+                  chapterRuntimeRouteIdentity(
+                      for: chapterID,
+                      viewportCropID: expectedIdentity.viewportCropID,
+                      reduceMotion: expectedIdentity.reduceMotion
+                  ) == expectedIdentity,
+                  let chapterCoordinator,
+                  reviewRepositoryMatches(
+                      chapterCoordinator,
+                      chapterID: chapterID,
+                      packageID: session.packageID,
+                      contentVersion: session.contentVersion
+                  ) else {
+                return false
+            }
+            reviewCoordinator = chapterCoordinator
+            requestSuspension(.audioRouteChange)
+        } else {
+            guard let coordinator = bindReviewRuntimeAuthority(
+                chapterID: chapterID,
+                packageID: session.packageID,
+                contentVersion: session.contentVersion,
+                preferred: preferredAuthority
+            ) else {
+                return false
+            }
+            reviewCoordinator = coordinator
+        }
+        chapterAudioEntryGrant = nil
+        chapterReviewReturnAudioAuthorization.invalidate()
+        chapterTransitionIsPending = true
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            do {
+                if expectedIdentity != nil {
+                    guard await suspensionEpisodeCoordinator
+                        .awaitCurrentFlush() == .durable else {
+                        throw JourneyChapterRuntimeError
+                            .persistenceUnavailable
+                    }
+                }
+                let plan = try reviewCoordinator.openReviewPlan(
+                    chapterID: chapterID,
+                    beatID: beatID,
+                    state: committedState
+                )
+                chapterReviewAudioEntryGrant =
+                    ChapterReviewAudioEntryGrant(
+                        chapterID: chapterID,
+                        beatID: plan.projection.selected.beat.id,
+                        token: UUID()
+                    )
+                try await enqueueAndAwaitDurability(
+                    [plan.action],
+                    durableCommitHookAt: 0,
+                    durableCommitHook: { [weak self] in
+                        guard expectedIdentity != nil, let self else { return }
+                        _ = self.chapterReviewReturnAudioAuthorization
+                            .authorizeReturnFromReview(
+                                in: self.committedState
+                            )
+                    }
+                )
+            } catch {
+                chapterReviewAudioEntryGrant = nil
+                if committedState.chapterReview == nil {
+                    chapterReviewReturnAudioAuthorization.invalidate()
+                }
+                chapterTransitionIsPending = false
+                contentFailure =
+                    "This completed scene could not be verified. Saved progress has not changed."
+                refreshChapterPresentation(bindResponsiveAudio: false)
+            }
+        }
+        return true
+    }
+
+    func moveBeatReview(to beatID: BeatID) {
+        guard !chapterTransitionIsPending,
+              committedState.chapterReview != nil,
+              let chapterCoordinator else { return }
+        chapterTransitionIsPending = true
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            do {
+                let plan = try chapterCoordinator.moveReviewPlan(
+                    to: beatID,
+                    state: committedState
+                )
+                chapterReviewAudioEntryGrant =
+                    ChapterReviewAudioEntryGrant(
+                        chapterID: plan.projection.selected.chapter.id,
+                        beatID: plan.projection.selected.beat.id,
+                        token: UUID()
+                    )
+                try await enqueueAndAwaitDurability([plan.action])
+            } catch {
+                chapterReviewAudioEntryGrant = nil
+                chapterTransitionIsPending = false
+                contentFailure =
+                    "This completed scene could not be verified. Saved progress has not changed."
+            }
+        }
+    }
+
+    func setReviewReadingAnchor(_ anchor: String?) {
+        guard let projection = chapterReviewProjection,
+              anchor == nil || projection.selected.beat.narrative.paragraphs
+                .contains(where: { $0.id.rawValue == anchor }) == true,
+              committedState.chapterReview?.readingAnchor != anchor else {
+            return
+        }
+        send(.setReviewReadingAnchor(anchor))
+    }
+
+    func closeBeatReview() {
+        guard !chapterTransitionIsPending,
+              committedState.chapterReview != nil else { return }
+        chapterReviewAudioEntryGrant = nil
+        chapterTransitionIsPending = true
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            do {
+                try await enqueueAndAwaitDurability(
+                    [.closeBeatReview],
+                    durableCommitHookAt: 0,
+                    durableCommitHook: { [weak self] in
+                        guard let self,
+                              let chapterID = self
+                                .chapterReviewReturnAudioAuthorization
+                                .consumeReturnGrant(
+                                    in: self.committedState
+                                ) else {
+                            return
+                        }
+                        self.chapterAudioEntryGrant = ChapterAudioEntryGrant(
+                            chapterID: chapterID,
+                            token: UUID()
+                        )
+                    }
+                )
+            } catch {
+                chapterAudioEntryGrant = nil
+                if committedState.chapterReview == nil {
+                    chapterReviewReturnAudioAuthorization.invalidate()
+                }
+                chapterTransitionIsPending = false
+                contentFailure =
+                    "The active scene could not be restored from review."
+            }
+        }
+    }
+
+    func closeReviewAndShowWorld() {
+        guard !chapterTransitionIsPending,
+              committedState.chapterReview != nil else { return }
+        chapterReviewAudioEntryGrant = nil
+        chapterAudioEntryGrant = nil
+        chapterReviewReturnAudioAuthorization.invalidate()
+        chapterTransitionIsPending = true
+        if case .chapter = committedState.route {
+            enqueueOrderedJourneyTransition([
+                .closeBeatReview,
+                .showWorld,
+            ])
+        } else {
+            enqueue([.closeBeatReview])
+        }
+    }
+
+    func consumeChapterReviewAudioEntryGrant(
+        chapterID: ChapterID,
+        beatID: BeatID
+    ) -> Bool {
+        guard let grant = chapterReviewAudioEntryGrant,
+              grant.chapterID == chapterID,
+              grant.beatID == beatID,
+              committedState.chapterReview?.chapterID == chapterID,
+              committedState.chapterReview?.beatID == beatID else {
+            return false
+        }
+        chapterReviewAudioEntryGrant = nil
+        return true
     }
 
     func chapterRuntimeRouteIdentity(
@@ -2001,15 +2831,12 @@ final class JourneyModel: ObservableObject {
         )
     }
 
-#if DEBUG || NON_SHIPPING_LIVE_TEST
-    /// The main beat timeline is deliberately available only to the signed
-    /// non-shipping live fixture. Its assets are still resolved through the
-    /// accepted package manifest; this seam does not admit loose review files.
-    func nonShippingReviewPrimaryAudioTimelineID(
+    /// Resolves one primary beat timeline through the current verified package
+    /// authority. Loose files and unverified review assets are never admitted.
+    func primaryAudioTimelineID(
         for identity: ChapterRuntimeRouteIdentity
     ) -> AudioTimelineID? {
-        guard DevelopmentSignedRuntimeFixtureAppContent.isActive,
-              chapterRuntimeRouteIdentity(
+        guard chapterRuntimeRouteIdentity(
                   for: identity.chapterID,
                   viewportCropID: identity.viewportCropID,
                   reduceMotion: identity.reduceMotion
@@ -2021,10 +2848,10 @@ final class JourneyModel: ObservableObject {
         return chapterCursor?.audioTimelineIDs[0]
     }
 
-    func nonShippingReviewPrimaryAudioBinding(
+    func primaryAudioBinding(
         for identity: ChapterRuntimeRouteIdentity
-    ) throws -> NonShippingReviewPrimaryAudioBinding? {
-        guard let timelineID = nonShippingReviewPrimaryAudioTimelineID(
+    ) throws -> PrimaryAudioBinding? {
+        guard let timelineID = primaryAudioTimelineID(
                   for: identity
               ), let coordinator = chapterCoordinator,
               let timeline = coordinator.repository.audioTimeline(timelineID),
@@ -2056,8 +2883,8 @@ final class JourneyModel: ObservableObject {
         } else {
             journalCursor = 0
         }
-        return NonShippingReviewPrimaryAudioBinding(
-            authority: NonShippingReviewPrimaryAudioAuthority(
+        return PrimaryAudioBinding(
+            authority: PrimaryAudioAuthority(
                 identity: identity,
                 timelineID: timelineID
             ),
@@ -2065,17 +2892,110 @@ final class JourneyModel: ObservableObject {
             resolver: resolver,
             journalCursorSample: journalCursor,
             cursorDirectoryURL: storageURL.appendingPathComponent(
-                "non-shipping-review-primary-audio-cursor-v1",
+                "primary-audio-cursor-v1",
                 isDirectory: true
             )
         )
     }
 
-    func nonShippingReviewPrimaryAudioRequiresResume(
+    func makeChapterReviewRenderPlan(
+        viewportCropID: String,
+        reduceMotion: Bool
+    ) async throws -> ChapterReviewRenderPlan {
+        guard let review = committedState.chapterReview,
+              let projection = chapterReviewProjection,
+              projection.selected.chapter.id == review.chapterID,
+              projection.selected.beat.id == review.beatID,
+              let authority = currentChapterRuntimeAuthority(),
+              let verifiedPackage = authority.verifiedPackage(
+                  for: review.packageID
+              ), let activatedRoot = authority.packageRootURL(
+                  for: review.packageID
+              ) else {
+            throw JourneyChapterRuntimeError.routeAuthorityUnavailable
+        }
+        let capturedReview = review
+        let assets = try await Task.detached(priority: .userInitiated) {
+            try SceneAssetInventory(
+                verifiedPackage: verifiedPackage,
+                activatedPackageRoot: activatedRoot
+            )
+        }.value
+        try Task.checkCancellation()
+        guard committedState.chapterReview == capturedReview,
+              let currentProjection = chapterReviewProjection,
+              currentProjection.selected.beat.id
+                == projection.selected.beat.id else {
+            throw JourneyChapterRuntimeError.routeAuthorityChanged
+        }
+        let cursor = projection.selected
+        let record = cursor.record
+        let reviewSession = ChapterSession(
+            chapterID: cursor.chapter.id,
+            packageID: cursor.packageID,
+            contentVersion: cursor.contentVersion,
+            arcID: cursor.arc.id,
+            beatID: cursor.beat.id,
+            beatCompletionContract: record.completionContract,
+            sceneVisualSnapshot: record.sceneVisualSnapshot,
+            interaction: record.interaction,
+            cameraAnchor: record.cameraAnchor,
+            readingAnchor: capturedReview.readingAnchor,
+            completedBeatIDs: [cursor.beat.id],
+            completedBeatReviewRecords: [record]
+        )
+        let request = try SceneFrameRequestFactory.make(
+            scene: cursor.scene,
+            session: reviewSession,
+            viewportCropID: viewportCropID,
+            interaction: cursor.beat.interaction,
+            reduceMotion: reduceMotion
+        )
+        let framePlan = try SceneFramePlanner.plan(
+            scene: cursor.scene,
+            request: request,
+            assets: assets
+        )
+        return ChapterReviewRenderPlan(
+            cursor: cursor,
+            framePlan: framePlan,
+            metalPreparationPlan: try SceneMetalPreparationPlanner.make(
+                from: framePlan
+            )
+        )
+    }
+
+    func chapterReviewAudioBinding() throws
+        -> ChapterReviewAudioBinding? {
+        guard let review = committedState.chapterReview,
+              let cursor = chapterReviewProjection?.selected,
+              cursor.chapter.id == review.chapterID,
+              cursor.beat.id == review.beatID,
+              cursor.audioTimelineIDs.count == 1,
+              let timelineID = cursor.audioTimelineIDs.first,
+              let timeline = chapterCoordinator?.repository.audioTimeline(
+                  timelineID
+              ), timeline.events.contains(where: { $0.role != .silence }),
+              let authority = currentChapterRuntimeAuthority(),
+              let verifiedPackage = authority.verifiedPackage(
+                  for: cursor.packageID
+              ), let packageRootURL = authority.packageRootURL(
+                  for: cursor.packageID
+              ) else { return nil }
+        return ChapterReviewAudioBinding(
+            timeline: timeline,
+            resolver: try ManifestBoundAudioAssetResolver(
+                verifiedPackage: verifiedPackage,
+                activatedPackageRoot: packageRootURL
+            )
+        )
+    }
+
+    func primaryAudioRequiresResume(
         for identity: ChapterRuntimeRouteIdentity,
         timelineID: AudioTimelineID
     ) -> Bool {
-        guard nonShippingReviewPrimaryAudioTimelineID(for: identity)
+        guard primaryAudioTimelineID(for: identity)
                 == timelineID,
               let timeline = chapterCoordinator?.repository.audioTimeline(
                   timelineID
@@ -2092,19 +3012,18 @@ final class JourneyModel: ObservableObject {
     /// route or suspension action. The high-frequency crash cursor is stored
     /// separately off MainActor; ordinary Journey persistence receives only
     /// explicit start and exact pause boundaries.
-    func recordNonShippingReviewPrimaryAudioCursor(
+    func recordPrimaryAudioCursor(
         cueID: AudioCueID,
         sampleOffset: Int64,
         isPlaying: Bool,
         expectedIdentity: ChapterRuntimeRouteIdentity
     ) {
-        guard DevelopmentSignedRuntimeFixtureAppContent.isActive,
-              chapterRuntimeRouteIdentity(
+        guard chapterRuntimeRouteIdentity(
                   for: expectedIdentity.chapterID,
                   viewportCropID: expectedIdentity.viewportCropID,
                   reduceMotion: expectedIdentity.reduceMotion
               ) == expectedIdentity,
-              let timelineID = nonShippingReviewPrimaryAudioTimelineID(
+              let timelineID = primaryAudioTimelineID(
                   for: expectedIdentity
               ), let timeline = chapterCoordinator?.repository.audioTimeline(
                   timelineID
@@ -2135,8 +3054,6 @@ final class JourneyModel: ObservableObject {
             try? await enqueueAndAwaitDurability([action])
         }
     }
-#endif
-
     private var chapterRuntimeInputAdmissionState:
         ChapterRuntimeInputAdmissionPolicy.State {
         ChapterRuntimeInputAdmissionPolicy.State(
@@ -2971,25 +3888,65 @@ final class JourneyModel: ObservableObject {
         return authority.assetFailureAuthority(for: identity.packageID)
     }
 
+    func chapterAssetFailureAuthority(
+        chapterID: ChapterID,
+        packageID: PackageID
+    ) -> PackageAssetFailureAuthority? {
+        guard let authority = currentChapterRuntimeAuthority(),
+              authority.repository.packageID(for: chapterID) == packageID else {
+            return nil
+        }
+        return authority.assetFailureAuthority(for: packageID)
+    }
+
     @discardableResult
     func reportChapterAssetFailure(
         _ authority: PackageAssetFailureAuthority
     ) async -> AssetFailureReportOutcome? {
-        if let activeFutureReleaseID, let futureReleaseClient {
-            let outcome = await futureReleaseClient.reportAssetFailure(
-                activeFutureReleaseID,
+        if completedChapterAssetFailureReport?.authority == authority {
+            return completedChapterAssetFailureReport?.outcome
+        }
+        if let inFlight = chapterAssetFailureReportTask,
+           inFlight.authority == authority {
+            return await inFlight.task.value
+        }
+
+        let futureReleaseID = activeFutureReleaseID
+        let reportTask = Task<AssetFailureReportOutcome?, Never> {
+            [futureReleaseClient, contentClient] in
+            if let futureReleaseID, let futureReleaseClient {
+                return await futureReleaseClient.reportAssetFailure(
+                    futureReleaseID,
+                    authority
+                )
+            }
+            guard let contentClient else { return nil }
+            return await contentClient.reportAssetFailure(
+                authority.packageID,
                 authority
             )
+        }
+        chapterAssetFailureReportTask = ChapterAssetFailureReportTask(
+            authority: authority,
+            task: reportTask
+        )
+        let outcome = await reportTask.value
+        if chapterAssetFailureReportTask?.authority == authority {
+            chapterAssetFailureReportTask = nil
+            completedChapterAssetFailureReport =
+                CompletedChapterAssetFailureReport(
+                    authority: authority,
+                    outcome: outcome
+                )
+        }
+        if futureReleaseID != nil, let futureReleaseClient {
             applyFutureReleaseContentSnapshot(
                 await futureReleaseClient.contentSnapshot()
             )
-            return outcome
+        } else if let contentClient {
+            applyRuntimeContentSnapshot(await contentClient.snapshot())
         }
-        guard let contentClient else { return nil }
-        return await contentClient.reportAssetFailure(
-            authority.packageID,
-            authority
-        )
+        return outcome
     }
 
     func submitChapterSceneVoiceOver(
@@ -3400,16 +4357,15 @@ final class JourneyModel: ObservableObject {
     ) async throws -> ResponsiveAudioSceneMutationGate.Token? {
         let requiresResponsiveAudio = chapterCursor?.responsiveAudioProgram != nil
         if requiresResponsiveAudio {
-            await awaitResponsiveAudioAutomaticBoundaryDurabilityIfNeeded()
+            // A token-scoped response cleanup may still own the controller
+            // when the next admitted input arrives. Let that older mutation
+            // finish, then revalidate the exact route before touching audio.
+            // The low-level gate remains fail-closed for callers that have not
+            // crossed this model-owned serialization boundary.
+            await awaitResponsiveAudioSceneMutationQuiescence()
             guard !Task.isCancelled,
                   runtimeMatchesCurrentRoute(runtime, identity: identity) else {
                 throw JourneyChapterRuntimeError.routeAuthorityChanged
-            }
-            guard !responsiveAudioSceneMutationGate
-                .hasActiveResponsiveSceneMutation else {
-                // Never touch or rebind the controller while an admitted scene
-                // input still owns its Journey commit and audio follow-up.
-                throw JourneyChapterRuntimeError.authoredAudioUnavailable
             }
             if !responsiveAudioControllerMatchesCurrentJourney() {
                 cancelPendingResponsiveAudioBinding()
@@ -3970,7 +4926,14 @@ final class JourneyModel: ObservableObject {
         guard let chapter = lockedRoad?.chapter else { return }
         lockedRoad = nil
         purchaseState = .idle
+        chapterAudioEntryGrant = ChapterAudioEntryGrant(
+            chapterID: chapter.id,
+            token: UUID()
+        )
         openChapter(chapter)
+        if contentFailure != nil, offlineChapterRequest == nil {
+            chapterAudioEntryGrant = nil
+        }
     }
 
     func startLifecycleObservation() {
@@ -5795,7 +6758,10 @@ final class JourneyModel: ObservableObject {
         downloadObservationTask = Task { @MainActor [weak self] in
             for await snapshot in updates {
                 guard !Task.isCancelled else { return }
-                self?.applyDownloadSnapshot(snapshot)
+                self?.applyDownloadSnapshot(
+                    snapshot,
+                    isObservedInstallerUpdate: true
+                )
             }
         }
         do {
@@ -5852,16 +6818,31 @@ final class JourneyModel: ObservableObject {
         }
     }
 
-    private func applyDownloadSnapshot(_ snapshot: DownloadControllerSnapshot) {
+    private func applyDownloadSnapshot(
+        _ snapshot: DownloadControllerSnapshot,
+        isObservedInstallerUpdate: Bool = false
+    ) {
         do {
             let projection = try DownloadPresentationProjection(snapshot: snapshot)
             downloadPresentation = projection
+            if isObservedInstallerUpdate,
+               downloadCommandIsPending,
+               chapterRedownloadIntent?.phase == .awaitingInstaller {
+                switch projection.applicationQueueState {
+                case .idle, .completed:
+                    chapterRedownloadObservedTerminalUpdateWhileCommandPending =
+                        true
+                default:
+                    break
+                }
+            }
             if projection.bootstrapState == .ready,
                downloadFailure == .statusUnavailable {
                 downloadFailure = nil
             }
             pausePaidQueueAfterCurrentPackageIfNeeded()
             openPendingChapterIfAvailable()
+            drainChapterRedownloadIntentIfReady()
         } catch {
             downloadPresentation = nil
             downloadFailure = .statusUnavailable
@@ -6912,6 +7893,10 @@ final class JourneyModel: ObservableObject {
         committer = nil
         prologuePreview = nil
         chapterCursor = nil
+        chapterReviewProjection = nil
+        chapterAudioEntryGrant = nil
+        chapterReviewAudioEntryGrant = nil
+        chapterReviewReturnAudioAuthorization.invalidate()
         contentFailure = nil
         chapterTransitionIsPending = false
         responsiveAudioController?.stopWithoutPersisting()
@@ -7148,6 +8133,28 @@ final class JourneyModel: ObservableObject {
 #if DEBUG || NON_SHIPPING_LIVE_TEST
         if DevelopmentSignedRuntimeFixtureAppContent.isActive,
            let launchSnapshot {
+            if DevelopmentSignedRuntimeFixtureAppContent
+                .usesLegacyCompletedWithoutReviewState {
+                return try legacyCompletedWithoutReviewState(
+                    snapshot: launchSnapshot
+                )
+            }
+            if DevelopmentSignedRuntimeFixtureAppContent
+                .usesWorldReadyState {
+                var world = try WorldGraph(
+                    seed: launchSnapshot.repository.worldSeed
+                )
+                try world.applyAtomically(
+                    FoundationCatalog.prologueWorldEffects
+                )
+                return JourneyState(
+                    prologue: PrologueState(
+                        phase: .awakened,
+                        traceProgress: 1
+                    ),
+                    world: world
+                )
+            }
             return JourneyState(
                 world: try WorldGraph(seed: launchSnapshot.repository.worldSeed)
             )
@@ -7232,6 +8239,61 @@ final class JourneyModel: ObservableObject {
 #endif
 
 #if DEBUG || NON_SHIPPING_LIVE_TEST
+    private func legacyCompletedWithoutReviewState(
+        snapshot: VerifiedJourneyContentSnapshot
+    ) throws -> JourneyState {
+        let chapterID = DevelopmentSignedRuntimeFixtureAppContent
+            .targetChapterID()
+        guard let chapter = snapshot.repository.chapter(chapterID),
+              let packageID = snapshot.repository.packageID(for: chapterID),
+              let contentVersion = snapshot.repository.contentVersion(
+                  for: chapterID
+              ),
+              let finalArc = chapter.arcs.last,
+              let finalBeat = finalArc.beats.last else {
+            throw DevelopmentSignedRuntimeFixtureError
+                .targetBeatUnavailable
+        }
+
+        var world = try WorldGraph(seed: snapshot.repository.worldSeed)
+        try world.applyAtomically(FoundationCatalog.prologueWorldEffects)
+        for arc in chapter.arcs {
+            for beat in arc.beats {
+                try world.applyAtomically(
+                    beat.interaction?.completionEffects
+                        ?? beat.completionEffects
+                )
+            }
+        }
+        try world.applyAtomically(chapter.completionEffects)
+
+        return JourneyState(
+            route: .world,
+            prologue: PrologueState(phase: .awakened, traceProgress: 1),
+            world: world,
+            chapterSessions: [
+                ChapterSession(
+                    chapterID: chapterID,
+                    packageID: packageID,
+                    contentVersion: contentVersion,
+                    arcID: finalArc.id,
+                    beatID: finalBeat.id,
+                    completedBeatIDs: chapter.arcs.flatMap(\.beats).map(\.id),
+                    completedArcIDs: chapter.arcs.map(\.id),
+                    completedBeatReviewRecords: [],
+                    lastVisitedAtEpochMillis: 1
+                ),
+            ],
+            completedChapterIDs: [chapterID],
+            installedContent: [
+                InstalledContentVersion(
+                    packageID: packageID,
+                    version: contentVersion
+                ),
+            ]
+        )
+    }
+
     private func appendSignedRuntimeFixtureSeekActions(
         targetBeatID: BeatID,
         coordinator: ChapterCoordinator,
@@ -7370,6 +8432,9 @@ final class JourneyModel: ObservableObject {
            !chapterTransitionIsPending else { return }
         let targetChapterID =
             DevelopmentSignedRuntimeFixtureAppContent.targetChapterID()
+        if committedState.completedChapterIDs.contains(targetChapterID) {
+            return
+        }
         if case let .chapter(chapterID) = committedState.route,
            chapterID == targetChapterID {
             return
@@ -7422,6 +8487,27 @@ final class JourneyModel: ObservableObject {
 #endif
 
     private func prepareRestoredChapter() {
+        if let review = committedState.chapterReview,
+           committedState.route == .world {
+            // Review survives beside the world route, but its package
+            // authority is process-local. Reconstruct the exact launch or
+            // future-release coordinator without issuing an audio grant.
+            chapterAudioEntryGrant = nil
+            chapterReviewAudioEntryGrant = nil
+            chapterReviewReturnAudioAuthorization.invalidate()
+            guard bindReviewRuntimeAuthority(review) != nil else {
+                chapterReviewProjection = nil
+                contentFailure =
+                    "The saved completed scene is not available offline on this iPhone."
+                return
+            }
+            refreshChapterPresentation(bindResponsiveAudio: false)
+            if chapterReviewProjection == nil {
+                contentFailure =
+                    "The saved completed scene could not be verified against installed content."
+            }
+            return
+        }
         guard case let .chapter(chapterID) = committedState.route else {
             chapterCursor = nil
             return
@@ -7873,13 +8959,26 @@ final class JourneyModel: ObservableObject {
     }
 
     private func refreshChapterPresentation(bindResponsiveAudio: Bool) {
+        if let review = committedState.chapterReview,
+           let reviewCoordinator = bindReviewRuntimeAuthority(review) {
+            chapterReviewProjection = try? reviewCoordinator
+                .currentReviewProjection(state: committedState)
+        } else {
+            chapterReviewProjection = nil
+        }
         guard case let .chapter(chapterID) = committedState.route else {
             chapterCursor = nil
-            activeFutureReleaseID = nil
-            if let runtimeContentSnapshot {
-                chapterCoordinator = ChapterCoordinator(
-                    repository: runtimeContentSnapshot.repository
-                )
+            // Review is adjacent to the causal route. Keep the exact
+            // coordinator and future-release authority alive while a world-
+            // opened archive is being browsed; closing review returns to the
+            // ordinary launch coordinator below on the next state refresh.
+            if committedState.chapterReview == nil {
+                activeFutureReleaseID = nil
+                if let runtimeContentSnapshot {
+                    chapterCoordinator = ChapterCoordinator(
+                        repository: runtimeContentSnapshot.repository
+                    )
+                }
             }
             cancelPendingResponsiveAudioBinding()
             responsiveAudioController?.stopWithoutPersisting()

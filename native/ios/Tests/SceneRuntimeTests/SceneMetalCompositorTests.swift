@@ -450,6 +450,40 @@ final class SceneMetalCompositorTests: XCTestCase {
     }
 
     @MainActor
+    func testRepeatedDecodeAndPurgeRemainsReadyBeyondAFullChapterTraversal()
+        async throws {
+        guard let device = MTLCreateSystemDefaultDevice() else {
+            throw XCTSkip("The current test host exposes no Metal device.")
+        }
+        let fixture = try makeFixture()
+        let frame = try fixture.frame(reduceMotion: false)
+        let compositor = SceneMetalCompositor()
+        XCTAssertEqual(compositor.configure(device: device), .readyForScene)
+
+        // Two complete 17-scene traversal lengths force every texture through
+        // the signed read/decode boundary again after each purge. This guards
+        // the long-session lifecycle which an isolated beat cannot exercise.
+        for traversalIndex in 0 ..< 34 {
+            let preparedState = await compositor.prepare(frame)
+            XCTAssertEqual(
+                preparedState,
+                .sceneReady(
+                    sceneID: frame.sceneID,
+                    deterministicTick: frame.deterministicTick,
+                    reduceMotion: frame.reduceMotion
+                ),
+                "decode/purge cycle \(traversalIndex)"
+            )
+            compositor.purgeTextureCache()
+            XCTAssertEqual(
+                compositor.state,
+                .readyForScene,
+                "purge cycle \(traversalIndex)"
+            )
+        }
+    }
+
+    @MainActor
     func testPerFrameUpdateUsesPreparedTexturesWithoutReadingPackageFiles() async throws {
         guard let device = MTLCreateSystemDefaultDevice() else {
             throw XCTSkip("The current test host exposes no Metal device.")

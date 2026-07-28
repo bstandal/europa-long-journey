@@ -420,6 +420,204 @@ final class SaveMigrationRegistryTests: XCTestCase {
         }
     }
 
+    func testPackageMigrationCarriesExactReviewRecordThroughDeclaredBeatAndAnchorMaps() throws {
+        let oldContract = Self.reviewContract(
+            contentVersion: Self.v1,
+            beatID: "old-review-beat"
+        )
+        let newContract = Self.reviewContract(
+            contentVersion: Self.v2,
+            beatID: "new-review-beat"
+        )
+        let oldRecord = CompletedBeatReviewRecord(
+            completionContract: oldContract,
+            sceneVisualSnapshot: SceneVisualSnapshot(
+                sceneID: "old-review-scene",
+                deterministicTick: 12
+            ),
+            interaction: nil,
+            cameraAnchor: 0.25,
+            readingAnchor: "old-review-paragraph"
+        )
+        let newRecord = CompletedBeatReviewRecord(
+            completionContract: newContract,
+            sceneVisualSnapshot: SceneVisualSnapshot(
+                sceneID: "new-review-scene",
+                deterministicTick: 48
+            ),
+            interaction: nil,
+            cameraAnchor: 0.75,
+            readingAnchor: "new-review-paragraph"
+        )
+        let source = JourneyState(
+            route: .chapter(Self.chapterID),
+            activeChapter: ChapterSession(
+                chapterID: Self.chapterID,
+                packageID: Self.packageID,
+                contentVersion: Self.v1,
+                arcID: "review-arc",
+                beatID: "old-review-beat",
+                beatCompletionContract: oldContract,
+                sceneVisualSnapshot: oldRecord.sceneVisualSnapshot,
+                cameraAnchor: oldRecord.cameraAnchor,
+                readingAnchor: oldRecord.readingAnchor,
+                completedBeatIDs: ["old-review-beat"],
+                completedBeatReviewRecords: [oldRecord]
+            ),
+            installedContent: [
+                InstalledContentVersion(packageID: Self.packageID, version: Self.v1),
+            ]
+        )
+        let descriptor = Data(#"{"id":"review-one-to-two","version":1}"#.utf8)
+        let step = PackageSaveMigrationStep(
+            packageID: Self.packageID,
+            declarationID: "review-one-to-two",
+            fromContentVersion: Self.v1,
+            toContentVersion: Self.v2,
+            canonicalTransformDescriptor: descriptor
+        ) { state, packageID in
+            let old = state.chapterSessions[0]
+            return JourneyState(
+                route: state.route,
+                prologue: state.prologue,
+                world: state.world,
+                activeChapter: ChapterSession(
+                    chapterID: old.chapterID,
+                    packageID: packageID,
+                    contentVersion: Self.v2,
+                    arcID: "review-arc",
+                    beatID: "new-review-beat",
+                    beatCompletionContract: newContract,
+                    sceneVisualSnapshot: newRecord.sceneVisualSnapshot,
+                    cameraAnchor: newRecord.cameraAnchor,
+                    readingAnchor: newRecord.readingAnchor,
+                    completedBeatIDs: ["new-review-beat"],
+                    completedBeatReviewRecords: [newRecord]
+                ),
+                completedChapterIDs: state.completedChapterIDs,
+                installedContent: [
+                    InstalledContentVersion(packageID: packageID, version: Self.v2),
+                ],
+                lastLogicalTimeMillis: state.lastLogicalTimeMillis,
+                appliedEventCount: state.appliedEventCount
+            )
+        }
+        let declaration = PackageSaveMigrationDeclaration(
+            id: "review-one-to-two",
+            fromContentVersion: Self.v1,
+            toContentVersion: Self.v2,
+            requiredSaveFormatVersion: SaveSnapshot.currentFormatVersion,
+            requiredStateSchemaVersion: JourneyState.currentStateSchemaVersion,
+            fields: [.beatIdentity, .cameraAndTextAnchors],
+            implementationSHA256: step.implementationSHA256
+        )
+
+        let result = try SaveMigrationRegistry(steps: [step]).migrate(
+            SaveSnapshot(state: source),
+            authorities: [Self.authority(target: Self.v2, declarations: [declaration])]
+        )
+
+        let migrated = try XCTUnwrap(
+            result.snapshot.state.chapterSession(Self.chapterID)?
+                .completedBeatReviewRecords.first
+        )
+        XCTAssertEqual(migrated.beatID, "new-review-beat")
+        XCTAssertEqual(migrated.contentVersion, Self.v2)
+        XCTAssertEqual(migrated.sceneVisualSnapshot.sceneID, "new-review-scene")
+        XCTAssertEqual(migrated.cameraAnchor, 0.75)
+        XCTAssertEqual(migrated.readingAnchor, "new-review-paragraph")
+    }
+
+    func testPackageMigrationCannotSilentlyDiscardReviewRecords() throws {
+        let contract = Self.reviewContract(
+            contentVersion: Self.v1,
+            beatID: "old-review-beat"
+        )
+        let record = CompletedBeatReviewRecord(
+            completionContract: contract,
+            sceneVisualSnapshot: SceneVisualSnapshot(
+                sceneID: "old-review-scene",
+                deterministicTick: 12
+            ),
+            interaction: nil,
+            cameraAnchor: 0.25,
+            readingAnchor: nil
+        )
+        let source = JourneyState(
+            route: .chapter(Self.chapterID),
+            activeChapter: ChapterSession(
+                chapterID: Self.chapterID,
+                packageID: Self.packageID,
+                contentVersion: Self.v1,
+                arcID: "review-arc",
+                beatID: "old-review-beat",
+                beatCompletionContract: contract,
+                sceneVisualSnapshot: record.sceneVisualSnapshot,
+                completedBeatIDs: ["old-review-beat"],
+                completedBeatReviewRecords: [record]
+            ),
+            installedContent: [
+                InstalledContentVersion(packageID: Self.packageID, version: Self.v1),
+            ]
+        )
+        let descriptor = Data(#"{"id":"drop-review","version":1}"#.utf8)
+        let step = PackageSaveMigrationStep(
+            packageID: Self.packageID,
+            declarationID: "drop-review",
+            fromContentVersion: Self.v1,
+            toContentVersion: Self.v2,
+            canonicalTransformDescriptor: descriptor
+        ) { state, packageID in
+            let old = state.chapterSessions[0]
+            return JourneyState(
+                route: state.route,
+                prologue: state.prologue,
+                world: state.world,
+                activeChapter: ChapterSession(
+                    chapterID: old.chapterID,
+                    packageID: packageID,
+                    contentVersion: Self.v2,
+                    arcID: old.arcID,
+                    beatID: old.beatID,
+                    beatCompletionContract: old.beatCompletionContract,
+                    sceneVisualSnapshot: old.sceneVisualSnapshot,
+                    completedBeatIDs: old.completedBeatIDs
+                ),
+                completedChapterIDs: state.completedChapterIDs,
+                installedContent: [
+                    InstalledContentVersion(packageID: packageID, version: Self.v2),
+                ],
+                lastLogicalTimeMillis: state.lastLogicalTimeMillis,
+                appliedEventCount: state.appliedEventCount
+            )
+        }
+        let declaration = PackageSaveMigrationDeclaration(
+            id: "drop-review",
+            fromContentVersion: Self.v1,
+            toContentVersion: Self.v2,
+            requiredSaveFormatVersion: SaveSnapshot.currentFormatVersion,
+            requiredStateSchemaVersion: JourneyState.currentStateSchemaVersion,
+            fields: PackageSaveMigrationField.allCases,
+            implementationSHA256: step.implementationSHA256
+        )
+        let registry = try SaveMigrationRegistry(steps: [step])
+
+        XCTAssertThrowsError(
+            try registry.migrate(
+                SaveSnapshot(state: source),
+                authorities: [Self.authority(target: Self.v2, declarations: [declaration])]
+            )
+        ) { error in
+            XCTAssertEqual(
+                error as? SaveMigrationRegistryError,
+                .identityOrAuthorityMutation(
+                    packageID: Self.packageID,
+                    declarationID: "drop-review"
+                )
+            )
+        }
+    }
+
     private func assertFullyMigrated(
         _ state: JourneyState,
         file: StaticString = #filePath,
@@ -665,6 +863,23 @@ final class SaveMigrationRegistryTests: XCTestCase {
         encoder.outputFormatting = [.sortedKeys, .withoutEscapingSlashes]
         return encoder
     }()
+
+    private static func reviewContract(
+        contentVersion: SchemaVersion,
+        beatID: BeatID
+    ) -> BeatCompletionContract {
+        BeatCompletionContract(
+            packageID: packageID,
+            contentVersion: contentVersion,
+            chapterID: chapterID,
+            arcID: "review-arc",
+            beatID: beatID,
+            arcIndex: 0,
+            beatIndex: 0,
+            absoluteBeatIndex: 0,
+            mode: .documentary(effects: [])
+        )
+    }
 
     private static func sha256(_ data: Data) -> String {
         SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined()

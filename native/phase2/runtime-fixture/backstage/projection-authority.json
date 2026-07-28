@@ -47,10 +47,10 @@
     "effect-european-world-steam-keeps-the-appointment",
     "effect-european-world-twenty-states-agree-on-the-signal"
   ],
-  "payloadSHA256": "d850402979ce968a50f680f66fa86586ed8f7284a2cabb705e5299ac575ec6df",
+  "payloadSHA256": "0e99e4f1f6e073333d5c91892d5906466fbf95472c806d19c61fe5d960b30885",
   "contractSliceSHA256": "0d2b54985ec6496350a96365944666317c501b5f894f99b7602b8b63ad974f98",
   "arcSliceSHA256": "fe8f675e752110a9970d2b4bb98f077bfce40985d665aafffa9a24e155524e4a",
   "interactionSliceSHA256": "9cce157867aaaf7ae7412bf41dcbc511c6de5bca5e46353f65c88ec8d479e957",
   "worldEffectSliceSHA256": "183d0db80ee25b3a091dbc3a3d2f19a1c1852b4250595d6fd6217a910b387fcb",
-  "projectionSHA256": "f959a653d7cb6e1215505629c6b25ff524f985c7c64cacc7a0af252d70a136a9"
+  "projectionSHA256": "f644bde2db6913d00f11b2bea7bc47f7a487ae2874851da2f448c22e1ee44613"
 }

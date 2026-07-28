@@ -96,6 +96,47 @@ test("reports the current source gate with the exact review counts", async () =>
   });
 });
 
+test("rejects a Chapter 01 source payload without the largest portrait crop", async () => {
+  const gate = await loadGate();
+  const source = JSON.parse(await readFile(
+    path.join(repositoryRoot, gate.sources.contentPackage),
+    "utf8",
+  ));
+  source.scenes[0].sceneCanvas.viewportCrops =
+    source.scenes[0].sceneCanvas.viewportCrops.filter(
+      ({ id }) => id !== "largest-430x932",
+    );
+  source.scenes[0].reduceMotionComposition.viewportCrops =
+    source.scenes[0].reduceMotionComposition.viewportCrops.filter(
+      ({ id }) => id !== "largest-430x932",
+    );
+
+  const buildRoot = path.join(repositoryRoot, "native/.build");
+  await mkdir(buildRoot, { recursive: true });
+  const temporaryRoot = await mkdtemp(path.join(
+    repositoryRoot,
+    "native/.build/chapter-01-crop-gate-",
+  ));
+  try {
+    const relativePayload = path.relative(repositoryRoot, path.join(
+      temporaryRoot,
+      "first-farmers.content-package.json",
+    )).split(path.sep).join("/");
+    await writeFile(
+      path.join(repositoryRoot, relativePayload),
+      `${JSON.stringify(source, null, 2)}\n`,
+    );
+    gate.sources.contentPackage = relativePayload;
+
+    await assert.rejects(
+      evaluateChapter01ReviewReady({ repositoryRoot, gate }),
+      /exactly baseline-393x852 and largest-430x932 are required/u,
+    );
+  } finally {
+    await rm(temporaryRoot, { recursive: true, force: true });
+  }
+});
+
 test("keeps the gate at CANDIDATE and rejects a premature PASS declaration", () => {
   const blockers = ["simulator-traversal: missing PASS receipt"];
   assert.equal(resolveChapter01ReviewGateStatus({
@@ -330,8 +371,17 @@ test("binds the required non-XCTest simulator round to its log and recording", a
       beatIDs,
       interactionIDs,
       finalRoute: "world",
-      narrationAutoplayObserved: false,
-      silenceRouteCompleted: true,
+      deliberateEntryAction: "Begin",
+      authoredSoundStartedAfterEntry: true,
+      soundControlStayedVisible: true,
+      playingControlLabel: "Turn sound off",
+      mutePausedAuthoredSound: true,
+      mutedControlLabel: "Turn sound on",
+      unmuteResumedAuthoredSound: true,
+      interruptionControlLabel: "Resume sound",
+      interruptionRestartedSoundSpontaneously: false,
+      coldRestoreControlLabel: "Resume sound",
+      coldRestoreRestartedSoundSpontaneously: false,
     })}\n`;
     const receipt = {
       ...commonReceipt(evidence, subjectSHA256),
@@ -352,9 +402,17 @@ test("binds the required non-XCTest simulator round to its log and recording", a
         audioTimelines: 47,
       },
       fullTraversalCompleted: true,
-      narrationChoiceOffered: true,
-      narrationAutoplayObserved: false,
-      silenceRouteCompleted: true,
+      deliberateEntryAction: "Begin",
+      authoredSoundStartedAfterEntry: true,
+      soundControlStayedVisible: true,
+      playingControlLabel: "Turn sound off",
+      mutePausedAuthoredSound: true,
+      mutedControlLabel: "Turn sound on",
+      unmuteResumedAuthoredSound: true,
+      interruptionControlLabel: "Resume sound",
+      interruptionRestartedSoundSpontaneously: false,
+      coldRestoreControlLabel: "Resume sound",
+      coldRestoreRestartedSoundSpontaneously: false,
       accountSurfaceShown: false,
       purchaseSurfaceShown: false,
       debugControlsShown: false,
@@ -377,6 +435,14 @@ test("binds the required non-XCTest simulator round to its log and recording", a
         repositoryRoot: temporaryRoot, gate, evidence, receipt,
       }),
       /must be operated outside XCTest/u,
+    );
+    receipt.operationMode = "CODEX_COMPUTER_USE";
+    receipt.authoredSoundStartedAfterEntry = false;
+    await assert.rejects(
+      validateChapter01ReviewEvidenceReceipt({
+        repositoryRoot: temporaryRoot, gate, evidence, receipt,
+      }),
+      /did not start authored sound/u,
     );
   } finally {
     await rm(temporaryRoot, { recursive: true, force: true });

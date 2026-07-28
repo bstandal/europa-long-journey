@@ -576,20 +576,20 @@
       {
         "id": "native-timeline-transport",
         "path": "native/ios/Sources/DramaticAudio/NativeTimelineTransport.swift",
-        "bytes": 190410,
-        "sha256": "9c0ea9fc9da683830e26562276f8763778b653b9f2adb80564a49482c5255408"
+        "bytes": 191598,
+        "sha256": "7afdd59a27679f49a7805edbd0946dcf0776ce8a90c992d28ba8c1c7e09ad257"
       },
       {
         "id": "experience-audio-routing-policy",
         "path": "native/ios/Sources/DramaticAudio/ExperienceAudioRoutingPolicy.swift",
-        "bytes": 1763,
-        "sha256": "b773bb924430936915440163498bc4151a9a7d416fd48e8ad8239e44d9e7f33e"
+        "bytes": 1786,
+        "sha256": "71b5d34cea9abc729aad2f879b03e9029290d57283733140410ad56bb3895de0"
       },
       {
         "id": "experience-preferences-contract",
         "path": "native/ios/Sources/ExperiencePreferences/ExperiencePreferences.swift",
-        "bytes": 2430,
-        "sha256": "08ccaba7fc7fe7bef025f2fd96c0def4fc86c882fbb9d82177271ff7af00d9b5"
+        "bytes": 1862,
+        "sha256": "e4bd7979a22277ac1339f768aa010a4bea09bf5514b3ff2ff38b5ddbafbcf900"
       },
       {
         "id": "durable-audio-completion-runtime",

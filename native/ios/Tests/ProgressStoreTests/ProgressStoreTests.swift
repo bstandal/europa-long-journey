@@ -85,7 +85,11 @@ final class ProgressStoreTests: XCTestCase {
                 contentVersion: contract.contentVersion,
                 arcID: contract.arcID,
                 beatID: contract.beatID,
-                beatCompletionContract: contract
+                beatCompletionContract: contract,
+                sceneVisualSnapshot: SceneVisualSnapshot(
+                    sceneID: "documentary-scene",
+                    deterministicTick: 0
+                )
             )
         )
         let committer = DurableJourneyCommitter(
@@ -105,6 +109,10 @@ final class ProgressStoreTests: XCTestCase {
         let restoration = try await killedStore.restore(initialState: initial)
         XCTAssertEqual(restoration.replayedEventCount, 1)
         XCTAssertEqual(restoration.state.activeChapter?.completedBeatIDs, [contract.beatID])
+        XCTAssertEqual(
+            restoration.state.activeChapter?.completedBeatReviewRecords.map(\.beatID),
+            [contract.beatID]
+        )
         XCTAssertEqual(restoration.state.world.appliedEffects, contract.effects)
 
         await gate.resume()

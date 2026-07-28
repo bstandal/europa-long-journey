@@ -4,12 +4,12 @@
   "trustDomain": "the-long-west-vertical-slice-development-v1",
   "packageID": "vertical-slice-development-v1",
   "keyID": "vertical-slice-development-key-v1",
-  "manifestDigest": "a761522302648c3d8721757dc1c4b7ff9da93a1a7535bc28d8f28216235b0f85",
-  "projectionSHA256": "f959a653d7cb6e1215505629c6b25ff524f985c7c64cacc7a0af252d70a136a9",
+  "manifestDigest": "4b0b7c2d33a61d0a43b22f33230bb9420fbbf3cd4a86de26e3ac886947e59c70",
+  "projectionSHA256": "f644bde2db6913d00f11b2bea7bc47f7a487ae2874851da2f448c22e1ee44613",
   "projectionAuthorityKind": "DEVELOPMENT_BLUEPRINT_PROJECTION_AUTHORITY",
   "projectionAuthorityStatus": "CODEX_PROVISIONAL_NON_SHIPPING_BLUEPRINT_PROJECTION",
   "shippingState": "PROHIBITED",
-  "projectionAuthoritySHA256": "23578499a94dd7e0d50304290681ab41a1d259b5386692e6f5792d1d5ed198c3",
+  "projectionAuthoritySHA256": "d4f8f1dc2426d207061aeec7a4c00d3cbfa8d15da63b31fa367ef83ecbfbe6bb",
   "trustedPublicKeyX963Base64": "BEkS10x0FDtT2yI/gJ3rGoj11w7B5Q0Lr/ce2yFONXC+s3gIj2mkGwHBCzPs39xqmwe3tqiRQv+Jg4t9sYEWtNg=",
   "trustedPublicKeySPKIBase64": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAESRLXTHQUO1PbIj+AnesaiPXXDsHlDQuv9x7bIU41cL6zeAiPaaQbAcELM+zf3GqbB7e2qJFC/4mDi32xgRa02A=="
 }

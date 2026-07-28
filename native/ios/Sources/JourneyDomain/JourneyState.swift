@@ -87,6 +87,7 @@ public struct ChapterSession: Codable, Equatable, Sendable {
     public var narration: NarrationCursor
     public var completedBeatIDs: [BeatID]
     public var completedArcIDs: [ArcID]
+    public var completedBeatReviewRecords: [CompletedBeatReviewRecord]
     public var lastVisitedAtEpochMillis: Int64?
 
     public init(
@@ -107,6 +108,7 @@ public struct ChapterSession: Codable, Equatable, Sendable {
         narration: NarrationCursor = NarrationCursor(),
         completedBeatIDs: [BeatID] = [],
         completedArcIDs: [ArcID] = [],
+        completedBeatReviewRecords: [CompletedBeatReviewRecord] = [],
         lastVisitedAtEpochMillis: Int64? = nil
     ) {
         self.chapterID = chapterID
@@ -126,6 +128,7 @@ public struct ChapterSession: Codable, Equatable, Sendable {
         self.narration = narration
         self.completedBeatIDs = Array(Set(completedBeatIDs)).sorted()
         self.completedArcIDs = Array(Set(completedArcIDs)).sorted()
+        self.completedBeatReviewRecords = Self.normalized(completedBeatReviewRecords)
         self.lastVisitedAtEpochMillis = lastVisitedAtEpochMillis
     }
 
@@ -147,6 +150,7 @@ public struct ChapterSession: Codable, Equatable, Sendable {
         case narration
         case completedBeatIDs
         case completedArcIDs
+        case completedBeatReviewRecords
         case lastVisitedAtEpochMillis
     }
 
@@ -195,10 +199,35 @@ public struct ChapterSession: Codable, Equatable, Sendable {
         completedArcIDs = Array(Set(
             try container.decodeIfPresent([ArcID].self, forKey: .completedArcIDs) ?? []
         )).sorted()
+        completedBeatReviewRecords = Self.normalized(
+            try container.decodeIfPresent(
+                [CompletedBeatReviewRecord].self,
+                forKey: .completedBeatReviewRecords
+            ) ?? []
+        )
         lastVisitedAtEpochMillis = try container.decodeIfPresent(
             Int64.self,
             forKey: .lastVisitedAtEpochMillis
         )
+    }
+
+    public func reviewRecord(for beatID: BeatID) -> CompletedBeatReviewRecord? {
+        completedBeatReviewRecords.first { $0.beatID == beatID }
+    }
+
+    private static func normalized(
+        _ records: [CompletedBeatReviewRecord]
+    ) -> [CompletedBeatReviewRecord] {
+        var byBeatID: [BeatID: CompletedBeatReviewRecord] = [:]
+        for record in records {
+            byBeatID[record.beatID] = record
+        }
+        return byBeatID.values.sorted {
+            if $0.absoluteBeatIndex != $1.absoluteBeatIndex {
+                return $0.absoluteBeatIndex < $1.absoluteBeatIndex
+            }
+            return $0.beatID < $1.beatID
+        }
     }
 }
 
@@ -213,12 +242,13 @@ public struct InstalledContentVersion: Codable, Equatable, Sendable {
 }
 
 public struct JourneyState: Codable, Equatable, Sendable {
-    public static let currentStateSchemaVersion = 3
+    public static let currentStateSchemaVersion = 4
 
     public private(set) var stateSchemaVersion: Int
     public var route: JourneyRoute
     public var prologue: PrologueState
     public var world: WorldGraph
+    public var chapterReview: ChapterReviewState?
     public var chapterSessions: [ChapterSession]
     public var completedChapterIDs: [ChapterID]
     public var installedContent: [InstalledContentVersion]
@@ -229,6 +259,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
         route: JourneyRoute = .prologue,
         prologue: PrologueState = PrologueState(),
         world: WorldGraph = WorldGraph(),
+        chapterReview: ChapterReviewState? = nil,
         activeChapter: ChapterSession? = nil,
         chapterSessions: [ChapterSession] = [],
         completedChapterIDs: [ChapterID] = [],
@@ -240,6 +271,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
         self.route = route
         self.prologue = prologue
         self.world = world
+        self.chapterReview = chapterReview
         var sessions = chapterSessions
         if let activeChapter {
             sessions.removeAll { $0.chapterID == activeChapter.chapterID }
@@ -300,6 +332,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
         case route
         case prologue
         case world
+        case chapterReview
         case activeChapter
         case chapterSessions
         case completedChapterIDs
@@ -325,6 +358,10 @@ public struct JourneyState: Codable, Equatable, Sendable {
         route = try container.decode(JourneyRoute.self, forKey: .route)
         prologue = try container.decode(PrologueState.self, forKey: .prologue)
         world = try container.decode(WorldGraph.self, forKey: .world)
+        chapterReview = try container.decodeIfPresent(
+            ChapterReviewState.self,
+            forKey: .chapterReview
+        )
         completedChapterIDs = try container.decodeIfPresent(
             [ChapterID].self,
             forKey: .completedChapterIDs
@@ -368,6 +405,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
         try container.encode(route, forKey: .route)
         try container.encode(prologue, forKey: .prologue)
         try container.encode(world, forKey: .world)
+        try container.encodeIfPresent(chapterReview, forKey: .chapterReview)
         try container.encode(chapterSessions, forKey: .chapterSessions)
         try container.encode(completedChapterIDs, forKey: .completedChapterIDs)
         try container.encode(installedContent, forKey: .installedContent)
@@ -430,6 +468,10 @@ public enum JourneyAction: Codable, Equatable, Sendable {
     case suspendChapter(atEpochMillis: Int64)
     case completeAuthoredChapter(ChapterCompletionContract)
     case installContent(packageID: PackageID, version: SchemaVersion)
+    case openBeatReview(chapterID: ChapterID, beatID: BeatID)
+    case moveBeatReview(beatID: BeatID)
+    case setReviewReadingAnchor(String?)
+    case closeBeatReview
 }
 
 public struct JourneyEvent: Codable, Equatable, Sendable {
@@ -452,6 +494,7 @@ public enum CheckpointReason: String, Codable, Equatable, Sendable {
     case chapterCompleted
     case contentChanged
     case suspension
+    case reviewChanged
 }
 
 public enum JourneyEffect: Equatable, Sendable {

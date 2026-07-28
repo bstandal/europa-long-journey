@@ -75,8 +75,11 @@ simulator run or recording has completed successfully.
   beat, exit from the final beat,
   counts `3/17/6/6/37/47`, a completed traversal, and `false` for account,
   purchase, debug-control and visible-review-mark surfaces. It also records an
-  explicit narration choice, no observed autoplay and a completed silence
-  route, with a bound traversal log and screen recording.
+  explicit `Begin` entry that starts authored sound after the verified scene is
+  ready; the fixed `Turn sound off` / `Turn sound on` control; a completed mute
+  and resume; and `Resume sound` without spontaneous playback after both an
+  interruption and a cold restore. The run is bound to a traversal log and
+  screen recording.
 - `INTERACTION_RECORDINGS` binds one completed recording to each canonical
   interaction ID. Every `artifact` has `path`, `bytes` and `sha256`; paths stay
   under `native/quality/chapter-01-review/evidence/recordings/`.

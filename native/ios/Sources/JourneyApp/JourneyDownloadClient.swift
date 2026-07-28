@@ -253,12 +253,16 @@ private actor DevelopmentJourneyDownloadFixture {
     private var current: DownloadControllerSnapshot
     private let readyAfterBootstrap: DownloadControllerSnapshot?
     private let requiresNewerAppAtBootstrap: Bool
+    private let suppressStaleQueuePublicationForChapterRedownloadProbe: Bool
+    private var chapterRedownloadProbeRequestCount = 0
     private var bootstrapFailuresRemaining: Int
     private var observers: [UUID: AsyncStream<DownloadControllerSnapshot>.Continuation] = [:]
 
     init(arguments: [String]) {
         let paid = Self.paidPackageIDs
         let maximum = Self.maximumBytes(for: paid)
+        suppressStaleQueuePublicationForChapterRedownloadProbe =
+            arguments.contains("--ui-testing-chapter-redownload-drain")
         let ready: DownloadControllerSnapshot
         if arguments.contains("--ui-testing-download-active") {
             ready = DownloadControllerSnapshot(
@@ -434,9 +438,32 @@ private actor DevelopmentJourneyDownloadFixture {
 
     func execute(
         _ command: DownloadPresentationCommand
-    ) throws -> JourneyDownloadCommandOutcome {
+    ) async throws -> JourneyDownloadCommandOutcome {
         switch command {
         case let .requestSinglePackage(packageID):
+            if suppressStaleQueuePublicationForChapterRedownloadProbe,
+               packageID == Self.paidPackageIDs.first {
+                chapterRedownloadProbeRequestCount += 1
+                switch chapterRedownloadProbeRequestCount {
+                case 1:
+                    return .request(
+                        .installerRejected(reason: .alreadyRunning)
+                    )
+                case 2:
+                    // Publish the installer's terminal observation while the
+                    // second command still owns JourneyModel's command gate.
+                    // Without the deferred wake-up, this valid intent stalls.
+                    publish(replacingState(
+                        .completed(installedPackageIDs: [])
+                    ))
+                    try await Task.sleep(for: .milliseconds(100))
+                    return .request(
+                        .installerRejected(reason: .unresolvedQueue)
+                    )
+                default:
+                    break
+                }
+            }
             publish(activeSnapshot(packageID: packageID, totalPackageCount: 1))
             return .request(.started(packageIDs: [packageID]))
         case .requestDownloadAll:
@@ -501,7 +528,15 @@ private actor DevelopmentJourneyDownloadFixture {
                 systemTransferState: current.systemTransferState
             ))
         case .discardStaleQueue:
-            publish(replacingState(.idle))
+            let idle = replacingState(.idle)
+            if suppressStaleQueuePublicationForChapterRedownloadProbe {
+                // Let the command's awaited snapshot reach JourneyModel before
+                // its observation stream. This deterministic ordering proves
+                // that the command-unlock drain owns the queued redownload.
+                current = idle
+            } else {
+                publish(idle)
+            }
         }
         return .performed
     }

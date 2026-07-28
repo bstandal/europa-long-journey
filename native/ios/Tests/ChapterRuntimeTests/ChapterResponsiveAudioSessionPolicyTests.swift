@@ -6,13 +6,22 @@ final class ChapterResponsiveAudioSessionPolicyTests: XCTestCase {
     private let farmers = ChapterID("first-farmers")
     private let frontiers = ChapterID("europe-holds-the-line")
 
-    func testPlayingChoiceContinuesAcrossBeatAndProgramBindings() throws {
+    func testUnboundPolicyIsInactiveAndCannotRequestPlayback() {
+        var policy = ChapterResponsiveAudioSessionPolicy()
+
+        XCTAssertEqual(policy.playbackState, .inactive)
+        XCTAssertNil(policy.requestPlayback())
+        XCTAssertFalse(policy.playbackState.authorizesPlayback)
+    }
+
+    func testPlayingStateContinuesAcrossBeatAndProgramBindings() throws {
         var policy = ChapterResponsiveAudioSessionPolicy()
         XCTAssertEqual(
             policy.bind(chapterID: farmers, hasResponsiveAudio: true),
             .none
         )
-        let first = try XCTUnwrap(policy.chooseSound())
+        XCTAssertEqual(policy.playbackState, .ready)
+        let first = try XCTUnwrap(policy.requestPlayback())
         XCTAssertTrue(policy.completePlayback(first, didStart: true))
 
         let nextBeat = policy.bind(
@@ -22,15 +31,15 @@ final class ChapterResponsiveAudioSessionPolicyTests: XCTestCase {
         guard case let .startAuthorizedPlayback(rebind) = nextBeat else {
             return XCTFail("The next authored program did not inherit chapter consent.")
         }
-        XCTAssertEqual(policy.choice, .playing)
+        XCTAssertEqual(policy.playbackState, .playing)
         XCTAssertTrue(policy.completePlayback(rebind, didStart: true))
-        XCTAssertEqual(policy.choice, .playing)
+        XCTAssertEqual(policy.playbackState, .playing)
     }
 
-    func testPlayingChoiceContinuesAcrossCropAndReduceMotionRebinds() throws {
+    func testPlayingStateContinuesAcrossCropAndReduceMotionRebinds() throws {
         var policy = ChapterResponsiveAudioSessionPolicy()
         _ = policy.bind(chapterID: farmers, hasResponsiveAudio: true)
-        let first = try XCTUnwrap(policy.chooseSound())
+        let first = try XCTUnwrap(policy.requestPlayback())
         XCTAssertTrue(policy.completePlayback(first, didStart: true))
 
         for _ in 0 ..< 2 {
@@ -42,27 +51,29 @@ final class ChapterResponsiveAudioSessionPolicyTests: XCTestCase {
             }
             XCTAssertTrue(policy.completePlayback(rebind, didStart: true))
         }
-        XCTAssertEqual(policy.choice, .playing)
+        XCTAssertEqual(policy.playbackState, .playing)
     }
 
-    func testSilenceContinuesAcrossEverySameChapterBinding() {
+    func testProgramlessBindingIsInactiveAndRetainsPlayingChapterAuthority() throws {
         var policy = ChapterResponsiveAudioSessionPolicy()
         _ = policy.bind(chapterID: farmers, hasResponsiveAudio: true)
-        policy.continueInSilence()
+        let first = try XCTUnwrap(policy.requestPlayback())
+        XCTAssertTrue(policy.completePlayback(first, didStart: true))
 
-        XCTAssertEqual(
-            policy.bind(chapterID: farmers, hasResponsiveAudio: true),
-            .none
-        )
         XCTAssertEqual(
             policy.bind(chapterID: farmers, hasResponsiveAudio: false),
             .none
         )
-        XCTAssertEqual(
-            policy.bind(chapterID: farmers, hasResponsiveAudio: true),
-            .none
-        )
-        XCTAssertEqual(policy.choice, .silent)
+        XCTAssertEqual(policy.playbackState, .inactive)
+
+        guard case let .startAuthorizedPlayback(rebind) = policy.bind(
+            chapterID: farmers,
+            hasResponsiveAudio: true
+        ) else {
+            return XCTFail("The next authored program did not retain playback authority.")
+        }
+        XCTAssertEqual(policy.playbackState, .playing)
+        XCTAssertTrue(policy.completePlayback(rebind, didStart: true))
     }
 
     func testColdRestoredActiveSessionRequiresExplicitResume() {
@@ -72,7 +83,7 @@ final class ChapterResponsiveAudioSessionPolicyTests: XCTestCase {
             policy.bind(chapterID: farmers, hasResponsiveAudio: false),
             .none
         )
-        XCTAssertEqual(policy.choice, .undecided)
+        XCTAssertEqual(policy.playbackState, .inactive)
         XCTAssertEqual(
             policy.bind(
                 chapterID: farmers,
@@ -81,10 +92,10 @@ final class ChapterResponsiveAudioSessionPolicyTests: XCTestCase {
             ),
             .none
         )
-        XCTAssertEqual(policy.choice, .resumeRequired)
+        XCTAssertEqual(policy.playbackState, .resumeRequired)
     }
 
-    func testColdChapterWithoutActiveSessionStillRequiresInitialChoice() {
+    func testColdChapterWithoutActiveSessionIsReadyForAuthorizedEntry() {
         var policy = ChapterResponsiveAudioSessionPolicy()
 
         XCTAssertEqual(
@@ -95,13 +106,13 @@ final class ChapterResponsiveAudioSessionPolicyTests: XCTestCase {
             ),
             .none
         )
-        XCTAssertEqual(policy.choice, .undecided)
+        XCTAssertEqual(policy.playbackState, .ready)
     }
 
-    func testRestoredAuthorityDoesNotOverrideSameChapterSilence() {
+    func testRestoredSessionChangesReadyStateToResumeRequired() {
         var policy = ChapterResponsiveAudioSessionPolicy()
         _ = policy.bind(chapterID: farmers, hasResponsiveAudio: true)
-        policy.continueInSilence()
+        XCTAssertEqual(policy.playbackState, .ready)
 
         XCTAssertEqual(
             policy.bind(
@@ -111,42 +122,59 @@ final class ChapterResponsiveAudioSessionPolicyTests: XCTestCase {
             ),
             .none
         )
-        XCTAssertEqual(policy.choice, .silent)
+        XCTAssertEqual(policy.playbackState, .resumeRequired)
     }
 
-    func testStaleSilenceActionCannotRelabelAudiblePlayback() throws {
+    func testDuplicatePlaybackRequestCannotReplaceAudiblePlayback() throws {
         var policy = ChapterResponsiveAudioSessionPolicy()
         _ = policy.bind(chapterID: farmers, hasResponsiveAudio: true)
-        let attempt = try XCTUnwrap(policy.chooseSound())
+        let attempt = try XCTUnwrap(policy.requestPlayback())
         XCTAssertTrue(policy.completePlayback(attempt, didStart: true))
 
-        policy.continueInSilence()
+        XCTAssertNil(policy.requestPlayback())
+        XCTAssertEqual(policy.playbackState, .playing)
+    }
 
-        XCTAssertEqual(policy.choice, .playing)
+    func testFiniteCompletionRequiresExplicitReplayAndCannotAutoplayOnRebind()
+        throws {
+        var policy = ChapterResponsiveAudioSessionPolicy()
+        _ = policy.bind(chapterID: farmers, hasResponsiveAudio: true)
+        let attempt = try XCTUnwrap(policy.requestPlayback())
+        XCTAssertTrue(policy.completePlayback(attempt, didStart: true))
+
+        policy.completeFinitePlayback()
+
+        XCTAssertEqual(policy.playbackState, .resumeRequired)
+        XCTAssertEqual(
+            policy.bind(chapterID: farmers, hasResponsiveAudio: true),
+            .none
+        )
+        XCTAssertEqual(policy.playbackState, .resumeRequired)
+        XCTAssertNotNil(policy.requestPlayback())
     }
 
     func testNewChapterBackgroundAndRouteExitNeverAutoplay() throws {
         var policy = ChapterResponsiveAudioSessionPolicy()
         _ = policy.bind(chapterID: farmers, hasResponsiveAudio: true)
-        let first = try XCTUnwrap(policy.chooseSound())
+        let first = try XCTUnwrap(policy.requestPlayback())
         XCTAssertTrue(policy.completePlayback(first, didStart: true))
 
         policy.requireExplicitResume()
-        XCTAssertEqual(policy.choice, .resumeRequired)
+        XCTAssertEqual(policy.playbackState, .resumeRequired)
         XCTAssertEqual(
             policy.bind(chapterID: farmers, hasResponsiveAudio: true),
             .none
         )
-        XCTAssertEqual(policy.choice, .resumeRequired)
+        XCTAssertEqual(policy.playbackState, .resumeRequired)
 
         XCTAssertEqual(
             policy.bind(chapterID: frontiers, hasResponsiveAudio: true),
             .none
         )
-        XCTAssertEqual(policy.choice, .undecided)
+        XCTAssertEqual(policy.playbackState, .ready)
 
         policy.deactivate()
-        XCTAssertEqual(policy.choice, .undecided)
+        XCTAssertEqual(policy.playbackState, .inactive)
         XCTAssertEqual(
             policy.bind(chapterID: frontiers, hasResponsiveAudio: true),
             .none
@@ -156,7 +184,7 @@ final class ChapterResponsiveAudioSessionPolicyTests: XCTestCase {
     func testNewBindingFencesAStaleAuthorizedRebindCompletion() throws {
         var policy = ChapterResponsiveAudioSessionPolicy()
         _ = policy.bind(chapterID: farmers, hasResponsiveAudio: true)
-        let first = try XCTUnwrap(policy.chooseSound())
+        let first = try XCTUnwrap(policy.requestPlayback())
         XCTAssertTrue(policy.completePlayback(first, didStart: true))
 
         guard case let .startAuthorizedPlayback(stale) = policy.bind(
@@ -176,27 +204,27 @@ final class ChapterResponsiveAudioSessionPolicyTests: XCTestCase {
         XCTAssertFalse(policy.completePlayback(stale, didStart: true))
         XCTAssertTrue(policy.accepts(current))
         XCTAssertTrue(policy.completePlayback(current, didStart: true))
-        XCTAssertEqual(policy.choice, .playing)
+        XCTAssertEqual(policy.playbackState, .playing)
     }
 
     func testRebindingWhileExplicitStartIsPendingRequiresResume() throws {
         var policy = ChapterResponsiveAudioSessionPolicy()
         _ = policy.bind(chapterID: farmers, hasResponsiveAudio: true)
-        let stale = try XCTUnwrap(policy.chooseSound())
+        let stale = try XCTUnwrap(policy.requestPlayback())
 
         _ = policy.bind(chapterID: farmers, hasResponsiveAudio: true)
         XCTAssertFalse(policy.accepts(stale))
         XCTAssertFalse(policy.completePlayback(stale, didStart: true))
-        XCTAssertEqual(policy.choice, .resumeRequired)
+        XCTAssertEqual(policy.playbackState, .resumeRequired)
     }
 
     func testSuccessfulInFlightStartAuthorizesPersistenceOnlyRebind() throws {
         var policy = ChapterResponsiveAudioSessionPolicy()
         _ = policy.bind(chapterID: farmers, hasResponsiveAudio: true)
-        let inFlight = try XCTUnwrap(policy.chooseSound())
+        let inFlight = try XCTUnwrap(policy.requestPlayback())
 
         XCTAssertTrue(policy.completePlayback(inFlight, didStart: true))
-        XCTAssertEqual(policy.choice, .playing)
+        XCTAssertEqual(policy.playbackState, .playing)
         XCTAssertEqual(
             policy.bind(chapterID: farmers, hasResponsiveAudio: false),
             .none
@@ -208,17 +236,17 @@ final class ChapterResponsiveAudioSessionPolicyTests: XCTestCase {
             return XCTFail("The successful start did not authorize its replacement.")
         }
         XCTAssertTrue(policy.completePlayback(rebind, didStart: true))
-        XCTAssertEqual(policy.choice, .playing)
+        XCTAssertEqual(policy.playbackState, .playing)
     }
 
     func testFailedInFlightStartRequiresResumeAfterPersistenceOnlyRebind()
         throws {
         var policy = ChapterResponsiveAudioSessionPolicy()
         _ = policy.bind(chapterID: farmers, hasResponsiveAudio: true)
-        let inFlight = try XCTUnwrap(policy.chooseSound())
+        let inFlight = try XCTUnwrap(policy.requestPlayback())
 
         XCTAssertTrue(policy.completePlayback(inFlight, didStart: false))
-        XCTAssertEqual(policy.choice, .resumeRequired)
+        XCTAssertEqual(policy.playbackState, .resumeRequired)
         XCTAssertEqual(
             policy.bind(chapterID: farmers, hasResponsiveAudio: false),
             .none
@@ -227,6 +255,6 @@ final class ChapterResponsiveAudioSessionPolicyTests: XCTestCase {
             policy.bind(chapterID: farmers, hasResponsiveAudio: true),
             .none
         )
-        XCTAssertEqual(policy.choice, .resumeRequired)
+        XCTAssertEqual(policy.playbackState, .resumeRequired)
     }
 }

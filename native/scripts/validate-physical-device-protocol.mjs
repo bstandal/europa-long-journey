@@ -1,11 +1,15 @@
 #!/usr/bin/env node
 
 import assert from "node:assert/strict";
+import { execFile } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
+import { validateFirstFarmersPhysicalEvidence } from "./validate-first-farmers-physical-evidence.mjs";
 
 const nativeRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const execFileAsync = promisify(execFile);
 
 export function validatePhysicalDeviceProtocol(protocol) {
   assert.equal(protocol.schemaVersion, 1, "unsupported physical-device protocol schema");
@@ -143,6 +147,8 @@ export function validatePhysicalDeviceProtocol(protocol) {
   assert.deepEqual(protocol.firstFarmersEvidenceContract, {
     schemaPath: "quality/schemas/first-farmers-physical-evidence.schema.json",
     validatorPath: "scripts/validate-first-farmers-physical-evidence.mjs",
+    evidencePath: "quality/physical-device-evidence/first-farmers.receipt.json",
+    artifactsRoot: "quality/physical-device-evidence/artifacts",
     requiredStatus: "PASS",
     chapterID: "first-farmers",
     productionPackageID: "essential-free-v1",
@@ -157,7 +163,138 @@ export function validatePhysicalDeviceProtocol(protocol) {
   return protocol;
 }
 
+function iPhoneHardwareGeneration(productType) {
+  const match = /^iPhone(\d+),(\d+)$/u.exec(productType ?? "");
+  return match ? Number(match[1]) : null;
+}
+
+function iOSMajorVersion(version) {
+  const match = /^(\d+)(?:\.|$)/u.exec(version ?? "");
+  return match ? Number(match[1]) : null;
+}
+
+export function validateConnectedPhysicalIPhoneInventory(inventory) {
+  const devices = inventory?.result?.devices;
+  assert.ok(
+    Array.isArray(devices),
+    "PHYSICAL_DEVICE_PREFLIGHT=FAIL CoreDevice returned no device inventory",
+  );
+  const registeredIPhones = devices.filter((device) => (
+    device.hardwareProperties?.deviceType === "iPhone"
+      && device.hardwareProperties?.reality === "physical"
+      && device.hardwareProperties?.platform === "iOS"
+  ));
+  const readyIPhones = registeredIPhones.filter((device) => (
+    device.connectionProperties?.tunnelState !== "unavailable"
+      && device.deviceProperties?.ddiServicesAvailable === true
+      && device.deviceProperties?.developerModeStatus === "enabled"
+      && (iPhoneHardwareGeneration(device.hardwareProperties?.productType) ?? 0) >= 16
+      && (iOSMajorVersion(device.deviceProperties?.osVersionNumber) ?? 0) >= 26
+  ));
+  if (readyIPhones.length === 0) {
+    const registeredState = registeredIPhones.length === 0
+      ? "no physical iPhone is registered"
+      : registeredIPhones.map((device) => (
+        `${device.deviceProperties?.name ?? "unnamed iPhone"}: `
+          + `connection=${device.connectionProperties?.tunnelState ?? "unknown"}, `
+          + `developerMode=${device.deviceProperties?.developerModeStatus ?? "unknown"}, `
+          + `ddi=${device.deviceProperties?.ddiServicesAvailable === true ? "available" : "unavailable"}`
+      )).join("; ");
+    assert.fail(
+      "PHYSICAL_DEVICE_PREFLIGHT=FAIL no connected, developer-ready physical "
+        + `iPhone 15 Pro-class or newer is available (${registeredState}). `
+        + "An iOS Simulator cannot satisfy this gate.",
+    );
+  }
+  assert.equal(
+    readyIPhones.length,
+    1,
+    "PHYSICAL_DEVICE_PREFLIGHT=FAIL exactly one eligible physical iPhone must be connected",
+  );
+  const device = readyIPhones[0];
+  return {
+    identifier: device.identifier,
+    name: device.deviceProperties.name,
+    productType: device.hardwareProperties.productType,
+    marketingName: device.hardwareProperties.marketingName,
+    osVersion: device.deviceProperties.osVersionNumber,
+  };
+}
+
+export async function readConnectedPhysicalIPhone() {
+  let stdout;
+  try {
+    ({ stdout } = await execFileAsync(
+      "xcrun",
+      ["devicectl", "list", "devices", "--json-output", "/dev/stdout"],
+      { encoding: "utf8", maxBuffer: 4 * 1_024 * 1_024 },
+    ));
+  } catch (error) {
+    throw new Error(
+      "PHYSICAL_DEVICE_PREFLIGHT=FAIL CoreDevice inventory could not be read",
+      { cause: error },
+    );
+  }
+  const jsonStart = stdout.indexOf("{");
+  assert.ok(
+    jsonStart >= 0,
+    "PHYSICAL_DEVICE_PREFLIGHT=FAIL CoreDevice returned no JSON inventory",
+  );
+  let inventory;
+  try {
+    inventory = JSON.parse(stdout.slice(jsonStart));
+  } catch (error) {
+    throw new Error(
+      "PHYSICAL_DEVICE_PREFLIGHT=FAIL CoreDevice returned malformed JSON inventory",
+      { cause: error },
+    );
+  }
+  return validateConnectedPhysicalIPhoneInventory(inventory);
+}
+
+export async function validateRequiredPhysicalEvidence(
+  protocol,
+  { nativeRootPath = nativeRoot } = {},
+) {
+  const contract = protocol.firstFarmersEvidenceContract;
+  const evidencePath = path.resolve(nativeRootPath, contract.evidencePath);
+  const artifactsRoot = path.resolve(nativeRootPath, contract.artifactsRoot);
+  let evidenceBytes;
+  try {
+    evidenceBytes = await readFile(evidencePath, "utf8");
+  } catch (error) {
+    if (error?.code === "ENOENT") {
+      throw new Error(
+        "PHYSICAL_DEVICE_GATE=FAIL MISSING_DEVICE_EVIDENCE: "
+          + `${contract.evidencePath}. A simulator result or a locked protocol `
+          + "cannot satisfy the physical iPhone gate.",
+      );
+    }
+    throw error;
+  }
+  let evidence;
+  try {
+    evidence = JSON.parse(evidenceBytes);
+  } catch (error) {
+    throw new Error(
+      `PHYSICAL_DEVICE_GATE=FAIL invalid evidence JSON: ${contract.evidencePath}`,
+      { cause: error },
+    );
+  }
+  await validateFirstFarmersPhysicalEvidence(evidence, { artifactsRoot });
+  return { evidencePath, artifactsRoot };
+}
+
 async function main() {
+  const argumentsSet = new Set(process.argv.slice(2));
+  const supportedArguments = new Set([
+    "--preflight-device",
+    "--require-evidence",
+    "--require-pass",
+  ]);
+  for (const argument of argumentsSet) {
+    assert.ok(supportedArguments.has(argument), `unsupported argument: ${argument}`);
+  }
   const protocolPath = path.join(nativeRoot, "quality", "physical-device-protocol.json");
   const protocol = JSON.parse(await readFile(protocolPath, "utf8"));
   validatePhysicalDeviceProtocol(protocol);
@@ -182,6 +319,27 @@ async function main() {
   assert.equal(chapterEvidenceSchema.properties.status.const, "PASS");
   assert.equal(chapterEvidenceSchema.properties.batteryPairs.minItems, 3);
   assert.equal(chapterEvidenceSchema.properties.coldRestoreRuns.minItems, 6);
+  const requiresDevice = argumentsSet.has("--preflight-device")
+    || argumentsSet.has("--require-pass");
+  const requiresEvidence = argumentsSet.has("--require-evidence")
+    || argumentsSet.has("--require-pass");
+  let device;
+  if (requiresDevice) {
+    device = await readConnectedPhysicalIPhone();
+    process.stdout.write(
+      `PHYSICAL_DEVICE_PREFLIGHT=PASS model=${device.marketingName ?? device.productType} os=${device.osVersion}\n`,
+    );
+  }
+  if (requiresEvidence) {
+    await validateRequiredPhysicalEvidence(protocol);
+    process.stdout.write(
+      `PHYSICAL_DEVICE_EVIDENCE=PASS path=${protocol.firstFarmersEvidenceContract.evidencePath}\n`,
+    );
+  }
+  if (argumentsSet.has("--require-pass")) {
+    process.stdout.write("PHYSICAL_DEVICE_GATE=PASS\n");
+    return;
+  }
   process.stdout.write(
     `Physical-device protocol locked: ${protocol.runOrder.length} run classes; physical execution remains pending.\n`,
   );

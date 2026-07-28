@@ -1075,6 +1075,39 @@
                 }
               }
             ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
           }
         ]
       },
@@ -1250,6 +1283,39 @@
                 }
               }
             ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
           }
         ],
         "strata": [
@@ -1292,6 +1358,39 @@
               "y": 0.15,
               "width": 0.7,
               "height": 0.7
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
             },
             "safeTextRegions": [
               {
@@ -1619,6 +1718,39 @@
                 }
               }
             ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
           }
         ],
         "strata": [
@@ -1671,6 +1803,39 @@
               "y": 0.15,
               "width": 0.7,
               "height": 0.7
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
             },
             "safeTextRegions": [
               {
@@ -1867,6 +2032,39 @@
                 }
               }
             ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
           }
         ],
         "strata": [
@@ -1909,6 +2107,39 @@
               "y": 0.15,
               "width": 0.7,
               "height": 0.7
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
             },
             "safeTextRegions": [
               {
@@ -2105,6 +2336,39 @@
                 }
               }
             ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
           }
         ],
         "strata": [
@@ -2147,6 +2411,39 @@
               "y": 0.15,
               "width": 0.7,
               "height": 0.7
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
             },
             "safeTextRegions": [
               {
@@ -2322,6 +2619,39 @@
               "y": 0.15,
               "width": 0.7,
               "height": 0.7
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
             },
             "safeTextRegions": [
               {
@@ -3302,6 +3632,39 @@
                 }
               }
             ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
           }
         ]
       },
@@ -3477,6 +3840,39 @@
                 }
               }
             ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
           }
         ],
         "strata": [
@@ -3519,6 +3915,39 @@
               "y": 0.15,
               "width": 0.7,
               "height": 0.7
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
             },
             "safeTextRegions": [
               {
@@ -3715,6 +4144,39 @@
                 }
               }
             ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
           }
         ],
         "strata": [
@@ -3757,6 +4219,39 @@
               "y": 0.15,
               "width": 0.7,
               "height": 0.7
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
             },
             "safeTextRegions": [
               {
@@ -4220,6 +4715,39 @@
                 }
               }
             ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
           }
         ],
         "strata": [
@@ -4282,6 +4810,39 @@
               "y": 0.15,
               "width": 0.7,
               "height": 0.7
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
             },
             "safeTextRegions": [
               {
@@ -4478,6 +5039,39 @@
                 }
               }
             ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
           }
         ],
         "strata": [
@@ -4520,6 +5114,39 @@
               "y": 0.15,
               "width": 0.7,
               "height": 0.7
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
             },
             "safeTextRegions": [
               {
@@ -5173,6 +5800,39 @@
                 }
               }
             ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
           }
         ],
         "strata": [
@@ -5240,6 +5900,39 @@
               "y": 0.15,
               "width": 0.7,
               "height": 0.7
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
             },
             "safeTextRegions": [
               {
@@ -5436,6 +6129,39 @@
                 }
               }
             ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
           }
         ],
         "strata": [
@@ -5478,6 +6204,39 @@
               "y": 0.15,
               "width": 0.7,
               "height": 0.7
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
             },
             "safeTextRegions": [
               {
@@ -5674,6 +6433,39 @@
                 }
               }
             ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
           }
         ],
         "strata": [
@@ -5716,6 +6508,39 @@
               "y": 0.15,
               "width": 0.7,
               "height": 0.7
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
             },
             "safeTextRegions": [
               {
@@ -6179,6 +7004,39 @@
                 }
               }
             ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
           }
         ],
         "strata": [
@@ -6241,6 +7099,39 @@
               "y": 0.15,
               "width": 0.7,
               "height": 0.7
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
             },
             "safeTextRegions": [
               {
@@ -6437,6 +7328,39 @@
                 }
               }
             ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
           }
         ],
         "strata": [
@@ -6479,6 +7403,39 @@
               "y": 0.15,
               "width": 0.7,
               "height": 0.7
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
             },
             "safeTextRegions": [
               {
@@ -6942,6 +7899,39 @@
                 }
               }
             ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
           }
         ],
         "strata": [
@@ -7004,6 +7994,39 @@
               "y": 0.15,
               "width": 0.7,
               "height": 0.7
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
             },
             "safeTextRegions": [
               {
@@ -7179,6 +8202,39 @@
               "y": 0.15,
               "width": 0.7,
               "height": 0.7
+            },
+            "safeTextRegions": [
+              {
+                "id": "narrative-copy",
+                "rect": {
+                  "x": 0.08,
+                  "y": 0.06,
+                  "width": 0.84,
+                  "height": 0.2
+                }
+              },
+              {
+                "id": "mechanism-caption",
+                "rect": {
+                  "x": 0.12,
+                  "y": 0.78,
+                  "width": 0.76,
+                  "height": 0.12
+                }
+              }
+            ]
+          },
+          {
+            "id": "largest-430x932",
+            "viewport": {
+              "widthPoints": 430,
+              "heightPoints": 932
+            },
+            "sourceRect": {
+              "x": 0.15,
+              "y": 0.15008024893547334,
+              "width": 0.7,
+              "height": 0.6998395021290533
             },
             "safeTextRegions": [
               {

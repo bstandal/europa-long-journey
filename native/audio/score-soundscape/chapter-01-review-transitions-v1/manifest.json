@@ -39,7 +39,7 @@
         "receipt": {
           "path": "native/audio/score-soundscape/household-crosses-responsive-v1/render-receipt.json",
           "bytes": 49248,
-          "sha256": "3f3ad7e19e61151eb34dc315def022b2dd14154094a3c0f06122dc669e227203"
+          "sha256": "9d57b009235bc9e621fdb69e9d680619f86886e8d26696823da0502792bc797d"
         },
         "receiptOutputPath": "consequence/program-preview.wav",
         "audio": {
@@ -53,7 +53,7 @@
         "receipt": {
           "path": "native/audio/score-soundscape/harvest-responsive-v1/render-receipt.json",
           "bytes": 49356,
-          "sha256": "d0aaa353311a9866c6fd8b508f1e8c67bf1f30e7c778f35c4d1cfcef3f1f0f75"
+          "sha256": "cf7514b92111dac745c88abf9c2e875c2c327759c61e04bc7893c46cafec7d55"
         },
         "receiptOutputPath": "approach/program-preview.wav",
         "audio": {
@@ -88,7 +88,7 @@
         "receipt": {
           "path": "native/audio/score-soundscape/harvest-responsive-v1/render-receipt.json",
           "bytes": 49356,
-          "sha256": "d0aaa353311a9866c6fd8b508f1e8c67bf1f30e7c778f35c4d1cfcef3f1f0f75"
+          "sha256": "cf7514b92111dac745c88abf9c2e875c2c327759c61e04bc7893c46cafec7d55"
         },
         "receiptOutputPath": "consequence/program-preview.wav",
         "audio": {
@@ -102,7 +102,7 @@
         "receipt": {
           "path": "native/audio/score-soundscape/three-records-responsive-v1/render-receipt.json",
           "bytes": 46154,
-          "sha256": "9345101a1c0ec86027ed2a951ff81d562f71ffb7c6d4b0e7e7c18701c77bab35"
+          "sha256": "e0ce18164c46b4060a1020e1760de1194001574f842bee59e9b8d42cf12c38ce"
         },
         "receiptOutputPath": "approach/program-preview.wav",
         "audio": {
@@ -137,7 +137,7 @@
         "receipt": {
           "path": "native/audio/score-soundscape/continent-remade-responsive-v1/render-receipt.json",
           "bytes": 49174,
-          "sha256": "992a6b9eeb9a83b7be277e89fe93af2555d7b765d94e68b09f596484c38be045"
+          "sha256": "6112a9d8d08ba5e7d091b9b5b1b890c182f71ca8e4fbec6074f302f668429f59"
         },
         "receiptOutputPath": "approach/program-preview.wav",
         "audio": {
@@ -151,7 +151,7 @@
         "receipt": {
           "path": "native/audio/score-soundscape/continent-remade-responsive-v1/render-receipt.json",
           "bytes": 49174,
-          "sha256": "992a6b9eeb9a83b7be277e89fe93af2555d7b765d94e68b09f596484c38be045"
+          "sha256": "6112a9d8d08ba5e7d091b9b5b1b890c182f71ca8e4fbec6074f302f668429f59"
         },
         "receiptOutputPath": "consequence/program-preview.wav",
         "audio": {

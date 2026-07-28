@@ -3,6 +3,8 @@ import { createHash } from "node:crypto";
 import { lstat, readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 
+import { validateLaunchViewportCropContract } from
+  "../tooling/src/compile.mjs";
 import { validatePublicDocument } from "../tooling/src/validate.mjs";
 import { validateChapter01ReviewMatrix } from
   "../phase2/validate-chapter-01-review-matrix.mjs";
@@ -327,6 +329,7 @@ function validateInteractionContracts(draft) {
 
 function validateSourcePayload({ gate, draft, freeze, matrix, payload }) {
   validatePublicDocument(payload, gate.sources.contentPackage);
+  validateLaunchViewportCropContract(payload, "chapter01Review.sourcePayload");
   assert.equal(payload.packageID, "first-farmers-development-v1",
     "Chapter 01 development package ID drifted");
   assert.equal(payload.chapters.length, 1, "Chapter 01 source package must contain one chapter");
@@ -667,6 +670,7 @@ async function validateRuntimeFixture({ repositoryRoot, gate, narrationManifest 
     repositoryRoot, payloadRelative, "Signed Chapter 01 runtime payload",
   )).value;
   validatePublicDocument(payload, payloadRelative);
+  validateLaunchViewportCropContract(payload, "chapter01Review.runtimePayload");
   const chapter = payload.chapters.find(({ id }) => id === gate.chapterID);
   assert.ok(chapter, "Signed fixture does not contain Chapter 01");
   assert.deepEqual(flattenPayloadBeats(chapter), gate.canonical.beatSaveAnchors,
@@ -869,9 +873,17 @@ export async function validateChapter01ReviewEvidenceReceipt({
         "finalBeatID",
         "completedCounts",
         "fullTraversalCompleted",
-        "narrationChoiceOffered",
-        "narrationAutoplayObserved",
-        "silenceRouteCompleted",
+        "deliberateEntryAction",
+        "authoredSoundStartedAfterEntry",
+        "soundControlStayedVisible",
+        "playingControlLabel",
+        "mutePausedAuthoredSound",
+        "mutedControlLabel",
+        "unmuteResumedAuthoredSound",
+        "interruptionControlLabel",
+        "interruptionRestartedSoundSpontaneously",
+        "coldRestoreControlLabel",
+        "coldRestoreRestartedSoundSpontaneously",
         "accountSurfaceShown",
         "purchaseSurfaceShown",
         "debugControlsShown",
@@ -894,9 +906,24 @@ export async function validateChapter01ReviewEvidenceReceipt({
         arcs: 3, beats: 17, interactions: 6, worlds: 6, narrationCues: 37, audioTimelines: 47,
       });
       assert.equal(receipt.fullTraversalCompleted, true);
-      assert.equal(receipt.narrationChoiceOffered, true);
-      assert.equal(receipt.narrationAutoplayObserved, false);
-      assert.equal(receipt.silenceRouteCompleted, true);
+      assert.equal(receipt.deliberateEntryAction, "Begin",
+        "Fresh Chapter 01 traversal must use the deliberate Begin entry");
+      assert.equal(receipt.authoredSoundStartedAfterEntry, true,
+        "Deliberate Chapter 01 entry did not start authored sound");
+      assert.equal(receipt.soundControlStayedVisible, true,
+        "The fixed chapter sound control was not continuously available");
+      assert.equal(receipt.playingControlLabel, "Turn sound off");
+      assert.equal(receipt.mutePausedAuthoredSound, true,
+        "Mute did not pause the authored sound transport");
+      assert.equal(receipt.mutedControlLabel, "Turn sound on");
+      assert.equal(receipt.unmuteResumedAuthoredSound, true,
+        "Unmute did not resume the authored sound transport");
+      assert.equal(receipt.interruptionControlLabel, "Resume sound");
+      assert.equal(receipt.interruptionRestartedSoundSpontaneously, false,
+        "Sound restarted without an explicit action after interruption");
+      assert.equal(receipt.coldRestoreControlLabel, "Resume sound");
+      assert.equal(receipt.coldRestoreRestartedSoundSpontaneously, false,
+        "Sound restarted without an explicit action after cold restore");
       assert.equal(receipt.accountSurfaceShown, false);
       assert.equal(receipt.purchaseSurfaceShown, false);
       assert.equal(receipt.debugControlsShown, false);
@@ -918,8 +945,22 @@ export async function validateChapter01ReviewEvidenceReceipt({
         "Manual traversal log does not contain all six interactions in order");
       assert.equal(measured.finalRoute, "world",
         "Manual traversal log did not exit Chapter 01 to the world");
-      assert.equal(measured.narrationAutoplayObserved, false);
-      assert.equal(measured.silenceRouteCompleted, true);
+      for (const key of [
+        "deliberateEntryAction",
+        "authoredSoundStartedAfterEntry",
+        "soundControlStayedVisible",
+        "playingControlLabel",
+        "mutePausedAuthoredSound",
+        "mutedControlLabel",
+        "unmuteResumedAuthoredSound",
+        "interruptionControlLabel",
+        "interruptionRestartedSoundSpontaneously",
+        "coldRestoreControlLabel",
+        "coldRestoreRestartedSoundSpontaneously",
+      ]) {
+        assert.deepEqual(measured[key], receipt[key],
+          `Manual traversal log does not bind ${key}`);
+      }
       break;
     }
     case "INTERACTION_RECORDINGS": {
@@ -1256,6 +1297,7 @@ export async function evaluateChapter01ReviewReady({
       "approved chapter contract and F1-F7/editorial regression",
       "3 canonical arcs / 17 beats / 6 interactions",
       "6 backstage review worlds / 17 unique scene restore anchors",
+      "baseline and largest portrait crops in both motion modes for all runtime scenes",
       "37 frozen narration cue IDs and text hashes",
       "17 main plus 30 responsive audio timelines",
       "3 review-only world transitions inside the 17 main timelines",

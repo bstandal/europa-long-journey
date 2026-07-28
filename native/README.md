@@ -91,6 +91,35 @@ native/scripts/verify-native.sh
 `IMPLEMENTATION_STATUS.md` records whether that command currently passes. A
 passing component suite is not a substitute for the complete command.
 
+## Physical iPhone gate
+
+When the recorded test iPhone and retained run artifacts are available, the
+current First Farmers physical performance and restoration receipt contract is
+enforced by one Codex-controlled command:
+
+```sh
+node native/scripts/validate-physical-device-protocol.mjs --require-pass
+```
+
+It requires exactly one connected, developer-ready physical iPhone in the
+iPhone 15 Pro performance class or newer, validates the locked protocol and
+schemas, and then validates the canonical receipt and every artifact hash under
+`native/quality/physical-device-evidence/`. A missing phone, receipt or artifact
+fails explicitly. `--preflight-device` and `--require-evidence` may be run
+separately for diagnosis. Neither a simulator nor the protocol document itself
+can produce a physical pass, and the command never creates evidence or editor
+approval.
+
+This receipt contract currently covers the locked performance, power, thermal,
+audio and restoration run classes. Live StoreKit, physical accessibility and
+airplane-mode editorial gates remain separate release blockers until their own
+retained evidence is bound into the same command.
+
+The physical mute-to-silence requirement of at most 100 milliseconds is not
+yet claimable by this receipt contract. The raw report has no retained,
+hash-bound mute-request and observed-silence timestamps, so this remains an
+evidence-contract gap rather than a declared measurement.
+
 The package compiler writes only to a disposable staging directory. It fails
 on backstage paths, forbidden research fields, academic leakage, invalid
 interaction grammars, impossible world-effect dependencies, unstable IDs or a

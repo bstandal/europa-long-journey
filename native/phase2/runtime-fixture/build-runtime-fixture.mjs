@@ -69,6 +69,13 @@ const chapter01ReviewBaselineSourceRect = Object.freeze({
   width: 1 - chapter01ReviewOverscanFraction * 2,
   height: 1 - chapter01ReviewOverscanFraction * 2,
 });
+const chapter01ReviewLargestSourceRect = Object.freeze(
+  centeredPortraitSourceRect(
+    chapter01ReviewMasterCanvas,
+    { widthPoints: 430, heightPoints: 932 },
+    1 - chapter01ReviewOverscanFraction * 2,
+  ),
+);
 const chapter01ReviewSemanticAssetSuffixes = Object.freeze([
   "background",
   "midground",
@@ -210,6 +217,21 @@ async function writeJSON(file, value) {
 
 function requireCondition(condition, message) {
   if (!condition) throw new Error(message);
+}
+
+function centeredPortraitSourceRect(canvas, viewport, width) {
+  const height = canvas.width * width * viewport.heightPoints
+    / (canvas.height * viewport.widthPoints);
+  requireCondition(
+    width > 0 && width <= 1 && height > 0 && height <= 1,
+    "Portrait crop exceeds its authored master canvas",
+  );
+  return {
+    x: (1 - width) / 2,
+    y: (1 - height) / 2,
+    width,
+    height,
+  };
 }
 
 function isLowercaseSHA256(value) {
@@ -1252,12 +1274,16 @@ function rewriteAuthoredSceneAssets(scene, sceneID, assetStemID) {
   for (const crop of scene.sceneCanvas.viewportCrops) {
     if (crop.id === "baseline-393x852") {
       crop.sourceRect = { ...chapter01ReviewBaselineSourceRect };
+    } else if (crop.id === "largest-430x932") {
+      crop.sourceRect = { ...chapter01ReviewLargestSourceRect };
     }
   }
   scene.reduceMotionComposition.canvas = { ...chapter01ReviewMasterCanvas };
   for (const crop of scene.reduceMotionComposition.viewportCrops) {
     if (crop.id === "baseline-393x852") {
       crop.sourceRect = { ...chapter01ReviewBaselineSourceRect };
+    } else if (crop.id === "largest-430x932") {
+      crop.sourceRect = { ...chapter01ReviewLargestSourceRect };
     }
   }
   for (const layer of scene.layers) {
@@ -1377,7 +1403,11 @@ function applyReviewBeatVariants(scene, reviewBeat, reviewWorld) {
       scene.reduceMotionComposition,
     ]) {
       for (const crop of composition?.viewportCrops ?? []) {
-        crop.sourceRect = { x: 0, y: 0, width: 1, height: 1 };
+        crop.sourceRect = centeredPortraitSourceRect(
+          composition.canvas,
+          crop.viewport,
+          1,
+        );
       }
     }
     for (const keyframe of scene.cameraRail?.keyframes ?? []) {
@@ -1436,6 +1466,22 @@ function baselineCrop() {
   };
 }
 
+function largestCrop() {
+  return {
+    id: "largest-430x932",
+    viewport: { widthPoints: 430, heightPoints: 932 },
+    sourceRect: { ...chapter01ReviewLargestSourceRect },
+    safeTextRegions: [
+      { id: "narrative-copy", rect: { x: 0.08, y: 0.06, width: 0.84, height: 0.2 } },
+      { id: "mechanism-caption", rect: { x: 0.12, y: 0.78, width: 0.76, height: 0.12 } },
+    ],
+  };
+}
+
+function launchCrops() {
+  return [baselineCrop(), largestCrop()];
+}
+
 function targetRegion(x, y, width = 0.15, height = 0.12) {
   return {
     path: [
@@ -1486,7 +1532,7 @@ function technicalScene({
       canvas: { ...chapter01ReviewMasterCanvas },
       cameraTravelBounds: { x: 0.2, y: 0.2, width: 0.6, height: 0.6 },
       authoredOverscanFraction: chapter01ReviewOverscanFraction,
-      viewportCrops: [baselineCrop()],
+      viewportCrops: launchCrops(),
     },
     layers,
     cameraRail: {
@@ -1500,7 +1546,7 @@ function technicalScene({
     interactionVisualBinding,
     reduceMotionComposition: {
       canvas: { ...chapter01ReviewMasterCanvas },
-      viewportCrops: [baselineCrop()],
+      viewportCrops: launchCrops(),
       strata: [
         {
           id: "static-underlay",
@@ -1553,6 +1599,40 @@ function harvestProofStaticCrop() {
   };
 }
 
+function harvestProofLargestCrop() {
+  const canvas = { width: 1290, height: 2796 };
+  return {
+    id: "largest-430x932",
+    viewport: { widthPoints: 430, heightPoints: 932 },
+    sourceRect: centeredPortraitSourceRect(
+      canvas,
+      { widthPoints: 430, heightPoints: 932 },
+      1084 / 1290,
+    ),
+    safeTextRegions: [
+      { id: "narrative-copy", rect: { x: 0.08, y: 0.06, width: 0.84, height: 0.2 } },
+      { id: "mechanism-caption", rect: { x: 0.12, y: 0.78, width: 0.76, height: 0.12 } },
+    ],
+  };
+}
+
+function harvestProofStaticLargestCrop() {
+  const canvas = { width: 786, height: 1704 };
+  return {
+    id: "largest-430x932",
+    viewport: { widthPoints: 430, heightPoints: 932 },
+    sourceRect: centeredPortraitSourceRect(
+      canvas,
+      { widthPoints: 430, heightPoints: 932 },
+      1,
+    ),
+    safeTextRegions: [
+      { id: "narrative-copy", rect: { x: 0.08, y: 0.06, width: 0.84, height: 0.2 } },
+      { id: "mechanism-caption", rect: { x: 0.12, y: 0.78, width: 0.76, height: 0.12 } },
+    ],
+  };
+}
+
 function harvestProofLayer(id, order, depth, parallaxFactor, alphaMaskAssetPath = null) {
   return {
     id,
@@ -1581,7 +1661,7 @@ function makeHarvestParallaxProof() {
       canvas: { width: 1290, height: 2796 },
       cameraTravelBounds: { x: 0.42, y: 0.44, width: 0.16, height: 0.12 },
       authoredOverscanFraction: 0.15,
-      viewportCrops: [harvestProofCrop()],
+      viewportCrops: [harvestProofCrop(), harvestProofLargestCrop()],
     },
     layers: [
       harvestProofLayer("diagnostic-underlay", 0, 0.08, 0),
@@ -1620,7 +1700,7 @@ function makeHarvestParallaxProof() {
     interactionTargets: [],
     reduceMotionComposition: {
       canvas: { width: 786, height: 1704 },
-      viewportCrops: [harvestProofStaticCrop()],
+      viewportCrops: [harvestProofStaticCrop(), harvestProofStaticLargestCrop()],
       strata: [{
         id: "frozen-static-crop",
         kind: "staticPlate",

@@ -26,6 +26,7 @@ import {
   publicKeyX963Base64,
   requireApprovedBlueprint,
   requireInstalledByteBudget,
+  validateLaunchViewportCropContract,
   validatePackageManifest,
   verifyCompiledPackage,
   verifyPackageManifest,
@@ -268,6 +269,7 @@ export async function compileDevelopmentVerticalSlice(sourceRoot, outputRoot, op
       `vertical-slice compiler: payload packageID must be '${verticalSliceDevelopmentIdentity.packageID}'`,
     ]);
   }
+  validateLaunchViewportCropContract(payload, "verticalSlice.payload");
 
   await requireApprovedBlueprint(options.blueprintRoot);
   const blueprint = await readBlueprintProjectionDocuments(options.blueprintRoot);

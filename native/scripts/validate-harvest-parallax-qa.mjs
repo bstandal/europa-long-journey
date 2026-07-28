@@ -269,6 +269,18 @@ export async function validateHarvestParallaxQA({
         === "DEBUG_OFFSCREEN_DIAGNOSTIC_ONLY",
     "runtime renderer boundary drifted",
   );
+  await readBound(
+    repositoryRoot,
+    runtimeReceipt.runtimePath.sourcePath,
+    runtimeReceipt.runtimePath.sourceSha256,
+    "runtime renderer source",
+  );
+  await readBound(
+    repositoryRoot,
+    runtimeReceipt.deterministicProof.testPath,
+    runtimeReceipt.deterministicProof.testSha256,
+    "runtime proof test",
+  );
   requireCondition(
     runtimeReceipt.deterministicProof.metalReplay
       === "PASS_BYTE_IDENTICAL_AT_BOTH_EXTREMA_AND_REDUCE_MOTION"
@@ -279,6 +291,10 @@ export async function validateHarvestParallaxQA({
       && runtimeReceipt.deterministicProof.staticCopyNegativeResult
         === "PASS_ALL_REMAIN_ON_SHADER_PATH",
     "runtime determinism or bypass proof drifted",
+  );
+  requireCondition(
+    runtimeReceipt.deterministicProof.viewportCropID === "baseline-393x852",
+    "runtime proof viewport scope drifted",
   );
   exactSet(
     runtimeReceipt.deterministicProof.staticCopyNegativeCases,

@@ -19,9 +19,9 @@ public struct ExperienceAudioRoutingPolicy: Equatable, Sendable {
     public let semanticHapticsAreEnabled: Bool
 
     public init(preferences: ExperiencePreferences) {
-        narrationIsAudible = preferences.narrationEnabled
-        scoreIsAudible = preferences.scoreEnabled
-        soundscapeIsAudible = preferences.soundscapeEnabled
+        narrationIsAudible = preferences.soundEnabled && preferences.narrationEnabled
+        scoreIsAudible = preferences.soundEnabled
+        soundscapeIsAudible = preferences.soundEnabled
         timelineHapticsAreEnabled = preferences.hapticsEnabled
         semanticHapticsAreEnabled = preferences.hapticsEnabled
     }
