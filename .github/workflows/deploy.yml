@@ -1,4 +1,4 @@
-name: Deploy EUROPA to GitHub Pages
+name: Deploy EUROCENTRIC to GitHub Pages
 
 on:
   push:

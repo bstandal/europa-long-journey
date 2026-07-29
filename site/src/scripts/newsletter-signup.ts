@@ -287,7 +287,7 @@ if (floatingRoot) {
       floatingRoot.hidden = false;
       writeStorage(window.sessionStorage, shownKey, "1");
       if (announcement) {
-        announcement.textContent = "EUROPA email signup is available.";
+        announcement.textContent = "EUROCENTRIC email signup is available.";
       }
       window.requestAnimationFrame(() =>
         floatingRoot.classList.add("is-visible"),
