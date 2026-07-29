@@ -25,6 +25,18 @@ final class FirstFarmersFullTraversalTests: XCTestCase {
         )
         XCTAssertEqual(Set(completedSession.completedBeatIDs), Set(Self.expectedBeatIDs))
         XCTAssertEqual(completedSession.completedArcIDs.count, 3)
+        XCTAssertTrue(
+            completedSession.hasSealedReviewArchiveForCompletedBeats
+        )
+        let reviewCoordinator = ChapterCoordinator(
+            repository: try loadEnvelope().repository
+        )
+        XCTAssertNoThrow(
+            try reviewCoordinator.openReviewPlan(
+                chapterID: "first-farmers",
+                state: uninterrupted.state
+            )
+        )
     }
 
     func testEveryInteractionEffectAppearsOnlyAtCompletionAndExactlyOnce() throws {

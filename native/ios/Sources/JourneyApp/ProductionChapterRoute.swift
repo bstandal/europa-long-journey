@@ -5320,10 +5320,15 @@ struct ChapterReviewView: View {
                             model.chapterTransitionIsPending
                     )
                     .id(projection.selected.beat.id)
+                    .safeAreaPadding(
+                        .top,
+                        dynamicTypeSize.isAccessibilitySize
+                            ? geometry.safeAreaInsets.top + 60 : 0
+                    )
                     .frame(
-                        maxHeight: geometry.size.height
-                            * (dynamicTypeSize.isAccessibilitySize
-                                ? 0.72 : 0.44),
+                        maxHeight: dynamicTypeSize.isAccessibilitySize
+                            ? geometry.size.height
+                            : geometry.size.height * 0.44,
                         alignment: .bottom
                     )
 
@@ -5930,13 +5935,19 @@ struct ProductionChapterView: View {
 #endif
 
                 if let presentation {
+                    let completedReviewProjection =
+                        model.completedBeatReviewProjection(
+                            expectedIdentity: identity
+                        )
+                    let previousReviewBeatID = completedReviewProjection?
+                        .cursors.last?.beat.id
                     let interactionIsIncomplete =
                         presentation.cursor.beat.interaction != nil
                         && presentation.journeyState.activeChapter?
                             .interaction?.phase != .complete
                     let narrativeHeightFraction = dynamicTypeSize
                         .isAccessibilitySize
-                        ? 0.72
+                        ? 0.86
                         : (interactionIsIncomplete ? 0.18 : 0.44)
                     ZStack {
                         SceneMetalSurface(
@@ -6019,10 +6030,11 @@ struct ProductionChapterView: View {
                             )
                         },
                         controlsAreDisabled: controlsAreDisabled,
+                        previousReviewBeatID: previousReviewBeatID,
                         openPrevious: {
-                            guard let beatID = presentation.journeyState
-                                .activeChapter?.completedBeatReviewRecords
-                                .last?.beatID else { return }
+                            guard let beatID = previousReviewBeatID else {
+                                return
+                            }
                             guard model.openBeatReview(
                                 chapterID: identity.chapterID,
                                 beatID: beatID,
@@ -6034,9 +6046,15 @@ struct ProductionChapterView: View {
                         }
                     )
                     .id(presentation.cursor.beat.id)
+                    .safeAreaPadding(
+                        .top,
+                        dynamicTypeSize.isAccessibilitySize
+                            ? geometry.safeAreaInsets.top + 60 : 0
+                    )
                     .frame(
-                        maxHeight: geometry.size.height
-                            * narrativeHeightFraction,
+                        maxHeight: dynamicTypeSize.isAccessibilitySize
+                            ? geometry.size.height
+                            : geometry.size.height * narrativeHeightFraction,
                         alignment: .bottom
                     )
 #if DEBUG
@@ -6252,6 +6270,11 @@ struct ProductionChapterView: View {
             if let presentation {
                 ChapterVisitedScenesSheet(
                     presentation: presentation,
+                    reviewableBeatIDs: Set(
+                        model.completedBeatReviewProjection(
+                            expectedIdentity: identity
+                        )?.cursors.map(\.beat.id) ?? []
+                    ),
                     openReview: { beatID in
                         sceneListIsPresented = false
                         guard model.openBeatReview(
@@ -6604,15 +6627,9 @@ private struct ChapterReviewVisitedScenesSheet: View {
 
 private struct ChapterVisitedScenesSheet: View {
     let presentation: ChapterScenePresentation
+    let reviewableBeatIDs: Set<BeatID>
     let openReview: (BeatID) -> Void
     @Environment(\.dismiss) private var dismiss
-
-    private var completedBeatIDs: Set<BeatID> {
-        Set(
-            presentation.journeyState.activeChapter?
-                .completedBeatReviewRecords.map(\.beatID) ?? []
-        )
-    }
 
     var body: some View {
         NavigationStack {
@@ -6622,12 +6639,12 @@ private struct ChapterVisitedScenesSheet: View {
                     id: \.element.id
                 ) { movementIndex, arc in
                     if arc.beats.contains(where: {
-                        completedBeatIDs.contains($0.id)
+                        reviewableBeatIDs.contains($0.id)
                             || $0.id == presentation.cursor.beat.id
                     }) {
                         Section {
                             ForEach(arc.beats) { beat in
-                                if completedBeatIDs.contains(beat.id) {
+                                if reviewableBeatIDs.contains(beat.id) {
                                     Button {
                                         openReview(beat.id)
                                     } label: {
@@ -6703,6 +6720,7 @@ private struct ChapterNarrativeSurface: View {
     let linearInteractionModel: SemanticInteractionModel?
     let submitLinearInteraction: (String, AccessibilityActionSpec) -> Void
     let controlsAreDisabled: Bool
+    let previousReviewBeatID: BeatID?
     let openPrevious: () -> Void
     @State private var readingAnchor: String?
     @Environment(\.colorSchemeContrast) private var contrast
@@ -6721,8 +6739,7 @@ private struct ChapterNarrativeSurface: View {
     }
 
     private var hasPrevious: Bool {
-        !(presentation.journeyState.activeChapter?
-            .completedBeatReviewRecords.isEmpty ?? true)
+        previousReviewBeatID != nil
     }
 
     private var allocationCanCommit: Bool {
@@ -6842,6 +6859,7 @@ private struct ChapterNarrativeSurface: View {
                         Color(red: 0.90, green: 0.73, blue: 0.43)
                     )
                     .lineLimit(3)
+                    .fixedSize(horizontal: false, vertical: true)
 
                     if let interactionStatus {
                         Text(interactionStatus)
@@ -6953,6 +6971,7 @@ private struct ChapterNarrativeSurface: View {
 private struct ChapterLinearInteractionControls: View {
     let semanticModel: SemanticInteractionModel
     let submit: (String, AccessibilityActionSpec) -> Void
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -6970,15 +6989,36 @@ private struct ChapterLinearInteractionControls: View {
                         Button {
                             submit(control.id, action)
                         } label: {
-                            HStack {
-                                Text(action.label.launchEnglish)
-                                Spacer()
-                                if let value = control.value {
-                                    Text(value)
-                                        .foregroundStyle(.secondary)
+                            if dynamicTypeSize.isAccessibilitySize {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text(action.label.launchEnglish)
+                                        .multilineTextAlignment(.leading)
+                                        .lineLimit(nil)
+                                    if let value = control.value {
+                                        Text(value)
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                            .multilineTextAlignment(.leading)
+                                            .lineLimit(nil)
+                                    }
                                 }
+                                .padding(.vertical, 8)
+                                .frame(
+                                    maxWidth: .infinity,
+                                    minHeight: 44,
+                                    alignment: .leading
+                                )
+                            } else {
+                                HStack {
+                                    Text(action.label.launchEnglish)
+                                    Spacer()
+                                    if let value = control.value {
+                                        Text(value)
+                                            .foregroundStyle(.secondary)
+                                    }
+                                }
+                                .frame(maxWidth: .infinity, minHeight: 44)
                             }
-                            .frame(maxWidth: .infinity, minHeight: 44)
                         }
                         .buttonStyle(.bordered)
                         .accessibilityLabel(control.label)
@@ -6990,47 +7030,121 @@ private struct ChapterLinearInteractionControls: View {
                     }
                 case .adjustable:
                     VStack(alignment: .leading, spacing: 8) {
-                        HStack(alignment: .firstTextBaseline) {
-                            Text(control.label)
-                                .font(.callout.weight(.semibold))
-                            Spacer()
-                            if let value = control.value {
-                                Text(value)
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                                    .multilineTextAlignment(.trailing)
+                        if dynamicTypeSize.isAccessibilitySize {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(control.label)
+                                    .font(.callout.weight(.semibold))
+                                    .fixedSize(
+                                        horizontal: false,
+                                        vertical: true
+                                    )
+                                if let value = control.value {
+                                    Text(value)
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                        .fixedSize(
+                                            horizontal: false,
+                                            vertical: true
+                                        )
+                                }
+                            }
+                        } else {
+                            HStack(alignment: .firstTextBaseline) {
+                                Text(control.label)
+                                    .font(.callout.weight(.semibold))
+                                Spacer()
+                                if let value = control.value {
+                                    Text(value)
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                        .multilineTextAlignment(.trailing)
+                                }
                             }
                         }
-                        HStack(spacing: 10) {
-                            ForEach(
-                                Array(control.actions.enumerated()),
-                                id: \.offset
-                            ) { _, action in
-                                Button(action.label.launchEnglish) {
-                                    submit(control.id, action)
+                        if dynamicTypeSize.isAccessibilitySize {
+                            VStack(spacing: 10) {
+                                ForEach(
+                                    Array(control.actions.enumerated()),
+                                    id: \.offset
+                                ) { _, action in
+                                    Button {
+                                        submit(control.id, action)
+                                    } label: {
+                                        Text(action.label.launchEnglish)
+                                            .multilineTextAlignment(.leading)
+                                            .lineLimit(nil)
+                                            .padding(.vertical, 8)
+                                            .frame(
+                                                maxWidth: .infinity,
+                                                minHeight: 44,
+                                                alignment: .leading
+                                            )
+                                    }
+                                    .buttonStyle(.bordered)
+                                    .accessibilityLabel(
+                                        "\(control.label), \(action.label.launchEnglish)"
+                                    )
+                                    .accessibilityValue(control.value ?? "")
+                                    .accessibilityIdentifier(
+                                        "chapter-linear-\(control.id)-\(action.kind.rawValue)"
+                                    )
                                 }
-                                .buttonStyle(.bordered)
-                                .frame(maxWidth: .infinity, minHeight: 44)
-                                .accessibilityLabel(
-                                    "\(control.label), \(action.label.launchEnglish)"
-                                )
-                                .accessibilityValue(control.value ?? "")
-                                .accessibilityIdentifier(
-                                    "chapter-linear-\(control.id)-\(action.kind.rawValue)"
-                                )
+                            }
+                        } else {
+                            HStack(spacing: 10) {
+                                ForEach(
+                                    Array(control.actions.enumerated()),
+                                    id: \.offset
+                                ) { _, action in
+                                    Button(action.label.launchEnglish) {
+                                        submit(control.id, action)
+                                    }
+                                    .buttonStyle(.bordered)
+                                    .frame(
+                                        maxWidth: .infinity,
+                                        minHeight: 44
+                                    )
+                                    .accessibilityLabel(
+                                        "\(control.label), \(action.label.launchEnglish)"
+                                    )
+                                    .accessibilityValue(control.value ?? "")
+                                    .accessibilityIdentifier(
+                                        "chapter-linear-\(control.id)-\(action.kind.rawValue)"
+                                    )
+                                }
                             }
                         }
                     }
                 case .status:
-                    HStack {
-                        Text(control.label)
-                        Spacer()
-                        if let value = control.value {
-                            Text(value).foregroundStyle(.secondary)
+                    if dynamicTypeSize.isAccessibilitySize {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(control.label)
+                                .fixedSize(
+                                    horizontal: false,
+                                    vertical: true
+                                )
+                            if let value = control.value {
+                                Text(value)
+                                    .foregroundStyle(.secondary)
+                                    .fixedSize(
+                                        horizontal: false,
+                                        vertical: true
+                                    )
+                            }
                         }
+                        .font(.callout)
+                        .accessibilityElement(children: .combine)
+                    } else {
+                        HStack {
+                            Text(control.label)
+                            Spacer()
+                            if let value = control.value {
+                                Text(value).foregroundStyle(.secondary)
+                            }
+                        }
+                        .font(.callout)
+                        .accessibilityElement(children: .combine)
                     }
-                    .font(.callout)
-                    .accessibilityElement(children: .combine)
                 }
             }
         }

@@ -215,6 +215,32 @@ public struct ChapterSession: Codable, Equatable, Sendable {
         completedBeatReviewRecords.first { $0.beatID == beatID }
     }
 
+    /// Whether every completed beat has one sealed, canonically indexed review
+    /// record belonging to this exact persisted content identity. Authored arc,
+    /// beat and scene identities still require validation against ContentKit.
+    public var hasSealedReviewArchiveForCompletedBeats: Bool {
+        guard !completedBeatIDs.isEmpty,
+              Set(completedBeatIDs).count == completedBeatIDs.count,
+              completedBeatReviewRecords.count == completedBeatIDs.count else {
+            return false
+        }
+
+        let archivedBeatIDs = completedBeatReviewRecords.map(\.beatID)
+        guard Set(archivedBeatIDs).count == archivedBeatIDs.count,
+              Set(archivedBeatIDs) == Set(completedBeatIDs),
+              completedBeatReviewRecords.map(\.absoluteBeatIndex)
+                == Array(completedBeatReviewRecords.indices) else {
+            return false
+        }
+
+        return completedBeatReviewRecords.allSatisfy { record in
+            record.isStructurallyValid
+                && record.chapterID == chapterID
+                && record.packageID == packageID
+                && record.contentVersion == contentVersion
+        }
+    }
+
     private static func normalized(
         _ records: [CompletedBeatReviewRecord]
     ) -> [CompletedBeatReviewRecord] {

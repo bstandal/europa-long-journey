@@ -100,6 +100,72 @@ final class ChapterReviewCoordinatorTests: XCTestCase {
         )
     }
 
+    func testCompletedChapterRejectsPartialReviewArchive() throws {
+        let coordinator = try makeCoordinator()
+        var state = try completedChapterState(coordinator: coordinator)
+        var session = try XCTUnwrap(state.chapterSession("first-farmers"))
+        session.completedBeatReviewRecords.removeLast()
+        state.chapterSessions = [session]
+
+        XCTAssertThrowsError(
+            try coordinator.openReviewPlan(
+                chapterID: "first-farmers",
+                state: state
+            )
+        ) { error in
+            XCTAssertEqual(
+                error as? ChapterCoordinatorError,
+                .reviewUnavailable("first-farmers")
+            )
+        }
+    }
+
+    func testCompletedChapterRequiresEveryChapterBeatEvenWhenArchiveMatchesPrefix() throws {
+        let coordinator = try makeCoordinator()
+        var state = try completedChapterState(coordinator: coordinator)
+        var session = try XCTUnwrap(state.chapterSession("first-farmers"))
+        session.completedBeatIDs.removeAll {
+            $0 == "first-farmers-beat-three"
+        }
+        session.completedArcIDs.removeAll {
+            $0 == "first-farmers-arc-two"
+        }
+        session.completedBeatReviewRecords.removeLast()
+        state.chapterSessions = [session]
+
+        XCTAssertThrowsError(
+            try coordinator.openReviewPlan(
+                chapterID: "first-farmers",
+                state: state
+            )
+        ) { error in
+            XCTAssertEqual(
+                error as? ChapterCoordinatorError,
+                .reviewUnavailable("first-farmers")
+            )
+        }
+    }
+
+    func testActiveChapterRejectsReviewArchiveMissingCompletedPrefixRecord() throws {
+        let coordinator = try makeCoordinator()
+        var state = try activeFinalBeatState(coordinator: coordinator)
+        var session = try XCTUnwrap(state.chapterSession("first-farmers"))
+        session.completedBeatReviewRecords.removeFirst()
+        state.chapterSessions = [session]
+
+        XCTAssertThrowsError(
+            try coordinator.openReviewPlan(
+                chapterID: "first-farmers",
+                state: state
+            )
+        ) { error in
+            XCTAssertEqual(
+                error as? ChapterCoordinatorError,
+                .reviewUnavailable("first-farmers")
+            )
+        }
+    }
+
     func testReviewSurvivesColdRestoreWithoutChangingItsUnderlyingRoute() throws {
         let coordinator = try makeCoordinator()
         var state = try completedChapterState(coordinator: coordinator)
@@ -264,6 +330,17 @@ final class ChapterReviewCoordinatorTests: XCTestCase {
     private func completedChapterState(
         coordinator: ChapterCoordinator
     ) throws -> JourneyState {
+        var state = try activeFinalBeatState(coordinator: coordinator)
+        state = JourneyContentFixtures.applying(
+            try coordinator.advanceActions(state: state).actions,
+            to: state
+        )
+        return state
+    }
+
+    private func activeFinalBeatState(
+        coordinator: ChapterCoordinator
+    ) throws -> JourneyState {
         var state = JourneyContentFixtures.applying(
             try coordinator.beginActions(chapterID: "first-farmers", state: .initial)
         )
@@ -285,10 +362,6 @@ final class ChapterReviewCoordinatorTests: XCTestCase {
                     action: .trace(NormalizedPoint(x: 0.6, y: 0.5))
                 ),
             ],
-            to: state
-        )
-        state = JourneyContentFixtures.applying(
-            try coordinator.advanceActions(state: state).actions,
             to: state
         )
         state = JourneyContentFixtures.applying(

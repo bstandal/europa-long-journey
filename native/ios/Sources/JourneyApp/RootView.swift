@@ -610,12 +610,20 @@ private struct WorldRouteView: View {
 
     private func chapterStatus(_ chapterID: ChapterID) -> ChapterJourneyStatus {
         if model.state.completedChapterIDs.contains(chapterID) {
-            return model.state.chapterSession(chapterID)?
-                .completedBeatReviewRecords.isEmpty == false
-                ? .review
-                : .completed
+            if case .locked = model.access(to: chapterID) {
+                return .locked
+            }
+            switch model.completedChapterReviewAccess(chapterID) {
+            case .ready, .needsContentRecovery:
+                return .review
+            case .unavailable:
+                return .completed
+            }
         }
         if model.state.chapterSession(chapterID) != nil {
+            if case .locked = model.access(to: chapterID) {
+                return .locked
+            }
             return .resume
         }
         switch model.access(to: chapterID) {

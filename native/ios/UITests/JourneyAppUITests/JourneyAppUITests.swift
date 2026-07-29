@@ -297,6 +297,11 @@ final class JourneyAppUITests: XCTestCase {
         app.launchArguments = ["--ui-testing-signed-runtime-fixture"]
         app.launch()
         XCTAssertTrue(restoredReview.waitForExistence(timeout: 12))
+        let restoredSoundControl = app.buttons[
+            "chapter-review-sound-control"
+        ]
+        XCTAssertTrue(restoredSoundControl.waitForExistence(timeout: 3))
+        XCTAssertEqual(restoredSoundControl.label, "Resume sound")
         let closeReview = app.buttons["chapter-review-close"]
         XCTAssertTrue(closeReview.waitForExistence(timeout: 3))
         XCTAssertEqual(closeReview.label, "Return to current")
@@ -308,6 +313,44 @@ final class JourneyAppUITests: XCTestCase {
             causalState.value as? String,
             stateBeforeReview,
             "Restoring review changed causal chapter progress"
+        )
+    }
+
+    func testReviewRequiresExplicitResumeAfterBackgroundDuringEntry() {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "--ui-testing-reset-state",
+            "--ui-testing-signed-runtime-fixture",
+            "--ui-testing-signed-runtime-fixture-beat=beat-first-farmers-living-system",
+        ]
+        app.launch()
+
+        XCTAssertTrue(
+            app.descendants(matching: .any)[
+                "chapter-beat-beat-first-farmers-living-system"
+            ].waitForExistence(timeout: 12)
+        )
+        let openPrevious = app.buttons["chapter-previous"]
+        XCTAssertTrue(openPrevious.waitForExistence(timeout: 3))
+        XCTAssertTrue(openPrevious.isHittable)
+        openPrevious.tap()
+        XCUIDevice.shared.press(.home)
+        app.activate()
+
+        XCTAssertTrue(
+            app.descendants(matching: .any)[
+                "chapter-review-beat-first-farmers-household-crosses"
+            ].waitForExistence(timeout: 12)
+        )
+        let soundControl = app.buttons["chapter-review-sound-control"]
+        XCTAssertTrue(soundControl.waitForExistence(timeout: 5))
+        let explicitResume = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "label == %@", "Resume sound"),
+            object: soundControl
+        )
+        XCTAssertEqual(
+            XCTWaiter().wait(for: [explicitResume], timeout: 8),
+            .completed
         )
     }
 
@@ -350,6 +393,30 @@ final class JourneyAppUITests: XCTestCase {
             app.descendants(matching: .any)[
                 "chapter-review-beat-first-farmers-river-world"
             ].waitForExistence(timeout: 8)
+        )
+        let soundControl = app.buttons["chapter-review-sound-control"]
+        XCTAssertTrue(soundControl.waitForExistence(timeout: 3))
+        let automaticReviewSound = XCTNSPredicateExpectation(
+            predicate: NSPredicate(
+                format: "label == %@",
+                "Turn sound off"
+            ),
+            object: soundControl
+        )
+        XCTAssertEqual(
+            XCTWaiter().wait(for: [automaticReviewSound], timeout: 8),
+            .completed
+        )
+        let next = app.buttons["chapter-review-next"]
+        XCTAssertTrue(next.isHittable)
+        next.tap()
+        XCTAssertTrue(
+            app.descendants(matching: .any)[
+                "chapter-review-beat-first-farmers-household-crosses"
+            ].waitForExistence(timeout: 8)
+        )
+        XCTAssertFalse(
+            app.buttons["chapter-failure-return-to-road"].exists
         )
         let done = app.buttons["chapter-review-close"]
         XCTAssertTrue(done.isHittable)

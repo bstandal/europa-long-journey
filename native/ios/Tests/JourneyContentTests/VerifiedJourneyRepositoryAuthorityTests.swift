@@ -239,6 +239,192 @@ final class VerifiedJourneyRepositoryAuthorityTests: XCTestCase {
         XCTAssertNotNil(snapshot.verifiedPackage(for: "paid-pack-02"))
     }
 
+    func testUnavailableGenerationAuthorityQuarantinesExactDurableGeneration()
+        async throws
+    {
+        let key = P256.Signing.PrivateKey()
+        let damaged = try makeSignedPackage(
+            payload: JourneyContentFixtures.package("paid-pack-01"),
+            privateKey: key,
+            suffix: "unavailable-quarantine"
+        )
+        defer { try? FileManager.default.removeItem(at: damaged.root) }
+        try Data("tampered".utf8).write(
+            to: damaged.payloadURL,
+            options: .atomic
+        )
+        let generation = generation(for: damaged, sequence: 1)
+        let source = MutableAuthoritySource(authority: authority(
+            active: [damaged.packageID: (generation, damaged.root)],
+            retained: [:]
+        ))
+        let deactivated = RetainedPackageAuthority(
+            index: InstalledPackageIndex(
+                nextActivationSequence: 2,
+                generations: [generation],
+                activeGenerationByPackage: [:]
+            ),
+            locationsByPackage: [:]
+        )
+        let mutations = RecoveryMutationRecorder()
+        let subject = try makeAuthority(
+            provider: { try await source.load() },
+            publicKey: key.publicKey.x963Representation,
+            deactivate: { packageID, current in
+                await mutations.recordDeactivation(packageID, current)
+                await source.set(authority: deactivated)
+                return .deactivated(current)
+            }
+        )
+
+        let unavailable = try await subject.refresh()
+        XCTAssertNil(unavailable.assetFailureAuthority(
+            for: damaged.packageID
+        ))
+        XCTAssertEqual(
+            unavailable.unavailableCurrentGenerationsByPackageID[
+                damaged.packageID
+            ],
+            generation
+        )
+        let recoveryAuthority = try XCTUnwrap(
+            unavailable.unavailablePackageFailureAuthority(
+                for: damaged.packageID
+            )
+        )
+        XCTAssertEqual(recoveryAuthority.snapshotRevision, unavailable.revision)
+        XCTAssertEqual(recoveryAuthority.installedGeneration, generation)
+        XCTAssertEqual(
+            recoveryAuthority.manifestDigest,
+            generation.manifestDigest
+        )
+
+        let outcome = await subject.reportAssetFailure(
+            packageID: damaged.packageID,
+            expectedAuthority: recoveryAuthority
+        )
+
+        XCTAssertEqual(outcome, .quarantined(generation))
+        let recordedDeactivations = await mutations.deactivations
+        XCTAssertEqual(recordedDeactivations.count, 1)
+        XCTAssertEqual(recordedDeactivations.first?.0, damaged.packageID)
+        XCTAssertEqual(recordedDeactivations.first?.1, generation)
+        let durable = try await source.load()
+        XCTAssertNil(durable.index.activeGeneration(for: damaged.packageID))
+        let recovered = await subject.snapshot()
+        XCTAssertEqual(recovered.unavailableCurrentPackageIDs, [])
+        XCTAssertEqual(
+            recovered.unavailableCurrentGenerationsByPackageID,
+            [:]
+        )
+        XCTAssertNil(recovered.unavailablePackageFailureAuthority(
+            for: damaged.packageID
+        ))
+    }
+
+    func testUnavailableGenerationReplacementInvalidatesRecoveryAuthority()
+        async throws
+    {
+        let key = P256.Signing.PrivateKey()
+        let first = try makeSignedPackage(
+            payload: JourneyContentFixtures.package("paid-pack-01"),
+            privateKey: key,
+            suffix: "unavailable-first"
+        )
+        let replacement = try makeSignedPackage(
+            payload: JourneyContentFixtures.package("paid-pack-01"),
+            privateKey: key,
+            suffix: "unavailable-replacement"
+        )
+        defer {
+            try? FileManager.default.removeItem(at: first.root)
+            try? FileManager.default.removeItem(at: replacement.root)
+        }
+        try Data("tampered-first".utf8).write(
+            to: first.payloadURL,
+            options: .atomic
+        )
+        try Data("tampered-replacement".utf8).write(
+            to: replacement.payloadURL,
+            options: .atomic
+        )
+        let firstGeneration = generation(for: first, sequence: 1)
+        let replacementGeneration = generation(
+            for: replacement,
+            sequence: 2
+        )
+        let source = MutableAuthoritySource(authority: authority(
+            active: [first.packageID: (firstGeneration, first.root)],
+            retained: [:]
+        ))
+        let mutations = RecoveryMutationRecorder()
+        let subject = try makeAuthority(
+            provider: { try await source.load() },
+            publicKey: key.publicKey.x963Representation,
+            deactivate: { packageID, current in
+                await mutations.recordDeactivation(packageID, current)
+                return .staleAuthority
+            }
+        )
+        let firstSnapshot = try await subject.refresh()
+        let staleAuthority = try XCTUnwrap(
+            firstSnapshot.unavailablePackageFailureAuthority(
+                for: first.packageID
+            )
+        )
+        await source.set(authority: authority(
+            active: [
+                replacement.packageID: (
+                    replacementGeneration,
+                    replacement.root
+                ),
+            ],
+            retained: [:]
+        ))
+
+        let staleOutcome = await subject.reportAssetFailure(
+            packageID: first.packageID,
+            expectedAuthority: staleAuthority
+        )
+
+        XCTAssertEqual(staleOutcome, .ignoredStaleReport)
+        let deactivationCount = await mutations.deactivationCount
+        XCTAssertEqual(deactivationCount, 0)
+        let durableAfterStaleReport = try await source.load()
+        XCTAssertEqual(
+            durableAfterStaleReport.index.activeGeneration(
+                for: replacement.packageID
+            ),
+            replacementGeneration
+        )
+
+        let replacementSnapshot = try await subject.refresh()
+        XCTAssertGreaterThan(
+            replacementSnapshot.revision,
+            firstSnapshot.revision
+        )
+        XCTAssertEqual(
+            replacementSnapshot.unavailableCurrentPackageIDs,
+            [replacement.packageID]
+        )
+        XCTAssertEqual(
+            replacementSnapshot.unavailableCurrentGenerationsByPackageID[
+                replacement.packageID
+            ],
+            replacementGeneration
+        )
+        let replacementAuthority = try XCTUnwrap(
+            replacementSnapshot.unavailablePackageFailureAuthority(
+                for: replacement.packageID
+            )
+        )
+        XCTAssertNotEqual(replacementAuthority, staleAuthority)
+        XCTAssertEqual(
+            replacementAuthority.installedGeneration,
+            replacementGeneration
+        )
+    }
+
     func testFutureDurableAuthorityInvalidatesPaidRuntimeButLeavesEssentialAvailable() async throws {
         let key = P256.Signing.PrivateKey()
         let paid = try makeSignedPackage(

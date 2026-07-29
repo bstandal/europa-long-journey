@@ -1,9 +1,197 @@
 import ContentKit
 import Foundation
-@testable import JourneyDomain
+@_spi(JourneyContent) @testable import JourneyDomain
 import XCTest
 
 final class ChapterReviewStateTests: XCTestCase {
+    func testSealedReviewArchiveInventoryAcceptsExactCanonicalArchive() {
+        let records = [
+            documentaryReviewRecord(beatID: "first", absoluteBeatIndex: 0),
+            documentaryReviewRecord(
+                beatID: "second",
+                beatIndex: 1,
+                absoluteBeatIndex: 1
+            ),
+        ]
+        let session = ChapterSession(
+            chapterID: "review-chapter",
+            packageID: "review-package",
+            contentVersion: SchemaVersion(major: 1),
+            completedBeatIDs: ["first", "second"],
+            completedBeatReviewRecords: records
+        )
+
+        XCTAssertTrue(session.hasSealedReviewArchiveForCompletedBeats)
+    }
+
+    func testSealedReviewArchiveInventoryRejectsEmptyAndPartialArchives() {
+        XCTAssertFalse(
+            ChapterSession(
+                chapterID: "review-chapter",
+                packageID: "review-package",
+                contentVersion: SchemaVersion(major: 1)
+            ).hasSealedReviewArchiveForCompletedBeats
+        )
+
+        let partial = ChapterSession(
+            chapterID: "review-chapter",
+            packageID: "review-package",
+            contentVersion: SchemaVersion(major: 1),
+            completedBeatIDs: ["first", "second"],
+            completedBeatReviewRecords: [
+                documentaryReviewRecord(beatID: "first", absoluteBeatIndex: 0)
+            ]
+        )
+        XCTAssertFalse(partial.hasSealedReviewArchiveForCompletedBeats)
+    }
+
+    func testSealedReviewArchiveInventoryRejectsDuplicateAndMismatchedIdentities() {
+        let record = documentaryReviewRecord(beatID: "first", absoluteBeatIndex: 0)
+        var duplicate = ChapterSession(
+            chapterID: "review-chapter",
+            packageID: "review-package",
+            contentVersion: SchemaVersion(major: 1),
+            completedBeatIDs: ["first"],
+            completedBeatReviewRecords: [record]
+        )
+        duplicate.completedBeatReviewRecords = [record, record]
+        XCTAssertFalse(duplicate.hasSealedReviewArchiveForCompletedBeats)
+
+        let wrongChapter = ChapterSession(
+            chapterID: "review-chapter",
+            packageID: "review-package",
+            contentVersion: SchemaVersion(major: 1),
+            completedBeatIDs: ["first"],
+            completedBeatReviewRecords: [
+                documentaryReviewRecord(
+                    beatID: "first",
+                    absoluteBeatIndex: 0,
+                    chapterID: "another-chapter"
+                )
+            ]
+        )
+        XCTAssertFalse(wrongChapter.hasSealedReviewArchiveForCompletedBeats)
+    }
+
+    func testSealedReviewArchiveInventoryRejectsInvalidFormatAndSeal() throws {
+        let valid = documentaryReviewRecord(beatID: "first", absoluteBeatIndex: 0)
+        let wrongFormat = CompletedBeatReviewRecord(
+            completionContract: valid.completionContract,
+            sceneVisualSnapshot: valid.sceneVisualSnapshot,
+            interaction: nil,
+            cameraAnchor: valid.cameraAnchor,
+            readingAnchor: valid.readingAnchor,
+            formatVersion: CompletedBeatReviewRecord.currentFormatVersion + 1
+        )
+        XCTAssertFalse(
+            reviewSession(record: wrongFormat)
+                .hasSealedReviewArchiveForCompletedBeats
+        )
+
+        var object = try XCTUnwrap(
+            JSONSerialization.jsonObject(with: JSONEncoder().encode(valid))
+                as? [String: Any]
+        )
+        var contract = try XCTUnwrap(
+            object["completionContract"] as? [String: Any]
+        )
+        contract["authoritySeal"] = Data([0]).base64EncodedString()
+        object["completionContract"] = contract
+        let invalidSeal = try JSONDecoder().decode(
+            CompletedBeatReviewRecord.self,
+            from: JSONSerialization.data(withJSONObject: object, options: [.sortedKeys])
+        )
+        XCTAssertFalse(
+            reviewSession(record: invalidSeal)
+                .hasSealedReviewArchiveForCompletedBeats
+        )
+    }
+
+    func testSealedReviewArchiveInventoryRejectsNoncontiguousAbsoluteIndices() {
+        let session = ChapterSession(
+            chapterID: "review-chapter",
+            packageID: "review-package",
+            contentVersion: SchemaVersion(major: 1),
+            completedBeatIDs: ["first", "third"],
+            completedBeatReviewRecords: [
+                documentaryReviewRecord(beatID: "first", absoluteBeatIndex: 0),
+                documentaryReviewRecord(
+                    beatID: "third",
+                    beatIndex: 2,
+                    absoluteBeatIndex: 2
+                ),
+            ]
+        )
+
+        XCTAssertFalse(session.hasSealedReviewArchiveForCompletedBeats)
+    }
+
+    func testReviewTerminalPredicateRejectsNoncanonicalRenderState() {
+        var assembleProgress = AssembleProgress(
+            placements: [
+                AssemblyPlacement(
+                    componentID: "charter",
+                    slotID: "law"
+                ),
+                AssemblyPlacement(
+                    componentID: "council",
+                    slotID: "office"
+                ),
+            ]
+        )
+        assembleProgress.placements.reverse()
+        var assemble = InteractionRuntimeState(spec: Fixtures.assemble)
+        assemble.phase = .complete
+        assemble.progress = .assemble(assembleProgress)
+        XCTAssertFalse(
+            InteractionReducer.terminalState(
+                assemble,
+                matches: Fixtures.assemble
+            )
+        )
+
+        var unsortedPressure = PressureProgress(
+            values: [
+                PressureValue(forceID: "attack", magnitude: 0.5),
+                PressureValue(forceID: "defence", magnitude: 0.5),
+            ],
+            stableMillis: 500
+        )
+        unsortedPressure.values.reverse()
+        XCTAssertFalse(
+            unsortedPressure.values.map(\.forceID)
+                == unsortedPressure.values.map(\.forceID).sorted()
+        )
+
+        for progress in [
+            unsortedPressure,
+            PressureProgress(
+                values: [
+                    PressureValue(forceID: "attack", magnitude: 0.5),
+                    PressureValue(forceID: "defence", magnitude: 0)
+                ],
+                stableMillis: 500
+            ),
+            PressureProgress(
+                values: [
+                    PressureValue(forceID: "attack", magnitude: 0.5),
+                    PressureValue(forceID: "defence", magnitude: 0.5)
+                ],
+                stableMillis: 1_500
+            ),
+        ] {
+            var pressure = InteractionRuntimeState(spec: Fixtures.pressure)
+            pressure.phase = .complete
+            pressure.progress = .pressure(progress)
+            XCTAssertFalse(
+                InteractionReducer.terminalState(
+                    pressure,
+                    matches: Fixtures.pressure
+                )
+            )
+        }
+    }
+
     func testEveryInteractionGrammarArchivesItsExactTerminalReviewState() throws {
         let cases: [(InteractionSpec, [InteractionAction])] = [
             (
@@ -375,18 +563,52 @@ final class ChapterReviewStateTests: XCTestCase {
     private func documentaryContract(
         beatID: BeatID,
         beatIndex: Int = 0,
-        absoluteBeatIndex: Int
+        absoluteBeatIndex: Int,
+        chapterID: ChapterID = "review-chapter"
     ) -> BeatCompletionContract {
         BeatCompletionContract(
             packageID: "review-package",
             contentVersion: SchemaVersion(major: 1),
-            chapterID: "review-chapter",
+            chapterID: chapterID,
             arcID: "review-arc",
             beatID: beatID,
             arcIndex: 0,
             beatIndex: beatIndex,
             absoluteBeatIndex: absoluteBeatIndex,
             mode: .documentary(effects: [])
+        )
+    }
+
+    private func documentaryReviewRecord(
+        beatID: BeatID,
+        beatIndex: Int = 0,
+        absoluteBeatIndex: Int,
+        chapterID: ChapterID = "review-chapter"
+    ) -> CompletedBeatReviewRecord {
+        CompletedBeatReviewRecord(
+            completionContract: documentaryContract(
+                beatID: beatID,
+                beatIndex: beatIndex,
+                absoluteBeatIndex: absoluteBeatIndex,
+                chapterID: chapterID
+            ),
+            sceneVisualSnapshot: SceneVisualSnapshot(
+                sceneID: SceneID("scene-\(beatID.rawValue)"),
+                deterministicTick: UInt64(absoluteBeatIndex)
+            ),
+            interaction: nil,
+            cameraAnchor: 0.5,
+            readingAnchor: nil
+        )
+    }
+
+    private func reviewSession(record: CompletedBeatReviewRecord) -> ChapterSession {
+        ChapterSession(
+            chapterID: "review-chapter",
+            packageID: "review-package",
+            contentVersion: SchemaVersion(major: 1),
+            completedBeatIDs: [record.beatID],
+            completedBeatReviewRecords: [record]
         )
     }
 }

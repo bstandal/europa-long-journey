@@ -7,9 +7,10 @@ public enum VerifiedJourneyRepositoryAuthorityError: Error, Equatable, Sendable 
     case unknownPackage(PackageID)
 }
 
-/// Immutable authority captured at the same boundary which exposed an asset
-/// root to Metal or audio. A later integrity report must present this exact
-/// snapshot/generation identity; package ID alone is never mutation authority.
+/// Immutable authority captured at the same verified-content boundary which
+/// either exposed an asset root or rejected an installed generation. A later
+/// integrity report must present this exact snapshot/generation identity;
+/// package ID alone is never mutation authority.
 public struct PackageAssetFailureAuthority: Equatable, Sendable {
     public let snapshotRevision: UInt64
     public let packageID: PackageID
@@ -51,6 +52,13 @@ public struct VerifiedJourneyContentSnapshot: Sendable {
     public let verifiedPackagesByID: [PackageID: VerifiedContentPackage]
     public let repairedPackageIDs: [PackageID]
     public let unavailableCurrentPackageIDs: [PackageID]
+    /// Exact durable generations omitted from runtime content after package
+    /// verification failed. The public ID projection remains available for
+    /// existing consumers; only this generation-bound map can authorize a
+    /// quarantine or rollback.
+    public let unavailableCurrentGenerationsByPackageID: [
+        PackageID: InstalledPackageGeneration
+    ]
 
     public init(
         revision: UInt64,
@@ -59,7 +67,10 @@ public struct VerifiedJourneyContentSnapshot: Sendable {
         packageRootURLs: [PackageID: URL],
         verifiedPackagesByID: [PackageID: VerifiedContentPackage],
         repairedPackageIDs: [PackageID] = [],
-        unavailableCurrentPackageIDs: [PackageID] = []
+        unavailableCurrentPackageIDs: [PackageID] = [],
+        unavailableCurrentGenerationsByPackageID: [
+            PackageID: InstalledPackageGeneration
+        ] = [:]
     ) {
         self.revision = revision
         self.repository = repository
@@ -67,7 +78,11 @@ public struct VerifiedJourneyContentSnapshot: Sendable {
         self.packageRootURLs = packageRootURLs
         self.verifiedPackagesByID = verifiedPackagesByID
         self.repairedPackageIDs = repairedPackageIDs
-        self.unavailableCurrentPackageIDs = unavailableCurrentPackageIDs
+        self.unavailableCurrentGenerationsByPackageID =
+            unavailableCurrentGenerationsByPackageID
+        self.unavailableCurrentPackageIDs = Set(unavailableCurrentPackageIDs)
+            .union(unavailableCurrentGenerationsByPackageID.keys)
+            .sorted()
     }
 
     public func packageRootURL(for packageID: PackageID) -> URL? {
@@ -105,6 +120,32 @@ public struct VerifiedJourneyContentSnapshot: Sendable {
             packageID: packageID,
             installedGeneration: generation,
             manifestDigest: verified.manifest.manifestDigest
+        )
+    }
+
+    /// Returns mutation authority only for the exact installed generation
+    /// which this snapshot rejected. A newer activation necessarily produces
+    /// a different token and makes the old report a stale no-op.
+    public func unavailablePackageFailureAuthority(
+        for packageID: PackageID
+    ) -> PackageAssetFailureAuthority? {
+        guard packageID != LaunchContent.essentialPackageID,
+              unavailableCurrentPackageIDs.contains(packageID),
+              let generation =
+                unavailableCurrentGenerationsByPackageID[packageID],
+              generation.packageID == packageID,
+              verifiedPackagesByID[packageID] == nil,
+              packageRootURLs[packageID] == nil,
+              reconciledInstalledIndex.activeGeneration(
+                  for: packageID
+              ) == nil else {
+            return nil
+        }
+        return PackageAssetFailureAuthority(
+            snapshotRevision: revision,
+            packageID: packageID,
+            installedGeneration: generation,
+            manifestDigest: generation.manifestDigest
         )
     }
 }
@@ -430,8 +471,16 @@ public actor VerifiedJourneyRepositoryAuthority {
         expectedAuthority: PackageAssetFailureAuthority
     ) -> Bool {
         guard expectedAuthority.packageID == packageID,
-              expectedAuthority.snapshotRevision == currentSnapshot.revision,
-              let verified = currentSnapshot.verifiedPackage(for: packageID),
+              expectedAuthority.snapshotRevision == currentSnapshot.revision
+        else {
+            return false
+        }
+        if currentSnapshot.unavailablePackageFailureAuthority(
+            for: packageID
+        ) == expectedAuthority {
+            return true
+        }
+        guard let verified = currentSnapshot.verifiedPackage(for: packageID),
               verified.manifest.manifestDigest == expectedAuthority.manifestDigest,
               currentSnapshot.packageRootURL(for: packageID) != nil else {
             return false
@@ -608,7 +657,9 @@ public actor VerifiedJourneyRepositoryAuthority {
             LaunchContent.essentialPackageID: bundledEssentialPackage,
         ]
         var repaired: [PackageID] = []
-        var unavailable: [PackageID] = []
+        var unavailableGenerations: [
+            PackageID: InstalledPackageGeneration
+        ] = [:]
 
         for packageID in LaunchContent.packageIDsInDeliveryOrder
             where packageID != LaunchContent.essentialPackageID {
@@ -686,15 +737,17 @@ public actor VerifiedJourneyRepositoryAuthority {
             // previous generation can repair it. Runtime truth treats only
             // this exact package as absent, making it a download target.
             reconciledIndex.activeGenerationByPackage.removeValue(forKey: packageID)
-            unavailable.append(packageID)
+            unavailableGenerations[packageID] = activeGeneration
         }
 
         let repairedIDs = repaired.sorted()
-        let unavailableIDs = unavailable.sorted()
+        let unavailableIDs = unavailableGenerations.keys.sorted()
         if currentSnapshot.reconciledInstalledIndex == reconciledIndex,
            currentSnapshot.packageRootURLs == packageRoots,
            currentSnapshot.repairedPackageIDs == repairedIDs,
-           currentSnapshot.unavailableCurrentPackageIDs == unavailableIDs {
+           currentSnapshot.unavailableCurrentPackageIDs == unavailableIDs,
+           currentSnapshot.unavailableCurrentGenerationsByPackageID
+               == unavailableGenerations {
             return currentSnapshot
         }
 
@@ -705,7 +758,9 @@ public actor VerifiedJourneyRepositoryAuthority {
             packageRootURLs: packageRoots,
             verifiedPackagesByID: verifiedByID,
             repairedPackageIDs: repairedIDs,
-            unavailableCurrentPackageIDs: unavailableIDs
+            unavailableCurrentPackageIDs: unavailableIDs,
+            unavailableCurrentGenerationsByPackageID:
+                unavailableGenerations
         )
         return next
     }
@@ -747,7 +802,10 @@ public actor VerifiedJourneyRepositoryAuthority {
                 reconciledInstalledIndex: .empty,
                 packageRootURLs: initialSnapshot.packageRootURLs,
                 verifiedPackagesByID: initialSnapshot.verifiedPackagesByID,
-                unavailableCurrentPackageIDs: Array(unavailable).sorted()
+                unavailableCurrentPackageIDs: Array(unavailable).sorted(),
+                unavailableCurrentGenerationsByPackageID:
+                    currentSnapshot
+                        .unavailableCurrentGenerationsByPackageID
             ))
             return
         }
@@ -771,7 +829,9 @@ public actor VerifiedJourneyRepositoryAuthority {
             repairedPackageIDs: currentSnapshot.repairedPackageIDs.filter {
                 $0 != packageID
             },
-            unavailableCurrentPackageIDs: Array(unavailable).sorted()
+            unavailableCurrentPackageIDs: Array(unavailable).sorted(),
+            unavailableCurrentGenerationsByPackageID:
+                currentSnapshot.unavailableCurrentGenerationsByPackageID
         ))
     }
 

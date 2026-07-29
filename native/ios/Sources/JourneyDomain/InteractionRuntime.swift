@@ -279,6 +279,7 @@ public enum InteractionReducer {
             )
             let placementIDs = progress.placements.map(\.componentID)
             return placementIDs.count == configuration.components.count
+                && placementIDs == placementIDs.sorted()
                 && Set(placementIDs).count == placementIDs.count
                 && progress.placements.allSatisfy { placement in
                     guard let component = componentByID[placement.componentID] else {
@@ -293,7 +294,19 @@ public enum InteractionReducer {
                 uniqueKeysWithValues: configuration.forces.map { ($0.id, $0) }
             )
             let valueIDs = progress.values.map(\.forceID)
-            return Set(valueIDs) == Set(forceByID.keys)
+            let expectedIDs = configuration.forces.map(\.id).sorted()
+            let (maximumStableMillis, stableMillisOverflow) =
+                configuration.requiredHoldMillis.addingReportingOverflow(999)
+            guard !stableMillisOverflow else { return false }
+            let netPressure = configuration.forces.reduce(0.0) {
+                partial, force in
+                partial + force.direction * (
+                    progress.values.first(where: {
+                        $0.forceID == force.id
+                    })?.magnitude ?? 0
+                )
+            }
+            return valueIDs == expectedIDs
                 && Set(valueIDs).count == valueIDs.count
                 && progress.values.allSatisfy { value in
                     guard let force = forceByID[value.forceID],
@@ -305,6 +318,8 @@ public enum InteractionReducer {
                         || value.magnitude == force.initialMagnitude
                 }
                 && progress.stableMillis >= configuration.requiredHoldMillis
+                && progress.stableMillis <= maximumStableMillis
+                && configuration.stableRange.contains(netPressure)
 
         case let (.transform(progress), .transform(configuration)):
             return progress.completedStageCount == configuration.stages.count

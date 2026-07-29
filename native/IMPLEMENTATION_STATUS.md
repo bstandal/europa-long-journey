@@ -30,19 +30,22 @@ implement the agreed chapter journey:
 - Content failures are typed. An unresolved viewport no longer presents a
   missing-package message, while missing, corrupt and incompatible content keep
   their distinct recovery paths.
+- Completed-review recovery now requires the exact saved package/version and
+  current entitlement. Corrupt installed generations receive a generation-bound
+  quarantine token, while background, interruption and StoreKit/download waits
+  invalidate every deferred audio-entry grant.
 
-Current automated verification for this tree is green:
+Current verification on the exact working tree is green:
 
-- native script tests: `105/105`;
-- Phase 1 tests: `6/6`;
-- Phase 2 tests: `27/27`;
-- narration and authored-audio tests: `155/155`;
-- native tooling tests: `236/236`;
-- SwiftPM tests: `872/872`;
-- connected Xcode unit and UI tests: `1006/1006` on an iOS Simulator;
-- isolated signed live tests: `2/2`, including all 17 First Farmers beats and
-  all six principal interactions; and
-- ordinary Release app development-resource boundary: `PASS`.
+- SwiftPM tests: `883/883`;
+- connected Xcode unit and UI tests: `1018/1018` on the dedicated iPhone 17 Pro,
+  iOS 26.5 Simulator, including the complete 17-scene traversal and the new
+  review-background regression; the clean run completed in 1,418.995 seconds;
+- focused review, completed-chapter, accessibility, included-chapter,
+  hard-kill, sound-lifecycle and revoked-ownership UI reruns: `PASS`;
+- generic Debug and Release iOS Simulator app builds: `PASS`; and
+- the rebuilt Release app boundary-only validator:
+  `PASS_BOUNDARY_ONLY_NON_SHIPPING`.
 
 The complete run exposed a timing race between ephemeral responsive-audio
 cleanup and the next Transform input. Scene mutation now waits for the cleanup
@@ -50,8 +53,10 @@ token to quiesce and then revalidates route authority. The dedicated regression,
 the original Continent Remade UI case and the complete Xcode run all pass after
 the repair.
 
-The review-readiness validator is still `CANDIDATE`, with eight evidence
-blockers: stale automated-suite binding, stale fixture-determinism binding,
+The review-readiness validator is still `CANDIDATE` for current subject SHA-256
+`ffd7ccc8cc96ec4cfd3561b4c098596a74c16b16a16884fa28ca9bbf0ae303c8`,
+with eight evidence blockers: stale automated-suite binding, stale
+fixture-determinism binding,
 pending simulator-traversal evidence, interaction recordings without the
 current subject SHA, stale restore-matrix binding, stale audio-restore binding,
 no accessibility `PASS` receipt and no offline `PASS` receipt. These receipts

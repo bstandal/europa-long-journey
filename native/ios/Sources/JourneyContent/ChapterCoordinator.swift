@@ -643,15 +643,18 @@ public struct ChapterCoordinator: Sendable {
             contentVersion: contentVersion,
             state: state
         )
+        let requiresCompleteChapterArchive: Bool
         switch state.route {
         case let .chapter(activeChapterID):
             guard activeChapterID == chapterID else {
                 throw ChapterCoordinatorError.reviewUnavailable(chapterID)
             }
+            requiresCompleteChapterArchive = false
         case .world:
             guard state.completedChapterIDs.contains(chapterID) else {
                 throw ChapterCoordinatorError.reviewUnavailable(chapterID)
             }
+            requiresCompleteChapterArchive = true
         case .prologue:
             throw ChapterCoordinatorError.reviewUnavailable(chapterID)
         }
@@ -677,6 +680,23 @@ public struct ChapterCoordinator: Sendable {
             chapter: chapter,
             world: state.world
         )
+
+        let orderedBeatIDs = chapter.arcs.flatMap { $0.beats.map(\.id) }
+        let completedBeatIDs = Set(session.completedBeatIDs)
+        let archivedBeatIDs = Set(
+            session.completedBeatReviewRecords.map(\.beatID)
+        )
+        guard session.completedBeatReviewRecords.count == session.completedBeatIDs.count,
+              archivedBeatIDs.count == session.completedBeatReviewRecords.count,
+              archivedBeatIDs == completedBeatIDs else {
+            throw ChapterCoordinatorError.reviewUnavailable(chapterID)
+        }
+        if requiresCompleteChapterArchive {
+            guard session.completedBeatIDs.count == orderedBeatIDs.count,
+                  completedBeatIDs == Set(orderedBeatIDs) else {
+                throw ChapterCoordinatorError.reviewUnavailable(chapterID)
+            }
+        }
 
         let cursors = try session.completedBeatReviewRecords.map { record in
             try reviewCursor(
