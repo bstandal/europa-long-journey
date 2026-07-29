@@ -1,6 +1,6 @@
-# EUROPA
+# EUROCENTRIC
 
-**EUROPA — A Journey Through Nine Thousand Years** is a static, map-led historical journey.
+**EUROCENTRIC — A Journey Through Nine Thousand Years** is a static, map-led historical journey.
 Its twenty-four chapters move from the first farmers to the present through one continuous
 illuminated route and four families of optional map interactions.
 

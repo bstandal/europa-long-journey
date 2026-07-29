@@ -46,7 +46,7 @@
 .chapter-header__wordmark {
   font-family: var(--serif);
   font-size: clamp(1.15rem, 1.7vw, 1.5rem);
-  letter-spacing: 0.28em;
+  letter-spacing: 0.16em;
 }
 
 .chapter-header__return {
@@ -1423,6 +1423,11 @@ body.chapter-runtime-ready .chapter-movement.is-active .chapter-interaction {
     width: 44px;
     justify-content: center;
     font-size: 1.1rem;
+  }
+
+  .chapter-header__wordmark {
+    font-size: 1rem;
+    letter-spacing: 0.12em;
   }
 
   .chapter-route,

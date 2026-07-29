@@ -6,7 +6,7 @@ Before making substantial visual changes, use the Product Design plugin's `get-c
 
 When implementing from a selected generated mock, treat that image as the source of truth for layout, component anatomy, density, spacing, color, typography, visible content, and hierarchy.
 
-## EUROPA design decisions
+## EUROCENTRIC design decisions
 
 - Selected visual target: ideation option 1, “The Cartographic Procession”.
 - Chapter 01 deep-dive target: the revised “River to Field” direction, using a low, cinematic
@@ -154,7 +154,7 @@ When implementing from a selected generated mock, treat that image as the source
   current production sequence. Return to their placement and implementation only after all 24
   existing chapters have been completed.
 - Chapter 07, “Europe Reborn,” uses the selected “Written Commonwealth” visual direction. Preserve
-  the existing EUROPA shell while shifting the opening to an asymmetric editorial split: a matte
+  the existing EUROCENTRIC shell while shifting the opening to an asymmetric editorial split: a matte
   charcoal field for title and claim beside an evidence-led historical reconstruction of vellum,
   codices, wax tablets, a travelling royal messenger and reused Roman stone. The ruled manuscript
   line becomes the chapter’s route motif, showing how writing, liturgy and delegated authority carry
@@ -207,7 +207,7 @@ When implementing from a selected generated mock, treat that image as the source
   later academic dress, Renaissance civic interiors, modern wedding conventions, heraldry, plate
   armour and fantasy symbolism. Every scene must show a concrete institutional act—consent, vow,
   donation, oath, election, seal, divided custody or handover.
-- Chapter 06’s selected visual direction is “The Consecrated City”. Continue the existing EUROPA
+- Chapter 06’s selected visual direction is “The Consecrated City”. Continue the existing EUROCENTRIC
   deep-chapter typography, cinematic darkness, material reconstruction and restrained route control.
   Let the measured Roman road rise into procession, arch, apse and dome. Move the Rome palette from
   iron, charcoal, brick and oxblood into porphyry, deep indigo, smoky ivory, parchment and sparse
@@ -279,11 +279,11 @@ When implementing from a selected generated mock, treat that image as the source
 - The public experience contains no methodology discussion or empty “coming soon” portals.
 - The public story follows a deliberate Europe-centred causal spine. It does not pause to catalogue
   omitted perspectives, defend its selection, or answer objections the reader has not raised.
-- EUROPA is a historical essay, not an academic dissertation. Choose the strongest defensible
+- EUROCENTRIC is a historical essay, not an academic dissertation. Choose the strongest defensible
   interpretation and tell it as one causal story; keep historiographical qualification, source
   comparison and methodological self-correction inside editorial research unless uncertainty
   materially changes what happened.
-- Do not make EUROPA its own running corrective. Public prose must not state the chapter's thesis and
+- Do not make EUROCENTRIC its own running corrective. Public prose must not state the chapter's thesis and
   then retreat into balancing disclaimers, anticipated objections or scholarly throat-clearing.
   Accuracy comes from exact scenes, chronology, institutions and language, not from weakening the
   narrative voice.
@@ -323,12 +323,12 @@ When implementing from a selected generated mock, treat that image as the source
 - Desktop chapter navigation is collapsed by default as a slim route control. Its full map and route panel
   may overlay the scene only after an explicit click, closes after a destination is chosen or the reader
   clicks outside it, and must never permanently cover headings, narrative or interactions.
-- EUROPA does not run reader analytics or load an analytics tracker.
+- EUROCENTRIC does not run reader analytics or load an analytics tracker.
 - Email signup appears only as a compact, non-modal popup on the long-road homepage and deep chapters.
   On the homepage, show the email field after 35 active seconds and two scenes. On a deep chapter, show it
   after 10 active seconds with no reading-depth requirement; entering the chapter is the engagement signal.
   Keep the page usable, never stack it with another prompt, and suppress it for one week after “Not now”.
-  The signup purpose covers EUROPA and new work on European history; provider and retention details belong
+  The signup purpose covers EUROCENTRIC and new work on European history; provider and retention details belong
   on the linked privacy page. Submit in the background, show one brief success line in place, and keep the
   reader on the same scene. Do not add a confirmation email, visible success page or navigation away from
   the story.
