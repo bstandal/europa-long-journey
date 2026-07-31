@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 1,
+  "protocolID": "port1-physical-device-v1",
+  "status": "LOCKED_PENDING_PHYSICAL_EXECUTION",
+  "scope": "Harvest production scene and the complete First Farmers chapter in their exact signed packages",
+  "device": {
+    "minimumModel": "iPhone 15 Pro",
+    "minimumOSMajor": 26,
+    "requiredOrientation": "portrait",
+    "physicalDeviceCount": 1,
+    "recordModelVarianceAsRisk": true
+  },
+  "build": {
+    "configuration": "Release",
+    "codeSigningRequired": true,
+    "debuggerAttached": false,
+    "exactAppBuildHashRequired": true,
+    "exactPackageHashRequired": true,
+    "airplaneModeAfterPackageInstall": true
+  },
+  "environment": {
+    "ambientTemperatureCelsius": {
+      "minimum": 20,
+      "maximum": 24
+    },
+    "caseRemoved": true,
+    "acclimationMinutes": 20,
+    "externalPowerConnected": false,
+    "lowPowerMode": false,
+    "startingBatteryPercent": {
+      "minimum": 80,
+      "maximum": 100,
+      "maximumDifferenceBetweenPairedRuns": 2
+    },
+    "screenBrightnessPercent": 50,
+    "automaticBrightness": false,
+    "speakerOutput": "built-in",
+    "outputVolumePercent": 40,
+    "minimumFreeStorageGiB": 10,
+    "notificationsSuppressed": true
+  },
+  "instrumentation": {
+    "localFrameCompletionProxy": "os-signpost-command-buffer-scheduled-and-completed-callbacks-plus-MTLCommandBuffer-GPUStartTime-and-GPUEndTime",
+    "displayedFrameCadence": "retained-Metal-System-Trace",
+    "localInteractionCompletionProxy": "touch-or-accessibility-action-to-command-buffer-completed-callback",
+    "inputToVisibleLatency": "retained-Metal-System-Trace-correlated-with-input-signposts",
+    "memory": "physical-footprint",
+    "thermal": "ProcessInfo.thermalState-transition-log",
+    "localRestoreCompletionProxy": "process-start-to-restored-frame-command-buffer-completed-callback",
+    "restoreToVisibleLatency": "retained-Metal-System-Trace-correlated-with-process-and-restore-signposts",
+    "firstActionReadiness": "process-start-to-first-action-ready-and-received",
+    "audio": "authored-48000-Hz-timeline-cursor",
+    "battery": "paired-device-percentage-and-Instruments-energy-trace",
+    "rawTraceRetentionRequired": true
+  },
+  "runOrder": [
+    {
+      "runID": "cold-restore",
+      "repetitions": 6,
+      "durationMinutes": 0,
+      "purpose": "Restore one registered mid-interaction checkpoint for each of the six principal First Farmers interactions after a hard kill.",
+      "requiredInteractionIDs": [
+        "interaction-first-farmers-a-household-crosses",
+        "interaction-first-farmers-the-harvest-had-to-last",
+        "interaction-first-farmers-at-the-iron-gates",
+        "interaction-first-farmers-the-house-outlives",
+        "interaction-first-farmers-more-mouths-more-land",
+        "interaction-first-farmers-a-continent-remade"
+      ]
+    },
+    {
+      "runID": "interaction-latency",
+      "repetitions": 20,
+      "durationMinutes": 0,
+      "purpose": "Measure direct touch and semantic accessibility input against the same action."
+    },
+    {
+      "runID": "static-reference",
+      "repetitions": 3,
+      "durationMinutes": 30,
+      "purpose": "Run the signed build's fixed static reference frame paired with Harvest, with the same brightness and audio route."
+    },
+    {
+      "runID": "first-farmers-static-reference",
+      "repetitions": 3,
+      "durationMinutes": 30,
+      "purpose": "Run the signed build's fixed static reference frame paired with the complete First Farmers traversal, with the same brightness and audio route."
+    },
+    {
+      "runID": "harvest-sustained",
+      "repetitions": 3,
+      "durationMinutes": 30,
+      "purpose": "Loop the complete authored Harvest scene, including renderer, audio and haptics."
+    },
+    {
+      "runID": "first-farmers-sustained",
+      "repetitions": 3,
+      "durationMinutes": 30,
+      "purpose": "Traverse the complete 28-minute First Farmers chapter at authored pacing, including every scene, interaction, transition, narration, responsive audio and haptic consequence."
+    },
+    {
+      "runID": "audio-restoration",
+      "repetitions": 10,
+      "durationMinutes": 0,
+      "purpose": "Pause normally and hard-kill at registered narration sample cursors."
+    },
+    {
+      "runID": "storage-pressure",
+      "repetitions": 1,
+      "durationMinutes": 0,
+      "purpose": "Inject declared-capacity and write failures without filling unrelated device storage."
+    }
+  ],
+  "budgets": {
+    "targetFramesPerSecond": 60,
+    "p99DisplayedFrameTimeMillisecondsMaximum": 25,
+    "inputToVisibleResponseMillisecondsMaximum": 50,
+    "sustainedPhysicalMemoryMiBMaximum": 500,
+    "allowedThermalStates": [
+      "nominal",
+      "fair"
+    ],
+    "restoreToVisibleFrameMillisecondsMaximum": 1500,
+    "fullInteractivityMillisecondsMaximum": 2000,
+    "controlledPauseAudioSampleErrorMaximum": 0,
+    "hardKillAudioMillisecondsErrorMaximum": 250,
+    "absoluteBatteryDropPercentagePointsMaximum": 8,
+    "incrementalBatteryDropOverStaticReferencePercentagePointsMaximum": 3
+  },
+  "storagePressure": {
+    "actualWholeDeviceFillProhibited": true,
+    "faultInjectionRoot": "Application Support/quality-gate-v1",
+    "requiredCases": [
+      "capacity-one-byte-below-declared-requirement",
+      "staging-write-failure",
+      "activation-index-write-failure",
+      "process-death-during-copy",
+      "successful-retry-after-each-failure"
+    ],
+    "mustPreserveLastVerifiedGeneration": true,
+    "mustPreserveProgress": true
+  },
+  "comparison": {
+    "pairedBatteryRunsRequired": 3,
+    "medianDeterminesBatteryResult": true,
+    "appAndReferenceRunMustAlternate": true,
+    "pairedRunSets": [
+      {
+        "referenceRunID": "static-reference",
+        "appRunID": "harvest-sustained"
+      },
+      {
+        "referenceRunID": "first-farmers-static-reference",
+        "appRunID": "first-farmers-sustained"
+      }
+    ],
+    "minimumCoolDownMinutesBetweenRuns": 20
+  },
+  "resultContract": {
+    "allRawMeasurementsRequired": true,
+    "notTestedIsFailure": true,
+    "simulatorCannotSatisfyPhysicalGate": true,
+    "localReportCannotSatisfyDisplayGates": true,
+    "retainedMetalSystemTraceRequiredForDisplayGates": true,
+    "editorApprovalRequiredAfterTechnicalPass": true
+  },
+  "instrumentationReportContract": {
+    "schemaPath": "quality/schemas/physical-performance-report.schema.json",
+    "captureRequestPath": "Application Support/quality-gate-v1/performance-capture-request.json",
+    "reportDirectory": "Application Support/quality-gate-v1/performance-reports",
+    "appHashKind": "APP_BUNDLE_FILE_TREE_SHA256",
+    "packageHashKind": "SIGNED_MANIFEST_SHA256",
+    "simulatorClassification": "NON_DEVICE",
+    "rawDeviceClassification": "DEVICE_RAW_MEASUREMENTS_ONLY",
+    "localTimingScope": "COMMAND_BUFFER_AND_GPU_COMPLETION_PROXY_ONLY",
+    "actualDisplayGateSource": "RETAINED_METAL_SYSTEM_TRACE",
+    "networkingProhibited": true
+  },
+  "firstFarmersEvidenceContract": {
+    "schemaPath": "quality/schemas/first-farmers-physical-evidence.schema.json",
+    "validatorPath": "scripts/validate-first-farmers-physical-evidence.mjs",
+    "evidencePath": "quality/physical-device-evidence/first-farmers.receipt.json",
+    "artifactsRoot": "quality/physical-device-evidence/artifacts",
+    "requiredStatus": "PASS",
+    "chapterID": "first-farmers",
+    "productionPackageID": "essential-free-v1",
+    "requiredBeatCount": 17,
+    "requiredInteractionCount": 6,
+    "requiredBatteryPairs": 3,
+    "requiredColdRestoreCases": 6,
+    "minimumSustainedDurationSeconds": 1800,
+    "traceArtifactHashKind": "RETAINED_TRACE_ARCHIVE_FILE_SHA256",
+    "missingEvidenceFails": true
+  }
+}

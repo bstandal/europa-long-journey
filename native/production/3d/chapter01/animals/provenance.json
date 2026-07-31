@@ -1,0 +1,41 @@
+{
+  "assetFamily": "chapter01-cattle-rigs-v1",
+  "classification": "ANIMAL_RIG_CANDIDATE",
+  "finalArtGate": "OPEN",
+  "includedAnimals": [
+    {
+      "id": "cattle-adult",
+      "role": "herd movement and barrier pressure"
+    },
+    {
+      "id": "cattle-young",
+      "role": "boat bracing and carried household continuity"
+    }
+  ],
+  "rights": {
+    "externalAssets": [],
+    "geometry": "Generated from project-authored parametric meshes in generate_chapter01_cattle.py.",
+    "materials": "Generated from project-authored node graphs and deterministic image maps.",
+    "rigs": "Generated from project-authored bone definitions.",
+    "animations": "Generated from project-authored directed keyframes.",
+    "review": "PASS: no third-party animal geometry, texture, rig, animation or reference data is embedded."
+  },
+  "scope": {
+    "excluded": [
+      "sheep",
+      "goats",
+      "horses",
+      "traction harness",
+      "ploughing animation",
+      "autonomous herd behaviour"
+    ],
+    "reason": "The current authored 3D scene contracts require cattle; this library does not expand the approved animal scope."
+  },
+  "schemaVersion": 1,
+  "toolchain": {
+    "application": "Blender 5.2.0 LTS",
+    "buildHash": "fbe6228777e7",
+    "execution": "Codex-controlled headless Python build",
+    "sourceDateEpoch": 315532800
+  }
+}

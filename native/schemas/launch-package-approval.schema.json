@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thelongwest.invalid/schemas/launch-package-approval.schema.json",
+  "title": "Backstage editor approval for one native launch package",
+  "description": "This record remains backstage. It binds the exact public CollectionManifest, ContentPackagePayload, complete public-source inventory, canonical save-migration graph and transform-descriptor inventory approved by the editor-in-chief for one launch package.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "status",
+    "authority",
+    "approvedAt",
+    "decisionReference",
+    "collectionID",
+    "packageID",
+    "chapterIDs",
+    "collectionSHA256",
+    "payloadSHA256",
+    "publicSourceInventorySHA256",
+    "saveMigrationGraphSHA256",
+    "saveMigrationDescriptorInventorySHA256",
+    "launchPackageApprovalSHA256"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 2 },
+    "status": { "const": "APPROVED_BY_EDITOR_IN_CHIEF" },
+    "authority": { "const": "editor-in-chief" },
+    "approvedAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "decisionReference": { "type": "string", "minLength": 12 },
+    "collectionID": { "$ref": "#/$defs/StableID" },
+    "packageID": { "$ref": "#/$defs/StableID" },
+    "chapterIDs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/StableID" }
+    },
+    "collectionSHA256": { "$ref": "#/$defs/SHA256" },
+    "payloadSHA256": { "$ref": "#/$defs/SHA256" },
+    "publicSourceInventorySHA256": { "$ref": "#/$defs/SHA256" },
+    "saveMigrationGraphSHA256": { "$ref": "#/$defs/SHA256" },
+    "saveMigrationDescriptorInventorySHA256": { "$ref": "#/$defs/SHA256" },
+    "launchPackageApprovalSHA256": { "$ref": "#/$defs/SHA256" }
+  },
+  "$defs": {
+    "StableID": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    },
+    "SHA256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

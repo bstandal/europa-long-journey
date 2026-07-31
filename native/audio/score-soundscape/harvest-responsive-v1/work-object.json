@@ -1,0 +1,668 @@
+{
+  "schemaVersion": 1,
+  "kind": "responsive-dramatic-audio-work-object",
+  "id": "harvest-responsive-audio-v1",
+  "status": "PROVISIONAL_NON_SHIPPING",
+  "shippingState": "PROHIBITED",
+  "trustDomain": "BACKSTAGE_AUDIO_PRODUCTION",
+  "scope": {
+    "chapterID": "first-farmers",
+    "arcID": "first-farmers-arc-02",
+    "beatID": "beat-first-farmers-harvest-allocation",
+    "interactionID": "interaction-first-farmers-the-harvest-had-to-last"
+  },
+  "responsiveProgram": {
+    "id": "harvest-responsive-audio-v1",
+    "scope": {
+      "chapterID": "first-farmers",
+      "arcID": "first-farmers-arc-02",
+      "beatID": "beat-first-farmers-harvest-allocation",
+      "interactionID": "interaction-first-farmers-the-harvest-had-to-last"
+    },
+    "approachTimelineID": "harvest-approach-v1",
+    "interactionBeds": [
+      {
+        "phase": "waiting",
+        "timelineID": "harvest-waiting-bed-v1",
+        "layerStates": {
+          "scoreStateID": "grain-suspended",
+          "soundscapeStateID": "field-waiting"
+        }
+      },
+      {
+        "phase": "engaged",
+        "timelineID": "harvest-engaged-bed-v1",
+        "layerStates": {
+          "scoreStateID": "grain-in-motion",
+          "soundscapeStateID": "field-engaged"
+        }
+      },
+      {
+        "phase": "resistance",
+        "timelineID": "harvest-resistance-bed-v1",
+        "layerStates": {
+          "scoreStateID": "grain-tension",
+          "soundscapeStateID": "field-resistance"
+        }
+      }
+    ],
+    "consequenceTimelineID": "harvest-consequence-v1",
+    "exitPolicy": {
+      "kind": "bounded-fade",
+      "durationSamples": 9600
+    }
+  },
+  "timelines": [
+    {
+      "id": "harvest-approach-v1",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "approach-score-master",
+          "role": "score",
+          "startSample": 0,
+          "durationSamples": 2880000,
+          "assetPath": "audio/first-farmers/harvest-responsive-v1/approach/score-master.wav",
+          "gain": 0.72
+        },
+        {
+          "cueID": "approach-soundscape-master",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 2880000,
+          "assetPath": "audio/first-farmers/harvest-responsive-v1/approach/soundscape-master.wav",
+          "gain": 0.82
+        },
+        {
+          "cueID": "approach-spatial-detail-master",
+          "role": "spatialDetail",
+          "startSample": 0,
+          "durationSamples": 2880000,
+          "assetPath": "audio/first-farmers/harvest-responsive-v1/approach/spatial-detail-master.wav",
+          "gain": 0.9
+        },
+        {
+          "cueID": "approach-before-first-share",
+          "role": "silence",
+          "startSample": 2652000,
+          "durationSamples": 132000,
+          "assetPath": null,
+          "gain": 1
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "harvest-waiting-bed-v1",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "waiting-score-master",
+          "role": "score",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/harvest-responsive-v1/waiting/score-master.wav",
+          "gain": 0.72
+        },
+        {
+          "cueID": "waiting-soundscape-master",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/harvest-responsive-v1/waiting/soundscape-master.wav",
+          "gain": 0.82
+        },
+        {
+          "cueID": "waiting-spatial-detail-master",
+          "role": "spatialDetail",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/harvest-responsive-v1/waiting/spatial-detail-master.wav",
+          "gain": 0.9
+        },
+        {
+          "cueID": "waiting-waiting-breath",
+          "role": "silence",
+          "startSample": 711360,
+          "durationSamples": 8640,
+          "assetPath": null,
+          "gain": 1
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "harvest-engaged-bed-v1",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "engaged-score-master",
+          "role": "score",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/harvest-responsive-v1/engaged/score-master.wav",
+          "gain": 0.72
+        },
+        {
+          "cueID": "engaged-soundscape-master",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/harvest-responsive-v1/engaged/soundscape-master.wav",
+          "gain": 0.82
+        },
+        {
+          "cueID": "engaged-spatial-detail-master",
+          "role": "spatialDetail",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/harvest-responsive-v1/engaged/spatial-detail-master.wav",
+          "gain": 0.9
+        },
+        {
+          "cueID": "engaged-transfer-breath",
+          "role": "silence",
+          "startSample": 353280,
+          "durationSamples": 6720,
+          "assetPath": null,
+          "gain": 1
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "harvest-resistance-bed-v1",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "resistance-score-master",
+          "role": "score",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/harvest-responsive-v1/resistance/score-master.wav",
+          "gain": 0.72
+        },
+        {
+          "cueID": "resistance-soundscape-master",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/harvest-responsive-v1/resistance/soundscape-master.wav",
+          "gain": 0.82
+        },
+        {
+          "cueID": "resistance-spatial-detail-master",
+          "role": "spatialDetail",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/harvest-responsive-v1/resistance/spatial-detail-master.wav",
+          "gain": 0.9
+        },
+        {
+          "cueID": "resistance-resistance-hold",
+          "role": "silence",
+          "startSample": 561600,
+          "durationSamples": 7680,
+          "assetPath": null,
+          "gain": 1
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "harvest-consequence-v1",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "consequence-score-master",
+          "role": "score",
+          "startSample": 0,
+          "durationSamples": 2400000,
+          "assetPath": "audio/first-farmers/harvest-responsive-v1/consequence/score-master.wav",
+          "gain": 0.72
+        },
+        {
+          "cueID": "consequence-soundscape-master",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 2400000,
+          "assetPath": "audio/first-farmers/harvest-responsive-v1/consequence/soundscape-master.wav",
+          "gain": 0.82
+        },
+        {
+          "cueID": "consequence-spatial-detail-master",
+          "role": "spatialDetail",
+          "startSample": 0,
+          "durationSamples": 2400000,
+          "assetPath": "audio/first-farmers/harvest-responsive-v1/consequence/spatial-detail-master.wav",
+          "gain": 0.9
+        },
+        {
+          "cueID": "consequence-season-turns",
+          "role": "silence",
+          "startSample": 552000,
+          "durationSamples": 240000,
+          "assetPath": null,
+          "gain": 1
+        }
+      ],
+      "haptics": []
+    }
+  ],
+  "audioAssetMetadata": [
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/approach/score-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 2880000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/approach/soundscape-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 2880000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/approach/spatial-detail-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 2880000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/consequence/score-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 2400000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/consequence/soundscape-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 2400000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/consequence/spatial-detail-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 2400000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/engaged/score-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/engaged/soundscape-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/engaged/spatial-detail-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/resistance/score-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/resistance/soundscape-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/resistance/spatial-detail-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/waiting/score-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/waiting/soundscape-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/waiting/spatial-detail-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    }
+  ],
+  "narrationSlots": [
+    {
+      "timelineID": "harvest-approach-v1",
+      "status": "MISSING_EDITOR_SELECTED_NARRATION_MASTER",
+      "requiredAssetPath": "audio/first-farmers/harvest-responsive-v1/approach/narration-selected-master-required.wav",
+      "sourceDocumentSHA256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a",
+      "segments": [
+        {
+          "manuscriptSegmentID": "ff-harvest-01",
+          "manuscriptSegmentSHA256": "25c0bea25bc110538c54d8afa0d8953daf46db5831a96439bb1eb768da625a2c"
+        },
+        {
+          "manuscriptSegmentID": "ff-harvest-02",
+          "manuscriptSegmentSHA256": "3650b9b85212dc3cf034a133934a8e44cf52730d526b550f2f8bf4dfa0342fad"
+        },
+        {
+          "manuscriptSegmentID": "ff-harvest-03",
+          "manuscriptSegmentSHA256": "c0243773aae4744e82f975bc974709d7b0c4701dd67c6acf1100af1e4259d315"
+        },
+        {
+          "manuscriptSegmentID": "ff-harvest-04",
+          "manuscriptSegmentSHA256": "c0c18499a1ba91729197b2b3aefb8711831af899dee81f46593b95414080c42c"
+        },
+        {
+          "manuscriptSegmentID": "ff-harvest-05",
+          "manuscriptSegmentSHA256": "6a26b1eb81bd0420738c35a2c1afd2fdf3d8fbbd02035aae45b7466994b6b936"
+        }
+      ],
+      "insertionRule": "ADD_NARRATION_EVENTS_ONLY_AFTER_EDITOR_VOICE_SELECTION_AND_EXACT_WORD_ALIGNMENT",
+      "shippingBlock": true
+    },
+    {
+      "timelineID": "harvest-consequence-v1",
+      "status": "MISSING_EDITOR_SELECTED_NARRATION_MASTER",
+      "requiredAssetPath": "audio/first-farmers/harvest-responsive-v1/consequence/narration-selected-master-required.wav",
+      "sourceDocumentSHA256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a",
+      "segments": [
+        {
+          "manuscriptSegmentID": "ff-stored-future-01",
+          "manuscriptSegmentSHA256": "7b332eb38373e2708939e3d9129de7c2ac56929df417ed55299a2674dba090cd"
+        },
+        {
+          "manuscriptSegmentID": "ff-stored-future-02",
+          "manuscriptSegmentSHA256": "75ba56ed3e6213bd54afb9681e62a71aeb18dd18d17a0db313deef0b6e480388"
+        }
+      ],
+      "insertionRule": "ADD_NARRATION_EVENTS_ONLY_AFTER_EDITOR_VOICE_SELECTION_AND_EXACT_WORD_ALIGNMENT",
+      "shippingBlock": true
+    }
+  ],
+  "hapticProgram": {
+    "vocabulary": [
+      "contact",
+      "drag",
+      "resistance",
+      "transfer",
+      "break",
+      "seal"
+    ],
+    "activeHarvestSemantics": [
+      "contact",
+      "resistance",
+      "transfer",
+      "seal"
+    ],
+    "reservedForOtherGrammars": [
+      "drag",
+      "break"
+    ],
+    "runtimeBindings": [
+      {
+        "trigger": "interaction-begin",
+        "semantic": "contact",
+        "durableCommitRequired": false
+      },
+      {
+        "trigger": "allocation-rejected",
+        "semantic": "resistance",
+        "durableCommitRequired": false
+      },
+      {
+        "trigger": "allocation-progress",
+        "semantic": "transfer",
+        "durableCommitRequired": false
+      },
+      {
+        "trigger": "durable-completion",
+        "semantic": "seal",
+        "durableCommitRequired": true
+      }
+    ],
+    "loopedTimelineHaptics": "FORBIDDEN",
+    "accessibilityRule": "HAPTICS_NEVER_CARRY_THE_ONLY_CAUSAL_SIGNAL"
+  },
+  "authoredSilence": [
+    {
+      "timelineID": "harvest-approach-v1",
+      "sampleRate": 48000,
+      "startSample": 2652000,
+      "durationSamples": 132000,
+      "id": "before-first-share",
+      "reason": "Expose the finite grain and three unmet claims before the interaction bed begins."
+    },
+    {
+      "timelineID": "harvest-waiting-bed-v1",
+      "sampleRate": 48000,
+      "startSample": 711360,
+      "durationSamples": 8640,
+      "id": "waiting-breath",
+      "reason": "A short material breath separates one waiting cycle from the next without advancing history."
+    },
+    {
+      "timelineID": "harvest-engaged-bed-v1",
+      "sampleRate": 48000,
+      "startSample": 353280,
+      "durationSamples": 6720,
+      "id": "transfer-breath",
+      "reason": "One brief cut leaves a completed material transfer visible before the responsive bed resumes."
+    },
+    {
+      "timelineID": "harvest-resistance-bed-v1",
+      "sampleRate": 48000,
+      "startSample": 561600,
+      "durationSamples": 7680,
+      "id": "resistance-hold",
+      "reason": "The invalid movement stops cleanly before the unchanged store reasserts itself."
+    },
+    {
+      "timelineID": "harvest-consequence-v1",
+      "sampleRate": 48000,
+      "startSample": 552000,
+      "durationSamples": 240000,
+      "id": "season-turns",
+      "reason": "Hold the sealed stores unchanged while the weather beyond the doorway turns."
+    }
+  ],
+  "previewMetrics": {
+    "approach": {
+      "integratedLUFS": -28.6,
+      "truePeakDBTP": -12.7
+    },
+    "waiting": {
+      "integratedLUFS": -28.1,
+      "truePeakDBTP": -12.8,
+      "loopSeam": {
+        "leftDelta": 0,
+        "rightDelta": 0
+      }
+    },
+    "engaged": {
+      "integratedLUFS": -28.5,
+      "truePeakDBTP": -14.4,
+      "loopSeam": {
+        "leftDelta": 0,
+        "rightDelta": 0
+      }
+    },
+    "resistance": {
+      "integratedLUFS": -24.4,
+      "truePeakDBTP": -13.1,
+      "loopSeam": {
+        "leftDelta": 0,
+        "rightDelta": 0
+      }
+    },
+    "consequence": {
+      "integratedLUFS": -28.2,
+      "truePeakDBTP": -14
+    }
+  },
+  "provenance": {
+    "productionInputs": [
+      {
+        "id": "harvest-responsive-score-source",
+        "path": "native/audio/score-soundscape/harvest-responsive-v1/score-source.json",
+        "bytes": 13311,
+        "sha256": "726552bae8f5115268c6ce084ce638bf8bb8691b9ad4f3225c219ab27a633e4c"
+      },
+      {
+        "id": "harvest-responsive-soundscape-source",
+        "path": "native/audio/score-soundscape/harvest-responsive-v1/soundscape-source.json",
+        "bytes": 9669,
+        "sha256": "2b90b69f374cc9d4c24ae14769befb0c9b7aead86bd8a7776aad27b25b4cf059"
+      },
+      {
+        "id": "harvest-manuscript-source",
+        "path": "native/phase2/editor-review/first-farmers/first-farmers-native-draft-v1.json",
+        "bytes": 42857,
+        "sha256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a"
+      },
+      {
+        "id": "harvest-scene-contract",
+        "path": "native/phase1/fixtures/harvest-option-1.scene.json",
+        "bytes": 27504,
+        "sha256": "c9cfa96d9cc61f7421ecf0efc0136d2f716daa5fb851a4dd99f2943e1b9b8028"
+      },
+      {
+        "id": "native-audio-bible",
+        "path": "native/bibles/audio-bible.md",
+        "bytes": 3346,
+        "sha256": "726849cc80da30d8e8bce4c884f9765f431474901da53a2c195663a8ab177954"
+      },
+      {
+        "id": "responsive-audio-program-spec",
+        "path": "native/ios/Sources/ContentKit/ResponsiveAudioProgramSpec.swift",
+        "bytes": 26686,
+        "sha256": "8c513b05114484f4d31614ae49267f9fc5d00a3ec2e2276073b576c390b59564"
+      },
+      {
+        "id": "responsive-audio-program-runtime",
+        "path": "native/ios/Sources/DramaticAudio/ResponsiveAudioProgramRuntime.swift",
+        "bytes": 25968,
+        "sha256": "b5239a3c7bb1f1c55578cd9944fdf56144a421d644ea9b9022f4f9148254e870"
+      },
+      {
+        "id": "responsive-audio-program-controller",
+        "path": "native/ios/Sources/DramaticAudio/ResponsiveAudioProgramController.swift",
+        "bytes": 50562,
+        "sha256": "0393cc006447c4b439b3907b57a7a3932cdf16be05f092d14b75774faccf2ef9"
+      },
+      {
+        "id": "responsive-audio-timeline-planner",
+        "path": "native/ios/Sources/DramaticAudio/TimelinePlaybackPlan.swift",
+        "bytes": 8229,
+        "sha256": "6c621630e28e5be375871046997d6963ede24c621f2d235f00491a75e481b9e0"
+      },
+      {
+        "id": "responsive-audio-transport-contract",
+        "path": "native/ios/Sources/DramaticAudio/OfflineAudioAssetResolver.swift",
+        "bytes": 26761,
+        "sha256": "5740dace88181205755e55b6dfcf17ce9ee651cda4339223f48c608141a726b7"
+      },
+      {
+        "id": "native-timeline-transport",
+        "path": "native/ios/Sources/DramaticAudio/NativeTimelineTransport.swift",
+        "bytes": 191598,
+        "sha256": "7afdd59a27679f49a7805edbd0946dcf0776ce8a90c992d28ba8c1c7e09ad257"
+      },
+      {
+        "id": "experience-audio-routing-policy",
+        "path": "native/ios/Sources/DramaticAudio/ExperienceAudioRoutingPolicy.swift",
+        "bytes": 1786,
+        "sha256": "71b5d34cea9abc729aad2f879b03e9029290d57283733140410ad56bb3895de0"
+      },
+      {
+        "id": "experience-preferences-contract",
+        "path": "native/ios/Sources/ExperiencePreferences/ExperiencePreferences.swift",
+        "bytes": 1862,
+        "sha256": "e4bd7979a22277ac1339f768aa010a4bea09bf5514b3ff2ff38b5ddbafbcf900"
+      },
+      {
+        "id": "durable-audio-completion-runtime",
+        "path": "native/ios/Sources/DramaticAudio/DurableInteractionAudioCompletion.swift",
+        "bytes": 9029,
+        "sha256": "f9110ec847d031c776bfb39ee5782d3821f45d508bf7295a2a7a2adf25e81f81"
+      },
+      {
+        "id": "semantic-haptic-runtime",
+        "path": "native/ios/Sources/DramaticAudio/SemanticHapticTransport.swift",
+        "bytes": 12256,
+        "sha256": "b699e5ab9fab77aa81a343b66a013a73eb693a3ce41a676fc886a042917b3636"
+      },
+      {
+        "id": "audio-production-renderer",
+        "path": "native/tooling/src/audio-production.mjs",
+        "bytes": 49751,
+        "sha256": "d997f68ffb75150bf5cff0aea537891bccaf45d630e46b3e2698498b58e44439"
+      },
+      {
+        "id": "harvest-responsive-renderer",
+        "path": "native/tooling/src/harvest-responsive-audio.mjs",
+        "bytes": 50769,
+        "sha256": "8e5b3495367c0a1f2e3f8ec1205d79677c7c7ba2aa5953feaac7184e356786a5"
+      },
+      {
+        "id": "score-soundscape-toolchain",
+        "path": "native/audio/score-soundscape/toolchain.json",
+        "bytes": 1963,
+        "sha256": "1a1a94ed56652f37681b9d74154c78741e53b280e80bab3f18b1db3fddef8ddd"
+      },
+      {
+        "id": "required-mit-notice",
+        "path": "native/audio/score-soundscape/licenses/MS-Basic-0.2.0-LICENSE.md",
+        "bytes": 3320,
+        "sha256": "bf7db123b5d6c0beb1a37f6e1b11c6f4dfd8fb6abd5d59ff282ea24a5cd932e5"
+      },
+      {
+        "id": "zero-cost-license-registry",
+        "path": "native/tooling/registries/cost-license.json",
+        "bytes": 17842,
+        "sha256": "9a0e7ae2f9af9288c1e761864d13c5ead85b2241cb981024ee6f42a314c74c7e"
+      }
+    ],
+    "outputReceipt": "render-receipt.json",
+    "scoreLineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+    "soundscapeLineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO_WITH_NO_IMPORTED_RECORDINGS",
+    "runtimeGeneration": "PROHIBITED",
+    "incrementalCostNOK": 0,
+    "commercialRights": "ALLOWED_WITH_RETAINED_MS_BASIC_MIT_NOTICE",
+    "requiredNoticePath": "native/audio/score-soundscape/licenses/MS-Basic-0.2.0-LICENSE.md"
+  },
+  "gates": {
+    "responsiveProgramContract": "PASS_LOCAL_SPEC_VALIDATION_REQUIRED_BY_SWIFT_TEST",
+    "exactOfflineMasters": "PASS",
+    "sampleExactPhaseBeds": "PASS",
+    "authoredSilence": "PASS",
+    "canonicalHapticVocabulary": "PASS",
+    "zeroIncrementalCost": "PASS",
+    "commercialRights": "PASS_WITH_RETAINED_MIT_NOTICE",
+    "narrationMaster": "OPEN_MISSING_EDITOR_SELECTED_MASTER",
+    "narrationWordAlignment": "OPEN_MISSING_EDITOR_SELECTED_MASTER",
+    "integratedLoudnessCalibration": "OPEN_UNTIL_NARRATION_MASTER_IS_BOUND",
+    "artisticApproval": "OPEN",
+    "editorApproval": "OPEN",
+    "shippingApproval": "PROHIBITED",
+    "physicalDeviceAudit": "OPEN"
+  },
+  "claimsExcluded": [
+    "editor approval",
+    "artistic approval",
+    "shipping approval",
+    "final narration integration",
+    "physical-device quality"
+  ]
+}

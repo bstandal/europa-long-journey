@@ -1,0 +1,146 @@
+{
+  "artifact": {
+    "byteCount": 9792365,
+    "memberCount": 15,
+    "members": [
+      {
+        "byteCount": 4973,
+        "dataOffset": 64,
+        "path": "chapter01-material-carrier-v1.usdc",
+        "sha256": "2ba55599cdd032c9e45d107cb8132cb81c36b5d53633233376c151eaac3a2f64"
+      },
+      {
+        "byteCount": 916843,
+        "dataOffset": 5120,
+        "path": "textures/cloth-neutral/normal.jpg",
+        "sha256": "e2402166d1a489f7414814e69e1836ab672aa24e30bec2d41fea356f81687e53"
+      },
+      {
+        "byteCount": 1083725,
+        "dataOffset": 922048,
+        "path": "textures/cloth-neutral/roughness.jpg",
+        "sha256": "734ad6718841a6e296aacaa6e9ee2e1686eed5f62bb8d71c915c5605e162bcb4"
+      },
+      {
+        "byteCount": 592452,
+        "dataOffset": 2005888,
+        "path": "textures/dark-rock/baseColor.jpg",
+        "sha256": "09cf66947bfe49fa1278ff341159063a43d96aae0bdf9f21536ff94feddef322"
+      },
+      {
+        "byteCount": 1028835,
+        "dataOffset": 2598464,
+        "path": "textures/dark-rock/normal.jpg",
+        "sha256": "011bec5690fa6bba771e745603cbd400d4cbe21ae254af0330680b3a1a7d9a92"
+      },
+      {
+        "byteCount": 503425,
+        "dataOffset": 3627392,
+        "path": "textures/dark-rock/roughness.jpg",
+        "sha256": "ab2645db4a2fa7120d7d14063cfa2d0b3b3c8cb37736eaf115d5924871eb7040"
+      },
+      {
+        "byteCount": 730425,
+        "dataOffset": 4130880,
+        "path": "textures/soil/baseColor.jpg",
+        "sha256": "6ce6ca7e28ed046f7f93fa60dcb29f8cf42cd5a539adc5676675acccfa34efd3"
+      },
+      {
+        "byteCount": 1202783,
+        "dataOffset": 4861376,
+        "path": "textures/soil/normal.jpg",
+        "sha256": "5a5f97d920fdcdf352b350b95558bf48bb306be1fe61a47418aadc60b7deb0ce"
+      },
+      {
+        "byteCount": 253549,
+        "dataOffset": 6064256,
+        "path": "textures/soil/roughness.jpg",
+        "sha256": "eff62d5ae7bf0c46b84173bc46f07528dd164aa39f5d550c93a805b36f54b704"
+      },
+      {
+        "byteCount": 860319,
+        "dataOffset": 6317888,
+        "path": "textures/thatch/baseColor.jpg",
+        "sha256": "ad84b9bf0a826c6e573f4bac09a0b96f33aec673a7e31cdd360667dc355f3599"
+      },
+      {
+        "byteCount": 1278796,
+        "dataOffset": 7178304,
+        "path": "textures/thatch/normal.jpg",
+        "sha256": "073e2b374f2477605e23a1054e605de5268a012d2701865040d4551816b70d06"
+      },
+      {
+        "byteCount": 588100,
+        "dataOffset": 8457216,
+        "path": "textures/thatch/roughness.jpg",
+        "sha256": "81891e8df23ad0019c467095f5eb9631fef44e558a66ed2a472842349a7449ba"
+      },
+      {
+        "byteCount": 336305,
+        "dataOffset": 9045440,
+        "path": "textures/timber/baseColor.jpg",
+        "sha256": "d171f45ef01bc6e239b00dfaa4961bcd27f7d8e93e3962da3bd3d0ce703d802c"
+      },
+      {
+        "byteCount": 193626,
+        "dataOffset": 9381824,
+        "path": "textures/timber/normal.jpg",
+        "sha256": "ba95eadc009818e161d0f753191f1bacc3fc861e593be0bc6d82b437f9ec8044"
+      },
+      {
+        "byteCount": 215155,
+        "dataOffset": 9575552,
+        "path": "textures/timber/roughness.jpg",
+        "sha256": "f281f682e62fe322303dfeaa13dac18b5cb9e113617fe0aca43605b49161d82b"
+      }
+    ],
+    "path": "chapter01-material-carrier-v1.usdz",
+    "sha256": "bb79b8b83ea92e7baca4d437602693649d6111b0e79804e4633a7731e817a045"
+  },
+  "authoredNeutralCloth": {
+    "linearRGB": [
+      0.42,
+      0.31,
+      0.2
+    ],
+    "sourceBaseColorPackaged": false
+  },
+  "buildToolSHA256": "5097d5e460e1621155fef23d4af6ad4a5caa394a8a1f7c1ee2c71fd1148728ee",
+  "carrierContractSHA256": "28eae78851b1e9c51e337968948680367586afd3f73134338b9e726116a84068",
+  "carrierID": "chapter01-material-carrier-v1",
+  "classification": "MATERIAL_CANDIDATE",
+  "domainContractImpact": "NONE",
+  "finalArtGate": "OPEN",
+  "realityKitVerifierSHA256": "0b83296cf1b9fab2707a35e18c78a221d6580409fddabb7cbc8362786e8b6059",
+  "reproducibility": {
+    "byteIdentical": true,
+    "fixedZipTimestampUTC": "1980-01-01T00:00:00Z",
+    "independentUSDCBuildsCompared": 2,
+    "independentUSDZBuildsCompared": 2,
+    "payloadAlignmentBytes": 64
+  },
+  "rootUSDCSHA256": "2ba55599cdd032c9e45d107cb8132cb81c36b5d53633233376c151eaac3a2f64",
+  "schemaVersion": 1,
+  "shippingStatus": "BLOCKED",
+  "sourceLibraryID": "chapter01-mobile-pbr-materials-v1",
+  "sourceManifestSHA256": "c20a2015280c5acce757b56046d923989de926954da5cd0122451c4e0289d76e",
+  "sourceUSDASHA256": "d562823cf036e0746cc5d3a701590d7875a0dcfbdc627e55e8eb244ee45cf4c4",
+  "stableMaterialPrimPaths": [
+    "/Chapter01MaterialCarrier/Materials/M_CH01_ClothNeutral",
+    "/Chapter01MaterialCarrier/Materials/M_CH01_DarkRock",
+    "/Chapter01MaterialCarrier/Materials/M_CH01_Soil",
+    "/Chapter01MaterialCarrier/Materials/M_CH01_Thatch",
+    "/Chapter01MaterialCarrier/Materials/M_CH01_Timber"
+  ],
+  "toolchain": {
+    "swiftRealityKitVerifier": "xcrun swift",
+    "usdcat": "Apple USD Tools (0.25.2)",
+    "usdchecker": "Apple USD Tools (0.25.2)"
+  },
+  "validation": {
+    "realityKitOfflineImport": "PASS",
+    "relativePackagedTextures": "PASS",
+    "rights": "PASS_CC0",
+    "usdcheckerArkitStrict": "PASS"
+  }
+}

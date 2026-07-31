@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "status": "NON_SHIPPING_DEVELOPMENT_PAYLOAD_PROJECTION",
+  "shippingState": "PROHIBITED",
+  "packageID": "first-farmers-development-v1",
+  "sourceBindings": [
+    {
+      "path": "native/phase2/editor-review/first-farmers/first-farmers-native-draft-v1.json",
+      "sha256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a"
+    },
+    {
+      "path": "native/phase2/generated/first-farmers.chapter.json",
+      "sha256": "8edddafa124fe4eff2d6d4c328fac8c35ad5688feaf9e7eabd4a1a6b8df270e4"
+    },
+    {
+      "path": "native/phase2/generated/first-farmers.world-seed.json",
+      "sha256": "19b6fff295d31181f68b74832ad1b676bde56571603d543404c45cb4f4c04769"
+    },
+    {
+      "path": "native/phase1/fixtures/harvest-option-1.scene.json",
+      "sha256": "c9cfa96d9cc61f7421ecf0efc0136d2f716daa5fb851a4dd99f2943e1b9b8028"
+    },
+    {
+      "path": "native/audio/score-soundscape/harvest-responsive-v1/work-object.json",
+      "sha256": "beaba63185225b22b1465244bc8758249d7b7005a4d283a80d40d7af609aa817"
+    },
+    {
+      "path": "native/audio/score-soundscape/harvest-responsive-v1/render-receipt.json",
+      "sha256": "cf7514b92111dac745c88abf9c2e875c2c327759c61e04bc7893c46cafec7d55"
+    },
+    {
+      "path": "native/audio/score-soundscape/longhouse-responsive-v1/longhouse-responsive-work-object.json",
+      "sha256": "26da0e905a12d4213e0143b39a9e04b26f79a868922bf6046f1eb70a055fb756"
+    },
+    {
+      "path": "native/audio/score-soundscape/longhouse-responsive-v1/render-receipt.json",
+      "sha256": "e5cf3cbaa7b76c118b5ebccabf4f47c2029a653a292b2cb970750ab46fca2dc1"
+    },
+    {
+      "path": "native/audio/score-soundscape/continent-remade-responsive-v1/continent-remade-responsive-work-object.json",
+      "sha256": "9bed8d62c908a3e7c5bea6b25b5223954087c4b20e2a46d6b650eff2aa028d1c"
+    },
+    {
+      "path": "native/audio/score-soundscape/continent-remade-responsive-v1/render-receipt.json",
+      "sha256": "6112a9d8d08ba5e7d091b9b5b1b890c182f71ca8e4fbec6074f302f668429f59"
+    },
+    {
+      "path": "native/audio/score-soundscape/more-mouths-responsive-v1/more-mouths-responsive-work-object.json",
+      "sha256": "d03c0e8f33c82df2418b5b95a108d04787a4e1aa7654af3b70862070e38b6d02"
+    },
+    {
+      "path": "native/audio/score-soundscape/more-mouths-responsive-v1/render-receipt.json",
+      "sha256": "34ca1018b4cdc0cb967727cf799cdce5ad21c51a202129335838c613412155cd"
+    },
+    {
+      "path": "native/audio/score-soundscape/household-crosses-responsive-v1/household-crosses-responsive-work-object.json",
+      "sha256": "ab38721a1de536344b57e1d1112aba488014bd982353fc2f6bd0de24127ed874"
+    },
+    {
+      "path": "native/audio/score-soundscape/household-crosses-responsive-v1/render-receipt.json",
+      "sha256": "9d57b009235bc9e621fdb69e9d680619f86886e8d26696823da0502792bc797d"
+    },
+    {
+      "path": "native/audio/score-soundscape/three-records-responsive-v1/three-records-responsive-work-object.json",
+      "sha256": "08799b37939c516d6bf9a99e9aba44eb7f4787080de334f9ea2bafca80de6b5a"
+    },
+    {
+      "path": "native/audio/score-soundscape/three-records-responsive-v1/render-receipt.json",
+      "sha256": "e0ce18164c46b4060a1020e1760de1194001574f842bee59e9b8d42cf12c38ce"
+    }
+  ],
+  "payloadPath": "native/phase2/generated/first-farmers.content-package.json",
+  "payloadSHA256": "52ff8427f2e26bdbe0205883d051972da51c31689ffa598ac56063a8d2ae5f60",
+  "assetRequirementsPath": "native/phase2/generated/first-farmers.asset-requirements.json",
+  "assetRequirementsSHA256": "58ab0efc1a966112a288e71c28516f5e42382ecc600016c4e06b0777d92b2395",
+  "manuscriptSHA256": "e80a3182afef57faa569e89f2c9f12613b4f5744f02b819553eb79a71ef673e7",
+  "assetPathSetSHA256": "9c1908cae1c90c6653d5561ac2509d4db60dcc72fefd22de143b629b34950d45",
+  "counts": {
+    "chapters": 1,
+    "arcs": 3,
+    "beats": 17,
+    "scenes": 17,
+    "interactions": 6,
+    "runtimeVisualBindings": 6,
+    "audioTimelines": 47,
+    "responsiveAudioPrograms": 6,
+    "provisionalResponsiveAudioPrograms": 6,
+    "placeholderResponsiveAudioPrograms": 0,
+    "narrationCues": 37,
+    "nonNarrationAudioCues": 181,
+    "hapticEvents": 0,
+    "accessibilitySpecs": 17,
+    "assetRequirements": 778
+  },
+  "wireProof": {
+    "canonicalValidator": "validateContentPackagePayload",
+    "harvestSceneReuse": "EXACT_PHASE1_SCENE_WITH_REVIEW_COPY_AND_ACCESSIBILITY_ID_REBOUND",
+    "futureAssetState": "INTENTIONALLY_ABSENT_AND_COMPILATION_BLOCKING",
+    "interactiveAudioState": "SIX_PROVISIONAL_AUTHORED_PROGRAMS_WIRED_WITH_ZERO_REQUIREMENT_PLACEHOLDERS",
+    "hapticVocabulary": [
+      "contact",
+      "drag",
+      "resistance",
+      "transfer",
+      "break",
+      "seal"
+    ]
+  },
+  "audioTechnicalProof": {
+    "responsivePrograms": 6,
+    "responsiveTimelines": 30,
+    "responsiveRuntimeAssets": 91,
+    "provisionalPCMBytes": 750820004,
+    "offlineAssetBinding": "PASS_RENDER_RECEIPTS_AND_PACKAGE_RELATIVE_PATHS",
+    "snapshotRestoreContract": "PASS_COMMON_RUNTIME_BOUND_BY_EACH_WORK_OBJECT",
+    "timedInteractionHaptics": "NONE_RUNTIME_SEMANTICS_ONLY",
+    "narrationState": "OPEN_EDITOR_SELECTED_VOICE_AND_EXACT_ALIGNMENT",
+    "shippingDeliveryEncodingAndDeviceBudget": "OPEN_PROVISIONAL_PCM_MASTERS"
+  },
+  "claimsExcluded": [
+    "editor approval",
+    "shipping approval",
+    "finished visual assets",
+    "finished narration",
+    "finished score",
+    "finished soundscape",
+    "physical-device proof",
+    "content-package activation",
+    "finished responsive audio programs",
+    "shipping responsive audio integration"
+  ]
+}

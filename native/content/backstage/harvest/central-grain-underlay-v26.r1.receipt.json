@@ -1,0 +1,403 @@
+{
+  "authority": {
+    "artisticApproval": false,
+    "candidateMayEnterShippingCompiler": false,
+    "editorialApproval": false,
+    "forbiddenAuthorityMarkers": [
+      "EDITOR_APPROVED_AS_PRODUCTION_MASTER",
+      "EDITOR_APPROVED_PRODUCTION_MASTER",
+      "PRODUCTION_ASSET_APPROVED",
+      "PRODUCTION_INPUTS_LOCKED",
+      "SHIPPING_ALLOWED"
+    ],
+    "humanOrEditorVisualReviewRecorded": false,
+    "nextDecision": "CODEX_VISUAL_REVIEW_REQUIRED_EVEN_IF_OBJECTIVE_GATES_PASS",
+    "productionAssetAuthority": false,
+    "productionMasterAuthority": false,
+    "shippingAllowed": false
+  },
+  "construction": {
+    "builtInImageGenerationUsed": false,
+    "donor": "largest 8-connected allocation-cloth component after subtracting target and foreground occluders",
+    "externalModelUsed": false,
+    "method": "DETERMINISTIC_SOURCE_ONLY_MULTI_RESOLUTION_PATCH_QUILT_FIRST_ITERATION",
+    "networkUsed": false,
+    "patchFootprint": {
+      "radius": 4,
+      "sampleCount": 49,
+      "shape": "integer-euclidean-disk",
+      "zeroPaddingOutsideCrop": true
+    },
+    "qwenUsed": false,
+    "requiredMethod": "SOURCE_ONLY_MULTI_RESOLUTION_PATCHMATCH",
+    "requiredMethodImplemented": false,
+    "seamRingWidthPixels": 12,
+    "stages": [
+      {
+        "blockSize": 32,
+        "blocks": 208,
+        "candidateCountPerBlock": 18,
+        "corePixelsWritten": 178398,
+        "unauthorizedMappedPixels": 0
+      },
+      {
+        "blockSize": 16,
+        "blocks": 760,
+        "candidateCountPerBlock": 14,
+        "corePixelsWritten": 178398,
+        "unauthorizedMappedPixels": 0
+      },
+      {
+        "blockSize": 8,
+        "blocks": 2902,
+        "candidateCountPerBlock": 10,
+        "corePixelsWritten": 178398,
+        "unauthorizedMappedPixels": 0
+      }
+    ],
+    "target": {
+      "closeRadius": 3,
+      "dilateRadius": 4,
+      "operation": "disk-close-r3 then disk-dilate-r4 then subtract foreground occluders"
+    },
+    "tool": {
+      "path": "native/scripts/build-harvest-central-grain-underlay.py",
+      "python": "/Users/bard/.local/share/uv/tools/mflux/bin/python",
+      "sha256": "b713d0ec944737391b0212e7d284b73e422b26a8332773993b5c612f37b64543"
+    },
+    "transformEnvelope": {
+      "authorizedRotationDegrees": [
+        -3.0,
+        3.0
+      ],
+      "authorizedScale": [
+        0.92,
+        1.08
+      ],
+      "mirroringAuthorized": false,
+      "mirroringUsed": false,
+      "usedRotationDegrees": [
+        0.0,
+        0.0
+      ],
+      "usedScale": [
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "crop": {
+    "coordinateSpace": "source pixels",
+    "pixelRect": [
+      192,
+      1752,
+      896,
+      896
+    ]
+  },
+  "determinism": {
+    "candidateBytesIdentical": true,
+    "candidateSha256Run1": "9a55496ec9c3d39199ed1df7385edd81fc4c27d44fa512ee2cc272421b03396e",
+    "candidateSha256Run2": "9a55496ec9c3d39199ed1df7385edd81fc4c27d44fa512ee2cc272421b03396e",
+    "provenanceCoordinatesIdentical": true,
+    "runsInOneInvocation": 2
+  },
+  "diagnosticLimits": [
+    "Objective pixel and provenance checks cannot approve material plausibility, seams, repetition, perspective, or historical appearance.",
+    "Normal, Increased Contrast, Reduce Motion, and camera-extremum images are inspection artifacts, not runtime assets.",
+    "A passing receipt remains non-shipping until a separate byte-bound production-asset decision is recorded through the project authority chain.",
+    "A failed receipt preserves the candidate only for diagnosis and iteration."
+  ],
+  "authorizationShellReaudit": {
+    "reason": "The original QA treated the full authorization envelope as the generated subject and did not enforce the exact-source T-minus-G shell rule.",
+    "closedSubjectPixelCount": 190259,
+    "authorizationPixelCount": 196727,
+    "shellPixelCount": 6468,
+    "shellChangedPixelCount": 6465,
+    "shellMaximumChannelDifference": 101,
+    "shellMeanAbsoluteChannelDifference": 15.288239538,
+    "outsideAuthorizationChangedPixelCount": 0,
+    "verdict": "REJECTED_AUTHORIZATION_SHELL_CHANGED"
+  },
+  "failedGates": [
+    "DONOR_CENTER_OVERUSED",
+    "REQUIRED_PATCHMATCH_METHOD_NOT_IMPLEMENTED",
+    "AUTHORIZATION_SHELL_CHANGED"
+  ],
+  "forensicAuthority": {
+    "expected": {
+      "closedCropByteMaskSha256": "3a93c6ef9a93c830793f919a1a06f69d3c1f2327b08d19535cd5378b978a6931",
+      "closedPixelCount": 190259,
+      "largestDonorByteMaskSha256": "4fe31dc08debbc48c7d061b75f636cb0e0946350a3e37e3bb4de793d26996bb7",
+      "largestDonorPixelCount": 148493,
+      "rawDonorPixelCount": 148816,
+      "subjectCropByteMaskSha256": "45420722013d1a44dac8e9b3b12394f2fcdbd69464618083dec044bbb97b82a7",
+      "subjectCropPixelCount": 190234,
+      "targetBoundsInclusive": [
+        120,
+        433,
+        787,
+        838
+      ],
+      "targetByteMaskSha256": "3bebce3ae454c8cd08dcaae0a9b67221ca540b554be240962e100e958c1fc866",
+      "targetForegroundOverlap": 0,
+      "targetPixelCount": 196727,
+      "validPatchCenterByteMaskSha256": "ab4bd5e4a562099c4597381667c5d5d86226e66ddc589f95b4e353c5f6d5329a",
+      "validPatchCenterCount": 132392
+    },
+    "measured": {
+      "closedCropByteMaskSha256": "3a93c6ef9a93c830793f919a1a06f69d3c1f2327b08d19535cd5378b978a6931",
+      "closedPixelCount": 190259,
+      "largestDonorByteMaskSha256": "4fe31dc08debbc48c7d061b75f636cb0e0946350a3e37e3bb4de793d26996bb7",
+      "largestDonorPixelCount": 148493,
+      "rawDonorPixelCount": 148816,
+      "subjectCropByteMaskSha256": "45420722013d1a44dac8e9b3b12394f2fcdbd69464618083dec044bbb97b82a7",
+      "subjectCropPixelCount": 190234,
+      "targetBoundsInclusive": [
+        120,
+        433,
+        787,
+        838
+      ],
+      "targetByteMaskSha256": "3bebce3ae454c8cd08dcaae0a9b67221ca540b554be240962e100e958c1fc866",
+      "targetForegroundOverlap": 0,
+      "targetPixelCount": 196727,
+      "validPatchCenterByteMaskSha256": "ab4bd5e4a562099c4597381667c5d5d86226e66ddc589f95b4e353c5f6d5329a",
+      "validPatchCenterCount": 132392
+    }
+  },
+  "gates": {
+    "crossSeam": {
+      "meanMaximum": 14.2,
+      "p95Maximum": 39.2,
+      "p99Maximum": 80.1
+    },
+    "donorMeanRedMinusBlue": 10.9,
+    "generatedCoreMeanRedMinusBlueDeltaMaximum": 8.0,
+    "generatedLuma": {
+      "p01Minimum": 24.0,
+      "p99Maximum": 107.0
+    },
+    "interiorGradientRatio": {
+      "maximum": 1.35,
+      "minimum": 0.7
+    },
+    "maximumDonorCenterReuse": 64,
+    "maximumGeneratedSharePer64PixelDonorTile": 0.08,
+    "minimumUniqueDonorCenters": 30000
+  },
+  "masks": {
+    "allocation-cloth": {
+      "path": "native/content/backstage/harvest/semantic-masks-v26.provisional/allocation-cloth.png",
+      "pixelCount": 225176,
+      "sha256": "f87a639685ccba48127cb3fbcfef46e611228e5c0645aa3d4c4c901589f06627"
+    },
+    "central-grain": {
+      "path": "native/content/backstage/harvest/semantic-masks-v26.provisional/central-grain.png",
+      "pixelCount": 190234,
+      "sha256": "85dbd5f14ed998ed3874721948678acd0411e3e0e91d443c9d47555fc047aea3"
+    },
+    "foreground-occluders": {
+      "path": "native/content/backstage/harvest/semantic-masks-v26.provisional/foreground-occluders.png",
+      "pixelCount": 226290,
+      "sha256": "8810139ae423683c5434690a5698bd28940338790b75ba9d3ca897d98a29cf35"
+    }
+  },
+  "metrics": {
+    "colour": {
+      "absoluteRedMinusBlueDelta": 0.476534,
+      "donorMeanRedMinusBlue": 10.899106,
+      "generatedCoreLuma": {
+        "maximum": 124.8842,
+        "mean": 65.370763,
+        "median": 65.1272,
+        "p01": 40.84475,
+        "p95": 84.1324,
+        "p99": 93.1914
+      },
+      "generatedCoreMeanRedMinusBlue": 10.422572
+    },
+    "crossSeamChannelDifference": {
+      "maximum": 81.0,
+      "mean": 9.740487,
+      "median": 8.0,
+      "p01": 0.0,
+      "p95": 26.0,
+      "p99": 45.0
+    },
+    "gradient": {
+      "donor": {
+        "maximum": 57.2848,
+        "mean": 5.365625,
+        "median": 4.0,
+        "p01": 0.0722,
+        "p95": 15.20782,
+        "p99": 23.0
+      },
+      "generatedCore": {
+        "maximum": 50.2728,
+        "mean": 4.526193,
+        "median": 3.4344,
+        "p01": 0.0,
+        "p95": 12.6298,
+        "p99": 18.996
+      },
+      "generatedToDonorRatio": {
+        "median": 0.8586,
+        "p95": 0.830481
+      }
+    },
+    "outsideTarget": {
+      "changedPixelCount": 0,
+      "maximumChannelDifference": 0
+    },
+    "provenance": {
+      "footprintCoverage": 1.0,
+      "footprintsInsideLargestDonorCount": 196727,
+      "generatedPixelCount": 196727,
+      "maximumDonorCenterReuse": 936,
+      "maximumGeneratedSharePer64PixelDonorTile": 0.079262125,
+      "mirroredPixelCount": 0,
+      "pixelsWithCoordinates": 196727,
+      "rotationDegrees": {
+        "maximum": 0.0,
+        "minimum": 0.0
+      },
+      "scale": {
+        "maximum": 1.0,
+        "minimum": 1.0
+      },
+      "uniqueDonorCenters": 57000
+    },
+    "startingRecomposition": {
+      "maximumChannelDifference": 0,
+      "meanAbsoluteChannelDifference": 0.0
+    }
+  },
+  "outputs": {
+    "baseline-393x852-exhausted.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/baseline-393x852-exhausted.png",
+      "sha256": "dc590575d201af28ba92b5f6dc7b61112b7a2ff0022bbe9a9622399922da2286"
+    },
+    "baseline-393x852-full.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/baseline-393x852-full.png",
+      "sha256": "780d9b30c91e476b4f66f441157a00701dfa317799085adb3facd6a4bde793c8"
+    },
+    "camera-rail-keyframe-1.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/camera-rail-keyframe-1.png",
+      "sha256": "a3eda0413dc16233020b0aa43a2df1f8ada892af8475db07e0c6ff7af4ee3198"
+    },
+    "camera-rail-keyframe-2.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/camera-rail-keyframe-2.png",
+      "sha256": "9a7526e2a2736727e4092557324dc6c210775884340c5e6411b83855fc2a8679"
+    },
+    "central-grain-authorization.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/central-grain-authorization.png",
+      "sha256": "11f7d1016bdc6a1ddd897f7283c35ffcacaf4510b4899c20bedf33b19b1500f9"
+    },
+    "central-grain.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/central-grain.png",
+      "sha256": "9a55496ec9c3d39199ed1df7385edd81fc4c27d44fa512ee2cc272421b03396e"
+    },
+    "donor-provenance-map.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/donor-provenance-map.png",
+      "sha256": "ba24d8773109be803791112434bf5b70c0d75921e1c2dcb50e4e3f6b32775ae9"
+    },
+    "four-times-seam-difference.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/four-times-seam-difference.png",
+      "sha256": "a206b38ff9e0d133c9b7da8c4f71ce38bcce0fd3e0843e79eb96b7ed8926e39c"
+    },
+    "grain-parallax-negative-8-negative-3.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/grain-parallax-negative-8-negative-3.png",
+      "sha256": "a3eda0413dc16233020b0aa43a2df1f8ada892af8475db07e0c6ff7af4ee3198"
+    },
+    "grain-parallax-positive-8-positive-3.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/grain-parallax-positive-8-positive-3.png",
+      "sha256": "9a7526e2a2736727e4092557324dc6c210775884340c5e6411b83855fc2a8679"
+    },
+    "increase-contrast.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/increase-contrast.png",
+      "sha256": "eade239020463326f26325cde30929aca74c5240020229dfc8e867b28ea8dcda"
+    },
+    "largest-430x932-exhausted.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/largest-430x932-exhausted.png",
+      "sha256": "a1a48485e8f6e49edbeea6bb715e1101c27544093c7c7080f9ac52eb854a72e0"
+    },
+    "largest-430x932-full.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/largest-430x932-full.png",
+      "sha256": "8bca89789412037b482e92f054192d745b189d2b5645fb7c2e8dbeb9622d74be"
+    },
+    "largest-donor-component.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/largest-donor-component.png",
+      "sha256": "a7ea3b5f8d14a2bb6a8c24b77dd51feeb637b77eeb913b027a8ea046c2cdfe27"
+    },
+    "normal-crop.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/normal-crop.png",
+      "sha256": "9a55496ec9c3d39199ed1df7385edd81fc4c27d44fa512ee2cc272421b03396e"
+    },
+    "outside-target-difference.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/outside-target-difference.png",
+      "sha256": "6b6b62578ff2f67f56db454e9d810e5d3951fb139be4b2780db19abdd9571b07"
+    },
+    "provenance-source-x-uint16.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/provenance-source-x-uint16.png",
+      "sha256": "707cc367e36c87cf6bb2cdd9bfa4146940d781aa202bc77ea6b56a009e40a4f5"
+    },
+    "provenance-source-y-uint16.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/provenance-source-y-uint16.png",
+      "sha256": "bf525956d7c761e7ce5c3106c7cb854d1acab4dc95ab2eb30439a6a5495b969c"
+    },
+    "reduce-motion.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/reduce-motion.png",
+      "sha256": "9a55496ec9c3d39199ed1df7385edd81fc4c27d44fa512ee2cc272421b03396e"
+    },
+    "seam-ring.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/seam-ring.png",
+      "sha256": "aad5b5eac64eb6198dbbd73b1f8fd4d83bd6b70fbd434adee27a049837d317f9"
+    },
+    "source-candidate-diagnostic.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/source-candidate-diagnostic.png",
+      "sha256": "699d401776ba0c2fcca8007fada877d699073022f84924dd922ee126d66a19f2"
+    },
+    "source-candidate-difference-x4.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/source-candidate-difference-x4.png",
+      "sha256": "a181f2844571f9a101ed565d97fc65d595d0f7a72750fe20dab1f438d757166e"
+    },
+    "source-crop.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/source-crop.png",
+      "sha256": "7af9fba7cb564dbdbd95451b35e2519d198321d76fe2929fecb761d964f3c538"
+    },
+    "source-underlay-authorization-comparison.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/source-underlay-authorization-comparison.png",
+      "sha256": "1394b0404bf77857ff5273b8c1bf79479d2047eb2c58f11eb045c246e2cd3bb5"
+    },
+    "target-mask.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/target-mask.png",
+      "sha256": "11f7d1016bdc6a1ddd897f7283c35ffcacaf4510b4899c20bedf33b19b1500f9"
+    },
+    "transform-map.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/transform-map.png",
+      "sha256": "31f0b4731520e42d1fc11ae6ea8380f3264ce9bf470eea9edfb7e1d848d67c4d"
+    },
+    "valid-patch-centres.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources-r1-rejected/valid-patch-centres.png",
+      "sha256": "28f8ce1a6d722705b4dae6d080c228e8c688e0637e1d9af40eb6b71e4dd54d87"
+    }
+  },
+  "receiptID": "harvest-v26-central-grain-underlay-source-only-r1",
+  "schemaVersion": 1,
+  "scope": "NON_SHIPPING_BACKSTAGE_ONLY",
+  "source": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+    "pixelSize": [
+      1290,
+      2796
+    ],
+    "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca"
+  },
+  "specification": {
+    "path": "native/content/backstage/harvest/central-grain-underlay-v26.spec.json",
+    "sha256": "07bda3a1788d6b2aa5507fd691320a6db43b57a3d8f1e7fa9dfc2a1889430f74"
+  },
+  "status": "OBJECTIVE_TECHNICAL_QA_FAILED"
+}

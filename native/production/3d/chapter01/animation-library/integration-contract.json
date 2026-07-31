@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "contractID": "chapter01-directed-animation-integration-v1",
+  "chapterID": "first-farmers",
+  "approvedProjectionSHA256": "50063fb6d3c174f02ad164b4024a3f9a6fd14055d1f9fc5555354dfeaa3dcb6b",
+  "lockedSourceDigests": {
+    "principalInteractionSlice": "92780932f09dfd9eb5f75e6de8256640faf1391e9cb2ac6ab70c8f101d4e4ef9",
+    "authoredInteractionEffectSlice": "338f836cb890e535275a032a520f8c79311b85bb46ec9681da1b90b9c7022f07",
+    "worldEffectSlice": "de096f7502f552eecd123e98541265de29ee63657bce3433198e389de0dc2cec"
+  },
+  "authority": {
+    "sourceOfCompletion": "Chapter01 domain reducer",
+    "animationMayCommitWorldEffect": false,
+    "animationMayAdvanceBeat": false,
+    "contactMarkersAreAdvisory": true,
+    "renderOrPhysicsMayCompleteHistoricalAction": false,
+    "restoreProjection": "stable domain state plus deterministic tick selects and samples a clip",
+    "restoreHaptics": "never replay contact or completion haptics already journalled"
+  },
+  "interactions": [
+    {
+      "interactionID": "interaction-first-farmers-a-household-crosses",
+      "grammar": "trace",
+      "worldEffectID": "effect-first-farmers-a-household-crosses",
+      "clips": ["human.line-hold.enter", "human.line-hold.resist-loop", "human.vessel.two-hand-handover", "human.seed.sow", "human.work.safe-release"]
+    },
+    {
+      "interactionID": "interaction-first-farmers-the-harvest-had-to-last",
+      "grammar": "allocate",
+      "worldEffectID": "effect-first-farmers-the-harvest-had-to-last",
+      "clips": ["human.grain.transfer", "human.store.lift-wet", "human.store.repair", "human.store.seal", "human.seed.sow", "human.work.safe-release"]
+    },
+    {
+      "interactionID": "interaction-first-farmers-at-the-iron-gates",
+      "grammar": "transform",
+      "worldEffectID": "effect-first-farmers-at-the-iron-gates",
+      "clips": ["human.guide-pole.plant", "human.landing-line.hold", "human.steering.brace", "human.vessel.two-hand-handover", "human.work.safe-release"]
+    },
+    {
+      "interactionID": "interaction-first-farmers-the-house-outlives",
+      "grammar": "assemble",
+      "worldEffectID": "effect-first-farmers-the-house-outlives",
+      "clips": ["human.longhouse.frame-raise", "human.longhouse.wedge", "human.longhouse.roof-brace", "human.longhouse.post-replace", "human.work.safe-release"]
+    },
+    {
+      "interactionID": "interaction-first-farmers-more-mouths-more-land",
+      "grammar": "transform",
+      "worldEffectID": "effect-first-farmers-more-mouths-more-land",
+      "clips": ["human.herd.guide", "human.field.stake-drive", "human.vessel.two-hand-handover", "human.work.safe-release"]
+    },
+    {
+      "interactionID": "interaction-first-farmers-a-continent-remade",
+      "grammar": "transform",
+      "worldEffectID": "effect-first-farmers-a-continent-remade",
+      "clips": ["human.barrier.hold", "human.barrier.anchor", "human.herd.guide", "human.work.safe-release"]
+    }
+  ],
+  "runtimeProjection": {
+    "clipSelectionInputs": ["interactionID", "stableMaterialState", "deterministicTick", "assistanceTier", "actorRigProfile"],
+    "contactSolverInputs": ["clipContactWindow", "worldSocketTransform", "actorRigScale"],
+    "contactSolverOutputs": ["jointPoseProjection", "visualContactWeight"],
+    "prohibitedOutputs": ["WorldEffect", "beatAdvance", "success", "failure", "score"],
+    "safeReleaseClip": "human.work.safe-release",
+    "actorRigProfiles": {
+      "hero_adult_a": "adult-a",
+      "hero_adult_b": "adult-b",
+      "hero_youth": "youth"
+    },
+    "animationResourcePathPattern": "/Chapter01DirectedAnimations/{clipSlug}/{profileSlug}/Clip_{clipSlug}_{profileSlug}[0]",
+    "technicalChildToDisable": "AnimationWitness"
+  }
+}

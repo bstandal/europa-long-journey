@@ -1,0 +1,201 @@
+{
+  "packageID": "first-farmers-3d-review-v1",
+  "packageVersion": {
+    "major": 1,
+    "minor": 0,
+    "patch": 0
+  },
+  "schemaVersion": {
+    "major": 2,
+    "minor": 0,
+    "patch": 0
+  },
+  "minimumRuntime": {
+    "major": 2,
+    "minor": 0,
+    "patch": 0
+  },
+  "files": [
+    {
+      "path": "chapters/first-farmers-3d-review-v1.json",
+      "bytes": 55995,
+      "sha256": "383137fb50b8df7a8919004ced6cb71e7764f1d9b27e283e30509eeaba331c85"
+    },
+    {
+      "path": "immersive/first-farmers/animations/chapter01-directed-animation-library-v1.usdz",
+      "bytes": 249158,
+      "sha256": "73185448045d2f3459ce2221a6998469122a1fa38893fa880bad5e51dd5a3cf3"
+    },
+    {
+      "path": "immersive/first-farmers/audio/environment-01.m4a",
+      "bytes": 2355172,
+      "sha256": "a973d83c37aa5166dcfebd461f382a78f69655e292c58cb4537c2a16e9213c85"
+    },
+    {
+      "path": "immersive/first-farmers/audio/environment-02.m4a",
+      "bytes": 2730396,
+      "sha256": "0ad0730a307d71e33ed5a40eea3d6f1737bf4ecb23aa1f176e7c690c1036ab23"
+    },
+    {
+      "path": "immersive/first-farmers/audio/environment-03.m4a",
+      "bytes": 1956811,
+      "sha256": "7797fba4f0be01c163f317750aeffcef71090d102cc56d894c266d8bd842c84b"
+    },
+    {
+      "path": "immersive/first-farmers/audio/environment-04.m4a",
+      "bytes": 2190938,
+      "sha256": "21ad5d485b22ed4e4ecf01521a45a7ab1e4ba3b33210036ec1274c8086e0e5be"
+    },
+    {
+      "path": "immersive/first-farmers/audio/environment-05.m4a",
+      "bytes": 1831980,
+      "sha256": "081767d7008270acc6c24a9445894913de58a05f4ee8599b3fb0c9bf5e49bdf5"
+    },
+    {
+      "path": "immersive/first-farmers/audio/mechanism-01.m4a",
+      "bytes": 651519,
+      "sha256": "b08ec5ae97f79fc048b7eb71be2e45847333088b9ccb07fb15e282c0fe05cd8e"
+    },
+    {
+      "path": "immersive/first-farmers/audio/mechanism-02.m4a",
+      "bytes": 646582,
+      "sha256": "f2b1031c3eddf5ad315b2773f19d46af32b933c4677674e2d2a8c0140067a1a4"
+    },
+    {
+      "path": "immersive/first-farmers/audio/mechanism-03.m4a",
+      "bytes": 1503955,
+      "sha256": "be068714ff76728d164d8f405a48e561c80ea5decebcce249653ef78803b875a"
+    },
+    {
+      "path": "immersive/first-farmers/audio/mechanism-04.m4a",
+      "bytes": 649822,
+      "sha256": "10bea450a6edbf37c5d69a4b2688116f3b058b6b0a70727eb604f3c6cf3e8ef2"
+    },
+    {
+      "path": "immersive/first-farmers/audio/mechanism-05.m4a",
+      "bytes": 602766,
+      "sha256": "a3cbed6953281aef97aa315d475f30f6287002944bcb836b2ca941d923bbdce4"
+    },
+    {
+      "path": "immersive/first-farmers/audio/mechanism-06.m4a",
+      "bytes": 517637,
+      "sha256": "0206fef501aae4efa69615256c176a086de261357b0bf53ad3b761b19c95671e"
+    },
+    {
+      "path": "immersive/first-farmers/audio/narration-01.m4a",
+      "bytes": 208653,
+      "sha256": "281994e4233313aef0d59c1a85ec4e5ef7b4541377caf5767bdfc204bd2151d4"
+    },
+    {
+      "path": "immersive/first-farmers/audio/narration-02.m4a",
+      "bytes": 99862,
+      "sha256": "c2f69bcd39991bf28bfbb18de53f73930b7232db6e09fbbe2a35e521d1f64381"
+    },
+    {
+      "path": "immersive/first-farmers/audio/narration-03.m4a",
+      "bytes": 146168,
+      "sha256": "d961e6908eee6cdd0ceac4a58600938dfa5a9a1f0c59f309be239c96a66627ad"
+    },
+    {
+      "path": "immersive/first-farmers/audio/narration-04.m4a",
+      "bytes": 145213,
+      "sha256": "68a48fd81314ae0cde191c55ac98d8bbf20899b684448a4e6c25a952b26e5f86"
+    },
+    {
+      "path": "immersive/first-farmers/audio/narration-05.m4a",
+      "bytes": 80910,
+      "sha256": "c8aa488837b2732fca098619ee77bc1b2be2e2404dba757b1a934fc349dde575"
+    },
+    {
+      "path": "immersive/first-farmers/audio/narration-06.m4a",
+      "bytes": 228129,
+      "sha256": "69bdc2b532049394a54dbe31a017d69c482ab721dbac90b6fa9f9e5d7475702e"
+    },
+    {
+      "path": "immersive/first-farmers/audio/narration-07.m4a",
+      "bytes": 272343,
+      "sha256": "fb2bc98e9362e893c75e7bc17e5b1e6faf7dd0f42a9118845fffe223ef9be446"
+    },
+    {
+      "path": "immersive/first-farmers/audio/narration-08.m4a",
+      "bytes": 185978,
+      "sha256": "49d071435a97a3cea63dbbe5702d4f64c740a1c1003dfac3e12446a00ea4e60e"
+    },
+    {
+      "path": "immersive/first-farmers/audio/narration-09.m4a",
+      "bytes": 145081,
+      "sha256": "9456013f1364db0c41921853ade33535f25035a1f21f4aa8ab7ea687b8182525"
+    },
+    {
+      "path": "immersive/first-farmers/audio/narration-10.m4a",
+      "bytes": 136068,
+      "sha256": "958993c7adf8b233c000061269bebd291c73592523ea27d83b9374f5a498723e"
+    },
+    {
+      "path": "immersive/first-farmers/audio/transition-01.m4a",
+      "bytes": 201074,
+      "sha256": "d4df036d89543f20e0ed69315aa050fe53cc6e0d4601d305283c3dcfc55472f4"
+    },
+    {
+      "path": "immersive/first-farmers/audio/transition-02.m4a",
+      "bytes": 2122430,
+      "sha256": "75c36a036da2f9fd34e3734124130a15ffa1710032f8897207073aa7a111d57a"
+    },
+    {
+      "path": "immersive/first-farmers/audio/transition-03.m4a",
+      "bytes": 199587,
+      "sha256": "6f1000e9d207e925c9143599aa2fdcaaf92168501b2cd8bcd3f2a78d0c453212"
+    },
+    {
+      "path": "immersive/first-farmers/audio/transition-04.m4a",
+      "bytes": 1803248,
+      "sha256": "79d242913ea96597ed7e44f17faf4d080acaaa59393a7105cfa50df8829097e1"
+    },
+    {
+      "path": "immersive/first-farmers/audio/transition-05.m4a",
+      "bytes": 1932628,
+      "sha256": "8341da814f3abdef6d912cd48f52af4f5139bfb6008cb2a2f47b2da98f3a9fc1"
+    },
+    {
+      "path": "immersive/first-farmers/audio/transition-06.m4a",
+      "bytes": 158756,
+      "sha256": "265bc377b72bc8cf21bdbb3e581c32b83400a0f5ebee303ec67b6ea91d497237"
+    },
+    {
+      "path": "immersive/first-farmers/cells/cell-01.usdz",
+      "bytes": 2243299,
+      "sha256": "33b6ecf359babdcf13f2298424e721e6f05d9a2b9c2d3836975785a1b59d84d1"
+    },
+    {
+      "path": "immersive/first-farmers/cells/cell-02.usdz",
+      "bytes": 959214,
+      "sha256": "42f3d71b5f0f9024ab8ee37b40b29057547d98f9f03390cb70fdf0a1a6a08b2d"
+    },
+    {
+      "path": "immersive/first-farmers/cells/cell-03.usdz",
+      "bytes": 811985,
+      "sha256": "53dd37fca673be93a189402e8368f8ebdcb512994486cbf6b18c6ec374ee31e4"
+    },
+    {
+      "path": "immersive/first-farmers/cells/cell-04.usdz",
+      "bytes": 494321,
+      "sha256": "88f03db23bba9cea250fc51df67b5544a93cd52fa815e1b5dc0706a9814b03dd"
+    },
+    {
+      "path": "immersive/first-farmers/cells/cell-05.usdz",
+      "bytes": 878418,
+      "sha256": "9ef38322607dbd22a89527315dfa6f8e2b09d1b3e440cf83cd8fdc47ac464ad0"
+    },
+    {
+      "path": "immersive/first-farmers/materials/chapter01-material-carrier-v1.usdz",
+      "bytes": 9792365,
+      "sha256": "bb79b8b83ea92e7baca4d437602693649d6111b0e79804e4633a7731e817a045"
+    }
+  ],
+  "manifestDigest": "ce0290caeb00a4fe5ef8ab66467c628a94389380a944d8856a258697cbcd7db1",
+  "signature": {
+    "algorithm": "P-256-SHA256",
+    "keyID": "chapter-01-immersive-review-key-v1",
+    "value": "MEQCIH1lzdCPotBLEvEO1m0Ov3ri7i6u2jkWMf2u4Vc+AUEZAiBVD1HOw6jz4kHg7EoVZ0pX5JDxY4x1TWXxwj8Uv+vz5Q=="
+  }
+}

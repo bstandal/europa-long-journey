@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "kind": "procedural-soundscape",
+  "id": "harvest-soundscape-technique-v1",
+  "status": "TECHNICAL_PROBE_NOT_APPROVED",
+  "output": {
+    "sampleRate": 48000,
+    "bitDepth": 24,
+    "channels": 2,
+    "container": "wav"
+  },
+  "durationSeconds": 8,
+  "layers": [
+    {
+      "id": "rain-earth",
+      "material": "rain",
+      "visibleSource": "Storm front, wet field and thatch in the rear plane",
+      "generator": {
+        "algorithm": "rain-on-earth-v1",
+        "seed": 241109,
+        "density": 0.58,
+        "colour": 0.34
+      },
+      "gainDB": -20,
+      "pan": -0.08,
+      "loop": true
+    },
+    {
+      "id": "hearth-fire",
+      "material": "fire",
+      "visibleSource": "Small visible hearth beside the winter vessels",
+      "generator": {
+        "algorithm": "small-hearth-fire-v1",
+        "seed": 241117,
+        "density": 0.31,
+        "colour": 0.62
+      },
+      "gainDB": -24,
+      "pan": -0.55,
+      "loop": true
+    },
+    {
+      "id": "grain-contact",
+      "material": "grain",
+      "visibleSource": "Finite foreground grain and the receiving vessel",
+      "generator": {
+        "algorithm": "dry-grain-contact-v1",
+        "seed": 241123,
+        "density": 0.47,
+        "colour": 0.71
+      },
+      "gainDB": -12,
+      "pan": 0.04,
+      "loop": false
+    },
+    {
+      "id": "fibre-strain",
+      "material": "textile",
+      "visibleSource": "Woven store, lashing and cloth under the moving hands",
+      "generator": {
+        "algorithm": "woven-fibre-friction-v1",
+        "seed": 241129,
+        "density": 0.36,
+        "colour": 0.57
+      },
+      "gainDB": -18,
+      "pan": 0.22,
+      "loop": false
+    },
+    {
+      "id": "settlement-work",
+      "material": "work",
+      "visibleSource": "Distant timber and vessel work by visible settlement figures",
+      "generator": {
+        "algorithm": "distant-material-work-v1",
+        "seed": 241133,
+        "density": 0.21,
+        "colour": 0.42
+      },
+      "gainDB": -28,
+      "pan": 0.44,
+      "loop": false
+    }
+  ],
+  "silenceWindows": [
+    {
+      "id": "before-first-share",
+      "atSeconds": 3.2,
+      "durationSeconds": 1.4,
+      "reason": "Leave the finite grain and the three obligations exposed before the first transfer.",
+      "entry": "authored-cut",
+      "exit": "authored-return"
+    }
+  ]
+}

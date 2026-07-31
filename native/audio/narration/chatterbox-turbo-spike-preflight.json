@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "status": "CODEX_CHATTERBOX_TURBO_NONSHIPPING_SPIKE_PREFLIGHT_COMPLETE",
+  "purpose": "Zero-cost local comparison lab only; never a shipping model or narration approval",
+  "officialUpstream": {
+    "sourceRepository": "https://github.com/resemble-ai/chatterbox",
+    "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+    "modelID": "ResembleAI/chatterbox-turbo",
+    "modelRepository": "https://huggingface.co/ResembleAI/chatterbox-turbo",
+    "modelRevision": "749d1c1a46eb10492095d68fbcf55691ccf137cd",
+    "modelPrivate": false,
+    "modelGated": false,
+    "language": "English",
+    "declaredArchitectureSize": "350M",
+    "declaredRole": "zero-shot voice cloning"
+  },
+  "licenses": {
+    "officialSourceCode": {
+      "license": "MIT",
+      "pinnedLicenseURL": "https://raw.githubusercontent.com/resemble-ai/chatterbox/5de7a54aa4e5e2baadb0182dde554908b48b85c2/LICENSE",
+      "bytes": 1067,
+      "sha256": "4248e910a928849fe5815a0f9236e17fa07768d95b9193212752c464b93d6caa"
+    },
+    "officialModelWeights": {
+      "license": "MIT",
+      "basis": "The pinned official model card declares license: mit and the official source repository supplies the MIT grant for use, modification, distribution, sublicensing and sale.",
+      "pinnedModelCardURL": "https://huggingface.co/ResembleAI/chatterbox-turbo/raw/749d1c1a46eb10492095d68fbcf55691ccf137cd/README.md",
+      "modelCardBytes": 9544,
+      "modelCardSHA256": "d007d8c2ed2093530d95eee9d623f8977c321f6f361c19dafa07c000375808d7"
+    },
+    "commercialUseAndRedistribution": {
+      "clear": true,
+      "basis": "MIT expressly permits use, copying, modification, publication, distribution, sublicensing and sale, subject to retaining the copyright and permission notice in copies or substantial portions. Generated diagnostic audio remains nonshipping during this spike."
+    },
+    "localMLXRuntime": {
+      "package": "mlx-audio",
+      "version": "0.4.5",
+      "license": "MIT",
+      "pinnedWheelSHA256": "1c5aae197285ecfda39cc3048f19f3c56ab22c8ac2dfa21d79ca6c7f37418ca7",
+      "uvLockSHA256": "db9a1340d7b9fbdb943d791aad3162e020c66a8212f2e4c129722e2dcd4535dc",
+      "installedMetadataSHA256": "734fb0cdc3c11446b825f2ec14a09a7abf50b1c9f079b688f979aafc84cea596",
+      "installedLicenseSHA256": "11d27e0259dec3a323fa6c04c330621d0950ab96c6760d5aac3e2e97229e6f22",
+      "chatterboxTurboImplementationSHA256": "1561657d2d1c1bb0556eb5a4cf358d653f4ad45564e1623380922f73e74bdfba"
+    }
+  },
+  "downloadPreflight": {
+    "expectedSnapshotBytes": 4044184736,
+    "expectedSnapshotDecimalGB": 4.044184736,
+    "expectedSnapshotGiB": 3.766441,
+    "availableBytesBeforeDownload": 530494980096,
+    "availableGiBBeforeDownload": 494.061951,
+    "availableToExpectedRatio": 131.175,
+    "sufficientLocalSpace": true,
+    "cacheLocation": "/Users/bard/.cache/huggingface/hub",
+    "snapshotAndOutputsNonshipping": true
+  },
+  "expectedLargeFiles": [
+    {
+      "path": "conds.pt",
+      "bytes": 169454,
+      "upstreamLfsSHA256": "b1852099306fd6a7814eb9d0bd10186caba7249596cc23868f78a0eefbfa5033"
+    },
+    {
+      "path": "s3gen.safetensors",
+      "bytes": 1056484620,
+      "upstreamLfsSHA256": "2b78103c654207393955e4900aac14a12de8ef25f4b09424f1ef91941f161d4e"
+    },
+    {
+      "path": "s3gen_meanflow.safetensors",
+      "bytes": 1064875036,
+      "upstreamLfsSHA256": "d65cb687a2ed581ee6cc297e919ffefa63386944f42364ae13b78a594945514f"
+    },
+    {
+      "path": "t3_turbo_v1.safetensors",
+      "bytes": 1915480052,
+      "upstreamLfsSHA256": "fcf1f8c1d651bb7e3acd69ee5be269b4ac10c02980b7708213d598bc9f7cdf87"
+    },
+    {
+      "path": "ve.safetensors",
+      "bytes": 5695784,
+      "upstreamLfsSHA256": "f0921cab452fa278bc25cd23ffd59d36f816d7dc5181dd1bef9751a7fb61f63c"
+    }
+  ],
+  "networkAndCostPolicy": {
+    "onePinnedModelSnapshotDownloadPermitted": true,
+    "paidAPIProhibited": true,
+    "telemetryProhibited": true,
+    "runtimeNetworkAfterSnapshotProhibited": true,
+    "incrementalCostNOK": 0,
+    "requiredEnvironment": {
+      "HF_HUB_DISABLE_TELEMETRY": "1",
+      "DO_NOT_TRACK": "1"
+    }
+  },
+  "spikeGate": {
+    "modelCannotBecomeV7ParentWithoutPassingFrozenComparisonLab": true,
+    "representativeUtteranceASRRequired": true,
+    "longFormWindowedASRRequired": true,
+    "silenceIdentitySeamTempoGatesCannotBeLowered": true,
+    "editorVoiceSelection": false,
+    "artisticApproval": false,
+    "shippingApproval": false
+  }
+}

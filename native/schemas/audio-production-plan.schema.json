@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thelongwest.invalid/schemas/audio-production-plan.schema.json",
+  "title": "Backstage score and soundscape production plan",
+  "oneOf": [
+    { "$ref": "#/$defs/symbolicScore" },
+    { "$ref": "#/$defs/proceduralSoundscape" }
+  ],
+  "$defs": {
+    "stableID": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    },
+    "output": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sampleRate", "bitDepth", "channels", "container"],
+      "properties": {
+        "sampleRate": { "const": 48000 },
+        "bitDepth": { "const": 24 },
+        "channels": { "const": 2 },
+        "container": { "const": "wav" }
+      }
+    },
+    "note": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pitch", "atBeat", "durationBeats", "dynamic", "articulation"],
+      "properties": {
+        "pitch": { "type": "string", "pattern": "^[A-G][#b]?(-1|[0-9])$" },
+        "atBeat": { "type": "number", "minimum": 0 },
+        "durationBeats": { "type": "number", "exclusiveMinimum": 0 },
+        "dynamic": { "enum": ["pp", "p", "mp", "mf", "f", "ff"] },
+        "articulation": { "enum": ["legato", "tenuto", "detached", "accent"] }
+      }
+    },
+    "symbolicScore": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "kind", "id", "status", "output", "ppq", "durationBeats", "meter", "tempoMap", "motifs", "stems"],
+      "properties": {
+        "schemaVersion": { "const": 1 },
+        "kind": { "const": "symbolic-score" },
+        "id": { "$ref": "#/$defs/stableID" },
+        "status": { "const": "TECHNICAL_PROBE_NOT_APPROVED" },
+        "output": { "$ref": "#/$defs/output" },
+        "ppq": { "type": "integer", "minimum": 96, "maximum": 9600 },
+        "durationBeats": { "type": "number", "minimum": 1 },
+        "meter": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["numerator", "denominator"],
+          "properties": {
+            "numerator": { "type": "integer", "minimum": 1, "maximum": 32 },
+            "denominator": { "enum": [1, 2, 4, 8, 16, 32] }
+          }
+        },
+        "tempoMap": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["atBeat", "bpm"],
+            "properties": {
+              "atBeat": { "type": "number", "minimum": 0 },
+              "bpm": { "type": "number", "minimum": 20, "maximum": 240 }
+            }
+          }
+        },
+        "motifs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "notes"],
+            "properties": {
+              "id": { "$ref": "#/$defs/stableID" },
+              "notes": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "$ref": "#/$defs/note" }
+              }
+            }
+          }
+        },
+        "stems": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "role", "instrument", "gainDB", "pan", "phrases"],
+            "properties": {
+              "id": { "$ref": "#/$defs/stableID" },
+              "role": { "type": "string", "minLength": 1 },
+              "instrument": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["bank", "program", "label"],
+                "properties": {
+                  "bank": { "type": "integer", "minimum": 0, "maximum": 16383 },
+                  "program": { "type": "integer", "minimum": 0, "maximum": 127 },
+                  "label": { "type": "string", "minLength": 1 }
+                }
+              },
+              "gainDB": { "type": "number", "minimum": -60, "maximum": 0 },
+              "pan": { "type": "number", "minimum": -1, "maximum": 1 },
+              "phrases": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["motifID", "atBeat", "transposeSemitones", "dynamicOffset"],
+                  "properties": {
+                    "motifID": { "$ref": "#/$defs/stableID" },
+                    "atBeat": { "type": "number", "minimum": 0 },
+                    "transposeSemitones": { "type": "integer", "minimum": -36, "maximum": 36 },
+                    "dynamicOffset": { "type": "integer", "minimum": -40, "maximum": 40 }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "proceduralSoundscape": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "kind", "id", "status", "output", "durationSeconds", "layers", "silenceWindows"],
+      "properties": {
+        "schemaVersion": { "const": 1 },
+        "kind": { "const": "procedural-soundscape" },
+        "id": { "$ref": "#/$defs/stableID" },
+        "status": { "const": "TECHNICAL_PROBE_NOT_APPROVED" },
+        "output": { "$ref": "#/$defs/output" },
+        "durationSeconds": { "type": "number", "minimum": 1, "maximum": 600 },
+        "layers": {
+          "type": "array",
+          "minItems": 5,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "material", "visibleSource", "generator", "gainDB", "pan", "loop"],
+            "properties": {
+              "id": { "$ref": "#/$defs/stableID" },
+              "material": { "enum": ["rain", "fire", "grain", "textile", "work", "herd", "water", "human"] },
+              "visibleSource": { "type": "string", "minLength": 1 },
+              "generator": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["algorithm", "seed", "density", "colour"],
+                "properties": {
+                  "algorithm": { "enum": ["rain-on-earth-v1", "small-hearth-fire-v1", "dry-grain-contact-v1", "woven-fibre-friction-v1", "distant-material-work-v1", "herd-ground-movement-v1", "close-water-movement-v1", "distant-human-presence-v1"] },
+                  "seed": { "type": "integer", "minimum": 1, "maximum": 4294967295 },
+                  "density": { "type": "number", "minimum": 0, "maximum": 1 },
+                  "colour": { "type": "number", "minimum": 0, "maximum": 1 }
+                }
+              },
+              "gainDB": { "type": "number", "minimum": -80, "maximum": 0 },
+              "pan": { "type": "number", "minimum": -1, "maximum": 1 },
+              "loop": { "type": "boolean" }
+            }
+          }
+        },
+        "silenceWindows": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "atSeconds", "durationSeconds", "reason", "entry", "exit"],
+            "properties": {
+              "id": { "$ref": "#/$defs/stableID" },
+              "atSeconds": { "type": "number", "minimum": 0 },
+              "durationSeconds": { "type": "number", "exclusiveMinimum": 0 },
+              "reason": { "type": "string", "minLength": 1 },
+              "entry": { "const": "authored-cut" },
+              "exit": { "const": "authored-return" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

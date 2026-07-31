@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "kind": "symbolic-score",
+  "id": "harvest-score-technique-v1",
+  "status": "TECHNICAL_PROBE_NOT_APPROVED",
+  "output": {
+    "sampleRate": 48000,
+    "bitDepth": 24,
+    "channels": 2,
+    "container": "wav"
+  },
+  "ppq": 960,
+  "durationBeats": 24,
+  "meter": {
+    "numerator": 4,
+    "denominator": 4
+  },
+  "tempoMap": [
+    {
+      "atBeat": 0,
+      "bpm": 58
+    },
+    {
+      "atBeat": 16,
+      "bpm": 64
+    }
+  ],
+  "motifs": [
+    {
+      "id": "held-earth-fifth",
+      "notes": [
+        {
+          "pitch": "D2",
+          "atBeat": 0,
+          "durationBeats": 4,
+          "dynamic": "p",
+          "articulation": "tenuto"
+        },
+        {
+          "pitch": "A2",
+          "atBeat": 0,
+          "durationBeats": 4,
+          "dynamic": "pp",
+          "articulation": "tenuto"
+        }
+      ]
+    },
+    {
+      "id": "three-shares",
+      "notes": [
+        {
+          "pitch": "D4",
+          "atBeat": 0,
+          "durationBeats": 0.5,
+          "dynamic": "mp",
+          "articulation": "detached"
+        },
+        {
+          "pitch": "F4",
+          "atBeat": 1.5,
+          "durationBeats": 0.5,
+          "dynamic": "p",
+          "articulation": "detached"
+        },
+        {
+          "pitch": "A4",
+          "atBeat": 3,
+          "durationBeats": 0.75,
+          "dynamic": "mp",
+          "articulation": "accent"
+        }
+      ]
+    },
+    {
+      "id": "winter-obligation",
+      "notes": [
+        {
+          "pitch": "C3",
+          "atBeat": 0,
+          "durationBeats": 2,
+          "dynamic": "pp",
+          "articulation": "legato"
+        },
+        {
+          "pitch": "D3",
+          "atBeat": 2,
+          "durationBeats": 2,
+          "dynamic": "p",
+          "articulation": "legato"
+        }
+      ]
+    }
+  ],
+  "stems": [
+    {
+      "id": "earth",
+      "role": "Low held ground; never a trailer bass pulse",
+      "instrument": {
+        "bank": 0,
+        "program": 43,
+        "label": "Contrabass"
+      },
+      "gainDB": -3,
+      "pan": -0.18,
+      "phrases": [
+        {
+          "motifID": "held-earth-fifth",
+          "atBeat": 0,
+          "transposeSemitones": 0,
+          "dynamicOffset": -5
+        },
+        {
+          "motifID": "held-earth-fifth",
+          "atBeat": 8,
+          "transposeSemitones": 0,
+          "dynamicOffset": 0
+        },
+        {
+          "motifID": "held-earth-fifth",
+          "atBeat": 16,
+          "transposeSemitones": 0,
+          "dynamicOffset": 4
+        }
+      ]
+    },
+    {
+      "id": "division",
+      "role": "Three restrained material entries for the three obligations",
+      "instrument": {
+        "bank": 0,
+        "program": 15,
+        "label": "Dulcimer"
+      },
+      "gainDB": -5,
+      "pan": 0.16,
+      "phrases": [
+        {
+          "motifID": "three-shares",
+          "atBeat": 4,
+          "transposeSemitones": -12,
+          "dynamicOffset": -8
+        },
+        {
+          "motifID": "three-shares",
+          "atBeat": 12,
+          "transposeSemitones": -12,
+          "dynamicOffset": -4
+        },
+        {
+          "motifID": "three-shares",
+          "atBeat": 20,
+          "transposeSemitones": -12,
+          "dynamicOffset": 0
+        }
+      ]
+    },
+    {
+      "id": "obligation",
+      "role": "Slow seasonal pressure under the allocation, with space for material sound",
+      "instrument": {
+        "bank": 0,
+        "program": 48,
+        "label": "String Ensemble 1"
+      },
+      "gainDB": -6,
+      "pan": 0,
+      "phrases": [
+        {
+          "motifID": "winter-obligation",
+          "atBeat": 8,
+          "transposeSemitones": -12,
+          "dynamicOffset": -8
+        },
+        {
+          "motifID": "winter-obligation",
+          "atBeat": 16,
+          "transposeSemitones": -12,
+          "dynamicOffset": -2
+        }
+      ]
+    }
+  ]
+}

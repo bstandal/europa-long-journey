@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thelongwest.invalid/schemas/future-release-publication.schema.json",
+  "title": "Backstage publication placement for one future native release",
+  "description": "This control record supplies the exact living-world placement later written to the public release catalog. It is approved with the release and never enters the signed content package.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "releaseID",
+    "contentID",
+    "packageID",
+    "worldPlacement"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "releaseID": { "$ref": "#/$defs/StableID" },
+    "contentID": { "$ref": "#/$defs/StableID" },
+    "packageID": { "$ref": "#/$defs/StableID" },
+    "worldPlacement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["worldNodeID", "historicalYear", "chronologyOrdinal"],
+      "properties": {
+        "worldNodeID": { "$ref": "#/$defs/StableID" },
+        "historicalYear": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "chronologyOrdinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      }
+    }
+  },
+  "$defs": {
+    "StableID": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    }
+  }
+}

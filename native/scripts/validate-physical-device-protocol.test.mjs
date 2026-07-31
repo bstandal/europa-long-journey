@@ -1,0 +1,243 @@
+#!/usr/bin/env node
+
+import assert from "node:assert/strict";
+import { mkdtemp, readFile, readdir, rm } from "node:fs/promises";
+import os from "node:os";
+import path from "node:path";
+import test from "node:test";
+import { fileURLToPath } from "node:url";
+import {
+  validateConnectedPhysicalIPhoneInventory,
+  validatePhysicalDeviceProtocol,
+  validateRequiredPhysicalEvidence,
+} from "./validate-physical-device-protocol.mjs";
+
+const nativeRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const protocol = JSON.parse(
+  await readFile(path.join(nativeRoot, "quality", "physical-device-protocol.json"), "utf8"),
+);
+const reportSchema = JSON.parse(
+  await readFile(
+    path.join(nativeRoot, protocol.instrumentationReportContract.schemaPath),
+    "utf8",
+  ),
+);
+const chapterEvidenceSchema = JSON.parse(
+  await readFile(
+    path.join(nativeRoot, protocol.firstFarmersEvidenceContract.schemaPath),
+    "utf8",
+  ),
+);
+
+test("locked physical-device protocol passes", () => {
+  assert.doesNotThrow(() => validatePhysicalDeviceProtocol(structuredClone(protocol)));
+});
+
+test("simulator evidence cannot replace the physical floor", () => {
+  const drifted = structuredClone(protocol);
+  drifted.resultContract.simulatorCannotSatisfyPhysicalGate = false;
+  assert.throws(() => validatePhysicalDeviceProtocol(drifted));
+});
+
+test("performance budgets cannot loosen silently", () => {
+  const drifted = structuredClone(protocol);
+  drifted.budgets.p99DisplayedFrameTimeMillisecondsMaximum = 30;
+  assert.throws(() => validatePhysicalDeviceProtocol(drifted));
+});
+
+test("complete First Farmers battery run cannot be removed or shortened", () => {
+  const missing = structuredClone(protocol);
+  missing.runOrder = missing.runOrder.filter(
+    (run) => run.runID !== "first-farmers-sustained",
+  );
+  assert.throws(() => validatePhysicalDeviceProtocol(missing));
+
+  const shortened = structuredClone(protocol);
+  shortened.runOrder.find(
+    (run) => run.runID === "first-farmers-sustained",
+  ).durationMinutes = 28;
+  assert.throws(() => validatePhysicalDeviceProtocol(shortened));
+
+  const ambiguousPairing = structuredClone(protocol);
+  ambiguousPairing.comparison.pairedRunSets = [
+    {
+      referenceRunID: "static-reference",
+      appRunID: "first-farmers-sustained",
+    },
+  ];
+  assert.throws(() => validatePhysicalDeviceProtocol(ambiguousPairing));
+});
+
+test("cold restore must exercise all six First Farmers interactions", () => {
+  const tooFew = structuredClone(protocol);
+  tooFew.runOrder.find((run) => run.runID === "cold-restore").repetitions = 5;
+  assert.throws(() => validatePhysicalDeviceProtocol(tooFew));
+
+  const repeatedInteraction = structuredClone(protocol);
+  repeatedInteraction.runOrder.find(
+    (run) => run.runID === "cold-restore",
+  ).requiredInteractionIDs[5] =
+    "interaction-first-farmers-the-harvest-had-to-last";
+  assert.throws(() => validatePhysicalDeviceProtocol(repeatedInteraction));
+});
+
+test("missing First Farmers physical evidence is a release failure", () => {
+  const drifted = structuredClone(protocol);
+  drifted.firstFarmersEvidenceContract.missingEvidenceFails = false;
+  assert.throws(() => validatePhysicalDeviceProtocol(drifted));
+
+  const notTested = structuredClone(protocol);
+  notTested.firstFarmersEvidenceContract.requiredStatus = "NOT_TESTED";
+  assert.throws(() => validatePhysicalDeviceProtocol(notTested));
+
+  assert.equal(chapterEvidenceSchema.properties.status.const, "PASS");
+  assert.equal(chapterEvidenceSchema.properties.batteryPairs.minItems, 3);
+  assert.equal(chapterEvidenceSchema.properties.coldRestoreRuns.minItems, 6);
+});
+
+test("the physical pass command binds one canonical receipt and artifact root", () => {
+  assert.equal(
+    protocol.firstFarmersEvidenceContract.evidencePath,
+    "quality/physical-device-evidence/first-farmers.receipt.json",
+  );
+  assert.equal(
+    protocol.firstFarmersEvidenceContract.artifactsRoot,
+    "quality/physical-device-evidence/artifacts",
+  );
+});
+
+test("missing canonical device evidence fails explicitly", async () => {
+  const emptyNativeRoot = await mkdtemp(
+    path.join(os.tmpdir(), "physical-device-evidence-missing-"),
+  );
+  try {
+    await assert.rejects(
+      validateRequiredPhysicalEvidence(protocol, {
+        nativeRootPath: emptyNativeRoot,
+      }),
+      /PHYSICAL_DEVICE_GATE=FAIL MISSING_DEVICE_EVIDENCE/u,
+    );
+  } finally {
+    await rm(emptyNativeRoot, { recursive: true, force: true });
+  }
+});
+
+function physicalIPhoneInventory({
+  tunnelState = "connected",
+  developerModeStatus = "enabled",
+  ddiServicesAvailable = true,
+} = {}) {
+  return {
+    result: {
+      devices: [
+        {
+          identifier: "test-core-device-id",
+          connectionProperties: { tunnelState },
+          deviceProperties: {
+            name: "Recorded test iPhone",
+            ddiServicesAvailable,
+            developerModeStatus,
+            osVersionNumber: "26.5.2",
+          },
+          hardwareProperties: {
+            deviceType: "iPhone",
+            reality: "physical",
+            platform: "iOS",
+            productType: "iPhone17,2",
+            marketingName: "iPhone 16 Pro Max",
+          },
+        },
+      ],
+    },
+  };
+}
+
+test("device preflight admits one connected developer-ready floor-class iPhone", () => {
+  const device = validateConnectedPhysicalIPhoneInventory(
+    physicalIPhoneInventory(),
+  );
+  assert.equal(device.productType, "iPhone17,2");
+  assert.equal(device.osVersion, "26.5.2");
+});
+
+test("offline or developer-disabled registered phones fail device preflight", () => {
+  assert.throws(
+    () => validateConnectedPhysicalIPhoneInventory(
+      physicalIPhoneInventory({
+        tunnelState: "unavailable",
+        developerModeStatus: "disabled",
+        ddiServicesAvailable: false,
+      }),
+    ),
+    /PHYSICAL_DEVICE_PREFLIGHT=FAIL no connected, developer-ready physical iPhone/u,
+  );
+});
+
+test("local completion proxies cannot replace retained display traces", () => {
+  const drifted = structuredClone(protocol);
+  drifted.resultContract.localReportCannotSatisfyDisplayGates = false;
+  assert.throws(() => validatePhysicalDeviceProtocol(drifted));
+
+  const traceDrift = structuredClone(protocol);
+  traceDrift.instrumentation.displayedFrameCadence =
+    "command-buffer-completed-callback";
+  assert.throws(() => validatePhysicalDeviceProtocol(traceDrift));
+});
+
+test("storage test cannot consume unrelated device capacity", () => {
+  const drifted = structuredClone(protocol);
+  drifted.storagePressure.actualWholeDeviceFillProhibited = false;
+  assert.throws(() => validatePhysicalDeviceProtocol(drifted));
+});
+
+test("simulator report classification and local-only instrumentation cannot drift", () => {
+  const drifted = structuredClone(protocol);
+  drifted.instrumentationReportContract.simulatorClassification =
+    "DEVICE_RAW_MEASUREMENTS_ONLY";
+  assert.throws(() => validatePhysicalDeviceProtocol(drifted));
+
+  const networked = structuredClone(protocol);
+  networked.instrumentationReportContract.networkingProhibited = false;
+  assert.throws(() => validatePhysicalDeviceProtocol(networked));
+});
+
+test("backstage report schema is closed and cannot encode a pass claim", () => {
+  assert.equal(reportSchema.additionalProperties, false);
+  assert.equal(reportSchema.$defs.frameCompletionProxy.additionalProperties, false);
+  assert.equal(reportSchema.$defs.audio.properties.sampleRate.const, 48_000);
+  assert.deepEqual(reportSchema.properties.gateClassification.enum, [
+    "NON_DEVICE",
+    "DEVICE_RAW_MEASUREMENTS_ONLY",
+  ]);
+  assert.equal(
+    reportSchema.properties.localTimingScope.const,
+    "COMMAND_BUFFER_AND_GPU_COMPLETION_PROXY_ONLY",
+  );
+  assert.equal(
+    JSON.stringify(reportSchema).includes("firstVisibleFrameNanosecondsSinceProcessStart"),
+    false,
+  );
+  assert.equal(
+    JSON.stringify(reportSchema).includes("metalPresentedTimeNanosecondsSinceBoot"),
+    false,
+  );
+});
+
+test("performance instrumentation has no analytics or network dependency", async () => {
+  const sourceRoot = path.join(nativeRoot, "ios", "Sources", "QualityInstrumentation");
+  const sourceNames = (await readdir(sourceRoot)).filter((name) => name.endsWith(".swift"));
+  const source = (
+    await Promise.all(sourceNames.map((name) => readFile(path.join(sourceRoot, name), "utf8")))
+  ).join("\n");
+  for (const forbidden of [
+    "URLSession",
+    "import Network",
+    "NWConnection",
+    "CloudKit",
+    "MetricKit",
+    "analytics",
+    "telemetry",
+  ]) {
+    assert.equal(source.includes(forbidden), false, `forbidden instrumentation edge: ${forbidden}`);
+  }
+});

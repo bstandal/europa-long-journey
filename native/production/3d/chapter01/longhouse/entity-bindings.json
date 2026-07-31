@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "cellID": "longhouse",
+  "runtimeNameToUSDPath": {
+    "danube-loess-longhouse": "/root/danube_loess_longhouse",
+    "longhouse-frame": "/root/danube_loess_longhouse/state_default/longhouse_frame",
+    "action-posts": "/root/danube_loess_longhouse/state_default/action_posts",
+    "action-hearth": "/root/danube_loess_longhouse/state_default/action_hearth",
+    "action-hearth-flame": "/root/danube_loess_longhouse/state_default/action_hearth/action_hearth_flame",
+    "action-storage": "/root/danube_loess_longhouse/state_default/action_storage",
+    "action-roof": "/root/danube_loess_longhouse/state_default/action_roof",
+    "longhouse-raising-line": "/root/danube_loess_longhouse/state_default/longhouse_raising_line",
+    "camera-longhouse-approach": "/root/danube_loess_longhouse/camera_longhouse_approach",
+    "camera-longhouse-raise": "/root/danube_loess_longhouse/camera_longhouse_raise",
+    "camera-longhouse-hearth": "/root/danube_loess_longhouse/camera_longhouse_hearth",
+    "camera-longhouse-repair": "/root/danube_loess_longhouse/camera_longhouse_repair",
+    "camera-longhouse-reduce-motion": "/root/danube_loess_longhouse/camera_longhouse_reduce_motion",
+    "transition-in-threshold": "/root/danube_loess_longhouse/transition_in_threshold",
+    "transition-out-surviving-posthole": "/root/danube_loess_longhouse/transition_out_surviving_posthole"
+  }
+}

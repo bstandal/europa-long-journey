@@ -1,0 +1,5 @@
+Use the exact editing instructions in this prompt. Edit only the attached crop:
+
+Edit Image 1. Change only the finite mound of harvested cereal on the woven cloth. Preserve its exact footprint, height, volume, shadows and contact with the cloth, but replace the oversized bean-like pieces with thousands of correctly scaled dry hulled einkorn, emmer-wheat and barley kernels. Each kernel is small relative to the visible fingers, short to narrow, subtly tapered, irregular straw-to-tan, with occasional fine husk and chaff fragments. The mound must read immediately as real early-Neolithic cereal grain, never chickpeas, beans, peas, maize, rice, nuts, pasta, pellets or repeated oversized objects.
+
+Keep everything outside the grain mound exactly unchanged: the complete cloth and its folds, baskets, hands, fingers, pottery, storage bins, ground, straw, people, lighting, camera and square crop. Do not add or remove any person or object. The grain and the entire work zone remain dry beneath the canopy. No text, symbols, labels, interface, modern object or anachronistic material.

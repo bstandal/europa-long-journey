@@ -1,0 +1,653 @@
+{
+  "schemaVersion": 1,
+  "kind": "responsive-dramatic-audio-work-object",
+  "id": "more-mouths-responsive-audio-v1",
+  "status": "PROVISIONAL_NON_SHIPPING",
+  "shippingState": "PROHIBITED",
+  "trustDomain": "BACKSTAGE_AUDIO_PRODUCTION",
+  "scope": {
+    "chapterID": "first-farmers",
+    "arcID": "first-farmers-arc-03",
+    "beatID": "beat-first-farmers-more-mouths",
+    "interactionID": "interaction-first-farmers-more-mouths-more-land"
+  },
+  "responsiveProgram": {
+    "id": "more-mouths-responsive-audio-v1",
+    "scope": {
+      "chapterID": "first-farmers",
+      "arcID": "first-farmers-arc-03",
+      "beatID": "beat-first-farmers-more-mouths",
+      "interactionID": "interaction-first-farmers-more-mouths-more-land"
+    },
+    "approachTimelineID": "more-mouths-approach-v1",
+    "interactionBeds": [
+      {
+        "phase": "waiting",
+        "timelineID": "more-mouths-waiting-bed-v1",
+        "layerStates": {
+          "scoreStateID": "first-clearing-held",
+          "soundscapeStateID": "one-clearing-waits"
+        }
+      },
+      {
+        "phase": "engaged",
+        "timelineID": "more-mouths-engaged-bed-v1",
+        "layerStates": {
+          "scoreStateID": "households-open-ground",
+          "soundscapeStateID": "work-and-herds-move-outward"
+        }
+      },
+      {
+        "phase": "resistance",
+        "timelineID": "more-mouths-resistance-bed-v1",
+        "layerStates": {
+          "scoreStateID": "field-edge-holds-before-clearance",
+          "soundscapeStateID": "herd-bunches-at-unopened-edge"
+        }
+      }
+    ],
+    "consequenceTimelineID": "more-mouths-consequence-v1",
+    "exitPolicy": {
+      "kind": "bounded-fade",
+      "durationSamples": 9600
+    }
+  },
+  "causalBinding": {
+    "controlID": "settlement-pressure",
+    "stages": [
+      {
+        "id": "new-hearths",
+        "requiredAmount": 0.32
+      },
+      {
+        "id": "field-edges",
+        "requiredAmount": 0.66
+      },
+      {
+        "id": "herd-lanes-and-daughters",
+        "requiredAmount": 1
+      }
+    ],
+    "completionEffectID": "effect-first-farmers-more-mouths-more-land",
+    "persistentTraceID": "trace-european-farming-belt",
+    "audioStageAccumulation": "PHASE_LEVEL_ONLY_UNTIL_RUNTIME_SUPPORTS_LATCHED_THRESHOLD_MIXES"
+  },
+  "timelines": [
+    {
+      "id": "more-mouths-approach-v1",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "approach-score-master",
+          "role": "score",
+          "startSample": 0,
+          "durationSamples": 2304000,
+          "assetPath": "audio/first-farmers/more-mouths-responsive-v1/approach/score-master.wav",
+          "gain": 0.72
+        },
+        {
+          "cueID": "approach-soundscape-master",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 2304000,
+          "assetPath": "audio/first-farmers/more-mouths-responsive-v1/approach/soundscape-master.wav",
+          "gain": 0.82
+        },
+        {
+          "cueID": "approach-spatial-detail-master",
+          "role": "spatialDetail",
+          "startSample": 0,
+          "durationSamples": 2304000,
+          "assetPath": "audio/first-farmers/more-mouths-responsive-v1/approach/spatial-detail-master.wav",
+          "gain": 0.9
+        },
+        {
+          "cueID": "approach-before-open-ground",
+          "role": "silence",
+          "startSample": 2136000,
+          "durationSamples": 96000,
+          "assetPath": null,
+          "gain": 1
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "more-mouths-waiting-bed-v1",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "waiting-score-master",
+          "role": "score",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/more-mouths-responsive-v1/waiting/score-master.wav",
+          "gain": 0.72
+        },
+        {
+          "cueID": "waiting-soundscape-master",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/more-mouths-responsive-v1/waiting/soundscape-master.wav",
+          "gain": 0.82
+        },
+        {
+          "cueID": "waiting-spatial-detail-master",
+          "role": "spatialDetail",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/more-mouths-responsive-v1/waiting/spatial-detail-master.wav",
+          "gain": 0.9
+        },
+        {
+          "cueID": "waiting-first-clearing-joint",
+          "role": "silence",
+          "startSample": 710400,
+          "durationSamples": 9600,
+          "assetPath": null,
+          "gain": 1
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "more-mouths-engaged-bed-v1",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "engaged-score-master",
+          "role": "score",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/more-mouths-responsive-v1/engaged/score-master.wav",
+          "gain": 0.72
+        },
+        {
+          "cueID": "engaged-soundscape-master",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/more-mouths-responsive-v1/engaged/soundscape-master.wav",
+          "gain": 0.82
+        },
+        {
+          "cueID": "engaged-spatial-detail-master",
+          "role": "spatialDetail",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/more-mouths-responsive-v1/engaged/spatial-detail-master.wav",
+          "gain": 0.9
+        },
+        {
+          "cueID": "engaged-new-hearth-catches",
+          "role": "silence",
+          "startSample": 350400,
+          "durationSamples": 7680,
+          "assetPath": null,
+          "gain": 1
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "more-mouths-resistance-bed-v1",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "resistance-score-master",
+          "role": "score",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/more-mouths-responsive-v1/resistance/score-master.wav",
+          "gain": 0.72
+        },
+        {
+          "cueID": "resistance-soundscape-master",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/more-mouths-responsive-v1/resistance/soundscape-master.wav",
+          "gain": 0.82
+        },
+        {
+          "cueID": "resistance-spatial-detail-master",
+          "role": "spatialDetail",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/more-mouths-responsive-v1/resistance/spatial-detail-master.wav",
+          "gain": 0.9
+        },
+        {
+          "cueID": "resistance-unopened-edge-holds",
+          "role": "silence",
+          "startSample": 554400,
+          "durationSamples": 9600,
+          "assetPath": null,
+          "gain": 1
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "more-mouths-consequence-v1",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "consequence-score-master",
+          "role": "score",
+          "startSample": 0,
+          "durationSamples": 2160000,
+          "assetPath": "audio/first-farmers/more-mouths-responsive-v1/consequence/score-master.wav",
+          "gain": 0.72
+        },
+        {
+          "cueID": "consequence-soundscape-master",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 2160000,
+          "assetPath": "audio/first-farmers/more-mouths-responsive-v1/consequence/soundscape-master.wav",
+          "gain": 0.82
+        },
+        {
+          "cueID": "consequence-spatial-detail-master",
+          "role": "spatialDetail",
+          "startSample": 0,
+          "durationSamples": 2160000,
+          "assetPath": "audio/first-farmers/more-mouths-responsive-v1/consequence/spatial-detail-master.wav",
+          "gain": 0.9
+        },
+        {
+          "cueID": "consequence-smoke-leaves-roofs",
+          "role": "silence",
+          "startSample": 744000,
+          "durationSamples": 216000,
+          "assetPath": null,
+          "gain": 1
+        }
+      ],
+      "haptics": []
+    }
+  ],
+  "audioAssetMetadata": [
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/approach/score-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 2304000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/approach/soundscape-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 2304000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/approach/spatial-detail-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 2304000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/consequence/score-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 2160000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/consequence/soundscape-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 2160000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/consequence/spatial-detail-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 2160000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/engaged/score-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/engaged/soundscape-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/engaged/spatial-detail-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/resistance/score-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/resistance/soundscape-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/resistance/spatial-detail-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/waiting/score-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/waiting/soundscape-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/waiting/spatial-detail-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    }
+  ],
+  "narrationSlots": [
+    {
+      "timelineID": "more-mouths-approach-v1",
+      "status": "MISSING_EDITOR_SELECTED_NARRATION_MASTER",
+      "requiredAssetPath": "audio/first-farmers/more-mouths-responsive-v1/approach/narration-selected-master-required.wav",
+      "sourceDocumentSHA256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a",
+      "segments": [
+        {
+          "manuscriptSegmentID": "ff-growth-01",
+          "manuscriptSegmentSHA256": "fb9573d71921970acc3f2dc0559b5fbc2419284fe0e62792bac2616bc8c220ac"
+        },
+        {
+          "manuscriptSegmentID": "ff-growth-02",
+          "manuscriptSegmentSHA256": "6092523b95d92a45ce2594bd668ccc82b6d0058351245de9dadce26b27ecfb39"
+        }
+      ],
+      "insertionRule": "ADD_NARRATION_EVENTS_ONLY_AFTER_EDITOR_VOICE_SELECTION_AND_EXACT_WORD_ALIGNMENT",
+      "shippingBlock": true
+    },
+    {
+      "timelineID": "more-mouths-consequence-v1",
+      "status": "MISSING_EDITOR_SELECTED_NARRATION_MASTER",
+      "requiredAssetPath": "audio/first-farmers/more-mouths-responsive-v1/consequence/narration-selected-master-required.wav",
+      "sourceDocumentSHA256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a",
+      "segments": [
+        {
+          "manuscriptSegmentID": "ff-contraction-01",
+          "manuscriptSegmentSHA256": "86522dfaa6ba0a9dd3a354eca21ba07c1e13342270961509bffd7784fb5d6272"
+        },
+        {
+          "manuscriptSegmentID": "ff-contraction-02",
+          "manuscriptSegmentSHA256": "ada857e9ba3467a7776a6d0b251c3df1ac105e8a90fb1cfa8115947ddc8dfec7"
+        }
+      ],
+      "insertionRule": "ADD_NARRATION_EVENTS_ONLY_AFTER_EDITOR_VOICE_SELECTION_AND_EXACT_WORD_ALIGNMENT",
+      "shippingBlock": true
+    }
+  ],
+  "hapticProgram": {
+    "vocabulary": [
+      "contact",
+      "drag",
+      "resistance",
+      "transfer",
+      "break",
+      "seal"
+    ],
+    "activeMoreMouthsSemantics": [
+      "drag",
+      "break",
+      "seal"
+    ],
+    "reservedForOtherGrammars": [
+      "contact",
+      "resistance",
+      "transfer"
+    ],
+    "runtimeBindings": [
+      {
+        "trigger": "transform-drag",
+        "semantic": "drag",
+        "durableCommitRequired": false
+      },
+      {
+        "trigger": "causal-threshold-crossed",
+        "semantic": "break",
+        "durableCommitRequired": false
+      },
+      {
+        "trigger": "durable-completion",
+        "semantic": "seal",
+        "durableCommitRequired": true
+      }
+    ],
+    "loopedTimelineHaptics": "FORBIDDEN",
+    "accessibilityRule": "HAPTICS_NEVER_CARRY_THE_ONLY_CAUSAL_SIGNAL"
+  },
+  "authoredSilence": [
+    {
+      "timelineID": "more-mouths-approach-v1",
+      "sampleRate": 48000,
+      "startSample": 2136000,
+      "durationSamples": 96000,
+      "id": "before-open-ground",
+      "reason": "Hold the complete household system at one clearing before the user lets settlement pressure open the ground."
+    },
+    {
+      "timelineID": "more-mouths-waiting-bed-v1",
+      "sampleRate": 48000,
+      "startSample": 710400,
+      "durationSamples": 9600,
+      "id": "first-clearing-joint",
+      "reason": "Separate identical waiting cycles while the first household, store and herd remain in place."
+    },
+    {
+      "timelineID": "more-mouths-engaged-bed-v1",
+      "sampleRate": 48000,
+      "startSample": 350400,
+      "durationSamples": 7680,
+      "id": "new-hearth-catches",
+      "reason": "Expose one newly accepted hearth before clearing work and herd traffic continue around it."
+    },
+    {
+      "timelineID": "more-mouths-resistance-bed-v1",
+      "sampleRate": 48000,
+      "startSample": 554400,
+      "durationSamples": 9600,
+      "id": "unopened-edge-holds",
+      "reason": "Hold the herd and field work at the unopened edge before the established clearing returns."
+    },
+    {
+      "timelineID": "more-mouths-consequence-v1",
+      "sampleRate": 48000,
+      "startSample": 744000,
+      "durationSamples": 216000,
+      "id": "smoke-leaves-roofs",
+      "reason": "Let the empty roofs and softened path stand before carried seed, animals and household material move onward."
+    }
+  ],
+  "previewMetrics": {
+    "approach": {
+      "integratedLUFS": -29.7,
+      "truePeakDBTP": -14.7
+    },
+    "waiting": {
+      "integratedLUFS": -28.8,
+      "truePeakDBTP": -15.1,
+      "loopSeam": {
+        "leftDelta": 0,
+        "rightDelta": 0
+      }
+    },
+    "engaged": {
+      "integratedLUFS": -27.6,
+      "truePeakDBTP": -12.9,
+      "loopSeam": {
+        "leftDelta": 0,
+        "rightDelta": 0
+      }
+    },
+    "resistance": {
+      "integratedLUFS": -23.4,
+      "truePeakDBTP": -11.1,
+      "loopSeam": {
+        "leftDelta": 0,
+        "rightDelta": 0
+      }
+    },
+    "consequence": {
+      "integratedLUFS": -28.8,
+      "truePeakDBTP": -12.5
+    }
+  },
+  "provenance": {
+    "productionInputs": [
+      {
+        "id": "more-mouths-responsive-score-source",
+        "path": "native/audio/score-soundscape/more-mouths-responsive-v1/score-source.json",
+        "bytes": 17142,
+        "sha256": "9effc641e42e00fb8f6dbcb48e4679ebb997eda34a48a0c2a302c77d3e8e9b80"
+      },
+      {
+        "id": "more-mouths-responsive-soundscape-source",
+        "path": "native/audio/score-soundscape/more-mouths-responsive-v1/soundscape-source.json",
+        "bytes": 14771,
+        "sha256": "3d41ce3b8f88e04cdf57d4f595e610552f591b24bd666bf27808fbab61b259f7"
+      },
+      {
+        "id": "first-farmers-manuscript-source",
+        "path": "native/phase2/editor-review/first-farmers/first-farmers-native-draft-v1.json",
+        "bytes": 42857,
+        "sha256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a"
+      },
+      {
+        "id": "native-audio-bible",
+        "path": "native/bibles/audio-bible.md",
+        "bytes": 3346,
+        "sha256": "726849cc80da30d8e8bce4c884f9765f431474901da53a2c195663a8ab177954"
+      },
+      {
+        "id": "responsive-audio-program-spec",
+        "path": "native/ios/Sources/ContentKit/ResponsiveAudioProgramSpec.swift",
+        "bytes": 26686,
+        "sha256": "8c513b05114484f4d31614ae49267f9fc5d00a3ec2e2276073b576c390b59564"
+      },
+      {
+        "id": "responsive-audio-program-runtime",
+        "path": "native/ios/Sources/DramaticAudio/ResponsiveAudioProgramRuntime.swift",
+        "bytes": 25968,
+        "sha256": "b5239a3c7bb1f1c55578cd9944fdf56144a421d644ea9b9022f4f9148254e870"
+      },
+      {
+        "id": "responsive-audio-program-controller",
+        "path": "native/ios/Sources/DramaticAudio/ResponsiveAudioProgramController.swift",
+        "bytes": 50562,
+        "sha256": "0393cc006447c4b439b3907b57a7a3932cdf16be05f092d14b75774faccf2ef9"
+      },
+      {
+        "id": "responsive-audio-timeline-planner",
+        "path": "native/ios/Sources/DramaticAudio/TimelinePlaybackPlan.swift",
+        "bytes": 8229,
+        "sha256": "6c621630e28e5be375871046997d6963ede24c621f2d235f00491a75e481b9e0"
+      },
+      {
+        "id": "responsive-audio-transport-contract",
+        "path": "native/ios/Sources/DramaticAudio/OfflineAudioAssetResolver.swift",
+        "bytes": 26761,
+        "sha256": "5740dace88181205755e55b6dfcf17ce9ee651cda4339223f48c608141a726b7"
+      },
+      {
+        "id": "native-timeline-transport",
+        "path": "native/ios/Sources/DramaticAudio/NativeTimelineTransport.swift",
+        "bytes": 191598,
+        "sha256": "7afdd59a27679f49a7805edbd0946dcf0776ce8a90c992d28ba8c1c7e09ad257"
+      },
+      {
+        "id": "durable-audio-completion-runtime",
+        "path": "native/ios/Sources/DramaticAudio/DurableInteractionAudioCompletion.swift",
+        "bytes": 9029,
+        "sha256": "f9110ec847d031c776bfb39ee5782d3821f45d508bf7295a2a7a2adf25e81f81"
+      },
+      {
+        "id": "semantic-haptic-runtime",
+        "path": "native/ios/Sources/DramaticAudio/SemanticHapticTransport.swift",
+        "bytes": 12256,
+        "sha256": "b699e5ab9fab77aa81a343b66a013a73eb693a3ce41a676fc886a042917b3636"
+      },
+      {
+        "id": "audio-production-renderer",
+        "path": "native/tooling/src/audio-production.mjs",
+        "bytes": 49751,
+        "sha256": "d997f68ffb75150bf5cff0aea537891bccaf45d630e46b3e2698498b58e44439"
+      },
+      {
+        "id": "more-mouths-responsive-renderer",
+        "path": "native/tooling/src/more-mouths-responsive-audio.mjs",
+        "bytes": 49610,
+        "sha256": "b89a391f024e2bd627bea410621522f73d618cde5fedc1908fdb1c2bb67aba21"
+      },
+      {
+        "id": "score-soundscape-toolchain",
+        "path": "native/audio/score-soundscape/toolchain.json",
+        "bytes": 1963,
+        "sha256": "1a1a94ed56652f37681b9d74154c78741e53b280e80bab3f18b1db3fddef8ddd"
+      },
+      {
+        "id": "required-mit-notice",
+        "path": "native/audio/score-soundscape/licenses/MS-Basic-0.2.0-LICENSE.md",
+        "bytes": 3320,
+        "sha256": "bf7db123b5d6c0beb1a37f6e1b11c6f4dfd8fb6abd5d59ff282ea24a5cd932e5"
+      },
+      {
+        "id": "zero-cost-license-registry",
+        "path": "native/tooling/registries/cost-license.json",
+        "bytes": 17842,
+        "sha256": "9a0e7ae2f9af9288c1e761864d13c5ead85b2241cb981024ee6f42a314c74c7e"
+      }
+    ],
+    "outputReceipt": "render-receipt.json",
+    "scoreLineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+    "soundscapeLineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO_WITH_NO_IMPORTED_RECORDINGS",
+    "runtimeGeneration": "PROHIBITED",
+    "incrementalCostNOK": 0,
+    "commercialRights": "ALLOWED_WITH_RETAINED_MS_BASIC_MIT_NOTICE",
+    "requiredNoticePath": "native/audio/score-soundscape/licenses/MS-Basic-0.2.0-LICENSE.md"
+  },
+  "gates": {
+    "responsiveProgramContract": "PASS_LOCAL_SPEC_VALIDATION_REQUIRED_BY_SWIFT_TEST",
+    "exactOfflineMasters": "PASS",
+    "sampleExactPhaseBeds": "PASS",
+    "authoredSilence": "PASS",
+    "canonicalHapticVocabulary": "PASS",
+    "zeroIncrementalCost": "PASS",
+    "commercialRights": "PASS_WITH_RETAINED_MIT_NOTICE",
+    "narrationMaster": "OPEN_MISSING_EDITOR_SELECTED_MASTER",
+    "narrationWordAlignment": "OPEN_MISSING_EDITOR_SELECTED_MASTER",
+    "integratedLoudnessCalibration": "OPEN_UNTIL_NARRATION_MASTER_IS_BOUND",
+    "artisticApproval": "OPEN",
+    "editorApproval": "OPEN",
+    "shippingApproval": "PROHIBITED",
+    "physicalDeviceAudit": "OPEN"
+  },
+  "claimsExcluded": [
+    "editor approval",
+    "artistic approval",
+    "shipping approval",
+    "final narration integration",
+    "physical-device quality"
+  ]
+}

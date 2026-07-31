@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "status": "DRAFT_AWAITING_EDITOR_APPROVAL",
+  "shippingState": "PROHIBITED",
+  "chapterID": "first-farmers",
+  "arcID": "first-farmers-arc-02",
+  "movementID": "the-harvest-had-to-last",
+  "beatID": "beat-first-farmers-harvest-allocation",
+  "sceneID": "harvest-allocation-option-1",
+  "interactionID": "interaction-first-farmers-the-harvest-had-to-last",
+  "worldTraceID": "trace-seasonal-store",
+  "worldEffectID": "effect-first-farmers-the-harvest-had-to-last",
+  "authorityBindings": [
+    {
+      "path": "site/src/data/chapters/first-farmers.ts",
+      "sha256": "f3a5b37fc29465b9bf69d567499ed189aaa739b67e4ede140ddf81f7edb7f9ad"
+    },
+    {
+      "path": "native/blueprint/chapter-contracts.json",
+      "sha256": "1db83d0791460ba2dab6459c6cc300020fb0658bf70e1fb7f386c52c9903193e"
+    },
+    {
+      "path": "native/blueprint/arc-matrix.json",
+      "sha256": "8f4926f574ec0046b116ebca9f85a3246a8a2587cda023f94ab1b1ad10f58162"
+    },
+    {
+      "path": "native/phase1/fixtures/harvest-option-1.scene.json",
+      "sha256": "c9cfa96d9cc61f7421ecf0efc0136d2f716daa5fb851a4dd99f2943e1b9b8028"
+    },
+    {
+      "path": "native/design/phase1/harvest/scene-production-brief.md",
+      "sha256": "30409f71f9268b7f12e0d7c76be5554691355c8385e06d230693e2f89efc9315"
+    }
+  ],
+  "interactionRecommendation": {
+    "grammar": "allocate",
+    "totalRuntimeShares": 12,
+    "unitSemantics": "INTERNAL_EQUAL_SHARES_WITHOUT_HISTORICAL_MEASUREMENT_CLAIM",
+    "completionRule": "SOURCE_EXHAUSTED_AND_EVERY_MINIMUM_MET",
+    "destinations": [
+      {
+        "id": "food",
+        "minimumUnits": 4,
+        "title": "Winter food"
+      },
+      {
+        "id": "reserve",
+        "minimumUnits": 2,
+        "title": "Protected reserve"
+      },
+      {
+        "id": "seed",
+        "minimumUnits": 3,
+        "title": "Seed grain"
+      }
+    ],
+    "surplusUnitsAfterObligations": 3,
+    "reversalPermittedUntilCommit": true,
+    "invalidTerminalState": "REMAINS_ACTIVE_WITH_EXACT_UNMET_OBLIGATION_AND_FULL_REVERSIBILITY",
+    "persistentLocalState": "EXACT_FINAL_DISTRIBUTION",
+    "persistentWorldEffect": "ONE_SHARED_DOCUMENTED_EFFECT_FOR_EVERY_VALID_DISTRIBUTION",
+    "worldBefore": "One finite harvest lies on the floor while winter food, spoilage and seed grain for the next sowing compete for the same grain.",
+    "worldAfter": "The divided store binds present consumption to reserve, seed and the next agricultural year."
+  },
+  "manuscript": {
+    "locale": "en",
+    "period": "6500–6000 BC",
+    "place": "Thessaly",
+    "title": "The Harvest Had to Last",
+    "cues": [
+      {
+        "id": "harvest-orientation",
+        "role": "narration",
+        "entry": "onEntry",
+        "text": "A field changed the shape of the year. The grain before you has been cut, dried and threshed. Nothing more will grow before winter. This store must answer three claims."
+      },
+      {
+        "id": "harvest-winter-food",
+        "role": "narration",
+        "entry": "cameraAtDestinations",
+        "text": "Part will be eaten. Grain carried to the hearth becomes winter food. Once consumed, it cannot answer a longer season or return to the soil."
+      },
+      {
+        "id": "harvest-protected-reserve",
+        "role": "narration",
+        "entry": "focusReserve",
+        "text": "Part must be kept against loss. Dry grain is lifted from the earth and closed away from damp, insects and hungry animals."
+      },
+      {
+        "id": "harvest-spring-seed",
+        "role": "narration",
+        "entry": "focusSeed",
+        "text": "And part must remain untouched. Seed grain is food refused in winter: the next field held inside the present harvest."
+      },
+      {
+        "id": "harvest-surplus",
+        "role": "narration",
+        "entry": "allMinimumsMet",
+        "text": "The household's obligations are met. What remains can ease winter, absorb loss or enlarge the next sowing. The same grain cannot do all three."
+      },
+      {
+        "id": "harvest-consequence",
+        "role": "narration",
+        "entry": "onCommit",
+        "text": "Nothing has been created. The harvest has been divided across present hunger, future loss and the field to come. Farming bound one season to the next—and the household to choices that could not be postponed."
+      }
+    ]
+  },
+  "interfaceCopy": {
+    "heading": "The Harvest Had to Last",
+    "actionPrompt": "Divide the harvest",
+    "initialStatus": "One harvest. Three obligations.",
+    "surplusStatus": "The obligations hold. Place what remains.",
+    "commitAction": "Bind the year",
+    "remainingAccessibleFormat": "%d of 12 shares remain",
+    "unmetAccessibleFormat": "%1$s needs %2$d more shares"
+  },
+  "destinationCopy": [
+    {
+      "id": "food",
+      "standard": "Winter food",
+      "focused": "Grain carried here feeds the household through winter. More given now leaves less against loss or for sowing."
+    },
+    {
+      "id": "reserve",
+      "standard": "Protected reserve",
+      "focused": "Grain closed here stands against damp, pests and scarcity. More held back cannot be eaten now or put into the next field."
+    },
+    {
+      "id": "seed",
+      "standard": "Seed grain",
+      "focused": "Grain kept here returns to the soil at the next sowing. More seed leaves less winter food and reserve."
+    }
+  ],
+  "accessibility": {
+    "sceneSummary": "One finite harvest lies beneath a dry shelter. Allocate it among winter food at the hearth, a protected reserve and seed grain for the next sowing. Grain moved to one use leaves the other two.",
+    "sourceLabel": "Undivided harvest",
+    "adjustmentActions": [
+      "increment",
+      "decrement"
+    ],
+    "commitUsesSameReducer": true,
+    "completionConsequenceMatchesTouch": true
+  },
+  "pronunciationCandidates": [
+    {
+      "term": "Thessaly",
+      "locale": "en-GB",
+      "ipa": "ˈθɛsəli"
+    },
+    {
+      "term": "einkorn",
+      "locale": "en-GB",
+      "ipa": "ˈaɪnkɔːn"
+    },
+    {
+      "term": "emmer",
+      "locale": "en-GB",
+      "ipa": "ˈɛmər"
+    }
+  ],
+  "factCheck": {
+    "status": "PASS",
+    "findingCount": 0,
+    "publicCaveatsAdded": 0,
+    "scope": "F1_TO_F7_ONLY",
+    "note": "Every public historical statement narrows or restates claims already present in the approved chapter and arc authority."
+  },
+  "claimsExcluded": [
+    "editor approval",
+    "final interaction distribution",
+    "final public wording",
+    "narration master",
+    "shipping approval"
+  ]
+}

@@ -1,0 +1,232 @@
+{
+  "schemaVersion": 1,
+  "kind": "responsive-symbolic-score",
+  "id": "household-crosses-responsive-score-v1",
+  "status": "PROVISIONAL_NON_SHIPPING",
+  "shippingState": "PROHIBITED",
+  "output": { "sampleRate": 48000, "bitDepth": 24, "channels": 2, "container": "wav" },
+  "ppq": 960,
+  "meter": { "numerator": 5, "denominator": 4 },
+  "tempoBPM": 60,
+  "direction": "Four separated tones gather at the eastern waterline, remain distinct through the crossing and join only after the household reaches the European riverbank. The score carries no martial cadence, triumphal lift, ocean danger or claim about documented waves.",
+  "prohibitedClaims": [
+    "martial scoring",
+    "triumphal scoring",
+    "heroic ocean scoring",
+    "score tones represented as documented waves or historical evidence"
+  ],
+  "motifs": [
+    {
+      "id": "earth-fifth",
+      "notes": [
+        { "pitch": "D2", "atBeat": 0, "durationBeats": 4.2, "dynamic": "pp", "articulation": "tenuto" },
+        { "pitch": "A2", "atBeat": 0, "durationBeats": 4.2, "dynamic": "pp", "articulation": "tenuto" }
+      ]
+    },
+    { "id": "seed-mark", "notes": [{ "pitch": "D4", "atBeat": 0, "durationBeats": 0.8, "dynamic": "p", "articulation": "tenuto" }] },
+    { "id": "animal-mark", "notes": [{ "pitch": "E4", "atBeat": 0, "durationBeats": 0.8, "dynamic": "p", "articulation": "tenuto" }] },
+    { "id": "tool-mark", "notes": [{ "pitch": "F4", "atBeat": 0, "durationBeats": 0.8, "dynamic": "p", "articulation": "detached" }] },
+    { "id": "learned-practice-mark", "notes": [{ "pitch": "A4", "atBeat": 0, "durationBeats": 1.6, "dynamic": "mp", "articulation": "tenuto" }] },
+    {
+      "id": "resistance-knot",
+      "notes": [
+        { "pitch": "Eb3", "atBeat": 0, "durationBeats": 1, "dynamic": "mp", "articulation": "accent" },
+        { "pitch": "D3", "atBeat": 1.25, "durationBeats": 2.75, "dynamic": "p", "articulation": "tenuto" }
+      ]
+    },
+    {
+      "id": "returning-field",
+      "notes": [
+        { "pitch": "D4", "atBeat": 0, "durationBeats": 0.8, "dynamic": "pp", "articulation": "tenuto" },
+        { "pitch": "E4", "atBeat": 2, "durationBeats": 0.8, "dynamic": "p", "articulation": "tenuto" },
+        { "pitch": "F4", "atBeat": 4, "durationBeats": 0.8, "dynamic": "p", "articulation": "tenuto" },
+        { "pitch": "A4", "atBeat": 7, "durationBeats": 2, "dynamic": "mp", "articulation": "tenuto" }
+      ]
+    }
+  ],
+  "regions": [
+    {
+      "id": "approach",
+      "timelineID": "household-crosses-approach-v1",
+      "scoreStateID": "four-parts-gather-at-waterline",
+      "durationSeconds": 60,
+      "loop": false,
+      "stems": [
+        {
+          "id": "ground",
+          "role": "Low earth fifths hold the eastern shore without turning water into danger scoring",
+          "instrument": { "bank": 0, "program": 43, "label": "Contrabass" },
+          "gainDB": -18,
+          "pan": -0.2,
+          "phrases": [
+            { "motifID": "earth-fifth", "atBeat": 0, "transposeSemitones": 0, "dynamicOffset": -9 },
+            { "motifID": "earth-fifth", "atBeat": 15, "transposeSemitones": 0, "dynamicOffset": -8 },
+            { "motifID": "earth-fifth", "atBeat": 30, "transposeSemitones": 0, "dynamicOffset": -7 },
+            { "motifID": "earth-fifth", "atBeat": 45, "transposeSemitones": 0, "dynamicOffset": -6 }
+          ]
+        },
+        {
+          "id": "household",
+          "role": "Cello states the separated seed and animal tones at the visible waterline",
+          "instrument": { "bank": 0, "program": 42, "label": "Cello" },
+          "gainDB": -21,
+          "pan": 0.08,
+          "phrases": [
+            { "motifID": "seed-mark", "atBeat": 6, "transposeSemitones": -12, "dynamicOffset": -10 },
+            { "motifID": "animal-mark", "atBeat": 18, "transposeSemitones": -12, "dynamicOffset": -9 },
+            { "motifID": "seed-mark", "atBeat": 34, "transposeSemitones": -12, "dynamicOffset": -8 },
+            { "motifID": "animal-mark", "atBeat": 50, "transposeSemitones": -12, "dynamicOffset": -7 }
+          ]
+        },
+        {
+          "id": "carried-work",
+          "role": "Dulcimer keeps tool and learned-practice tones apart while the household is loaded",
+          "instrument": { "bank": 0, "program": 15, "label": "Dulcimer" },
+          "gainDB": -23,
+          "pan": 0.26,
+          "phrases": [
+            { "motifID": "tool-mark", "atBeat": 11, "transposeSemitones": -12, "dynamicOffset": -11 },
+            { "motifID": "learned-practice-mark", "atBeat": 25, "transposeSemitones": -12, "dynamicOffset": -11 },
+            { "motifID": "tool-mark", "atBeat": 41, "transposeSemitones": -12, "dynamicOffset": -10 },
+            { "motifID": "learned-practice-mark", "atBeat": 54, "transposeSemitones": -12, "dynamicOffset": -9 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "waiting",
+      "timelineID": "household-crosses-waiting-bed-v1",
+      "scoreStateID": "household-held-at-shore",
+      "durationSeconds": 15,
+      "loop": true,
+      "stems": [
+        {
+          "id": "ground", "role": "The eastern shore remains fixed while the route waits",
+          "instrument": { "bank": 0, "program": 43, "label": "Contrabass" }, "gainDB": -19, "pan": -0.2,
+          "phrases": [
+            { "motifID": "earth-fifth", "atBeat": 0, "transposeSemitones": 0, "dynamicOffset": -10 },
+            { "motifID": "earth-fifth", "atBeat": 8, "transposeSemitones": 0, "dynamicOffset": -9 }
+          ]
+        },
+        {
+          "id": "household", "role": "Seed and animal tones remain separated in the craft held at shore",
+          "instrument": { "bank": 0, "program": 42, "label": "Cello" }, "gainDB": -23, "pan": 0.08,
+          "phrases": [
+            { "motifID": "seed-mark", "atBeat": 3, "transposeSemitones": -12, "dynamicOffset": -12 },
+            { "motifID": "animal-mark", "atBeat": 10, "transposeSemitones": -12, "dynamicOffset": -11 }
+          ]
+        },
+        {
+          "id": "carried-work", "role": "One tool tone holds the material dependency without movement",
+          "instrument": { "bank": 0, "program": 15, "label": "Dulcimer" }, "gainDB": -26, "pan": 0.26,
+          "phrases": [{ "motifID": "tool-mark", "atBeat": 6, "transposeSemitones": -12, "dynamicOffset": -14 }]
+        }
+      ]
+    },
+    {
+      "id": "engaged",
+      "timelineID": "household-crosses-engaged-bed-v1",
+      "scoreStateID": "four-parts-cross-together",
+      "durationSeconds": 15,
+      "loop": true,
+      "stems": [
+        {
+          "id": "ground", "role": "The low fifth moves beneath a viable crossing without becoming a rowing pulse",
+          "instrument": { "bank": 0, "program": 43, "label": "Contrabass" }, "gainDB": -17, "pan": -0.2,
+          "phrases": [
+            { "motifID": "earth-fifth", "atBeat": 0, "transposeSemitones": 0, "dynamicOffset": -8 },
+            { "motifID": "earth-fifth", "atBeat": 8, "transposeSemitones": 0, "dynamicOffset": -7 }
+          ]
+        },
+        {
+          "id": "household", "role": "Seed and animal tones alternate as one household crosses together",
+          "instrument": { "bank": 0, "program": 42, "label": "Cello" }, "gainDB": -20, "pan": 0.08,
+          "phrases": [
+            { "motifID": "seed-mark", "atBeat": 1.5, "transposeSemitones": -12, "dynamicOffset": -9 },
+            { "motifID": "animal-mark", "atBeat": 5.5, "transposeSemitones": -12, "dynamicOffset": -8 },
+            { "motifID": "seed-mark", "atBeat": 10.5, "transposeSemitones": -12, "dynamicOffset": -7 }
+          ]
+        },
+        {
+          "id": "carried-work", "role": "Tool and practice tones answer without implying propulsion or cadence",
+          "instrument": { "bank": 0, "program": 15, "label": "Dulcimer" }, "gainDB": -22, "pan": 0.26,
+          "phrases": [
+            { "motifID": "tool-mark", "atBeat": 3.5, "transposeSemitones": -12, "dynamicOffset": -10 },
+            { "motifID": "learned-practice-mark", "atBeat": 8, "transposeSemitones": -12, "dynamicOffset": -9 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "resistance",
+      "timelineID": "household-crosses-resistance-bed-v1",
+      "scoreStateID": "route-does-not-take",
+      "durationSeconds": 15,
+      "loop": true,
+      "stems": [
+        {
+          "id": "ground", "role": "The shore remains fixed when the traced route leaves viable water",
+          "instrument": { "bank": 0, "program": 43, "label": "Contrabass" }, "gainDB": -17, "pan": -0.2,
+          "phrases": [
+            { "motifID": "earth-fifth", "atBeat": 0, "transposeSemitones": 0, "dynamicOffset": -8 },
+            { "motifID": "earth-fifth", "atBeat": 8, "transposeSemitones": 0, "dynamicOffset": -7 }
+          ]
+        },
+        {
+          "id": "household", "role": "A narrow semitone marks local route resistance without danger scoring",
+          "instrument": { "bank": 0, "program": 42, "label": "Cello" }, "gainDB": -18, "pan": 0.04,
+          "phrases": [
+            { "motifID": "resistance-knot", "atBeat": 1.5, "transposeSemitones": -12, "dynamicOffset": -7 },
+            { "motifID": "resistance-knot", "atBeat": 7, "transposeSemitones": -12, "dynamicOffset": -6 }
+          ]
+        },
+        {
+          "id": "carried-work", "role": "The tool tone withholds advance while completed anchors remain secured",
+          "instrument": { "bank": 0, "program": 15, "label": "Dulcimer" }, "gainDB": -27, "pan": 0.26,
+          "phrases": [
+            { "motifID": "tool-mark", "atBeat": 5, "transposeSemitones": -12, "dynamicOffset": -14 },
+            { "motifID": "tool-mark", "atBeat": 12, "transposeSemitones": -12, "dynamicOffset": -13 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "consequence",
+      "timelineID": "household-crosses-consequence-v1",
+      "scoreStateID": "four-parts-join-as-practice",
+      "durationSeconds": 55,
+      "loop": false,
+      "stems": [
+        {
+          "id": "ground", "role": "Low earth fifths settle beneath the European riverbank",
+          "instrument": { "bank": 0, "program": 43, "label": "Contrabass" }, "gainDB": -17, "pan": -0.2,
+          "phrases": [
+            { "motifID": "earth-fifth", "atBeat": 0, "transposeSemitones": 0, "dynamicOffset": -8 },
+            { "motifID": "earth-fifth", "atBeat": 14, "transposeSemitones": 0, "dynamicOffset": -7 },
+            { "motifID": "earth-fifth", "atBeat": 28, "transposeSemitones": 0, "dynamicOffset": -6 },
+            { "motifID": "earth-fifth", "atBeat": 42, "transposeSemitones": 0, "dynamicOffset": -5 }
+          ]
+        },
+        {
+          "id": "household", "role": "Cello carries the four parts into one restrained learned practice",
+          "instrument": { "bank": 0, "program": 42, "label": "Cello" }, "gainDB": -20, "pan": 0.08,
+          "phrases": [
+            { "motifID": "seed-mark", "atBeat": 5, "transposeSemitones": -12, "dynamicOffset": -10 },
+            { "motifID": "animal-mark", "atBeat": 11, "transposeSemitones": -12, "dynamicOffset": -9 },
+            { "motifID": "tool-mark", "atBeat": 19, "transposeSemitones": -12, "dynamicOffset": -9 },
+            { "motifID": "learned-practice-mark", "atBeat": 27, "transposeSemitones": -12, "dynamicOffset": -8 }
+          ]
+        },
+        {
+          "id": "carried-work", "role": "Only after landing, the separated tones join as the returning-field figure",
+          "instrument": { "bank": 0, "program": 15, "label": "Dulcimer" }, "gainDB": -22, "pan": 0.26,
+          "phrases": [
+            { "motifID": "returning-field", "atBeat": 8, "transposeSemitones": -12, "dynamicOffset": -11 },
+            { "motifID": "returning-field", "atBeat": 24, "transposeSemitones": -12, "dynamicOffset": -10 },
+            { "motifID": "returning-field", "atBeat": 40, "transposeSemitones": -12, "dynamicOffset": -9 }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thelongwest.invalid/schemas/essential-release-package-approval.schema.json",
+  "title": "Editor approval for the bundled essential release package",
+  "description": "External backstage receipt used by release-candidate validation. The approved signed manifest transitively binds every bundled asset path, byte count and SHA-256; deliveryPlanSHA256 binds the exact locked byte-budget authority used by the release gate. A Codex provisional visual authority cannot satisfy this schema.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "status",
+    "authority",
+    "approvedAt",
+    "decisionReference",
+    "packageID",
+    "chapterIDs",
+    "deliveryPlanSHA256",
+    "packageManifestSHA256",
+    "manifestDigest",
+    "payloadPath",
+    "payloadSHA256"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "status": { "const": "APPROVED_BY_EDITOR_IN_CHIEF" },
+    "authority": { "const": "editor-in-chief" },
+    "approvedAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "decisionReference": { "type": "string", "minLength": 12 },
+    "packageID": { "const": "essential-free-v1" },
+    "chapterIDs": {
+      "type": "array",
+      "prefixItems": [
+        { "const": "first-farmers" },
+        { "const": "europe-holds-the-line" },
+        { "const": "european-world" }
+      ],
+      "items": false,
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "deliveryPlanSHA256": { "$ref": "#/$defs/sha256" },
+    "packageManifestSHA256": { "$ref": "#/$defs/sha256" },
+    "manifestDigest": { "$ref": "#/$defs/sha256" },
+    "payloadPath": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)[A-Za-z0-9._/-]+$"
+    },
+    "payloadSHA256": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

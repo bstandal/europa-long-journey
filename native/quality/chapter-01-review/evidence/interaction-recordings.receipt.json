@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "receiptID": "interaction-recordings-chapter-01-review-v1",
+  "type": "INTERACTION_RECORDINGS",
+  "milestone": "CHAPTER_01_REVIEW_READY",
+  "status": "PASS",
+  "chapterID": "first-farmers",
+  "shippingState": "PROHIBITED",
+  "recordings": [
+    {
+      "interactionID": "interaction-first-farmers-a-household-crosses",
+      "completed": true,
+      "artifact": {
+        "path": "native/quality/chapter-01-review/evidence/recordings/interaction-first-farmers-a-household-crosses.mp4",
+        "bytes": 2804963,
+        "sha256": "4657a33fa1fa95cb87fa024d74971eb233b9077ea94538f2949427ff1ace1a04"
+      }
+    },
+    {
+      "interactionID": "interaction-first-farmers-the-harvest-had-to-last",
+      "completed": true,
+      "artifact": {
+        "path": "native/quality/chapter-01-review/evidence/recordings/interaction-first-farmers-the-harvest-had-to-last.mp4",
+        "bytes": 4160408,
+        "sha256": "09c91856ca2dec464f578750c349d845c65eb0cd68791f4018b735f5af2ddf27"
+      }
+    },
+    {
+      "interactionID": "interaction-first-farmers-at-the-iron-gates",
+      "completed": true,
+      "artifact": {
+        "path": "native/quality/chapter-01-review/evidence/recordings/interaction-first-farmers-at-the-iron-gates.mp4",
+        "bytes": 1924335,
+        "sha256": "e3938179890c60c0ac0784bd5a22b908fcb94f7dd8b9e1ac473524232ab6627b"
+      }
+    },
+    {
+      "interactionID": "interaction-first-farmers-the-house-outlives",
+      "completed": true,
+      "artifact": {
+        "path": "native/quality/chapter-01-review/evidence/recordings/interaction-first-farmers-the-house-outlives.mp4",
+        "bytes": 3859553,
+        "sha256": "7b837c7ff7f2a831914a90e8a60edaf55830985e2c38f1a55c1a5c52949d3b4c"
+      }
+    },
+    {
+      "interactionID": "interaction-first-farmers-more-mouths-more-land",
+      "completed": true,
+      "artifact": {
+        "path": "native/quality/chapter-01-review/evidence/recordings/interaction-first-farmers-more-mouths-more-land.mp4",
+        "bytes": 2272110,
+        "sha256": "d5193e5e478d85acdd7264cf66deb9bcbfeaef80f6a7bed52c020d4b7d4257e8"
+      }
+    },
+    {
+      "interactionID": "interaction-first-farmers-a-continent-remade",
+      "completed": true,
+      "artifact": {
+        "path": "native/quality/chapter-01-review/evidence/recordings/interaction-first-farmers-a-continent-remade.mp4",
+        "bytes": 2521381,
+        "sha256": "ebd07bd4449f48ad163e0a55de6bcdeddedc83ca5f8ec6dd2721189f97a9e421"
+      }
+    }
+  ]
+}

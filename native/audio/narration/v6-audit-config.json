@@ -1,0 +1,290 @@
+{
+  "schemaVersion": 1,
+  "status": "CODEX_V6_METHOD_FROZEN_WITH_UTTERANCE_GATES",
+  "trustDomain": "CODEX_V6_DIAGNOSTIC_NON_SHIPPING",
+  "language": "English",
+  "locale": "en-GB",
+  "paths": {
+    "workRoot": "native/audio/narration/work/provisional-audit-v6",
+    "candidateSetRoot": "native/audio/narration/work/cast-v1-2026-07-24",
+    "candidateSetReceipt": "native/audio/narration/work/cast-v1-2026-07-24/candidate-set.receipt.json",
+    "v5NegativeAuditReceipt": "native/audio/narration/work/provisional-audit-v5/in-process-audit-tail-fixed-v2/audit.v5.receipt.json"
+  },
+  "parentChain": {
+    "productionPipelineBytes": 53756,
+    "productionPipelineSHA256": "3255f7c7283cc5e71b1717cff5546d91d0c09618a67225cf03095870fa7f1ae2",
+    "productionConfigBytes": 8887,
+    "productionConfigSHA256": "046fdae34d649301ea298996469c9d670ac8068c41892f134420be44fbf31028",
+    "uvLockBytes": 98280,
+    "uvLockSHA256": "db9a1340d7b9fbdb943d791aad3162e020c66a8212f2e4c129722e2dcd4535dc",
+    "candidateSetReceiptBytes": 13518,
+    "candidateSetReceiptSHA256": "91135c02541fe8c2f7a040146a0785a61fda761cf7d5afc65f66fa77cf49bac7",
+    "provisionalFinalistIDs": [
+      "voice-candidate-05",
+      "voice-candidate-06"
+    ],
+    "v4OrV5StressEvidencePermittedAsParent": false
+  },
+  "negativeEvidence": {
+    "status": "V5_REJECTED_DIAGNOSTIC_ONLY_NEVER_A_V6_PARENT",
+    "v5AuditReceiptBytes": 229813,
+    "v5AuditReceiptSHA256": "55aaa8764651fb83d53b3deb9b1e2e82140bea55b4bac5eacbe69af39fbdcb79",
+    "passingCandidateCount": 0,
+    "recommendedVoiceID": null,
+    "failedGates": [
+      "cueAlignment",
+      "referenceAwareRepetition",
+      "silence"
+    ]
+  },
+  "codeDependencies": {
+    "v5AuditUtilityPath": "native/audio/narration/v5_pipeline.py",
+    "v5AuditUtilityBytes": 152396,
+    "v5AuditUtilitySHA256": "951e6d78bce520f01290033ad39ae98737335d3ae2dca42de6247b8fa63254f8",
+    "v5TextExtractionConfigPath": "native/audio/narration/v5-audit-config.json",
+    "v5TextExtractionConfigBytes": 9687,
+    "v5TextExtractionConfigSHA256": "208ade8b925efffe0e81eae82d41cddd96a3495e8d4ec9dfd15137af6a1dd1d1",
+    "qwenBatchImplementationPath": "native/audio/narration/.venv/lib/python3.14/site-packages/mlx_audio/tts/models/qwen3_tts/qwen3_tts.py",
+    "qwenBatchImplementationBytes": 112592,
+    "qwenBatchImplementationSHA256": "76437f93d97010aa0112ccba953836871d34f8e85854730768036cf1ac667383"
+  },
+  "offlineASR": {
+    "engine": "whisper.cpp",
+    "version": "1.9.1",
+    "executablePath": "/opt/homebrew/Cellar/whisper-cpp/1.9.1/bin/whisper-cli",
+    "executableBytes": 658608,
+    "executableSHA256": "1fbabb51a45906bd36684695de9025eab63618a6eedc26971c47fa5affc5fe49",
+    "modelName": "Whisper large-v3",
+    "modelPath": "/Users/bard/.cache/hyperframes/whisper/models/ggml-large-v3.bin",
+    "modelBytes": 3095033483,
+    "modelSHA256": "64d182b440b98d5203c4f9bd541544d84c605196c4f7b845dfa11fb23594d1e2",
+    "arguments": [
+      "--language", "en",
+      "--threads", "8",
+      "--processors", "1",
+      "--beam-size", "5",
+      "--best-of", "5",
+      "--split-on-word",
+      "--output-json-full",
+      "--no-prints"
+    ],
+    "answerPromptProhibited": true,
+    "externalTranscriptReceiptProhibited": true
+  },
+  "stressText": {
+    "sourcePath": "native/blueprint/chapter-contracts.json",
+    "sourceBytes": 65444,
+    "sourceSHA256": "1db83d0791460ba2dab6459c6cc300020fb0658bf70e1fb7f386c52c9903193e",
+    "sourceStatus": "APPROVED_BY_EDITOR_IN_CHIEF",
+    "wordCount": 3400,
+    "normalizedWordCount": 3422,
+    "textSHA256": "b375fe2c3ea7658c4cab28f68812dc58a50b0bcb026466e0f777118de2eb8a28",
+    "minimumActualMinutes": 18,
+    "maximumActualMinutes": 22
+  },
+  "segmentation": {
+    "algorithmVersion": 1,
+    "semanticAtoms": "Authored sentence or complete date-title paragraph",
+    "packing": "Greedy ordered packing inside each frozen V5 cue",
+    "maximumNormalizedWordsPerUtterance": 36,
+    "minimumNormalizedWordsPerUtterance": 10,
+    "utteranceCount": 123,
+    "utteranceManifestSHA256": "570be5df0901c82ceacc18f8c456bade94fd54e72d297431f9150c7c85f48d38",
+    "exactCharacterPartitionRequired": true,
+    "crossCuePackingProhibited": true,
+    "wordOrCharacterChangeProhibited": true
+  },
+  "generation": {
+    "mode": "Qwen3-TTS shared-reference ICL batch generation",
+    "batchSize": 8,
+    "maximumBatchAttempts": 3,
+    "batchSeedOffset": 6000000,
+    "batchSeedStride": 100,
+    "attemptSeedStride": 1,
+    "temperature": 0.7,
+    "topK": 50,
+    "topP": 0.95,
+    "repetitionPenaltyRequested": 1.1,
+    "repetitionPenaltyAppliedByICLMinimum": 1.5,
+    "maximumTokens": 384,
+    "derivedTokenMultiplier": 6,
+    "minimumDerivedTokens": 75,
+    "stream": false,
+    "firstPassingAttemptWins": true
+  },
+  "referenceTempoConditioning": {
+    "factor": 1.22,
+    "method": "One deterministic pitch-preserving ffmpeg atempo pass before Qwen ICL encoding",
+    "lowestQualifyingFactor": 1.22,
+    "qualifyingFactors": [
+      1.22,
+      1.26
+    ],
+    "labReceiptPath": "native/audio/narration/work/provisional-audit-v6/reference-tempo-lab-r2/reference-tempo-lab.v6.receipt.json",
+    "labReceiptBytes": 282091,
+    "labReceiptSHA256": "6db5f61ac366b13e0f4a4e5c7e4265939e93869efc04ea9a8bcaa7e3d8d84534",
+    "priorRejectedLabReceiptPath": "native/audio/narration/work/provisional-audit-v6/reference-tempo-lab-r1/reference-tempo-lab.v6.receipt.json",
+    "priorRejectedLabReceiptBytes": 367988,
+    "priorRejectedLabReceiptSHA256": "753cc1e9771fc2f1a6ed94c2f1e4b16232d4d8d4e76f622249d12d905739d728",
+    "labAudioPermittedAsArtifactParent": false,
+    "r2AudioPermittedAsArtifactParent": false,
+    "derivedReferenceMustBeRebuiltFromOriginal": true,
+    "expectedReferences": {
+      "voice-candidate-05": {
+        "originalSHA256": "a832c5fd5ac65d5b7392f69a93f14ed0b1dfbb3ba88bb7b2d34328b215acab04",
+        "conditionedBytes": 1738512,
+        "conditionedSHA256": "2d6bc61b87e05fd7d3c19bd64ccb06bd5c8957a28726de849b3afaf272c1355d",
+        "decodedSampleCountAt24000Hz": 289741,
+        "decodedFloat32LESHA256": "32d5dfd7f050ed4ce70d19517e8c02265a60e83972c7ce783ba355b546a5717f",
+        "labIdentityCosineToOriginal": 0.9989798069000244
+      },
+      "voice-candidate-06": {
+        "originalSHA256": "2301a67a760681c64952123683ba61283a622c00fb991b62460563b605e68386",
+        "conditionedBytes": 1775684,
+        "conditionedSHA256": "9a3ace5967506f1d35723feb8e8a39fcc1195e188fcf2ac3e466992a5b656e09",
+        "decodedSampleCountAt24000Hz": 295936,
+        "decodedFloat32LESHA256": "ea0bf038598b6015d00f8358798806d62d8fc8e9fd20ba5abdf88777b5e3cf8f",
+        "labIdentityCosineToOriginal": 0.9987457990646362
+      }
+    }
+  },
+  "adaptiveSemanticPacing": {
+    "method": "Append deterministic zero-signal only at an authored semantic utterance boundary when required to reach the target maximum tempo",
+    "targetMaximumWordsPerMinute": 205,
+    "hardGateMaximumWordsPerMinute": 210,
+    "maximumAdditionalPauseMilliseconds": 1000,
+    "appliesAfterAuthoredPause": true,
+    "onlyAddsWhenRequired": true,
+    "targetMustBeReachedBeforeCommit": true,
+    "zeroSignalOnly": true,
+    "speechTimeStretchApplied": false,
+    "recoveryLabReceiptPath": "native/audio/narration/work/provisional-audit-v6/reference-fallback-lab-r2/reference-fallback-lab.v6.receipt.json",
+    "recoveryLabReceiptBytes": 110033,
+    "recoveryLabReceiptSHA256": "c5ccc585d53b58192029af249a2506f816e4e41b8f4176f9cedb8544d22d5508",
+    "rejectedR3FailureReceiptPath": "native/audio/narration/work/provisional-audit-v6/stress-v6-r3-2026-07-25/failed-attempts.v6.receipt.json",
+    "rejectedR3FailureReceiptBytes": 13692,
+    "rejectedR3FailureReceiptSHA256": "8062c6718c28b2f7820fe5d196f608c1da3e95ee7da1c09b4161e9e2d1ba4920",
+    "labOrRejectedAudioPermittedAsArtifactParent": false
+  },
+  "utteranceGate": {
+    "minimumIdentityCosineToReference": 0.98,
+    "minimumWordsPerMinute": 100,
+    "maximumWordsPerMinute": 210,
+    "minimumHypothesisToReferenceWordRatio": 0.8,
+    "maximumHypothesisToReferenceWordRatio": 1.2,
+    "maximumEditDistanceFloor": 2,
+    "maximumEditDistanceFraction": 0.12,
+    "maximumNonmatchingReferenceRunWords": 3,
+    "maximumNonmatchingHypothesisRunWords": 3,
+    "maximumExcessRepeatedSixGramOccurrences": 0,
+    "tokenCeilingFails": true,
+    "asrBeforeCommitRequired": true
+  },
+  "join": {
+    "activityThresholdDBFS": -45,
+    "activityFrameMilliseconds": 20,
+    "activityHopMilliseconds": 10,
+    "preSpeechMilliseconds": 30,
+    "postSpeechMilliseconds": 50,
+    "edgeFadeMilliseconds": 10,
+    "intraParagraphPauseMilliseconds": 30,
+    "paragraphPauseMilliseconds": 120,
+    "finalPauseMilliseconds": 0,
+    "firstAndLastSamplesMustBeZero": true,
+    "maximumJoinDiscontinuity": 0.0,
+    "globalPeakGainOnly": true
+  },
+  "durationCorrection": {
+    "method": "One deterministic whole-assembly ffmpeg atempo pass",
+    "targetMaximumSeconds": 1314.0,
+    "hardMaximumUncorrectedSeconds": 1353.42,
+    "maximumTempoFactor": 1.03,
+    "minimumTempoFactor": 1.0,
+    "noCorrectionAtOrBelowTarget": true,
+    "slowingProhibited": true
+  },
+  "master": {
+    "nativeSampleRate": 24000,
+    "nativeChannels": 1,
+    "nativeRepresentation": "float32",
+    "nativeAssemblyPeakDBFS": -3.0,
+    "masterSampleRate": 48000,
+    "masterChannels": 1,
+    "masterBitDepth": 24,
+    "masterCodec": "pcm_s24le",
+    "ffmpegPath": "/opt/homebrew/Cellar/ffmpeg/8.1.2_1/bin/ffmpeg",
+    "ffmpegBytes": 426224,
+    "ffmpegSHA256": "dad4b30b36a1a999bfa4b6ffbde138bd17ee496c69e12eef638227dff2c6415c",
+    "ffprobePath": "/opt/homebrew/Cellar/ffmpeg/8.1.2_1/bin/ffprobe",
+    "ffprobeBytes": 236912,
+    "ffprobeSHA256": "cfeefcc9207eb3fa424679228fe3848db2921b15537d26c1ccc4a7a61de95d00",
+    "conversionArguments": [
+      "-nostdin", "-y", "-loglevel", "error",
+      "-i", "{native}",
+      "-map_metadata", "-1",
+      "-fflags", "+bitexact",
+      "-flags:a", "+bitexact",
+      "-af", "aresample=48000:resampler=swr:filter_size=32:phase_shift=10:exact_rational=1:dither_method=none",
+      "-ar", "48000",
+      "-ac", "1",
+      "-c:a", "pcm_s24le",
+      "{master}"
+    ],
+    "deterministicByteEqualityRequired": true,
+    "decodedDurationToleranceSamples": 0
+  },
+  "identity": {
+    "method": "Qwen3-TTS Base ECAPA-TDNN speaker encoder from the pinned voice-clone snapshot",
+    "windowSeconds": 20,
+    "hopSeconds": 10,
+    "minimumWholeCueToReferenceCosine": 0.97,
+    "minimumWindowToReferenceCosine": 0.96,
+    "minimumWindowToWholeCueCosine": 0.985,
+    "minimumAdjacentWindowCosine": 0.995,
+    "minimumPairwiseWholeCueCosine": 0.98,
+    "minimumAllWindowPairCosine": 0.975
+  },
+  "alignment": {
+    "normalizationVersion": 1,
+    "algorithm": "Hirschberg global Levenshtein with deterministic monotone backtrace",
+    "anchorWords": 8,
+    "minimumExactReferenceCoveragePerCue": 0.98,
+    "minimumExactHypothesisCoveragePerCue": 0.98,
+    "maximumNonmatchingReferenceRunWordsPerCue": 6,
+    "maximumNonmatchingHypothesisRunWordsPerCue": 12,
+    "boundaryToleranceMilliseconds": 750,
+    "ambiguousAnchorFails": true
+  },
+  "repetition": {
+    "ngramSize": 6,
+    "minimumHypothesisOccurrences": 2,
+    "maximumExcessOccurrenceFraction": 0.005,
+    "referenceMultisetSubtracted": true
+  },
+  "tempo": {
+    "minimumWordsPerMinute": 110,
+    "maximumWordsPerMinute": 210,
+    "maximumRelativeDeviationFromCueMedian": 0.25
+  },
+  "silence": {
+    "thresholdDBFS": -45,
+    "frameMilliseconds": 20,
+    "hopMilliseconds": 10,
+    "maximumTotalSilenceFraction": 0.12,
+    "maximumCueBoundarySilenceMilliseconds": 1250,
+    "maximumLeadingOrTrailingCueSilenceMilliseconds": 750
+  },
+  "costPolicy": {
+    "offlineRequired": true,
+    "networkProhibited": true,
+    "paidAPIProhibited": true,
+    "incrementalCostNOK": 0
+  },
+  "claimsExcluded": [
+    "editor voice selection",
+    "final word-accuracy approval",
+    "final pronunciation approval",
+    "artistic approval",
+    "shipping approval"
+  ]
+}

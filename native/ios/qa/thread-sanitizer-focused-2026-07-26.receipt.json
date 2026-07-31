@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS_LOCAL_SIMULATOR_THREAD_SANITIZER_NON_DEVICE",
+  "date": "2026-07-26",
+  "supersedes": "native/ios/qa/thread-sanitizer-focused-2026-07-25.receipt.json",
+  "project": "native/ios/LongWestJourney.xcodeproj",
+  "scheme": "LongWestJourney",
+  "configuration": "Debug",
+  "xcode": {
+    "version": "26.6",
+    "buildVersion": "17F113"
+  },
+  "threadSanitizerEnabled": true,
+  "destination": {
+    "platform": "iOS Simulator",
+    "device": "iPhone 17 Pro",
+    "osVersion": "26.5",
+    "osBuildNumber": "23F77",
+    "architecture": "arm64"
+  },
+  "testSelections": [
+    "LongWestNativeTests/ProgressStoreTests",
+    "LongWestNativeTests/ProgressStoreAppendBoundaryTests",
+    "LongWestNativeTests/ResponsiveAudioCursorCheckpointStoreTests",
+    "LongWestNativeTests/ResponsiveAudioCursorCheckpointPumpTests",
+    "LongWestNativeTests/SaveMigrationRegistryTests",
+    "LongWestNativeTests/ChapterSceneRuntimeControllerTests",
+    "LongWestNativeTests/DownloadControllerTests",
+    "LongWestNativeTests/ContentDeliveryTests",
+    "LongWestNativeTests/SaveMigrationRestorationPreparerTests",
+    "LongWestNativeTests/VerifiedSaveMigrationAuthoritySetTests",
+    "LongWestNativeTests/VerifiedJourneyRepositoryAuthorityTests",
+    "LongWestNativeTests/VerifiedFutureReleaseRepositoryAuthorityTests"
+  ],
+  "sourceAuthority": {
+    "fileCount": 92,
+    "sha256OfSortedFileHashLines": "77c98883e64af618205c419c54314d43ff50abfab36e63348c0efed23b46945d",
+    "roots": [
+      "native/ios/Sources/ProgressStore",
+      "native/ios/Sources/ChapterRuntime",
+      "native/ios/Sources/ContentDelivery",
+      "native/ios/Sources/JourneyPersistence",
+      "native/ios/Sources/JourneyContent",
+      "native/ios/Tests/ProgressStoreTests",
+      "native/ios/Tests/ChapterRuntimeTests",
+      "native/ios/Tests/ContentDeliveryTests",
+      "native/ios/Tests/JourneyContentTests"
+    ],
+    "digestDefinition": "SHA-256 of the sorted shasum -a 256 lines for every regular file under the nine roots, calculated from native/ios"
+  },
+  "result": {
+    "total": 194,
+    "passed": 194,
+    "failed": 0,
+    "skipped": 0,
+    "expectedFailures": 0,
+    "threadSanitizerFindings": 0
+  },
+  "command": "xcodebuild -quiet -project LongWestJourney.xcodeproj -scheme LongWestJourney -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5' -derivedDataPath /tmp/eurocentric-tsan-current-r2.HYHAQO/DerivedData -resultBundlePath /tmp/eurocentric-tsan-current-r2.HYHAQO/Result.xcresult CODE_SIGNING_ALLOWED=NO -enableThreadSanitizer YES -parallel-testing-enabled NO test -only-testing:LongWestNativeTests/ProgressStoreTests -only-testing:LongWestNativeTests/ProgressStoreAppendBoundaryTests -only-testing:LongWestNativeTests/ResponsiveAudioCursorCheckpointStoreTests -only-testing:LongWestNativeTests/ResponsiveAudioCursorCheckpointPumpTests -only-testing:LongWestNativeTests/SaveMigrationRegistryTests -only-testing:LongWestNativeTests/ChapterSceneRuntimeControllerTests -only-testing:LongWestNativeTests/DownloadControllerTests -only-testing:LongWestNativeTests/ContentDeliveryTests -only-testing:LongWestNativeTests/SaveMigrationRestorationPreparerTests -only-testing:LongWestNativeTests/VerifiedSaveMigrationAuthoritySetTests -only-testing:LongWestNativeTests/VerifiedJourneyRepositoryAuthorityTests -only-testing:LongWestNativeTests/VerifiedFutureReleaseRepositoryAuthorityTests",
+  "scope": {
+    "covers": [
+      "conditional progress commits and journal recovery",
+      "responsive-audio cursor ring durability and absolute-deadline checkpoint scheduling",
+      "chapter-scene runtime serialization and restoration",
+      "download-controller concurrency and queue restoration",
+      "save-migration graph execution and exact last-known-good rollback",
+      "package activation, retained-generation guards and exact CAS recovery",
+      "verified launch and future-release migration authority reconstruction"
+    ],
+    "doesNotCover": [
+      "physical iPhone execution",
+      "hard-kill timing on a physical device",
+      "live StoreKit, Background Assets, CloudKit or APNs",
+      "artistic or shipping approval"
+    ]
+  },
+  "shippingApproval": false
+}

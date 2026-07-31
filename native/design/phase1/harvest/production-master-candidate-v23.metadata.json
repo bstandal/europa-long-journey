@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "candidateID": "harvest-production-master-candidate-v23-hearth-local-composite",
+  "status": "NON_SHIPPING_FULL_RESOLUTION_LOCAL_CORRECTION_CANDIDATE",
+  "shippingAllowed": false,
+  "parent": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v11.png",
+    "sha256": "3d133537912cea7a08d03a8dd4875e145e05df4d765c4c1dcd4701c949dec278",
+    "bytes": 5790574,
+    "width": 1296,
+    "height": 2800
+  },
+  "inputCrop": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v23-hearth-input-crop.png",
+    "sha256": "e3b327effdb4b4d05d072471b29b815ff6af0a98cee29766bd27845ee9c8fe3b",
+    "bytes": 895073,
+    "width": 880,
+    "height": 880,
+    "construction": "Crop parent at x=0,y=1390,width=440,height=440; scale 2x with Lanczos to isolate the hearth context."
+  },
+  "prompt": {
+    "path": "native/design/phase1/harvest/openai-v23-hearth-crop-edit-prompt.txt",
+    "sha256": "5b63dca75ab288e6bc6c8cba0844b9a56305532b620c77f99917746bf8ead625",
+    "bytes": 970
+  },
+  "localEditSource": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v23-hearth-crop-edit-source.png",
+    "sha256": "001378dba16f4d9a1dff994e6b82aeed7fb9894e92c7ab0d98b11a47e54b20ec",
+    "bytes": 1990781,
+    "width": 1254,
+    "height": 1254,
+    "tool": "Codex built-in image edit",
+    "modelVersionExposed": false,
+    "seedExposed": false,
+    "directEditUse": "REJECTED_GLOBAL_REDRAW_RETAINED_ONLY_AS_LOCAL_MATERIAL_SOURCE"
+  },
+  "authorizedMask": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v23-hearth-local-mask.png",
+    "sha256": "221dab6a67c3dd3102c7a2a4650112797f6abc0fb68bbb98390540a596fd5499",
+    "bytes": 13774,
+    "construction": "1296x2800 grayscale ellipse centred at (110,1713), radii (70,52), Gaussian sigma 3.5",
+    "nonZeroBoundingRectangle": {
+      "x": 30,
+      "y": 1651,
+      "width": 161,
+      "height": 125
+    }
+  },
+  "compositor": {
+    "id": "ffmpeg-maskedmerge",
+    "pixelFormat": "gbrp-to-rgb24-png",
+    "editPlacement": "Scale the 1254x1254 local source to 440x440 with Lanczos and place at x=0,y=1390 over the unchanged parent."
+  },
+  "output": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v23-hearth-local-composite.png",
+    "sha256": "c2f71d113775dce78b2bfcae8486a84e5872e829a8d346b891c6b918ac0d4596",
+    "bytes": 5835222,
+    "width": 1296,
+    "height": 2800
+  },
+  "audit": {
+    "materialResult": "PASS_PROVISIONAL_LOCAL_CORRECTION",
+    "outsideAuthorizedBoundingRectangle": "PIXEL_IDENTICAL_TO_PARENT",
+    "outsideRegionRawFrameHashes": {
+      "above": "7f5e1f2d228bffd5de4348795caac41e078768c4474ba4c6c982bd729c703b95",
+      "below": "339cd95ac0a9a3e6e7214a8f68d10081251b5eb1dfd67f339ed0e066aec128ea",
+      "left": "69517583178e0111c2f436f3764379911a9ef7d7abe8af4932ae1cc2306d8504",
+      "right": "946af3613ff89073bcac2d9742ea1129db55a0fd4a7edaa547dab26ce26fe76e"
+    },
+    "psnrAverageDecibelsAgainstParent": 43.33514,
+    "ssimAgainstParent": 0.998535,
+    "dimensionFloorResult": "PASS_1290_X_2796_FLOOR",
+    "productionMasterResult": "PENDING_LAYER_DAG_AND_ARTISTIC_GATE",
+    "reason": "The unsupported metal cauldron is replaced by a hand-built fired-clay vessel while every pixel outside the byte-audited hearth rectangle remains unchanged. The raster meets the production dimension floor but is still a non-shipping candidate until the complete layered asset DAG, runtime variants, final artefact inspection and artistic gate exist."
+  }
+}

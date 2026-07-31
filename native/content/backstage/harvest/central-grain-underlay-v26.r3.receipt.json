@@ -1,0 +1,460 @@
+{
+  "authority": {
+    "artisticApproval": false,
+    "candidateMayEnterShippingCompiler": false,
+    "editorialApproval": false,
+    "forbiddenAuthorityMarkers": [
+      "EDITOR_APPROVED_AS_PRODUCTION_MASTER",
+      "EDITOR_APPROVED_PRODUCTION_MASTER",
+      "PRODUCTION_ASSET_APPROVED",
+      "PRODUCTION_INPUTS_LOCKED",
+      "SHIPPING_ALLOWED"
+    ],
+    "humanOrEditorVisualReviewRecorded": false,
+    "nextDecision": "CODEX_VISUAL_REVIEW_REQUIRED_EVEN_IF_OBJECTIVE_GATES_PASS",
+    "productionAssetAuthority": false,
+    "productionMasterAuthority": false,
+    "shippingAllowed": false
+  },
+  "construction": {
+    "builtInImageGenerationUsed": false,
+    "donor": "largest 8-connected allocation-cloth component after subtracting target and foreground occluders",
+    "externalModelUsed": false,
+    "method": "SOURCE_ONLY_MULTI_RESOLUTION_PATCHMATCH",
+    "networkUsed": false,
+    "outerAuthorizationShellRule": "EXACT_SOURCE_PIXELS",
+    "patchFootprint": {
+      "radius": 4,
+      "sampleCount": 49,
+      "shape": "integer-euclidean-disk",
+      "zeroPaddingOutsideCrop": true
+    },
+    "qwenUsed": false,
+    "requiredMethod": "SOURCE_ONLY_MULTI_RESOLUTION_PATCHMATCH",
+    "requiredMethodImplemented": true,
+    "seamRingRule": "TRANSLATION_ONLY_SAME_SIDE_DONOR_WITH_SOURCE_BOUNDARY_WEIGHT_4",
+    "seamRingWidthPixels": 12,
+    "stages": [
+      {
+        "acceptedProposals": 11950,
+        "alternatingSweeps": 8,
+        "harmonicIterations": 96,
+        "patchCostFootprintSamples": 29,
+        "patchWidthPixels": 7,
+        "pixelSize": [
+          112,
+          112
+        ],
+        "scale": 0.125,
+        "targetPixels": 3071,
+        "validDonorCentres": 979
+      },
+      {
+        "acceptedProposals": 20508,
+        "alternatingSweeps": 8,
+        "harmonicIterations": 96,
+        "patchCostFootprintSamples": 49,
+        "patchWidthPixels": 9,
+        "pixelSize": [
+          224,
+          224
+        ],
+        "scale": 0.25,
+        "targetPixels": 12306,
+        "validDonorCentres": 5473
+      },
+      {
+        "acceptedProposals": 80791,
+        "alternatingSweeps": 8,
+        "harmonicIterations": 96,
+        "patchCostFootprintSamples": 49,
+        "patchWidthPixels": 9,
+        "pixelSize": [
+          448,
+          448
+        ],
+        "scale": 0.5,
+        "targetPixels": 49179,
+        "validDonorCentres": 29274
+      },
+      {
+        "acceptedProposals": 275552,
+        "alternatingSweeps": 8,
+        "harmonicIterations": 96,
+        "patchCostFootprintSamples": 49,
+        "patchWidthPixels": 9,
+        "pixelSize": [
+          896,
+          896
+        ],
+        "reuseRebalance": {
+          "maximumTileCountAfter": 15738,
+          "reassignedPixels": 8598,
+          "tileCountLimit": 15738,
+          "tileShareReassignedPixels": 284,
+          "uniqueCentresAfter": 34242
+        },
+        "scale": 1.0,
+        "targetPixels": 196727,
+        "validDonorCentres": 132392
+      }
+    ],
+    "target": {
+      "closeRadius": 3,
+      "dilateRadius": 4,
+      "operation": "disk-close-r3 then disk-dilate-r4 then subtract foreground occluders"
+    },
+    "tool": {
+      "incrementalCostNOK": 0,
+      "libraries": [
+        {
+          "licenseExpression": "MIT-CMU",
+          "name": "Pillow",
+          "version": "12.3.0"
+        },
+        {
+          "licenseExpression": "BSD-3-Clause AND 0BSD AND MIT AND Zlib AND CC0-1.0",
+          "name": "NumPy",
+          "version": "2.5.1"
+        }
+      ],
+      "path": "native/scripts/build-harvest-central-grain-underlay.py",
+      "pythonEnvironment": "/Users/bard/.local/share/uv/tools/mflux/bin/python",
+      "pythonVersion": "3.14.6",
+      "sha256": "870967f7373f90923351c43babd3de84a91e96a0893b82eb6a53d82b6ba0adc6"
+    },
+    "transformEnvelope": {
+      "authorizedRotationDegrees": [
+        -3.0,
+        3.0
+      ],
+      "authorizedScale": [
+        0.92,
+        1.08
+      ],
+      "mirroringAuthorized": false,
+      "mirroringUsed": false,
+      "usedRotationDegrees": [
+        0.0,
+        0.0
+      ],
+      "usedScale": [
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "crop": {
+    "coordinateSpace": "source pixels",
+    "pixelRect": [
+      192,
+      1752,
+      896,
+      896
+    ]
+  },
+  "determinism": {
+    "candidateBytesIdentical": true,
+    "candidateSha256Run1": "e2811189a6a7ef7aed468b8613f9699d42446a8006ffd9357bd548b5513e6782",
+    "candidateSha256Run2": "e2811189a6a7ef7aed468b8613f9699d42446a8006ffd9357bd548b5513e6782",
+    "provenanceCoordinatesIdentical": true,
+    "runsInOneInvocation": 2
+  },
+  "diagnosticLimits": [
+    "Objective pixel and provenance checks cannot approve material plausibility, seams, repetition, perspective, or historical appearance.",
+    "Normal, Increased Contrast, Reduce Motion, and camera-extremum images are inspection artifacts, not runtime assets.",
+    "A passing receipt remains non-shipping until a separate byte-bound production-asset decision is recorded through the project authority chain.",
+    "A failed receipt preserves the candidate only for diagnosis and iteration."
+  ],
+  "authorizationShellReaudit": {
+    "reason": "The original QA treated the full authorization envelope as the generated subject and did not enforce the exact-source T-minus-G shell rule.",
+    "closedSubjectPixelCount": 190259,
+    "authorizationPixelCount": 196727,
+    "shellPixelCount": 6468,
+    "shellChangedPixelCount": 4896,
+    "shellMaximumChannelDifference": 104,
+    "shellMeanAbsoluteChannelDifference": 11.916408988,
+    "outsideAuthorizationChangedPixelCount": 0,
+    "originalStatus": "OBJECTIVE_TECHNICAL_QA_PASS",
+    "verdict": "REJECTED_AUTHORIZATION_SHELL_CHANGED"
+  },
+  "failedGates": [
+    "AUTHORIZATION_SHELL_CHANGED"
+  ],
+  "forensicAuthority": {
+    "expected": {
+      "closedCropByteMaskSha256": "3a93c6ef9a93c830793f919a1a06f69d3c1f2327b08d19535cd5378b978a6931",
+      "closedPixelCount": 190259,
+      "largestDonorByteMaskSha256": "4fe31dc08debbc48c7d061b75f636cb0e0946350a3e37e3bb4de793d26996bb7",
+      "largestDonorPixelCount": 148493,
+      "rawDonorPixelCount": 148816,
+      "subjectCropByteMaskSha256": "45420722013d1a44dac8e9b3b12394f2fcdbd69464618083dec044bbb97b82a7",
+      "subjectCropPixelCount": 190234,
+      "targetBoundsInclusive": [
+        120,
+        433,
+        787,
+        838
+      ],
+      "targetByteMaskSha256": "3bebce3ae454c8cd08dcaae0a9b67221ca540b554be240962e100e958c1fc866",
+      "targetForegroundOverlap": 0,
+      "targetPixelCount": 196727,
+      "validPatchCenterByteMaskSha256": "ab4bd5e4a562099c4597381667c5d5d86226e66ddc589f95b4e353c5f6d5329a",
+      "validPatchCenterCount": 132392
+    },
+    "measured": {
+      "closedCropByteMaskSha256": "3a93c6ef9a93c830793f919a1a06f69d3c1f2327b08d19535cd5378b978a6931",
+      "closedPixelCount": 190259,
+      "largestDonorByteMaskSha256": "4fe31dc08debbc48c7d061b75f636cb0e0946350a3e37e3bb4de793d26996bb7",
+      "largestDonorPixelCount": 148493,
+      "rawDonorPixelCount": 148816,
+      "subjectCropByteMaskSha256": "45420722013d1a44dac8e9b3b12394f2fcdbd69464618083dec044bbb97b82a7",
+      "subjectCropPixelCount": 190234,
+      "targetBoundsInclusive": [
+        120,
+        433,
+        787,
+        838
+      ],
+      "targetByteMaskSha256": "3bebce3ae454c8cd08dcaae0a9b67221ca540b554be240962e100e958c1fc866",
+      "targetForegroundOverlap": 0,
+      "targetPixelCount": 196727,
+      "validPatchCenterByteMaskSha256": "ab4bd5e4a562099c4597381667c5d5d86226e66ddc589f95b4e353c5f6d5329a",
+      "validPatchCenterCount": 132392
+    }
+  },
+  "gates": {
+    "crossSeam": {
+      "meanMaximum": 14.2,
+      "p95Maximum": 39.2,
+      "p99Maximum": 80.1
+    },
+    "donorMeanRedMinusBlue": 10.9,
+    "generatedCoreMeanRedMinusBlueDeltaMaximum": 8.0,
+    "generatedLuma": {
+      "p01Minimum": 24.0,
+      "p99Maximum": 107.0
+    },
+    "interiorGradientRatio": {
+      "maximum": 1.35,
+      "minimum": 0.7
+    },
+    "maximumDonorCenterReuse": 64,
+    "maximumGeneratedSharePer64PixelDonorTile": 0.08,
+    "minimumUniqueDonorCenters": 30000
+  },
+  "masks": {
+    "allocation-cloth": {
+      "path": "native/content/backstage/harvest/semantic-masks-v26.provisional/allocation-cloth.png",
+      "pixelCount": 225176,
+      "sha256": "f87a639685ccba48127cb3fbcfef46e611228e5c0645aa3d4c4c901589f06627"
+    },
+    "central-grain": {
+      "path": "native/content/backstage/harvest/semantic-masks-v26.provisional/central-grain.png",
+      "pixelCount": 190234,
+      "sha256": "85dbd5f14ed998ed3874721948678acd0411e3e0e91d443c9d47555fc047aea3"
+    },
+    "foreground-occluders": {
+      "path": "native/content/backstage/harvest/semantic-masks-v26.provisional/foreground-occluders.png",
+      "pixelCount": 226290,
+      "sha256": "8810139ae423683c5434690a5698bd28940338790b75ba9d3ca897d98a29cf35"
+    }
+  },
+  "metrics": {
+    "colour": {
+      "absoluteRedMinusBlueDelta": 4.471645,
+      "donorMeanRedMinusBlue": 10.899106,
+      "generatedCoreLuma": {
+        "maximum": 126.9616,
+        "mean": 65.034986,
+        "median": 64.6808,
+        "p01": 32.996,
+        "p95": 89.9106,
+        "p99": 100.1782
+      },
+      "generatedCoreMeanRedMinusBlue": 15.370751
+    },
+    "crossSeamChannelDifference": {
+      "maximum": 65.0,
+      "mean": 5.950989,
+      "median": 4.0,
+      "p01": 0.0,
+      "p95": 18.0,
+      "p99": 34.0
+    },
+    "gradient": {
+      "donor": {
+        "maximum": 57.2848,
+        "mean": 5.365625,
+        "median": 4.0,
+        "p01": 0.0722,
+        "p95": 15.20782,
+        "p99": 23.0
+      },
+      "generatedCore": {
+        "maximum": 84.126,
+        "mean": 6.881014,
+        "median": 5.0682,
+        "p01": 0.0682,
+        "p95": 19.643,
+        "p99": 29.70592
+      },
+      "generatedToDonorRatio": {
+        "median": 1.26705,
+        "p95": 1.291638
+      }
+    },
+    "outsideTarget": {
+      "changedPixelCount": 0,
+      "maximumChannelDifference": 0
+    },
+    "provenance": {
+      "footprintCoverage": 1.0,
+      "footprintsInsideLargestDonorCount": 196727,
+      "generatedPixelCount": 196727,
+      "maximumDonorCenterReuse": 64,
+      "maximumGeneratedSharePer64PixelDonorTile": 0.079999187,
+      "mirroredPixelCount": 0,
+      "pixelsWithCoordinates": 196727,
+      "rotationDegrees": {
+        "maximum": 0.0,
+        "minimum": 0.0
+      },
+      "scale": {
+        "maximum": 1.0,
+        "minimum": 1.0
+      },
+      "uniqueDonorCenters": 34242
+    },
+    "startingRecomposition": {
+      "maximumChannelDifference": 0,
+      "meanAbsoluteChannelDifference": 0.0
+    }
+  },
+  "outputs": {
+    "baseline-393x852-exhausted.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/baseline-393x852-exhausted.png",
+      "sha256": "9919f78a7fa02173e38ca67504415f4734cb09cd28beeed3f47701805ea7cc9e"
+    },
+    "baseline-393x852-full.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/baseline-393x852-full.png",
+      "sha256": "780d9b30c91e476b4f66f441157a00701dfa317799085adb3facd6a4bde793c8"
+    },
+    "camera-rail-keyframe-1.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/camera-rail-keyframe-1.png",
+      "sha256": "801f973b99c72438661618ccc6fcd627323a232e48402742b1479fa5516bce38"
+    },
+    "camera-rail-keyframe-2.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/camera-rail-keyframe-2.png",
+      "sha256": "b36ed5fd1af32e52beb52b152ee6d5d71be92205721fdd90942a168dc595bac2"
+    },
+    "central-grain-authorization.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/central-grain-authorization.png",
+      "sha256": "11f7d1016bdc6a1ddd897f7283c35ffcacaf4510b4899c20bedf33b19b1500f9"
+    },
+    "central-grain.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/central-grain.png",
+      "sha256": "e2811189a6a7ef7aed468b8613f9699d42446a8006ffd9357bd548b5513e6782"
+    },
+    "donor-provenance-map.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/donor-provenance-map.png",
+      "sha256": "091493637abb5bfba791419b7dbc295eb863916e16f51f34817dcd998f7d8525"
+    },
+    "four-times-seam-difference.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/four-times-seam-difference.png",
+      "sha256": "6b6b62578ff2f67f56db454e9d810e5d3951fb139be4b2780db19abdd9571b07"
+    },
+    "grain-parallax-negative-8-negative-3.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/grain-parallax-negative-8-negative-3.png",
+      "sha256": "801f973b99c72438661618ccc6fcd627323a232e48402742b1479fa5516bce38"
+    },
+    "grain-parallax-positive-8-positive-3.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/grain-parallax-positive-8-positive-3.png",
+      "sha256": "b36ed5fd1af32e52beb52b152ee6d5d71be92205721fdd90942a168dc595bac2"
+    },
+    "increase-contrast.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/increase-contrast.png",
+      "sha256": "becd1758474ac3cb620351594e201edc301d54c919ce21230477c6e0ebfa00ca"
+    },
+    "largest-430x932-exhausted.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/largest-430x932-exhausted.png",
+      "sha256": "d3a69e335ddf108c1cf1eca4b66f4cc270192269303c399d9c2a8b14764dc4c0"
+    },
+    "largest-430x932-full.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/largest-430x932-full.png",
+      "sha256": "8bca89789412037b482e92f054192d745b189d2b5645fb7c2e8dbeb9622d74be"
+    },
+    "largest-donor-component.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/largest-donor-component.png",
+      "sha256": "a7ea3b5f8d14a2bb6a8c24b77dd51feeb637b77eeb913b027a8ea046c2cdfe27"
+    },
+    "normal-crop.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/normal-crop.png",
+      "sha256": "e2811189a6a7ef7aed468b8613f9699d42446a8006ffd9357bd548b5513e6782"
+    },
+    "outside-target-difference.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/outside-target-difference.png",
+      "sha256": "6b6b62578ff2f67f56db454e9d810e5d3951fb139be4b2780db19abdd9571b07"
+    },
+    "provenance-source-x-uint16.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/provenance-source-x-uint16.png",
+      "sha256": "86a32dad234c75d1107e2d1cdea7420c2cc648e098b26b29dab428e0e972c01a"
+    },
+    "provenance-source-y-uint16.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/provenance-source-y-uint16.png",
+      "sha256": "f6caaa70dbb75778be81074623e738afe54380ca7a5c28ff624cbb5400325b02"
+    },
+    "reduce-motion.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/reduce-motion.png",
+      "sha256": "e2811189a6a7ef7aed468b8613f9699d42446a8006ffd9357bd548b5513e6782"
+    },
+    "seam-ring.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/seam-ring.png",
+      "sha256": "22a45ce5811da13d3d817de1be259a95eb6c757953ecd0e7db35513967b27b56"
+    },
+    "source-candidate-diagnostic.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/source-candidate-diagnostic.png",
+      "sha256": "a3841eab57cfbc2fe888cc6209b13c28fd0827d0c6942b87edfaba0e447269a8"
+    },
+    "source-candidate-difference-x4.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/source-candidate-difference-x4.png",
+      "sha256": "73895c9db5beca0afc239d29f69f54c7d06d4716034494b488f64091ab5c03b4"
+    },
+    "source-crop.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/source-crop.png",
+      "sha256": "7af9fba7cb564dbdbd95451b35e2519d198321d76fe2929fecb761d964f3c538"
+    },
+    "source-underlay-authorization-comparison.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/source-underlay-authorization-comparison.png",
+      "sha256": "48104e1399f0cb17ff5b91aaed70bc3dcd86983168ab033a5093b861bcfb45f2"
+    },
+    "target-mask.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/target-mask.png",
+      "sha256": "11f7d1016bdc6a1ddd897f7283c35ffcacaf4510b4899c20bedf33b19b1500f9"
+    },
+    "transform-map.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/transform-map.png",
+      "sha256": "31f0b4731520e42d1fc11ae6ea8380f3264ce9bf470eea9edfb7e1d848d67c4d"
+    },
+    "valid-patch-centres.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r3/valid-patch-centres.png",
+      "sha256": "28f8ce1a6d722705b4dae6d080c228e8c688e0637e1d9af40eb6b71e4dd54d87"
+    }
+  },
+  "receiptID": "harvest-v26-central-grain-underlay-source-only-r3",
+  "schemaVersion": 1,
+  "scope": "NON_SHIPPING_BACKSTAGE_ONLY",
+  "source": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+    "pixelSize": [
+      1290,
+      2796
+    ],
+    "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca"
+  },
+  "specification": {
+    "path": "native/content/backstage/harvest/central-grain-underlay-v26.spec.json",
+    "sha256": "07bda3a1788d6b2aa5507fd691320a6db43b57a3d8f1e7fa9dfc2a1889430f74"
+  },
+  "status": "OBJECTIVE_TECHNICAL_QA_FAILED_AFTER_AUTHORIZATION_SHELL_REAUDIT"
+}

@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "id": "harvest-v26-central-grain-source-underlay",
+  "status": "NON_SHIPPING_SOURCE_ONLY_SYNTHESIS_SPEC",
+  "shippingAllowed": false,
+  "editorApprovalClaimed": false,
+  "incrementalCostNOKMaximum": 0,
+  "source": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+    "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca",
+    "pixelWidth": 1290,
+    "pixelHeight": 2796,
+    "colourInterpretation": "UNTAGGED_RGB_TREATED_AS_SRGB"
+  },
+  "workingCropPixels": {
+    "x": 192,
+    "y": 1752,
+    "width": 896,
+    "height": 896
+  },
+  "registeredMasks": {
+    "subject": {
+      "path": "native/content/backstage/harvest/semantic-masks-v26.provisional/central-grain.png",
+      "sha256": "85dbd5f14ed998ed3874721948678acd0411e3e0e91d443c9d47555fc047aea3",
+      "threshold": 128,
+      "pixelCount": 190234,
+      "sourceBoundsInclusive": {
+        "minX": 316,
+        "minY": 2189,
+        "maxX": 975,
+        "maxY": 2586
+      },
+      "cropBoundsInclusive": {
+        "minX": 124,
+        "minY": 437,
+        "maxX": 783,
+        "maxY": 834
+      },
+      "cropBinaryRasterSHA256": "45420722013d1a44dac8e9b3b12394f2fcdbd69464618083dec044bbb97b82a7"
+    },
+    "donorSurface": {
+      "path": "native/content/backstage/harvest/semantic-masks-v26.provisional/allocation-cloth.png",
+      "sha256": "f87a639685ccba48127cb3fbcfef46e611228e5c0645aa3d4c4c901589f06627",
+      "threshold": 128
+    },
+    "foregroundExclusion": {
+      "path": "native/content/backstage/harvest/semantic-masks-v26.provisional/foreground-occluders.png",
+      "sha256": "8810139ae423683c5434690a5698bd28940338790b75ba9d3ca897d98a29cf35",
+      "threshold": 128
+    }
+  },
+  "morphology": {
+    "connectivity": 8,
+    "outsideCropValue": 0,
+    "integerEuclideanDiskDefinition": "dx*dx + dy*dy <= radius*radius",
+    "subjectCloseRadiusPixels": 3,
+    "closedSubjectPixelCount": 190259,
+    "closedSubjectBinaryRasterSHA256": "3a93c6ef9a93c830793f919a1a06f69d3c1f2327b08d19535cd5378b978a6931",
+    "authorizationDilationRadiusPixels": 4,
+    "subtractForegroundExclusion": true,
+    "authorizationPixelCount": 196727,
+    "authorizationBoundsInclusive": {
+      "minX": 120,
+      "minY": 433,
+      "maxX": 787,
+      "maxY": 838
+    },
+    "authorizationBinaryRasterSHA256": "3bebce3ae454c8cd08dcaae0a9b67221ca540b554be240962e100e958c1fc866",
+    "foregroundOverlapPixelCount": 0,
+    "synthesisWriteMask": "AUTHORIZATION_T",
+    "sourceBuiltSeamRing": {
+      "operation": "T_MINUS_DISK_ERODE_T_R12",
+      "pixelCount": 19805,
+      "binaryRasterSHA256": "36d104f25471704bb9932806ad881dae793e31b0e24676c5b112c7d68e8f7121"
+    },
+    "synthesisCore": {
+      "operation": "DISK_ERODE_T_R12",
+      "pixelCount": 176922,
+      "binaryRasterSHA256": "f8c8374a37e2fe39c10d8ca77cae2c7f059dea119d6774f2e902b6a316e05544"
+    },
+    "exactSourceComplement": {
+      "operation": "NOT_T",
+      "pixelCount": 606089,
+      "binaryRasterSHA256": "612102dcda59863755d2c49a0cdb1e1ab1e89efe793a26da9341084b6cd338f5"
+    }
+  },
+  "donor": {
+    "setExpression": "allocation-cloth - authorization - foreground-exclusion",
+    "rawPixelCount": 148816,
+    "componentRule": "LARGEST_8_CONNECTED_COMPONENT",
+    "usablePixelCount": 148493,
+    "binaryRasterSHA256": "4fe31dc08debbc48c7d061b75f636cb0e0946350a3e37e3bb4de793d26996bb7",
+    "patchFootprint": {
+      "radiusPixels": 4,
+      "offsetCount": 49,
+      "validCentreCount": 132392,
+      "validCentreBinaryRasterSHA256": "ab4bd5e4a562099c4597381667c5d5d86226e66ddc589f95b4e353c5f6d5329a"
+    }
+  },
+  "synthesis": {
+    "method": "SOURCE_ONLY_MULTI_RESOLUTION_PATCHMATCH",
+    "pyramidScales": [0.125, 0.25, 0.5, 1],
+    "patchWidthsPixels": [7, 9, 9, 9],
+    "alternatingSweepsPerLevel": 8,
+    "lowFrequencyGuide": "FIXED_ITERATION_HARMONIC_CONTINUATION_FROM_VISIBLE_DONOR",
+    "highFrequencySource": "DONOR_RESIDUAL_ONLY",
+    "randomSeed": "SHA256_OF_EXACT_INPUT_HASHES_AND_CANONICAL_PARAMETERS",
+    "rotationDegrees": {
+      "minimum": -3,
+      "maximum": 3
+    },
+    "scale": {
+      "minimum": 0.92,
+      "maximum": 1.08
+    },
+    "mirroringAllowed": false,
+    "writeMask": "AUTHORIZATION_T",
+    "semanticSubjectMask": "CLOSED_G_REMAINS_SEMANTIC_AND_MOVING_GRAIN_INPUT_ONLY",
+    "seamRingPixels": 12,
+    "seamRingRule": "SOURCE_DONOR_BUILT_T_MINUS_DISK_ERODE_T_R12_WITH_SOURCE_BOUNDARY_WEIGHT_4",
+    "outsideAuthorizationRule": "EXACT_SOURCE_PIXELS",
+    "rawSourcePixelsInsideAuthorizationProtected": false,
+    "quantization": "ONE_FINAL_SRGB_8_BIT_QUANTIZATION"
+  },
+  "failFastGates": {
+    "deterministicReplayRequired": true,
+    "changedPixelsOutsideAuthorizationMaximum": 0,
+    "maximumChannelDeltaOutsideAuthorization": 0,
+    "subjectPixelsWithoutDonorProvenanceMaximum": 0,
+    "donorFootprintsOutsideUsableDonorMaximum": 0,
+    "mirroredTransformsMaximum": 0,
+    "minimumUniqueDonorCentres": 30000,
+    "maximumUsesPerDonorCentre": 64,
+    "maximumSubjectFractionFromOne64PixelDonorTile": 0.08,
+    "crossSeamSRGBGradient": {
+      "maximumMean": 14.2,
+      "maximumP95": 39.2,
+      "maximumP99": 80.1
+    },
+    "interiorToDonorGradientRatio": {
+      "minimumMedian": 0.7,
+      "maximumMedian": 1.35,
+      "minimumP95": 0.7,
+      "maximumP95": 1.35
+    },
+    "generatedCoreMeanRedMinusBlue": {
+      "donorBaseline": 10.9,
+      "maximumAbsoluteDeviation": 8
+    },
+    "generatedCoreLuminance": {
+      "donorP01": 30,
+      "donorP99": 101,
+      "permittedExpansionCodeValues": 6
+    },
+    "initialStateRecomposition": {
+      "maximumChannelError": 0,
+      "maximumMeanAbsoluteError": 0,
+      "minimumExactPixelFraction": 1
+    }
+  },
+  "requiredDiagnostics": [
+    "source-underlay-authorization-comparison",
+    "four-times-seam-difference",
+    "baseline-393x852-full-and-exhausted",
+    "largest-430x932-full-and-exhausted",
+    "camera-rail-keyframes",
+    "grain-parallax-negative-8-negative-3",
+    "grain-parallax-positive-8-positive-3",
+    "increase-contrast",
+    "reduce-motion",
+    "donor-provenance-map",
+    "transform-map"
+  ],
+  "authorityLimits": [
+    "The registered SAM2 masks remain provisional production inputs.",
+    "A passing technical receipt cannot grant artistic, production-master, editor or shipping approval.",
+    "The rejected full-frame ImageGen route cannot be retried or used as donor material."
+  ]
+}

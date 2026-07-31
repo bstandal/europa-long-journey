@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "id": "harvest-v26-allocation-earth-source-donor-mask",
+  "status": "CODEX_VISUAL_REVIEWED_NON_SHIPPING_SOURCE_INPUT",
+  "scope": "PATCHMATCH_DONOR_SELECTION_ONLY",
+  "authorityLimits": {
+    "editorApproval": false,
+    "productionAssetAuthority": false,
+    "productionMasterAuthority": false,
+    "packageAuthority": false,
+    "shippingAllowed": false,
+    "candidateMayEnterShippingCompiler": false,
+    "maskMayBeUsedAsLayerAlpha": false,
+    "maskMayAuthorizeWrittenPixels": false
+  },
+  "sourceMaster": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+    "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca",
+    "pixelWidth": 1290,
+    "pixelHeight": 2796
+  },
+  "promptSpecification": {
+    "path": "native/content/backstage/harvest/allocation-surface-segmentation-prompts-v26.r1.provisional.json",
+    "sha256": "c8140922ec6396a6213eacc92f954fe911ccde348fe0671665ecb36d726f788f"
+  },
+  "model": {
+    "repository": "facebook/sam2.1-hiera-tiny",
+    "revision": "de431c4043854a71d8101e17995dfe596bf101a5",
+    "path": "native/.build/visual-segmentation/models/facebook-sam2.1-hiera-tiny-de431c4043854a71d8101e17995dfe596bf101a5",
+    "modelWeightsSha256": "48c14467e5cf9e51870511feb72c89688e82dd74523142c0538b663e193ac2a7"
+  },
+  "selectedMask": {
+    "id": "allocation-earth-surface",
+    "path": "native/content/backstage/harvest/semantic-donor-masks-v26.provisional/allocation-earth-surface.png",
+    "sha256": "d63af5cfa98031a1d1fa9f97f1f096885a8aa38aca75dbf4ff2803f141e46a3a",
+    "bytes": 7535,
+    "pixelWidth": 1290,
+    "pixelHeight": 2796,
+    "colourModel": "GRAYSCALE",
+    "threshold": 128,
+    "selectedCandidate": 2,
+    "pixelCount": 141776,
+    "boundsInclusive": {
+      "minX": 183,
+      "minY": 1783,
+      "maxX": 1095,
+      "maxY": 2247
+    }
+  },
+  "deterministicReplay": {
+    "firstRun": "native/.build/visual-segmentation/harvest-v26-allocation-surface-r1-final",
+    "replay": "native/.build/visual-segmentation/harvest-v26-allocation-surface-r1-replay",
+    "firstReceiptSha256": "1ee06c08359bb0fd0b964c74fe6221d0d4e6c0913d2badafa4589e69b3c90cbc",
+    "replayReceiptSha256": "1ee06c08359bb0fd0b964c74fe6221d0d4e6c0913d2badafa4589e69b3c90cbc",
+    "allFilesByteIdentical": true
+  },
+  "visualReview": {
+    "status": "CODEX_SOURCE_ALIGNMENT_REVIEW_PASS_FOR_DONOR_SELECTION",
+    "finding": "The selected mask follows the continuous visible earth and straw surface across the allocation floor. Small inclusions along vessel and basket edges are outside its permitted role and must be removed by recipe-bound subject and occluder exclusions before a donor footprint is accepted.",
+    "prohibitedInterpretations": [
+      "PRODUCTION_LAYER_ALPHA",
+      "WRITE_AUTHORIZATION_MASK",
+      "ARTISTIC_APPROVAL",
+      "EDITOR_APPROVAL",
+      "SHIPPING_APPROVAL"
+    ]
+  }
+}

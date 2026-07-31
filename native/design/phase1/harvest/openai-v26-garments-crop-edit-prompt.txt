@@ -1,0 +1,7 @@
+Edit only the clothing worn by the five visible people in this square crop from an Early Neolithic settlement in Thessaly, 6500–6000 BC.
+
+Remove every modern garment cue: no knitted T-shirt fabric, ribbed crew neck, polo or button placket, set-in factory sleeve, machine-finished hem, modern seam, trouser tailoring or contemporary dress silhouette. Replace those cues in the same garment footprints with plain, loose, hand-made clothing formed from simple rectangular pieces of undyed woven plant fibre or wool-like cloth: coarse visible weave, irregular hand-finished edges, simple wrapping, folding and cord ties, restrained natural flax, oat and earth tones. No metal pin, jewellery, bright dye, embroidery or later Greek costume.
+
+Keep each person's exact identity, face, hair, skin, body, pose, limb position, hands, fingers, feet, gaze and work unchanged. Keep every garment outer silhouette as close as physically possible to the input so the corrected cloth can be composited locally. Do not add, remove or move any person or object.
+
+Keep everything outside the garments exactly unchanged: roof, timber, wall, hearth, flame, stones, clay pot, grain, baskets, storage bins and lids, vessels, ground, straw, fields, livestock, buildings, smoke, mountains, light, camera and square crop. No text, symbol, interface, metal, glass, masonry, wheel, cart or modern object.

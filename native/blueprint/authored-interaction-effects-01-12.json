@@ -1,0 +1,498 @@
+{
+  "schemaVersion": 2,
+  "status": "AUTHORED_APPROVED_BY_EDITOR_IN_CHIEF",
+  "scope": {
+    "ordinalStart": 1,
+    "ordinalEnd": 12,
+    "chapters": 12
+  },
+  "counts": {
+    "interactiveEffects": 51,
+    "beatEffects": 3,
+    "totalWorldEffects": 54,
+    "principalInteractions": 51,
+    "mappingPromotionsRequired": 2,
+    "worldTraces": 24,
+    "byOperation": {
+      "prepare": 15,
+      "establish": 24,
+      "transform": 15
+    },
+    "interactiveByOperation": {
+      "prepare": 15,
+      "establish": 23,
+      "transform": 13
+    },
+    "beatByOperation": {
+      "prepare": 0,
+      "establish": 1,
+      "transform": 2
+    },
+    "interactiveByChapter": {
+      "first-farmers": 6,
+      "steppe-comes-west": 3,
+      "bronze-europe": 4,
+      "greece-and-the-citizen": 4,
+      "rome-gathers-europe": 5,
+      "empire-takes-cross": 4,
+      "europe-reborn": 5,
+      "papal-revolution": 4,
+      "society-beyond-kin": 4,
+      "medieval-commercial-revolution": 4,
+      "hanseatic-north": 4,
+      "empire-many-liberties": 4
+    }
+  },
+  "requiredMappingPromotions": [
+    {
+      "sourceInteractionID": "rome-gathers-europe/the-allies-demand-the-name",
+      "fromDisposition": "MERGE",
+      "toDisposition": "REWRITE",
+      "nativeRole": "principal",
+      "worldTraceID": "trace-roman-citizenship"
+    },
+    {
+      "sourceInteractionID": "europe-reborn/rule-orders-the-day",
+      "fromDisposition": "MERGE",
+      "toDisposition": "KEEP",
+      "nativeRole": "principal",
+      "worldTraceID": "trace-monastic-rule"
+    }
+  ],
+  "beatEffects": [
+    {
+      "sourceMovementID": "greece-and-the-citizen/the-league-follows-sparta",
+      "effectID": "effect-greece-and-the-citizen-the-league-follows-sparta",
+      "worldTraceID": "trace-hellenic-coalition",
+      "operation": "establish",
+      "beforeState": "Independent Greek cities possess ships, hoplites and local commands, but no common authority yet joins their unequal forces against Xerxes' invasion.",
+      "afterState": "Delegates retain their separate governments while accepting Spartan coalition leadership, Eurybiades' naval command and an allied line in which Athenian ships and smaller contingents keep their distinct places."
+    },
+    {
+      "sourceMovementID": "greece-and-the-citizen/the-cities-survive-together",
+      "effectID": "effect-greece-and-the-citizen-the-cities-survive-together",
+      "worldTraceID": "trace-hellenic-coalition",
+      "operation": "transform",
+      "beforeState": "Delegates retain their separate governments while accepting Spartan coalition leadership, Eurybiades' naval command and an allied line in which Athenian ships and smaller contingents keep their distinct places.",
+      "afterState": "The same coalition survives Salamis, Plataea and Mycale: Athenian naval mass, Spartan land command and smaller allied forces preserve Greek autonomy without merging the governments that supplied them."
+    },
+    {
+      "sourceMovementID": "greece-and-the-citizen/victory-puts-constitutions-on-trial",
+      "effectID": "effect-greece-and-the-citizen-victory-puts-constitutions-on-trial",
+      "worldTraceID": "trace-hellenic-coalition",
+      "operation": "transform",
+      "beforeState": "The old common-defence pattern remains visible but is turned inward: Persian pay sustains Spartan naval adaptation, Aegospotami closes Athens' grain route and the Long Walls fall, while the restored assembly and separate poleis survive the victory.",
+      "afterState": "The coalition, its fracture and its civic members remain legible through later hegemony: assemblies, councils, public law and federal leagues outlast Spartan and Macedonian command, so Rome meets cities still able to govern and combine."
+    }
+  ],
+  "effects": [
+    {
+      "sourceInteractionID": "first-farmers/a-household-crosses",
+      "nativeInteractionID": "interaction-first-farmers-a-household-crosses",
+      "worldTraceID": "trace-european-farming-belt",
+      "operation": "prepare",
+      "beforeState": "An Anatolian farming household waits at the eastern Aegean with seed, livestock and tools, but no worked route yet joins it to European ground.",
+      "afterState": "A traced crossing deposits seed sacks, sheep, cattle and tools beside an inhabited riverbank; one worked route now joins the Aegean shore to the Danube corridor."
+    },
+    {
+      "sourceInteractionID": "first-farmers/the-harvest-had-to-last",
+      "nativeInteractionID": "interaction-first-farmers-the-harvest-had-to-last",
+      "worldTraceID": "trace-seasonal-store",
+      "operation": "establish",
+      "beforeState": "One finite harvest lies on the floor while winter food, spoilage and seed grain for the next sowing compete for the same grain.",
+      "afterState": "The divided store binds present consumption to reserve, seed and the next agricultural year."
+    },
+    {
+      "sourceInteractionID": "first-farmers/at-the-iron-gates",
+      "nativeInteractionID": "interaction-first-farmers-at-the-iron-gates",
+      "worldTraceID": "trace-european-farming-belt",
+      "operation": "prepare",
+      "beforeState": "A traced crossing deposits seed sacks, sheep, cattle and tools beside an inhabited riverbank; one worked route now joins the Aegean shore to the Danube corridor.",
+      "afterState": "Set side by side, three records at the Iron Gates reveal incoming farmers and established river communities sharing households, food practices, pottery and routes while farming moves up the Danube."
+    },
+    {
+      "sourceInteractionID": "first-farmers/the-house-outlives",
+      "nativeInteractionID": "interaction-first-farmers-the-house-outlives",
+      "worldTraceID": "trace-european-farming-belt",
+      "operation": "establish",
+      "beforeState": "Set side by side, three records at the Iron Gates reveal incoming farmers and established river communities sharing households, food practices, pottery and routes while farming moves up the Danube.",
+      "afterState": "Posts, hearth and storage bays are assembled on one house plot; after the roof decays, the rebuilt frame, worn threshold and remembered plot remain visible."
+    },
+    {
+      "sourceInteractionID": "first-farmers/more-mouths-more-land",
+      "nativeInteractionID": "interaction-first-farmers-more-mouths-more-land",
+      "worldTraceID": "trace-european-farming-belt",
+      "operation": "transform",
+      "beforeState": "Posts, hearth and storage bays are assembled on one house plot; after the roof decays, the rebuilt frame, worn threshold and remembered plot remain visible.",
+      "afterState": "New hearths push fields beyond the first house; cleared loess, herd lanes and daughter settlements remain cut into the ground around the growing community."
+    },
+    {
+      "sourceInteractionID": "first-farmers/a-continent-remade",
+      "nativeInteractionID": "interaction-first-farmers-a-continent-remade",
+      "worldTraceID": "trace-european-farming-belt",
+      "operation": "transform",
+      "beforeState": "New hearths push fields beyond the first house; cleared loess, herd lanes and daughter settlements remain cut into the ground around the growing community.",
+      "afterState": "Cleared fields, herds, longhouses and inherited settlement ground now cross the Danube and loess plains."
+    },
+    {
+      "sourceInteractionID": "steppe-comes-west/the-wheel-carries-the-house",
+      "nativeInteractionID": "interaction-steppe-comes-west-the-wheel-carries-the-house",
+      "worldTraceID": "trace-steppe-westward-road",
+      "operation": "establish",
+      "beforeState": "Herds, tents and stores can move across grassland, but the household has not yet joined wagon, traction and seasonal pasture into a westward system.",
+      "afterState": "A mobile household road runs from the Pontic-Caspian grasslands into the Danube basin and central Europe."
+    },
+    {
+      "sourceInteractionID": "steppe-comes-west/the-fathers-disappear",
+      "nativeInteractionID": "interaction-steppe-comes-west-the-fathers-disappear",
+      "worldTraceID": "trace-indo-european-inheritance",
+      "operation": "establish",
+      "beforeState": "Incoming graves carry new paternal descent and speech, while the scale of replacement remains hidden inside separate regional records.",
+      "afterState": "Three regional paternal-line records align from surviving local lines to sharp turnover; the replaced lines remain dark while steppe-linked descent persists across the map."
+    },
+    {
+      "sourceInteractionID": "steppe-comes-west/the-gods-take-two-roads",
+      "nativeInteractionID": "interaction-steppe-comes-west-the-gods-take-two-roads",
+      "worldTraceID": "trace-indo-european-inheritance",
+      "operation": "transform",
+      "beforeState": "Three regional paternal-line records align from surviving local lines to sharp turnover; the replaced lines remain dark while steppe-linked descent persists across the map.",
+      "afterState": "Related lineages of language and sacred grammar remain embedded across Europe."
+    },
+    {
+      "sourceInteractionID": "bronze-europe/copper-and-tin-had-to-meet",
+      "nativeInteractionID": "interaction-bronze-europe-copper-and-tin-had-to-meet",
+      "worldTraceID": "trace-bronze-exchange",
+      "operation": "establish",
+      "beforeState": "Copper and tin lie in distant regions, and neither mine can produce the working blade assembled at the centre.",
+      "afterState": "Mine, pass, ship, store and furnace lock into one lit chain; the finished blade leaves every separated source connected to its route."
+    },
+    {
+      "sourceInteractionID": "bronze-europe/the-north-makes-bronze-its-own",
+      "nativeInteractionID": "interaction-bronze-europe-the-north-makes-bronze-its-own",
+      "worldTraceID": "trace-bronze-exchange",
+      "operation": "transform",
+      "beforeState": "Mine, pass, ship, store and furnace lock into one lit chain; the finished blade leaves every separated source connected to its route.",
+      "afterState": "The mine, pass, ship, store and furnace chain now reaches north: Baltic amber moves south while bronze and glass move north, and longhouses, ship routes and Nordic workshops give imported metal local forms."
+    },
+    {
+      "sourceInteractionID": "bronze-europe/a-world-in-one-hold",
+      "nativeInteractionID": "interaction-bronze-europe-a-world-in-one-hold",
+      "worldTraceID": "trace-bronze-exchange",
+      "operation": "transform",
+      "beforeState": "The mine, pass, ship, store and furnace chain now reaches north: Baltic amber moves south while bronze and glass move north, and longhouses, ship routes and Nordic workshops give imported metal local forms.",
+      "afterState": "The connected bronze system remains visible at both scales: the Uluburun hold joins distant mines, ships, measures and palace stores across the Great Sea, while amber routes and Nordic workshops preserve the metal's distinct northern forms."
+    },
+    {
+      "sourceInteractionID": "bronze-europe/the-singer-outlives-the-scribe",
+      "nativeInteractionID": "interaction-bronze-europe-the-singer-outlives-the-scribe",
+      "worldTraceID": "trace-heroic-memory",
+      "operation": "establish",
+      "beforeState": "Palace scribes, inventories and Linear B tablets disappear with the archive, leaving remembered names and deeds without their administrative frame.",
+      "afterState": "Sung names, weapons and ideals preserve the heroic age after the archive disappears."
+    },
+    {
+      "sourceInteractionID": "greece-and-the-citizen/the-law-stands",
+      "nativeInteractionID": "interaction-greece-and-the-citizen-the-law-stands",
+      "worldTraceID": "trace-polis-public-ground",
+      "operation": "establish",
+      "beforeState": "Judgment still belongs to remembered custom and powerful households; no rule yet stands where the whole civic body can return to it.",
+      "afterState": "A spoken judgment hardens into an inscription beside the agora; rule, magistrate and appeal remain fixed on public ground after the speaker leaves."
+    },
+    {
+      "sourceInteractionID": "greece-and-the-citizen/athens-makes-a-people",
+      "nativeInteractionID": "interaction-greece-and-the-citizen-athens-makes-a-people",
+      "worldTraceID": "trace-polis-public-ground",
+      "operation": "transform",
+      "beforeState": "A spoken judgment hardens into an inscription beside the agora; rule, magistrate and appeal remain fixed on public ground after the speaker leaves.",
+      "afterState": "Public law remains beside the agora while demes, ten mixed tribes and the Council of 500 extend repeatable civic authority across city, coast and inland Attica."
+    },
+    {
+      "sourceInteractionID": "greece-and-the-citizen/the-people-take-their-place",
+      "nativeInteractionID": "interaction-greece-and-the-citizen-the-people-take-their-place",
+      "worldTraceID": "trace-polis-public-ground",
+      "operation": "transform",
+      "beforeState": "Public law remains beside the agora while demes, ten mixed tribes and the Council of 500 extend repeatable civic authority across city, coast and inland Attica.",
+      "afterState": "Demes and mixed tribes remain the citizen body's ground while inscription, rotating office, council, court and assembly make civic authority visible, answerable and repeatable."
+    },
+    {
+      "sourceInteractionID": "greece-and-the-citizen/persia-gives-sparta-the-sea",
+      "nativeInteractionID": "interaction-greece-and-the-citizen-persia-gives-sparta-the-sea",
+      "worldTraceID": "trace-hellenic-coalition",
+      "operation": "transform",
+      "beforeState": "The same coalition survives Salamis, Plataea and Mycale: Athenian naval mass, Spartan land command and smaller allied forces preserve Greek autonomy without merging the governments that supplied them.",
+      "afterState": "The old common-defence pattern remains visible but is turned inward: Persian pay sustains Spartan naval adaptation, Aegospotami closes Athens' grain route and the Long Walls fall, while the restored assembly and separate poleis survive the victory."
+    },
+    {
+      "sourceInteractionID": "rome-gathers-europe/the-people-make-power-answer",
+      "nativeInteractionID": "interaction-rome-gathers-europe-the-people-make-power-answer",
+      "worldTraceID": "trace-roman-citizenship",
+      "operation": "prepare",
+      "beforeState": "Royal power is gone, but command, judgment and public consent have not yet been placed in offices that citizens can repeatedly summon and restrain.",
+      "afterState": "Consuls, Senate, assemblies and tribunes occupy separate stations around the Forum; veto and annual office remain visible as restraints on Roman command."
+    },
+    {
+      "sourceInteractionID": "rome-gathers-europe/the-road-makes-an-army",
+      "nativeInteractionID": "interaction-rome-gathers-europe-the-road-makes-an-army",
+      "worldTraceID": "trace-roman-road-system",
+      "operation": "establish",
+      "beforeState": "Italian allies owe men and supplies through separate settlements, but no measured route yet turns those obligations into one repeatable campaign system.",
+      "afterState": "Measured roads, colonies and cities turn local obligations into continental movement and supply."
+    },
+    {
+      "sourceInteractionID": "rome-gathers-europe/the-allies-demand-the-name",
+      "nativeInteractionID": "interaction-rome-gathers-europe-the-allies-demand-the-name",
+      "worldTraceID": "trace-roman-citizenship",
+      "operation": "prepare",
+      "beforeState": "Consuls, Senate, assemblies and tribunes occupy separate stations around the Forum; veto and annual office remain visible as restraints on Roman command.",
+      "afterState": "The republican offices remain, but allied service has become a war aim: the laws of 90–89 BC widen Roman citizenship across Italy while enrolment and effective political integration remain unfinished."
+    },
+    {
+      "sourceInteractionID": "rome-gathers-europe/armies-follow-generals-home",
+      "nativeInteractionID": "interaction-rome-gathers-europe-armies-follow-generals-home",
+      "worldTraceID": "trace-roman-citizenship",
+      "operation": "prepare",
+      "beforeState": "The republican offices remain, but allied service has become a war aim: the laws of 90–89 BC widen Roman citizenship across Italy while enrolment and effective political integration remain unfinished.",
+      "afterState": "Italian citizenship remains while civil-war armies carry command toward named generals; under Augustus, censuses, provincial armies and self-governing cities place a durable imperial frame around expanding Roman status."
+    },
+    {
+      "sourceInteractionID": "rome-gathers-europe/service-opens-the-gate",
+      "nativeInteractionID": "interaction-rome-gathers-europe-service-opens-the-gate",
+      "worldTraceID": "trace-roman-citizenship",
+      "operation": "establish",
+      "beforeState": "Italian citizenship remains while civil-war armies carry command toward named generals; under Augustus, censuses, provincial armies and self-governing cities place a durable imperial frame around expanding Roman status.",
+      "afterState": "A common Roman civic and legal status now spans the provinces through service, manumission, municipal office and imperial grant; Italian and provincial cities retain local office beneath the shared Roman name."
+    },
+    {
+      "sourceInteractionID": "empire-takes-cross/persecution-ends",
+      "nativeInteractionID": "interaction-empire-takes-cross-persecution-ends",
+      "worldTraceID": "trace-constantinople-new-rome",
+      "operation": "establish",
+      "beforeState": "Christian congregations move between prohibition and toleration while imperial patronage and the Bosporus foundation remain unjoined.",
+      "afterState": "Four imperial positions end in legal protection and patronage; the merged building path leaves a basilica, harbour and New Rome foundation marker fixed at the Bosporus."
+    },
+    {
+      "sourceInteractionID": "empire-takes-cross/an-emperor-calls-a-council",
+      "nativeInteractionID": "interaction-empire-takes-cross-an-emperor-calls-a-council",
+      "worldTraceID": "trace-roman-christian-law",
+      "operation": "prepare",
+      "beforeState": "Bishops carry competing formulations through separate churches, and an imperial summons has not yet produced a confession that can be copied across the Roman world.",
+      "afterState": "Summons, episcopal debate, creed and authenticated copies form one council sequence; the written confession remains in sees after the assembly disperses."
+    },
+    {
+      "sourceInteractionID": "empire-takes-cross/the-city-grows-behind-walls",
+      "nativeInteractionID": "interaction-empire-takes-cross-the-city-grows-behind-walls",
+      "worldTraceID": "trace-constantinople-new-rome",
+      "operation": "transform",
+      "beforeState": "Four imperial positions end in legal protection and patronage; the merged building path leaves a basilica, harbour and New Rome foundation marker fixed at the Bosporus.",
+      "afterState": "Constantinople stands at the Bosporus as the fortified capital of the continuing Roman state."
+    },
+    {
+      "sourceInteractionID": "empire-takes-cross/wisdom-builds-a-dome",
+      "nativeInteractionID": "interaction-empire-takes-cross-wisdom-builds-a-dome",
+      "worldTraceID": "trace-roman-christian-law",
+      "operation": "establish",
+      "beforeState": "Summons, episcopal debate, creed and authenticated copies form one council sequence; the written confession remains in sees after the assembly disperses.",
+      "afterState": "Piers and pendentives carry Hagia Sophia's dome above codex, creed and episcopal throne; Justinian's Roman Christian order remains visible in law, office and sacred stone."
+    },
+    {
+      "sourceInteractionID": "europe-reborn/bishop-keeps-the-city",
+      "nativeInteractionID": "interaction-europe-reborn-bishop-keeps-the-city",
+      "worldTraceID": "trace-written-christian-commonwealth",
+      "operation": "prepare",
+      "beforeState": "As western imperial officers withdraw, grain relief, petitions, property disputes and wall repair have no settled local household that can carry them.",
+      "afterState": "Grain, petition, charter and wall are placed in the bishop's household; episcopal archives, estates and civic obligations remain as local stations in a Christian commonwealth."
+    },
+    {
+      "sourceInteractionID": "europe-reborn/rule-orders-the-day",
+      "nativeInteractionID": "interaction-europe-reborn-rule-orders-the-day",
+      "worldTraceID": "trace-monastic-rule",
+      "operation": "establish",
+      "beforeState": "Prayer, work, food and sleep still depend on one abbot's custom, while property and succession can dissolve with the household around him.",
+      "afterState": "A copied rule orders time, labour, property and succession beyond the life of any member."
+    },
+    {
+      "sourceInteractionID": "europe-reborn/word-travels-further-than-king",
+      "nativeInteractionID": "interaction-europe-reborn-word-travels-further-than-king",
+      "worldTraceID": "trace-written-christian-commonwealth",
+      "operation": "establish",
+      "beforeState": "Grain, petition, charter and wall are placed in the bishop's household; episcopal archives, estates and civic obligations remain as local stations in a Christian commonwealth.",
+      "afterState": "A ruled capitulary road now runs from court through scriptorium and messenger to county judgment; copies remain beside a bishop, abbot and count."
+    },
+    {
+      "sourceInteractionID": "europe-reborn/heirs-divide-the-realm",
+      "nativeInteractionID": "interaction-europe-reborn-heirs-divide-the-realm",
+      "worldTraceID": "trace-written-christian-commonwealth",
+      "operation": "transform",
+      "beforeState": "A ruled capitulary road now runs from court through scriptorium and messenger to county judgment; copies remain beside a bishop, abbot and count.",
+      "afterState": "Three royal shares replace one Carolingian court, while the same books, episcopal sees and monastic routes remain illuminated across every boundary."
+    },
+    {
+      "sourceInteractionID": "europe-reborn/two-christian-roads-reach-north",
+      "nativeInteractionID": "interaction-europe-reborn-two-christian-roads-reach-north",
+      "worldTraceID": "trace-written-christian-commonwealth",
+      "operation": "transform",
+      "beforeState": "Three royal shares replace one Carolingian court, while the same books, episcopal sees and monastic routes remain illuminated across every boundary.",
+      "afterState": "Books, capitularies, bishops, monasteries and delegated offices connect political centres without one western emperor."
+    },
+    {
+      "sourceInteractionID": "papal-revolution/reformers-build-government",
+      "nativeInteractionID": "interaction-papal-revolution-reformers-build-government",
+      "worldTraceID": "trace-canonical-election",
+      "operation": "establish",
+      "beforeState": "Reform depends on local patrons and personal alliances; no complete set of instruments yet lets a papal office reproduce its authority.",
+      "afterState": "Ordered election, records and corporate office limit possession of ecclesiastical authority."
+    },
+    {
+      "sourceInteractionID": "papal-revolution/bishop-serves-altar-crown",
+      "nativeInteractionID": "interaction-papal-revolution-bishop-serves-altar-crown",
+      "worldTraceID": "trace-dual-jurisdiction",
+      "operation": "prepare",
+      "beforeState": "Ring, staff, estate, court and levy lie in one investiture, leaving spiritual office and royal service physically fused around the bishop.",
+      "afterState": "Opening altar, estate, court and levy leaves four labelled burdens held between pope and crown; ring and staff remain bound to the same appointment while temporal regalia and royal service remain unresolved."
+    },
+    {
+      "sourceInteractionID": "papal-revolution/road-ends-canossa",
+      "nativeInteractionID": "interaction-papal-revolution-road-ends-canossa",
+      "worldTraceID": "trace-dual-jurisdiction",
+      "operation": "prepare",
+      "beforeState": "Opening altar, estate, court and levy leaves four labelled burdens held between pope and crown; ring and staff remain bound to the same appointment while temporal regalia and royal service remain unresolved.",
+      "afterState": "Communion is restored at Canossa, but crown, obedience and investiture remain visibly unresolved; the reopened road ends at a doorway still divided."
+    },
+    {
+      "sourceInteractionID": "papal-revolution/worms-divides-ring-sceptre",
+      "nativeInteractionID": "interaction-papal-revolution-worms-divides-ring-sceptre",
+      "worldTraceID": "trace-dual-jurisdiction",
+      "operation": "establish",
+      "beforeState": "Communion is restored at Canossa, but crown, obedience and investiture remain visibly unresolved; the reopened road ends at a doorway still divided.",
+      "afterState": "Spiritual and temporal jurisdictions coexist inside Latin Christendom without either absorbing the other."
+    },
+    {
+      "sourceInteractionID": "society-beyond-kin/circle-opens-outward",
+      "nativeInteractionID": "interaction-society-beyond-kin-circle-opens-outward",
+      "worldTraceID": "trace-consent-marriage",
+      "operation": "establish",
+      "beforeState": "Marriage remains enclosed by lineage strategy, with the couple's spoken assent unable to override the kin group arranging property and alliance.",
+      "afterState": "Mutual consent makes two speaking persons decisive in marriage beyond the lineage's command."
+    },
+    {
+      "sourceInteractionID": "society-beyond-kin/rule-makes-strangers-house",
+      "nativeInteractionID": "interaction-society-beyond-kin-rule-makes-strangers-house",
+      "worldTraceID": "trace-corporate-body",
+      "operation": "prepare",
+      "beforeState": "Unrelated entrants can share devotion and work, but no vow, rule, property or succession yet holds them as one enduring house.",
+      "afterState": "Vow, rule, donated property and election assemble a monastic house whose seal, store and offices remain when its founders leave."
+    },
+    {
+      "sourceInteractionID": "society-beyond-kin/commune-governs-own-name",
+      "nativeInteractionID": "interaction-society-beyond-kin-commune-governs-own-name",
+      "worldTraceID": "trace-corporate-body",
+      "operation": "prepare",
+      "beforeState": "Vow, rule, donated property and election assemble a monastic house whose seal, store and offices remain when its founders leave.",
+      "afterState": "A sworn crowd gains council, treasury, officers and communal seal; the same durable outline now governs a town in its own name."
+    },
+    {
+      "sourceInteractionID": "society-beyond-kin/institution-outlives-us",
+      "nativeInteractionID": "interaction-society-beyond-kin-institution-outlives-us",
+      "worldTraceID": "trace-corporate-body",
+      "operation": "establish",
+      "beforeState": "A sworn crowd gains council, treasury, officers and communal seal; the same durable outline now governs a town in its own name.",
+      "afterState": "A body can own, decide and persist through changing members by rule, office, record and law."
+    },
+    {
+      "sourceInteractionID": "medieval-commercial-revolution/fair-keeps-its-date",
+      "nativeInteractionID": "interaction-medieval-commercial-revolution-fair-keeps-its-date",
+      "worldTraceID": "trace-ledger-road",
+      "operation": "prepare",
+      "beforeState": "Merchants know distant markets, but arrival, payment and judgment still depend on irregular meetings and coin carried in person.",
+      "afterState": "A repeated fair calendar lights successive roads, safe-conducts and settlement days; obligations can now wait for a known market and court."
+    },
+    {
+      "sourceInteractionID": "medieval-commercial-revolution/contract-becomes-route",
+      "nativeInteractionID": "interaction-medieval-commercial-revolution-contract-becomes-route",
+      "worldTraceID": "trace-bounded-commercial-risk",
+      "operation": "establish",
+      "beforeState": "One merchant's household fortune stands behind ship, cargo and voyage, so a single loss can consume property far beyond the expedition.",
+      "afterState": "Partners place fixed sums beside ship and cargo; the passive investor's committed stake is bounded from his other property while the travelling partner's capital and duties remain separately exposed."
+    },
+    {
+      "sourceInteractionID": "medieval-commercial-revolution/promise-crosses-alps",
+      "nativeInteractionID": "interaction-medieval-commercial-revolution-promise-crosses-alps",
+      "worldTraceID": "trace-ledger-road",
+      "operation": "establish",
+      "beforeState": "A repeated fair calendar lights successive roads, safe-conducts and settlement days; obligations can now wait for a known market and court.",
+      "afterState": "Contracts, account money, settlement and ledgers carry obligation farther than coin or owner."
+    },
+    {
+      "sourceInteractionID": "medieval-commercial-revolution/sea-can-be-insured",
+      "nativeInteractionID": "interaction-medieval-commercial-revolution-sea-can-be-insured",
+      "worldTraceID": "trace-bounded-commercial-risk",
+      "operation": "transform",
+      "beforeState": "Partners place fixed sums beside ship and cargo; the passive investor's committed stake is bounded from his other property while the travelling partner's capital and duties remain separately exposed.",
+      "afterState": "The voyage partnership's bounded contribution remains beside a second written boundary: a premium transfers a named ship's stated hazards to an underwriter, so invested exposure and insured danger remain distinct, priced obligations in the ledger."
+    },
+    {
+      "sourceInteractionID": "hanseatic-north/lofoten-sends-summer-cargo",
+      "nativeInteractionID": "interaction-hanseatic-north-lofoten-sends-summer-cargo",
+      "worldTraceID": "trace-hanseatic-field",
+      "operation": "prepare",
+      "beforeState": "Northern fisheries, grain ports and cloth towns work to different seasons, with no single itinerary yet carrying their surpluses through the year.",
+      "afterState": "A seasonal stockfish route runs from Lofoten through Bergen toward grain and cloth ports; summer cargo leaves a recurring northern circuit on the sea."
+    },
+    {
+      "sourceInteractionID": "hanseatic-north/yard-becomes-government",
+      "nativeInteractionID": "interaction-hanseatic-north-yard-becomes-government",
+      "worldTraceID": "trace-delegated-city-covenant",
+      "operation": "prepare",
+      "beforeState": "Merchants share a foreign quay, but storage, judgment, watch and representation remain private burdens without a recognised common voice.",
+      "afterState": "Opening the Bryggen yard reveals warehouse rows, elected elders, common rules and a seal; the enclave can now remember obligations and answer as one body."
+    },
+    {
+      "sourceInteractionID": "hanseatic-north/agreement-becomes-fleet",
+      "nativeInteractionID": "interaction-hanseatic-north-agreement-becomes-fleet",
+      "worldTraceID": "trace-delegated-city-covenant",
+      "operation": "establish",
+      "beforeState": "Opening the Bryggen yard reveals warehouse rows, elected elders, common rules and a seal; the enclave can now remember obligations and answer as one body.",
+      "afterState": "Separate city governments delegate consent into common embargo, fleet and treaty while retaining their own seals."
+    },
+    {
+      "sourceInteractionID": "hanseatic-north/edges-write-back",
+      "nativeInteractionID": "interaction-hanseatic-north-edges-write-back",
+      "worldTraceID": "trace-hanseatic-field",
+      "operation": "establish",
+      "beforeState": "A seasonal stockfish route runs from Lofoten through Bergen toward grain and cloth ports; summer cargo leaves a recurring northern circuit on the sea.",
+      "afterState": "Four Kontore return prices, warnings and disputes through the routes to separate councils; foreign yards and city governments now form a northern commercial field without one throne."
+    },
+    {
+      "sourceInteractionID": "empire-many-liberties/crown-has-no-capital",
+      "nativeInteractionID": "interaction-empire-many-liberties-crown-has-no-capital",
+      "worldTraceID": "trace-imperial-liberties",
+      "operation": "prepare",
+      "beforeState": "The imperial title claims a realm of princes, bishops and cities, but no fixed capital or single administrative chain can make those powers answer together.",
+      "afterState": "Crown, regalia, host and chancery move along an imperial itinerary; each visited estate remains lit with its own court, seal and right."
+    },
+    {
+      "sourceInteractionID": "empire-many-liberties/seven-electors-make-one-king",
+      "nativeInteractionID": "interaction-empire-many-liberties-seven-electors-make-one-king",
+      "worldTraceID": "trace-imperial-liberties",
+      "operation": "establish",
+      "beforeState": "Crown, regalia, host and chancery move along an imperial itinerary; each visited estate remains lit with its own court, seal and right.",
+      "afterState": "Accumulated rights, election and estate government preserve distinct powers inside one imperial order."
+    },
+    {
+      "sourceInteractionID": "empire-many-liberties/diet-outlaws-feud",
+      "nativeInteractionID": "interaction-empire-many-liberties-diet-outlaws-feud",
+      "worldTraceID": "trace-imperial-public-peace",
+      "operation": "establish",
+      "beforeState": "Feud remains a lawful instrument among estates, and an imperial proposal has no force until the distinct benches consent and institutions can execute it.",
+      "afterState": "Electors, princes and cities approve the peace in separate benches; court and regional circles remain on the map to judge breaches and organise enforcement."
+    },
+    {
+      "sourceInteractionID": "empire-many-liberties/westphalia-keeps-mosaic",
+      "nativeInteractionID": "interaction-empire-many-liberties-westphalia-keeps-mosaic",
+      "worldTraceID": "trace-imperial-public-peace",
+      "operation": "transform",
+      "beforeState": "Electors, princes and cities approve the peace in separate benches; court and regional circles remain on the map to judge breaches and organise enforcement.",
+      "afterState": "The 1624 confessional baseline, estate rights, bounded alliances and restored courts remain joined to permanent negotiation at Regensburg; the imperial mosaic survives inside one public peace."
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thelongwest.invalid/schemas/visual-production-master-approval.schema.json",
+  "title": "Editor approval for an exact visual production master",
+  "description": "Backstage editor authority for one exact production-master raster. It permits the shipping-capable layer DAG to use those master bytes, but final separated assets and their package still require their own exact editor approval.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "status",
+    "authority",
+    "approvedAt",
+    "decisionReference",
+    "contract",
+    "sceneFixture",
+    "master",
+    "approvedScope",
+    "shippingState"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "status": { "const": "EDITOR_APPROVED_AS_PRODUCTION_MASTER" },
+    "authority": { "const": "editor-in-chief" },
+    "approvedAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "decisionReference": { "type": "string", "minLength": 12 },
+    "contract": { "$ref": "#/$defs/pathHash" },
+    "sceneFixture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "sceneID", "canvas"],
+      "properties": {
+        "path": { "$ref": "#/$defs/path" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "sceneID": { "$ref": "#/$defs/stableID" },
+        "canvas": { "$ref": "#/$defs/dimensions" }
+      }
+    },
+    "master": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceID", "path", "bytes", "sha256", "width", "height"],
+      "properties": {
+        "sourceID": { "$ref": "#/$defs/stableID" },
+        "path": { "$ref": "#/$defs/path" },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "approvedScope": {
+      "type": "array",
+      "prefixItems": [
+        { "const": "PRODUCTION_MASTER_PIXELS" },
+        { "const": "LAYER_DAG_INPUT" }
+      ],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "shippingState": { "const": "REQUIRES_SEPARATE_ASSET_AND_PACKAGE_APPROVAL" }
+  },
+  "$defs": {
+    "stableID": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "path": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)[A-Za-z0-9._/-]+$"
+    },
+    "pathHash": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "$ref": "#/$defs/path" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "dimensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["width", "height"],
+      "properties": {
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 }
+      }
+    }
+  }
+}

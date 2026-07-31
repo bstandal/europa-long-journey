@@ -1,0 +1,1996 @@
+{
+  "limitations": [
+    "Predicted IoU is a model estimate, not a visual approval.",
+    "Every selected mask requires source-alignment inspection at full resolution.",
+    "This output cannot approve clean plates, parallax, alpha edges, state variants, or a production master."
+  ],
+  "model": {
+    "path": "native/.build/visual-segmentation/models/facebook-sam2.1-hiera-tiny-de431c4043854a71d8101e17995dfe596bf101a5",
+    "repository": "facebook/sam2.1-hiera-tiny",
+    "revision": "de431c4043854a71d8101e17995dfe596bf101a5",
+    "verifiedFiles": {
+      "README.md": "dfa401b1b9358b9650ae487dd2f2bb336fd745c3609e3244adf2e97a22343857",
+      "config.json": "860aff9751b139d83a4ad7df1e5535416fded533e0ead02625edbefcb9953cce",
+      "model.safetensors": "48c14467e5cf9e51870511feb72c89688e82dd74523142c0538b663e193ac2a7",
+      "preprocessor_config.json": "6ebf229ee259368ce4a8d4f2fe893a72b053023710853e257253939e601f583d",
+      "processor_config.json": "f8a68e865cfad115c1c2763f3d93eca7b1c622da06da2a9273eb437fb2389b6d",
+      "sam2.1_hiera_t.yaml": "43e114f609a1af7efede061f5c186119d498acd31f118f300c07acf57d4a5eca",
+      "video_preprocessor_config.json": "9fccfe5f464ec38c2f236d0e6a68e95511c80c22132fc2fa4b9f7b65f24fad95"
+    }
+  },
+  "objects": [
+    {
+      "box": [
+        0.0,
+        0.0,
+        1290.0,
+        1220.0
+      ],
+      "candidates": [
+        {
+          "candidate": 0,
+          "mask": "candidates/storm-sky--0.png",
+          "maskSha256": "ae7b3e976d7861e074a81e5d974db2364adba62c9f8898db45a760d3c2654e43",
+          "metrics": {
+            "boundingBox": [
+              0,
+              0,
+              1289,
+              1195
+            ],
+            "coverage": 0.13441129,
+            "pixelCount": 484800
+          },
+          "predictedIoU": 0.92338514,
+          "reviewPreview": "review/storm-sky--0.jpg",
+          "reviewPreviewSha256": "49543d02bdfb8a71afb5d19a483a0c043ea5f08275dcb6845787c8d606de05db"
+        },
+        {
+          "candidate": 1,
+          "mask": "candidates/storm-sky--1.png",
+          "maskSha256": "bd566bd4790daa58645e01cd70dff116f627c15abc8dbc6d53b0d9f4f01fab30",
+          "metrics": {
+            "boundingBox": [
+              0,
+              0,
+              1289,
+              1162
+            ],
+            "coverage": 0.13059964,
+            "pixelCount": 471052
+          },
+          "predictedIoU": 0.87829816,
+          "reviewPreview": "review/storm-sky--1.jpg",
+          "reviewPreviewSha256": "276d2b196aedee6e7ca402dec73b626f9ea0b0432589a10996a4866925ebbfc1"
+        },
+        {
+          "candidate": 2,
+          "mask": "candidates/storm-sky--2.png",
+          "maskSha256": "73b4aa8d7df2520a75f5ba2e4eb2980e7d6e725bfcb011bab97ab7c5caf6aee7",
+          "metrics": {
+            "boundingBox": [
+              0,
+              0,
+              1289,
+              1186
+            ],
+            "coverage": 0.13147797,
+            "pixelCount": 474220
+          },
+          "predictedIoU": 0.94540787,
+          "reviewPreview": "review/storm-sky--2.jpg",
+          "reviewPreviewSha256": "4c494f2024a31d97df11b2e53105875d7eb54335cb953c6515a05ca62c162bef"
+        }
+      ],
+      "id": "storm-sky",
+      "negativePoints": [
+        [
+          600.0,
+          500.0
+        ],
+        [
+          170.0,
+          850.0
+        ],
+        [
+          1060.0,
+          1110.0
+        ]
+      ],
+      "positivePoints": [
+        [
+          90.0,
+          40.0
+        ],
+        [
+          610.0,
+          70.0
+        ],
+        [
+          1090.0,
+          780.0
+        ],
+        [
+          770.0,
+          1030.0
+        ]
+      ],
+      "selectedCandidate": 0,
+      "selectedMask": "selected/storm-sky.png",
+      "selectedMaskSha256": "ae7b3e976d7861e074a81e5d974db2364adba62c9f8898db45a760d3c2654e43",
+      "selectedMetrics": {
+        "boundingBox": [
+          0,
+          0,
+          1289,
+          1195
+        ],
+        "coverage": 0.13441129,
+        "pixelCount": 484800
+      }
+    },
+    {
+      "box": [
+        0.0,
+        50.0,
+        1290.0,
+        780.0
+      ],
+      "candidates": [
+        {
+          "candidate": 0,
+          "mask": "candidates/upper-canopy--0.png",
+          "maskSha256": "7176ef15aeb1546cb326985991d8516c919c2bddcbc39f7621f63f0a2782fc9a",
+          "metrics": {
+            "boundingBox": [
+              0,
+              62,
+              1289,
+              967
+            ],
+            "coverage": 0.18924848,
+            "pixelCount": 682589
+          },
+          "predictedIoU": 0.75625724,
+          "reviewPreview": "review/upper-canopy--0.jpg",
+          "reviewPreviewSha256": "711ef7eefd277e6786cb6e2def178eabe8951b5848a73aeac3e384d8d9976141"
+        },
+        {
+          "candidate": 1,
+          "mask": "candidates/upper-canopy--1.png",
+          "maskSha256": "30f1abb80ff37dd39c35211e8e34ceb8c203c62a5cb67ddbbdbb4cb63d2f3417",
+          "metrics": {
+            "boundingBox": [
+              0,
+              78,
+              1289,
+              773
+            ],
+            "coverage": 0.10141232,
+            "pixelCount": 365778
+          },
+          "predictedIoU": 0.39656022,
+          "reviewPreview": "review/upper-canopy--1.jpg",
+          "reviewPreviewSha256": "c4709227a3cafc2e719b85451efd45d19df3c58c68e959059cb49e03eff2245d"
+        },
+        {
+          "candidate": 2,
+          "mask": "candidates/upper-canopy--2.png",
+          "maskSha256": "9801dd0e8ee96a3019abd0a2d9e0229b77541cdd1c4a5eebad19fdb263a42262",
+          "metrics": {
+            "boundingBox": [
+              6,
+              72,
+              1289,
+              772
+            ],
+            "coverage": 0.12288679,
+            "pixelCount": 443233
+          },
+          "predictedIoU": 0.66763753,
+          "reviewPreview": "review/upper-canopy--2.jpg",
+          "reviewPreviewSha256": "9f6ad8f1815cbdbbfe332d308e7de1fe1b80cff3c680484bdae34b22e7b2cda9"
+        }
+      ],
+      "id": "upper-canopy",
+      "negativePoints": [
+        [
+          120.0,
+          30.0
+        ],
+        [
+          610.0,
+          80.0
+        ],
+        [
+          1030.0,
+          820.0
+        ]
+      ],
+      "positivePoints": [
+        [
+          180.0,
+          340.0
+        ],
+        [
+          620.0,
+          430.0
+        ],
+        [
+          1080.0,
+          360.0
+        ],
+        [
+          700.0,
+          650.0
+        ]
+      ],
+      "selectedCandidate": 0,
+      "selectedMask": "selected/upper-canopy.png",
+      "selectedMaskSha256": "7176ef15aeb1546cb326985991d8516c919c2bddcbc39f7621f63f0a2782fc9a",
+      "selectedMetrics": {
+        "boundingBox": [
+          0,
+          62,
+          1289,
+          967
+        ],
+        "coverage": 0.18924848,
+        "pixelCount": 682589
+      }
+    },
+    {
+      "box": [
+        0.0,
+        680.0,
+        790.0,
+        1580.0
+      ],
+      "candidates": [
+        {
+          "candidate": 0,
+          "mask": "candidates/left-shelter--0.png",
+          "maskSha256": "e4fd2ddd510711d3bd0f124e228e274a8b313dde8810ca73b27d6f392d631430",
+          "metrics": {
+            "boundingBox": [
+              0,
+              594,
+              802,
+              1626
+            ],
+            "coverage": 0.1037379,
+            "pixelCount": 374166
+          },
+          "predictedIoU": 0.82730764,
+          "reviewPreview": "review/left-shelter--0.jpg",
+          "reviewPreviewSha256": "93b8dda23e8f429e91475b017e08c54dd2f137a7ddac8aa6587e001894db6050"
+        },
+        {
+          "candidate": 1,
+          "mask": "candidates/left-shelter--1.png",
+          "maskSha256": "fe0d4611eadb26809ac0864d1138426c18aa8b0f3dcee923d34315189009dfb3",
+          "metrics": {
+            "boundingBox": [
+              4,
+              703,
+              794,
+              1589
+            ],
+            "coverage": 0.04676282,
+            "pixelCount": 168666
+          },
+          "predictedIoU": 0.34240842,
+          "reviewPreview": "review/left-shelter--1.jpg",
+          "reviewPreviewSha256": "b0af026ccc6eb7b3f0ce2f9cc080462555fad710da54c4052c232f529a251420"
+        },
+        {
+          "candidate": 2,
+          "mask": "candidates/left-shelter--2.png",
+          "maskSha256": "d58cef88e79023778357965700801ac15f0449818859033450308ffc3cf56658",
+          "metrics": {
+            "boundingBox": [
+              0,
+              694,
+              797,
+              1441
+            ],
+            "coverage": 0.07165358,
+            "pixelCount": 258443
+          },
+          "predictedIoU": 0.74825621,
+          "reviewPreview": "review/left-shelter--2.jpg",
+          "reviewPreviewSha256": "00231f87392a0756e9369c3fb7abe6e563064a769e906631a5e4dd1c1bce0e60"
+        }
+      ],
+      "id": "left-shelter",
+      "negativePoints": [
+        [
+          700.0,
+          1050.0
+        ],
+        [
+          650.0,
+          1500.0
+        ],
+        [
+          50.0,
+          1640.0
+        ]
+      ],
+      "positivePoints": [
+        [
+          130.0,
+          970.0
+        ],
+        [
+          420.0,
+          960.0
+        ],
+        [
+          250.0,
+          1290.0
+        ],
+        [
+          560.0,
+          1360.0
+        ]
+      ],
+      "selectedCandidate": 0,
+      "selectedMask": "selected/left-shelter.png",
+      "selectedMaskSha256": "e4fd2ddd510711d3bd0f124e228e274a8b313dde8810ca73b27d6f392d631430",
+      "selectedMetrics": {
+        "boundingBox": [
+          0,
+          594,
+          802,
+          1626
+        ],
+        "coverage": 0.1037379,
+        "pixelCount": 374166
+      }
+    },
+    {
+      "box": [
+        145.0,
+        1490.0,
+        285.0,
+        1840.0
+      ],
+      "candidates": [
+        {
+          "candidate": 0,
+          "mask": "candidates/hearth-woman--0.png",
+          "maskSha256": "dd85f0acc01a34d34db9e8aca304ff3f1fcd107c099c5abd56a20ba9de67ed73",
+          "metrics": {
+            "boundingBox": [
+              137,
+              1496,
+              295,
+              1868
+            ],
+            "coverage": 0.0083228,
+            "pixelCount": 30019
+          },
+          "predictedIoU": 0.57651031,
+          "reviewPreview": "review/hearth-woman--0.jpg",
+          "reviewPreviewSha256": "1b8fb7029a324b1bf81c016a42621c110e204642539c8cd13d9e99c08df02865"
+        },
+        {
+          "candidate": 1,
+          "mask": "candidates/hearth-woman--1.png",
+          "maskSha256": "f2003aa4653c08b42d84ce7ec144eeeac6053e32a10882494ac09647f111a197",
+          "metrics": {
+            "boundingBox": [
+              137,
+              1494,
+              290,
+              1865
+            ],
+            "coverage": 0.00712563,
+            "pixelCount": 25701
+          },
+          "predictedIoU": 0.65488958,
+          "reviewPreview": "review/hearth-woman--1.jpg",
+          "reviewPreviewSha256": "83e5478d0cff7adb0e4822c22d306c397f80db852b213c1bebaae23591f015a0"
+        },
+        {
+          "candidate": 2,
+          "mask": "candidates/hearth-woman--2.png",
+          "maskSha256": "7fed25d128fe27ac65d02d0577262a1e0696c388e76d4996ed252d3041d0bb31",
+          "metrics": {
+            "boundingBox": [
+              138,
+              1494,
+              292,
+              1863
+            ],
+            "coverage": 0.00687721,
+            "pixelCount": 24805
+          },
+          "predictedIoU": 0.67849803,
+          "reviewPreview": "review/hearth-woman--2.jpg",
+          "reviewPreviewSha256": "887583b4f2e9913dd27aaae66ed12593ddd763e924d662214c2048301d3d901b"
+        }
+      ],
+      "id": "hearth-woman",
+      "negativePoints": [
+        [
+          145.0,
+          1510.0
+        ],
+        [
+          284.0,
+          1510.0
+        ],
+        [
+          145.0,
+          1720.0
+        ],
+        [
+          284.0,
+          1760.0
+        ]
+      ],
+      "positivePoints": [
+        [
+          220.0,
+          1535.0
+        ],
+        [
+          240.0,
+          1600.0
+        ],
+        [
+          225.0,
+          1700.0
+        ],
+        [
+          220.0,
+          1785.0
+        ]
+      ],
+      "selectedCandidate": 0,
+      "selectedMask": "selected/hearth-woman.png",
+      "selectedMaskSha256": "dd85f0acc01a34d34db9e8aca304ff3f1fcd107c099c5abd56a20ba9de67ed73",
+      "selectedMetrics": {
+        "boundingBox": [
+          137,
+          1496,
+          295,
+          1868
+        ],
+        "coverage": 0.0083228,
+        "pixelCount": 30019
+      }
+    },
+    {
+      "box": [
+        245.0,
+        1640.0,
+        395.0,
+        1845.0
+      ],
+      "candidates": [
+        {
+          "candidate": 0,
+          "mask": "candidates/hearth-child--0.png",
+          "maskSha256": "b100c3063f47d4b0d3f0010f3b02fc328797508587f35cb5fe0bc55f465bcfe2",
+          "metrics": {
+            "boundingBox": [
+              254,
+              1659,
+              404,
+              1854
+            ],
+            "coverage": 0.00339716,
+            "pixelCount": 12253
+          },
+          "predictedIoU": 0.48230177,
+          "reviewPreview": "review/hearth-child--0.jpg",
+          "reviewPreviewSha256": "1e452d100821a620bec93a336f973dda360f2103633ea9fe0e250fa7b89b5f4e"
+        },
+        {
+          "candidate": 1,
+          "mask": "candidates/hearth-child--1.png",
+          "maskSha256": "7ad42cb823654b03c92dfd7146e92bcc619df422cd02ee628fc7c6bf613aaba3",
+          "metrics": {
+            "boundingBox": [
+              254,
+              1660,
+              393,
+              1836
+            ],
+            "coverage": 0.00201894,
+            "pixelCount": 7282
+          },
+          "predictedIoU": 0.64954406,
+          "reviewPreview": "review/hearth-child--1.jpg",
+          "reviewPreviewSha256": "930cd9b8c5994277b72455047787602ed22a06f887e0ec84aec23add7b3b153d"
+        },
+        {
+          "candidate": 2,
+          "mask": "candidates/hearth-child--2.png",
+          "maskSha256": "7d6c2c82f0aefc682991826999cc38db1e057776b4c2beeffd4bcef8590215d3",
+          "metrics": {
+            "boundingBox": [
+              256,
+              1660,
+              403,
+              1842
+            ],
+            "coverage": 0.00269405,
+            "pixelCount": 9717
+          },
+          "predictedIoU": 0.66950887,
+          "reviewPreview": "review/hearth-child--2.jpg",
+          "reviewPreviewSha256": "e96a7eeb8ed5975f61e5a86301bf4665dce9dd6fc977119579f04717fcf76014"
+        }
+      ],
+      "id": "hearth-child",
+      "negativePoints": [
+        [
+          245.0,
+          1710.0
+        ],
+        [
+          394.0,
+          1730.0
+        ],
+        [
+          300.0,
+          1844.0
+        ]
+      ],
+      "positivePoints": [
+        [
+          330.0,
+          1690.0
+        ],
+        [
+          335.0,
+          1760.0
+        ],
+        [
+          305.0,
+          1810.0
+        ]
+      ],
+      "selectedCandidate": 1,
+      "selectedMask": "selected/hearth-child.png",
+      "selectedMaskSha256": "7ad42cb823654b03c92dfd7146e92bcc619df422cd02ee628fc7c6bf613aaba3",
+      "selectedMetrics": {
+        "boundingBox": [
+          254,
+          1660,
+          393,
+          1836
+        ],
+        "coverage": 0.00201894,
+        "pixelCount": 7282
+      }
+    },
+    {
+      "box": [
+        465.0,
+        1430.0,
+        630.0,
+        1785.0
+      ],
+      "candidates": [
+        {
+          "candidate": 0,
+          "mask": "candidates/seated-man--0.png",
+          "maskSha256": "3aa8ac8b3a374cfbd1102d5b6cd1d259ebf746288cc771474ba2e19e1674991e",
+          "metrics": {
+            "boundingBox": [
+              440,
+              1424,
+              631,
+              1766
+            ],
+            "coverage": 0.00947838,
+            "pixelCount": 34187
+          },
+          "predictedIoU": 0.83495253,
+          "reviewPreview": "review/seated-man--0.jpg",
+          "reviewPreviewSha256": "884fe8c46303838149b9a8ac1b55cf150d587a32c2f4bbfcd6dadb81e64ad7fa"
+        },
+        {
+          "candidate": 1,
+          "mask": "candidates/seated-man--1.png",
+          "maskSha256": "f573ab300bcf42f0748812f4f2657d7feaaa8bd04142ab0dd7df8a4b28e68996",
+          "metrics": {
+            "boundingBox": [
+              455,
+              1424,
+              630,
+              1766
+            ],
+            "coverage": 0.00916841,
+            "pixelCount": 33069
+          },
+          "predictedIoU": 0.73059142,
+          "reviewPreview": "review/seated-man--1.jpg",
+          "reviewPreviewSha256": "96ef1d65d43f3dde04245783a32292e335dda124265dd6bbfe666a09e924fe72"
+        },
+        {
+          "candidate": 2,
+          "mask": "candidates/seated-man--2.png",
+          "maskSha256": "a882d7214132c015415786492c1e5ebfcb06e528081b30ac762300301c45547b",
+          "metrics": {
+            "boundingBox": [
+              455,
+              1425,
+              631,
+              1766
+            ],
+            "coverage": 0.0088127,
+            "pixelCount": 31786
+          },
+          "predictedIoU": 0.85406965,
+          "reviewPreview": "review/seated-man--2.jpg",
+          "reviewPreviewSha256": "7aeefc90984f539944c026ec39bfb0d287586a0c6606ceccebed453d2d00eed0"
+        }
+      ],
+      "id": "seated-man",
+      "negativePoints": [
+        [
+          465.0,
+          1480.0
+        ],
+        [
+          629.0,
+          1500.0
+        ],
+        [
+          465.0,
+          1700.0
+        ],
+        [
+          629.0,
+          1760.0
+        ]
+      ],
+      "positivePoints": [
+        [
+          530.0,
+          1475.0
+        ],
+        [
+          545.0,
+          1540.0
+        ],
+        [
+          525.0,
+          1615.0
+        ],
+        [
+          565.0,
+          1690.0
+        ]
+      ],
+      "selectedCandidate": 0,
+      "selectedMask": "selected/seated-man.png",
+      "selectedMaskSha256": "3aa8ac8b3a374cfbd1102d5b6cd1d259ebf746288cc771474ba2e19e1674991e",
+      "selectedMetrics": {
+        "boundingBox": [
+          440,
+          1424,
+          631,
+          1766
+        ],
+        "coverage": 0.00947838,
+        "pixelCount": 34187
+      }
+    },
+    {
+      "box": [
+        965.0,
+        1190.0,
+        1150.0,
+        1600.0
+      ],
+      "candidates": [
+        {
+          "candidate": 0,
+          "mask": "candidates/background-worker-right--0.png",
+          "maskSha256": "86251c74b6c13ea8d995e9f70a1e783a21bc10d1eee6ef496f831ddf56c4ddc0",
+          "metrics": {
+            "boundingBox": [
+              944,
+              1246,
+              1151,
+              1611
+            ],
+            "coverage": 0.01035643,
+            "pixelCount": 37354
+          },
+          "predictedIoU": 0.61904424,
+          "reviewPreview": "review/background-worker-right--0.jpg",
+          "reviewPreviewSha256": "59cd2a25f53de2d8cef47dbdf707370776e9971c9bd83eb22a34699aa1ad3f3a"
+        },
+        {
+          "candidate": 1,
+          "mask": "candidates/background-worker-right--1.png",
+          "maskSha256": "46242519a3fde73089d5a0b97c641bfb80c8f898a78237a3f4ac8eecbee8d5e3",
+          "metrics": {
+            "boundingBox": [
+              974,
+              1244,
+              1154,
+              1590
+            ],
+            "coverage": 0.00876557,
+            "pixelCount": 31616
+          },
+          "predictedIoU": 0.61330557,
+          "reviewPreview": "review/background-worker-right--1.jpg",
+          "reviewPreviewSha256": "babd298e3c35aefdc46c6612bf878b8317107a17a926eeed0d2c19bb1ab93215"
+        },
+        {
+          "candidate": 2,
+          "mask": "candidates/background-worker-right--2.png",
+          "maskSha256": "68b63310553ffc6eb2d9d6bf4a863a60b887a5f333d94af2c3f24b30daaad5d6",
+          "metrics": {
+            "boundingBox": [
+              974,
+              1246,
+              1153,
+              1583
+            ],
+            "coverage": 0.00877583,
+            "pixelCount": 31653
+          },
+          "predictedIoU": 0.62466389,
+          "reviewPreview": "review/background-worker-right--2.jpg",
+          "reviewPreviewSha256": "3684b7e344a43242def55f09d83f30f80171b971ddb83efaedbcd1b4344f5d03"
+        }
+      ],
+      "id": "background-worker-right",
+      "negativePoints": [
+        [
+          850.0,
+          1350.0
+        ],
+        [
+          1180.0,
+          1380.0
+        ],
+        [
+          1050.0,
+          1670.0
+        ]
+      ],
+      "positivePoints": [
+        [
+          1035.0,
+          1280.0
+        ],
+        [
+          1040.0,
+          1390.0
+        ],
+        [
+          1060.0,
+          1510.0
+        ]
+      ],
+      "selectedCandidate": 2,
+      "selectedMask": "selected/background-worker-right.png",
+      "selectedMaskSha256": "68b63310553ffc6eb2d9d6bf4a863a60b887a5f333d94af2c3f24b30daaad5d6",
+      "selectedMetrics": {
+        "boundingBox": [
+          974,
+          1246,
+          1153,
+          1583
+        ],
+        "coverage": 0.00877583,
+        "pixelCount": 31653
+      }
+    },
+    {
+      "box": [
+        955.0,
+        1650.0,
+        1290.0,
+        2250.0
+      ],
+      "candidates": [
+        {
+          "candidate": 0,
+          "mask": "candidates/right-worker--0.png",
+          "maskSha256": "b0a6bec1f25dc8a0fb0c24b5a12f9dedb12d043c7b8a669a287fb18d6337fa73",
+          "metrics": {
+            "boundingBox": [
+              966,
+              1684,
+              1289,
+              2243
+            ],
+            "coverage": 0.02945154,
+            "pixelCount": 106227
+          },
+          "predictedIoU": 0.81984901,
+          "reviewPreview": "review/right-worker--0.jpg",
+          "reviewPreviewSha256": "5c51b8514ff4c1c2763550a987b2521d530c1d103787eb9fb482302bebc39a59"
+        },
+        {
+          "candidate": 1,
+          "mask": "candidates/right-worker--1.png",
+          "maskSha256": "566187d9af97f29b65b9e356e47cc2cacf3f07015ece6cd5466a3d1b301731c4",
+          "metrics": {
+            "boundingBox": [
+              966,
+              1686,
+              1282,
+              2189
+            ],
+            "coverage": 0.01705288,
+            "pixelCount": 61507
+          },
+          "predictedIoU": 0.813474,
+          "reviewPreview": "review/right-worker--1.jpg",
+          "reviewPreviewSha256": "e2cb93ce72df7216134535f5ffe6cf54fb0ee8b574e1923809193a8ea06964e7"
+        },
+        {
+          "candidate": 2,
+          "mask": "candidates/right-worker--2.png",
+          "maskSha256": "451f0b764b1d3d6e64e2049f71e9eb35e2ea12f7826de5415779d737a360401d",
+          "metrics": {
+            "boundingBox": [
+              967,
+              1686,
+              1289,
+              2234
+            ],
+            "coverage": 0.01932606,
+            "pixelCount": 69706
+          },
+          "predictedIoU": 0.87272072,
+          "reviewPreview": "review/right-worker--2.jpg",
+          "reviewPreviewSha256": "3eb572bcaa3f1007c5ddb79d8dd1c17ab0b050c2784436a1c34ad5fd2669369f"
+        }
+      ],
+      "id": "right-worker",
+      "negativePoints": [
+        [
+          900.0,
+          1900.0
+        ],
+        [
+          980.0,
+          2270.0
+        ],
+        [
+          1240.0,
+          2300.0
+        ]
+      ],
+      "positivePoints": [
+        [
+          1110.0,
+          1760.0
+        ],
+        [
+          1170.0,
+          1920.0
+        ],
+        [
+          1050.0,
+          2070.0
+        ]
+      ],
+      "selectedCandidate": 0,
+      "selectedMask": "selected/right-worker.png",
+      "selectedMaskSha256": "b0a6bec1f25dc8a0fb0c24b5a12f9dedb12d043c7b8a669a287fb18d6337fa73",
+      "selectedMetrics": {
+        "boundingBox": [
+          966,
+          1684,
+          1289,
+          2243
+        ],
+        "coverage": 0.02945154,
+        "pixelCount": 106227
+      }
+    },
+    {
+      "box": [
+        120.0,
+        2070.0,
+        1120.0,
+        2760.0
+      ],
+      "candidates": [
+        {
+          "candidate": 0,
+          "mask": "candidates/allocation-cloth--0.png",
+          "maskSha256": "45377f8304a0ac53ccc7f6a055ff657b07f95e6c3781b773b1ff4affe9cc3ae3",
+          "metrics": {
+            "boundingBox": [
+              117,
+              2095,
+              1141,
+              2795
+            ],
+            "coverage": 0.06428064,
+            "pixelCount": 231850
+          },
+          "predictedIoU": 0.84647614,
+          "reviewPreview": "review/allocation-cloth--0.jpg",
+          "reviewPreviewSha256": "05decc2b2e68f8ca9f31774ceee77e7b21fdd6cc3143c2772d27d1560571a0a1"
+        },
+        {
+          "candidate": 1,
+          "mask": "candidates/allocation-cloth--1.png",
+          "maskSha256": "1c708fcfee520a43bacaf310737e886bdee886aeb2ae33166984c9b582c251af",
+          "metrics": {
+            "boundingBox": [
+              120,
+              2096,
+              1116,
+              2795
+            ],
+            "coverage": 0.06093949,
+            "pixelCount": 219799
+          },
+          "predictedIoU": 0.80220693,
+          "reviewPreview": "review/allocation-cloth--1.jpg",
+          "reviewPreviewSha256": "a1f14fa63be1340b26e3e6fdeb3c61c842a2c4dd3efeb26ce4ce6558a988eaaf"
+        },
+        {
+          "candidate": 2,
+          "mask": "candidates/allocation-cloth--2.png",
+          "maskSha256": "f87a639685ccba48127cb3fbcfef46e611228e5c0645aa3d4c4c901589f06627",
+          "metrics": {
+            "boundingBox": [
+              118,
+              2096,
+              1127,
+              2795
+            ],
+            "coverage": 0.06243027,
+            "pixelCount": 225176
+          },
+          "predictedIoU": 0.90920115,
+          "reviewPreview": "review/allocation-cloth--2.jpg",
+          "reviewPreviewSha256": "5dd9bfea22261c659406d2d14657d2a8b38a108c5684d0994d56d20c3441e91a"
+        }
+      ],
+      "id": "allocation-cloth",
+      "negativePoints": [
+        [
+          600.0,
+          2360.0
+        ],
+        [
+          90.0,
+          2470.0
+        ],
+        [
+          1150.0,
+          2520.0
+        ]
+      ],
+      "positivePoints": [
+        [
+          250.0,
+          2200.0
+        ],
+        [
+          720.0,
+          2160.0
+        ],
+        [
+          540.0,
+          2620.0
+        ],
+        [
+          940.0,
+          2550.0
+        ]
+      ],
+      "selectedCandidate": 2,
+      "selectedMask": "selected/allocation-cloth.png",
+      "selectedMaskSha256": "f87a639685ccba48127cb3fbcfef46e611228e5c0645aa3d4c4c901589f06627",
+      "selectedMetrics": {
+        "boundingBox": [
+          118,
+          2096,
+          1127,
+          2795
+        ],
+        "coverage": 0.06243027,
+        "pixelCount": 225176
+      }
+    },
+    {
+      "box": [
+        0.0,
+        2250.0,
+        290.0,
+        2790.0
+      ],
+      "candidates": [
+        {
+          "candidate": 0,
+          "mask": "candidates/foreground-basket-left--0.png",
+          "maskSha256": "5b972738771c53756515372cd733aae08f4ae65040e1d22ba6a2f32e0133e923",
+          "metrics": {
+            "boundingBox": [
+              0,
+              2328,
+              336,
+              2759
+            ],
+            "coverage": 0.02814985,
+            "pixelCount": 101532
+          },
+          "predictedIoU": 0.70359272,
+          "reviewPreview": "review/foreground-basket-left--0.jpg",
+          "reviewPreviewSha256": "836d70d623b0f97da2b752c2600dcacf73c2ae5c8898f9cda9ad20951973424e"
+        },
+        {
+          "candidate": 1,
+          "mask": "candidates/foreground-basket-left--1.png",
+          "maskSha256": "e298af40e64af89bd978f5c333085a958dd1ce961c9f7a4f1a5db00023e7d8c3",
+          "metrics": {
+            "boundingBox": [
+              0,
+              2331,
+              309,
+              2721
+            ],
+            "coverage": 0.02551596,
+            "pixelCount": 92032
+          },
+          "predictedIoU": 0.88787639,
+          "reviewPreview": "review/foreground-basket-left--1.jpg",
+          "reviewPreviewSha256": "b818dd22c002be66c89d729f9ff94566072b56cfb0cfa3fa4dcb257e3e57f0b4"
+        },
+        {
+          "candidate": 2,
+          "mask": "candidates/foreground-basket-left--2.png",
+          "maskSha256": "62c97309cd15fd08ac61dbae88c8df1d2de59b11638b3fe6e863041d5ac1268f",
+          "metrics": {
+            "boundingBox": [
+              0,
+              2332,
+              309,
+              2722
+            ],
+            "coverage": 0.02475297,
+            "pixelCount": 89280
+          },
+          "predictedIoU": 0.88045275,
+          "reviewPreview": "review/foreground-basket-left--2.jpg",
+          "reviewPreviewSha256": "3bdee1aea71925f79c09624b9ab5bd11d015a4e922e18aacf23f8df1fa095354"
+        }
+      ],
+      "id": "foreground-basket-left",
+      "negativePoints": [
+        [
+          300.0,
+          2480.0
+        ],
+        [
+          80.0,
+          2200.0
+        ],
+        [
+          320.0,
+          2740.0
+        ]
+      ],
+      "positivePoints": [
+        [
+          120.0,
+          2410.0
+        ],
+        [
+          160.0,
+          2570.0
+        ],
+        [
+          90.0,
+          2690.0
+        ]
+      ],
+      "selectedCandidate": 0,
+      "selectedMask": "selected/foreground-basket-left.png",
+      "selectedMaskSha256": "5b972738771c53756515372cd733aae08f4ae65040e1d22ba6a2f32e0133e923",
+      "selectedMetrics": {
+        "boundingBox": [
+          0,
+          2328,
+          336,
+          2759
+        ],
+        "coverage": 0.02814985,
+        "pixelCount": 101532
+      }
+    },
+    {
+      "box": [
+        425.0,
+        1600.0,
+        535.0,
+        1740.0
+      ],
+      "candidates": [
+        {
+          "candidate": 0,
+          "mask": "candidates/winter-food-vessel--0.png",
+          "maskSha256": "9719749e8422a6d8748669e63ef5cb4c670ec64071155f8108d4e5615b4be106",
+          "metrics": {
+            "boundingBox": [
+              422,
+              1643,
+              516,
+              1757
+            ],
+            "coverage": 0.00198484,
+            "pixelCount": 7159
+          },
+          "predictedIoU": 0.39785647,
+          "reviewPreview": "review/winter-food-vessel--0.jpg",
+          "reviewPreviewSha256": "0c757908aebb913c109b2162962b8791d165a52a7795d947944c6ffbd51bdba6"
+        },
+        {
+          "candidate": 1,
+          "mask": "candidates/winter-food-vessel--1.png",
+          "maskSha256": "0bdc109b0ca162819457da5c4f5aa7f1ac97b3f9c2dfe051026d9b75b5931aa4",
+          "metrics": {
+            "boundingBox": [
+              423,
+              1585,
+              529,
+              1713
+            ],
+            "coverage": 0.00157645,
+            "pixelCount": 5686
+          },
+          "predictedIoU": 0.82292354,
+          "reviewPreview": "review/winter-food-vessel--1.jpg",
+          "reviewPreviewSha256": "800a899a98007e978f9c7745b39016dcd6e2108698aaeed50137c0b414fc2421"
+        },
+        {
+          "candidate": 2,
+          "mask": "candidates/winter-food-vessel--2.png",
+          "maskSha256": "11a8029ac2497428b53c837cf8c0e903ec8f77e15a582cc712ebe1575c4aa9ff",
+          "metrics": {
+            "boundingBox": [
+              423,
+              1627,
+              516,
+              1715
+            ],
+            "coverage": 0.00141315,
+            "pixelCount": 5097
+          },
+          "predictedIoU": 0.83471793,
+          "reviewPreview": "review/winter-food-vessel--2.jpg",
+          "reviewPreviewSha256": "9f3bb306c5bd4dbcac7f604b33c4ed80e562cde7862512f3fb46f678680d7c21"
+        }
+      ],
+      "id": "winter-food-vessel",
+      "negativePoints": [
+        [
+          430.0,
+          1610.0
+        ],
+        [
+          530.0,
+          1635.0
+        ],
+        [
+          430.0,
+          1715.0
+        ],
+        [
+          500.0,
+          1735.0
+        ]
+      ],
+      "positivePoints": [
+        [
+          470.0,
+          1645.0
+        ],
+        [
+          490.0,
+          1680.0
+        ]
+      ],
+      "selectedCandidate": 2,
+      "selectedMask": "selected/winter-food-vessel.png",
+      "selectedMaskSha256": "11a8029ac2497428b53c837cf8c0e903ec8f77e15a582cc712ebe1575c4aa9ff",
+      "selectedMetrics": {
+        "boundingBox": [
+          423,
+          1627,
+          516,
+          1715
+        ],
+        "coverage": 0.00141315,
+        "pixelCount": 5097
+      }
+    },
+    {
+      "box": [
+        595.0,
+        1560.0,
+        835.0,
+        1900.0
+      ],
+      "candidates": [
+        {
+          "candidate": 0,
+          "mask": "candidates/protected-reserve-bin--0.png",
+          "maskSha256": "a2655bc66af091adf3a67e476b720506780d83d3caa0e3e2db2403c8ccc120a9",
+          "metrics": {
+            "boundingBox": [
+              578,
+              1650,
+              858,
+              1929
+            ],
+            "coverage": 0.01331359,
+            "pixelCount": 48020
+          },
+          "predictedIoU": 0.71411151,
+          "reviewPreview": "review/protected-reserve-bin--0.jpg",
+          "reviewPreviewSha256": "62990a99e99693a3fd03cecfe4539487a9cff546a1aec4ef286219e2e51973a2"
+        },
+        {
+          "candidate": 1,
+          "mask": "candidates/protected-reserve-bin--1.png",
+          "maskSha256": "17e18f6e92b57142fa8e656a96487bdf5dbf2660113882b8b46e920441c7def8",
+          "metrics": {
+            "boundingBox": [
+              582,
+              1521,
+              838,
+              1903
+            ],
+            "coverage": 0.00918366,
+            "pixelCount": 33124
+          },
+          "predictedIoU": 0.53854036,
+          "reviewPreview": "review/protected-reserve-bin--1.jpg",
+          "reviewPreviewSha256": "334ed79840af2d3759b405ef4c42f2274ac8d41991a673cb0dbf8d83ea4c6655"
+        },
+        {
+          "candidate": 2,
+          "mask": "candidates/protected-reserve-bin--2.png",
+          "maskSha256": "c4b360be6c7b9381f6966c56b7ba43279ad177105adf097680042e2aa4b28c7c",
+          "metrics": {
+            "boundingBox": [
+              586,
+              1654,
+              855,
+              1903
+            ],
+            "coverage": 0.00972957,
+            "pixelCount": 35093
+          },
+          "predictedIoU": 0.81186342,
+          "reviewPreview": "review/protected-reserve-bin--2.jpg",
+          "reviewPreviewSha256": "5bdfc0f1f95dc6aa6b7b7eb45df3042a656e0ec5e5c79d1ea0c36236c82c4546"
+        }
+      ],
+      "id": "protected-reserve-bin",
+      "negativePoints": [
+        [
+          560.0,
+          1740.0
+        ],
+        [
+          870.0,
+          1730.0
+        ],
+        [
+          720.0,
+          1940.0
+        ]
+      ],
+      "positivePoints": [
+        [
+          690.0,
+          1640.0
+        ],
+        [
+          720.0,
+          1760.0
+        ],
+        [
+          650.0,
+          1840.0
+        ]
+      ],
+      "selectedCandidate": 2,
+      "selectedMask": "selected/protected-reserve-bin.png",
+      "selectedMaskSha256": "c4b360be6c7b9381f6966c56b7ba43279ad177105adf097680042e2aa4b28c7c",
+      "selectedMetrics": {
+        "boundingBox": [
+          586,
+          1654,
+          855,
+          1903
+        ],
+        "coverage": 0.00972957,
+        "pixelCount": 35093
+      }
+    },
+    {
+      "box": [
+        790.0,
+        1530.0,
+        1045.0,
+        1810.0
+      ],
+      "candidates": [
+        {
+          "candidate": 0,
+          "mask": "candidates/spring-seed-bin-left--0.png",
+          "maskSha256": "e451b0601090b1138cbd83f627706c85736a368ee9064f35b6c23ca4fa988102",
+          "metrics": {
+            "boundingBox": [
+              813,
+              1522,
+              1058,
+              1793
+            ],
+            "coverage": 0.00758365,
+            "pixelCount": 27353
+          },
+          "predictedIoU": 0.61108613,
+          "reviewPreview": "review/spring-seed-bin-left--0.jpg",
+          "reviewPreviewSha256": "96cac1192a8b55a36e1ad847e279b2f9cae78686d69701e7360bb9b41053aaef"
+        },
+        {
+          "candidate": 1,
+          "mask": "candidates/spring-seed-bin-left--1.png",
+          "maskSha256": "f58e2e27e9bcd34ca793dbc0bf15f89ccabce0f77b9bdb68e0f3389f4291e4d5",
+          "metrics": {
+            "boundingBox": [
+              803,
+              1477,
+              1045,
+              1769
+            ],
+            "coverage": 0.00696704,
+            "pixelCount": 25129
+          },
+          "predictedIoU": 0.73567426,
+          "reviewPreview": "review/spring-seed-bin-left--1.jpg",
+          "reviewPreviewSha256": "9fd93eb5d0e25f69d3535cef10372ec89dd7b36c5eb9f6d5d52f9678c65b3ad3"
+        },
+        {
+          "candidate": 2,
+          "mask": "candidates/spring-seed-bin-left--2.png",
+          "maskSha256": "3c3050e1ce72ebd3d010b1ff470058e54e238b8c875efece832ff4f48a4bf586",
+          "metrics": {
+            "boundingBox": [
+              815,
+              1521,
+              1056,
+              1774
+            ],
+            "coverage": 0.00664903,
+            "pixelCount": 23982
+          },
+          "predictedIoU": 0.73384547,
+          "reviewPreview": "review/spring-seed-bin-left--2.jpg",
+          "reviewPreviewSha256": "e85f8fe5da944ede0a4cee23563955fcabade59f33c34e2bcd6c9e008bc5d05b"
+        }
+      ],
+      "id": "spring-seed-bin-left",
+      "negativePoints": [
+        [
+          770.0,
+          1660.0
+        ],
+        [
+          1060.0,
+          1660.0
+        ],
+        [
+          850.0,
+          1830.0
+        ]
+      ],
+      "positivePoints": [
+        [
+          850.0,
+          1600.0
+        ],
+        [
+          930.0,
+          1650.0
+        ],
+        [
+          970.0,
+          1740.0
+        ]
+      ],
+      "selectedCandidate": 0,
+      "selectedMask": "selected/spring-seed-bin-left.png",
+      "selectedMaskSha256": "e451b0601090b1138cbd83f627706c85736a368ee9064f35b6c23ca4fa988102",
+      "selectedMetrics": {
+        "boundingBox": [
+          813,
+          1522,
+          1058,
+          1793
+        ],
+        "coverage": 0.00758365,
+        "pixelCount": 27353
+      }
+    },
+    {
+      "box": [
+        980.0,
+        1510.0,
+        1290.0,
+        1840.0
+      ],
+      "candidates": [
+        {
+          "candidate": 0,
+          "mask": "candidates/spring-seed-bin-right--0.png",
+          "maskSha256": "485718b1b5cff9c205ac3dc8bcaeef2ab080ff7cae15b731fe5f713cc275f5ab",
+          "metrics": {
+            "boundingBox": [
+              979,
+              1582,
+              1289,
+              1864
+            ],
+            "coverage": 0.01229719,
+            "pixelCount": 44354
+          },
+          "predictedIoU": 0.65657938,
+          "reviewPreview": "review/spring-seed-bin-right--0.jpg",
+          "reviewPreviewSha256": "1dac6b63080f53bf8e2078c215128569c080202d5ef88fac3ea2fa4d90087756"
+        },
+        {
+          "candidate": 1,
+          "mask": "candidates/spring-seed-bin-right--1.png",
+          "maskSha256": "630cc08d86246a36ceed2c4caf19b51d127b93a3bc6329269a48644ad6830d13",
+          "metrics": {
+            "boundingBox": [
+              1015,
+              1472,
+              1289,
+              1797
+            ],
+            "coverage": 0.00813371,
+            "pixelCount": 29337
+          },
+          "predictedIoU": 0.73045844,
+          "reviewPreview": "review/spring-seed-bin-right--1.jpg",
+          "reviewPreviewSha256": "bd96ff7218340b7dfcbce14695b496f3a340ef38989913fe76edec6ac1999f31"
+        },
+        {
+          "candidate": 2,
+          "mask": "candidates/spring-seed-bin-right--2.png",
+          "maskSha256": "53954da72bf4b816c02319bb42c376036d75d24cbe0479e3ff2978ea95186cae",
+          "metrics": {
+            "boundingBox": [
+              1026,
+              1566,
+              1289,
+              1800
+            ],
+            "coverage": 0.00822742,
+            "pixelCount": 29675
+          },
+          "predictedIoU": 0.77291352,
+          "reviewPreview": "review/spring-seed-bin-right--2.jpg",
+          "reviewPreviewSha256": "a87ac5c1f51a43e1c4ec55c3770bed718f625c1e91085c48d4529de7d2168cfd"
+        }
+      ],
+      "id": "spring-seed-bin-right",
+      "negativePoints": [
+        [
+          960.0,
+          1660.0
+        ],
+        [
+          1270.0,
+          1835.0
+        ],
+        [
+          1120.0,
+          1835.0
+        ]
+      ],
+      "positivePoints": [
+        [
+          1080.0,
+          1590.0
+        ],
+        [
+          1190.0,
+          1630.0
+        ],
+        [
+          1160.0,
+          1760.0
+        ]
+      ],
+      "selectedCandidate": 0,
+      "selectedMask": "selected/spring-seed-bin-right.png",
+      "selectedMaskSha256": "485718b1b5cff9c205ac3dc8bcaeef2ab080ff7cae15b731fe5f713cc275f5ab",
+      "selectedMetrics": {
+        "boundingBox": [
+          979,
+          1582,
+          1289,
+          1864
+        ],
+        "coverage": 0.01229719,
+        "pixelCount": 44354
+      }
+    },
+    {
+      "box": [
+        915.0,
+        2340.0,
+        1290.0,
+        2796.0
+      ],
+      "candidates": [
+        {
+          "candidate": 0,
+          "mask": "candidates/foreground-basket-right--0.png",
+          "maskSha256": "5ab00a94470674c18672e20a62ea220930b99aa64d759c2207457d63ea585dd5",
+          "metrics": {
+            "boundingBox": [
+              938,
+              2376,
+              1289,
+              2795
+            ],
+            "coverage": 0.0248342,
+            "pixelCount": 89573
+          },
+          "predictedIoU": 0.69870681,
+          "reviewPreview": "review/foreground-basket-right--0.jpg",
+          "reviewPreviewSha256": "d08d6c9a68b30265d815aedb30af9bac1029532783efe83f038bde6f10d4bfb0"
+        },
+        {
+          "candidate": 1,
+          "mask": "candidates/foreground-basket-right--1.png",
+          "maskSha256": "7ea91d52c61efc23967becfd83fc4e9417fa5e251f19a3b310fde88088e82669",
+          "metrics": {
+            "boundingBox": [
+              940,
+              2380,
+              1289,
+              2795
+            ],
+            "coverage": 0.02362179,
+            "pixelCount": 85200
+          },
+          "predictedIoU": 0.71453995,
+          "reviewPreview": "review/foreground-basket-right--1.jpg",
+          "reviewPreviewSha256": "3ca751f745dbd61ecfb220078267ecab6f11ce459e849b5698889dc6b62a3233"
+        },
+        {
+          "candidate": 2,
+          "mask": "candidates/foreground-basket-right--2.png",
+          "maskSha256": "9948f6ebddf7d7f852b88a519535c0946d4a40a5b8cd5200255a5e602ea7ebc0",
+          "metrics": {
+            "boundingBox": [
+              963,
+              2392,
+              1289,
+              2795
+            ],
+            "coverage": 0.0123751,
+            "pixelCount": 44635
+          },
+          "predictedIoU": 0.77341241,
+          "reviewPreview": "review/foreground-basket-right--2.jpg",
+          "reviewPreviewSha256": "5638dad2a984f808a3a33bc0dacbdb709f92619fe7b2a5d769819268b7ce08e6"
+        }
+      ],
+      "id": "foreground-basket-right",
+      "negativePoints": [
+        [
+          880.0,
+          2510.0
+        ],
+        [
+          1230.0,
+          2380.0
+        ],
+        [
+          900.0,
+          2730.0
+        ]
+      ],
+      "positivePoints": [
+        [
+          1090.0,
+          2480.0
+        ],
+        [
+          1120.0,
+          2640.0
+        ],
+        [
+          1060.0,
+          2750.0
+        ]
+      ],
+      "selectedCandidate": 0,
+      "selectedMask": "selected/foreground-basket-right.png",
+      "selectedMaskSha256": "5ab00a94470674c18672e20a62ea220930b99aa64d759c2207457d63ea585dd5",
+      "selectedMetrics": {
+        "boundingBox": [
+          938,
+          2376,
+          1289,
+          2795
+        ],
+        "coverage": 0.0248342,
+        "pixelCount": 89573
+      }
+    },
+    {
+      "box": [
+        220.0,
+        2150.0,
+        1030.0,
+        2600.0
+      ],
+      "candidates": [
+        {
+          "candidate": 0,
+          "mask": "candidates/central-grain--0.png",
+          "maskSha256": "1d3afaef03e12697de956d1531ff7714e11364440bf5564245400ab5502f2826",
+          "metrics": {
+            "boundingBox": [
+              258,
+              2113,
+              980,
+              2588
+            ],
+            "coverage": 0.05368051,
+            "pixelCount": 193617
+          },
+          "predictedIoU": 0.92077434,
+          "reviewPreview": "review/central-grain--0.jpg",
+          "reviewPreviewSha256": "ddbfa893048d86620bd849cbe04fa1aa356b9c897559eee90b52cd6895a7fd20"
+        },
+        {
+          "candidate": 1,
+          "mask": "candidates/central-grain--1.png",
+          "maskSha256": "85dbd5f14ed998ed3874721948678acd0411e3e0e91d443c9d47555fc047aea3",
+          "metrics": {
+            "boundingBox": [
+              316,
+              2189,
+              975,
+              2586
+            ],
+            "coverage": 0.05274257,
+            "pixelCount": 190234
+          },
+          "predictedIoU": 0.97135139,
+          "reviewPreview": "review/central-grain--1.jpg",
+          "reviewPreviewSha256": "6deff8380194edec6019dd21e4d40289f8ca13ab33a621a3fa20fe441b233f86"
+        },
+        {
+          "candidate": 2,
+          "mask": "candidates/central-grain--2.png",
+          "maskSha256": "4158bbbe83b5fdadcc42d405b4372fa85b00c099d95de4be0d0f4e031928473a",
+          "metrics": {
+            "boundingBox": [
+              316,
+              2190,
+              976,
+              2587
+            ],
+            "coverage": 0.05267741,
+            "pixelCount": 189999
+          },
+          "predictedIoU": 0.96800953,
+          "reviewPreview": "review/central-grain--2.jpg",
+          "reviewPreviewSha256": "ee5d2867c0d2893bf4bf9814ba9471063e4c828a42c51eca33e5d721c50043bc"
+        }
+      ],
+      "id": "central-grain",
+      "negativePoints": [
+        [
+          190.0,
+          2400.0
+        ],
+        [
+          1060.0,
+          2400.0
+        ],
+        [
+          650.0,
+          2650.0
+        ]
+      ],
+      "positivePoints": [
+        [
+          430.0,
+          2320.0
+        ],
+        [
+          640.0,
+          2260.0
+        ],
+        [
+          820.0,
+          2400.0
+        ],
+        [
+          600.0,
+          2510.0
+        ]
+      ],
+      "selectedCandidate": 1,
+      "selectedMask": "selected/central-grain.png",
+      "selectedMaskSha256": "85dbd5f14ed998ed3874721948678acd0411e3e0e91d443c9d47555fc047aea3",
+      "selectedMetrics": {
+        "boundingBox": [
+          316,
+          2189,
+          975,
+          2586
+        ],
+        "coverage": 0.05274257,
+        "pixelCount": 190234
+      }
+    },
+    {
+      "box": [
+        1030.0,
+        2340.0,
+        1290.0,
+        2796.0
+      ],
+      "candidates": [
+        {
+          "candidate": 0,
+          "mask": "candidates/foreground-hands--0.png",
+          "maskSha256": "d05d382f6a425e80ab1a6a3c0d25e72f92c55503a25df698da7e82c7b15bcf6e",
+          "metrics": {
+            "boundingBox": [
+              1024,
+              2386,
+              1289,
+              2795
+            ],
+            "coverage": 0.01621281,
+            "pixelCount": 58477
+          },
+          "predictedIoU": 0.83722997,
+          "reviewPreview": "review/foreground-hands--0.jpg",
+          "reviewPreviewSha256": "57e9a1cd68a9bb804a721d6a99652f21c3ec06db8d92438fcf7573a48c7a18a9"
+        },
+        {
+          "candidate": 1,
+          "mask": "candidates/foreground-hands--1.png",
+          "maskSha256": "bca317f4831b5c0bc16a4d803dd6cf20e156e7183ff2de202d99e2f0d2a0ff03",
+          "metrics": {
+            "boundingBox": [
+              1023,
+              2417,
+              1289,
+              2795
+            ],
+            "coverage": 0.01162098,
+            "pixelCount": 41915
+          },
+          "predictedIoU": 0.9300316,
+          "reviewPreview": "review/foreground-hands--1.jpg",
+          "reviewPreviewSha256": "36cc606a2c49ba47fa3a3e5e8d9756c9b4f43e72758c64704e81a3376aaee38a"
+        },
+        {
+          "candidate": 2,
+          "mask": "candidates/foreground-hands--2.png",
+          "maskSha256": "ba4dd45b76f3ffd7c98cb803e220d08207515316f5b97e3ea083e5b52ffefd15",
+          "metrics": {
+            "boundingBox": [
+              1023,
+              2416,
+              1289,
+              2795
+            ],
+            "coverage": 0.01167116,
+            "pixelCount": 42096
+          },
+          "predictedIoU": 0.93796998,
+          "reviewPreview": "review/foreground-hands--2.jpg",
+          "reviewPreviewSha256": "b84f12cc868990aa7c2f711a943888b0ad59941f186b3e4b6eb547c19dcf887a"
+        }
+      ],
+      "id": "foreground-hands",
+      "negativePoints": [
+        [
+          1040.0,
+          2480.0
+        ],
+        [
+          1030.0,
+          2700.0
+        ],
+        [
+          980.0,
+          2590.0
+        ]
+      ],
+      "positivePoints": [
+        [
+          1210.0,
+          2470.0
+        ],
+        [
+          1200.0,
+          2610.0
+        ],
+        [
+          1170.0,
+          2720.0
+        ]
+      ],
+      "selectedCandidate": 2,
+      "selectedMask": "selected/foreground-hands.png",
+      "selectedMaskSha256": "ba4dd45b76f3ffd7c98cb803e220d08207515316f5b97e3ea083e5b52ffefd15",
+      "selectedMetrics": {
+        "boundingBox": [
+          1023,
+          2416,
+          1289,
+          2795
+        ],
+        "coverage": 0.01167116,
+        "pixelCount": 42096
+      }
+    }
+  ],
+  "promptSpecification": {
+    "path": "/Users/bard/Documents/Eurocentric/native/content/backstage/harvest/semantic-segmentation-prompts-v26.provisional.json",
+    "sha256": "cd8146463340762c3b5c406fdc37e091d369688ff28ed93d5b29ea443f317afa"
+  },
+  "runtime": {
+    "device": "mps",
+    "numpy": "2.5.1",
+    "offlineEnvironment": true,
+    "pillow": "12.3.0",
+    "python": "3.14.6",
+    "torch": "2.13.0",
+    "transformers": "5.13.0"
+  },
+  "schemaVersion": 1,
+  "shippingState": "PROHIBITED",
+  "source": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+    "pixelSize": [
+      1290,
+      2796
+    ],
+    "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca"
+  },
+  "status": "BACKSTAGE_MASK_AUTHORING_OUTPUT_REQUIRES_VISUAL_REVIEW",
+  "unions": [
+    {
+      "id": "settlement-shelter",
+      "mask": "selected/settlement-shelter.png",
+      "maskSha256": "808903d213d4694f022a0f9930cda3c4f639e28476a584e862b381ebd49371d0",
+      "members": [
+        "upper-canopy",
+        "left-shelter"
+      ],
+      "metrics": {
+        "boundingBox": [
+          0,
+          62,
+          1289,
+          1626
+        ],
+        "coverage": 0.28473789,
+        "pixelCount": 1027004
+      },
+      "reviewPreview": "review/settlement-shelter.jpg",
+      "reviewPreviewSha256": "271dc1bbd7ee7b22811e3d55ea42b614c1222310fba2b22293db0e684e187234"
+    },
+    {
+      "id": "people-and-work",
+      "mask": "selected/people-and-work.png",
+      "maskSha256": "90e9dcb55a980d3971b6da5c44174d352fe74729197c8300d96562a7c4547a2d",
+      "members": [
+        "hearth-woman",
+        "hearth-child",
+        "seated-man",
+        "background-worker-right",
+        "right-worker"
+      ],
+      "metrics": {
+        "boundingBox": [
+          137,
+          1246,
+          1289,
+          2243
+        ],
+        "coverage": 0.05800396,
+        "pixelCount": 209211
+      },
+      "reviewPreview": "review/people-and-work.jpg",
+      "reviewPreviewSha256": "63edf55985ad1e430ce7346616da98800e8211c9aa035e8c2ba6d61f8cedf1d3"
+    },
+    {
+      "id": "hands-and-grain",
+      "mask": "selected/hands-and-grain.png",
+      "maskSha256": "e63cd065fbff87566b31f92b5875fffd9297b4942e9bba463f366d1383e34fb3",
+      "members": [
+        "central-grain",
+        "foreground-hands"
+      ],
+      "metrics": {
+        "boundingBox": [
+          316,
+          2189,
+          1289,
+          2795
+        ],
+        "coverage": 0.06441373,
+        "pixelCount": 232330
+      },
+      "reviewPreview": "review/hands-and-grain.jpg",
+      "reviewPreviewSha256": "73cd7099342dc1836663a5ef13461256434478a080423b12133749d0dabbe835"
+    },
+    {
+      "id": "foreground-occluders",
+      "mask": "selected/foreground-occluders.png",
+      "maskSha256": "8810139ae423683c5434690a5698bd28940338790b75ba9d3ca897d98a29cf35",
+      "members": [
+        "foreground-basket-left",
+        "foreground-basket-right",
+        "foreground-hands"
+      ],
+      "metrics": {
+        "boundingBox": [
+          0,
+          2328,
+          1289,
+          2795
+        ],
+        "coverage": 0.06273913,
+        "pixelCount": 226290
+      },
+      "reviewPreview": "review/foreground-occluders.jpg",
+      "reviewPreviewSha256": "3226cbb6ea082211be402dd0de4e43517f43611647e51aa833932db004105f55"
+    },
+    {
+      "id": "spring-seed-store",
+      "mask": "selected/spring-seed-store.png",
+      "maskSha256": "60bd67ede5b3602993ca484c93e94d5d63b75f055f1c616d0aa9c50faf69a9c9",
+      "members": [
+        "spring-seed-bin-left",
+        "spring-seed-bin-right"
+      ],
+      "metrics": {
+        "boundingBox": [
+          813,
+          1522,
+          1289,
+          1864
+        ],
+        "coverage": 0.01843442,
+        "pixelCount": 66490
+      },
+      "reviewPreview": "review/spring-seed-store.jpg",
+      "reviewPreviewSha256": "beb930131250b637214354c8e8c32c59f522bdb7de2c9d7eba9beb032380647d"
+    }
+  ]
+}

@@ -1,0 +1,390 @@
+{
+  "schemaVersion": 1,
+  "assetVersion": "chapter01-enhanced-review-v1",
+  "classification": "GREYBOX_CONTINUITY_CANDIDATE",
+  "finalArtGate": "OPEN",
+  "shippingStatus": "BLOCKED",
+  "heroLibrary": {
+    "source": "native/production/3d/chapter01/characters/outputs/chapter01-hero-character-library.usdc",
+    "expectedSHA256": "0127d681b1dae5ede2d6acced1c596c23f08dee83a1c1f9be2f2c059b52f3140",
+    "sourceUSDZ": "native/production/3d/chapter01/characters/outputs/chapter01-hero-character-library.usdz",
+    "expectedUSDZSHA256": "b3a7a34f188401a5b9fabab8f98c2d67712eed557ac4c80785e90d9bdde6d63e",
+    "sourceManifest": "native/production/3d/chapter01/characters/build-manifest.json",
+    "expectedManifestSHA256": "110e4160b56d4534a45653a9b560d7351a000b5adc46770c7b3d711e54c0a3e7",
+    "sourceProvenance": "native/production/3d/chapter01/characters/provenance.json",
+    "expectedProvenanceSHA256": "fb306ea451a8709d4311daa03fb2fb2459d9b67b9f5ba85fc263442ee5dbba1b",
+    "classification": "HERO_RIG_CANDIDATE",
+    "finalArtGate": "OPEN",
+    "rightsGate": "PASS"
+  },
+  "animalLibrary": {
+    "sourceLOD0": "native/production/3d/chapter01/animals/outputs/chapter01-cattle-library-lod0.usdc",
+    "expectedLOD0SHA256": "b4b4dc7587ebf279110cc84cd27842cdb89be44785360484a8fd1671065960ec",
+    "sourceLOD0USDZ": "native/production/3d/chapter01/animals/outputs/chapter01-cattle-library-lod0.usdz",
+    "expectedLOD0USDZSHA256": "8501d7b3cd98481dbad74f362ac3927cbd40705ff5b09fcb56dfc4d54bb3902a",
+    "sourceLOD1": "native/production/3d/chapter01/animals/outputs/chapter01-cattle-library-lod1.usdc",
+    "expectedLOD1SHA256": "e089b605a9cde6a799ef2423f768a8e90e5217b7680d7baaeb3bca82c1105eb6",
+    "sourceLOD1USDZ": "native/production/3d/chapter01/animals/outputs/chapter01-cattle-library-lod1.usdz",
+    "expectedLOD1USDZSHA256": "ccbc971f983ce8d986419e524868685c947ca7aac496ddf92aed2c6698e72c23",
+    "sourceManifest": "native/production/3d/chapter01/animals/build-manifest.json",
+    "expectedManifestSHA256": "a8ae9fb056feb23f0ef6593d3eb177e329226b4e572031513f4c1dd434012835",
+    "sourceProvenance": "native/production/3d/chapter01/animals/provenance.json",
+    "expectedProvenanceSHA256": "a439872e105084745f0e68c67302d93c20d3daf77de361b404884add40d9fed2",
+    "classification": "ANIMAL_RIG_CANDIDATE",
+    "finalArtGate": "OPEN",
+    "rightsGate": "PASS"
+  },
+  "cells": [
+    {
+      "id": "aegean-crossing",
+      "source": "native/production/3d/chapter01/generated/aegean-crossing-v1/aegean-crossing-lod0.usdc",
+      "sourceUSDZ": "native/production/3d/chapter01/generated/aegean-crossing-v1/aegean-crossing-lod0.usdz",
+      "bindings": "native/production/3d/chapter01/aegean-crossing-build-manifest.json",
+      "preview": {
+        "cameraPosition": [-4.8, -6.2, 3.8],
+        "cameraTarget": [-0.55, -0.25, 0.95],
+        "lens": 48.0,
+        "hidePatterns": [
+          "Sphere",
+          "action_crossing_line_braid_*",
+          "boat_starboard_gunwale*"
+        ],
+        "materialOverrides": {
+          "mat_storm_sky": {"baseColor": [0.045, 0.065, 0.085], "roughness": 1.0},
+          "mat_storm_water": {"baseColor": [0.025, 0.09, 0.12], "roughness": 0.38},
+          "mat_weathered_oak": {"baseColor": [0.18, 0.075, 0.025], "roughness": 0.82},
+          "mat_wet_oak": {"baseColor": [0.13, 0.045, 0.018], "roughness": 0.36},
+          "mat_hemp_rope": {"baseColor": [0.52, 0.29, 0.08], "roughness": 0.88},
+          "mat_emmer_grain": {"baseColor": [0.86, 0.43, 0.055], "roughness": 0.82}
+        },
+        "additionalViews": [
+          {
+            "suffix": "line",
+            "cameraPosition": [4.8, -6.0, 3.5],
+            "cameraTarget": [0.65, -0.15, 1.0],
+            "lens": 50.0
+          }
+        ]
+      },
+      "people": [
+        {
+          "placeholder": "/western_anatolia_aegean/person_rope_handler",
+          "hero": "hero_adult_a",
+          "translation": [1.15, 0.30, 0.04],
+          "rotationDegrees": [0.0, 0.0, 0.0],
+          "scale": 1.03,
+          "poseRetention": "Baked braced working pose; exact rope contact remains open."
+        },
+        {
+          "placeholder": "/western_anatolia_aegean/person_seed_keeper",
+          "hero": "hero_adult_b",
+          "translation": [-1.48, -1.08, 0.04],
+          "rotationDegrees": [0.0, 0.0, 0.0],
+          "scale": 0.98,
+          "poseRetention": "Baked carrying pose is aligned to the seed vessel; exact hand contact remains open."
+        },
+        {
+          "placeholder": "/western_anatolia_aegean/person_stabilizer",
+          "hero": "hero_youth",
+          "translation": [-2.15, 0.28, 0.04],
+          "rotationDegrees": [0.0, 0.0, 0.0],
+          "scale": 1.00,
+          "poseRetention": "Baked forward working pose is aligned to the bovine; exact hand contact remains open."
+        }
+      ],
+      "animals": [
+        {
+          "placeholder": "/western_anatolia_aegean/young_bovine",
+          "animal": "cattle_young",
+          "directedClip": "boat-brace",
+          "translation": [-1.0, 0.0, 0.0],
+          "rotationDegrees": [0.0, 0.0, 0.0],
+          "scale": [0.76, 0.82, 0.86]
+        }
+      ]
+    },
+    {
+      "id": "thessaly",
+      "source": "native/production/3d/chapter01/thessaly/outputs/thessaly-household-store.usdc",
+      "sourceUSDZ": "native/production/3d/chapter01/thessaly/outputs/thessaly-household-store.usdz",
+      "bindings": "native/production/3d/chapter01/thessaly/entity-bindings.json",
+      "preview": {
+        "cameraPosition": [3.6, -5.4, 3.0],
+        "cameraTarget": [-0.1, -0.55, 1.0],
+        "lens": 58.0,
+        "materialOverrides": {
+          "mat_storm_sky": {"baseColor": [0.045, 0.06, 0.075], "roughness": 1.0},
+          "mat_storm_cloud": {"baseColor": [0.035, 0.045, 0.055], "roughness": 1.0},
+          "mat_daub": {"baseColor": [0.38, 0.245, 0.13], "roughness": 0.95},
+          "mat_timber_oak": {"baseColor": [0.2, 0.08, 0.025], "roughness": 0.9},
+          "mat_grain_dry": {"baseColor": [0.72, 0.38, 0.065], "roughness": 0.86},
+          "mat_grain_mass": {"baseColor": [0.5, 0.22, 0.04], "roughness": 0.9},
+          "mat_soil_worked": {"baseColor": [0.22, 0.09, 0.028], "roughness": 0.96}
+        }
+      },
+      "people": [
+        {
+          "placeholder": "/Chapter01/thessalian_household_store/person_grinding_grain",
+          "hero": "hero_adult_b",
+          "translation": [-0.84, -0.54, -0.43],
+          "rotationDegrees": [0.0, 0.0, 0.0],
+          "scale": 0.96,
+          "poseRetention": "The lowered root keeps the torso and hands at the quern; a dedicated kneeling deformation remains open."
+        },
+        {
+          "placeholder": "/Chapter01/thessalian_household_store/person_carrying_seed",
+          "hero": "hero_adult_a",
+          "translation": [0.72, -0.80, 0.08],
+          "rotationDegrees": [0.0, 0.0, 0.0],
+          "scale": 1.08,
+          "protectedSubtrees": [
+            "/Chapter01/thessalian_household_store/person_carrying_seed/seed_carrying_bowl",
+            "/Chapter01/thessalian_household_store/person_carrying_seed/seed_carrying_bowl_grain"
+          ],
+          "poseRetention": "Baked carrying pose is centred on the preserved bowl and grain; exact finger contact remains open."
+        }
+      ]
+    },
+    {
+      "id": "iron-gates",
+      "source": "native/production/3d/chapter01/iron-gates/exports/iron-gates.usdc",
+      "sourceUSDZ": "native/production/3d/chapter01/iron-gates/exports/iron-gates.usdz",
+      "bindings": "native/production/3d/chapter01/iron-gates/entity-bindings.json",
+      "preview": {
+        "cameraPosition": [-1.1, -8.1, 3.35],
+        "cameraTarget": [1.75, -0.55, 1.15],
+        "lens": 38.0,
+        "hidePatterns": ["iron_gates_mist_near_data", "iron_gates_mist_far_data"],
+        "materialOverrides": {
+          "iron_gates_limestone": {"baseColor": [0.15, 0.18, 0.18], "roughness": 0.9},
+          "danube_water": {"baseColor": [0.015, 0.075, 0.085], "roughness": 0.26},
+          "weathered_oak": {"baseColor": [0.17, 0.075, 0.028], "roughness": 0.9},
+          "worked_oak": {"baseColor": [0.3, 0.12, 0.035], "roughness": 0.8},
+          "bast_rope": {"baseColor": [0.5, 0.31, 0.12], "roughness": 0.9},
+          "dry_reed_thatch": {"baseColor": [0.42, 0.28, 0.09], "roughness": 0.96}
+        },
+        "additionalViews": [
+          {
+            "suffix": "handoff",
+            "cameraPosition": [3.8, 5.4, 2.65],
+            "cameraTarget": [4.0, 0.55, 1.45],
+            "lens": 52.0
+          }
+        ]
+      },
+      "people": [
+        {
+          "placeholder": "/root/iron_gates_riverbank/state_default/iron_gates_boat/iron_gates_local_guide",
+          "hero": "hero_adult_b",
+          "translation": [0.0, 0.0, 0.0],
+          "rotationDegrees": [0.0, 0.0, 0.0],
+          "scale": 1.00,
+          "protectedSubtrees": [
+            "/root/iron_gates_riverbank/state_default/iron_gates_boat/iron_gates_local_guide/guide_pole"
+          ],
+          "poseRetention": "The inherited placeholder transform preserves the guide's pole-facing stance; exact pole contact remains open."
+        },
+        {
+          "placeholder": "/root/iron_gates_riverbank/state_default/iron_gates_boat/iron_gates_boat_worker",
+          "hero": "hero_adult_a",
+          "translation": [0.0, 0.0, 0.0],
+          "rotationDegrees": [0.0, 0.0, 0.0],
+          "scale": 1.00,
+          "poseRetention": "The inherited placeholder transform preserves the boat work position."
+        },
+        {
+          "placeholder": "/root/iron_gates_riverbank/state_default/iron_gates_line_receiver",
+          "hero": "hero_adult_a",
+          "translation": [0.0, 0.0, 0.0],
+          "rotationDegrees": [0.0, 0.0, 0.0],
+          "scale": 1.00,
+          "poseRetention": "The inherited placeholder transform preserves the receiving stance; exact line contact remains open."
+        },
+        {
+          "placeholder": "/root/iron_gates_riverbank/state_default/iron_gates_bank_worker",
+          "hero": "hero_youth",
+          "translation": [0.0, 0.0, 0.0],
+          "rotationDegrees": [0.0, 0.0, 0.0],
+          "scale": 1.00,
+          "poseRetention": "The inherited placeholder transform preserves the bank work position."
+        },
+        {
+          "placeholder": "/root/iron_gates_riverbank/state_default/iron_gates_settlement_resident",
+          "hero": "hero_adult_b",
+          "translation": [0.0, 0.0, 0.0],
+          "rotationDegrees": [0.0, 0.0, 0.0],
+          "scale": 1.00,
+          "poseRetention": "The inherited placeholder transform preserves the handoff position."
+        }
+      ]
+    },
+    {
+      "id": "longhouse",
+      "source": "native/production/3d/chapter01/longhouse/exports/longhouse.usdc",
+      "sourceUSDZ": "native/production/3d/chapter01/longhouse/exports/longhouse.usdz",
+      "bindings": "native/production/3d/chapter01/longhouse/entity-bindings.json",
+      "preview": {
+        "cameraPosition": [-7.0, -12.0, 2.55],
+        "cameraTarget": [-2.55, -7.15, 1.35],
+        "lens": 48.0,
+        "hidePatterns": [
+          "thatch_roof_bundle*",
+          "longhouse_post_*",
+          "longhouse_wall_plate_*",
+          "longhouse_ridge_beam_data",
+          "longhouse_wattle*",
+          "wattle_*",
+          "action_post_1_data"
+        ],
+        "materialOverrides": {
+          "loess_earth": {"baseColor": [0.23, 0.15, 0.07], "roughness": 0.96},
+          "weathered_oak": {"baseColor": [0.17, 0.075, 0.025], "roughness": 0.9},
+          "worked_oak": {"baseColor": [0.31, 0.13, 0.038], "roughness": 0.8},
+          "dry_reed_thatch": {"baseColor": [0.43, 0.29, 0.095], "roughness": 0.96},
+          "bast_rope": {"baseColor": [0.5, 0.31, 0.12], "roughness": 0.9},
+          "hearth_flame": {"baseColor": [0.95, 0.16, 0.015], "roughness": 0.35}
+        },
+        "additionalViews": [
+          {
+            "suffix": "pulling",
+            "cameraPosition": [7.0, -13.2, 2.45],
+            "cameraTarget": [3.25, -8.75, 1.05],
+            "lens": 52.0
+          }
+        ]
+      },
+      "people": [
+        {
+          "placeholder": "/root/danube_loess_longhouse/state_default/longhouse_worker_raising",
+          "hero": "hero_adult_a",
+          "translation": [0.0, 0.0, 0.0],
+          "rotationDegrees": [0.0, 0.0, 0.0],
+          "scale": 1.00,
+          "poseRetention": "The inherited placeholder transform preserves the raising position; overhead hand contact remains open."
+        },
+        {
+          "placeholder": "/root/danube_loess_longhouse/state_default/longhouse_worker_pulling",
+          "hero": "hero_adult_b",
+          "translation": [0.0, 0.0, 0.0],
+          "rotationDegrees": [0.0, 0.0, 0.0],
+          "scale": 1.00,
+          "poseRetention": "The inherited placeholder transform preserves the opposing pull position; line contact remains open."
+        },
+        {
+          "placeholder": "/root/danube_loess_longhouse/state_default/longhouse_worker_weaving",
+          "hero": "hero_adult_b",
+          "translation": [0.0, 0.0, 0.0],
+          "rotationDegrees": [0.0, 0.0, 0.0],
+          "scale": 1.00,
+          "poseRetention": "The inherited placeholder transform preserves the weaving station."
+        },
+        {
+          "placeholder": "/root/danube_loess_longhouse/state_default/longhouse_worker_storage",
+          "hero": "hero_youth",
+          "translation": [0.0, 0.0, 0.0],
+          "rotationDegrees": [0.0, 0.0, 0.0],
+          "scale": 1.00,
+          "poseRetention": "The inherited placeholder transform preserves the storage handoff position."
+        }
+      ]
+    },
+    {
+      "id": "settlement",
+      "source": "native/production/3d/chapter01/settlement/exports/settlement.usdc",
+      "sourceUSDZ": "native/production/3d/chapter01/settlement/exports/settlement.usdz",
+      "bindings": "native/production/3d/chapter01/settlement/entity-bindings.json",
+      "preview": {
+        "cameraPosition": [-1.0, -12.5, 3.2],
+        "cameraTarget": [-6.3, -7.0, 1.05],
+        "lens": 62.0,
+        "materialOverrides": {
+          "loess_earth": {"baseColor": [0.24, 0.15, 0.065], "roughness": 0.96},
+          "field_green": {"baseColor": [0.075, 0.17, 0.055], "roughness": 0.94},
+          "regrowth_green": {"baseColor": [0.055, 0.13, 0.04], "roughness": 0.98},
+          "weathered_oak": {"baseColor": [0.17, 0.075, 0.025], "roughness": 0.9},
+          "worked_oak": {"baseColor": [0.31, 0.13, 0.038], "roughness": 0.8},
+          "cattle_hide": {"baseColor": [0.24, 0.105, 0.035], "roughness": 0.86},
+          "cattle_hide_light": {"baseColor": [0.48, 0.32, 0.16], "roughness": 0.88}
+        },
+        "additionalViews": [
+          {
+            "suffix": "final",
+            "cameraPosition": [5.4, 8.5, 3.1],
+            "cameraTarget": [-0.2, 14.3, 1.2],
+            "lens": 62.0,
+            "forceVisible": ["state_continent_transformed"],
+            "forceHidden": ["state_default", "state_route_open", "state_daughter_grown"]
+          }
+        ]
+      },
+      "people": [
+        {
+          "placeholder": "/root/expanding_settlement_landscape/state_default/moving_herd/herd_guide_adult",
+          "hero": "hero_adult_a",
+          "translation": [0.0, 0.0, 0.0],
+          "rotationDegrees": [0.0, 0.0, 0.0],
+          "scale": 1.00,
+          "poseRetention": "The inherited placeholder transform preserves the herd-leading position; staff contact remains open."
+        },
+        {
+          "placeholder": "/root/expanding_settlement_landscape/state_continent_transformed/final_barrier_worker",
+          "hero": "hero_adult_b",
+          "translation": [0.0, 0.0, 0.0],
+          "rotationDegrees": [0.0, 0.0, 0.0],
+          "scale": 1.00,
+          "poseRetention": "The inherited placeholder transform preserves the final barrier position; exact fastening contact remains open."
+        }
+      ],
+      "animals": [
+        {
+          "placeholder": "/root/expanding_settlement_landscape/state_default/moving_herd/herd_cattle_0",
+          "animal": "cattle_adult",
+          "directedClip": "herd-walk",
+          "scale": [0.52, 0.68, 0.72]
+        },
+        {
+          "placeholder": "/root/expanding_settlement_landscape/state_default/moving_herd/herd_cattle_1",
+          "animal": "cattle_adult",
+          "directedClip": "herd-walk",
+          "scale": [0.52, 0.68, 0.72]
+        },
+        {
+          "placeholder": "/root/expanding_settlement_landscape/state_default/moving_herd/herd_cattle_2",
+          "animal": "cattle_adult",
+          "directedClip": "herd-walk",
+          "scale": [0.52, 0.68, 0.72]
+        },
+        {
+          "placeholder": "/root/expanding_settlement_landscape/state_default/moving_herd/herd_cattle_3",
+          "animal": "cattle_adult",
+          "directedClip": "herd-walk",
+          "scale": [0.52, 0.68, 0.72]
+        },
+        {
+          "placeholder": "/root/expanding_settlement_landscape/state_default/moving_herd/herd_cattle_4",
+          "animal": "cattle_adult",
+          "directedClip": "herd-walk",
+          "scale": [0.52, 0.68, 0.72]
+        },
+        {
+          "placeholder": "/root/expanding_settlement_landscape/state_continent_transformed/final_barrier_herd/final_barrier_cattle_0",
+          "animal": "cattle_adult",
+          "directedClip": "barrier-weight-shift",
+          "scale": [0.52, 0.68, 0.72]
+        },
+        {
+          "placeholder": "/root/expanding_settlement_landscape/state_continent_transformed/final_barrier_herd/final_barrier_cattle_1",
+          "animal": "cattle_adult",
+          "directedClip": "barrier-weight-shift",
+          "scale": [0.52, 0.68, 0.72]
+        },
+        {
+          "placeholder": "/root/expanding_settlement_landscape/state_continent_transformed/final_barrier_herd/final_barrier_cattle_2",
+          "animal": "cattle_adult",
+          "directedClip": "barrier-weight-shift",
+          "scale": [0.52, 0.68, 0.72]
+        }
+      ]
+    }
+  ]
+}

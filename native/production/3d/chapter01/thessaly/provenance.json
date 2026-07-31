@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "assetID": "chapter01-thessaly-household-store",
+  "cellID": "thessalian-household-store",
+  "status": "CONTINUITY_PROOF",
+  "artDirectionReference": {
+    "path": "../art-direction/thessaly-harvest-target-v1.png",
+    "sha256": "5392d6f60eee34632b0376d97a437fce0af0946f86fa40684f61ed0142019905",
+    "usage": "Composition and lighting target only; not embedded in runtime artifacts"
+  },
+  "sourceLineage": [
+    {
+      "lineageType": "GENERATED_ORIGINAL",
+      "sourceID": "chapter01-thessaly-procedural-source",
+      "rightsBasis": "PROJECT_OWNED",
+      "license": "Project-owned; generated entirely from repository-authored symbolic geometry and material recipes"
+    }
+  ],
+  "externalAssets": [],
+  "toolLineage": [
+    {
+      "toolID": "blender",
+      "version": "5.2.0 LTS",
+      "buildHash": "fbe6228777e7"
+    },
+    {
+      "toolID": "pixar-usd",
+      "version": "0.26.3"
+    }
+  ],
+  "rightsStatus": "COMMERCIAL_USE_CLEARED",
+  "incrementalCostNOK": 0,
+  "metadataPolicy": "NO_VOLATILE_CANONICAL_FIELDS",
+  "approvedForShipping": false,
+  "approvalReason": "Continuity proof only. Hero human figures are blocking stand-ins; anatomy, facial quality, grounded contact, winter precipitation scale, background atmosphere, final lighting, editor visual approval, and the physical iPhone performance gate remain outstanding."
+}

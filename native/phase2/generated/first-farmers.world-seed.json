@@ -1,0 +1,53 @@
+{
+  "nodes": [
+    {
+      "id": "western-anatolia",
+      "kind": "settlement",
+      "form": "A hidden eastern Aegean point of departure",
+      "position": {
+        "x": 0.76,
+        "y": 0.78
+      },
+      "attributes": []
+    },
+    {
+      "id": "iron-gates",
+      "kind": "frontier",
+      "form": "A hidden inhabited Danube riverbank",
+      "position": {
+        "x": 0.33,
+        "y": 0.2
+      },
+      "attributes": []
+    },
+    {
+      "id": "trace-seasonal-store",
+      "kind": "institution",
+      "form": "An undivided hidden harvest",
+      "position": {
+        "x": 0.56,
+        "y": 0.62
+      },
+      "attributes": []
+    },
+    {
+      "id": "trace-european-farming-belt",
+      "kind": "landscape",
+      "form": "Hidden European farming ground",
+      "position": {
+        "x": 0.5,
+        "y": 0.48
+      },
+      "attributes": []
+    }
+  ],
+  "traces": [
+    {
+      "id": "route-aegean-danube",
+      "kind": "seaRoute",
+      "origin": "western-anatolia",
+      "destination": "iron-gates",
+      "strength": 1
+    }
+  ]
+}

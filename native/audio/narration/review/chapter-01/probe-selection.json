@@ -1,0 +1,357 @@
+{
+  "schemaVersion": 1,
+  "status": "NON_SHIPPING_REVIEW",
+  "shippingState": "PROHIBITED",
+  "chapterID": "first-farmers",
+  "probeCount": 2,
+  "probeManifest": {
+    "path": "native/audio/narration/review/chapter-01/probes/manifest.json",
+    "bytes": 8237,
+    "sha256": "2da2f119539e9b8583bdfe434abf90cdeafe1792a0fcc0e7487d0b81f21982f1"
+  },
+  "selectionCriteria": [
+    "word-accuracy",
+    "identity-stability",
+    "retained-silence-fraction",
+    "decoder-collapse-absence"
+  ],
+  "candidateRecords": [
+    {
+      "candidateID": "voice-candidate-05",
+      "audio": {
+        "repositoryPath": "native/audio/narration/review/chapter-01/probes/voice-candidate-05.m4a",
+        "sampleRate": 48000,
+        "durationSamples": 3094528,
+        "bytes": 1542305,
+        "sha256": "fc11c6bb860a5730685145c7971d311360cce04c00c9bb197102b0cdba4d3ac9"
+      },
+      "durationSeconds": 64.46933333333334,
+      "wordAccuracy": 0.4455958549222798,
+      "wordErrorRate": 0.5544041450777202,
+      "hypothesisToReferenceWordRatio": 0.6217616580310881,
+      "maximumNonmatchingReferenceRunWords": 33,
+      "maximumNonmatchingHypothesisRunWords": 17,
+      "identity": {
+        "windowSeconds": 8,
+        "windowCount": 8,
+        "cosinesToReference": [
+          0.9921780228614807,
+          0.9894251227378845,
+          0.9931925535202026,
+          0.989797830581665,
+          0.9924401044845581,
+          0.9914410710334778,
+          0.987719714641571,
+          0.9866485595703125
+        ],
+        "minimumCosineToReference": 0.9866485595703125,
+        "meanCosineToReference": 0.990355372428894
+      },
+      "retainedSilenceFraction": 0.27986348122866894,
+      "repetition": {
+        "ngramSize": 6,
+        "minimumHypothesisOccurrences": 2,
+        "referenceNgramCount": 188,
+        "hypothesisNgramCount": 115,
+        "excessOccurrenceCount": 18,
+        "excessOccurrenceFraction": 0.1565217391304348,
+        "maximumAllowedExcessOccurrenceFraction": 0.005,
+        "topExcessNgrams": [
+          {
+            "text": "a measured pace calm authority clear",
+            "referenceOccurrences": 0,
+            "hypothesisOccurrences": 4,
+            "excessOccurrences": 4
+          },
+          {
+            "text": "calm authority clear articulation restrained expression",
+            "referenceOccurrences": 0,
+            "hypothesisOccurrences": 4,
+            "excessOccurrences": 4
+          },
+          {
+            "text": "measured pace calm authority clear articulation",
+            "referenceOccurrences": 0,
+            "hypothesisOccurrences": 4,
+            "excessOccurrences": 4
+          },
+          {
+            "text": "pace calm authority clear articulation restrained",
+            "referenceOccurrences": 0,
+            "hypothesisOccurrences": 4,
+            "excessOccurrences": 4
+          },
+          {
+            "text": "authority clear articulation restrained expression the",
+            "referenceOccurrences": 0,
+            "hypothesisOccurrences": 2,
+            "excessOccurrences": 2
+          }
+        ],
+        "passes": false
+      },
+      "timedWordGrouping": {
+        "algorithm": "Whisper BPE leading-space grouping with deterministic intra-token time partition, clipped overlap, and bounded decoder-tail removal",
+        "sourceTokenCount": 182,
+        "rawLexicalGroupCount": 120,
+        "splitLexicalGroupCount": 0,
+        "timedWordCount": 120,
+        "firstWordStartMilliseconds": 70.0,
+        "lastWordEndMilliseconds": 64240.0,
+        "timestampTailToleranceMilliseconds": 500.0,
+        "clippedSourceTokenCount": 0,
+        "clippedLexicalTokenCount": 0,
+        "clippedNonLexicalTokenCount": 0,
+        "droppedSourceTokenCount": 0,
+        "droppedLexicalTokenCount": 0,
+        "droppedNonLexicalTokenCount": 0,
+        "maximumTimestampOverrunMilliseconds": 0.0,
+        "monotone": true,
+        "boundedByDecodedMaster": true
+      },
+      "asrDerivative": {
+        "source": {
+          "path": "native/audio/narration/review/chapter-01/probes/voice-candidate-05.m4a",
+          "bytes": 1542305,
+          "sha256": "fc11c6bb860a5730685145c7971d311360cce04c00c9bb197102b0cdba4d3ac9"
+        },
+        "derivative": {
+          "path": "/Users/bard/Documents/Eurocentric/native/audio/narration/work/chapter-01-review-v1/voxcpm2-probes/audit/voice-candidate-05-asr-input.wav",
+          "bytes": 2063096,
+          "sha256": "36d979bb2ff318533b1bbb0de6a71ddc4f3da9bf234bad99079e56e9204ae459"
+        },
+        "sampleRate": 16000,
+        "channels": 1,
+        "codec": "pcm_s16le",
+        "contentTransform": "decode-and-resample-only"
+      },
+      "asr": {
+        "command": [
+          "/opt/homebrew/Cellar/whisper-cpp/1.9.1/bin/whisper-cli",
+          "--model",
+          "/Users/bard/.cache/hyperframes/whisper/models/ggml-large-v3.bin",
+          "--language",
+          "en",
+          "--threads",
+          "8",
+          "--processors",
+          "1",
+          "--beam-size",
+          "5",
+          "--best-of",
+          "5",
+          "--split-on-word",
+          "--output-json-full",
+          "--no-prints",
+          "--output-file",
+          "/Users/bard/Documents/Eurocentric/native/audio/narration/work/chapter-01-review-v1/voxcpm2-probes/audit/voice-candidate-05",
+          "/Users/bard/Documents/Eurocentric/native/audio/narration/work/chapter-01-review-v1/voxcpm2-probes/audit/voice-candidate-05-asr-input.wav"
+        ],
+        "commandSHA256": "ca892fb49a387560b6965d4d001520832cefc9780c6e25743b55aae4b209473e",
+        "master": {
+          "path": "/Users/bard/Documents/Eurocentric/native/audio/narration/work/chapter-01-review-v1/voxcpm2-probes/audit/voice-candidate-05-asr-input.wav",
+          "bytes": 2063096,
+          "sha256": "36d979bb2ff318533b1bbb0de6a71ddc4f3da9bf234bad99079e56e9204ae459"
+        },
+        "transcript": {
+          "path": "/Users/bard/Documents/Eurocentric/native/audio/narration/work/chapter-01-review-v1/voxcpm2-probes/audit/voice-candidate-05.json",
+          "bytes": 47184,
+          "sha256": "2304abe6b914d5f58b064c99317dc6329bd012fbdfa18799e0c1211d2620f199"
+        },
+        "log": {
+          "path": "/Users/bard/Documents/Eurocentric/native/audio/narration/work/chapter-01-review-v1/voxcpm2-probes/audit/voice-candidate-05.whisper.log.txt",
+          "bytes": 3382,
+          "sha256": "9bd4021a360d4ceafaca9d9679a00ddac3dfe11d84902c94ac56cb073b93c3e4"
+        },
+        "answerPromptUsed": false,
+        "externalReceiptUsed": false
+      },
+      "transcript": {
+        "path": "/Users/bard/Documents/Eurocentric/native/audio/narration/work/chapter-01-review-v1/voxcpm2-probes/audit/voice-candidate-05.json",
+        "bytes": 47184,
+        "sha256": "2304abe6b914d5f58b064c99317dc6329bd012fbdfa18799e0c1211d2620f199"
+      },
+      "gates": {
+        "duration60To90Seconds": true,
+        "wordAccuracy": false,
+        "identityStability": true,
+        "retainedSilence": false,
+        "decoderCollapseAbsent": false
+      },
+      "technicalPass": false
+    },
+    {
+      "candidateID": "voice-candidate-06",
+      "audio": {
+        "repositoryPath": "native/audio/narration/review/chapter-01/probes/voice-candidate-06.m4a",
+        "sampleRate": 48000,
+        "durationSamples": 4000768,
+        "bytes": 1902700,
+        "sha256": "2a864d392a8c787f2fe46bbf268e3a4a75b76146910c4908b50c045af7f07315"
+      },
+      "durationSeconds": 83.34933333333333,
+      "wordAccuracy": 0.5906735751295337,
+      "wordErrorRate": 0.40932642487046633,
+      "hypothesisToReferenceWordRatio": 0.8704663212435233,
+      "maximumNonmatchingReferenceRunWords": 29,
+      "maximumNonmatchingHypothesisRunWords": 10,
+      "identity": {
+        "windowSeconds": 8,
+        "windowCount": 10,
+        "cosinesToReference": [
+          0.993278980255127,
+          0.9907414317131042,
+          0.9936571717262268,
+          0.989250123500824,
+          0.9930230379104614,
+          0.9917556047439575,
+          0.988468587398529,
+          0.992264986038208,
+          0.9892024397850037,
+          0.986678421497345
+        ],
+        "minimumCosineToReference": 0.986678421497345,
+        "meanCosineToReference": 0.9908320784568787
+      },
+      "retainedSilenceFraction": 0.2750179985601152,
+      "repetition": {
+        "ngramSize": 6,
+        "minimumHypothesisOccurrences": 2,
+        "referenceNgramCount": 188,
+        "hypothesisNgramCount": 163,
+        "excessOccurrenceCount": 15,
+        "excessOccurrenceFraction": 0.09202453987730061,
+        "maximumAllowedExcessOccurrenceFraction": 0.005,
+        "topExcessNgrams": [
+          {
+            "text": "measured pace calm authority clear articulation",
+            "referenceOccurrences": 0,
+            "hypothesisOccurrences": 4,
+            "excessOccurrences": 4
+          },
+          {
+            "text": "pace calm authority clear articulation restrained",
+            "referenceOccurrences": 0,
+            "hypothesisOccurrences": 4,
+            "excessOccurrences": 4
+          },
+          {
+            "text": "a measured pace calm authority clear",
+            "referenceOccurrences": 0,
+            "hypothesisOccurrences": 3,
+            "excessOccurrences": 3
+          },
+          {
+            "text": "calm authority clear articulation restrained expression",
+            "referenceOccurrences": 0,
+            "hypothesisOccurrences": 2,
+            "excessOccurrences": 2
+          },
+          {
+            "text": "calm authority clear articulation restrained expressions",
+            "referenceOccurrences": 0,
+            "hypothesisOccurrences": 2,
+            "excessOccurrences": 2
+          }
+        ],
+        "passes": false
+      },
+      "timedWordGrouping": {
+        "algorithm": "Whisper BPE leading-space grouping with deterministic intra-token time partition, clipped overlap, and bounded decoder-tail removal",
+        "sourceTokenCount": 249,
+        "rawLexicalGroupCount": 168,
+        "splitLexicalGroupCount": 0,
+        "timedWordCount": 168,
+        "firstWordStartMilliseconds": 80.0,
+        "lastWordEndMilliseconds": 82990.0,
+        "timestampTailToleranceMilliseconds": 500.0,
+        "clippedSourceTokenCount": 0,
+        "clippedLexicalTokenCount": 0,
+        "clippedNonLexicalTokenCount": 0,
+        "droppedSourceTokenCount": 0,
+        "droppedLexicalTokenCount": 0,
+        "droppedNonLexicalTokenCount": 0,
+        "maximumTimestampOverrunMilliseconds": 0.0,
+        "monotone": true,
+        "boundedByDecodedMaster": true
+      },
+      "asrDerivative": {
+        "source": {
+          "path": "native/audio/narration/review/chapter-01/probes/voice-candidate-06.m4a",
+          "bytes": 1902700,
+          "sha256": "2a864d392a8c787f2fe46bbf268e3a4a75b76146910c4908b50c045af7f07315"
+        },
+        "derivative": {
+          "path": "/Users/bard/Documents/Eurocentric/native/audio/narration/work/chapter-01-review-v1/voxcpm2-probes/audit/voice-candidate-06-asr-input.wav",
+          "bytes": 2667256,
+          "sha256": "4ff9a8f2a706dba3aed13d942e51046d48e8ce8826f855bc8fd98b394bb6c270"
+        },
+        "sampleRate": 16000,
+        "channels": 1,
+        "codec": "pcm_s16le",
+        "contentTransform": "decode-and-resample-only"
+      },
+      "asr": {
+        "command": [
+          "/opt/homebrew/Cellar/whisper-cpp/1.9.1/bin/whisper-cli",
+          "--model",
+          "/Users/bard/.cache/hyperframes/whisper/models/ggml-large-v3.bin",
+          "--language",
+          "en",
+          "--threads",
+          "8",
+          "--processors",
+          "1",
+          "--beam-size",
+          "5",
+          "--best-of",
+          "5",
+          "--split-on-word",
+          "--output-json-full",
+          "--no-prints",
+          "--output-file",
+          "/Users/bard/Documents/Eurocentric/native/audio/narration/work/chapter-01-review-v1/voxcpm2-probes/audit/voice-candidate-06",
+          "/Users/bard/Documents/Eurocentric/native/audio/narration/work/chapter-01-review-v1/voxcpm2-probes/audit/voice-candidate-06-asr-input.wav"
+        ],
+        "commandSHA256": "6ec450bfded7acbb9bc86f17b1fce6ff2449b3fde9eabc9d33e5ccdc337ae886",
+        "master": {
+          "path": "/Users/bard/Documents/Eurocentric/native/audio/narration/work/chapter-01-review-v1/voxcpm2-probes/audit/voice-candidate-06-asr-input.wav",
+          "bytes": 2667256,
+          "sha256": "4ff9a8f2a706dba3aed13d942e51046d48e8ce8826f855bc8fd98b394bb6c270"
+        },
+        "transcript": {
+          "path": "/Users/bard/Documents/Eurocentric/native/audio/narration/work/chapter-01-review-v1/voxcpm2-probes/audit/voice-candidate-06.json",
+          "bytes": 63396,
+          "sha256": "c84ffc9be8e32abac59c9bb4f9ccf206ffe08f66917cceeee95a08f38aff678e"
+        },
+        "log": {
+          "path": "/Users/bard/Documents/Eurocentric/native/audio/narration/work/chapter-01-review-v1/voxcpm2-probes/audit/voice-candidate-06.whisper.log.txt",
+          "bytes": 3644,
+          "sha256": "6df10733e17200f4343c58c06b6bfaaa305d5120b3e4dfb76a98fd89e0022436"
+        },
+        "answerPromptUsed": false,
+        "externalReceiptUsed": false
+      },
+      "transcript": {
+        "path": "/Users/bard/Documents/Eurocentric/native/audio/narration/work/chapter-01-review-v1/voxcpm2-probes/audit/voice-candidate-06.json",
+        "bytes": 63396,
+        "sha256": "c84ffc9be8e32abac59c9bb4f9ccf206ffe08f66917cceeee95a08f38aff678e"
+      },
+      "gates": {
+        "duration60To90Seconds": true,
+        "wordAccuracy": false,
+        "identityStability": true,
+        "retainedSilence": false,
+        "decoderCollapseAbsent": false
+      },
+      "technicalPass": false
+    }
+  ],
+  "voxcpm2TechnicalPassCount": 0,
+  "selectedEngine": "Qwen3-TTS Base",
+  "selectedCandidateID": "voice-candidate-05",
+  "fallbackUsed": true,
+  "wholeChapterUsesOneEngineAndVoice": true,
+  "productionVoicePromoted": false,
+  "shippingUsePermitted": false
+}

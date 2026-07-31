@@ -1,0 +1,422 @@
+{
+  "schemaVersion": 1,
+  "templateSetID": "chapter-01-review-evidence-templates-v1",
+  "milestone": "CHAPTER_01_REVIEW_READY",
+  "chapterID": "first-farmers",
+  "status": "PENDING_EVIDENCE",
+  "shippingState": "PROHIBITED",
+  "templates": [
+    {
+      "evidenceID": "automated-suites",
+      "destination": "native/quality/chapter-01-review/evidence/automated-suites.receipt.json",
+      "receipt": {
+        "schemaVersion": 1,
+        "receiptID": "automated-suites-chapter-01-review-v1",
+        "type": "AUTOMATED_SUITES",
+        "milestone": "CHAPTER_01_REVIEW_READY",
+        "status": "PENDING_EVIDENCE",
+        "chapterID": "first-farmers",
+        "shippingState": "PROHIBITED",
+        "subjectSHA256": null,
+        "suites": [
+          {
+            "id": "editorial-regression-and-f1-f7",
+            "command": null,
+            "exitCode": null,
+            "errorCount": null
+          },
+          {
+            "id": "tooling",
+            "command": null,
+            "exitCode": null,
+            "errorCount": null
+          },
+          {
+            "id": "swiftpm",
+            "command": null,
+            "exitCode": null,
+            "errorCount": null
+          },
+          {
+            "id": "fixture",
+            "command": null,
+            "exitCode": null,
+            "errorCount": null
+          },
+          {
+            "id": "xcode-ui",
+            "command": null,
+            "exitCode": null,
+            "errorCount": null
+          },
+          {
+            "id": "sanitizer",
+            "command": null,
+            "exitCode": null,
+            "errorCount": null
+          },
+          {
+            "id": "release-boundary",
+            "command": null,
+            "exitCode": null,
+            "errorCount": null
+          }
+        ],
+        "artifacts": [
+          {
+            "role": "full-verification-log",
+            "path": null,
+            "bytes": null,
+            "sha256": null
+          }
+        ]
+      }
+    },
+    {
+      "evidenceID": "fixture-determinism",
+      "destination": "native/quality/chapter-01-review/evidence/fixture-determinism.receipt.json",
+      "receipt": {
+        "schemaVersion": 1,
+        "receiptID": "fixture-determinism-chapter-01-review-v1",
+        "type": "FIXTURE_DETERMINISM",
+        "milestone": "CHAPTER_01_REVIEW_READY",
+        "status": "PENDING_EVIDENCE",
+        "chapterID": "first-farmers",
+        "shippingState": "PROHIBITED",
+        "subjectSHA256": null,
+        "firstBuildSHA256": null,
+        "secondBuildSHA256": null,
+        "trustReceiptSHA256": null,
+        "byteIdentical": null,
+        "signatureVerified": null,
+        "trustBoundaryUnchanged": null,
+        "ordinaryReleaseRejectsReviewResources": null
+      }
+    },
+    {
+      "evidenceID": "simulator-traversal",
+      "destination": "native/quality/chapter-01-review/evidence/simulator-traversal.receipt.json",
+      "receipt": {
+        "schemaVersion": 1,
+        "receiptID": "simulator-traversal-chapter-01-review-v1",
+        "type": "SIMULATOR_TRAVERSAL",
+        "milestone": "CHAPTER_01_REVIEW_READY",
+        "status": "PENDING_EVIDENCE",
+        "chapterID": "first-farmers",
+        "shippingState": "PROHIBITED",
+        "subjectSHA256": null,
+        "operationMode": "CODEX_COMPUTER_USE",
+        "device": {
+          "platform": "iOS Simulator",
+          "model": "iPhone 17 Pro",
+          "osVersion": null
+        },
+        "directLaunchBeatID": "beat-first-farmers-river-world",
+        "finalBeatID": "beat-first-farmers-before-steppe",
+        "completedCounts": {
+          "arcs": 3,
+          "beats": 17,
+          "interactions": 6,
+          "worlds": 6,
+          "narrationCues": 37,
+          "audioTimelines": 47
+        },
+        "fullTraversalCompleted": null,
+        "deliberateEntryAction": "Begin",
+        "authoredSoundStartedAfterEntry": null,
+        "soundControlStayedVisible": null,
+        "playingControlLabel": "Turn sound off",
+        "mutePausedAuthoredSound": null,
+        "mutedControlLabel": "Turn sound on",
+        "unmuteResumedAuthoredSound": null,
+        "interruptionControlLabel": "Resume sound",
+        "interruptionRestartedSoundSpontaneously": null,
+        "coldRestoreControlLabel": "Resume sound",
+        "coldRestoreRestartedSoundSpontaneously": null,
+        "accountSurfaceShown": null,
+        "purchaseSurfaceShown": null,
+        "debugControlsShown": null,
+        "visibleReviewMarksShown": null,
+        "artifacts": [
+          {
+            "role": "manual-traversal-log",
+            "path": null,
+            "bytes": null,
+            "sha256": null
+          },
+          {
+            "role": "manual-traversal-recording",
+            "path": null,
+            "bytes": null,
+            "sha256": null
+          }
+        ]
+      }
+    },
+    {
+      "evidenceID": "interaction-recordings",
+      "destination": "native/quality/chapter-01-review/evidence/interaction-recordings.receipt.json",
+      "receipt": {
+        "schemaVersion": 1,
+        "receiptID": "interaction-recordings-chapter-01-review-v1",
+        "type": "INTERACTION_RECORDINGS",
+        "milestone": "CHAPTER_01_REVIEW_READY",
+        "status": "PENDING_EVIDENCE",
+        "chapterID": "first-farmers",
+        "shippingState": "PROHIBITED",
+        "subjectSHA256": null,
+        "recordings": [
+          {
+            "interactionID": "interaction-first-farmers-a-household-crosses",
+            "completed": null,
+            "artifact": {
+              "path": null,
+              "bytes": null,
+              "sha256": null
+            }
+          },
+          {
+            "interactionID": "interaction-first-farmers-the-harvest-had-to-last",
+            "completed": null,
+            "artifact": {
+              "path": null,
+              "bytes": null,
+              "sha256": null
+            }
+          },
+          {
+            "interactionID": "interaction-first-farmers-at-the-iron-gates",
+            "completed": null,
+            "artifact": {
+              "path": null,
+              "bytes": null,
+              "sha256": null
+            }
+          },
+          {
+            "interactionID": "interaction-first-farmers-the-house-outlives",
+            "completed": null,
+            "artifact": {
+              "path": null,
+              "bytes": null,
+              "sha256": null
+            }
+          },
+          {
+            "interactionID": "interaction-first-farmers-more-mouths-more-land",
+            "completed": null,
+            "artifact": {
+              "path": null,
+              "bytes": null,
+              "sha256": null
+            }
+          },
+          {
+            "interactionID": "interaction-first-farmers-a-continent-remade",
+            "completed": null,
+            "artifact": {
+              "path": null,
+              "bytes": null,
+              "sha256": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "evidenceID": "restore-matrix",
+      "destination": "native/quality/chapter-01-review/evidence/restore-matrix.receipt.json",
+      "receipt": {
+        "schemaVersion": 1,
+        "receiptID": "restore-matrix-chapter-01-review-v1",
+        "type": "RESTORE_MATRIX",
+        "milestone": "CHAPTER_01_REVIEW_READY",
+        "status": "PENDING_EVIDENCE",
+        "chapterID": "first-farmers",
+        "shippingState": "PROHIBITED",
+        "subjectSHA256": null,
+        "beatEntry": [
+          { "beatID": "beat-first-farmers-river-world", "passed": null },
+          { "beatID": "beat-first-farmers-household-crosses", "passed": null },
+          { "beatID": "beat-first-farmers-living-system", "passed": null },
+          { "beatID": "beat-first-farmers-european-ground", "passed": null },
+          { "beatID": "beat-first-farmers-inhabited-frontier", "passed": null },
+          { "beatID": "beat-first-farmers-harvest-allocation", "passed": null },
+          { "beatID": "beat-first-farmers-stored-future", "passed": null },
+          { "beatID": "beat-first-farmers-gorge-contact", "passed": null },
+          { "beatID": "beat-first-farmers-three-records", "passed": null },
+          { "beatID": "beat-first-farmers-frontier-consequence", "passed": null },
+          { "beatID": "beat-first-farmers-raise-longhouse", "passed": null },
+          { "beatID": "beat-first-farmers-plot-remains", "passed": null },
+          { "beatID": "beat-first-farmers-paternal-lines", "passed": null },
+          { "beatID": "beat-first-farmers-more-mouths", "passed": null },
+          { "beatID": "beat-first-farmers-growth-breaks", "passed": null },
+          { "beatID": "beat-first-farmers-continent-remade", "passed": null },
+          { "beatID": "beat-first-farmers-before-steppe", "passed": null }
+        ],
+        "beatExit": [
+          { "beatID": "beat-first-farmers-river-world", "passed": null },
+          { "beatID": "beat-first-farmers-household-crosses", "passed": null },
+          { "beatID": "beat-first-farmers-living-system", "passed": null },
+          { "beatID": "beat-first-farmers-european-ground", "passed": null },
+          { "beatID": "beat-first-farmers-inhabited-frontier", "passed": null },
+          { "beatID": "beat-first-farmers-harvest-allocation", "passed": null },
+          { "beatID": "beat-first-farmers-stored-future", "passed": null },
+          { "beatID": "beat-first-farmers-gorge-contact", "passed": null },
+          { "beatID": "beat-first-farmers-three-records", "passed": null },
+          { "beatID": "beat-first-farmers-frontier-consequence", "passed": null },
+          { "beatID": "beat-first-farmers-raise-longhouse", "passed": null },
+          { "beatID": "beat-first-farmers-plot-remains", "passed": null },
+          { "beatID": "beat-first-farmers-paternal-lines", "passed": null },
+          { "beatID": "beat-first-farmers-more-mouths", "passed": null },
+          { "beatID": "beat-first-farmers-growth-breaks", "passed": null },
+          { "beatID": "beat-first-farmers-continent-remade", "passed": null },
+          { "beatID": "beat-first-farmers-before-steppe", "passed": null }
+        ],
+        "midInteraction": [
+          { "interactionID": "interaction-first-farmers-a-household-crosses", "passed": null },
+          { "interactionID": "interaction-first-farmers-the-harvest-had-to-last", "passed": null },
+          { "interactionID": "interaction-first-farmers-at-the-iron-gates", "passed": null },
+          { "interactionID": "interaction-first-farmers-the-house-outlives", "passed": null },
+          { "interactionID": "interaction-first-farmers-more-mouths-more-land", "passed": null },
+          { "interactionID": "interaction-first-farmers-a-continent-remade", "passed": null }
+        ],
+        "coldReturnStartsPaused": null,
+        "loopCursorPreserved": null,
+        "finalStateSHA256": null,
+        "artifacts": [
+          {
+            "role": "restore-matrix-log",
+            "path": null,
+            "bytes": null,
+            "sha256": null
+          }
+        ]
+      }
+    },
+    {
+      "evidenceID": "audio-restore",
+      "destination": "native/quality/chapter-01-review/evidence/audio-restore.receipt.json",
+      "receipt": {
+        "schemaVersion": 1,
+        "receiptID": "audio-restore-chapter-01-review-v1",
+        "type": "AUDIO_RESTORE",
+        "milestone": "CHAPTER_01_REVIEW_READY",
+        "status": "PENDING_EVIDENCE",
+        "chapterID": "first-farmers",
+        "shippingState": "PROHIBITED",
+        "subjectSHA256": null,
+        "sampleRate": 48000,
+        "controlledPauseSampleDelta": null,
+        "rapidTraceMaximumCursorWriteMilliseconds": null,
+        "hardKillMaximumCursorWriteMilliseconds": null,
+        "sameProcessBackgroundPreservesActivePhase": null,
+        "coldRestorePhaseNormalization": {
+          "engaged": "waiting",
+          "resistance": "waiting"
+        },
+        "coldReturnStartsPaused": null,
+        "loopCursorPreserved": null,
+        "silenceSurvivesChapterLifecycle": null,
+        "silenceLeaksAcrossChapters": null,
+        "artifacts": [
+          {
+            "role": "audio-restore-log",
+            "path": null,
+            "bytes": null,
+            "sha256": null
+          }
+        ]
+      }
+    },
+    {
+      "evidenceID": "accessibility",
+      "destination": "native/quality/chapter-01-review/evidence/accessibility.receipt.json",
+      "receipt": {
+        "schemaVersion": 1,
+        "receiptID": "accessibility-chapter-01-review-v1",
+        "type": "ACCESSIBILITY",
+        "milestone": "CHAPTER_01_REVIEW_READY",
+        "status": "PENDING_EVIDENCE",
+        "chapterID": "first-farmers",
+        "shippingState": "PROHIBITED",
+        "subjectSHA256": null,
+        "minimumTouchTargetPoints": null,
+        "touchFinalStateSHA256": null,
+        "voiceOverFinalStateSHA256": null,
+        "reduceMotionFinalStateSHA256": null,
+        "interactionIDs": [
+          "interaction-first-farmers-a-household-crosses",
+          "interaction-first-farmers-the-harvest-had-to-last",
+          "interaction-first-farmers-at-the-iron-gates",
+          "interaction-first-farmers-the-house-outlives",
+          "interaction-first-farmers-more-mouths-more-land",
+          "interaction-first-farmers-a-continent-remade"
+        ],
+        "systemVoiceOverRunCompleted": null,
+        "systemReduceMotionRunCompleted": null,
+        "systemDynamicTypeRunCompleted": null,
+        "systemIncreasedContrastRunCompleted": null,
+        "simulatorSettingsRestored": null,
+        "dynamicTypeHidesRequiredInformation": null,
+        "dynamicTypeHidesRequiredActions": null,
+        "increasedContrastHidesRequiredInformation": null,
+        "increasedContrastHidesRequiredActions": null,
+        "artifacts": [
+          {
+            "role": "system-accessibility-log",
+            "path": null,
+            "bytes": null,
+            "sha256": null
+          },
+          {
+            "role": "system-voiceover-recording",
+            "path": null,
+            "bytes": null,
+            "sha256": null
+          }
+        ]
+      }
+    },
+    {
+      "evidenceID": "offline",
+      "destination": "native/quality/chapter-01-review/evidence/offline.receipt.json",
+      "receipt": {
+        "schemaVersion": 1,
+        "receiptID": "offline-chapter-01-review-v1",
+        "type": "OFFLINE",
+        "milestone": "CHAPTER_01_REVIEW_READY",
+        "status": "PENDING_EVIDENCE",
+        "chapterID": "first-farmers",
+        "shippingState": "PROHIBITED",
+        "subjectSHA256": null,
+        "networkDeniedAfterInstall": null,
+        "fullTraversalCompleted": null,
+        "restoreCompleted": null,
+        "assetsLoadedFromInstalledPackageOnly": null,
+        "networkRequestsObserved": null,
+        "networkCondition": "100_PERCENT_PACKET_LOSS",
+        "networkObservationMethods": [
+          "NETTOP_EXTERNAL_SOCKET_SAMPLING",
+          "CFNETWORK_DIAGNOSTICS_UNIFIED_LOG",
+          "COMPILED_NON_SHIPPING_APPLE_SERVICE_BYPASS"
+        ],
+        "simulatorNetworkSettingsRestored": null,
+        "artifacts": [
+          {
+            "role": "network-denial-log",
+            "path": null,
+            "bytes": null,
+            "sha256": null
+          },
+          {
+            "role": "offline-traversal-recording",
+            "path": null,
+            "bytes": null,
+            "sha256": null
+          }
+        ]
+      }
+    }
+  ]
+}

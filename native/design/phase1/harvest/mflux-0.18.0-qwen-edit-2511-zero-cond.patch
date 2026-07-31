@@ -1,0 +1,198 @@
+diff --git a/src/mflux/models/qwen/cli/qwen_image_edit_generate.py b/src/mflux/models/qwen/cli/qwen_image_edit_generate.py
+index 68f59c9..19f27bf 100644
+--- a/src/mflux/models/qwen/cli/qwen_image_edit_generate.py
++++ b/src/mflux/models/qwen/cli/qwen_image_edit_generate.py
+@@ -17,6 +17,11 @@ def main():
+     parser.add_lora_arguments()
+     parser.add_image_generator_arguments(supports_metadata_config=True)
+     parser.add_argument("--image-paths", type=Path, nargs="+", required=True, help="Local paths to one or more init images. For single image editing, provide one path. For multiple image editing, provide multiple paths.")  # fmt: off
++    parser.add_argument(
++        "--zero-cond-t",
++        action="store_true",
++        help="Use Qwen Image Edit 2511 reference-image zero-timestep modulation.",
++    )
+     parser.add_output_arguments()
+     args = parser.parse_args()
+ 
+@@ -30,6 +35,7 @@ def main():
+         model_path=args.model_path,
+         lora_paths=args.lora_paths,
+         lora_scales=args.lora_scales,
++        zero_cond_t=args.zero_cond_t,
+     )
+ 
+     # 2. Register callbacks
+diff --git a/src/mflux/models/qwen/model/qwen_transformer/qwen_transformer.py b/src/mflux/models/qwen/model/qwen_transformer/qwen_transformer.py
+index 3041d67..dd39a7d 100644
+--- a/src/mflux/models/qwen/model/qwen_transformer/qwen_transformer.py
++++ b/src/mflux/models/qwen/model/qwen_transformer/qwen_transformer.py
+@@ -22,6 +22,7 @@ class QwenTransformer(nn.Module):
+         num_attention_heads: int = 24,
+         joint_attention_dim: int = 3584,
+         patch_size: int = 2,
++        zero_cond_t: bool = False,
+     ) -> None:
+         super().__init__()
+         self.inner_dim = num_attention_heads * attention_head_dim
+@@ -33,6 +34,7 @@ class QwenTransformer(nn.Module):
+         self.transformer_blocks = [QwenTransformerBlock(dim=self.inner_dim, num_heads=num_attention_heads, head_dim=attention_head_dim) for i in range(num_layers)]  # fmt: off
+         self.norm_out = AdaLayerNormContinuous(self.inner_dim, self.inner_dim)
+         self.proj_out = nn.Linear(self.inner_dim, patch_size * patch_size * out_channels)
++        self.zero_cond_t = zero_cond_t
+ 
+     def __call__(
+         self,
+@@ -48,6 +50,18 @@ class QwenTransformer(nn.Module):
+         batch_size = hidden_states.shape[0]
+         timestep = QwenTransformer._compute_timestep(t, config)
+         timestep = mx.broadcast_to(timestep, (batch_size,)).astype(hidden_states.dtype)
++        if self.zero_cond_t:
++            timestep = mx.concatenate([timestep, mx.zeros_like(timestep)], axis=0)
++            generated_token_count = (config.height // 16) * (config.width // 16)
++            modulate_index = mx.concatenate(
++                [
++                    mx.zeros((batch_size, generated_token_count), dtype=mx.int32),
++                    mx.ones((batch_size, hidden_states.shape[1] - generated_token_count), dtype=mx.int32),
++                ],
++                axis=1,
++            )
++        else:
++            modulate_index = None
+         encoder_hidden_states = self.txt_norm(encoder_hidden_states)
+         encoder_hidden_states = self.txt_in(encoder_hidden_states)
+         text_embeddings = self.time_text_embed(timestep, hidden_states)
+@@ -66,7 +80,10 @@ class QwenTransformer(nn.Module):
+                 encoder_hidden_states_mask=encoder_hidden_states_mask,
+                 text_embeddings=text_embeddings,
+                 image_rotary_embeddings=image_rotary_embeddings,
++                modulate_index=modulate_index,
+             )
++        if self.zero_cond_t:
++            text_embeddings = mx.split(text_embeddings, 2, axis=0)[0]
+         hidden_states = self.norm_out(hidden_states, text_embeddings)
+         hidden_states = self.proj_out(hidden_states)
+         return hidden_states
+@@ -80,6 +97,7 @@ class QwenTransformer(nn.Module):
+         encoder_hidden_states_mask: mx.array,
+         text_embeddings: mx.array,
+         image_rotary_embeddings: tuple[mx.array, mx.array],
++        modulate_index: mx.array | None,
+     ) -> tuple[mx.array, mx.array]:
+         return block(
+             hidden_states=hidden_states,
+@@ -88,6 +106,7 @@ class QwenTransformer(nn.Module):
+             text_embeddings=text_embeddings,
+             image_rotary_emb=image_rotary_embeddings,
+             block_idx=idx,
++            modulate_index=modulate_index,
+         )
+ 
+     @staticmethod
+diff --git a/src/mflux/models/qwen/model/qwen_transformer/qwen_transformer_block.py b/src/mflux/models/qwen/model/qwen_transformer/qwen_transformer_block.py
+index 942d5b4..100b2c1 100644
+--- a/src/mflux/models/qwen/model/qwen_transformer/qwen_transformer_block.py
++++ b/src/mflux/models/qwen/model/qwen_transformer/qwen_transformer_block.py
+@@ -32,15 +32,18 @@ class QwenTransformerBlock(nn.Module):
+         text_embeddings: mx.array,
+         image_rotary_emb: tuple[mx.array, mx.array],
+         block_idx: int | None = None,
++        modulate_index: mx.array | None = None,
+     ) -> tuple[mx.array, mx.array]:
+         img_mod_params = self.img_mod_linear(self.img_mod_silu(text_embeddings))
++        if modulate_index is not None:
++            text_embeddings = mx.split(text_embeddings, 2, axis=0)[0]
+         txt_mod_params = self.txt_mod_linear(self.txt_mod_silu(text_embeddings))
+ 
+         img_mod1, img_mod2 = mx.split(img_mod_params, 2, axis=-1)
+         txt_mod1, txt_mod2 = mx.split(txt_mod_params, 2, axis=-1)
+ 
+         img_normed = self.img_norm1(hidden_states)
+-        img_modulated, img_gate1 = QwenTransformerBlock._modulate(img_normed, img_mod1)
++        img_modulated, img_gate1 = QwenTransformerBlock._modulate(img_normed, img_mod1, modulate_index)
+ 
+         txt_normed = self.txt_norm1(encoder_hidden_states)
+         txt_modulated, txt_gate1 = QwenTransformerBlock._modulate(txt_normed, txt_mod1)
+@@ -57,7 +60,7 @@ class QwenTransformerBlock(nn.Module):
+         encoder_hidden_states = encoder_hidden_states + txt_gate1 * txt_attn_output
+ 
+         img_normed2 = self.img_norm2(hidden_states)
+-        img_modulated2, img_gate2 = QwenTransformerBlock._modulate(img_normed2, img_mod2)
++        img_modulated2, img_gate2 = QwenTransformerBlock._modulate(img_normed2, img_mod2, modulate_index)
+ 
+         img_mlp_output = self.img_ff(img_modulated2)
+ 
+@@ -71,6 +74,20 @@ class QwenTransformerBlock(nn.Module):
+         return encoder_hidden_states, hidden_states
+ 
+     @staticmethod
+-    def _modulate(x: mx.array, mod_params: mx.array) -> tuple[mx.array, mx.array]:
++    def _modulate(
++        x: mx.array,
++        mod_params: mx.array,
++        modulate_index: mx.array | None = None,
++    ) -> tuple[mx.array, mx.array]:
+         shift, scale, gate = mx.split(mod_params, 3, axis=-1)
+-        return x * (1 + scale[:, None, :]) + shift[:, None, :], gate[:, None, :]
++        if modulate_index is None:
++            shift_result = shift[:, None, :]
++            scale_result = scale[:, None, :]
++            gate_result = gate[:, None, :]
++        else:
++            batch_size = shift.shape[0] // 2
++            index = modulate_index[:, :, None]
++            shift_result = mx.where(index == 0, shift[:batch_size, None, :], shift[batch_size:, None, :])
++            scale_result = mx.where(index == 0, scale[:batch_size, None, :], scale[batch_size:, None, :])
++            gate_result = mx.where(index == 0, gate[:batch_size, None, :], gate[batch_size:, None, :])
++        return x * (1 + scale_result) + shift_result, gate_result
+diff --git a/src/mflux/models/qwen/qwen_initializer.py b/src/mflux/models/qwen/qwen_initializer.py
+index 08258d1..5676b73 100644
+--- a/src/mflux/models/qwen/qwen_initializer.py
++++ b/src/mflux/models/qwen/qwen_initializer.py
+@@ -42,13 +42,14 @@ class QwenImageInitializer:
+         model_path: str | None = None,
+         lora_paths: list[str] | None = None,
+         lora_scales: list[float] | None = None,
++        zero_cond_t: bool = False,
+     ) -> None:
+         # Use model_path if provided, otherwise fall back to model_config.model_name
+         path = model_path if model_path else model_config.model_name
+         QwenImageInitializer._init_config(model, model_config)
+         weights = QwenImageInitializer._load_weights(path)
+         QwenImageInitializer._init_tokenizers(model, path)
+-        QwenImageInitializer._init_edit_models(model)
++        QwenImageInitializer._init_edit_models(model, zero_cond_t=zero_cond_t)
+         QwenImageInitializer._apply_weights(model, weights, quantize)
+         QwenImageInitializer._apply_lora(model, lora_paths, lora_scales)
+ 
+@@ -90,9 +91,9 @@ class QwenImageInitializer:
+         model.text_encoder = QwenTextEncoder()
+ 
+     @staticmethod
+-    def _init_edit_models(model) -> None:
++    def _init_edit_models(model, zero_cond_t: bool = False) -> None:
+         model.vae = QwenVAE()
+-        model.transformer = QwenTransformer()
++        model.transformer = QwenTransformer(zero_cond_t=zero_cond_t)
+         model.text_encoder = QwenTextEncoder()
+         model.text_encoder.encoder.visual = VisionTransformer()
+ 
+diff --git a/src/mflux/models/qwen/variants/edit/qwen_image_edit.py b/src/mflux/models/qwen/variants/edit/qwen_image_edit.py
+index e47de57..5d3d77d 100644
+--- a/src/mflux/models/qwen/variants/edit/qwen_image_edit.py
++++ b/src/mflux/models/qwen/variants/edit/qwen_image_edit.py
+@@ -34,6 +34,7 @@ class QwenImageEdit(nn.Module):
+         lora_paths: list[str] | None = None,
+         lora_scales: list[float] | None = None,
+         model_config: ModelConfig = ModelConfig.qwen_image_edit(),
++        zero_cond_t: bool = False,
+     ):
+         super().__init__()
+         QwenImageInitializer.init_edit(
+@@ -43,6 +44,7 @@ class QwenImageEdit(nn.Module):
+             lora_paths=lora_paths,
+             lora_scales=lora_scales,
+             model_config=model_config,
++            zero_cond_t=zero_cond_t,
+         )
+ 
+     def save_model(self, base_path: str) -> None:

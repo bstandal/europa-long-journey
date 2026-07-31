@@ -1,0 +1,197 @@
+{
+  "schemaVersion": 1,
+  "status": "CODEX_V8_RESYNTHESIS_AND_SHORT_WINDOW_METHOD_FROZEN",
+  "trustDomain": "CODEX_V8_DIAGNOSTIC_NON_SHIPPING",
+  "language": "English",
+  "locale": "en-GB",
+  "paths": {
+    "workRoot": "native/audio/narration/work/provisional-audit-v8",
+    "v6R4StressSet": "native/audio/narration/work/provisional-audit-v6/stress-v6-r4-2026-07-25",
+    "v6R4StressReceipt": "native/audio/narration/work/provisional-audit-v6/stress-v6-r4-2026-07-25/stress-set.v6.receipt.json",
+    "v7FullAuditReceipt": "native/audio/narration/work/provisional-audit-v7/audit-v6-r4-windowed-r3-2026-07-25/audit.v7.receipt.json",
+    "c05SilenceAttributionReceipt": "native/audio/narration/work/provisional-audit-v7/c05-silence-attribution-r2-2026-07-25/silence-attribution.v7.receipt.json",
+    "c06ShortWindowSpikeReceipt": "native/audio/narration/work/provisional-audit-v7/c06-short-window-spike-r1-2026-07-25/short-window-spike.v7.receipt.json"
+  },
+  "parentEvidence": {
+    "v6Pipeline": {
+      "bytes": 150416,
+      "sha256": "293f1a77cc1ef007b2257500a3d4672b6230c4add4d3fa2284f98c9c86e0dc32"
+    },
+    "v6Config": {
+      "bytes": 11951,
+      "sha256": "c7eeb28602fc46fb2538aee770d31302955bacefc7888f85cbf58ee2038bcc13"
+    },
+    "v7Pipeline": {
+      "bytes": 67667,
+      "sha256": "fb5a660b5f76d03066e092935a510068a55e7caf7846acec0ab6da6acb76d1c2"
+    },
+    "v7Config": {
+      "bytes": 7817,
+      "sha256": "8349b0c911ec88f9e561badec48c3752c90bbdc965db35e6350e09fa49540b6c"
+    },
+    "v6R4StressReceipt": {
+      "bytes": 216948,
+      "sha256": "703ebc41cb8b2eca73038ae3f53c7356ea9713e8a461e06811d7dc58f8250784"
+    },
+    "v7FullAuditReceipt": {
+      "bytes": 801142,
+      "sha256": "80f07b8e7f33d6d91c8d133893055476fa58cfcaec81ed9deb9722d5f949856e"
+    },
+    "c05SilenceAttributionReceipt": {
+      "bytes": 73114,
+      "sha256": "aef3cc4d1a8b7f0bbb0aef8c7aeb2404e7ca3494d5d377e2df49d94870d4425e"
+    },
+    "c06ShortWindowSpikeReceipt": {
+      "bytes": 377544,
+      "sha256": "85a3ede0f231137272d4aaf67d568b9483134241fcbbd11578770b073b2ee097"
+    }
+  },
+  "findingContract": {
+    "c05FrozenSilenceFraction": 0.15439651516903743,
+    "c05ModelRetainedSilentFrameCount": 18665,
+    "c05ModelRetainedFractionOfSilentFrames": 0.9320383501448117,
+    "c05ExplicitBoundaryRemovalWouldPass": false,
+    "c05MinimumLowEnergyReductionSecondsIfDurationContracts": 50.69772727272728,
+    "c06SixtySecondWindowCollapseIsDecoderEvidence": true,
+    "c06ThirtySecondSpikeReferenceWordCount": 3422,
+    "c06ThirtySecondSpikeHypothesisWordCount": 3417,
+    "c06ThirtySecondSpikeWordErrorRate": 0.011396843950905903,
+    "c06ThirtySecondSpikeExcessRepetitionFraction": 0.0,
+    "c06ThirtySecondSpikeAggregatePasses": true,
+    "neitherParentCandidatePassesV7": true
+  },
+  "remediationContract": {
+    "candidateIDs": [
+      "voice-candidate-05",
+      "voice-candidate-06"
+    ],
+    "resynthesiseEveryApprovedCharacterForBothCandidates": true,
+    "v6R4AudioReuseAsV8MasterParentProhibited": true,
+    "exactApprovedCharacterPartitionRequired": true,
+    "wordOrCharacterChangeProhibited": true,
+    "internalSilenceRemovalProhibited": true,
+    "masterOrUtteranceSilenceTrimmingProhibited": true,
+    "durationPaddingProhibited": true,
+    "adaptiveZeroPaddingProhibited": true,
+    "speechTimeStretchProhibited": true,
+    "wholeAssemblyTempoCorrectionProhibited": true,
+    "activityCropOnlyAtRawOuterEdgesWithInheritedRolls": true,
+    "audibleSeamsProhibited": true,
+    "finalDeliverablePerCandidate": "One seamless naturally timed 18-22 minute master"
+  },
+  "segmentation": {
+    "algorithmVersion": 2,
+    "semanticAtoms": "Authored sentence or complete date-title paragraph",
+    "packing": "Keep each semantic atom independent; only forward-pack consecutive atoms inside one cue while the current group has fewer than nine normalized words; merge a final short group backward only when the result is at most 36 words",
+    "minimumNormalizedWordsPerUtterance": 9,
+    "maximumNormalizedWordsPerUtterance": 36,
+    "utteranceCount": 203,
+    "utteranceManifestSHA256": "cbde7aa2c829ee31a5aeb036a6f52489a83a7f61dd851058ea31aea6e912ef98",
+    "exactCharacterPartitionRequired": true,
+    "crossCuePackingProhibited": true,
+    "authoredSeparatorsPreservedByteForByte": true
+  },
+  "pauseDensityLab": {
+    "referenceTempoFactors": [
+      1.22,
+      1.26,
+      1.3,
+      1.34
+    ],
+    "selectionRule": "Choose the lowest factor that passes every lab gate for both candidates; if none passes, freeze a technical block and do not generate full masters",
+    "representativeUtteranceIDs": [
+      "v8-utterance-006",
+      "v8-utterance-021",
+      "v8-utterance-031",
+      "v8-utterance-045",
+      "v8-utterance-067",
+      "v8-utterance-083",
+      "v8-utterance-100",
+      "v8-utterance-109",
+      "v8-utterance-131",
+      "v8-utterance-149",
+      "v8-utterance-160",
+      "v8-utterance-174",
+      "v8-utterance-183",
+      "v8-utterance-195"
+    ],
+    "allSixCuesRequired": true,
+    "minimumReferenceIdentityCosine": 0.98,
+    "minimumUtteranceIdentityCosine": 0.98,
+    "allInheritedV6UtteranceGatesMustPass": true,
+    "maximumAggregateWordErrorRate": 0.03,
+    "maximumModelRetainedSilenceFraction": 0.1,
+    "maximumRepresentativeMontageSilenceFraction": 0.115,
+    "minimumProjectedFullDurationSeconds": 1080,
+    "maximumProjectedFullDurationSeconds": 1320,
+    "labAudioPermittedAsMasterParent": false,
+    "fullGenerationMustRebuildConditionedReferences": true,
+    "fullGenerationMustUseNewSeeds": true
+  },
+  "generation": {
+    "engine": "Pinned local Qwen3-TTS Base inherited from V6",
+    "batchSize": 8,
+    "maximumBatchAttempts": 3,
+    "temperature": 0.7,
+    "topK": 50,
+    "topP": 0.95,
+    "repetitionPenaltyRequested": 1.1,
+    "maximumTokens": 384,
+    "firstPassingAttemptWins": true,
+    "allUtterancesAuditedBeforeCommit": true,
+    "bothCandidatesUseIdenticalTextSegmentationAndGateSet": true
+  },
+  "finalAudit": {
+    "windowSeconds": 30,
+    "overlapSeconds": 15,
+    "strideSeconds": 15,
+    "maximumSegmentTailOverrunMilliseconds": 100,
+    "decodedSampleCoverageRequired": 1.0,
+    "gapsPermitted": false,
+    "minimumExactSharedWords": 18,
+    "maximumWordAlignmentErrorRate": 0.35,
+    "maximumNonmatchingRunWordsPerSide": 14,
+    "maximumWordCountRatio": 1.55,
+    "maximumStitchAnchorDistanceFromOverlapMidpointMilliseconds": 750,
+    "maximumForwardTimestampReconciliationMilliseconds": 750,
+    "maximumReconciledPrefixWords": 2,
+    "minimumHypothesisToReferenceWordRatio": 0.97,
+    "maximumHypothesisToReferenceWordRatio": 1.03,
+    "maximumWordErrorRate": 0.03,
+    "maximumExcessRepeatedSixGramFraction": 0.005,
+    "minimumExactReferenceCoveragePerCue": 0.98,
+    "minimumExactHypothesisCoveragePerCue": 0.98,
+    "maximumNonmatchingReferenceRunWordsPerCue": 6,
+    "maximumNonmatchingHypothesisRunWordsPerCue": 12,
+    "anchorWords": 8,
+    "boundaryToleranceMilliseconds": 750,
+    "maximumTotalSilenceFraction": 0.12,
+    "minimumDurationSeconds": 1080,
+    "maximumDurationSeconds": 1320,
+    "allV7IdentityTempoSeamAndDeterministicMasterGatesInherited": true,
+    "allBoundariesMustPass": true,
+    "allCuesMustPass": true
+  },
+  "promotionContract": {
+    "bothCompleteNewMastersMustPassSameFinalGate": true,
+    "singlePassingCandidateCannotOpenEditorChoice": true,
+    "labPassCannotPromoteCandidate": true,
+    "parentAuditOrSpikeCannotPromoteCandidate": true,
+    "editorVoiceSelection": false,
+    "artisticApproval": false,
+    "shippingApproval": false
+  },
+  "costPolicy": {
+    "offlineRequired": true,
+    "networkProhibited": true,
+    "paidAPIProhibited": true,
+    "incrementalCostNOK": 0
+  },
+  "claimsExcluded": [
+    "editor voice selection",
+    "final word-accuracy approval",
+    "final pronunciation approval",
+    "artistic approval",
+    "shipping approval"
+  ]
+}

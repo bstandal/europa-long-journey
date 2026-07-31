@@ -1,0 +1,14 @@
+Use case: precise-object-edit
+Asset type: Codex-provisional, non-shipping native iPhone 2.5D Longhouse concept, option A5 — INHERITED PLOT AND THRESHOLD
+Input images: Image 1 is the sole edit target.
+Primary request: Preserve Image 1's exact extreme-portrait camera, crop, horizon, forest-bounded clearing, storm light, every person and their anatomy, incomplete timber frame, current post positions, loose timbers, storage vessels, wattle rods, roof-fibre bundles, cordage, palette, and natural material rendering. Change only the lower- and middle-ground historical continuity described below.
+
+Make one complete former longhouse footprint immediately readable when the whole image is reduced to 390 points wide. Place it slightly left of the current frame as two quiet, roughly parallel rows of broad, dark, softened filled-post stains continuing coherently from the lower foreground into the middle ground. The rows must clearly belong to one older rectangular house footprint, with irregular hand-worked spacing and perspective foreshortening. Connect that older footprint to the current central path with one visibly reworn threshold and compacted approach track crossing both generations. The threshold should read through compressed loess, darker organic wear and a shallow change in surface texture, not through light, outline or geometry.
+
+Keep three earth states materially distinct at phone scale: old filled post stains are shallow, matte and softened; current unfilled postholes are small fresh cuts with pale loess sides; accepted posts are tightly packed with progressive timber wedges, tamped loess and displaced clods. Improve the nearest accepted post feet only enough to show wedges and compression; do not change their positions or scale.
+
+Keep a clear central drag corridor and all four source families visible: posts/timbers, one unlit shallow hearth-material patch with cool ash and six to eight irregular hand-sized stones, storage vessels/bins, and loose roof fibre/cordage. No wall, hearth, storage bay or roof is installed. Do not add or remove people.
+
+Lighting: retain cool daylight and restrained warm sidelight on load-bearing timber. No glow, luminous soil, highlighted route or bright central mound.
+Historical constraints: European Early Neolithic loess plain, 5600–4900 BC; hand-worked wood, plant fibre, earth and clay.
+Avoid: changed camera, changed horizon, changed anatomy, duplicated people, completed building, open-hole former footprint, rings, circles, outlines, archaeological grid, symbols, labels, UI, game sockets, fantasy light, metal, nails, wheels, carts, masonry, modern trusses, glass, writing, text, watermark.

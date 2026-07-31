@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "status": "TECHNICAL_REPRODUCIBILITY_ONLY",
+  "firstRunCreatedAt": "2026-07-24T11:21:05+00:00",
+  "secondRunCreatedAt": "2026-07-24T11:22:43+00:00",
+  "secondRunMode": "OFFLINE_PINNED_CACHE",
+  "candidateID": "voice-candidate-01",
+  "identityTextSHA256": "9c98454111648ac65a33db464c982aae56878efb76f176ac1cffcee0c201878c",
+  "probeTextSHA256": "61ad7e71207e1135041ba26d37d0c2d3b643b3384ea5dae25b75dda978f0f5cf",
+  "reference": {
+    "firstRunSHA256": "39cac8acf11cb60e0118643702db1ed92677fea8ade4df4ed7275ae9e55e0bcb",
+    "secondRunSHA256": "39cac8acf11cb60e0118643702db1ed92677fea8ade4df4ed7275ae9e55e0bcb",
+    "byteIdentical": true
+  },
+  "clone": {
+    "firstRunSHA256": "16be2e822e7d16450b033542dfd836282cd19988f1d2c3c7603e51452cc0fbda",
+    "secondRunSHA256": "16be2e822e7d16450b033542dfd836282cd19988f1d2c3c7603e51452cc0fbda",
+    "byteIdentical": true
+  },
+  "environment": {
+    "python": "3.14.6",
+    "mlxAudio": "0.4.5",
+    "ffmpeg": "8.1.2",
+    "voiceDesignRevision": "7d3824abff87e49756bb0f83fb5411de75d160c4",
+    "voiceDesignControlManifestSHA256": "8b1b10dbd8fa87916c70ca4844d7c51932aecbba6ef145c18b3870a0e48978d2",
+    "voiceCloneRevision": "a6eb4f68e4b056f1215157bb696209bc82a6db48",
+    "voiceCloneControlManifestSHA256": "6ce447e63f1ddd4efd44c7670abcf22bb40a04335b3541290c6d7d74457c2991"
+  },
+  "claimsExcluded": [
+    "cross-machine byte identity",
+    "editor voice selection",
+    "word-accuracy approval",
+    "pronunciation approval",
+    "artistic approval",
+    "shipping approval"
+  ]
+}

@@ -1,0 +1,15 @@
+Create a full-resolution portrait production reconstruction of the supplied historical scene reference for a native iPhone 2.5D scene. Preserve its exact camera position, portrait framing, deep composition, timber-and-thatch canopy, storm, dry sheltered work floor, three grain destinations, people, poses, settlement, livestock, fields, mountains and restrained near-black palette.
+
+The place is an early Neolithic farming settlement in Thessaly, 6500–6000 BC. Every visible material must belong to that world: hand-built fired clay, rough timber, reed, thatch, straw-tempered plaster, woven fibre, hide, coarse plant cloth, stone and earth. There is no metal, wheel-thrown pottery, masonry, glass, writing, later architecture or modern object.
+
+Keep the left winter-food activity materially exact. The cooking vessel is a thick-walled, slightly irregular, hand-built fired-clay pot seated among hearth stones at the edge of the embers. Its warm brown clay is locally darkened by soot but remains unmistakably matte ceramic. It has no handle, bail, chain, suspension, metallic highlight or cauldron silhouette.
+
+Keep the centre as a dry household reserve beneath the canopy: low plastered clay bins and large raw-clay vessels, one open to receive grain and two covered with fitted woven-reed or light timber lids ready for clay sealing. Keep the right spring-seed work physically distinct. Keep clear floor access from the foreground store to all three uses.
+
+The foreground mound consists of thousands of naturally small hulled einkorn, emmer-wheat and barley kernels at correct scale beside the hands and basket weave. Kernels are short, narrow, subtly tapered, matte and irregular, with restrained longitudinal creases, varied straw-to-tan colour and occasional tiny husk fragments. They must read as dry cereal grain, never chickpeas, beans, peas, maize, rice, nuts, pasta, pellets, larvae or oversized repeated objects.
+
+Resolve every visible face, hand, wrist, foot, joint, grip, tool contact and animal leg as coherent anatomy. Preserve bare wrists and plain woven garments. Give plaster, thatch, wicker, clay, grain, skin, rain and smoke tactile material separation. Retain natural lens depth and documentary observation; avoid smooth game-render skin, generic digital illustration, plastic surfaces, symmetrical staging or cinematic fantasy polish.
+
+Rain falls only through the open middle and far distance. The entire grain-allocation foreground remains visibly dry under the roof, with no rain streak, wet sheen or splash on grain, cloth, baskets, hands or storage. Smoke begins at the visible hearth and passes through coherent depth. The historically active mechanism—the finite dry harvest and its three material uses—carries the clearest readable light. The storm frames it without becoming spectacle.
+
+Output only the clean historical scene. No typography, number, label, arrow, ring, route, target, icon, interface, sign, symbol, border, watermark, glow marker or baked UI. Do not crop, reframe, duplicate, add or remove people or move any destination. Finish the complete frame and overscan with real world detail.

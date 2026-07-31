@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "id": "harvest-v26-central-grain-underlay-source-authority",
+  "status": "CODEX_VISUAL_REVIEWED_NON_SHIPPING_SOURCE_INPUT",
+  "scope": "CENTRAL_HARVEST_DISOCCLUSION_UNDERLAY_ONLY",
+  "authorityLimits": {
+    "editorApproval": false,
+    "productionAssetAuthority": false,
+    "productionMasterAuthority": false,
+    "packageAuthority": false,
+    "shippingAllowed": false,
+    "candidateMayEnterShippingCompiler": false
+  },
+  "technicalReceipt": {
+    "path": "native/content/backstage/harvest/central-grain-underlay-v26.r5c-scene-qa.receipt.json",
+    "sha256": "4ada27254650aae2ea7b139aff9ca87708928f7f42d7c159bbe275196c567be9",
+    "receiptID": "harvest-v26-central-grain-underlay-source-only-r5c-scene-qa",
+    "status": "OBJECTIVE_TECHNICAL_QA_PASS",
+    "failedGates": []
+  },
+  "specification": {
+    "path": "native/content/backstage/harvest/central-grain-underlay-v26.spec.json",
+    "sha256": "369aecb2357a381c32a3c394d95a7128ec8b722492a391ea54d9bbde37261964"
+  },
+  "sourceMaster": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+    "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca",
+    "pixelWidth": 1290,
+    "pixelHeight": 2796,
+    "cropPixels": {
+      "x": 192,
+      "y": 1752,
+      "width": 896,
+      "height": 896
+    }
+  },
+  "sourceInputs": {
+    "underlay": {
+      "path": "native/.build/visual-assets/harvest-underlay-authority/central-grain.png",
+      "bytes": 1391524,
+      "sha256": "de1b460d983c49cd337247cdd3ab58d56bde3cf28bd5eff633143ab17468114e",
+      "pixelWidth": 896,
+      "pixelHeight": 896,
+      "colourModel": "RGB"
+    },
+    "authorizationMask": {
+      "path": "native/.build/visual-assets/harvest-underlay-authority/central-grain-authorization.png",
+      "bytes": 2479,
+      "sha256": "11f7d1016bdc6a1ddd897f7283c35ffcacaf4510b4899c20bedf33b19b1500f9",
+      "pixelWidth": 896,
+      "pixelHeight": 896,
+      "colourModel": "GRAYSCALE",
+      "semanticName": "AUTHORIZATION_T",
+      "nonzeroPixelCount": 196727
+    }
+  },
+  "initialStateRecomposition": {
+    "restoreMask": "AUTHORIZATION_T",
+    "semanticGrainMaskRole": "MOVING_GRAIN_INPUT_ONLY",
+    "maximumChannelDifference": 0,
+    "meanAbsoluteChannelDifference": 0,
+    "exactPixelFraction": 1
+  },
+  "visualReview": {
+    "status": "TWO_INDEPENDENT_CODEX_VISUAL_REVIEWS_PASS",
+    "inspectedReceiptOutputs": [
+      "full-master-source-exhausted-comparison.png",
+      "baseline-393x852-rail-start-comparison.png",
+      "baseline-393x852-rail-end-comparison.png",
+      "largest-430x932-rail-start-comparison.png",
+      "largest-430x932-rail-end-comparison.png",
+      "boundary-source-candidate-difference-2x.png",
+      "high-pass-source-candidate-comparison.png",
+      "grain-parallax-negative-8-negative-3.png",
+      "grain-parallax-positive-8-positive-3.png"
+    ],
+    "findings": {
+      "stationaryGrainGhost": false,
+      "hardBoundarySeam": false,
+      "visibleDonorRepetition": false,
+      "broadResidualReadsAs": "CLOTH_AND_SHADOW"
+    }
+  }
+}

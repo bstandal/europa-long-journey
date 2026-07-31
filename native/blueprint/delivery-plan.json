@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "status": "LOCKED_NATIVE_LAUNCH",
+  "budgets": {
+    "shellAndEngineBytes": 100000000,
+    "essentialInstallBytes": 750000000,
+    "perPaidPackageBytes": 750000000,
+    "completeInstalledWorkBytes": 6000000000,
+    "responsiveAudioSteadyDecodedBytes": 100000000,
+    "responsiveAudioTransitionDecodedBytes": 200000000
+  },
+  "entitlement": {
+    "entitlementID": "launch-complete-work",
+    "kind": "NON_CONSUMABLE",
+    "storeProductID": "com.thelongwest.ios.unlock.collection01"
+  },
+  "packages": [
+    {
+      "packageID": "essential-free-v1",
+      "delivery": "BASE_INSTALL",
+      "isEssentialInstall": true,
+      "maximumInstalledBytes": 750000000,
+      "chapterIDs": [
+        "first-farmers",
+        "europe-holds-the-line",
+        "european-world"
+      ]
+    },
+    {
+      "packageID": "paid-pack-01",
+      "delivery": "APPLE_HOSTED_BACKGROUND_ASSETS",
+      "isEssentialInstall": false,
+      "maximumInstalledBytes": 750000000,
+      "chapterIDs": [
+        "steppe-comes-west",
+        "bronze-europe",
+        "greece-and-the-citizen"
+      ]
+    },
+    {
+      "packageID": "paid-pack-02",
+      "delivery": "APPLE_HOSTED_BACKGROUND_ASSETS",
+      "isEssentialInstall": false,
+      "maximumInstalledBytes": 750000000,
+      "chapterIDs": [
+        "rome-gathers-europe",
+        "empire-takes-cross",
+        "europe-reborn"
+      ]
+    },
+    {
+      "packageID": "paid-pack-03",
+      "delivery": "APPLE_HOSTED_BACKGROUND_ASSETS",
+      "isEssentialInstall": false,
+      "maximumInstalledBytes": 750000000,
+      "chapterIDs": [
+        "papal-revolution",
+        "society-beyond-kin",
+        "medieval-commercial-revolution"
+      ]
+    },
+    {
+      "packageID": "paid-pack-04",
+      "delivery": "APPLE_HOSTED_BACKGROUND_ASSETS",
+      "isEssentialInstall": false,
+      "maximumInstalledBytes": 750000000,
+      "chapterIDs": [
+        "hanseatic-north",
+        "empire-many-liberties",
+        "europe-turns-seaward"
+      ]
+    },
+    {
+      "packageID": "paid-pack-05",
+      "delivery": "APPLE_HOSTED_BACKGROUND_ASSETS",
+      "isEssentialInstall": false,
+      "maximumInstalledBytes": 750000000,
+      "chapterIDs": [
+        "reformation",
+        "habsburg-europe",
+        "scientific-revolution"
+      ]
+    },
+    {
+      "packageID": "paid-pack-06",
+      "delivery": "APPLE_HOSTED_BACKGROUND_ASSETS",
+      "isEssentialInstall": false,
+      "maximumInstalledBytes": 750000000,
+      "chapterIDs": [
+        "dutch-republic",
+        "enlightenment-public-opinion",
+        "rivalry-industrial-breakthrough"
+      ]
+    },
+    {
+      "packageID": "paid-pack-07",
+      "delivery": "APPLE_HOSTED_BACKGROUND_ASSETS",
+      "isEssentialInstall": false,
+      "maximumInstalledBytes": 750000000,
+      "chapterIDs": [
+        "europe-at-war",
+        "continent-rebuilt",
+        "europe-returns"
+      ]
+    }
+  ],
+  "activation": {
+    "manifestDigest": "SHA-256",
+    "manifestSignature": "P-256-SHA256",
+    "fileDigest": "SHA-256",
+    "strategy": "VERIFY_THEN_ATOMIC_RENAME",
+    "rollback": "KEEP_LAST_VERIFIED_PACKAGE"
+  }
+}

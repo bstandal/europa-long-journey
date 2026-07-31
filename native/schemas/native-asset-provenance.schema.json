@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thelongwest.invalid/schemas/native-asset-provenance.schema.json",
+  "title": "Shipping native asset provenance",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "status", "assets"],
+  "properties": {
+    "schemaVersion": { "const": 3 },
+    "status": { "enum": ["NO_NATIVE_ASSETS_APPROVED", "ACTIVE"] },
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["assetPath", "bytes", "sha256", "sourceLineage", "toolLineage", "shippingRoles", "metadataPolicy", "rightsStatus", "incrementalCostNOK", "approvedForShipping"],
+        "properties": {
+          "assetPath": { "type": "string", "pattern": "^(assets|audio)/" },
+          "bytes": { "type": "integer", "minimum": 0 },
+          "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+          "sourceLineage": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "oneOf": [
+                { "$ref": "#/$defs/webSourceDerivative" },
+                { "$ref": "#/$defs/generatedOriginal" },
+                { "$ref": "#/$defs/projectAuthoredAudio" },
+                { "$ref": "#/$defs/openLicenseAudioSource" }
+              ]
+            }
+          },
+          "toolLineage": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["toolID"],
+              "properties": {
+                "toolID": { "$ref": "#/$defs/stableID" }
+              }
+            }
+          },
+          "shippingRoles": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "enum": ["scene-layer", "scene-mask", "narration", "score", "soundscape", "spatial-detail"] }
+          },
+          "metadataPolicy": { "const": "STRIPPED_AND_INSPECTED" },
+          "rightsStatus": { "const": "COMMERCIAL_USE_CLEARED" },
+          "incrementalCostNOK": { "const": 0 },
+          "approvedForShipping": { "const": true }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "stableID": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "webSourceDerivative": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lineageType", "sourceID", "webSourcePath", "bytes", "sha256", "acknowledgedObligations"],
+      "properties": {
+        "lineageType": { "const": "WEB_SOURCE_DERIVATIVE" },
+        "sourceID": { "$ref": "#/$defs/stableID" },
+        "webSourcePath": { "type": "string", "pattern": "^/" },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "acknowledgedObligations": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "generatedOriginal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lineageType", "sourceID", "bytes", "sha256", "rightsBasis", "license"],
+      "properties": {
+        "lineageType": { "const": "GENERATED_ORIGINAL" },
+        "sourceID": { "$ref": "#/$defs/stableID" },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "rightsBasis": { "const": "PROJECT_OWNED" },
+        "license": { "type": "string", "pattern": "^Project-owned\\b" }
+      }
+    },
+    "projectAuthoredAudio": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lineageType", "sourceID", "sourceKind", "sourcePath", "bytes", "sha256", "rightsBasis", "license"],
+      "properties": {
+        "lineageType": { "const": "PROJECT_AUTHORED_AUDIO" },
+        "sourceID": { "$ref": "#/$defs/stableID" },
+        "sourceKind": { "enum": ["SYMBOLIC_SCORE", "PROCEDURAL_PATCH", "PROJECT_AUDIO_EDIT"] },
+        "sourcePath": { "type": "string", "pattern": "^native/audio/.+\\.(json|mjs|txt)$" },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "rightsBasis": { "const": "PROJECT_OWNED" },
+        "license": { "type": "string", "pattern": "^Project-owned\\b" }
+      }
+    },
+    "openLicenseAudioSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lineageType", "sourceID", "sourceURL", "title", "creator", "bytes", "sha256", "licenseSPDX", "licenseURL", "requiredNotices"],
+      "properties": {
+        "lineageType": { "const": "OPEN_LICENSE_AUDIO_SOURCE" },
+        "sourceID": { "$ref": "#/$defs/stableID" },
+        "sourceURL": { "type": "string", "pattern": "^https://" },
+        "title": { "type": "string", "minLength": 1 },
+        "creator": { "type": "string", "minLength": 1 },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "licenseSPDX": { "enum": ["CC0-1.0", "MIT"] },
+        "licenseURL": { "type": "string", "pattern": "^https://" },
+        "requiredNotices": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

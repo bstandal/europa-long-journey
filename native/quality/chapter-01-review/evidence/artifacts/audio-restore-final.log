@@ -1,0 +1,163 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project LongWestJourney.xcodeproj -scheme LongWestJourney -destination "platform=iOS Simulator,name=iPhone 17 Pro" CODE_SIGNING_ALLOWED=NO test "-only-testing:LongWestNativeTests/ActiveAudioCursorWorkerTests/testPeriodicCursorWritesContinueWhileMainActorIsBusy" "-only-testing:LongWestNativeTests/NativeExperiencePreferenceRoutingTests/testPauseQuiescesRenderThreadBeforeReadingFinalCursor" "-only-testing:LongWestNativeTests/ChapterResponsiveAudioSessionPolicyTests/testSilenceContinuesAcrossEverySameChapterBinding" "-only-testing:LongWestNativeTests/ChapterResponsiveAudioSessionPolicyTests/testColdRestoredActiveSessionRequiresExplicitResume" "-only-testing:LongWestNativeTests/FirstFarmersPayloadProjectionTests/testAllSixResponsiveProgramsColdRestoreTheirExactLoopPositionPaused"
+
+Build settings from command line:
+    CODE_SIGNING_ALLOWED = NO
+
+2026-07-27 19:26:55.082 xcodebuild[28140:31106279]  DVTDeviceOperation: Encountered a build number "" that is incompatible with DVTBuildVersion.
+2026-07-27 19:26:55.086 xcodebuild[28140:31106247] [MT] DVTDeviceOperation: Encountered a build number "" that is incompatible with DVTBuildVersion.
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (21 targets)
+    Target 'JourneyAppUITests' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'JourneyApp' in project 'LongWestJourney'
+    Target 'ReleaseDiscoveryTests' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ContentDelivery' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ContentKit' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ExperiencePreferences' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ReleaseDiscovery' in project 'LongWestJourney'
+    Target 'LongWestNativeTests' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ContentKit' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ContentKitTestSupport' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'JourneyDomain' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'JourneyContent' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'JourneyPersistence' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ProgressStore' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ContentDelivery' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'CommerceKit' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ReleaseDiscovery' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'DramaticAudio' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ExperiencePreferences' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'SceneRuntime' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'JourneyAccessibility' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ChapterRuntime' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'QualityInstrumentation' in project 'LongWestJourney'
+    Target 'ContentKitTestSupport' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ContentKit' in project 'LongWestJourney'
+    Target 'JourneyApp' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ContentKit' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'JourneyDomain' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'JourneyContent' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'JourneyPersistence' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ProgressStore' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ContentDelivery' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'CommerceKit' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ReleaseDiscovery' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'DramaticAudio' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ExperiencePreferences' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'SceneRuntime' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'JourneyAccessibility' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ChapterRuntime' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'QualityInstrumentation' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'AssetDownloaderExtension' in project 'LongWestJourney'
+    Target 'AssetDownloaderExtension' in project 'LongWestJourney' (no dependencies)
+    Target 'ChapterRuntime' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ContentKit' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'DramaticAudio' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'JourneyAccessibility' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'JourneyContent' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'JourneyDomain' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ProgressStore' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'SceneRuntime' in project 'LongWestJourney'
+    Target 'JourneyAccessibility' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ContentKit' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'JourneyDomain' in project 'LongWestJourney'
+    Target 'SceneRuntime' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ContentKit' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'JourneyDomain' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'QualityInstrumentation' in project 'LongWestJourney'
+    Target 'DramaticAudio' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ContentKit' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ExperiencePreferences' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'JourneyContent' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'JourneyDomain' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ProgressStore' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'QualityInstrumentation' in project 'LongWestJourney'
+    Target 'QualityInstrumentation' in project 'LongWestJourney' (no dependencies)
+    Target 'ReleaseDiscovery' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ContentDelivery' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ContentKit' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ExperiencePreferences' in project 'LongWestJourney'
+    Target 'CommerceKit' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ContentKit' in project 'LongWestJourney'
+    Target 'JourneyPersistence' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ContentDelivery' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ContentKit' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'JourneyContent' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ProgressStore' in project 'LongWestJourney'
+    Target 'ProgressStore' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ContentKit' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'JourneyDomain' in project 'LongWestJourney'
+    Target 'JourneyContent' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ContentDelivery' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ContentKit' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'JourneyDomain' in project 'LongWestJourney'
+    Target 'ContentDelivery' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ContentKit' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ExperiencePreferences' in project 'LongWestJourney'
+    Target 'JourneyDomain' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ContentKit' in project 'LongWestJourney'
+    Target 'ContentKit' in project 'LongWestJourney' (no dependencies)
+    Target 'ExperiencePreferencesTests' in project 'LongWestJourney'
+        ➜ Explicit dependency on target 'ExperiencePreferences' in project 'LongWestJourney'
+    Target 'ExperiencePreferences' in project 'LongWestJourney' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk /Users/bard/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.5-23F81a-6cfe768891a92b912361537c460fe42b.sdkstatcache
+    cd /Users/bard/Documents/Eurocentric/native/ios/LongWestJourney.xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -o /Users/bard/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.5-23F81a-6cfe768891a92b912361537c460fe42b.sdkstatcache
+
+Test Suite 'Selected tests' started at 2026-07-27 19:26:59.944.
+Test Suite 'LongWestNativeTests.xctest' started at 2026-07-27 19:26:59.946.
+Test Suite 'ActiveAudioCursorWorkerTests' started at 2026-07-27 19:26:59.946.
+Test Case '-[LongWestNativeTests.ActiveAudioCursorWorkerTests testPeriodicCursorWritesContinueWhileMainActorIsBusy]' started.
+Test Case '-[LongWestNativeTests.ActiveAudioCursorWorkerTests testPeriodicCursorWritesContinueWhileMainActorIsBusy]' passed (0.378 seconds).
+Test Suite 'ActiveAudioCursorWorkerTests' passed at 2026-07-27 19:27:00.325.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.378 (0.379) seconds
+Test Suite 'ChapterResponsiveAudioSessionPolicyTests' started at 2026-07-27 19:27:00.325.
+Test Case '-[LongWestNativeTests.ChapterResponsiveAudioSessionPolicyTests testColdRestoredActiveSessionRequiresExplicitResume]' started.
+Test Case '-[LongWestNativeTests.ChapterResponsiveAudioSessionPolicyTests testColdRestoredActiveSessionRequiresExplicitResume]' passed (0.001 seconds).
+Test Case '-[LongWestNativeTests.ChapterResponsiveAudioSessionPolicyTests testSilenceContinuesAcrossEverySameChapterBinding]' started.
+Test Case '-[LongWestNativeTests.ChapterResponsiveAudioSessionPolicyTests testSilenceContinuesAcrossEverySameChapterBinding]' passed (0.001 seconds).
+Test Suite 'ChapterResponsiveAudioSessionPolicyTests' passed at 2026-07-27 19:27:00.328.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.002 (0.003) seconds
+Test Suite 'FirstFarmersPayloadProjectionTests' started at 2026-07-27 19:27:00.328.
+Test Case '-[LongWestNativeTests.FirstFarmersPayloadProjectionTests testAllSixResponsiveProgramsColdRestoreTheirExactLoopPositionPaused]' started.
+Test Case '-[LongWestNativeTests.FirstFarmersPayloadProjectionTests testAllSixResponsiveProgramsColdRestoreTheirExactLoopPositionPaused]' passed (0.092 seconds).
+Test Suite 'FirstFarmersPayloadProjectionTests' passed at 2026-07-27 19:27:00.421.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.092 (0.092) seconds
+Test Suite 'NativeExperiencePreferenceRoutingTests' started at 2026-07-27 19:27:00.421.
+Test Case '-[LongWestNativeTests.NativeExperiencePreferenceRoutingTests testPauseQuiescesRenderThreadBeforeReadingFinalCursor]' started.
+2026-07-27 19:27:00.421977+0200 xctest[28229:31107238] Audio files cannot be non-interleaved. Ignoring setting AVLinearPCMIsNonInterleaved YES.
+2026-07-27 19:27:00.472427+0200 xctest[28229:31107238] Audio files cannot be non-interleaved. Ignoring setting AVLinearPCMIsNonInterleaved YES.
+2026-07-27 19:27:00.473294+0200 xctest[28229:31107238] Audio files cannot be non-interleaved. Ignoring setting AVLinearPCMIsNonInterleaved YES.
+Test Case '-[LongWestNativeTests.NativeExperiencePreferenceRoutingTests testPauseQuiescesRenderThreadBeforeReadingFinalCursor]' passed (0.083 seconds).
+Test Suite 'NativeExperiencePreferenceRoutingTests' passed at 2026-07-27 19:27:00.504.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.083 (0.083) seconds
+Test Suite 'LongWestNativeTests.xctest' passed at 2026-07-27 19:27:00.504.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.554 (0.559) seconds
+Test Suite 'Selected tests' passed at 2026-07-27 19:27:00.505.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.554 (0.561) seconds
+2026-07-27 19:27:00.807 xcodebuild[28140:31106247] [MT] IDETestOperationsObserverDebug: 4.891 elapsed -- Testing started completed.
+2026-07-27 19:27:00.807 xcodebuild[28140:31106247] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-07-27 19:27:00.807 xcodebuild[28140:31106247] [MT] IDETestOperationsObserverDebug: 4.891 sec, +4.891 sec -- end
+
+Test session results, code coverage, and logs:
+	/Users/bard/Library/Developer/Xcode/DerivedData/LongWestJourney-dduavmorcajlrqbhouuyjdkqentp/Logs/Test/Test-LongWestJourney-2026.07.27_19-26-55-+0200.xcresult
+
+** TEST SUCCEEDED **
+
+Testing started

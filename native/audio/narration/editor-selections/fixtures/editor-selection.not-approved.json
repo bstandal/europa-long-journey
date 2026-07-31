@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "status": "NOT_APPROVED_FIXTURE",
+  "decisionType": "NARRATION_STRESS_FINALISTS",
+  "approvedBy": "nobody",
+  "decidedAt": "2000-01-01T00:00:00Z",
+  "decisionReference": "TEST_FIXTURE_WITH_NO_EDITORIAL_AUTHORITY",
+  "candidateSetReceiptSHA256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "candidateSetReceiptBytes": 0,
+  "selectedCandidateIDs": [
+    "voice-candidate-01",
+    "voice-candidate-02"
+  ]
+}

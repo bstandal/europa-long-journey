@@ -1,0 +1,192 @@
+{
+  "schemaVersion": 1,
+  "status": "NON_SHIPPING_REVIEW",
+  "shippingState": "PROHIBITED",
+  "chapterID": "first-farmers",
+  "engine": "VoxCPM2 V12",
+  "probeCount": 2,
+  "sharedText": [
+    {
+      "manuscriptSegmentID": "ff-river-world-01",
+      "manuscriptSegmentSHA256": "d594d0b6749f99a1434bd1107002f147fae9b83c148ee80db0d814e40893217b"
+    },
+    {
+      "manuscriptSegmentID": "ff-river-world-02",
+      "manuscriptSegmentSHA256": "8c769caeac7cc0a40cef261776691faedb48e129ad2d54f2c83eb29b4c2819ed"
+    },
+    {
+      "manuscriptSegmentID": "ff-crossing-01",
+      "manuscriptSegmentSHA256": "c79a713d8cd503a9162a11d454047c67a1bcf4fe666c417bcc73e226eedfc814"
+    },
+    {
+      "manuscriptSegmentID": "ff-crossing-02",
+      "manuscriptSegmentSHA256": "f975c91529a3c07afaf1f87c5f492ba37417d39823976a2a6ed3b92a75da2e75"
+    }
+  ],
+  "sharedTextSHA256": "b98c72fea570da15301d915ee005b68fa92f9b0012c18aa1653ae1fbad1de719",
+  "authorization": {
+    "path": "native/audio/narration/review/chapter-01/review-authorization.json",
+    "bytes": 1929,
+    "sha256": "8ee929f5f53b7dd4a0fb751091ec5660001598cf90cff1e45f1b56e1e994a538"
+  },
+  "closedV12Authority": {
+    "path": "native/audio/narration/work/pre-synthesis-v12/evidence-r1-2026-07-25/presynthesis-authority.v12.receipt.json",
+    "bytes": 128630,
+    "sha256": "f88851125d3e50da50d36d44e11c38c36e2873740a8d7305a63254c9e0a036c3"
+  },
+  "synthesisScript": {
+    "path": "native/audio/narration/first_farmers_voxcpm2_review.py",
+    "bytes": 25924,
+    "sha256": "05eff138480d272ee649361f6b0cf42333063b7b7dfd3970694ae3a619a441ee"
+  },
+  "runtime": {
+    "python": "3.11.15",
+    "torch": "2.10.0",
+    "device": "mps",
+    "dtype": "float32",
+    "separateReviewNumbaCache": "/Users/bard/Documents/Eurocentric/native/audio/narration/work/chapter-01-review-v1/voxcpm2-cache/numba"
+  },
+  "candidateRecords": [
+    {
+      "candidateID": "voice-candidate-05",
+      "reference": {
+        "path": "native/audio/narration/work/cast-v1-2026-07-24/references/voice-candidate-05-reference.wav",
+        "bytes": 2119782,
+        "sha256": "a832c5fd5ac65d5b7392f69a93f14ed0b1dfbb3ba88bb7b2d34328b215acab04"
+      },
+      "generationCallCount": 4,
+      "jobs": [
+        {
+          "seed": 27020000,
+          "rawSampleCount": 752640,
+          "processedSampleCount": 720498,
+          "sampleRate": 48000,
+          "rawFloat32LESHA256": "55af1453e22fe68b2e9c2fc118e8f3332899157b4d1e81781b08d787e684792d",
+          "processedFloat32LESHA256": "fcc0c07a6680b8de892133897a7b5375967519ce927dcf218bfb9cb7524cd81f",
+          "oneModelGenerateCall": true,
+          "retryUsed": false,
+          "manuscriptSegmentID": "ff-river-world-01",
+          "manuscriptSegmentSHA256": "d594d0b6749f99a1434bd1107002f147fae9b83c148ee80db0d814e40893217b"
+        },
+        {
+          "seed": 27020101,
+          "rawSampleCount": 737280,
+          "processedSampleCount": 737288,
+          "sampleRate": 48000,
+          "rawFloat32LESHA256": "437ae372509e77dfa6ea1a7b2d14a7eb7173a2a9d85fee09b990c149f3bd31bb",
+          "processedFloat32LESHA256": "8a25524267c81ed60daeded3204835927077d4420afcc07a64303366ceafd0f0",
+          "oneModelGenerateCall": true,
+          "retryUsed": false,
+          "manuscriptSegmentID": "ff-river-world-02",
+          "manuscriptSegmentSHA256": "8c769caeac7cc0a40cef261776691faedb48e129ad2d54f2c83eb29b4c2819ed"
+        },
+        {
+          "seed": 27020202,
+          "rawSampleCount": 353280,
+          "processedSampleCount": 315747,
+          "sampleRate": 48000,
+          "rawFloat32LESHA256": "947a0ddc244bcc3ef5d8857e537cf91e1f2ab25e835a525b71f622434369d6ff",
+          "processedFloat32LESHA256": "62d3dc25265fd081f578823bdff207848be8aca4a58b5f685af4b093ec9065a0",
+          "oneModelGenerateCall": true,
+          "retryUsed": false,
+          "manuscriptSegmentID": "ff-crossing-01",
+          "manuscriptSegmentSHA256": "c79a713d8cd503a9162a11d454047c67a1bcf4fe666c417bcc73e226eedfc814"
+        },
+        {
+          "seed": 27020303,
+          "rawSampleCount": 1344000,
+          "processedSampleCount": 1320469,
+          "sampleRate": 48000,
+          "rawFloat32LESHA256": "adbc093cb1fd95cab57e3b02233e840f0599d06e6669db2792ab9e941d17612f",
+          "processedFloat32LESHA256": "c33c003ee4de25a6b42707f9df88bba73d36f6cfd2f401753b9d1293232765e9",
+          "oneModelGenerateCall": true,
+          "retryUsed": false,
+          "manuscriptSegmentID": "ff-crossing-02",
+          "manuscriptSegmentSHA256": "f975c91529a3c07afaf1f87c5f492ba37417d39823976a2a6ed3b92a75da2e75"
+        }
+      ],
+      "audio": {
+        "repositoryPath": "native/audio/narration/review/chapter-01/probes/voice-candidate-05.m4a",
+        "sampleRate": 48000,
+        "durationSamples": 3094528,
+        "bytes": 1542305,
+        "sha256": "fc11c6bb860a5730685145c7971d311360cce04c00c9bb197102b0cdba4d3ac9"
+      },
+      "durationSeconds": 64.46933333333334
+    },
+    {
+      "candidateID": "voice-candidate-06",
+      "reference": {
+        "path": "native/audio/narration/work/cast-v1-2026-07-24/references/voice-candidate-06-reference.wav",
+        "bytes": 2165862,
+        "sha256": "2301a67a760681c64952123683ba61283a622c00fb991b62460563b605e68386"
+      },
+      "generationCallCount": 4,
+      "jobs": [
+        {
+          "seed": 27120000,
+          "rawSampleCount": 806400,
+          "processedSampleCount": 771168,
+          "sampleRate": 48000,
+          "rawFloat32LESHA256": "6edd17394747ac7b86ae43663bc5b447530157a8ab5e6fa058d58c5335ab2620",
+          "processedFloat32LESHA256": "d59f2bf0de9b2cb6e66fa0793bb27ac5a96024bebeba9557b2fa0f9d375c5b00",
+          "oneModelGenerateCall": true,
+          "retryUsed": false,
+          "manuscriptSegmentID": "ff-river-world-01",
+          "manuscriptSegmentSHA256": "d594d0b6749f99a1434bd1107002f147fae9b83c148ee80db0d814e40893217b"
+        },
+        {
+          "seed": 27120101,
+          "rawSampleCount": 844800,
+          "processedSampleCount": 802891,
+          "sampleRate": 48000,
+          "rawFloat32LESHA256": "eb9cc280d1bd8990520a802ee39dfda344df42e6a5cb3f7133e954489867277f",
+          "processedFloat32LESHA256": "5e178dca8fb9ba01833e139bd8f385df0dcf81c3130544e19506505a5c2e88c5",
+          "oneModelGenerateCall": true,
+          "retryUsed": false,
+          "manuscriptSegmentID": "ff-river-world-02",
+          "manuscriptSegmentSHA256": "8c769caeac7cc0a40cef261776691faedb48e129ad2d54f2c83eb29b4c2819ed"
+        },
+        {
+          "seed": 27120202,
+          "rawSampleCount": 1144320,
+          "processedSampleCount": 1111953,
+          "sampleRate": 48000,
+          "rawFloat32LESHA256": "71bafd23b0d0f744da9c8de2265cb4cfa0888cd980e56c6ee47875823ad7fbcd",
+          "processedFloat32LESHA256": "f7b7e2582fe24c472dc3e36f40b29f92f6e96b0a777213524295e8e99906ae9d",
+          "oneModelGenerateCall": true,
+          "retryUsed": false,
+          "manuscriptSegmentID": "ff-crossing-01",
+          "manuscriptSegmentSHA256": "c79a713d8cd503a9162a11d454047c67a1bcf4fe666c417bcc73e226eedfc814"
+        },
+        {
+          "seed": 27120303,
+          "rawSampleCount": 1344000,
+          "processedSampleCount": 1313939,
+          "sampleRate": 48000,
+          "rawFloat32LESHA256": "deb80e5d8852b912617758e8af5d6a0eff96e7a3d39775dc3a527f9b68283462",
+          "processedFloat32LESHA256": "c591ba7ea5fd2adf5d6fbb668caa009795a0c75f46a785a8ec57164e46a9d347",
+          "oneModelGenerateCall": true,
+          "retryUsed": false,
+          "manuscriptSegmentID": "ff-crossing-02",
+          "manuscriptSegmentSHA256": "f975c91529a3c07afaf1f87c5f492ba37417d39823976a2a6ed3b92a75da2e75"
+        }
+      ],
+      "audio": {
+        "repositoryPath": "native/audio/narration/review/chapter-01/probes/voice-candidate-06.m4a",
+        "sampleRate": 48000,
+        "durationSamples": 4000768,
+        "bytes": 1902700,
+        "sha256": "2a864d392a8c787f2fe46bbf268e3a4a75b76146910c4908b50c045af7f07315"
+      },
+      "durationSeconds": 83.34933333333333
+    }
+  ],
+  "modelGenerateCallCount": 8,
+  "networkAttemptCount": 0,
+  "v12ProtectedBytesUnchanged": true,
+  "oneTakePerSegment": true,
+  "retryUsed": false,
+  "runtimeGenerationPermitted": false,
+  "shippingUsePermitted": false
+}

@@ -1,0 +1,84 @@
+{
+  "assetVersion": "chapter01-hero-characters-v3",
+  "classification": "HERO_RIG_CANDIDATE",
+  "externalSources": [
+    {
+      "commit": "f4f4f1ffa8203585730a7ce433b66738777ba168",
+      "license": {
+        "bundledAssets": "CC0-1.0",
+        "buildTimeCode": "GPL-3.0"
+      },
+      "name": "MPFB",
+      "tag": "v2.0.15",
+      "url": "https://github.com/makehumancommunity/mpfb2"
+    },
+    {
+      "commit": "8cf9645b975a98eea056b140df11a1d278da0d10",
+      "license": "CC0-1.0",
+      "name": "MakeHuman assets",
+      "usedPaths": [
+        "base/hair/short02",
+        "base/hair/braid01",
+        "base/hair/short04",
+        "base/skins/textures/middleage_lightskinned_male_diffuse2.png",
+        "base/skins/textures/middleage_lightskinned_female_diffuse2.png",
+        "base/skins/textures/young_lightskinned_male_diffuse2.png"
+      ],
+      "url": "https://github.com/makehumancommunity/makehuman-assets"
+    }
+  ],
+  "finalArtGate": "OPEN",
+  "historicalRemovals": [
+    {
+      "finding": "The former third-party garment topology was removed completely after its embedded licence metadata conflicted with its pack metadata.",
+      "requiredBuildInput": false,
+      "retainedGeometryOrData": false
+    }
+  ],
+  "materialPolicy": {
+    "cloth": "Project-authored deterministic plain-weave base-colour and normal maps on project-authored parametric garment geometry.",
+    "hair": "Pinned CC0 MakeHuman geometry with project-authored untextured dark material.",
+    "skin": "Pinned CC0 MakeHuman diffuse maps with project-authored roughness and restrained subsurface settings."
+  },
+  "projectAuthoredSources": [
+    {
+      "authority": "native/production/3d/chapter01/tooling/generate_hero_characters.py",
+      "inputs": [
+        "selected and rest-space-offset surface from the pinned CC0 MakeHuman base human",
+        "character rig rest-bone endpoints",
+        "deterministic profiled-ring skirt primitives",
+        "fixed numeric bodice, sleeve, waist, hem and clearance boundaries"
+      ],
+      "name": "Restrained early-Neolithic fitted-bodice and fixed-drape belted tunic geometry",
+      "rights": "Project-authored transformation of CC0 body geometry"
+    },
+    {
+      "authority": "native/production/3d/chapter01/tooling/generate_hero_characters.py",
+      "inputs": [
+        "pinned CC0 MakeHuman hair topology and rig weights",
+        "fixed rig-head-relative rest-space clearance"
+      ],
+      "name": "Hairline and braid rest-space clearance",
+      "rights": "Project-authored transformation of CC0 geometry"
+    },
+    {
+      "authority": "native/production/3d/chapter01/tooling/generate_hero_characters.py",
+      "inputs": [
+        "fixed procedural weave equations",
+        "project palette"
+      ],
+      "name": "Woven cloth maps",
+      "rights": "Project-authored"
+    }
+  ],
+  "rightsGate": "PASS",
+  "schemaVersion": 1,
+  "shippingStatus": "RIGHTS_CLEARED_FINAL_ART_OPEN",
+  "toolchain": {
+    "blender": {
+      "buildHash": "fbe6228777e7",
+      "version": "5.2.0 LTS"
+    },
+    "mpfbRuntimeDependency": false
+  }
+}

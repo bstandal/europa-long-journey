@@ -1,0 +1,273 @@
+{
+  "schemaVersion": 1,
+  "matrixID": "chapter-01-review-matrix-v1",
+  "milestone": "CHAPTER_01_REVIEW_READY",
+  "status": "NON_SHIPPING_REVIEW",
+  "shippingAllowed": false,
+  "chapterID": "first-farmers",
+  "publicContentSchemaMutation": false,
+  "sourceDraft": {
+    "path": "native/phase2/editor-review/first-farmers/first-farmers-native-draft-v1.json",
+    "sha256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a"
+  },
+  "portraitContract": {
+    "orientation": "portrait",
+    "overscanRequired": true,
+    "masterCanvasPixels": {
+      "width": 1179,
+      "height": 2556
+    },
+    "authoredOverscanFraction": 0.15,
+    "baselineSourceRect": {
+      "x": 0.15,
+      "y": 0.15,
+      "width": 0.7,
+      "height": 0.7
+    },
+    "minimumEffectiveTargetPoints": 44,
+    "layers": [
+      "background",
+      "inhabited-material-midground",
+      "foreground",
+      "mechanism-light"
+    ],
+    "transparentOverlayLayers": [
+      "inhabited-material-midground",
+      "foreground",
+      "mechanism-light"
+    ],
+    "reduceMotionUsesStaticConsequenceComposition": true
+  },
+  "worlds": [
+    {
+      "id": "review-world-iron-gates-danube",
+      "title": "Iron Gates–Danube",
+      "sourceAsset": "site/assets/source/first-farmers/at-the-iron-gates.png",
+      "sourceStatus": "REVIEW_SOURCE_PLATE_NOT_PRODUCTION_MASTER",
+      "interactionStateIDs": [
+        "river-dawn",
+        "danube-arrival",
+        "gorge-contact",
+        "river-communities",
+        "contact-households",
+        "later-settlements",
+        "route-to-loess"
+      ],
+      "reduceMotion": {
+        "compositionID": "review-world-iron-gates-danube-static",
+        "consequenceStateIDs": ["later-settlements", "route-to-loess"]
+      }
+    },
+    {
+      "id": "review-world-aegean-crossing",
+      "title": "Aegean Crossing",
+      "sourceAsset": "site/assets/source/first-farmers/crossing-the-sea.png",
+      "sourceStatus": "REVIEW_SOURCE_PLATE_NOT_PRODUCTION_MASTER",
+      "interactionStateIDs": [
+        "loading",
+        "western-anatolia",
+        "aegean-islands",
+        "thessaly",
+        "danube-corridor"
+      ],
+      "reduceMotion": {
+        "compositionID": "review-world-aegean-crossing-static",
+        "consequenceStateIDs": ["western-anatolia", "aegean-islands", "thessaly", "danube-corridor"]
+      }
+    },
+    {
+      "id": "review-world-thessaly-first-field",
+      "title": "Thessaly and the First Field",
+      "sourceAsset": "site/assets/source/first-farmers/before-the-fields.png",
+      "sourceStatus": "REVIEW_SOURCE_PLATE_NOT_PRODUCTION_MASTER",
+      "interactionStateIDs": ["system-unpacked", "first-season", "next-sowing"],
+      "reduceMotion": {
+        "compositionID": "review-world-thessaly-first-field-static",
+        "consequenceStateIDs": ["system-unpacked", "first-season", "next-sowing"]
+      }
+    },
+    {
+      "id": "review-world-harvest-store",
+      "title": "Harvest and Store",
+      "sourceAsset": "native/design/phase1/harvest/reconstruction-master-draft-v2.png",
+      "sourceStatus": "EDITOR_APPROVED_COMPOSITION_TARGET_PIXELS_NOT_SHIPPING_APPROVED",
+      "interactionStateIDs": ["unallocated", "allocating", "committed", "autumn-rain"],
+      "reduceMotion": {
+        "compositionID": "review-world-harvest-store-static",
+        "consequenceStateIDs": ["committed", "autumn-rain"]
+      }
+    },
+    {
+      "id": "review-world-longhouse-settlement",
+      "title": "Longhouse Plot and Settlement",
+      "sourceAsset": "native/design/phase1/longhouse/concepts/option-a4-inherited-ground-readable.png",
+      "sourceStatus": "PROVISIONAL_A4_REVIEW_DIRECTION_NOT_PRODUCTION_MASTER",
+      "interactionStateIDs": [
+        "bare-plot",
+        "posts-placed",
+        "hearth-placed",
+        "storage-placed",
+        "roof-placed",
+        "rebuilt-plot",
+        "household-descent",
+        "new-hearths",
+        "field-edges",
+        "herd-lanes-and-daughters",
+        "local-contraction"
+      ],
+      "reduceMotion": {
+        "compositionID": "review-world-longhouse-settlement-static",
+        "consequenceStateIDs": ["rebuilt-plot", "herd-lanes-and-daughters", "local-contraction"]
+      }
+    },
+    {
+      "id": "review-world-european-farming-belt",
+      "title": "European Farming Belt",
+      "sourceAsset": "site/assets/source/first-farmers/more-mouths-more-land.png",
+      "sourceStatus": "REVIEW_SOURCE_PLATE_NOT_PRODUCTION_MASTER",
+      "interactionStateIDs": ["danube-fields", "loess-settlements", "european-farming-belt", "steppe-handoff"],
+      "reduceMotion": {
+        "compositionID": "review-world-european-farming-belt-static",
+        "consequenceStateIDs": ["european-farming-belt", "steppe-handoff"]
+      }
+    }
+  ],
+  "beats": [
+    {
+      "beatID": "beat-first-farmers-river-world",
+      "sceneID": "scene-first-farmers-iron-gates-dawn",
+      "worldID": "review-world-iron-gates-danube",
+      "cameraVariant": "gorge-waterline-dawn",
+      "lightVariant": "returning-boat-wake",
+      "stateVariant": "river-dawn"
+    },
+    {
+      "beatID": "beat-first-farmers-household-crosses",
+      "sceneID": "scene-first-farmers-aegean-crossing",
+      "worldID": "review-world-aegean-crossing",
+      "cameraVariant": "shore-loading-to-danube-rail",
+      "lightVariant": "secured-route-cargo",
+      "stateVariant": "loading"
+    },
+    {
+      "beatID": "beat-first-farmers-living-system",
+      "sceneID": "scene-first-farmers-thessaly-landing",
+      "worldID": "review-world-thessaly-first-field",
+      "cameraVariant": "thessaly-system-unpacked",
+      "lightVariant": "linked-seed-animal-tool",
+      "stateVariant": "system-unpacked"
+    },
+    {
+      "beatID": "beat-first-farmers-european-ground",
+      "sceneID": "scene-first-farmers-thessaly-first-season",
+      "worldID": "review-world-thessaly-first-field",
+      "cameraVariant": "first-season-ground-level",
+      "lightVariant": "worked-soil-after-rain",
+      "stateVariant": "first-season"
+    },
+    {
+      "beatID": "beat-first-farmers-inhabited-frontier",
+      "sceneID": "scene-first-farmers-danube-arrival",
+      "worldID": "review-world-iron-gates-danube",
+      "cameraVariant": "arrival-over-inhabited-bank",
+      "lightVariant": "old-route-new-cargo",
+      "stateVariant": "danube-arrival"
+    },
+    {
+      "beatID": "beat-first-farmers-harvest-allocation",
+      "sceneID": "harvest-allocation-option-1",
+      "worldID": "review-world-harvest-store",
+      "cameraVariant": "finite-grain-three-destinations",
+      "lightVariant": "active-obligation",
+      "stateVariant": "unallocated"
+    },
+    {
+      "beatID": "beat-first-farmers-stored-future",
+      "sceneID": "scene-first-farmers-store-committed",
+      "worldID": "review-world-harvest-store",
+      "cameraVariant": "committed-store-season-window",
+      "lightVariant": "seed-vessel-autumn-rain",
+      "stateVariant": "committed"
+    },
+    {
+      "beatID": "beat-first-farmers-gorge-contact",
+      "sceneID": "scene-first-farmers-iron-gates-contact",
+      "worldID": "review-world-iron-gates-danube",
+      "cameraVariant": "two-banks-one-landing",
+      "lightVariant": "exchanged-material",
+      "stateVariant": "gorge-contact"
+    },
+    {
+      "beatID": "beat-first-farmers-three-records",
+      "sceneID": "scene-first-farmers-iron-gates-transformation",
+      "worldID": "review-world-iron-gates-danube",
+      "cameraVariant": "fixed-bank-three-time-layers",
+      "lightVariant": "aligned-record-layers",
+      "stateVariant": "river-communities"
+    },
+    {
+      "beatID": "beat-first-farmers-frontier-consequence",
+      "sceneID": "scene-first-farmers-danube-to-loess",
+      "worldID": "review-world-iron-gates-danube",
+      "cameraVariant": "gorge-route-to-loess",
+      "lightVariant": "route-into-workable-ground",
+      "stateVariant": "route-to-loess"
+    },
+    {
+      "beatID": "beat-first-farmers-raise-longhouse",
+      "sceneID": "scene-first-farmers-longhouse-assembly",
+      "worldID": "review-world-longhouse-settlement",
+      "cameraVariant": "a4-bare-plot-assembly",
+      "lightVariant": "load-bearing-posts-first",
+      "stateVariant": "bare-plot"
+    },
+    {
+      "beatID": "beat-first-farmers-plot-remains",
+      "sceneID": "scene-first-farmers-longhouse-rebuilt",
+      "worldID": "review-world-longhouse-settlement",
+      "cameraVariant": "a4-decay-and-rebuild",
+      "lightVariant": "old-postholes-new-frame",
+      "stateVariant": "rebuilt-plot"
+    },
+    {
+      "beatID": "beat-first-farmers-paternal-lines",
+      "sceneID": "scene-first-farmers-household-descent",
+      "worldID": "review-world-longhouse-settlement",
+      "cameraVariant": "repeated-thresholds",
+      "lightVariant": "worn-threshold",
+      "stateVariant": "household-descent"
+    },
+    {
+      "beatID": "beat-first-farmers-more-mouths",
+      "sceneID": "scene-first-farmers-settlement-growth",
+      "worldID": "review-world-longhouse-settlement",
+      "cameraVariant": "one-hearth-to-settlement-oblique",
+      "lightVariant": "hearth-to-field-path",
+      "stateVariant": "new-hearths"
+    },
+    {
+      "beatID": "beat-first-farmers-growth-breaks",
+      "sceneID": "scene-first-farmers-local-contraction",
+      "worldID": "review-world-longhouse-settlement",
+      "cameraVariant": "settlement-edge-reversal",
+      "lightVariant": "carried-seed-dark-roofs",
+      "stateVariant": "local-contraction"
+    },
+    {
+      "beatID": "beat-first-farmers-continent-remade",
+      "sceneID": "scene-first-farmers-europe-transformation",
+      "worldID": "review-world-european-farming-belt",
+      "cameraVariant": "field-to-relief-world",
+      "lightVariant": "stores-and-hearths-belt",
+      "stateVariant": "danube-fields"
+    },
+    {
+      "beatID": "beat-first-farmers-before-steppe",
+      "sceneID": "scene-first-farmers-steppe-handoff",
+      "worldID": "review-world-european-farming-belt",
+      "cameraVariant": "settled-foreground-east-horizon",
+      "lightVariant": "warm-store-cold-east-edge",
+      "stateVariant": "steppe-handoff"
+    }
+  ]
+}

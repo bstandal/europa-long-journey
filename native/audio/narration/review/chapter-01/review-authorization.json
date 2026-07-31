@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "status": "NON_SHIPPING_REVIEW_AUTHORIZED",
+  "shippingState": "PROHIBITED",
+  "milestone": "CHAPTER_01_REVIEW_READY",
+  "chapterID": "first-farmers",
+  "configuration": "NON_SHIPPING_REVIEW",
+  "approvedBy": "editor-in-chief",
+  "decidedAt": "2026-07-27",
+  "decisionReference": "User-approved CHAPTER_01_REVIEW_READY implementation plan in the Codex task on 2026-07-27.",
+  "scope": {
+    "voxcpm2V12": {
+      "permitted": true,
+      "candidateIDs": [
+        "voice-candidate-05",
+        "voice-candidate-06"
+      ],
+      "technicalProbeCount": 2,
+      "minimumProbeSeconds": 60,
+      "maximumProbeSeconds": 90,
+      "selectionCriteria": [
+        "word-accuracy",
+        "identity-stability",
+        "retained-silence-fraction",
+        "decoder-collapse-absence"
+      ],
+      "productionVoicePromotionPermitted": false,
+      "shippingUsePermitted": false
+    },
+    "fallback": {
+      "engine": "Qwen3-TTS Base",
+      "candidateID": "voice-candidate-05",
+      "condition": "No VoxCPM2 candidate passes the bounded technical probe within the review timebox.",
+      "wholeChapterOnly": true,
+      "shippingUsePermitted": false
+    },
+    "chapterCueSet": {
+      "cueCount": 37,
+      "locale": "en",
+      "oneCuePerFrozenManuscriptSegment": true,
+      "actualAudioDurationRequired": true,
+      "runtimeGenerationPermitted": false,
+      "shippingUsePermitted": false
+    }
+  },
+  "v12PresynthesisAuthority": {
+    "path": "native/audio/narration/work/pre-synthesis-v12/evidence-r1-2026-07-25/presynthesis-authority.v12.receipt.json",
+    "bytes": 128630,
+    "sha256": "f88851125d3e50da50d36d44e11c38c36e2873740a8d7305a63254c9e0a036c3",
+    "remainsClosedForProduction": true,
+    "modifiedByThisDecision": false
+  },
+  "claimsExcluded": [
+    "production narration authority",
+    "editor-selected final voice",
+    "artistic narration approval",
+    "shipping approval"
+  ]
+}

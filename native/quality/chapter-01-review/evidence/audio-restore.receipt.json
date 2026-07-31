@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "receiptID": "audio-restore-chapter-01-review-v1",
+  "type": "AUDIO_RESTORE",
+  "milestone": "CHAPTER_01_REVIEW_READY",
+  "status": "PASS",
+  "chapterID": "first-farmers",
+  "shippingState": "PROHIBITED",
+  "subjectSHA256": "8951433810be0d2d1893858026253cd7835a0fcb3d57cd193053cbaebf369efb",
+  "sampleRate": 48000,
+  "controlledPauseSampleDelta": 0,
+  "rapidTraceMaximumCursorWriteMilliseconds": 125,
+  "hardKillMaximumCursorWriteMilliseconds": 125,
+  "sameProcessBackgroundPreservesActivePhase": true,
+  "coldRestorePhaseNormalization": {
+    "engaged": "waiting",
+    "resistance": "waiting"
+  },
+  "coldReturnStartsPaused": true,
+  "loopCursorPreserved": true,
+  "silenceSurvivesChapterLifecycle": true,
+  "silenceLeaksAcrossChapters": false,
+  "artifacts": [
+    {
+      "role": "audio-restore-log",
+      "path": "native/quality/chapter-01-review/evidence/artifacts/audio-restore-final.log",
+      "bytes": 13872,
+      "sha256": "d58407658155d4e9a67ef47fb61f54922fc379b85866ec7f4249c9eb8aa3c684"
+    }
+  ]
+}

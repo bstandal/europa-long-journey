@@ -1,0 +1,189 @@
+{
+  "schemaVersion": 2,
+  "id": "ff-longhouse-assembly-production-v1",
+  "status": "NON_SHIPPING_PRODUCTION_CONTRACT",
+  "shippingAllowed": false,
+  "editorApprovalClaimed": false,
+  "chapterID": "first-farmers",
+  "arcID": "first-farmers-arc-03",
+  "beatID": "beat-first-farmers-raise-longhouse",
+  "sceneID": "scene-first-farmers-longhouse-assembly",
+  "interactionID": "interaction-first-farmers-the-house-outlives",
+  "grammar": "assemble",
+  "seedEffectIDs": [
+    "effect-first-farmers-at-the-iron-gates"
+  ],
+  "threeRecordsDependencyPolicy": "SEED_EFFECT_ID_ONLY_NO_ASSET_AUDIO_PROSE_OR_RUNTIME_LOAD",
+  "currentDependencyAuthority": {
+    "source": "native/phase2/editor-review/first-farmers/first-farmers-native-draft-v1.json",
+    "sha256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a",
+    "components": [
+      {
+        "id": "posts",
+        "targetSlot": "frame",
+        "prerequisites": []
+      },
+      {
+        "id": "hearth",
+        "targetSlot": "centre",
+        "prerequisites": [
+          "posts"
+        ]
+      },
+      {
+        "id": "storage",
+        "targetSlot": "dry-bay",
+        "prerequisites": [
+          "posts"
+        ]
+      },
+      {
+        "id": "roof",
+        "targetSlot": "shelter",
+        "prerequisites": [
+          "posts"
+        ]
+      }
+    ]
+  },
+  "dependencyImplementation": "DATA_DRIVEN_WITHOUT_ART_BAKED_ORDER",
+  "runtimeVisualBinding": {
+    "status": "NON_SHIPPING_TECHNICAL_SOURCE_SLOT_AUTHORITY",
+    "shippingAllowed": false,
+    "productionArtworkAuthority": false,
+    "geometryAuthority": "TECHNICAL_FIXTURE_ONLY_REPLACE_WITH_REGISTERED_PRODUCTION_TARGETS",
+    "minimumEffectiveTargetPoints": 44,
+    "baselineCrop": {
+      "viewport": {
+        "widthPoints": 393,
+        "heightPoints": 852
+      },
+      "sourceRect": {
+        "x": 0.15,
+        "y": 0.15,
+        "width": 0.7,
+        "height": 0.7
+      }
+    },
+    "components": [
+      {
+        "componentID": "posts",
+        "layerID": "component-posts",
+        "sourceInteractionTargetID": "component-posts-source",
+        "sourceHitRegion": {
+          "x": 0.2,
+          "y": 0.36,
+          "width": 0.1,
+          "height": 0.1
+        },
+        "slotInteractionTargetID": "component-posts-slot",
+        "slotHitRegion": {
+          "x": 0.2,
+          "y": 0.64,
+          "width": 0.1,
+          "height": 0.1
+        }
+      },
+      {
+        "componentID": "hearth",
+        "layerID": "component-hearth",
+        "sourceInteractionTargetID": "component-hearth-source",
+        "sourceHitRegion": {
+          "x": 0.36,
+          "y": 0.36,
+          "width": 0.1,
+          "height": 0.1
+        },
+        "slotInteractionTargetID": "component-hearth-slot",
+        "slotHitRegion": {
+          "x": 0.36,
+          "y": 0.64,
+          "width": 0.1,
+          "height": 0.1
+        }
+      },
+      {
+        "componentID": "storage",
+        "layerID": "component-storage",
+        "sourceInteractionTargetID": "component-storage-source",
+        "sourceHitRegion": {
+          "x": 0.52,
+          "y": 0.36,
+          "width": 0.1,
+          "height": 0.1
+        },
+        "slotInteractionTargetID": "component-storage-slot",
+        "slotHitRegion": {
+          "x": 0.52,
+          "y": 0.64,
+          "width": 0.1,
+          "height": 0.1
+        }
+      },
+      {
+        "componentID": "roof",
+        "layerID": "component-roof",
+        "sourceInteractionTargetID": "component-roof-source",
+        "sourceHitRegion": {
+          "x": 0.68,
+          "y": 0.36,
+          "width": 0.1,
+          "height": 0.1
+        },
+        "slotInteractionTargetID": "component-roof-slot",
+        "slotHitRegion": {
+          "x": 0.68,
+          "y": 0.64,
+          "width": 0.1,
+          "height": 0.1
+        }
+      }
+    ]
+  },
+  "directManipulationContract": {
+    "ephemeralPhases": [
+      "contact",
+      "lift",
+      "carrying",
+      "slotApproach",
+      "resistance",
+      "snapBack"
+    ],
+    "durableAction": "place",
+    "durableBoundary": "REDUCER_ACCEPTED_DROP_ONLY",
+    "cancelledDropMutatesJourney": false,
+    "wrongSlotDropMutatesJourney": false,
+    "dependencyRejectedDropMutatesJourney": false,
+    "voiceOverUsesSameDurableAction": true,
+    "minimumEffectiveTargetPoints": 44
+  },
+  "causalContract": {
+    "immediateResponse": "The handled material lifts from its source, carries its own weight and meets either material resistance or an accepted bearing point.",
+    "visibleMechanism": "Packed posts take the frame; hearth, dry storage and roof fibre become working parts of the sheltered household in any order once that frame stands.",
+    "historicalConsequence": "The completed timber decays while the threshold, old post marks, worked ground and rebuilt frame retain the household plot.",
+    "completionEffectID": "effect-first-farmers-the-house-outlives",
+    "persistentTraceID": "trace-european-farming-belt"
+  },
+  "stateRequirements": [
+    "bare-inherited-plot",
+    "posts-source",
+    "posts-packed",
+    "hearth-source",
+    "hearth-accepted",
+    "storage-source",
+    "storage-accepted",
+    "roof-source",
+    "roof-accepted",
+    "decayed-frame",
+    "rebuilt-frame",
+    "reduce-motion-assembly",
+    "reduce-motion-rebuilt-plot"
+  ],
+  "releaseBlocks": [
+    "NO_REFINED_PORTRAIT_DIRECTION",
+    "NO_PRODUCTION_MASTER",
+    "NO_REGISTERED_LAYER_AND_STATE_DAG",
+    "NO_INTEGRATED_SCENE_AUDIO_HAPTIC_ARTISTIC_PASS",
+    "NO_COMPLETE_OFFLINE_SIGNED_SCENE"
+  ]
+}

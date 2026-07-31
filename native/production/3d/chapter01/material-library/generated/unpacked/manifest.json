@@ -1,0 +1,345 @@
+{
+  "classification": "MATERIAL_CANDIDATE",
+  "createdBy": "Codex-controlled deterministic production",
+  "externalHumanContributor": false,
+  "finalArtGate": "OPEN",
+  "incrementalCostNOK": 0,
+  "libraryID": "chapter01-mobile-pbr-materials-v1",
+  "materials": [
+    {
+      "authors": [
+        {
+          "name": "Charlotte Baglioni",
+          "role": "All"
+        }
+      ],
+      "candidateUse": "Soil and worked-field microdetail in Thessaly and the expansion landscape.",
+      "displayName": "Dirt",
+      "historicalUseBoundary": "Surface appearance only. Do not treat scan footprints, debris, colour or geology as historical evidence; authored geometry and state variants carry ploughing, wetness and crop consequences.",
+      "license": "CC0-1.0",
+      "maps": [
+        {
+          "byteCount": 730425,
+          "channel": "baseColor",
+          "colorSpace": "sRGB",
+          "downloadURL": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/dirt/dirt_diff_1k.jpg",
+          "height": 1024,
+          "outputPath": "materials/soil-dirt-v1/baseColor.jpg",
+          "sha256": "6ce6ca7e28ed046f7f93fa60dcb29f8cf42cd5a539adc5676675acccfa34efd3",
+          "sourceMD5": "cb37e24797597b1dd1ae3819fa80f076",
+          "sourceMapKey": "Diffuse",
+          "width": 1024
+        },
+        {
+          "byteCount": 1202783,
+          "channel": "normal",
+          "colorSpace": "linear",
+          "downloadURL": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/dirt/dirt_nor_gl_1k.jpg",
+          "height": 1024,
+          "normalConvention": "OpenGL +Y",
+          "outputPath": "materials/soil-dirt-v1/normal.jpg",
+          "sha256": "5a5f97d920fdcdf352b350b95558bf48bb306be1fe61a47418aadc60b7deb0ce",
+          "sourceMD5": "362610edf09fd31735958eecec823a84",
+          "sourceMapKey": "nor_gl",
+          "width": 1024
+        },
+        {
+          "byteCount": 253549,
+          "channel": "roughness",
+          "colorSpace": "linear",
+          "downloadURL": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/dirt/dirt_rough_1k.jpg",
+          "height": 1024,
+          "outputPath": "materials/soil-dirt-v1/roughness.jpg",
+          "sha256": "eff62d5ae7bf0c46b84173bc46f07528dd164aa39f5d550c93a805b36f54b704",
+          "sourceMD5": "d936d6760ce0f899b131d30626d52ce9",
+          "sourceMapKey": "Rough",
+          "width": 1024
+        }
+      ],
+      "materialID": "soil-dirt-v1",
+      "rightsStatus": "COMMERCIAL_USE_CLEARED",
+      "role": "soil",
+      "sourceAssetSlug": "dirt",
+      "sourceFileIndexURL": "https://api.polyhaven.com/files/dirt",
+      "sourceMetadataURL": "https://api.polyhaven.com/info/dirt",
+      "sourcePage": "https://polyhaven.com/a/dirt"
+    },
+    {
+      "authors": [
+        {
+          "name": "Amal Kumar",
+          "role": "All"
+        }
+      ],
+      "candidateUse": "Iron Gates cliff, boulder and shadowed river-edge microdetail.",
+      "displayName": "Dark Rock 02",
+      "historicalUseBoundary": "Visual material candidate only. It must not imply a precise Danube geological formation; large-scale strata and cliff form remain authored geometry.",
+      "license": "CC0-1.0",
+      "maps": [
+        {
+          "byteCount": 592452,
+          "channel": "baseColor",
+          "colorSpace": "sRGB",
+          "downloadURL": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/dark_rock_02/dark_rock_02_diff_1k.jpg",
+          "height": 1024,
+          "outputPath": "materials/gorge-dark-rock-v1/baseColor.jpg",
+          "sha256": "09cf66947bfe49fa1278ff341159063a43d96aae0bdf9f21536ff94feddef322",
+          "sourceMD5": "92e53acc3f9878b525d0234d8c51fadf",
+          "sourceMapKey": "Diffuse",
+          "width": 1024
+        },
+        {
+          "byteCount": 1028835,
+          "channel": "normal",
+          "colorSpace": "linear",
+          "downloadURL": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/dark_rock_02/dark_rock_02_nor_gl_1k.jpg",
+          "height": 1024,
+          "normalConvention": "OpenGL +Y",
+          "outputPath": "materials/gorge-dark-rock-v1/normal.jpg",
+          "sha256": "011bec5690fa6bba771e745603cbd400d4cbe21ae254af0330680b3a1a7d9a92",
+          "sourceMD5": "ddae04d066a75ff94b7dd34e8c0f9b74",
+          "sourceMapKey": "nor_gl",
+          "width": 1024
+        },
+        {
+          "byteCount": 503425,
+          "channel": "roughness",
+          "colorSpace": "linear",
+          "downloadURL": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/dark_rock_02/dark_rock_02_rough_1k.jpg",
+          "height": 1024,
+          "outputPath": "materials/gorge-dark-rock-v1/roughness.jpg",
+          "sha256": "ab2645db4a2fa7120d7d14063cfa2d0b3b3c8cb37736eaf115d5924871eb7040",
+          "sourceMD5": "8751b2c4ca67b2d8defa15f5ab9ce396",
+          "sourceMapKey": "Rough",
+          "width": 1024
+        }
+      ],
+      "materialID": "gorge-dark-rock-v1",
+      "rightsStatus": "COMMERCIAL_USE_CLEARED",
+      "role": "rock",
+      "sourceAssetSlug": "dark_rock_02",
+      "sourceFileIndexURL": "https://api.polyhaven.com/files/dark_rock_02",
+      "sourceMetadataURL": "https://api.polyhaven.com/info/dark_rock_02",
+      "sourcePage": "https://polyhaven.com/a/dark_rock_02"
+    },
+    {
+      "authors": [
+        {
+          "name": "Rob Tuytel",
+          "role": "All"
+        }
+      ],
+      "candidateUse": "Longhouse posts, braces, threshold and worked timber microdetail.",
+      "displayName": "Fine Grained Wood",
+      "historicalUseBoundary": "Surface grain only. Do not infer tree species, modern milling, tool marks or construction method from this scan; authored meshes and wear masks carry those decisions.",
+      "license": "CC0-1.0",
+      "maps": [
+        {
+          "byteCount": 336305,
+          "channel": "baseColor",
+          "colorSpace": "sRGB",
+          "downloadURL": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/fine_grained_wood/fine_grained_wood_col_1k.jpg",
+          "height": 1024,
+          "outputPath": "materials/timber-fine-grain-v1/baseColor.jpg",
+          "sha256": "d171f45ef01bc6e239b00dfaa4961bcd27f7d8e93e3962da3bd3d0ce703d802c",
+          "sourceMD5": "3db9decdde678e087e67ff99d30c0a73",
+          "sourceMapKey": "Diffuse",
+          "width": 1024
+        },
+        {
+          "byteCount": 193626,
+          "channel": "normal",
+          "colorSpace": "linear",
+          "downloadURL": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/fine_grained_wood/fine_grained_wood_nor_gl_1k.jpg",
+          "height": 1024,
+          "normalConvention": "OpenGL +Y",
+          "outputPath": "materials/timber-fine-grain-v1/normal.jpg",
+          "sha256": "ba95eadc009818e161d0f753191f1bacc3fc861e593be0bc6d82b437f9ec8044",
+          "sourceMD5": "a9e33e87ea5c32945fc30553767b7046",
+          "sourceMapKey": "nor_gl",
+          "width": 1024
+        },
+        {
+          "byteCount": 215155,
+          "channel": "roughness",
+          "colorSpace": "linear",
+          "downloadURL": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/fine_grained_wood/fine_grained_wood_rough_1k.jpg",
+          "height": 1024,
+          "outputPath": "materials/timber-fine-grain-v1/roughness.jpg",
+          "sha256": "f281f682e62fe322303dfeaa13dac18b5cb9e113617fe0aca43605b49161d82b",
+          "sourceMD5": "5e29204cca6747b5df219e9a7255540f",
+          "sourceMapKey": "Rough",
+          "width": 1024
+        }
+      ],
+      "materialID": "timber-fine-grain-v1",
+      "rightsStatus": "COMMERCIAL_USE_CLEARED",
+      "role": "timber",
+      "sourceAssetSlug": "fine_grained_wood",
+      "sourceFileIndexURL": "https://api.polyhaven.com/files/fine_grained_wood",
+      "sourceMetadataURL": "https://api.polyhaven.com/info/fine_grained_wood",
+      "sourcePage": "https://polyhaven.com/a/fine_grained_wood"
+    },
+    {
+      "authors": [
+        {
+          "name": "colormass",
+          "role": "Photography"
+        },
+        {
+          "name": "Rico Cilliers",
+          "role": "Processing"
+        }
+      ],
+      "candidateUse": "Fine woven-cloth microstructure for authored garments and sacks.",
+      "channelApproval": {
+        "baseColor": "REFERENCE_ONLY",
+        "normal": "MATERIAL_CANDIDATE",
+        "roughness": "MATERIAL_CANDIDATE"
+      },
+      "displayName": "Rough Linen",
+      "historicalUseBoundary": "Normal and roughness are usable as weave microdetail. The blue base colour is reference-only and must not ship directly. Use an authored neutral flax/wool colour and do not claim fibre identification from the scan; Poly Haven also categorises the source under cotton and hessian.",
+      "license": "CC0-1.0",
+      "maps": [
+        {
+          "byteCount": 835801,
+          "channel": "baseColor",
+          "colorSpace": "sRGB",
+          "downloadURL": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/rough_linen/rough_linen_diff_1k.jpg",
+          "height": 1026,
+          "outputPath": "materials/cloth-rough-weave-v1/baseColor.jpg",
+          "sha256": "04897d7611d7390ddf5b2c6f7273f448dfc48341fdbd1f4f207fa30b331d7f57",
+          "sourceMD5": "663db789fb075462b685c1f740e58930",
+          "sourceMapKey": "Diffuse",
+          "width": 1024
+        },
+        {
+          "byteCount": 916843,
+          "channel": "normal",
+          "colorSpace": "linear",
+          "downloadURL": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/rough_linen/rough_linen_nor_gl_1k.jpg",
+          "height": 1026,
+          "normalConvention": "OpenGL +Y",
+          "outputPath": "materials/cloth-rough-weave-v1/normal.jpg",
+          "sha256": "e2402166d1a489f7414814e69e1836ab672aa24e30bec2d41fea356f81687e53",
+          "sourceMD5": "3350269a2e9c472aa406bd3cc1eaf2c8",
+          "sourceMapKey": "nor_gl",
+          "width": 1024
+        },
+        {
+          "byteCount": 1083725,
+          "channel": "roughness",
+          "colorSpace": "linear",
+          "downloadURL": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/rough_linen/rough_linen_rough_1k.jpg",
+          "height": 1026,
+          "outputPath": "materials/cloth-rough-weave-v1/roughness.jpg",
+          "sha256": "734ad6718841a6e296aacaa6e9ee2e1686eed5f62bb8d71c915c5605e162bcb4",
+          "sourceMD5": "a380b24cc43cff88c39510305ebf0020",
+          "sourceMapKey": "Rough",
+          "width": 1024
+        }
+      ],
+      "materialID": "cloth-rough-weave-v1",
+      "rightsStatus": "COMMERCIAL_USE_CLEARED",
+      "role": "cloth",
+      "sourceAssetSlug": "rough_linen",
+      "sourceFileIndexURL": "https://api.polyhaven.com/files/rough_linen",
+      "sourceMetadataURL": "https://api.polyhaven.com/info/rough_linen",
+      "sourcePage": "https://polyhaven.com/a/rough_linen"
+    },
+    {
+      "authors": [
+        {
+          "name": "Rob Tuytel",
+          "role": "Processing"
+        },
+        {
+          "name": "Dimitrios Savva",
+          "role": "Photography"
+        }
+      ],
+      "candidateUse": "Longhouse roof and settlement thatch microdetail.",
+      "displayName": "Thatch Roof Angled",
+      "historicalUseBoundary": "Surface microdetail only. Authored strand bundles, ridge construction, wear and silhouette must establish the Chapter 01 roof; the source scan is not evidence for a specific Neolithic roof assembly.",
+      "license": "CC0-1.0",
+      "maps": [
+        {
+          "byteCount": 860319,
+          "channel": "baseColor",
+          "colorSpace": "sRGB",
+          "downloadURL": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/thatch_roof_angled/thatch_roof_angled_diff_1k.jpg",
+          "height": 1024,
+          "outputPath": "materials/reed-thatch-v1/baseColor.jpg",
+          "sha256": "ad84b9bf0a826c6e573f4bac09a0b96f33aec673a7e31cdd360667dc355f3599",
+          "sourceMD5": "645a32cd470a4b14aa033793d0e7aa83",
+          "sourceMapKey": "Diffuse",
+          "width": 1024
+        },
+        {
+          "byteCount": 1278796,
+          "channel": "normal",
+          "colorSpace": "linear",
+          "downloadURL": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/thatch_roof_angled/thatch_roof_angled_nor_gl_1k.jpg",
+          "height": 1024,
+          "normalConvention": "OpenGL +Y",
+          "outputPath": "materials/reed-thatch-v1/normal.jpg",
+          "sha256": "073e2b374f2477605e23a1054e605de5268a012d2701865040d4551816b70d06",
+          "sourceMD5": "eaa0da45ad5ce3fdb664be4202943fdf",
+          "sourceMapKey": "nor_gl",
+          "width": 1024
+        },
+        {
+          "byteCount": 588100,
+          "channel": "roughness",
+          "colorSpace": "linear",
+          "downloadURL": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/thatch_roof_angled/thatch_roof_angled_rough_1k.jpg",
+          "height": 1024,
+          "outputPath": "materials/reed-thatch-v1/roughness.jpg",
+          "sha256": "81891e8df23ad0019c467095f5eb9631fef44e558a66ed2a472842349a7449ba",
+          "sourceMD5": "6368f0014bf7411f38950d5dc23bd2e2",
+          "sourceMapKey": "Rough",
+          "width": 1024
+        }
+      ],
+      "materialID": "reed-thatch-v1",
+      "rightsStatus": "COMMERCIAL_USE_CLEARED",
+      "role": "reed-thatch",
+      "sourceAssetSlug": "thatch_roof_angled",
+      "sourceFileIndexURL": "https://api.polyhaven.com/files/thatch_roof_angled",
+      "sourceMetadataURL": "https://api.polyhaven.com/info/thatch_roof_angled",
+      "sourcePage": "https://polyhaven.com/a/thatch_roof_angled"
+    }
+  ],
+  "mobileProfile": {
+    "baseColorColorSpace": "sRGB",
+    "dataMapColorSpace": "linear",
+    "fileFormat": "image/jpeg",
+    "metallicConstant": 0.0,
+    "normalConvention": "OpenGL +Y",
+    "omissionReason": "The Chapter 01 iPhone candidate uses authored geometry plus three mobile PBR maps. AO is lighting-dependent and displacement is outside the current runtime budget.",
+    "omittedSourceChannels": [
+      "ambientOcclusion",
+      "displacement"
+    ],
+    "resolutionClass": "1K",
+    "runtimeChannels": [
+      "baseColor",
+      "normal",
+      "roughness"
+    ]
+  },
+  "schemaVersion": 1,
+  "shippingStatus": "BLOCKED",
+  "sourcePolicy": {
+    "assetLicense": "CC0-1.0",
+    "attributionRequired": false,
+    "commercialUseAllowed": true,
+    "licenseEvidenceCheckedOn": "2026-07-30",
+    "licenseEvidenceURL": "https://polyhaven.com/license",
+    "officialDownloadHost": "dl.polyhaven.org",
+    "provider": "Poly Haven",
+    "providerURL": "https://polyhaven.com/",
+    "redistributionAllowed": true,
+    "rightsDecision": "PASS"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "status": "NON_SHIPPING_DEVELOPMENT_PROJECTION",
+  "shippingState": "PROHIBITED",
+  "chapterID": "first-farmers",
+  "sourceDraftPath": "native/phase2/editor-review/first-farmers/first-farmers-native-draft-v1.json",
+  "sourceDraftSHA256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a",
+  "chapterPath": "native/phase2/generated/first-farmers.chapter.json",
+  "chapterSHA256": "8edddafa124fe4eff2d6d4c328fac8c35ad5688feaf9e7eabd4a1a6b8df270e4",
+  "worldSeedPath": "native/phase2/generated/first-farmers.world-seed.json",
+  "worldSeedSHA256": "19b6fff295d31181f68b74832ad1b676bde56571603d543404c45cb4f4c04769",
+  "manuscriptSHA256": "e80a3182afef57faa569e89f2c9f12613b4f5744f02b819553eb79a71ef673e7",
+  "counts": {
+    "arcs": 3,
+    "beats": 17,
+    "interactions": 6,
+    "narrationCues": 37,
+    "worldEffects": 7
+  },
+  "claimsExcluded": [
+    "editor approval",
+    "final visual assets",
+    "final audio assets",
+    "launch-package approval",
+    "shipping approval"
+  ]
+}

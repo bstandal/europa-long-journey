@@ -1,0 +1,178 @@
+{
+  "authorityLimits": {
+    "mayApprove": [
+      "SOURCE_ALIGNED_MASK_ROUTE",
+      "PARALLAX_EDGE_DIAGNOSTIC",
+      "REDUCE_MOTION_PIXEL_PARITY"
+    ],
+    "mayNotApprove": [
+      "CLEAN_PLATE",
+      "LAYER_DAG",
+      "STATE_VARIANT",
+      "PRODUCTION_MASTER",
+      "SHIPPING_ASSET"
+    ]
+  },
+  "builder": {
+    "path": "native/scripts/build-harvest-semantic-qa.py",
+    "sha256": "d12f5ac3cad353880b59391ba16cde0fc9d34ea8ffaa30e2faf3c97593b8641b"
+  },
+  "cleanPlateDiagnostics": {
+    "authority": "DIAGNOSTIC_ONLY_REJECTED_AS_PRODUCTION_CLEAN_PLATES",
+    "provenancePath": "native/content/backstage/harvest/clean-plate-diagnostics/provenance.json",
+    "provenanceSha256": "0131c6b216a6a97cd726a22e64fd9ea24a4e016f7f790f7c3afc976f660016ab",
+    "replacementInput": "settlement",
+    "settlementSha256": "d24c1d1b8c1bf7bbf555194b9fbd9f4e2c2c4e2ae8f2cc6376bc891872b5f8fd"
+  },
+  "construction": {
+    "alphaConstruction": {
+      "erodePixels": 1,
+      "featherPixels": 1.0,
+      "rgbPolicy": "STRAIGHT_ALPHA_SOURCE_RGB_REMAINS_UNMATTED"
+    },
+    "cleanPlateConstruction": {
+      "objectRemoval": {
+        "dilationPixels": 24,
+        "featherPixels": 4,
+        "masks": [
+          "people-and-work",
+          "central-grain",
+          "foreground-occluders"
+        ],
+        "replacement": "settlement"
+      }
+    },
+    "comparisonCrop": {
+      "id": "baseline-393x852-2x",
+      "outputPixelSize": [
+        786,
+        1704
+      ],
+      "sourcePixelRect": [
+        103,
+        224,
+        1084,
+        2348
+      ]
+    },
+    "layersBackToFront": [
+      {
+        "id": "people",
+        "masks": [
+          "people-and-work"
+        ],
+        "maximumShiftPixels": [
+          3,
+          1
+        ]
+      },
+      {
+        "id": "grain",
+        "masks": [
+          "central-grain"
+        ],
+        "maximumShiftPixels": [
+          8,
+          3
+        ]
+      },
+      {
+        "id": "foreground",
+        "masks": [
+          "foreground-occluders"
+        ],
+        "maximumShiftPixels": [
+          10,
+          4
+        ]
+      }
+    ],
+    "testScope": {
+      "excludedAfterRejectedDiagnostic": [
+        "winter-food-vessel",
+        "protected-reserve-bin",
+        "spring-seed-store"
+      ],
+      "excludedPendingProductionCleanPlate": [
+        "settlement-shelter",
+        "allocation-cloth"
+      ],
+      "excludedReason": "The diagnostic settlement replacement does not preserve source geometry closely enough to judge those displaced edges without dark seams or registration residues.",
+      "includedMovingLayers": [
+        "people",
+        "grain",
+        "foreground"
+      ]
+    }
+  },
+  "metrics": {
+    "positiveAgainstNegativeParallax": {
+      "changedPixelCount": 248818,
+      "changedPixelFraction": 0.1857760217,
+      "maximumChannelDifference": 181,
+      "meanAbsoluteChannelDifference": 3.11583407,
+      "psnrDecibels": 27.6412908
+    },
+    "reduceMotionAgainstV26": {
+      "changedPixelCount": 0,
+      "changedPixelFraction": 0.0,
+      "maximumChannelDifference": 0,
+      "meanAbsoluteChannelDifference": 0.0,
+      "psnrDecibels": null
+    }
+  },
+  "outputs": {
+    "alpha-foreground.png": "8f6332a7ee341e6075c05493e37f5fae68fa5950eef55a0b3727fce659542b58",
+    "alpha-grain.png": "972e9e1f867c9d8e178c7ed1b38b4629b7175c609a30f1ac11d8014f68d810a6",
+    "alpha-people.png": "eb60fffa4ad4bd8a87ebe7165117423a7d6a7baa7c57e873cd9a37671cf4bc59",
+    "combined-comparison.png": "34cccc69e90b2df7405482e8f4ed85db3abcafdc3944c36ade046a9282ba5f32",
+    "diagnostic-clean-base.png": "5459f14eac91f170ff8daa1ffdba75ba456c78a4799bf0ca0f2d4aa8db14f20a",
+    "diagnostic-object-replacement-mask.png": "c3cf63967c320080e2f353daa4750544bd76a509d079872e6cb884de560e761b",
+    "halo-edge-inspection.png": "0010d11bdf4f8cd4f8ef2cd86d1a7c26dbc64b2ec6b854ae6a597778c5c7d09c",
+    "parallax-extrema-difference-x4.png": "e20719d0392b1018adb2280108cccc49fa23a7ea5e877e0285bd786e9128c136",
+    "parallax-negative-crop.png": "d4f72a6ecd4598c2905b02678409af3e2d4cbaa4378f2a9fee0d5491ed58e042",
+    "parallax-negative-full.png": "1e53de86c2ff22f59ece84adadc9a1dc72aae16b35ea512dae06f1c4436c8444",
+    "parallax-positive-crop.png": "e195b71477ad4e5fc165174f5850a9d45db857ca9cc93f900c2a05b1f20dad5d",
+    "parallax-positive-full.png": "f8c4abc35497d4eb6d798aaa7f1a3c775c0aa696671aada85f169e43e0a4ac63",
+    "reduce-motion-difference.png": "263df81900d94a22a0bc24692b290f741c850919f43668403eb4460b27bf7982",
+    "reduce-motion-static-crop.png": "64bb283bbd37e66502fef198d508af8618f6032fa6edac9558bcb34e7c6199a8",
+    "v26-reference-crop.png": "64bb283bbd37e66502fef198d508af8618f6032fa6edac9558bcb34e7c6199a8"
+  },
+  "schemaVersion": 1,
+  "segmentationAuthority": {
+    "preflightPath": "native/content/backstage/harvest/segmentation-toolchain-sam2-preflight.json",
+    "preflightSha256": "8ba2433232e760c44f7784a1de7e6cf54bc4767e1435b7912cc96ef3742de3c6",
+    "receiptPath": "native/content/backstage/harvest/semantic-masks-v26.provisional/segmentation-receipt.json",
+    "receiptSha256": "4c378ffe243bdafd85b9c0476147d14b023389e9ea88d5f9884fcba3f3d75191"
+  },
+  "semanticMasks": {
+    "allocation-cloth": "f87a639685ccba48127cb3fbcfef46e611228e5c0645aa3d4c4c901589f06627",
+    "central-grain": "85dbd5f14ed998ed3874721948678acd0411e3e0e91d443c9d47555fc047aea3",
+    "foreground-occluders": "8810139ae423683c5434690a5698bd28940338790b75ba9d3ca897d98a29cf35",
+    "people-and-work": "90e9dcb55a980d3971b6da5c44174d352fe74729197c8300d96562a7c4547a2d",
+    "protected-reserve-bin": "c4b360be6c7b9381f6966c56b7ba43279ad177105adf097680042e2aa4b28c7c",
+    "settlement-shelter": "808903d213d4694f022a0f9930cda3c4f639e28476a584e862b381ebd49371d0",
+    "spring-seed-store": "60bd67ede5b3602993ca484c93e94d5d63b75f055f1c616d0aa9c50faf69a9c9",
+    "winter-food-vessel": "11a8029ac2497428b53c837cf8c0e903ec8f77e15a582cc712ebe1575c4aa9ff"
+  },
+  "shippingState": "PROHIBITED",
+  "source": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+    "pixelSize": [
+      1290,
+      2796
+    ],
+    "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca"
+  },
+  "specification": {
+    "path": "/Users/bard/Documents/Eurocentric/native/content/backstage/harvest/parallax-halo-qa-v26.spec.json",
+    "sha256": "d1f3f61da2f48f8a86f5ba84c88cb4454e13a2a104924e59da699dfc9fd24ead"
+  },
+  "status": "BACKSTAGE_COMBINED_VISUAL_QA_REQUIRES_CODEX_REVIEW",
+  "unresolvedByThisReceipt": [
+    "The resized settlement clean diagnostic source is globally redrawn, below-resolution, and non-reproducible as a production input.",
+    "The world diagnostic source is provenance-verified but is not composited in this restricted proof.",
+    "Visual review must reject any remaining subject ghost, seam, halo, geometric edge, or registration break.",
+    "No state variant, full clean plate, runtime layer set, or camera-rail performance is approved."
+  ]
+}

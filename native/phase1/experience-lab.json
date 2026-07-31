@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "status": "LOCKED_IMPLEMENTATION_SET",
+  "requiresPhase0Status": "APPROVED_BY_EDITOR_IN_CHIEF",
+  "packageID": "essential-free-v1",
+  "requiredGrammars": [
+    "trace",
+    "allocate",
+    "assemble",
+    "pressure",
+    "transform"
+  ],
+  "scenes": [
+    {
+      "labSceneID": "lab-first-farmers-harvest-allocation",
+      "beatID": "beat-first-farmers-harvest-allocation",
+      "contentID": "first-farmers",
+      "arcID": "first-farmers-arc-02",
+      "movementID": "the-harvest-had-to-last",
+      "nativeInteractionID": "interaction-first-farmers-the-harvest-had-to-last",
+      "grammar": "allocate",
+      "sourceDisposition": "KEEP",
+      "worldTraceID": "trace-seasonal-store",
+      "worldEffectID": "effect-first-farmers-the-harvest-had-to-last",
+      "purpose": "Prove that one finite harvest can be divided through direct material action while winter food, protected reserve and spring seed remain causally visible.",
+      "selectedVisual": "native/design/phase1/harvest/selection.json"
+    },
+    {
+      "labSceneID": "lab-first-farmers-house-assembly",
+      "beatID": "beat-first-farmers-house-assembly",
+      "contentID": "first-farmers",
+      "arcID": "first-farmers-arc-03",
+      "movementID": "the-house-outlives",
+      "nativeInteractionID": "interaction-first-farmers-the-house-outlives",
+      "grammar": "assemble",
+      "sourceDisposition": "REWRITE",
+      "worldTraceID": "trace-european-farming-belt",
+      "worldEffectID": "effect-first-farmers-the-house-outlives",
+      "seedEffectIDs": [
+        "effect-first-farmers-at-the-iron-gates"
+      ],
+      "purpose": "Prove that posts, hearth and storage become an operating house whose rebuilt frame, threshold and remembered plot outlive one material structure."
+    },
+    {
+      "labSceneID": "lab-first-farmers-land-transformation",
+      "beatID": "beat-first-farmers-land-transformation",
+      "contentID": "first-farmers",
+      "arcID": "first-farmers-arc-03",
+      "movementID": "more-mouths-more-land",
+      "nativeInteractionID": "interaction-first-farmers-more-mouths-more-land",
+      "grammar": "transform",
+      "sourceDisposition": "REWRITE",
+      "worldTraceID": "trace-european-farming-belt",
+      "worldEffectID": "effect-first-farmers-more-mouths-more-land",
+      "seedEffectIDs": [
+        "effect-first-farmers-the-house-outlives"
+      ],
+      "purpose": "Prove a deterministic cross-scene transformation as new hearths, fields, herd lanes and daughter settlements remain cut into the same ground."
+    },
+    {
+      "labSceneID": "lab-frontiers-northern-valleys-pressure",
+      "beatID": "beat-frontiers-northern-valleys-pressure",
+      "contentID": "europe-holds-the-line",
+      "arcID": "europe-holds-the-line-arc-01",
+      "movementID": "northern-valleys-keep-crown",
+      "nativeInteractionID": "interaction-europe-holds-the-line-northern-valleys-keep-crown",
+      "grammar": "pressure",
+      "sourceDisposition": "KEEP",
+      "worldTraceID": "trace-christian-frontier",
+      "worldEffectID": "effect-europe-holds-the-line-northern-valleys-keep-crown",
+      "purpose": "Prove pressure through terrain, refuge, stores and inhabited depth without turning frontier defence into a battle game."
+    },
+    {
+      "labSceneID": "lab-european-world-ocean-schedule",
+      "beatID": "beat-european-world-ocean-schedule",
+      "contentID": "european-world",
+      "arcID": "european-world-arc-01",
+      "movementID": "steam-keeps-the-appointment",
+      "nativeInteractionID": "interaction-european-world-steam-keeps-the-appointment",
+      "grammar": "trace",
+      "sourceDisposition": "KEEP",
+      "worldTraceID": "trace-global-schedule",
+      "worldEffectID": "effect-european-world-steam-keeps-the-appointment",
+      "purpose": "Prove a route whose speed and reliability emerge from steam power, coal capacity, watches, ports and connection rather than decorative map drawing."
+    }
+  ]
+}

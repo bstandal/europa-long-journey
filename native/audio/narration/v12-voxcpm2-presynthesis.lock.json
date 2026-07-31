@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "trustDomain": "CODEX_V12_VOXCPM2_PRE_SYNTHESIS_ONLY",
+  "recordedAt": "2026-07-25",
+  "model": {
+    "root": "native/audio/narration/work/provisional-audit-v11/voxcpm2-exact-snapshot-r1-2026-07-25/model",
+    "modelID": "openbmb/VoxCPM2",
+    "revision": "bffb3df5a29440629464e5e839f4d214c8714c3d",
+    "files": [
+      {"path": ".gitattributes", "bytes": 1519, "sha256": "11ad7efa24975ee4b0c3c3a38ed18737f0658a5f75a0a96787b576a78a023361"},
+      {"path": "README.md", "bytes": 7776, "sha256": "7384fad93ce2d98f47d5c3170597f3b31d414c12c92e7fdf3121fa90f19fe29d"},
+      {"path": "audiovae.pth", "bytes": 376951122, "sha256": "94b5d51e107e0507d4acc976cfdadb64edd6fd06d1f751dadbf2fd1594274bf1"},
+      {"path": "config.json", "bytes": 4336, "sha256": "405f0dcd92f7feba6011ed4eac5c8d4f74cba9712f07fd5cfa3063bbdd95402c"},
+      {"path": "model.safetensors", "bytes": 4580080592, "sha256": "f7f964cfa9da23653baec6e6f7750719977ad944ed9f95fe52fe3a620506891d"},
+      {"path": "special_tokens_map.json", "bytes": 1632, "sha256": "068594063e37662c02b21acf42ebb334ef6a74fb810e68a2368f88f08351de76"},
+      {"path": "tokenization_voxcpm2.py", "bytes": 2895, "sha256": "84489ea32b6ee0cae22ed5480cacb6df85c46624c3119be9a2021c3649a12729"},
+      {"path": "tokenizer.json", "bytes": 3676772, "sha256": "f8984687e4a92a3503d521396d454b7d68e9fdaab2a0288eb3536c7c1aa4bc20"},
+      {"path": "tokenizer_config.json", "bytes": 5059, "sha256": "e78a3ebb48a0b9437efd1823b6b726c823da89e49dd8bcc90c02419d9baa772b"}
+    ]
+  },
+  "archives": {
+    "cpython": {
+      "path": "native/audio/narration/work/provisional-audit-v11/voxcpm2-exact-snapshot-r1-2026-07-25/runtime/cpython-3.11.15+20260610-aarch64-apple-darwin-install_only_stripped.tar.gz",
+      "bytes": 27114282,
+      "sha256": "8c56f1f59142e0f9f8861ad897bdfd97fd84403afa7b3d8b0f33b208ec471355"
+    },
+    "source": {
+      "path": "native/audio/narration/work/provisional-audit-v11/voxcpm2-exact-snapshot-r1-2026-07-25/source/VoxCPM-19b6bf7590025418821a86dcb817504e0ad7e5df.tar.gz",
+      "bytes": 3032436,
+      "sha256": "e0151722c469fec513f43d760f927de2a548bd0a69012c50d9d50130c4eeae64"
+    },
+    "wheelLock": {
+      "path": "native/audio/narration/v11-voxcpm2-runtime-macos-arm64.lock",
+      "bytes": 5652,
+      "sha256": "3f420f7841e2177714d1decff03540b33391897e4bda05538eb4f41093af3923"
+    },
+    "wheelhouse": "native/audio/narration/work/provisional-audit-v11/voxcpm2-runtime-r4-origin-bytecode-2026-07-25/wheelhouse"
+  },
+  "conditioning": {
+    "transcript": {
+      "path": "native/audio/narration/identity-reference-v1.txt",
+      "bytes": 202,
+      "sha256": "a7ccefaf433c8998c1556ba5465c49031a8210e903d32542f8c6aa5a525cc011"
+    },
+    "references": [
+      {
+        "candidateID": "voice-candidate-05",
+        "path": "native/audio/narration/work/cast-v1-2026-07-24/references/voice-candidate-05-reference.wav",
+        "bytes": 2119782,
+        "sha256": "a832c5fd5ac65d5b7392f69a93f14ed0b1dfbb3ba88bb7b2d34328b215acab04"
+      },
+      {
+        "candidateID": "voice-candidate-06",
+        "path": "native/audio/narration/work/cast-v1-2026-07-24/references/voice-candidate-06-reference.wav",
+        "bytes": 2165862,
+        "sha256": "2301a67a760681c64952123683ba61283a622c00fb991b62460563b605e68386"
+      }
+    ]
+  },
+  "legacyNumbaCache": {
+    "root": "native/audio/narration/work/provisional-audit-v11/voxcpm2-runtime-r4-origin-bytecode-2026-07-25/exact-venv",
+    "expectedFileCount": 46,
+    "extensions": [".nbc", ".nbi"]
+  },
+  "runtimeVersions": {
+    "python": "3.11.15",
+    "torch": "2.10.0",
+    "torchaudio": "2.10.0",
+    "librosa": "0.11.0",
+    "numba": "0.66.0",
+    "llvmlite": "0.48.0",
+    "numpy": "2.4.3",
+    "transformers": "5.3.0"
+  },
+  "priorMethodEvidence": [
+    {
+      "methodID": "qwen3-tts",
+      "path": "native/audio/narration/work/provisional-audit-v8/local-synthesis-inventory-r1-2026-07-25/local-synthesis-inventory.v9.receipt.json",
+      "bytes": 132188,
+      "sha256": "e767a33f2df97e62a6892f5abb2cc03b451856dda981b77fa464bb6e54a7d288"
+    },
+    {
+      "methodID": "chatterbox-turbo",
+      "path": "native/audio/narration/work/provisional-audit-v8/chatterbox-comparison-r1-2026-07-25/chatterbox-comparison.v8.receipt.json",
+      "bytes": 304003,
+      "sha256": "fc0dc51cae7763b2635b5ce4ec561730b2597060f3c39b372ab72e0a32553f98"
+    },
+    {
+      "methodID": "openvoice-v2",
+      "path": "native/audio/narration/v10-openvoice-negative-evidence.json",
+      "bytes": 10261,
+      "sha256": "5b65d6ef9d6fa5f09e0d9423c20e07a8e1794b236c7f4283cf83aaba011e872b"
+    }
+  ]
+}

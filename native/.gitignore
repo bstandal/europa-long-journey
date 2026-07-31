@@ -1,0 +1,9 @@
+DerivedData/
+.build/
+build/
+tooling/.tmp/
+tooling/staging/
+*.xcresult
+*.aar
+ios/LongWestJourney.xcodeproj/
+ios/.derived-*/

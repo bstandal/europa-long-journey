@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "receiptID": "simulator-traversal-chapter-01-review-v1",
+  "type": "SIMULATOR_TRAVERSAL",
+  "milestone": "CHAPTER_01_REVIEW_READY",
+  "status": "PENDING_EVIDENCE",
+  "chapterID": "first-farmers",
+  "shippingState": "PROHIBITED",
+  "subjectSHA256": null,
+  "operationMode": "CODEX_COMPUTER_USE",
+  "device": {
+    "platform": "iOS Simulator",
+    "model": "iPhone 17 Pro",
+    "osVersion": "26.5"
+  },
+  "directLaunchBeatID": "beat-first-farmers-river-world",
+  "finalBeatID": "beat-first-farmers-before-steppe",
+  "completedCounts": {
+    "arcs": 3,
+    "beats": 17,
+    "interactions": 6,
+    "worlds": 6,
+    "narrationCues": 37,
+    "audioTimelines": 47
+  },
+  "fullTraversalCompleted": null,
+  "deliberateEntryAction": "Begin",
+  "authoredSoundStartedAfterEntry": null,
+  "soundControlStayedVisible": null,
+  "playingControlLabel": "Turn sound off",
+  "mutePausedAuthoredSound": null,
+  "mutedControlLabel": "Turn sound on",
+  "unmuteResumedAuthoredSound": null,
+  "interruptionControlLabel": "Resume sound",
+  "interruptionRestartedSoundSpontaneously": null,
+  "coldRestoreControlLabel": "Resume sound",
+  "coldRestoreRestartedSoundSpontaneously": null,
+  "accountSurfaceShown": null,
+  "purchaseSurfaceShown": null,
+  "debugControlsShown": null,
+  "visibleReviewMarksShown": null,
+  "artifacts": [
+    {
+      "role": "manual-traversal-log",
+      "path": null,
+      "bytes": null,
+      "sha256": null
+    },
+    {
+      "role": "manual-traversal-recording",
+      "path": null,
+      "bytes": null,
+      "sha256": null
+    }
+  ]
+}

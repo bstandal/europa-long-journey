@@ -1,0 +1,2003 @@
+{
+  "schemaVersion": 1,
+  "status": "REJECTED_GEOMETRIC_MASK_NEGATIVE_FIXTURE",
+  "shippingState": "PROHIBITED",
+  "editorApprovalState": "NOT_CLAIMED",
+  "candidate": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+    "bytes": 5860864,
+    "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca"
+  },
+  "backup": {
+    "path": "native/content/backstage/harvest/backups/production-master-candidate-v26.filevault-copy.png",
+    "bytes": 5860864,
+    "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca",
+    "scope": "SAME_FILEVAULT_VOLUME_ONLY"
+  },
+  "dag": {
+    "path": "native/content/backstage/harvest/visual-asset-dag-v26.provisional.json",
+    "bytes": 203998,
+    "sha256": "455ce0e77a3118680690e98cdd7837ea390841b7df89b2d02d2891a874e7c56e",
+    "canonicalSHA256": "4b108afda648495c3fbd49af7d9235924c8edd2df45062a776ff781dd6e9b76c"
+  },
+  "receipt": {
+    "path": "native/content/backstage/harvest/visual-asset-receipt-v26.provisional.json",
+    "bytes": 215245,
+    "sha256": "e259d50d704aba047fa75eb39703b5fec855b8e59288d48c55a79e248612abd9"
+  },
+  "inventory": {
+    "counts": {
+      "total": 86,
+      "baseLayers": 12,
+      "baseMasks": 27,
+      "stateFiles": 45,
+      "reduceMotionPlates": 2
+    },
+    "files": [
+      {
+        "path": "assets/phase1/harvest-option-1/layers/00-storm-sky.heif",
+        "kind": "scene-layer",
+        "ownerID": "storm-sky",
+        "variantID": null,
+        "maskType": null,
+        "bytes": 3772519,
+        "sha256": "e11ce09a0cffdd70b6a784a93297f60aa9ddb3af7ed2888bf0990df78d107485",
+        "width": 1290,
+        "height": 2796
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/00-storm-sky-depth.png",
+        "kind": "scene-mask",
+        "ownerID": "storm-sky",
+        "variantID": null,
+        "maskType": "depth",
+        "bytes": 33256,
+        "sha256": "336a38a5eae60fc2935981bf01b4aacd7066c2a937a80374f965a3071d557596",
+        "width": 1290,
+        "height": 2796
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/00-storm-sky-light.png",
+        "kind": "scene-mask",
+        "ownerID": "storm-sky",
+        "variantID": null,
+        "maskType": "light",
+        "bytes": 93419,
+        "sha256": "d32fa389683c4415582d39e70d4d347bca05954e7be466838956a4d636c20407",
+        "width": 1290,
+        "height": 2796
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/layers/01-farming-landscape.heif",
+        "kind": "scene-layer",
+        "ownerID": "farming-landscape",
+        "variantID": null,
+        "maskType": null,
+        "bytes": 3772519,
+        "sha256": "e11ce09a0cffdd70b6a784a93297f60aa9ddb3af7ed2888bf0990df78d107485",
+        "width": 1290,
+        "height": 2796
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/01-farming-landscape-depth.png",
+        "kind": "scene-mask",
+        "ownerID": "farming-landscape",
+        "variantID": null,
+        "maskType": "depth",
+        "bytes": 33256,
+        "sha256": "336a38a5eae60fc2935981bf01b4aacd7066c2a937a80374f965a3071d557596",
+        "width": 1290,
+        "height": 2796
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/layers/02-settlement.heif",
+        "kind": "scene-layer",
+        "ownerID": "settlement",
+        "variantID": null,
+        "maskType": null,
+        "bytes": 1512890,
+        "sha256": "09eb3716c9b7ca26b175efe6332b7e9ea0918f0adbc5c6bd1a3aa8a1b8644088",
+        "width": 1162,
+        "height": 1259
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/02-settlement-alpha.png",
+        "kind": "scene-mask",
+        "ownerID": "settlement",
+        "variantID": null,
+        "maskType": "alpha",
+        "bytes": 5681,
+        "sha256": "6736e0fa88d2f2cfa817e1219ff8670a0940de9999117f2962e21c5a9a051335",
+        "width": 1162,
+        "height": 1259
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/02-settlement-depth.png",
+        "kind": "scene-mask",
+        "ownerID": "settlement",
+        "variantID": null,
+        "maskType": "depth",
+        "bytes": 48432,
+        "sha256": "cd4c6b5bbb144bd1c3ef8ae2c095c66e169d39143ae5584460e669ceb730db51",
+        "width": 1162,
+        "height": 1259
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/02-settlement-light.png",
+        "kind": "scene-mask",
+        "ownerID": "settlement",
+        "variantID": null,
+        "maskType": "light",
+        "bytes": 64786,
+        "sha256": "d1bf68471cd5e816c6932414b2caa0eb08041650cc7c453d422197f4fac042c5",
+        "width": 1162,
+        "height": 1259
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/02-settlement-occlusion.png",
+        "kind": "scene-mask",
+        "ownerID": "settlement",
+        "variantID": null,
+        "maskType": "occlusion",
+        "bytes": 4964,
+        "sha256": "0da7f22308ef263f87c1ae7a6b97917813bf0bed1b0f5b40889ff348f745ae45",
+        "width": 1162,
+        "height": 1259
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/layers/03-people-and-work.heif",
+        "kind": "scene-layer",
+        "ownerID": "people-and-work",
+        "variantID": null,
+        "maskType": null,
+        "bytes": 1192341,
+        "sha256": "2225ff08576ab7651f7e210be3ea870d4ca3803a88bca6238466d6ef24689b31",
+        "width": 1084,
+        "height": 1064
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/03-people-and-work-alpha.png",
+        "kind": "scene-mask",
+        "ownerID": "people-and-work",
+        "variantID": null,
+        "maskType": "alpha",
+        "bytes": 66160,
+        "sha256": "028f3307000178ce4f93ee68cdf8f7a11bb174fa63d8cb650ba54568ee0be602",
+        "width": 1084,
+        "height": 1064
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/03-people-and-work-depth.png",
+        "kind": "scene-mask",
+        "ownerID": "people-and-work",
+        "variantID": null,
+        "maskType": "depth",
+        "bytes": 67673,
+        "sha256": "e27b51a078e96bcc4a649edc6e49385588f7fa7561cf66a5c21ce4efe6a1ce02",
+        "width": 1084,
+        "height": 1064
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/layers/04-allocation-ground.heif",
+        "kind": "scene-layer",
+        "ownerID": "allocation-ground",
+        "variantID": null,
+        "maskType": null,
+        "bytes": 826907,
+        "sha256": "e8a81dcb85671bdf381b9e9d894fadfafc165e5321e3b0d05bffa86b8bc965e6",
+        "width": 982,
+        "height": 756
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/04-allocation-ground-alpha.png",
+        "kind": "scene-mask",
+        "ownerID": "allocation-ground",
+        "variantID": null,
+        "maskType": "alpha",
+        "bytes": 34913,
+        "sha256": "cf1dd588ea03bd240c7cea52377a486736d3132a864739da2f2ab175b32407bb",
+        "width": 982,
+        "height": 756
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/04-allocation-ground-depth.png",
+        "kind": "scene-mask",
+        "ownerID": "allocation-ground",
+        "variantID": null,
+        "maskType": "depth",
+        "bytes": 32743,
+        "sha256": "f849674a7a9e71c3dbb46dede860ce46c1b2047381f9fdd3c7874b81fada8b3c",
+        "width": 982,
+        "height": 756
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/layers/05-winter-store-base.heif",
+        "kind": "scene-layer",
+        "ownerID": "winter-store",
+        "variantID": null,
+        "maskType": null,
+        "bytes": 181901,
+        "sha256": "ba7c92e650b1caab10a05bc2a684df664b3c0f2dd544435c872eee79d3c5b83b",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/05-winter-store-base-alpha.png",
+        "kind": "scene-mask",
+        "ownerID": "winter-store",
+        "variantID": null,
+        "maskType": "alpha",
+        "bytes": 4406,
+        "sha256": "052f4e12cb91066df3a8e649fbef527bffe6829bc6d1e83765b9fdd42e5143a6",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/05-winter-store-base-depth.png",
+        "kind": "scene-mask",
+        "ownerID": "winter-store",
+        "variantID": null,
+        "maskType": "depth",
+        "bytes": 17017,
+        "sha256": "c7cf3190e35efe256599c7028fa1fa12ce7961ca221567daf359157729ee749e",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/winter-store-empty.heif",
+        "kind": "scene-layer",
+        "ownerID": "winter-store",
+        "variantID": "empty",
+        "maskType": null,
+        "bytes": 152713,
+        "sha256": "055ede3eb643ef0d8c4614af53e6feb3d26effba1ef51278d1aa853c1aa7e3a3",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/winter-store-empty-alpha.png",
+        "kind": "scene-mask",
+        "ownerID": "winter-store",
+        "variantID": "empty",
+        "maskType": "alpha",
+        "bytes": 4406,
+        "sha256": "052f4e12cb91066df3a8e649fbef527bffe6829bc6d1e83765b9fdd42e5143a6",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/winter-store-empty-depth.png",
+        "kind": "scene-mask",
+        "ownerID": "winter-store",
+        "variantID": "empty",
+        "maskType": "depth",
+        "bytes": 17017,
+        "sha256": "c7cf3190e35efe256599c7028fa1fa12ce7961ca221567daf359157729ee749e",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/winter-store-receiving.heif",
+        "kind": "scene-layer",
+        "ownerID": "winter-store",
+        "variantID": "receiving",
+        "maskType": null,
+        "bytes": 206620,
+        "sha256": "79f6bc605bc28d25889f9ffd42dda6abb1d7174dd7b51bd3337ab441f12bf0a5",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/winter-store-receiving-alpha.png",
+        "kind": "scene-mask",
+        "ownerID": "winter-store",
+        "variantID": "receiving",
+        "maskType": "alpha",
+        "bytes": 4406,
+        "sha256": "052f4e12cb91066df3a8e649fbef527bffe6829bc6d1e83765b9fdd42e5143a6",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/winter-store-receiving-depth.png",
+        "kind": "scene-mask",
+        "ownerID": "winter-store",
+        "variantID": "receiving",
+        "maskType": "depth",
+        "bytes": 17017,
+        "sha256": "c7cf3190e35efe256599c7028fa1fa12ce7961ca221567daf359157729ee749e",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/winter-store-provisioned.heif",
+        "kind": "scene-layer",
+        "ownerID": "winter-store",
+        "variantID": "provisioned",
+        "maskType": null,
+        "bytes": 186391,
+        "sha256": "9d8f653330768653fb46101c65d455da23ae34cd8aea4d7b3e7e42373a1909f0",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/winter-store-provisioned-alpha.png",
+        "kind": "scene-mask",
+        "ownerID": "winter-store",
+        "variantID": "provisioned",
+        "maskType": "alpha",
+        "bytes": 4406,
+        "sha256": "052f4e12cb91066df3a8e649fbef527bffe6829bc6d1e83765b9fdd42e5143a6",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/winter-store-provisioned-depth.png",
+        "kind": "scene-mask",
+        "ownerID": "winter-store",
+        "variantID": "provisioned",
+        "maskType": "depth",
+        "bytes": 17017,
+        "sha256": "c7cf3190e35efe256599c7028fa1fa12ce7961ca221567daf359157729ee749e",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/winter-store-provisioned-light.png",
+        "kind": "scene-mask",
+        "ownerID": "winter-store",
+        "variantID": "provisioned",
+        "maskType": "light",
+        "bytes": 18794,
+        "sha256": "1cf3ccdfcf7aa7a40491cab2e2a41c51282cff0a596e1487eb85227c0cd92d0a",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/layers/06-protected-reserve-base.heif",
+        "kind": "scene-layer",
+        "ownerID": "protected-reserve",
+        "variantID": null,
+        "maskType": null,
+        "bytes": 174052,
+        "sha256": "dc71abeafb5b6742547ad5755d1a6284feeca2a9c1ea79d946d89fc6e288d474",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/06-protected-reserve-base-alpha.png",
+        "kind": "scene-mask",
+        "ownerID": "protected-reserve",
+        "variantID": null,
+        "maskType": "alpha",
+        "bytes": 4406,
+        "sha256": "052f4e12cb91066df3a8e649fbef527bffe6829bc6d1e83765b9fdd42e5143a6",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/06-protected-reserve-base-depth.png",
+        "kind": "scene-mask",
+        "ownerID": "protected-reserve",
+        "variantID": null,
+        "maskType": "depth",
+        "bytes": 17017,
+        "sha256": "c7cf3190e35efe256599c7028fa1fa12ce7961ca221567daf359157729ee749e",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/protected-reserve-empty.heif",
+        "kind": "scene-layer",
+        "ownerID": "protected-reserve",
+        "variantID": "empty",
+        "maskType": null,
+        "bytes": 145443,
+        "sha256": "55aad5359e0bed302c61b64d3cf9331f4ec8877f2affa6e5dc52bf6de2356a9f",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/protected-reserve-empty-alpha.png",
+        "kind": "scene-mask",
+        "ownerID": "protected-reserve",
+        "variantID": "empty",
+        "maskType": "alpha",
+        "bytes": 4406,
+        "sha256": "052f4e12cb91066df3a8e649fbef527bffe6829bc6d1e83765b9fdd42e5143a6",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/protected-reserve-empty-depth.png",
+        "kind": "scene-mask",
+        "ownerID": "protected-reserve",
+        "variantID": "empty",
+        "maskType": "depth",
+        "bytes": 17017,
+        "sha256": "c7cf3190e35efe256599c7028fa1fa12ce7961ca221567daf359157729ee749e",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/protected-reserve-receiving.heif",
+        "kind": "scene-layer",
+        "ownerID": "protected-reserve",
+        "variantID": "receiving",
+        "maskType": null,
+        "bytes": 199683,
+        "sha256": "695678f1ed5847a2b84422e304d0ddc8cde4255532eea158d1f78299778be5cf",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/protected-reserve-receiving-alpha.png",
+        "kind": "scene-mask",
+        "ownerID": "protected-reserve",
+        "variantID": "receiving",
+        "maskType": "alpha",
+        "bytes": 4406,
+        "sha256": "052f4e12cb91066df3a8e649fbef527bffe6829bc6d1e83765b9fdd42e5143a6",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/protected-reserve-receiving-depth.png",
+        "kind": "scene-mask",
+        "ownerID": "protected-reserve",
+        "variantID": "receiving",
+        "maskType": "depth",
+        "bytes": 17017,
+        "sha256": "c7cf3190e35efe256599c7028fa1fa12ce7961ca221567daf359157729ee749e",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/protected-reserve-sealed.heif",
+        "kind": "scene-layer",
+        "ownerID": "protected-reserve",
+        "variantID": "sealed",
+        "maskType": null,
+        "bytes": 178283,
+        "sha256": "9dc26fc0a9499388547dbb97e8916d6f0cc70a3ef572ad186955c7dab1f6b125",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/protected-reserve-sealed-alpha.png",
+        "kind": "scene-mask",
+        "ownerID": "protected-reserve",
+        "variantID": "sealed",
+        "maskType": "alpha",
+        "bytes": 4406,
+        "sha256": "052f4e12cb91066df3a8e649fbef527bffe6829bc6d1e83765b9fdd42e5143a6",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/protected-reserve-sealed-depth.png",
+        "kind": "scene-mask",
+        "ownerID": "protected-reserve",
+        "variantID": "sealed",
+        "maskType": "depth",
+        "bytes": 17017,
+        "sha256": "c7cf3190e35efe256599c7028fa1fa12ce7961ca221567daf359157729ee749e",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/protected-reserve-sealed-light.png",
+        "kind": "scene-mask",
+        "ownerID": "protected-reserve",
+        "variantID": "sealed",
+        "maskType": "light",
+        "bytes": 18794,
+        "sha256": "1cf3ccdfcf7aa7a40491cab2e2a41c51282cff0a596e1487eb85227c0cd92d0a",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/layers/07-spring-seed-base.heif",
+        "kind": "scene-layer",
+        "ownerID": "spring-seed",
+        "variantID": null,
+        "maskType": null,
+        "bytes": 183513,
+        "sha256": "0f9dcf3953886356935b1fa796443165894fdd6b72283e595672060cdf849b36",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/07-spring-seed-base-alpha.png",
+        "kind": "scene-mask",
+        "ownerID": "spring-seed",
+        "variantID": null,
+        "maskType": "alpha",
+        "bytes": 4406,
+        "sha256": "052f4e12cb91066df3a8e649fbef527bffe6829bc6d1e83765b9fdd42e5143a6",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/07-spring-seed-base-depth.png",
+        "kind": "scene-mask",
+        "ownerID": "spring-seed",
+        "variantID": null,
+        "maskType": "depth",
+        "bytes": 17017,
+        "sha256": "c7cf3190e35efe256599c7028fa1fa12ce7961ca221567daf359157729ee749e",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/spring-seed-empty.heif",
+        "kind": "scene-layer",
+        "ownerID": "spring-seed",
+        "variantID": "empty",
+        "maskType": null,
+        "bytes": 153118,
+        "sha256": "c4ecd53e65dc4d6f67a4fe734ae8effa96e2b6eb23186ef4f2ba57a4d3840b96",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/spring-seed-empty-alpha.png",
+        "kind": "scene-mask",
+        "ownerID": "spring-seed",
+        "variantID": "empty",
+        "maskType": "alpha",
+        "bytes": 4406,
+        "sha256": "052f4e12cb91066df3a8e649fbef527bffe6829bc6d1e83765b9fdd42e5143a6",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/spring-seed-empty-depth.png",
+        "kind": "scene-mask",
+        "ownerID": "spring-seed",
+        "variantID": "empty",
+        "maskType": "depth",
+        "bytes": 17017,
+        "sha256": "c7cf3190e35efe256599c7028fa1fa12ce7961ca221567daf359157729ee749e",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/spring-seed-receiving.heif",
+        "kind": "scene-layer",
+        "ownerID": "spring-seed",
+        "variantID": "receiving",
+        "maskType": null,
+        "bytes": 206289,
+        "sha256": "c50cc6605216d0f927a245ce48fb02fdba17dfd198a4d06e233bb7dac113c840",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/spring-seed-receiving-alpha.png",
+        "kind": "scene-mask",
+        "ownerID": "spring-seed",
+        "variantID": "receiving",
+        "maskType": "alpha",
+        "bytes": 4406,
+        "sha256": "052f4e12cb91066df3a8e649fbef527bffe6829bc6d1e83765b9fdd42e5143a6",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/spring-seed-receiving-depth.png",
+        "kind": "scene-mask",
+        "ownerID": "spring-seed",
+        "variantID": "receiving",
+        "maskType": "depth",
+        "bytes": 17017,
+        "sha256": "c7cf3190e35efe256599c7028fa1fa12ce7961ca221567daf359157729ee749e",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/spring-seed-committed.heif",
+        "kind": "scene-layer",
+        "ownerID": "spring-seed",
+        "variantID": "committed",
+        "maskType": null,
+        "bytes": 188218,
+        "sha256": "4d086fc556b9a3a354a52fed2cfcad70b541d8992427ad35bd540ca2a09cadde",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/spring-seed-committed-alpha.png",
+        "kind": "scene-mask",
+        "ownerID": "spring-seed",
+        "variantID": "committed",
+        "maskType": "alpha",
+        "bytes": 4406,
+        "sha256": "052f4e12cb91066df3a8e649fbef527bffe6829bc6d1e83765b9fdd42e5143a6",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/spring-seed-committed-depth.png",
+        "kind": "scene-mask",
+        "ownerID": "spring-seed",
+        "variantID": "committed",
+        "maskType": "depth",
+        "bytes": 17017,
+        "sha256": "c7cf3190e35efe256599c7028fa1fa12ce7961ca221567daf359157729ee749e",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/spring-seed-committed-light.png",
+        "kind": "scene-mask",
+        "ownerID": "spring-seed",
+        "variantID": "committed",
+        "maskType": "light",
+        "bytes": 18794,
+        "sha256": "1cf3ccdfcf7aa7a40491cab2e2a41c51282cff0a596e1487eb85227c0cd92d0a",
+        "width": 310,
+        "height": 532
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/layers/08-central-harvest-base.heif",
+        "kind": "scene-layer",
+        "ownerID": "central-harvest",
+        "variantID": null,
+        "maskType": null,
+        "bytes": 872016,
+        "sha256": "d42f7c56353e295ddd07b4123fd04704cf38276efcd6036cd5efaec79d894295",
+        "width": 800,
+        "height": 868
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/08-central-harvest-base-alpha.png",
+        "kind": "scene-mask",
+        "ownerID": "central-harvest",
+        "variantID": null,
+        "maskType": "alpha",
+        "bytes": 29434,
+        "sha256": "c9b9196d391212c32e7f9a23a9aea71ea96e2d239adc5b4b921e30dfc68a5ea3",
+        "width": 800,
+        "height": 868
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/08-central-harvest-base-depth.png",
+        "kind": "scene-mask",
+        "ownerID": "central-harvest",
+        "variantID": null,
+        "maskType": "depth",
+        "bytes": 32120,
+        "sha256": "4ce51588b2e3c4e3637ca30f45ae3ba99745d7bdd9dfd8b9c2c288cad0e0a3b4",
+        "width": 800,
+        "height": 868
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/08-central-harvest-base-light.png",
+        "kind": "scene-mask",
+        "ownerID": "central-harvest",
+        "variantID": null,
+        "maskType": "light",
+        "bytes": 35910,
+        "sha256": "117dba0bc354aa35348681b45ac8e885929c4b24647e5062bcb5f5d6fd8585c2",
+        "width": 800,
+        "height": 868
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/central-harvest-full.heif",
+        "kind": "scene-layer",
+        "ownerID": "central-harvest",
+        "variantID": "full",
+        "maskType": null,
+        "bytes": 890038,
+        "sha256": "bc85d14fdfa5584f3124de5d776e26fc9eb4e5b06344f6e8b7bec67a88e7bda7",
+        "width": 800,
+        "height": 868
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/central-harvest-full-alpha.png",
+        "kind": "scene-mask",
+        "ownerID": "central-harvest",
+        "variantID": "full",
+        "maskType": "alpha",
+        "bytes": 34001,
+        "sha256": "e75f42392e5d138177a07b0943adfa4dba9a3fe3bc5dd8eb18f527ea21bcfc2f",
+        "width": 800,
+        "height": 868
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/central-harvest-full-depth.png",
+        "kind": "scene-mask",
+        "ownerID": "central-harvest",
+        "variantID": "full",
+        "maskType": "depth",
+        "bytes": 33230,
+        "sha256": "20425f502f750cac8a4404546293385d9548d382dd41a1d82c1efc932974878d",
+        "width": 800,
+        "height": 868
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/central-harvest-full-light.png",
+        "kind": "scene-mask",
+        "ownerID": "central-harvest",
+        "variantID": "full",
+        "maskType": "light",
+        "bytes": 35576,
+        "sha256": "ae3024202e5e6ac8b8afe5d6b48d4b4f73c3ed6306dd050369b07c5caa330114",
+        "width": 800,
+        "height": 868
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/central-harvest-reduced.heif",
+        "kind": "scene-layer",
+        "ownerID": "central-harvest",
+        "variantID": "reduced",
+        "maskType": null,
+        "bytes": 861472,
+        "sha256": "afdc3bce84471b5c8fa6cc3de9b45822f04489b8b0cc2a551aaa1b869827dbfd",
+        "width": 800,
+        "height": 868
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/central-harvest-reduced-alpha.png",
+        "kind": "scene-mask",
+        "ownerID": "central-harvest",
+        "variantID": "reduced",
+        "maskType": "alpha",
+        "bytes": 25155,
+        "sha256": "152a372eb11575ae767fade608ada743aa564ab60406a95e84369cfd068cf32d",
+        "width": 800,
+        "height": 868
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/central-harvest-reduced-depth.png",
+        "kind": "scene-mask",
+        "ownerID": "central-harvest",
+        "variantID": "reduced",
+        "maskType": "depth",
+        "bytes": 31571,
+        "sha256": "1c1e49aab087b11ea112f9c4e20692f676eb2de7b116e3d47a5bf39d9fad7e20",
+        "width": 800,
+        "height": 868
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/central-harvest-reduced-light.png",
+        "kind": "scene-mask",
+        "ownerID": "central-harvest",
+        "variantID": "reduced",
+        "maskType": "light",
+        "bytes": 38193,
+        "sha256": "d5ca48eaf2d8a79b5769a1b48191dfda470ae96a0bbecdbf16e83a6a51f8fbc4",
+        "width": 800,
+        "height": 868
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/central-harvest-scarce.heif",
+        "kind": "scene-layer",
+        "ownerID": "central-harvest",
+        "variantID": "scarce",
+        "maskType": null,
+        "bytes": 826921,
+        "sha256": "db970656d5dbb4bd711d5df7e70508868e853ac8d4c02ee989c8a5f8089fd7f8",
+        "width": 800,
+        "height": 868
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/central-harvest-scarce-alpha.png",
+        "kind": "scene-mask",
+        "ownerID": "central-harvest",
+        "variantID": "scarce",
+        "maskType": "alpha",
+        "bytes": 14697,
+        "sha256": "8d71561f10ee332cfebb4550520395718116979d4bd7f3d70b33d852d7854d06",
+        "width": 800,
+        "height": 868
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/central-harvest-scarce-depth.png",
+        "kind": "scene-mask",
+        "ownerID": "central-harvest",
+        "variantID": "scarce",
+        "maskType": "depth",
+        "bytes": 28266,
+        "sha256": "70c721c8b0f416986a481227a8acc63a8431cb135f4cad0866a5ee9cb12672b9",
+        "width": 800,
+        "height": 868
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/central-harvest-scarce-light.png",
+        "kind": "scene-mask",
+        "ownerID": "central-harvest",
+        "variantID": "scarce",
+        "maskType": "light",
+        "bytes": 34488,
+        "sha256": "e92b3f5b036331982dc6da604b033854b552633e082f64eb44ae091cbe4592f9",
+        "width": 800,
+        "height": 868
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/central-harvest-exhausted.heif",
+        "kind": "scene-layer",
+        "ownerID": "central-harvest",
+        "variantID": "exhausted",
+        "maskType": null,
+        "bytes": 773287,
+        "sha256": "ceac7f29f50c4f6632e0a6aad2add4216c377cb84f2cea4bf8a87aa6e6e7425f",
+        "width": 800,
+        "height": 868
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/central-harvest-exhausted-alpha.png",
+        "kind": "scene-mask",
+        "ownerID": "central-harvest",
+        "variantID": "exhausted",
+        "maskType": "alpha",
+        "bytes": 7054,
+        "sha256": "1a4236b25a3df5b3de99f393d397b0243bb908f628bd03335aa9d37ba7321de6",
+        "width": 800,
+        "height": 868
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/states/central-harvest-exhausted-depth.png",
+        "kind": "scene-mask",
+        "ownerID": "central-harvest",
+        "variantID": "exhausted",
+        "maskType": "depth",
+        "bytes": 19969,
+        "sha256": "aedb0c2e94aff9a78d7f53467bb5a664093a8e0b96db2c7eaa1249702b32b4e2",
+        "width": 800,
+        "height": 868
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/layers/09-hands-and-grain.heif",
+        "kind": "scene-layer",
+        "ownerID": "hands-and-grain",
+        "variantID": null,
+        "maskType": null,
+        "bytes": 1317820,
+        "sha256": "14523656bdb810879be01dc9cb1e6bb5e6b3d34b6d965ecda675427b727930e3",
+        "width": 1290,
+        "height": 895
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/09-hands-and-grain-alpha.png",
+        "kind": "scene-mask",
+        "ownerID": "hands-and-grain",
+        "variantID": null,
+        "maskType": "alpha",
+        "bytes": 51117,
+        "sha256": "a35047da88552982c0fd21dcd229091d8fa24fed285c37022e2c4d443dcec002",
+        "width": 1290,
+        "height": 895
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/09-hands-and-grain-depth.png",
+        "kind": "scene-mask",
+        "ownerID": "hands-and-grain",
+        "variantID": null,
+        "maskType": "depth",
+        "bytes": 48843,
+        "sha256": "fe241a2f55b83f0890899ae484369622db3c41a166644a9b0a53ab4103a31493",
+        "width": 1290,
+        "height": 895
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/09-hands-and-grain-occlusion.png",
+        "kind": "scene-mask",
+        "ownerID": "hands-and-grain",
+        "variantID": null,
+        "maskType": "occlusion",
+        "bytes": 36613,
+        "sha256": "6fbf557fb02e36e0b49e7173430607041887079abe6d8c39fbe9958986aeae4f",
+        "width": 1290,
+        "height": 895
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/layers/10-foreground-occluders.heif",
+        "kind": "scene-layer",
+        "ownerID": "foreground-occluders",
+        "variantID": null,
+        "maskType": null,
+        "bytes": 3779988,
+        "sha256": "10248a6fda524aa2a6a17dc293f8c1ec1e4eeebceda131ea03405af90a41c472",
+        "width": 1290,
+        "height": 2796
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/10-foreground-occluders-alpha.png",
+        "kind": "scene-mask",
+        "ownerID": "foreground-occluders",
+        "variantID": null,
+        "maskType": "alpha",
+        "bytes": 45596,
+        "sha256": "96885618abb3b44f2fd5e445c5d415e6c16aa1d1dcec5745a93078b6f28b23f2",
+        "width": 1290,
+        "height": 2796
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/10-foreground-occluders-occlusion.png",
+        "kind": "scene-mask",
+        "ownerID": "foreground-occluders",
+        "variantID": null,
+        "maskType": "occlusion",
+        "bytes": 36629,
+        "sha256": "af56dfdf31144ca868151909682d73831e086156a4de5a577eb4dc39c4113c11",
+        "width": 1290,
+        "height": 2796
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/layers/11-mechanism-light.heif",
+        "kind": "scene-layer",
+        "ownerID": "mechanism-light",
+        "variantID": null,
+        "maskType": null,
+        "bytes": 16193,
+        "sha256": "d8a31e2d4dd4bf50996edefce0682737567556f9ea17fc8938b70e27e02e34ed",
+        "width": 1290,
+        "height": 2796
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/11-mechanism-light-alpha.png",
+        "kind": "scene-mask",
+        "ownerID": "mechanism-light",
+        "variantID": null,
+        "maskType": "alpha",
+        "bytes": 106018,
+        "sha256": "25bdd1bc078daef8abcb3a977370c267cb56ad20f59fb7cc2f04347c45238a4b",
+        "width": 1290,
+        "height": 2796
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/masks/11-mechanism-light-focus.png",
+        "kind": "scene-mask",
+        "ownerID": "mechanism-light",
+        "variantID": null,
+        "maskType": "light",
+        "bytes": 105879,
+        "sha256": "3886f4ab6838dfc032a19d218926a8b3b078cba840999a84083831bf25bf2622",
+        "width": 1290,
+        "height": 2796
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/reduce-motion/harvest-allocation-static-underlay.heif",
+        "kind": "reduce-motion-plate",
+        "ownerID": "world-underlay",
+        "variantID": null,
+        "maskType": null,
+        "bytes": 3650863,
+        "sha256": "a7cc886f2fb246b8f57246d3073aa2c6c3b68e48d68bbf470a24f36e7b812c46",
+        "width": 1290,
+        "height": 2796
+      },
+      {
+        "path": "assets/phase1/harvest-option-1/reduce-motion/harvest-allocation-static-foreground.heif",
+        "kind": "reduce-motion-plate",
+        "ownerID": "foreground-occlusion",
+        "variantID": null,
+        "maskType": null,
+        "bytes": 3779988,
+        "sha256": "10248a6fda524aa2a6a17dc293f8c1ec1e4eeebceda131ea03405af90a41c472",
+        "width": 1290,
+        "height": 2796
+      }
+    ]
+  },
+  "gates": {
+    "exactRecomposition": {
+      "status": "BYTE_RECOMPOSITION_ONLY_FIXTURE_REJECTED",
+      "maxChannelError": 0,
+      "meanAbsoluteError": 0,
+      "exactPixelFraction": 1,
+      "outputSHA256": "dd12d350b44ffdd41358c6c3a5c68d135c77baa77920729cae1a446045f191f5",
+      "diffSHA256": "00c4b062edc8c4ae9b45dd4acfa0c106e43e0021e3c6c9b3aec0709409460a69"
+    },
+    "geometryAndCrop": {
+      "status": "FRAME_GEOMETRY_ONLY_FIXTURE_REJECTED",
+      "crops": [
+        {
+          "id": "baseline-393x852",
+          "sourceRect": {
+            "x": 0.08,
+            "y": 0.08,
+            "width": 0.84,
+            "height": 0.84
+          },
+          "viewport": {
+            "widthPoints": 393,
+            "heightPoints": 852
+          },
+          "sourceAspect": 0.4613733905579399,
+          "viewportAspect": 0.4612676056338028,
+          "safeTextRegionCount": 3
+        },
+        {
+          "id": "largest-430x932",
+          "sourceRect": {
+            "x": 0.05,
+            "y": 0.05,
+            "width": 0.9,
+            "height": 0.9
+          },
+          "viewport": {
+            "widthPoints": 430,
+            "heightPoints": 932
+          },
+          "sourceAspect": 0.4613733905579399,
+          "viewportAspect": 0.4613733905579399,
+          "safeTextRegionCount": 3
+        }
+      ]
+    },
+    "masks": {
+      "status": "FAIL_GEOMETRIC_PLACEHOLDERS_NOT_SUBJECT_MASKS",
+      "files": [
+        {
+          "path": "assets/phase1/harvest-option-1/masks/00-storm-sky-depth.png",
+          "maskType": "depth",
+          "minimum": 41,
+          "maximum": 255,
+          "mean": 147.90000055450201,
+          "nonzeroFraction": 1,
+          "softEdgeFraction": 0.9999822559359439,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/00-storm-sky-light.png",
+          "maskType": "light",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 74.18156364019474,
+          "nonzeroFraction": 0.3580854709385501,
+          "softEdgeFraction": 0.13401121203047542,
+          "nonzeroBounds": {
+            "x": 0.1930232558139535,
+            "y": 0.15164520743919885,
+            "width": 0.8069767441860465,
+            "height": 0.5368383404864091
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/01-farming-landscape-depth.png",
+          "maskType": "depth",
+          "minimum": 41,
+          "maximum": 255,
+          "mean": 147.90000055450201,
+          "nonzeroFraction": 1,
+          "softEdgeFraction": 0.9999822559359439,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/02-settlement-alpha.png",
+          "maskType": "alpha",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 165.58287934445144,
+          "nonzeroFraction": 0.736397763982288,
+          "softEdgeFraction": 0.17075336407470346,
+          "nonzeroBounds": {
+            "x": 0.016351118760757316,
+            "y": 0.021445591739475776,
+            "width": 0.9672977624784854,
+            "height": 0.9618745035742653
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/02-settlement-depth.png",
+          "maskType": "depth",
+          "minimum": 9,
+          "maximum": 224,
+          "mean": 100.28821674989986,
+          "nonzeroFraction": 1,
+          "softEdgeFraction": 1,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/02-settlement-light.png",
+          "maskType": "light",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 41.95379429894775,
+          "nonzeroFraction": 0.25088143336992585,
+          "softEdgeFraction": 0.14780670395185644,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0.2811755361397935,
+            "width": 0.8485370051635112,
+            "height": 0.7188244638602065
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/02-settlement-occlusion.png",
+          "maskType": "occlusion",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 165.5003438239512,
+          "nonzeroFraction": 0.6978026710267827,
+          "softEdgeFraction": 0.09631718750640825,
+          "nonzeroBounds": {
+            "x": 0.025817555938037865,
+            "y": 0.030182684670373314,
+            "width": 0.9483648881239243,
+            "height": 0.9420174741858618
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/03-people-and-work-alpha.png",
+          "maskType": "alpha",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 111.19097588297312,
+          "nonzeroFraction": 0.46393630524651114,
+          "softEdgeFraction": 0.05601469078600561,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0.23026315789473684,
+            "width": 1,
+            "height": 0.7697368421052632
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/03-people-and-work-depth.png",
+          "maskType": "depth",
+          "minimum": 9,
+          "maximum": 251,
+          "mean": 91.98700163693367,
+          "nonzeroFraction": 1,
+          "softEdgeFraction": 1,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/04-allocation-ground-alpha.png",
+          "maskType": "alpha",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 138.9435823661893,
+          "nonzeroFraction": 0.5828322503475253,
+          "softEdgeFraction": 0.07495770428560652,
+          "nonzeroBounds": {
+            "x": 0.01120162932790224,
+            "y": 0.2208994708994709,
+            "width": 0.9775967413441955,
+            "height": 0.7579365079365079
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/04-allocation-ground-depth.png",
+          "maskType": "depth",
+          "minimum": 9,
+          "maximum": 229,
+          "mean": 102.7657612150993,
+          "nonzeroFraction": 1,
+          "softEdgeFraction": 1,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/05-winter-store-base-alpha.png",
+          "maskType": "alpha",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 145.38560514188697,
+          "nonzeroFraction": 0.6686514673781228,
+          "softEdgeFraction": 0.18726655348047538,
+          "nonzeroBounds": {
+            "x": 0.08064516129032258,
+            "y": 0.03007518796992481,
+            "width": 0.8387096774193549,
+            "height": 0.8477443609022557
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/05-winter-store-base-depth.png",
+          "maskType": "depth",
+          "minimum": 9,
+          "maximum": 214,
+          "mean": 95.55774921173902,
+          "nonzeroFraction": 1,
+          "softEdgeFraction": 1,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/winter-store-empty-alpha.png",
+          "maskType": "alpha",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 145.38560514188697,
+          "nonzeroFraction": 0.6686514673781228,
+          "softEdgeFraction": 0.18726655348047538,
+          "nonzeroBounds": {
+            "x": 0.08064516129032258,
+            "y": 0.03007518796992481,
+            "width": 0.8387096774193549,
+            "height": 0.8477443609022557
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/winter-store-empty-depth.png",
+          "maskType": "depth",
+          "minimum": 9,
+          "maximum": 214,
+          "mean": 95.55774921173902,
+          "nonzeroFraction": 1,
+          "softEdgeFraction": 1,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/winter-store-receiving-alpha.png",
+          "maskType": "alpha",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 145.38560514188697,
+          "nonzeroFraction": 0.6686514673781228,
+          "softEdgeFraction": 0.18726655348047538,
+          "nonzeroBounds": {
+            "x": 0.08064516129032258,
+            "y": 0.03007518796992481,
+            "width": 0.8387096774193549,
+            "height": 0.8477443609022557
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/winter-store-receiving-depth.png",
+          "maskType": "depth",
+          "minimum": 9,
+          "maximum": 214,
+          "mean": 95.55774921173902,
+          "nonzeroFraction": 1,
+          "softEdgeFraction": 1,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/winter-store-provisioned-alpha.png",
+          "maskType": "alpha",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 145.38560514188697,
+          "nonzeroFraction": 0.6686514673781228,
+          "softEdgeFraction": 0.18726655348047538,
+          "nonzeroBounds": {
+            "x": 0.08064516129032258,
+            "y": 0.03007518796992481,
+            "width": 0.8387096774193549,
+            "height": 0.8477443609022557
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/winter-store-provisioned-depth.png",
+          "maskType": "depth",
+          "minimum": 9,
+          "maximum": 214,
+          "mean": 95.55774921173902,
+          "nonzeroFraction": 1,
+          "softEdgeFraction": 1,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/winter-store-provisioned-light.png",
+          "maskType": "light",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 82.05396555905894,
+          "nonzeroFraction": 0.40073975260732475,
+          "softEdgeFraction": 0.1501940334707737,
+          "nonzeroBounds": {
+            "x": 0.12258064516129032,
+            "y": 0.18233082706766918,
+            "width": 0.7548387096774194,
+            "height": 0.674812030075188
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/06-protected-reserve-base-alpha.png",
+          "maskType": "alpha",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 145.38560514188697,
+          "nonzeroFraction": 0.6686514673781228,
+          "softEdgeFraction": 0.18726655348047538,
+          "nonzeroBounds": {
+            "x": 0.08064516129032258,
+            "y": 0.03007518796992481,
+            "width": 0.8387096774193549,
+            "height": 0.8477443609022557
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/06-protected-reserve-base-depth.png",
+          "maskType": "depth",
+          "minimum": 9,
+          "maximum": 214,
+          "mean": 95.55774921173902,
+          "nonzeroFraction": 1,
+          "softEdgeFraction": 1,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/protected-reserve-empty-alpha.png",
+          "maskType": "alpha",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 145.38560514188697,
+          "nonzeroFraction": 0.6686514673781228,
+          "softEdgeFraction": 0.18726655348047538,
+          "nonzeroBounds": {
+            "x": 0.08064516129032258,
+            "y": 0.03007518796992481,
+            "width": 0.8387096774193549,
+            "height": 0.8477443609022557
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/protected-reserve-empty-depth.png",
+          "maskType": "depth",
+          "minimum": 9,
+          "maximum": 214,
+          "mean": 95.55774921173902,
+          "nonzeroFraction": 1,
+          "softEdgeFraction": 1,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/protected-reserve-receiving-alpha.png",
+          "maskType": "alpha",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 145.38560514188697,
+          "nonzeroFraction": 0.6686514673781228,
+          "softEdgeFraction": 0.18726655348047538,
+          "nonzeroBounds": {
+            "x": 0.08064516129032258,
+            "y": 0.03007518796992481,
+            "width": 0.8387096774193549,
+            "height": 0.8477443609022557
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/protected-reserve-receiving-depth.png",
+          "maskType": "depth",
+          "minimum": 9,
+          "maximum": 214,
+          "mean": 95.55774921173902,
+          "nonzeroFraction": 1,
+          "softEdgeFraction": 1,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/protected-reserve-sealed-alpha.png",
+          "maskType": "alpha",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 145.38560514188697,
+          "nonzeroFraction": 0.6686514673781228,
+          "softEdgeFraction": 0.18726655348047538,
+          "nonzeroBounds": {
+            "x": 0.08064516129032258,
+            "y": 0.03007518796992481,
+            "width": 0.8387096774193549,
+            "height": 0.8477443609022557
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/protected-reserve-sealed-depth.png",
+          "maskType": "depth",
+          "minimum": 9,
+          "maximum": 214,
+          "mean": 95.55774921173902,
+          "nonzeroFraction": 1,
+          "softEdgeFraction": 1,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/protected-reserve-sealed-light.png",
+          "maskType": "light",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 82.05396555905894,
+          "nonzeroFraction": 0.40073975260732475,
+          "softEdgeFraction": 0.1501940334707737,
+          "nonzeroBounds": {
+            "x": 0.12258064516129032,
+            "y": 0.18233082706766918,
+            "width": 0.7548387096774194,
+            "height": 0.674812030075188
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/07-spring-seed-base-alpha.png",
+          "maskType": "alpha",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 145.38560514188697,
+          "nonzeroFraction": 0.6686514673781228,
+          "softEdgeFraction": 0.18726655348047538,
+          "nonzeroBounds": {
+            "x": 0.08064516129032258,
+            "y": 0.03007518796992481,
+            "width": 0.8387096774193549,
+            "height": 0.8477443609022557
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/07-spring-seed-base-depth.png",
+          "maskType": "depth",
+          "minimum": 9,
+          "maximum": 214,
+          "mean": 95.55774921173902,
+          "nonzeroFraction": 1,
+          "softEdgeFraction": 1,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/spring-seed-empty-alpha.png",
+          "maskType": "alpha",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 145.38560514188697,
+          "nonzeroFraction": 0.6686514673781228,
+          "softEdgeFraction": 0.18726655348047538,
+          "nonzeroBounds": {
+            "x": 0.08064516129032258,
+            "y": 0.03007518796992481,
+            "width": 0.8387096774193549,
+            "height": 0.8477443609022557
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/spring-seed-empty-depth.png",
+          "maskType": "depth",
+          "minimum": 9,
+          "maximum": 214,
+          "mean": 95.55774921173902,
+          "nonzeroFraction": 1,
+          "softEdgeFraction": 1,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/spring-seed-receiving-alpha.png",
+          "maskType": "alpha",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 145.38560514188697,
+          "nonzeroFraction": 0.6686514673781228,
+          "softEdgeFraction": 0.18726655348047538,
+          "nonzeroBounds": {
+            "x": 0.08064516129032258,
+            "y": 0.03007518796992481,
+            "width": 0.8387096774193549,
+            "height": 0.8477443609022557
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/spring-seed-receiving-depth.png",
+          "maskType": "depth",
+          "minimum": 9,
+          "maximum": 214,
+          "mean": 95.55774921173902,
+          "nonzeroFraction": 1,
+          "softEdgeFraction": 1,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/spring-seed-committed-alpha.png",
+          "maskType": "alpha",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 145.38560514188697,
+          "nonzeroFraction": 0.6686514673781228,
+          "softEdgeFraction": 0.18726655348047538,
+          "nonzeroBounds": {
+            "x": 0.08064516129032258,
+            "y": 0.03007518796992481,
+            "width": 0.8387096774193549,
+            "height": 0.8477443609022557
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/spring-seed-committed-depth.png",
+          "maskType": "depth",
+          "minimum": 9,
+          "maximum": 214,
+          "mean": 95.55774921173902,
+          "nonzeroFraction": 1,
+          "softEdgeFraction": 1,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/spring-seed-committed-light.png",
+          "maskType": "light",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 82.05396555905894,
+          "nonzeroFraction": 0.40073975260732475,
+          "softEdgeFraction": 0.1501940334707737,
+          "nonzeroBounds": {
+            "x": 0.12258064516129032,
+            "y": 0.18233082706766918,
+            "width": 0.7548387096774194,
+            "height": 0.674812030075188
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/08-central-harvest-base-alpha.png",
+          "maskType": "alpha",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 127.00911578341014,
+          "nonzeroFraction": 0.5517828341013825,
+          "softEdgeFraction": 0.10154377880184332,
+          "nonzeroBounds": {
+            "x": 0.01125,
+            "y": 0.24078341013824886,
+            "width": 0.9775,
+            "height": 0.6785714285714286
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/08-central-harvest-base-depth.png",
+          "maskType": "depth",
+          "minimum": 9,
+          "maximum": 220,
+          "mean": 95.9238594470046,
+          "nonzeroFraction": 1,
+          "softEdgeFraction": 1,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/08-central-harvest-base-light.png",
+          "maskType": "light",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 86.73994239631337,
+          "nonzeroFraction": 0.4139832949308756,
+          "softEdgeFraction": 0.14232430875576038,
+          "nonzeroBounds": {
+            "x": 0.0425,
+            "y": 0.3317972350230415,
+            "width": 0.915,
+            "height": 0.576036866359447
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/central-harvest-full-alpha.png",
+          "maskType": "alpha",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 111.82585541474654,
+          "nonzeroFraction": 0.48711405529953916,
+          "softEdgeFraction": 0.09210829493087558,
+          "nonzeroBounds": {
+            "x": 0.01125,
+            "y": 0.35599078341013823,
+            "width": 0.9775,
+            "height": 0.6278801843317973
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/central-harvest-full-depth.png",
+          "maskType": "depth",
+          "minimum": 9,
+          "maximum": 230,
+          "mean": 93.22897465437788,
+          "nonzeroFraction": 1,
+          "softEdgeFraction": 1,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/central-harvest-full-light.png",
+          "maskType": "light",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 84.90549539170507,
+          "nonzeroFraction": 0.4132258064516129,
+          "softEdgeFraction": 0.1415668202764977,
+          "nonzeroBounds": {
+            "x": 0.04375,
+            "y": 0.33294930875576034,
+            "width": 0.9125,
+            "height": 0.576036866359447
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/central-harvest-reduced-alpha.png",
+          "maskType": "alpha",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 80.91969470046082,
+          "nonzeroFraction": 0.3757315668202765,
+          "softEdgeFraction": 0.09878744239631336,
+          "nonzeroBounds": {
+            "x": 0.0825,
+            "y": 0.4205069124423963,
+            "width": 0.835,
+            "height": 0.5276497695852534
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/central-harvest-reduced-depth.png",
+          "maskType": "depth",
+          "minimum": 9,
+          "maximum": 224,
+          "mean": 77.1780745967742,
+          "nonzeroFraction": 1,
+          "softEdgeFraction": 1,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/central-harvest-reduced-light.png",
+          "maskType": "light",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 74.32405817972351,
+          "nonzeroFraction": 0.4125921658986175,
+          "softEdgeFraction": 0.18574884792626728,
+          "nonzeroBounds": {
+            "x": 0.04375,
+            "y": 0.33294930875576034,
+            "width": 0.9125,
+            "height": 0.576036866359447
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/central-harvest-scarce-alpha.png",
+          "maskType": "alpha",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 58.17742511520737,
+          "nonzeroFraction": 0.31731278801843316,
+          "softEdgeFraction": 0.16077188940092166,
+          "nonzeroBounds": {
+            "x": 0.0825,
+            "y": 0.5034562211981567,
+            "width": 0.835,
+            "height": 0.3986175115207373
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/central-harvest-scarce-depth.png",
+          "maskType": "depth",
+          "minimum": 9,
+          "maximum": 216,
+          "mean": 65.21512384792626,
+          "nonzeroFraction": 1,
+          "softEdgeFraction": 1,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/central-harvest-scarce-light.png",
+          "maskType": "light",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 61.6426353686636,
+          "nonzeroFraction": 0.4119873271889401,
+          "softEdgeFraction": 0.26557891705069125,
+          "nonzeroBounds": {
+            "x": 0.04375,
+            "y": 0.33294930875576034,
+            "width": 0.9125,
+            "height": 0.5748847926267281
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/central-harvest-exhausted-alpha.png",
+          "maskType": "alpha",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 27.21317684331797,
+          "nonzeroFraction": 0.3107488479262673,
+          "softEdgeFraction": 0.2650345622119816,
+          "nonzeroBounds": {
+            "x": 0.08375,
+            "y": 0.5230414746543779,
+            "width": 0.8325,
+            "height": 0.37327188940092165
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/states/central-harvest-exhausted-depth.png",
+          "maskType": "depth",
+          "minimum": 9,
+          "maximum": 206,
+          "mean": 47.937031970046085,
+          "nonzeroFraction": 1,
+          "softEdgeFraction": 1,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/09-hands-and-grain-alpha.png",
+          "maskType": "alpha",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 112.87883417781819,
+          "nonzeroFraction": 0.47019011736174265,
+          "softEdgeFraction": 0.05446450998224416,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0.2,
+            "width": 1,
+            "height": 0.8
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/09-hands-and-grain-depth.png",
+          "maskType": "depth",
+          "minimum": 9,
+          "maximum": 255,
+          "mean": 89.5371478065047,
+          "nonzeroFraction": 1,
+          "softEdgeFraction": 0.9999826772335542,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/09-hands-and-grain-occlusion.png",
+          "maskType": "occlusion",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 112.86397297648435,
+          "nonzeroFraction": 0.45793859079294963,
+          "softEdgeFraction": 0.030483738252999003,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0.20335195530726258,
+            "width": 1,
+            "height": 0.7966480446927374
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/10-foreground-occluders-alpha.png",
+          "maskType": "alpha",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 121.58341290437059,
+          "nonzeroFraction": 0.538870590322831,
+          "softEdgeFraction": 0.12330987789865921,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0.001072961373390558,
+            "width": 1,
+            "height": 0.9989270386266095
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/10-foreground-occluders-occlusion.png",
+          "maskType": "occlusion",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 121.56899834758403,
+          "nonzeroFraction": 0.5110456798749043,
+          "softEdgeFraction": 0.06907653236628185,
+          "nonzeroBounds": {
+            "x": 0,
+            "y": 0.008226037195994278,
+            "width": 1,
+            "height": 0.9917739628040058
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/11-mechanism-light-alpha.png",
+          "maskType": "alpha",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 53.9664237947899,
+          "nonzeroFraction": 0.24619944327999024,
+          "softEdgeFraction": 0.07106719455257234,
+          "nonzeroBounds": {
+            "x": 0.16046511627906976,
+            "y": 0.48068669527896996,
+            "width": 0.6790697674418604,
+            "height": 0.4388412017167382
+          }
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/masks/11-mechanism-light-focus.png",
+          "maskType": "light",
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 51.616103292632886,
+          "nonzeroFraction": 0.24500005545020018,
+          "softEdgeFraction": 0.07045890585665014,
+          "nonzeroBounds": {
+            "x": 0.16124031007751938,
+            "y": 0.48104434907010013,
+            "width": 0.6775193798449612,
+            "height": 0.43776824034334766
+          }
+        }
+      ]
+    },
+    "straightAlphaHalo": {
+      "status": "INSUFFICIENT_STRAIGHT_ALPHA_CHECK_DID_NOT_PROVE_VISUAL_HALOS",
+      "inspectedPixels": 20784836,
+      "softEdgePixels": 2448145
+    },
+    "cleanPlates": {
+      "status": "FAIL_VISIBLE_SMEAR_AND_DUPLICATION_ARTIFACTS",
+      "files": [
+        {
+          "id": "clean-world-background",
+          "path": "work/clean-plates/clean-world-background.png",
+          "bytes": 7512563,
+          "sha256": "b2368f01553a699bfca70bcdf419390a216fe7fc3b5f3456af87e4c8980fd754"
+        },
+        {
+          "id": "clean-settlement-plane",
+          "path": "work/clean-plates/clean-settlement-plane.png",
+          "bytes": 7627517,
+          "sha256": "aa670ce8f6970f25ec2b9a0fefd24c1e56b84728e7adfcb5e02276057ef19836"
+        },
+        {
+          "id": "clean-allocation-foreground",
+          "path": "work/clean-plates/clean-allocation-foreground.png",
+          "bytes": 7150407,
+          "sha256": "17f61335dbf4fb10b52f3b87ad7cddfefba2d2ad1572028ef9a2ce615a05bc96"
+        }
+      ]
+    },
+    "causalStateLegibility": {
+      "status": "FAIL_TONAL_VARIANTS_DO_NOT_PROVE_CAUSAL_STATE_ART",
+      "meanLuminance": {
+        "winter-store.empty": 43.05316095132004,
+        "winter-store.receiving": 74.63608641082452,
+        "winter-store.provisioned": 75.44130647974855,
+        "protected-reserve.empty": 38.538835198258255,
+        "protected-reserve.receiving": 67.72304277995217,
+        "protected-reserve.sealed": 68.24883009275077,
+        "spring-seed.empty": 42.06132392358118,
+        "spring-seed.receiving": 73.20713474302292,
+        "spring-seed.committed": 73.8959000595649,
+        "central-harvest.full": 73.04092892597245,
+        "central-harvest.reduced": 58.56100480514511,
+        "central-harvest.scarce": 49.053169315655694,
+        "central-harvest.exhausted": 36.394209605014815
+      }
+    },
+    "reduceMotion": {
+      "status": "FILE_PRESENCE_ONLY_FIXTURE_REJECTED",
+      "files": [
+        {
+          "path": "assets/phase1/harvest-option-1/reduce-motion/harvest-allocation-static-underlay.heif",
+          "bytes": 3650863,
+          "sha256": "a7cc886f2fb246b8f57246d3073aa2c6c3b68e48d68bbf470a24f36e7b812c46"
+        },
+        {
+          "path": "assets/phase1/harvest-option-1/reduce-motion/harvest-allocation-static-foreground.heif",
+          "bytes": 3779988,
+          "sha256": "10248a6fda524aa2a6a17dc293f8c1ec1e4eeebceda131ea03405af90a41c472"
+        }
+      ]
+    },
+    "releaseLeakBoundary": {
+      "status": "BOUNDARY_SCAN_ONLY_FIXTURE_REJECTED",
+      "inspectedFinalAssetCount": 86
+    },
+    "deterministicReplay": {
+      "status": "BYTE_REPLAY_SUCCEEDED_BUT_PRODUCT_FIXTURE_REJECTED",
+      "receiptStatus": "CODEX_PROVISIONAL_NON_SHIPPING_TECHNICAL_REPRODUCTION_PASS"
+    }
+  },
+  "rejectionReasons": [
+    "Layer alpha masks are synthetic rectangles and ellipses rather than silhouettes segmented from the actual subjects.",
+    "Clean plates contain visible smearing and duplicated scene fragments.",
+    "No combined comparison proves parallax extrema, real state transitions or halo-free layer motion.",
+    "Deterministic byte replay and exact flattened recomposition do not make the separated visual product acceptable."
+  ],
+  "remainingLimits": [
+    "Codex-authored geometric masks and deterministic local-sampling clean plates still require editor visual inspection before any asset approval.",
+    "The mechanism-light layer is a black technical screen plate used to preserve exact master recomposition; runtime focus-light art remains open.",
+    "This QA does not claim simulator motion quality, physical-device display quality, integrated sound, VoiceOver parity or shipping-package approval.",
+    "The backup is byte-identical and encrypted at rest by existing FileVault, but it is on the same Mac and is not an independent failure domain."
+  ]
+}

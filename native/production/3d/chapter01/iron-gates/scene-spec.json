@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "cellID": "iron-gates",
+  "assetStatus": "CONTINUITY_PROOF",
+  "rootRuntimeName": "iron-gates-riverbank",
+  "metersPerUnit": 1,
+  "upAxis": "Z",
+  "deterministicSeed": 6000,
+  "authoredBoundsMeters": [30, 47, 15],
+  "artDirection": {
+    "path": "../art-direction/iron-gates-landing-target-v1.png",
+    "sha256": "45cb6a10bf173eec0aff5042b1ed0bb87ee76b244dbc404240219e7a92e15efb",
+    "use": "composition-material-light-reference-only"
+  },
+  "runtimeNameContract": {
+    "sourceProperty": "userProperties:runtime_name",
+    "compatibilityProperty": "userProperties:runtimeName",
+    "usdDisplayName": "exact-runtime-name",
+    "usdPrimPath": "underscore-sanitized-and-recorded-in-entity-bindings.json"
+  },
+  "requiredEntities": [
+    {"runtimeName": "iron-gates-riverbank", "semanticRole": "world-cell-root"},
+    {"runtimeName": "iron-gates-boat", "semanticRole": "working-river-boat"},
+    {"runtimeName": "action-landing-line", "semanticRole": "principal-action", "collisionReady": true, "interactionID": "first-farmers-iron-gates-cooperation"},
+    {"runtimeName": "guide-pole", "semanticRole": "shared-navigation-tool", "collisionReady": true, "interactionID": "first-farmers-iron-gates-cooperation"},
+    {"runtimeName": "iron-gates-local-guide", "semanticRole": "representative-person"},
+    {"runtimeName": "iron-gates-line-receiver", "semanticRole": "representative-person"},
+    {"runtimeName": "camera-iron-gates-entry", "semanticRole": "camera-anchor"},
+    {"runtimeName": "camera-iron-gates-landing", "semanticRole": "camera-anchor"},
+    {"runtimeName": "camera-iron-gates-handoff", "semanticRole": "camera-anchor"},
+    {"runtimeName": "camera-iron-gates-reduce-motion", "semanticRole": "reduce-motion-camera-anchor"},
+    {"runtimeName": "transition-in-river-current", "semanticRole": "transition-anchor"},
+    {"runtimeName": "transition-out-shared-material", "semanticRole": "transition-anchor"}
+  ],
+  "stateCollections": [
+    "state-default",
+    "state-landing-tensioned",
+    "state-material-exchange",
+    "state-departure"
+  ],
+  "lodPolicy": {
+    "distancesMeters": [0, 18, 38],
+    "terrainGridSteps": [[42, 58], [20, 28], [9, 14]],
+    "boatLevels": [0, 1],
+    "maximumScreenSpaceError": [0, 1.8, 4.5]
+  },
+  "materialFamilies": [
+    "iron-gates-limestone",
+    "danube-water",
+    "worked-oak",
+    "weathered-oak",
+    "bast-rope",
+    "fired-clay",
+    "river-reed",
+    "dry-reed-thatch",
+    "undyed-woven-flax",
+    "smoke-dark-wool"
+  ],
+  "realityKitBoundary": {
+    "rendererMayCompleteHistoricalAction": false,
+    "actionCollision": "runtime-generated-from-collision-ready-metadata",
+    "stateAuthority": "JourneyDomain reducer",
+    "currentAndNextCellOnly": true
+  },
+  "knownVisualGate": "Hero people, terrain, architecture, weather and final material textures remain replacement assets; this package is not final art."
+}

@@ -1,0 +1,270 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thelongwest.local/schemas/physical-performance-report-v1.json",
+  "title": "The Long West local physical-performance raw report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "protocolID",
+    "runID",
+    "attemptID",
+    "repetition",
+    "gateClassification",
+    "localTimingScope",
+    "platform",
+    "appBuildHashKind",
+    "appBuildSHA256",
+    "packages",
+    "processStartMonotonicNanosecondsSinceBoot",
+    "captureEndedNanosecondsSinceProcessStart",
+    "launch",
+    "frameCommandBufferCompletionProxies",
+    "interactionCommandBufferCompletionProxies",
+    "physicalFootprint",
+    "thermalTransitions",
+    "audioCursorCheckpoints",
+    "instrumentationFailures",
+    "rawTraceRetentionRequired"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "protocolID": { "const": "port1-physical-device-v1" },
+    "runID": {
+      "enum": [
+        "cold-restore",
+        "interaction-latency",
+        "static-reference",
+        "first-farmers-static-reference",
+        "harvest-sustained",
+        "first-farmers-sustained",
+        "audio-restoration",
+        "storage-pressure"
+      ]
+    },
+    "attemptID": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$" },
+    "repetition": { "type": "integer", "minimum": 1 },
+    "gateClassification": {
+      "enum": ["NON_DEVICE", "DEVICE_RAW_MEASUREMENTS_ONLY"]
+    },
+    "localTimingScope": {
+      "const": "COMMAND_BUFFER_AND_GPU_COMPLETION_PROXY_ONLY"
+    },
+    "platform": { "$ref": "#/$defs/platform" },
+    "appBuildHashKind": { "const": "APP_BUNDLE_FILE_TREE_SHA256" },
+    "appBuildSHA256": { "$ref": "#/$defs/sha256" },
+    "packages": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/package" }
+    },
+    "processStartMonotonicNanosecondsSinceBoot": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "captureEndedNanosecondsSinceProcessStart": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "launch": { "$ref": "#/$defs/launch" },
+    "frameCommandBufferCompletionProxies": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/frameCompletionProxy" }
+    },
+    "interactionCommandBufferCompletionProxies": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/interactionCompletionProxy" }
+    },
+    "physicalFootprint": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/physicalFootprint" }
+    },
+    "thermalTransitions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/thermal" }
+    },
+    "audioCursorCheckpoints": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/audio" }
+    },
+    "instrumentationFailures": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/failure" }
+    },
+    "rawTraceRetentionRequired": { "const": true }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "uint": { "type": "integer", "minimum": 0 },
+    "sequence": { "type": "integer", "minimum": 1 },
+    "platform": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["captureClass", "hardwareModel", "operatingSystem", "buildConfiguration"],
+      "properties": {
+        "captureClass": { "enum": ["PHYSICAL_DEVICE", "NON_DEVICE"] },
+        "hardwareModel": { "type": "string", "minLength": 1 },
+        "operatingSystem": { "type": "string", "minLength": 1 },
+        "buildConfiguration": { "enum": ["DEBUG", "RELEASE"] }
+      }
+    },
+    "package": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["packageID", "manifestSHA256"],
+      "properties": {
+        "packageID": { "type": "string", "minLength": 1 },
+        "manifestSHA256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "launch": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "restoredFrameCommandBufferCompletionProxyNanosecondsSinceProcessStart": {
+          "$ref": "#/$defs/uint"
+        },
+        "firstActionReadyNanosecondsSinceProcessStart": { "$ref": "#/$defs/uint" },
+        "firstActionReceivedNanosecondsSinceProcessStart": { "$ref": "#/$defs/uint" }
+      }
+    },
+    "frameCompletionProxy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sequence",
+        "frameID",
+        "sceneID",
+        "commandBufferCommitRequestedNanosecondsSinceProcessStart",
+        "commandBufferScheduledCallbackNanosecondsSinceProcessStart",
+        "commandBufferCompletedCallbackNanosecondsSinceProcessStart",
+        "commitRequestToScheduledCallbackNanoseconds",
+        "commitRequestToCompletedCallbackNanoseconds"
+      ],
+      "properties": {
+        "sequence": { "$ref": "#/$defs/sequence" },
+        "frameID": { "$ref": "#/$defs/sequence" },
+        "sceneID": { "type": "string", "minLength": 1 },
+        "commandBufferCommitRequestedNanosecondsSinceProcessStart": {
+          "$ref": "#/$defs/uint"
+        },
+        "commandBufferScheduledCallbackNanosecondsSinceProcessStart": {
+          "$ref": "#/$defs/uint"
+        },
+        "commandBufferCompletedCallbackNanosecondsSinceProcessStart": {
+          "$ref": "#/$defs/uint"
+        },
+        "commitRequestToScheduledCallbackNanoseconds": { "$ref": "#/$defs/uint" },
+        "commitRequestToCompletedCallbackNanoseconds": { "$ref": "#/$defs/uint" },
+        "previousCommandBufferCompletionCallbackIntervalNanoseconds": {
+          "$ref": "#/$defs/uint"
+        },
+        "gpuStartHostTimeNanoseconds": { "$ref": "#/$defs/uint" },
+        "gpuEndHostTimeNanoseconds": { "$ref": "#/$defs/uint" },
+        "gpuExecutionNanoseconds": { "$ref": "#/$defs/uint" }
+      }
+    },
+    "interactionCompletionProxy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sequence",
+        "actionID",
+        "source",
+        "actionName",
+        "beganNanosecondsSinceProcessStart",
+        "firstCommandBufferCompletedCallbackNanosecondsSinceProcessStart",
+        "actionToCommandBufferCompletedCallbackNanoseconds",
+        "completedFrameID"
+      ],
+      "properties": {
+        "sequence": { "$ref": "#/$defs/sequence" },
+        "actionID": { "$ref": "#/$defs/sequence" },
+        "source": { "enum": ["TOUCH", "VOICE_OVER"] },
+        "actionName": { "type": "string", "minLength": 1 },
+        "beganNanosecondsSinceProcessStart": { "$ref": "#/$defs/uint" },
+        "firstCommandBufferCompletedCallbackNanosecondsSinceProcessStart": {
+          "$ref": "#/$defs/uint"
+        },
+        "actionToCommandBufferCompletedCallbackNanoseconds": {
+          "$ref": "#/$defs/uint"
+        },
+        "completedFrameID": { "$ref": "#/$defs/sequence" }
+      }
+    },
+    "physicalFootprint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sequence", "nanosecondsSinceProcessStart", "physicalFootprintBytes", "trigger"],
+      "properties": {
+        "sequence": { "$ref": "#/$defs/sequence" },
+        "nanosecondsSinceProcessStart": { "$ref": "#/$defs/uint" },
+        "physicalFootprintBytes": { "type": "integer", "minimum": 1 },
+        "trigger": {
+          "enum": [
+            "CAPTURE_START",
+            "COMMAND_BUFFER_COMPLETION_CADENCE",
+            "THERMAL_TRANSITION",
+            "EXPLICIT_CHECKPOINT"
+          ]
+        }
+      }
+    },
+    "thermal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sequence", "nanosecondsSinceProcessStart", "to"],
+      "properties": {
+        "sequence": { "$ref": "#/$defs/sequence" },
+        "nanosecondsSinceProcessStart": { "$ref": "#/$defs/uint" },
+        "from": { "enum": ["NOMINAL", "FAIR", "SERIOUS", "CRITICAL", "UNAVAILABLE"] },
+        "to": { "enum": ["NOMINAL", "FAIR", "SERIOUS", "CRITICAL", "UNAVAILABLE"] }
+      }
+    },
+    "audio": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sequence", "nanosecondsSinceProcessStart", "timelineID", "sampleRate", "cursorSample", "kind"],
+      "properties": {
+        "sequence": { "$ref": "#/$defs/sequence" },
+        "nanosecondsSinceProcessStart": { "$ref": "#/$defs/uint" },
+        "timelineID": { "type": "string", "minLength": 1 },
+        "sampleRate": { "const": 48000 },
+        "cursorSample": { "$ref": "#/$defs/uint" },
+        "kind": {
+          "enum": [
+            "PREPARED",
+            "PLAY",
+            "CONTROLLED_PAUSE",
+            "INTERRUPTION_PAUSE",
+            "ROUTE_CHANGE_PAUSE",
+            "SNAPSHOT",
+            "RESTORATION",
+            "COMPLETED"
+          ]
+        }
+      }
+    },
+    "failure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sequence", "nanosecondsSinceProcessStart", "code"],
+      "properties": {
+        "sequence": { "$ref": "#/$defs/sequence" },
+        "nanosecondsSinceProcessStart": { "$ref": "#/$defs/uint" },
+        "code": {
+          "enum": [
+            "EVENT_CAPACITY_EXCEEDED",
+            "PHYSICAL_FOOTPRINT_UNAVAILABLE",
+            "INVALID_AUDIO_CHECKPOINT",
+            "PACKAGE_IDENTITY_CONFLICT",
+            "UNRESOLVED_COMMAND_BUFFER_FRAME",
+            "UNRESOLVED_INTERACTION_COMPLETION_PROXY",
+            "COMMAND_BUFFER_CALLBACK_ORDER_VIOLATION",
+            "INVALID_GPU_TIMING"
+          ]
+        }
+      }
+    }
+  }
+}

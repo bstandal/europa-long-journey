@@ -1,0 +1,408 @@
+#usda 1.0
+(
+    defaultPrim = "Chapter01MaterialCarrier"
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+def Xform "Chapter01MaterialCarrier" (
+    kind = "component"
+)
+{
+    custom string candidateClassification = "MATERIAL_CANDIDATE"
+    custom string finalArtGate = "OPEN"
+    custom string libraryID = "chapter01-mobile-pbr-materials-v1"
+
+    def Scope "Materials"
+    {
+        def Material "M_CH01_Soil"
+        {
+            custom string materialRole = "soil"
+            token outputs:surface.connect = </Chapter01MaterialCarrier/Materials/M_CH01_Soil/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor.connect = </Chapter01MaterialCarrier/Materials/M_CH01_Soil/BaseColor.outputs:rgb>
+                float inputs:metallic = 0
+                normal3f inputs:normal.connect = </Chapter01MaterialCarrier/Materials/M_CH01_Soil/Normal.outputs:rgb>
+                float inputs:roughness.connect = </Chapter01MaterialCarrier/Materials/M_CH01_Soil/Roughness.outputs:r>
+                token outputs:surface
+            }
+
+            def Shader "UV"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                string inputs:varname = "st"
+                float2 outputs:result
+            }
+
+            def Shader "BaseColor"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/soil/baseColor.jpg@
+                float4 inputs:fallback = (0.20, 0.14, 0.08, 1)
+                float2 inputs:st.connect = </Chapter01MaterialCarrier/Materials/M_CH01_Soil/UV.outputs:result>
+                token inputs:sourceColorSpace = "sRGB"
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+
+            def Shader "Normal"
+            {
+                uniform token info:id = "UsdUVTexture"
+                float4 inputs:bias = (-1, -1, -1, -1)
+                asset inputs:file = @./textures/soil/normal.jpg@
+                float4 inputs:fallback = (0.5, 0.5, 1, 1)
+                float4 inputs:scale = (2, 2, 2, 2)
+                float2 inputs:st.connect = </Chapter01MaterialCarrier/Materials/M_CH01_Soil/UV.outputs:result>
+                token inputs:sourceColorSpace = "raw"
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+
+            def Shader "Roughness"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/soil/roughness.jpg@
+                float4 inputs:fallback = (0.82, 0.82, 0.82, 1)
+                float2 inputs:st.connect = </Chapter01MaterialCarrier/Materials/M_CH01_Soil/UV.outputs:result>
+                token inputs:sourceColorSpace = "raw"
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float outputs:r
+            }
+        }
+
+        def Material "M_CH01_DarkRock"
+        {
+            custom string materialRole = "dark-rock"
+            token outputs:surface.connect = </Chapter01MaterialCarrier/Materials/M_CH01_DarkRock/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor.connect = </Chapter01MaterialCarrier/Materials/M_CH01_DarkRock/BaseColor.outputs:rgb>
+                float inputs:metallic = 0
+                normal3f inputs:normal.connect = </Chapter01MaterialCarrier/Materials/M_CH01_DarkRock/Normal.outputs:rgb>
+                float inputs:roughness.connect = </Chapter01MaterialCarrier/Materials/M_CH01_DarkRock/Roughness.outputs:r>
+                token outputs:surface
+            }
+
+            def Shader "UV"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                string inputs:varname = "st"
+                float2 outputs:result
+            }
+
+            def Shader "BaseColor"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/dark-rock/baseColor.jpg@
+                float4 inputs:fallback = (0.11, 0.09, 0.07, 1)
+                float2 inputs:st.connect = </Chapter01MaterialCarrier/Materials/M_CH01_DarkRock/UV.outputs:result>
+                token inputs:sourceColorSpace = "sRGB"
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+
+            def Shader "Normal"
+            {
+                uniform token info:id = "UsdUVTexture"
+                float4 inputs:bias = (-1, -1, -1, -1)
+                asset inputs:file = @./textures/dark-rock/normal.jpg@
+                float4 inputs:fallback = (0.5, 0.5, 1, 1)
+                float4 inputs:scale = (2, 2, 2, 2)
+                float2 inputs:st.connect = </Chapter01MaterialCarrier/Materials/M_CH01_DarkRock/UV.outputs:result>
+                token inputs:sourceColorSpace = "raw"
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+
+            def Shader "Roughness"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/dark-rock/roughness.jpg@
+                float4 inputs:fallback = (0.84, 0.84, 0.84, 1)
+                float2 inputs:st.connect = </Chapter01MaterialCarrier/Materials/M_CH01_DarkRock/UV.outputs:result>
+                token inputs:sourceColorSpace = "raw"
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float outputs:r
+            }
+        }
+
+        def Material "M_CH01_Timber"
+        {
+            custom string materialRole = "timber"
+            token outputs:surface.connect = </Chapter01MaterialCarrier/Materials/M_CH01_Timber/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor.connect = </Chapter01MaterialCarrier/Materials/M_CH01_Timber/BaseColor.outputs:rgb>
+                float inputs:metallic = 0
+                normal3f inputs:normal.connect = </Chapter01MaterialCarrier/Materials/M_CH01_Timber/Normal.outputs:rgb>
+                float inputs:roughness.connect = </Chapter01MaterialCarrier/Materials/M_CH01_Timber/Roughness.outputs:r>
+                token outputs:surface
+            }
+
+            def Shader "UV"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                string inputs:varname = "st"
+                float2 outputs:result
+            }
+
+            def Shader "BaseColor"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/timber/baseColor.jpg@
+                float4 inputs:fallback = (0.19, 0.10, 0.05, 1)
+                float2 inputs:st.connect = </Chapter01MaterialCarrier/Materials/M_CH01_Timber/UV.outputs:result>
+                token inputs:sourceColorSpace = "sRGB"
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+
+            def Shader "Normal"
+            {
+                uniform token info:id = "UsdUVTexture"
+                float4 inputs:bias = (-1, -1, -1, -1)
+                asset inputs:file = @./textures/timber/normal.jpg@
+                float4 inputs:fallback = (0.5, 0.5, 1, 1)
+                float4 inputs:scale = (2, 2, 2, 2)
+                float2 inputs:st.connect = </Chapter01MaterialCarrier/Materials/M_CH01_Timber/UV.outputs:result>
+                token inputs:sourceColorSpace = "raw"
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+
+            def Shader "Roughness"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/timber/roughness.jpg@
+                float4 inputs:fallback = (0.76, 0.76, 0.76, 1)
+                float2 inputs:st.connect = </Chapter01MaterialCarrier/Materials/M_CH01_Timber/UV.outputs:result>
+                token inputs:sourceColorSpace = "raw"
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float outputs:r
+            }
+        }
+
+        def Material "M_CH01_ClothNeutral"
+        {
+            custom color3f authoredNeutralBaseColor = (0.42, 0.31, 0.20)
+            custom string materialRole = "cloth-neutral"
+            custom string sourceBaseColorPolicy = "REFERENCE_ONLY_NOT_PACKAGED"
+            token outputs:surface.connect = </Chapter01MaterialCarrier/Materials/M_CH01_ClothNeutral/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.42, 0.31, 0.20)
+                float inputs:metallic = 0
+                normal3f inputs:normal.connect = </Chapter01MaterialCarrier/Materials/M_CH01_ClothNeutral/Normal.outputs:rgb>
+                float inputs:roughness.connect = </Chapter01MaterialCarrier/Materials/M_CH01_ClothNeutral/Roughness.outputs:r>
+                token outputs:surface
+            }
+
+            def Shader "UV"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                string inputs:varname = "st"
+                float2 outputs:result
+            }
+
+            def Shader "Normal"
+            {
+                uniform token info:id = "UsdUVTexture"
+                float4 inputs:bias = (-1, -1, -1, -1)
+                asset inputs:file = @./textures/cloth-neutral/normal.jpg@
+                float4 inputs:fallback = (0.5, 0.5, 1, 1)
+                float4 inputs:scale = (2, 2, 2, 2)
+                float2 inputs:st.connect = </Chapter01MaterialCarrier/Materials/M_CH01_ClothNeutral/UV.outputs:result>
+                token inputs:sourceColorSpace = "raw"
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+
+            def Shader "Roughness"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/cloth-neutral/roughness.jpg@
+                float4 inputs:fallback = (0.88, 0.88, 0.88, 1)
+                float2 inputs:st.connect = </Chapter01MaterialCarrier/Materials/M_CH01_ClothNeutral/UV.outputs:result>
+                token inputs:sourceColorSpace = "raw"
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float outputs:r
+            }
+        }
+
+        def Material "M_CH01_Thatch"
+        {
+            custom string materialRole = "thatch"
+            token outputs:surface.connect = </Chapter01MaterialCarrier/Materials/M_CH01_Thatch/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor.connect = </Chapter01MaterialCarrier/Materials/M_CH01_Thatch/BaseColor.outputs:rgb>
+                float inputs:metallic = 0
+                normal3f inputs:normal.connect = </Chapter01MaterialCarrier/Materials/M_CH01_Thatch/Normal.outputs:rgb>
+                float inputs:roughness.connect = </Chapter01MaterialCarrier/Materials/M_CH01_Thatch/Roughness.outputs:r>
+                token outputs:surface
+            }
+
+            def Shader "UV"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                string inputs:varname = "st"
+                float2 outputs:result
+            }
+
+            def Shader "BaseColor"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/thatch/baseColor.jpg@
+                float4 inputs:fallback = (0.20, 0.14, 0.08, 1)
+                float2 inputs:st.connect = </Chapter01MaterialCarrier/Materials/M_CH01_Thatch/UV.outputs:result>
+                token inputs:sourceColorSpace = "sRGB"
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+
+            def Shader "Normal"
+            {
+                uniform token info:id = "UsdUVTexture"
+                float4 inputs:bias = (-1, -1, -1, -1)
+                asset inputs:file = @./textures/thatch/normal.jpg@
+                float4 inputs:fallback = (0.5, 0.5, 1, 1)
+                float4 inputs:scale = (2, 2, 2, 2)
+                float2 inputs:st.connect = </Chapter01MaterialCarrier/Materials/M_CH01_Thatch/UV.outputs:result>
+                token inputs:sourceColorSpace = "raw"
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+
+            def Shader "Roughness"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./textures/thatch/roughness.jpg@
+                float4 inputs:fallback = (0.86, 0.86, 0.86, 1)
+                float2 inputs:st.connect = </Chapter01MaterialCarrier/Materials/M_CH01_Thatch/UV.outputs:result>
+                token inputs:sourceColorSpace = "raw"
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float outputs:r
+            }
+        }
+    }
+
+    def Xform "Swatches"
+    {
+        custom string runtimeUse = "MATERIAL_EXTRACTION_ONLY_DO_NOT_MOUNT"
+
+        def Mesh "Swatch_Soil" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            uniform bool doubleSided = true
+            int[] faceVertexCounts = [4]
+            int[] faceVertexIndices = [0, 1, 2, 3]
+            normal3f[] normals = [(0, 0, 1)] (
+                interpolation = "constant"
+            )
+            point3f[] points = [(-2.4, -0.4, 0), (-1.6, -0.4, 0), (-1.6, 0.4, 0), (-2.4, 0.4, 0)]
+            texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1)] (
+                interpolation = "faceVarying"
+            )
+            uniform token subdivisionScheme = "none"
+            rel material:binding = </Chapter01MaterialCarrier/Materials/M_CH01_Soil>
+        }
+
+        def Mesh "Swatch_DarkRock" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            uniform bool doubleSided = true
+            int[] faceVertexCounts = [4]
+            int[] faceVertexIndices = [0, 1, 2, 3]
+            normal3f[] normals = [(0, 0, 1)] (
+                interpolation = "constant"
+            )
+            point3f[] points = [(-1.4, -0.4, 0), (-0.6, -0.4, 0), (-0.6, 0.4, 0), (-1.4, 0.4, 0)]
+            texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1)] (
+                interpolation = "faceVarying"
+            )
+            uniform token subdivisionScheme = "none"
+            rel material:binding = </Chapter01MaterialCarrier/Materials/M_CH01_DarkRock>
+        }
+
+        def Mesh "Swatch_Timber" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            uniform bool doubleSided = true
+            int[] faceVertexCounts = [4]
+            int[] faceVertexIndices = [0, 1, 2, 3]
+            normal3f[] normals = [(0, 0, 1)] (
+                interpolation = "constant"
+            )
+            point3f[] points = [(-0.4, -0.4, 0), (0.4, -0.4, 0), (0.4, 0.4, 0), (-0.4, 0.4, 0)]
+            texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1)] (
+                interpolation = "faceVarying"
+            )
+            uniform token subdivisionScheme = "none"
+            rel material:binding = </Chapter01MaterialCarrier/Materials/M_CH01_Timber>
+        }
+
+        def Mesh "Swatch_ClothNeutral" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            uniform bool doubleSided = true
+            int[] faceVertexCounts = [4]
+            int[] faceVertexIndices = [0, 1, 2, 3]
+            normal3f[] normals = [(0, 0, 1)] (
+                interpolation = "constant"
+            )
+            point3f[] points = [(0.6, -0.4, 0), (1.4, -0.4, 0), (1.4, 0.4, 0), (0.6, 0.4, 0)]
+            texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1)] (
+                interpolation = "faceVarying"
+            )
+            uniform token subdivisionScheme = "none"
+            rel material:binding = </Chapter01MaterialCarrier/Materials/M_CH01_ClothNeutral>
+        }
+
+        def Mesh "Swatch_Thatch" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            uniform bool doubleSided = true
+            int[] faceVertexCounts = [4]
+            int[] faceVertexIndices = [0, 1, 2, 3]
+            normal3f[] normals = [(0, 0, 1)] (
+                interpolation = "constant"
+            )
+            point3f[] points = [(1.6, -0.4, 0), (2.4, -0.4, 0), (2.4, 0.4, 0), (1.6, 0.4, 0)]
+            texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1)] (
+                interpolation = "faceVarying"
+            )
+            uniform token subdivisionScheme = "none"
+            rel material:binding = </Chapter01MaterialCarrier/Materials/M_CH01_Thatch>
+        }
+    }
+}

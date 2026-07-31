@@ -1,0 +1,610 @@
+{
+  "authority": {
+    "artisticApproval": false,
+    "candidateMayEnterShippingCompiler": false,
+    "editorialApproval": false,
+    "forbiddenAuthorityMarkers": [
+      "EDITOR_APPROVED_AS_PRODUCTION_MASTER",
+      "EDITOR_APPROVED_PRODUCTION_MASTER",
+      "PRODUCTION_ASSET_APPROVED",
+      "PRODUCTION_INPUTS_LOCKED",
+      "SHIPPING_ALLOWED"
+    ],
+    "humanOrEditorVisualReviewRecorded": false,
+    "nextDecision": "CODEX_VISUAL_REVIEW_REQUIRED_EVEN_IF_OBJECTIVE_GATES_PASS",
+    "productionAssetAuthority": false,
+    "productionMasterAuthority": false,
+    "shippingAllowed": false
+  },
+  "construction": {
+    "builtInImageGenerationUsed": false,
+    "donor": "largest 8-connected allocation-cloth component after subtracting target and foreground occluders",
+    "externalModelUsed": false,
+    "method": "SOURCE_ONLY_BOUNDARY_CONDITIONED_EXEMPLAR_PATCHMATCH",
+    "networkUsed": false,
+    "outerAuthorizationShellRule": "EXACT_SOURCE_PIXELS",
+    "patchFootprint": {
+      "radius": 4,
+      "sampleCount": 49,
+      "shape": "integer-euclidean-disk",
+      "zeroPaddingOutsideCrop": true
+    },
+    "qwenUsed": false,
+    "randomSeed": {
+      "derivation": "SHA256_OF_EXACT_INPUT_HASHES_AND_CANONICAL_PARAMETERS",
+      "sha256": "3b57b23ad4ebd2c4d77f5f39c09ef62dfe9c060e207a61c76e5e9fe6a674a5aa",
+      "word64Hex": "3b57b23ad4ebd2c4"
+    },
+    "requiredMethod": "SOURCE_ONLY_MULTI_RESOLUTION_PATCHMATCH",
+    "requiredMethodImplemented": true,
+    "seamRingRule": "TRANSLATION_ONLY_SAME_SIDE_DONOR_WITH_SOURCE_BOUNDARY_WEIGHT_4",
+    "seamRingWidthPixels": 12,
+    "stages": [
+      {
+        "acceptedProposals": 12052,
+        "alternatingSweeps": 8,
+        "guideBoundary": "VISIBLE_DONOR_ONLY_EXCLUDING_EXACT_SOURCE_SHELL",
+        "guideFillMask": "COMPLETE_AUTHORIZATION_ENVELOPE",
+        "harmonicIterations": 192,
+        "patchCostFootprintSamples": 29,
+        "patchWidthPixels": 7,
+        "pixelSize": [
+          112,
+          112
+        ],
+        "scale": 0.125,
+        "targetPixels": 2973,
+        "validDonorCentres": 979
+      },
+      {
+        "acceptedProposals": 23988,
+        "alternatingSweeps": 8,
+        "guideBoundary": "VISIBLE_DONOR_ONLY_EXCLUDING_EXACT_SOURCE_SHELL",
+        "guideFillMask": "COMPLETE_AUTHORIZATION_ENVELOPE",
+        "harmonicIterations": 192,
+        "patchCostFootprintSamples": 49,
+        "patchWidthPixels": 9,
+        "pixelSize": [
+          224,
+          224
+        ],
+        "scale": 0.25,
+        "targetPixels": 11899,
+        "validDonorCentres": 5473
+      },
+      {
+        "acceptedProposals": 83161,
+        "alternatingSweeps": 8,
+        "guideBoundary": "VISIBLE_DONOR_ONLY_EXCLUDING_EXACT_SOURCE_SHELL",
+        "guideFillMask": "COMPLETE_AUTHORIZATION_ENVELOPE",
+        "harmonicIterations": 192,
+        "patchCostFootprintSamples": 49,
+        "patchWidthPixels": 9,
+        "pixelSize": [
+          448,
+          448
+        ],
+        "scale": 0.5,
+        "targetPixels": 47562,
+        "validDonorCentres": 29274
+      },
+      {
+        "acceptedProposals": 250443,
+        "alternatingSweeps": 8,
+        "guideBoundary": "VISIBLE_DONOR_ONLY_EXCLUDING_EXACT_SOURCE_SHELL",
+        "guideFillMask": "COMPLETE_AUTHORIZATION_ENVELOPE",
+        "harmonicIterations": 192,
+        "patchCostFootprintSamples": 49,
+        "patchVoting": {
+          "footprintSamples": 49,
+          "pixelsWithoutVotes": 0,
+          "totalVotes": 9252665,
+          "weightRule": "25 - (dx*dx + dy*dy)"
+        },
+        "patchWidthPixels": 9,
+        "pixelSize": [
+          896,
+          896
+        ],
+        "residualEnergySelection": {
+          "rule": "MINIMUM_EQUAL_WEIGHT_DISTANCE_TO_DONOR_MEDIAN_AND_P95_GRADIENT_RATIOS_OF_1",
+          "selectedCentreExemplarWeight": 0.85,
+          "selectedOverlappingVoteWeight": 0.15,
+          "trials": [
+            {
+              "centreWeight": 0.0,
+              "medianGradientRatio": 0.48195,
+              "p95GradientRatio": 0.450794,
+              "score": 1.067256
+            },
+            {
+              "centreWeight": 0.05,
+              "medianGradientRatio": 0.48195,
+              "p95GradientRatio": 0.455542,
+              "score": 1.062508
+            },
+            {
+              "centreWeight": 0.1,
+              "medianGradientRatio": 0.5,
+              "p95GradientRatio": 0.46029,
+              "score": 1.03971
+            },
+            {
+              "centreWeight": 0.15,
+              "medianGradientRatio": 0.5,
+              "p95GradientRatio": 0.479096,
+              "score": 1.020904
+            },
+            {
+              "centreWeight": 0.2,
+              "medianGradientRatio": 0.51805,
+              "p95GradientRatio": 0.50257,
+              "score": 0.97938
+            },
+            {
+              "centreWeight": 0.25,
+              "medianGradientRatio": 0.55315,
+              "p95GradientRatio": 0.521298,
+              "score": 0.925552
+            },
+            {
+              "centreWeight": 0.3,
+              "medianGradientRatio": 0.6063,
+              "p95GradientRatio": 0.544772,
+              "score": 0.848928
+            },
+            {
+              "centreWeight": 0.35,
+              "medianGradientRatio": 0.66075,
+              "p95GradientRatio": 0.573074,
+              "score": 0.766176
+            },
+            {
+              "centreWeight": 0.4,
+              "medianGradientRatio": 0.69685,
+              "p95GradientRatio": 0.601033,
+              "score": 0.702117
+            },
+            {
+              "centreWeight": 0.45,
+              "medianGradientRatio": 0.73195,
+              "p95GradientRatio": 0.634082,
+              "score": 0.633968
+            },
+            {
+              "centreWeight": 0.5,
+              "medianGradientRatio": 0.75,
+              "p95GradientRatio": 0.666725,
+              "score": 0.583275
+            },
+            {
+              "centreWeight": 0.55,
+              "medianGradientRatio": 0.7851,
+              "p95GradientRatio": 0.7001,
+              "score": 0.5148
+            },
+            {
+              "centreWeight": 0.6,
+              "medianGradientRatio": 0.8212,
+              "p95GradientRatio": 0.737292,
+              "score": 0.441508
+            },
+            {
+              "centreWeight": 0.65,
+              "medianGradientRatio": 0.87435,
+              "p95GradientRatio": 0.774825,
+              "score": 0.350825
+            },
+            {
+              "centreWeight": 0.7,
+              "medianGradientRatio": 0.91075,
+              "p95GradientRatio": 0.812542,
+              "score": 0.276708
+            },
+            {
+              "centreWeight": 0.75,
+              "medianGradientRatio": 0.94685,
+              "p95GradientRatio": 0.850076,
+              "score": 0.203074
+            },
+            {
+              "centreWeight": 0.8,
+              "medianGradientRatio": 0.98195,
+              "p95GradientRatio": 0.887809,
+              "score": 0.130241
+            },
+            {
+              "centreWeight": 0.85,
+              "medianGradientRatio": 1.01805,
+              "p95GradientRatio": 0.929548,
+              "score": 0.088502
+            },
+            {
+              "centreWeight": 0.9,
+              "medianGradientRatio": 1.0689,
+              "p95GradientRatio": 0.967607,
+              "score": 0.101293
+            },
+            {
+              "centreWeight": 0.95,
+              "medianGradientRatio": 1.1076,
+              "p95GradientRatio": 1.009888,
+              "score": 0.117488
+            },
+            {
+              "centreWeight": 1.0,
+              "medianGradientRatio": 1.15945,
+              "p95GradientRatio": 1.047343,
+              "score": 0.206793
+            }
+          ]
+        },
+        "reuseRebalance": {
+          "maximumTileCountAfter": 15220,
+          "reassignedPixels": 28178,
+          "tileCountLimit": 15220,
+          "tileShareReassignedPixels": 19991,
+          "uniqueCentresAfter": 36426
+        },
+        "scale": 1.0,
+        "targetPixels": 190259,
+        "validDonorCentres": 132392
+      }
+    ],
+    "target": {
+      "authorizationOperation": "disk-dilate-r4 then subtract foreground occluders",
+      "authorizationPixelCount": 196727,
+      "closeRadius": 3,
+      "closedSubjectPixelCount": 190259,
+      "dilateRadius": 4,
+      "exactSourceAuthorizationShellPixelCount": 6468,
+      "subjectOperation": "disk-close-r3"
+    },
+    "tool": {
+      "incrementalCostNOK": 0,
+      "libraries": [
+        {
+          "licenseExpression": "MIT-CMU",
+          "name": "Pillow",
+          "version": "12.3.0"
+        },
+        {
+          "licenseExpression": "BSD-3-Clause AND 0BSD AND MIT AND Zlib AND CC0-1.0",
+          "name": "NumPy",
+          "version": "2.5.1"
+        }
+      ],
+      "path": "native/scripts/build-harvest-central-grain-underlay.py",
+      "pythonEnvironment": "/Users/bard/.local/share/uv/tools/mflux/bin/python",
+      "pythonVersion": "3.14.6",
+      "sha256": "4cb887ba519296139f5e4fd3835493703c1c264c5fafec47e2b8816f133ad42e"
+    },
+    "transformEnvelope": {
+      "authorizedRotationDegrees": [
+        -3.0,
+        3.0
+      ],
+      "authorizedScale": [
+        0.92,
+        1.08
+      ],
+      "mirroringAuthorized": false,
+      "mirroringUsed": false,
+      "usedRotationDegrees": [
+        0.0,
+        0.0
+      ],
+      "usedScale": [
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "crop": {
+    "coordinateSpace": "source pixels",
+    "pixelRect": [
+      192,
+      1752,
+      896,
+      896
+    ]
+  },
+  "determinism": {
+    "candidateBytesIdentical": true,
+    "candidateSha256Run1": "22367b607e58621807686524f19137822b0503b2ac570c7abe19fdc74ba0541f",
+    "candidateSha256Run2": "22367b607e58621807686524f19137822b0503b2ac570c7abe19fdc74ba0541f",
+    "provenanceCoordinatesIdentical": true,
+    "runsInOneInvocation": 2
+  },
+  "diagnosticLimits": [
+    "Objective pixel and provenance checks cannot approve material plausibility, seams, repetition, perspective, or historical appearance.",
+    "Normal, Increased Contrast, Reduce Motion, and camera-extremum images are inspection artifacts, not runtime assets.",
+    "A passing receipt remains non-shipping until a separate byte-bound production-asset decision is recorded through the project authority chain.",
+    "A failed receipt preserves the candidate only for diagnosis and iteration."
+  ],
+  "failedGates": [
+    "CROSS_SEAM_MEAN_TOO_HIGH",
+    "CROSS_SEAM_P95_TOO_HIGH"
+  ],
+  "forensicAuthority": {
+    "expected": {
+      "closedCropByteMaskSha256": "3a93c6ef9a93c830793f919a1a06f69d3c1f2327b08d19535cd5378b978a6931",
+      "closedPixelCount": 190259,
+      "largestDonorByteMaskSha256": "4fe31dc08debbc48c7d061b75f636cb0e0946350a3e37e3bb4de793d26996bb7",
+      "largestDonorPixelCount": 148493,
+      "rawDonorPixelCount": 148816,
+      "subjectCropByteMaskSha256": "45420722013d1a44dac8e9b3b12394f2fcdbd69464618083dec044bbb97b82a7",
+      "subjectCropPixelCount": 190234,
+      "targetBoundsInclusive": [
+        120,
+        433,
+        787,
+        838
+      ],
+      "targetByteMaskSha256": "3bebce3ae454c8cd08dcaae0a9b67221ca540b554be240962e100e958c1fc866",
+      "targetForegroundOverlap": 0,
+      "targetPixelCount": 196727,
+      "validPatchCenterByteMaskSha256": "ab4bd5e4a562099c4597381667c5d5d86226e66ddc589f95b4e353c5f6d5329a",
+      "validPatchCenterCount": 132392
+    },
+    "measured": {
+      "closedCropByteMaskSha256": "3a93c6ef9a93c830793f919a1a06f69d3c1f2327b08d19535cd5378b978a6931",
+      "closedPixelCount": 190259,
+      "largestDonorByteMaskSha256": "4fe31dc08debbc48c7d061b75f636cb0e0946350a3e37e3bb4de793d26996bb7",
+      "largestDonorPixelCount": 148493,
+      "rawDonorPixelCount": 148816,
+      "subjectCropByteMaskSha256": "45420722013d1a44dac8e9b3b12394f2fcdbd69464618083dec044bbb97b82a7",
+      "subjectCropPixelCount": 190234,
+      "targetBoundsInclusive": [
+        120,
+        433,
+        787,
+        838
+      ],
+      "targetByteMaskSha256": "3bebce3ae454c8cd08dcaae0a9b67221ca540b554be240962e100e958c1fc866",
+      "targetForegroundOverlap": 0,
+      "targetPixelCount": 196727,
+      "validPatchCenterByteMaskSha256": "ab4bd5e4a562099c4597381667c5d5d86226e66ddc589f95b4e353c5f6d5329a",
+      "validPatchCenterCount": 132392
+    }
+  },
+  "gates": {
+    "crossSeam": {
+      "meanMaximum": 14.2,
+      "p95Maximum": 39.2,
+      "p99Maximum": 80.1
+    },
+    "donorMeanRedMinusBlue": 10.9,
+    "generatedCoreMeanRedMinusBlueDeltaMaximum": 8.0,
+    "generatedLuma": {
+      "p01Minimum": 24.0,
+      "p99Maximum": 107.0
+    },
+    "interiorGradientRatio": {
+      "maximum": 1.35,
+      "minimum": 0.7
+    },
+    "maximumDonorCenterReuse": 64,
+    "maximumGeneratedSharePer64PixelDonorTile": 0.08,
+    "minimumUniqueDonorCenters": 30000
+  },
+  "masks": {
+    "allocation-cloth": {
+      "path": "native/content/backstage/harvest/semantic-masks-v26.provisional/allocation-cloth.png",
+      "pixelCount": 225176,
+      "sha256": "f87a639685ccba48127cb3fbcfef46e611228e5c0645aa3d4c4c901589f06627"
+    },
+    "central-grain": {
+      "path": "native/content/backstage/harvest/semantic-masks-v26.provisional/central-grain.png",
+      "pixelCount": 190234,
+      "sha256": "85dbd5f14ed998ed3874721948678acd0411e3e0e91d443c9d47555fc047aea3"
+    },
+    "foreground-occluders": {
+      "path": "native/content/backstage/harvest/semantic-masks-v26.provisional/foreground-occluders.png",
+      "pixelCount": 226290,
+      "sha256": "8810139ae423683c5434690a5698bd28940338790b75ba9d3ca897d98a29cf35"
+    }
+  },
+  "metrics": {
+    "authorizationShell": {
+      "changedPixelCount": 0,
+      "maximumChannelDifference": 0,
+      "pixelCount": 6468
+    },
+    "colour": {
+      "absoluteRedMinusBlueDelta": 4.417901,
+      "donorMeanRedMinusBlue": 10.899106,
+      "generatedCoreLuma": {
+        "maximum": 118.6636,
+        "mean": 60.811555,
+        "median": 61.349,
+        "p01": 36.1444,
+        "p95": 76.4212,
+        "p99": 81.9868
+      },
+      "generatedCoreMeanRedMinusBlue": 6.481206
+    },
+    "crossSeamChannelDifference": {
+      "maximum": 108.0,
+      "mean": 18.901761,
+      "median": 15.0,
+      "p01": 0.0,
+      "p95": 51.0,
+      "p99": 70.0
+    },
+    "gradient": {
+      "donor": {
+        "maximum": 57.2848,
+        "mean": 5.365625,
+        "median": 4.0,
+        "p01": 0.0722,
+        "p95": 15.20782,
+        "p99": 23.0
+      },
+      "generatedCore": {
+        "maximum": 70.6768,
+        "mean": 5.24665,
+        "median": 4.0722,
+        "p01": 0.0682,
+        "p95": 14.1364,
+        "p99": 20.4212
+      },
+      "generatedToDonorRatio": {
+        "median": 1.01805,
+        "p95": 0.929548
+      }
+    },
+    "outsideAuthorization": {
+      "changedPixelCount": 0,
+      "maximumChannelDifference": 0
+    },
+    "provenance": {
+      "footprintCoverage": 1.0,
+      "footprintsInsideLargestDonorCount": 190259,
+      "generatedPixelCount": 190259,
+      "maximumDonorCenterReuse": 64,
+      "maximumGeneratedSharePer64PixelDonorTile": 0.079996216,
+      "mirroredPixelCount": 0,
+      "pixelsWithCoordinates": 190259,
+      "rotationDegrees": {
+        "maximum": 0.0,
+        "minimum": 0.0
+      },
+      "scale": {
+        "maximum": 1.0,
+        "minimum": 1.0
+      },
+      "uniqueDonorCenters": 36426
+    },
+    "startingRecomposition": {
+      "maximumChannelDifference": 0,
+      "meanAbsoluteChannelDifference": 0.0
+    }
+  },
+  "outputs": {
+    "baseline-393x852-exhausted.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/baseline-393x852-exhausted.png",
+      "sha256": "a82ae040daf22fd704f1a48e2a1e5cec66aa5157434ebd8614d1f65375848810"
+    },
+    "baseline-393x852-full.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/baseline-393x852-full.png",
+      "sha256": "780d9b30c91e476b4f66f441157a00701dfa317799085adb3facd6a4bde793c8"
+    },
+    "camera-rail-keyframe-1.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/camera-rail-keyframe-1.png",
+      "sha256": "34e95b9c4724b53da71fe0e9e9c37d37ad74de1375f6ea80e6fabd69885f5aa1"
+    },
+    "camera-rail-keyframe-2.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/camera-rail-keyframe-2.png",
+      "sha256": "f4812a8a296284f2b37546da83007f3a7c89447c535e5c984bdfa54d287b8b63"
+    },
+    "central-grain-authorization.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/central-grain-authorization.png",
+      "sha256": "11f7d1016bdc6a1ddd897f7283c35ffcacaf4510b4899c20bedf33b19b1500f9"
+    },
+    "central-grain.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/central-grain.png",
+      "sha256": "22367b607e58621807686524f19137822b0503b2ac570c7abe19fdc74ba0541f"
+    },
+    "closed-subject-mask.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/closed-subject-mask.png",
+      "sha256": "06e59ffee88098fcf08c73ed1368bfed7751a7d003c9568e1c91b32a9eaee68b"
+    },
+    "donor-provenance-map.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/donor-provenance-map.png",
+      "sha256": "f47017f3d34af26face9708ea4557b2696a63fc4f08cded616d968eb8cf3fdbe"
+    },
+    "four-times-seam-difference.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/four-times-seam-difference.png",
+      "sha256": "5e3ffd135be240bf277de4a3c2ebd5aeee044c3cb53cd3811c8511b920888a88"
+    },
+    "grain-parallax-negative-8-negative-3.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/grain-parallax-negative-8-negative-3.png",
+      "sha256": "34e95b9c4724b53da71fe0e9e9c37d37ad74de1375f6ea80e6fabd69885f5aa1"
+    },
+    "grain-parallax-positive-8-positive-3.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/grain-parallax-positive-8-positive-3.png",
+      "sha256": "f4812a8a296284f2b37546da83007f3a7c89447c535e5c984bdfa54d287b8b63"
+    },
+    "increase-contrast.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/increase-contrast.png",
+      "sha256": "3ee41f8424f88f4dc28fbe02319efb94b96c43305a5d817b6deff9a30c6bbfd3"
+    },
+    "largest-430x932-exhausted.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/largest-430x932-exhausted.png",
+      "sha256": "1da3b5fbb0b4172b4ad1e646a2276a1bb99a8b1bcbbb65e02600b8b09ad5db36"
+    },
+    "largest-430x932-full.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/largest-430x932-full.png",
+      "sha256": "8bca89789412037b482e92f054192d745b189d2b5645fb7c2e8dbeb9622d74be"
+    },
+    "largest-donor-component.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/largest-donor-component.png",
+      "sha256": "a7ea3b5f8d14a2bb6a8c24b77dd51feeb637b77eeb913b027a8ea046c2cdfe27"
+    },
+    "normal-crop.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/normal-crop.png",
+      "sha256": "22367b607e58621807686524f19137822b0503b2ac570c7abe19fdc74ba0541f"
+    },
+    "outside-target-difference.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/outside-target-difference.png",
+      "sha256": "6b6b62578ff2f67f56db454e9d810e5d3951fb139be4b2780db19abdd9571b07"
+    },
+    "provenance-source-x-uint16.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/provenance-source-x-uint16.png",
+      "sha256": "4dfdb69fdd21177a40b66d0ac5812316c548ffb44f88f049ca25d54d5d955204"
+    },
+    "provenance-source-y-uint16.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/provenance-source-y-uint16.png",
+      "sha256": "01182193dfd460f3223794ef1dafe3c87e0f68606aae896988ee07798f4c3a6a"
+    },
+    "reduce-motion.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/reduce-motion.png",
+      "sha256": "22367b607e58621807686524f19137822b0503b2ac570c7abe19fdc74ba0541f"
+    },
+    "seam-ring.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/seam-ring.png",
+      "sha256": "464e438341687b5da568194da74ea6ec87abe3b86850870517680bb375ed7baf"
+    },
+    "source-candidate-diagnostic.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/source-candidate-diagnostic.png",
+      "sha256": "52c7f6ed980a949b37293391117c1a2e5dd70689fbca153bac1c246ff24306ce"
+    },
+    "source-candidate-difference-x4.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/source-candidate-difference-x4.png",
+      "sha256": "22d1b50dbb5fe087ca715f23e6b4839b56c6a2b45b5d12faac1b7c8152d6bf48"
+    },
+    "source-crop.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/source-crop.png",
+      "sha256": "7af9fba7cb564dbdbd95451b35e2519d198321d76fe2929fecb761d964f3c538"
+    },
+    "source-underlay-authorization-comparison.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/source-underlay-authorization-comparison.png",
+      "sha256": "afcbcf73b48c5359f0ea2a8f1a992f229c6123c44f1be1b6def1a706d821f71f"
+    },
+    "transform-map.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/transform-map.png",
+      "sha256": "95deb5b2789f71fd7d9935e7010d0355fc899d03c407d37804df8046f525bdd0"
+    },
+    "valid-patch-centres.png": {
+      "path": "native/.build/visual-assets/harvest-underlay-sources/r5/valid-patch-centres.png",
+      "sha256": "28f8ce1a6d722705b4dae6d080c228e8c688e0637e1d9af40eb6b71e4dd54d87"
+    }
+  },
+  "receiptID": "harvest-v26-central-grain-underlay-source-only-r5",
+  "schemaVersion": 1,
+  "scope": "NON_SHIPPING_BACKSTAGE_ONLY",
+  "source": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+    "pixelSize": [
+      1290,
+      2796
+    ],
+    "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca"
+  },
+  "specification": {
+    "path": "native/content/backstage/harvest/central-grain-underlay-v26.spec.json",
+    "sha256": "07bda3a1788d6b2aa5507fd691320a6db43b57a3d8f1e7fa9dfc2a1889430f74"
+  },
+  "status": "OBJECTIVE_TECHNICAL_QA_FAILED"
+}

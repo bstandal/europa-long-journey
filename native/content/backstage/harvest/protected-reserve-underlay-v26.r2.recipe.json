@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "id": "harvest-v26-protected-reserve-rail-underlay-r2",
+  "status": "CODEX_NON_SHIPPING_SOURCE_ONLY_UNDERLAY_RECIPE",
+  "shippingAllowed": false,
+  "editorApprovalClaimed": false,
+  "source": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+    "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca",
+    "pixelSize": [
+      1290,
+      2796
+    ]
+  },
+  "bindings": [
+    {
+      "id": "rail-measurement",
+      "path": "native/content/backstage/harvest/destination-rail-disocclusion-measurement-v26.provisional.json",
+      "sha256": "cfb6c98449ec5c234de1eb65f0eeb0d8f47183380498e5a2b91e1fe3f4d21058"
+    },
+    {
+      "id": "semantic-mask-receipt",
+      "path": "native/content/backstage/harvest/semantic-masks-v26.provisional/segmentation-receipt.json",
+      "sha256": "4c378ffe243bdafd85b9c0476147d14b023389e9ea88d5f9884fcba3f3d75191"
+    },
+    {
+      "id": "allocation-earth-donor-authority",
+      "path": "native/content/backstage/harvest/allocation-earth-donor-mask-v26.source-authority.json",
+      "sha256": "38620a09307373db3c4636377e38d795a9008160c7f115f8644084ee906f310f"
+    },
+    {
+      "id": "rear-ground-donor-authority",
+      "path": "native/content/backstage/harvest/rear-ground-donor-mask-v26.source-authority.json",
+      "sha256": "8674909953d67c3dfff93eefa336d42e3bde7f14c74c7bc03e995accbf3928e5"
+    }
+  ],
+  "masks": [
+    {
+      "id": "protected-reserve-bin",
+      "path": "native/content/backstage/harvest/semantic-masks-v26.provisional/protected-reserve-bin.png",
+      "sha256": "c4b360be6c7b9381f6966c56b7ba43279ad177105adf097680042e2aa4b28c7c",
+      "pixelSize": [
+        1290,
+        2796
+      ],
+      "expectedPixelCount": 35093,
+      "expectedByteMaskSha256": "f9e8834d8120995f10024a8704e3d06b94fafd9340409b623877e7607715c400"
+    },
+    {
+      "id": "spring-seed-store",
+      "path": "native/content/backstage/harvest/semantic-masks-v26.provisional/spring-seed-store.png",
+      "sha256": "60bd67ede5b3602993ca484c93e94d5d63b75f055f1c616d0aa9c50faf69a9c9",
+      "pixelSize": [
+        1290,
+        2796
+      ],
+      "expectedPixelCount": 66490,
+      "expectedByteMaskSha256": "4360247f1edce3525aec329c57a1e9f619290b2fe0819f926b217941409cd0ea"
+    },
+    {
+      "id": "allocation-earth",
+      "path": "native/content/backstage/harvest/semantic-donor-masks-v26.provisional/allocation-earth-surface.png",
+      "sha256": "d63af5cfa98031a1d1fa9f97f1f096885a8aa38aca75dbf4ff2803f141e46a3a",
+      "pixelSize": [
+        1290,
+        2796
+      ],
+      "expectedPixelCount": 141776,
+      "expectedByteMaskSha256": "d2ad577582fb77f84e64189b28981541fd5368f03ce49aa0e84e8a485b29fdd2"
+    },
+    {
+      "id": "rear-ground",
+      "path": "native/content/backstage/harvest/semantic-donor-masks-v26.provisional/rear-earth-and-stubble-surface.png",
+      "sha256": "b290c2ad6ca93409612f954b2bc5f99347c39fe35aa026b69adac9460daa0ef0",
+      "pixelSize": [
+        1290,
+        2796
+      ],
+      "expectedPixelCount": 64541,
+      "expectedByteMaskSha256": "15433b70c4fa5a78ad621a6c5997f777ac40faa59c84e25e66d127c755b77c63"
+    },
+    {
+      "id": "people-and-work",
+      "path": "native/content/backstage/harvest/semantic-masks-v26.provisional/people-and-work.png",
+      "sha256": "90e9dcb55a980d3971b6da5c44174d352fe74729197c8300d96562a7c4547a2d",
+      "pixelSize": [
+        1290,
+        2796
+      ],
+      "expectedPixelCount": 209211,
+      "expectedByteMaskSha256": "6c465f5ef02c9be6c60fa66baff31c9b53e7290d37fd5575e78c0d3ed6b05c1e"
+    },
+    {
+      "id": "foreground-occluders",
+      "path": "native/content/backstage/harvest/semantic-masks-v26.provisional/foreground-occluders.png",
+      "sha256": "8810139ae423683c5434690a5698bd28940338790b75ba9d3ca897d98a29cf35",
+      "pixelSize": [
+        1290,
+        2796
+      ],
+      "expectedPixelCount": 226290,
+      "expectedByteMaskSha256": "d79eb695a3e4660be39364e1ea882fe56cb82086cf4f4dabff75de60b3a01e5b"
+    }
+  ],
+  "crop": {
+    "x": 380,
+    "y": 1360,
+    "width": 650,
+    "height": 700
+  },
+  "expressions": {
+    "subject": {
+      "mask": "protected-reserve-bin"
+    },
+    "authorization": {
+      "op": "directionalReveal",
+      "input": {
+        "mask": "protected-reserve-bin"
+      },
+      "motion": {
+        "minDx": 0,
+        "maxDx": 2,
+        "minDy": 0,
+        "maxDy": 39,
+        "authority": "rail-measurement"
+      },
+      "seamPixels": 12
+    },
+    "donor": {
+      "op": "subtract",
+      "input": {
+        "op": "union",
+        "inputs": [
+          {
+            "mask": "allocation-earth"
+          },
+          {
+            "mask": "rear-ground"
+          },
+          {
+            "mask": "spring-seed-store"
+          }
+        ]
+      },
+      "subtract": [
+        {
+          "mask": "people-and-work"
+        },
+        {
+          "mask": "foreground-occluders"
+        }
+      ]
+    }
+  },
+  "synthesis": {
+    "method": "deterministic-source-only-patchmatch-v2-inplace",
+    "patchRadius": 4,
+    "guide": {
+      "algorithm": "telea",
+      "radius": 4,
+      "blurSigma": 1.5
+    },
+    "initialCandidateCount": 64,
+    "sweeps": 7,
+    "randomCandidatesPerSweep": 0,
+    "tileSize": 64,
+    "propagationCostToleranceFraction": 1.0
+  },
+  "thresholds": {
+    "minimumDonorPixels": 100000,
+    "minimumValidDonorCenters": 80000,
+    "minimumUniqueDonorCenters": 10000,
+    "maximumDonorCenterReuse": 128,
+    "maximumGeneratedSharePerTile": 0.13,
+    "crossSeam": {
+      "meanMaximum": 12,
+      "p95Maximum": 40,
+      "p99Maximum": 60
+    },
+    "interiorGradientRatio": {
+      "minimum": 0.5,
+      "maximum": 1
+    },
+    "generatedLuma": {
+      "p01Minimum": 15,
+      "p99Maximum": 135
+    },
+    "maximumMeanColorDelta": 10,
+    "changedTargetFraction": {
+      "minimum": 0.99,
+      "maximum": 1
+    },
+    "provenanceCoherence": {
+      "minimumExactTranslationAdjacencyFraction": 0.75,
+      "maximumDisplacementJumpP95": 400,
+      "maximumDisplacementJumpP99": 650
+    }
+  },
+  "expected": {
+    "seedSha256": "24fcf58a47715d16f1b8e04fe2736f1ae3845274036b6ad50bb64350948c44d5",
+    "subject": {
+      "pixelCount": 35093,
+      "byteMaskSha256": "a015f241b5dcd7b032921e2fbc6ef264129f9398b8981c5e631b1031118d184e",
+      "boundsInclusive": [206, 294, 475, 543]
+    },
+    "authorization": {
+      "pixelCount": 24609,
+      "byteMaskSha256": "559bf1d235c7f6a90428efae15bb4dfae5a7bc5f651a06c35dda7e9e33aa7f82",
+      "boundsInclusive": [206, 294, 475, 543]
+    },
+    "donor": {
+      "pixelCount": 106357,
+      "byteMaskSha256": "76d41084158f57664c47038153d8f08f6843e87c25c26a2b1808b58b85ba0edc",
+      "boundsInclusive": [0, 0, 649, 699]
+    },
+    "validDonorCenters": {
+      "pixelCount": 86602,
+      "byteMaskSha256": "03157f361acedb530a75c684a4385cbba71eef6dd2e9cbfc273382d3733bc7cf",
+      "boundsInclusive": [4, 56, 645, 695]
+    },
+    "candidateSha256": "232011e6bdc6942c1ee7655fa36e8b157b92a8395643b5ffa8b0de2ad805fe71"
+  },
+  "output": {
+    "directory": "native/.build/visual-assets/harvest-destination-underlays-v26/protected-reserve-r2",
+    "receiptPath": "native/content/backstage/harvest/protected-reserve-underlay-v26.r2.receipt.json",
+    "files": {
+      "candidate": "protected-reserve.png",
+      "authorization": "protected-reserve-authorization.png",
+      "subject": "protected-reserve-subject.png",
+      "donor": "protected-reserve-donor.png",
+      "validDonorCenters": "protected-reserve-valid-donor-centres.png",
+      "provenanceX": "protected-reserve-provenance-x.png",
+      "provenanceY": "protected-reserve-provenance-y.png"
+    }
+  }
+}

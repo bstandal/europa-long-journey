@@ -1,0 +1,681 @@
+{
+  "schemaVersion": 1,
+  "kind": "responsive-dramatic-audio-work-object",
+  "id": "household-crosses-responsive-audio-v1",
+  "status": "PROVISIONAL_NON_SHIPPING",
+  "shippingState": "PROHIBITED",
+  "trustDomain": "BACKSTAGE_AUDIO_PRODUCTION",
+  "scope": {
+    "chapterID": "first-farmers",
+    "arcID": "first-farmers-arc-01",
+    "beatID": "beat-first-farmers-household-crosses",
+    "interactionID": "interaction-first-farmers-a-household-crosses"
+  },
+  "responsiveProgram": {
+    "id": "household-crosses-responsive-audio-v1",
+    "scope": {
+      "chapterID": "first-farmers",
+      "arcID": "first-farmers-arc-01",
+      "beatID": "beat-first-farmers-household-crosses",
+      "interactionID": "interaction-first-farmers-a-household-crosses"
+    },
+    "approachTimelineID": "household-crosses-approach-v1",
+    "interactionBeds": [
+      {
+        "phase": "waiting",
+        "timelineID": "household-crosses-waiting-bed-v1",
+        "layerStates": {
+          "scoreStateID": "household-held-at-shore",
+          "soundscapeStateID": "craft-held-in-shallows"
+        }
+      },
+      {
+        "phase": "engaged",
+        "timelineID": "household-crosses-engaged-bed-v1",
+        "layerStates": {
+          "scoreStateID": "four-parts-cross-together",
+          "soundscapeStateID": "wake-carries-household"
+        }
+      },
+      {
+        "phase": "resistance",
+        "timelineID": "household-crosses-resistance-bed-v1",
+        "layerStates": {
+          "scoreStateID": "route-does-not-take",
+          "soundscapeStateID": "off-route-water-holds"
+        }
+      }
+    ],
+    "consequenceTimelineID": "household-crosses-consequence-v1",
+    "exitPolicy": {
+      "kind": "bounded-fade",
+      "durationSamples": 9600
+    }
+  },
+  "causalBinding": {
+    "controlID": "household-route-progress",
+    "originAnchorID": "western-anatolia",
+    "stages": [
+      {
+        "id": "aegean-islands",
+        "requiredAmount": 0.333333
+      },
+      {
+        "id": "thessaly",
+        "requiredAmount": 0.666667
+      },
+      {
+        "id": "danube-corridor",
+        "requiredAmount": 1
+      }
+    ],
+    "completionEffectID": "effect-first-farmers-a-household-crosses",
+    "packageTraceID": "route-aegean-danube",
+    "persistentTraceID": "trace-european-farming-belt",
+    "audioStageAccumulation": "PHASE_LEVEL_ONLY_VISUAL_REDUCER_OWNS_LATCHED_ANCHORS"
+  },
+  "timelines": [
+    {
+      "id": "household-crosses-approach-v1",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "approach-score-master",
+          "role": "score",
+          "startSample": 0,
+          "durationSamples": 2880000,
+          "assetPath": "audio/first-farmers/household-crosses-responsive-v1/approach/score-master.wav",
+          "gain": 0.72
+        },
+        {
+          "cueID": "approach-soundscape-master",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 2880000,
+          "assetPath": "audio/first-farmers/household-crosses-responsive-v1/approach/soundscape-master.wav",
+          "gain": 0.82
+        },
+        {
+          "cueID": "approach-spatial-detail-master",
+          "role": "spatialDetail",
+          "startSample": 0,
+          "durationSamples": 2880000,
+          "assetPath": "audio/first-farmers/household-crosses-responsive-v1/approach/spatial-detail-master.wav",
+          "gain": 0.9
+        },
+        {
+          "cueID": "approach-before-route-contact",
+          "role": "silence",
+          "startSample": 2652000,
+          "durationSamples": 132000,
+          "assetPath": null,
+          "gain": 1
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "household-crosses-waiting-bed-v1",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "waiting-score-master",
+          "role": "score",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/household-crosses-responsive-v1/waiting/score-master.wav",
+          "gain": 0.72
+        },
+        {
+          "cueID": "waiting-soundscape-master",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/household-crosses-responsive-v1/waiting/soundscape-master.wav",
+          "gain": 0.82
+        },
+        {
+          "cueID": "waiting-spatial-detail-master",
+          "role": "spatialDetail",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/household-crosses-responsive-v1/waiting/spatial-detail-master.wav",
+          "gain": 0.9
+        },
+        {
+          "cueID": "waiting-held-shallows-joint",
+          "role": "silence",
+          "startSample": 710400,
+          "durationSamples": 9600,
+          "assetPath": null,
+          "gain": 1
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "household-crosses-engaged-bed-v1",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "engaged-score-master",
+          "role": "score",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/household-crosses-responsive-v1/engaged/score-master.wav",
+          "gain": 0.72
+        },
+        {
+          "cueID": "engaged-soundscape-master",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/household-crosses-responsive-v1/engaged/soundscape-master.wav",
+          "gain": 0.82
+        },
+        {
+          "cueID": "engaged-spatial-detail-master",
+          "role": "spatialDetail",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/household-crosses-responsive-v1/engaged/spatial-detail-master.wav",
+          "gain": 0.9
+        },
+        {
+          "cueID": "engaged-viable-route-breath",
+          "role": "silence",
+          "startSample": 350400,
+          "durationSamples": 7680,
+          "assetPath": null,
+          "gain": 1
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "household-crosses-resistance-bed-v1",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "resistance-score-master",
+          "role": "score",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/household-crosses-responsive-v1/resistance/score-master.wav",
+          "gain": 0.72
+        },
+        {
+          "cueID": "resistance-soundscape-master",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/household-crosses-responsive-v1/resistance/soundscape-master.wav",
+          "gain": 0.82
+        },
+        {
+          "cueID": "resistance-spatial-detail-master",
+          "role": "spatialDetail",
+          "startSample": 0,
+          "durationSamples": 720000,
+          "assetPath": "audio/first-farmers/household-crosses-responsive-v1/resistance/spatial-detail-master.wav",
+          "gain": 0.9
+        },
+        {
+          "cueID": "resistance-off-route-hold",
+          "role": "silence",
+          "startSample": 554400,
+          "durationSamples": 9600,
+          "assetPath": null,
+          "gain": 1
+        }
+      ],
+      "haptics": []
+    },
+    {
+      "id": "household-crosses-consequence-v1",
+      "sampleRate": 48000,
+      "events": [
+        {
+          "cueID": "consequence-score-master",
+          "role": "score",
+          "startSample": 0,
+          "durationSamples": 2640000,
+          "assetPath": "audio/first-farmers/household-crosses-responsive-v1/consequence/score-master.wav",
+          "gain": 0.72
+        },
+        {
+          "cueID": "consequence-soundscape-master",
+          "role": "soundscape",
+          "startSample": 0,
+          "durationSamples": 2640000,
+          "assetPath": "audio/first-farmers/household-crosses-responsive-v1/consequence/soundscape-master.wav",
+          "gain": 0.82
+        },
+        {
+          "cueID": "consequence-spatial-detail-master",
+          "role": "spatialDetail",
+          "startSample": 0,
+          "durationSamples": 2640000,
+          "assetPath": "audio/first-farmers/household-crosses-responsive-v1/consequence/spatial-detail-master.wav",
+          "gain": 0.9
+        },
+        {
+          "cueID": "consequence-before-system-joins",
+          "role": "silence",
+          "startSample": 744000,
+          "durationSamples": 216000,
+          "assetPath": null,
+          "gain": 1
+        }
+      ],
+      "haptics": []
+    }
+  ],
+  "audioAssetMetadata": [
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/approach/score-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 2880000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/approach/soundscape-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 2880000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/approach/spatial-detail-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 2880000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/consequence/score-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 2640000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/consequence/soundscape-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 2640000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/consequence/spatial-detail-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 2640000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/engaged/score-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/engaged/soundscape-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/engaged/spatial-detail-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/resistance/score-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/resistance/soundscape-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/resistance/spatial-detail-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/waiting/score-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/waiting/soundscape-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/waiting/spatial-detail-master.wav",
+      "sampleRate": 48000,
+      "frameCount": 720000,
+      "channelCount": 2
+    }
+  ],
+  "narrationSlots": [
+    {
+      "timelineID": "household-crosses-approach-v1",
+      "status": "MISSING_EDITOR_SELECTED_NARRATION_MASTER",
+      "requiredAssetPath": "audio/first-farmers/household-crosses-responsive-v1/approach/narration-selected-master-required.wav",
+      "sourceDocumentSHA256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a",
+      "segments": [
+        {
+          "manuscriptSegmentID": "ff-crossing-01",
+          "manuscriptSegmentSHA256": "c79a713d8cd503a9162a11d454047c67a1bcf4fe666c417bcc73e226eedfc814"
+        },
+        {
+          "manuscriptSegmentID": "ff-crossing-02",
+          "manuscriptSegmentSHA256": "f975c91529a3c07afaf1f87c5f492ba37417d39823976a2a6ed3b92a75da2e75"
+        }
+      ],
+      "insertionRule": "ADD_NARRATION_EVENTS_ONLY_AFTER_EDITOR_VOICE_SELECTION_AND_EXACT_WORD_ALIGNMENT",
+      "shippingBlock": true
+    },
+    {
+      "timelineID": "household-crosses-consequence-v1",
+      "status": "MISSING_EDITOR_SELECTED_NARRATION_MASTER",
+      "requiredAssetPath": "audio/first-farmers/household-crosses-responsive-v1/consequence/narration-selected-master-required.wav",
+      "sourceDocumentSHA256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a",
+      "segments": [
+        {
+          "manuscriptSegmentID": "ff-system-01",
+          "manuscriptSegmentSHA256": "eba6cc338ba47652b40f61c691a6bd9b8202f02cd2e8cf03dfbf74633524acd9"
+        },
+        {
+          "manuscriptSegmentID": "ff-system-02",
+          "manuscriptSegmentSHA256": "47f3fae60bd1231e24713284b8838373fcc5837e533d78892ba554db2794d108"
+        }
+      ],
+      "insertionRule": "ADD_NARRATION_EVENTS_ONLY_AFTER_EDITOR_VOICE_SELECTION_AND_EXACT_WORD_ALIGNMENT",
+      "shippingBlock": true
+    }
+  ],
+  "hapticProgram": {
+    "vocabulary": [
+      "contact",
+      "drag",
+      "resistance",
+      "transfer",
+      "break",
+      "seal"
+    ],
+    "activeHouseholdCrossesSemantics": [
+      "contact",
+      "drag",
+      "seal"
+    ],
+    "reservedForOtherGrammars": [
+      "resistance",
+      "transfer",
+      "break"
+    ],
+    "runtimeBindings": [
+      {
+        "trigger": "trace-origin-contact",
+        "semantic": "contact",
+        "durableCommitRequired": false
+      },
+      {
+        "trigger": "trace-intermediate-anchor-accepted",
+        "semantic": "contact",
+        "durableCommitRequired": false
+      },
+      {
+        "trigger": "trace-viable-movement-throttled",
+        "semantic": "drag",
+        "durableCommitRequired": false
+      },
+      {
+        "trigger": "trace-destination-durable-commit",
+        "semantic": "seal",
+        "durableCommitRequired": true
+      }
+    ],
+    "destinationPreliminaryContact": "FORBIDDEN",
+    "resistanceSemantic": "FORBIDDEN",
+    "loopedTimelineHaptics": "FORBIDDEN",
+    "accessibilityRule": "HAPTICS_NEVER_CARRY_THE_ONLY_CAUSAL_SIGNAL"
+  },
+  "editorialBlocks": [],
+  "acousticBoundaries": {
+    "scoreProhibitedClaims": [
+      "martial scoring",
+      "triumphal scoring",
+      "heroic ocean scoring",
+      "score tones represented as documented waves or historical evidence"
+    ],
+    "soundscapeProhibitedClaims": [
+      "sail, mast, rigging or wind propulsion",
+      "specific paddle, oar, rowing action or cadence",
+      "plank, keel, deck, nail or metal-fitting construction",
+      "storm or heroic ocean",
+      "species calls, bells, tack, gallop or stampede",
+      "human speech, chant or crowd",
+      "procedural tones represented as documented waves or historical evidence"
+    ]
+  },
+  "authoredSilence": [
+    {
+      "timelineID": "household-crosses-approach-v1",
+      "sampleRate": 48000,
+      "startSample": 2652000,
+      "durationSamples": 132000,
+      "id": "before-route-contact",
+      "reason": "Hold the loaded household at the eastern shore before route contact begins."
+    },
+    {
+      "timelineID": "household-crosses-waiting-bed-v1",
+      "sampleRate": 48000,
+      "startSample": 710400,
+      "durationSamples": 9600,
+      "id": "held-shallows-joint",
+      "reason": "Separate waiting cycles while the loaded household remains at shore."
+    },
+    {
+      "timelineID": "household-crosses-engaged-bed-v1",
+      "sampleRate": 48000,
+      "startSample": 350400,
+      "durationSamples": 7680,
+      "id": "viable-route-breath",
+      "reason": "Open one short interval inside viable movement so the four carried materials remain separately legible."
+    },
+    {
+      "timelineID": "household-crosses-resistance-bed-v1",
+      "sampleRate": 48000,
+      "startSample": 554400,
+      "durationSamples": 9600,
+      "id": "off-route-hold",
+      "reason": "Mark the local route refusal without danger, impact or a failure cue."
+    },
+    {
+      "timelineID": "household-crosses-consequence-v1",
+      "sampleRate": 48000,
+      "startSample": 744000,
+      "durationSamples": 216000,
+      "id": "before-system-joins",
+      "reason": "Leave the landed materials separately audible before they join as one learned practice."
+    }
+  ],
+  "previewMetrics": {
+    "approach": {
+      "integratedLUFS": -29.8,
+      "truePeakDBTP": -14.2
+    },
+    "waiting": {
+      "integratedLUFS": -27.7,
+      "truePeakDBTP": -14.3,
+      "loopSeam": {
+        "leftDelta": 0,
+        "rightDelta": 0
+      }
+    },
+    "engaged": {
+      "integratedLUFS": -27.1,
+      "truePeakDBTP": -13.7,
+      "loopSeam": {
+        "leftDelta": 0,
+        "rightDelta": 0
+      }
+    },
+    "resistance": {
+      "integratedLUFS": -28.3,
+      "truePeakDBTP": -14.8,
+      "loopSeam": {
+        "leftDelta": 0,
+        "rightDelta": 0
+      }
+    },
+    "consequence": {
+      "integratedLUFS": -31,
+      "truePeakDBTP": -15.1
+    }
+  },
+  "provenance": {
+    "productionInputs": [
+      {
+        "id": "household-crosses-responsive-score-source",
+        "path": "native/audio/score-soundscape/household-crosses-responsive-v1/score-source.json",
+        "bytes": 11867,
+        "sha256": "a3f9eac30f6694a73ced5d0be8809d8daa859b8c22834838b90974d7c008fca4"
+      },
+      {
+        "id": "household-crosses-responsive-soundscape-source",
+        "path": "native/audio/score-soundscape/household-crosses-responsive-v1/soundscape-source.json",
+        "bytes": 11406,
+        "sha256": "3ace4bf5ed0d367083db236e3c2c1f18e94a032c89ce7d217e5aa0ad8d6021fc"
+      },
+      {
+        "id": "first-farmers-manuscript-source",
+        "path": "native/phase2/editor-review/first-farmers/first-farmers-native-draft-v1.json",
+        "bytes": 42857,
+        "sha256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a"
+      },
+      {
+        "id": "native-audio-bible",
+        "path": "native/bibles/audio-bible.md",
+        "bytes": 3346,
+        "sha256": "726849cc80da30d8e8bce4c884f9765f431474901da53a2c195663a8ab177954"
+      },
+      {
+        "id": "responsive-audio-program-spec",
+        "path": "native/ios/Sources/ContentKit/ResponsiveAudioProgramSpec.swift",
+        "bytes": 26686,
+        "sha256": "8c513b05114484f4d31614ae49267f9fc5d00a3ec2e2276073b576c390b59564"
+      },
+      {
+        "id": "responsive-audio-program-runtime",
+        "path": "native/ios/Sources/DramaticAudio/ResponsiveAudioProgramRuntime.swift",
+        "bytes": 25968,
+        "sha256": "b5239a3c7bb1f1c55578cd9944fdf56144a421d644ea9b9022f4f9148254e870"
+      },
+      {
+        "id": "responsive-audio-program-controller",
+        "path": "native/ios/Sources/DramaticAudio/ResponsiveAudioProgramController.swift",
+        "bytes": 50562,
+        "sha256": "0393cc006447c4b439b3907b57a7a3932cdf16be05f092d14b75774faccf2ef9"
+      },
+      {
+        "id": "responsive-audio-timeline-planner",
+        "path": "native/ios/Sources/DramaticAudio/TimelinePlaybackPlan.swift",
+        "bytes": 8229,
+        "sha256": "6c621630e28e5be375871046997d6963ede24c621f2d235f00491a75e481b9e0"
+      },
+      {
+        "id": "responsive-audio-transport-contract",
+        "path": "native/ios/Sources/DramaticAudio/OfflineAudioAssetResolver.swift",
+        "bytes": 26761,
+        "sha256": "5740dace88181205755e55b6dfcf17ce9ee651cda4339223f48c608141a726b7"
+      },
+      {
+        "id": "native-timeline-transport",
+        "path": "native/ios/Sources/DramaticAudio/NativeTimelineTransport.swift",
+        "bytes": 191598,
+        "sha256": "7afdd59a27679f49a7805edbd0946dcf0776ce8a90c992d28ba8c1c7e09ad257"
+      },
+      {
+        "id": "durable-audio-completion-runtime",
+        "path": "native/ios/Sources/DramaticAudio/DurableInteractionAudioCompletion.swift",
+        "bytes": 9029,
+        "sha256": "f9110ec847d031c776bfb39ee5782d3821f45d508bf7295a2a7a2adf25e81f81"
+      },
+      {
+        "id": "semantic-haptic-runtime",
+        "path": "native/ios/Sources/DramaticAudio/SemanticHapticTransport.swift",
+        "bytes": 12256,
+        "sha256": "b699e5ab9fab77aa81a343b66a013a73eb693a3ce41a676fc886a042917b3636"
+      },
+      {
+        "id": "audio-production-renderer",
+        "path": "native/tooling/src/audio-production.mjs",
+        "bytes": 49751,
+        "sha256": "d997f68ffb75150bf5cff0aea537891bccaf45d630e46b3e2698498b58e44439"
+      },
+      {
+        "id": "household-crosses-responsive-renderer",
+        "path": "native/tooling/src/household-crosses-responsive-audio.mjs",
+        "bytes": 56710,
+        "sha256": "b836586e63cdbf42c4a6029f953dd1e1e1051f49dff9f07fd0236eba4ea5a882"
+      },
+      {
+        "id": "score-soundscape-toolchain",
+        "path": "native/audio/score-soundscape/toolchain.json",
+        "bytes": 1963,
+        "sha256": "1a1a94ed56652f37681b9d74154c78741e53b280e80bab3f18b1db3fddef8ddd"
+      },
+      {
+        "id": "required-mit-notice",
+        "path": "native/audio/score-soundscape/licenses/MS-Basic-0.2.0-LICENSE.md",
+        "bytes": 3320,
+        "sha256": "bf7db123b5d6c0beb1a37f6e1b11c6f4dfd8fb6abd5d59ff282ea24a5cd932e5"
+      },
+      {
+        "id": "zero-cost-license-registry",
+        "path": "native/tooling/registries/cost-license.json",
+        "bytes": 17842,
+        "sha256": "9a0e7ae2f9af9288c1e761864d13c5ead85b2241cb981024ee6f42a314c74c7e"
+      }
+    ],
+    "outputReceipt": "render-receipt.json",
+    "scoreLineage": "PROJECT_AUTHORED_SYMBOLIC_SCORE_RENDERED_WITH_PINNED_MIT_SOUNDFONT",
+    "soundscapeLineage": "PROJECT_AUTHORED_PROCEDURAL_AUDIO_WITH_NO_IMPORTED_RECORDINGS",
+    "runtimeGeneration": "PROHIBITED",
+    "incrementalCostNOK": 0,
+    "commercialRights": "ALLOWED_WITH_RETAINED_MS_BASIC_MIT_NOTICE",
+    "requiredNoticePath": "native/audio/score-soundscape/licenses/MS-Basic-0.2.0-LICENSE.md"
+  },
+  "gates": {
+    "responsiveProgramContract": "PASS_LOCAL_SPEC_VALIDATION_REQUIRED_BY_SWIFT_TEST",
+    "exactOfflineMasters": "PASS",
+    "sampleExactPhaseBeds": "PASS",
+    "authoredSilence": "PASS",
+    "canonicalHapticVocabulary": "PASS",
+    "zeroIncrementalCost": "PASS",
+    "commercialRights": "PASS_WITH_RETAINED_MIT_NOTICE",
+    "narrationMaster": "OPEN_MISSING_EDITOR_SELECTED_MASTER",
+    "narrationWordAlignment": "OPEN_MISSING_EDITOR_SELECTED_MASTER",
+    "integratedLoudnessCalibration": "OPEN_UNTIL_NARRATION_MASTER_IS_BOUND",
+    "narrationF5SowingSeason": "PASS_EDITOR_REPAIR_BOUND_TO_FROZEN_TEXT",
+    "artisticApproval": "OPEN",
+    "editorApproval": "OPEN",
+    "shippingApproval": "PROHIBITED",
+    "physicalDeviceAudit": "OPEN"
+  },
+  "claimsExcluded": [
+    "editor approval",
+    "artistic approval",
+    "shipping approval",
+    "final narration integration",
+    "physical-device quality"
+  ]
+}

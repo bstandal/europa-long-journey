@@ -1,0 +1,1306 @@
+{
+  "packageID": "vertical-slice-development-v1",
+  "packageVersion": {
+    "major": 1,
+    "minor": 0,
+    "patch": 0
+  },
+  "schemaVersion": {
+    "major": 1,
+    "minor": 0,
+    "patch": 0
+  },
+  "minimumRuntime": {
+    "major": 1,
+    "minor": 0,
+    "patch": 0
+  },
+  "files": [
+    {
+      "path": "assets/harvest-v26-parallax-alpha-foreground.png",
+      "bytes": 17818,
+      "sha256": "8f6332a7ee341e6075c05493e37f5fae68fa5950eef55a0b3727fce659542b58"
+    },
+    {
+      "path": "assets/harvest-v26-parallax-alpha-grain.png",
+      "bytes": 11198,
+      "sha256": "972e9e1f867c9d8e178c7ed1b38b4629b7175c609a30f1ac11d8014f68d810a6"
+    },
+    {
+      "path": "assets/harvest-v26-parallax-alpha-people.png",
+      "bytes": 36079,
+      "sha256": "eb60fffa4ad4bd8a87ebe7165117423a7d6a7baa7c57e873cd9a37671cf4bc59"
+    },
+    {
+      "path": "assets/harvest-v26-parallax-development-source.png",
+      "bytes": 5860864,
+      "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca"
+    },
+    {
+      "path": "assets/harvest-v26-parallax-diagnostic-underlay.png",
+      "bytes": 5366597,
+      "sha256": "5459f14eac91f170ff8daa1ffdba75ba456c78a4799bf0ca0f2d4aa8db14f20a"
+    },
+    {
+      "path": "assets/harvest-v26-parallax-reduce-motion-static.png",
+      "bytes": 2334663,
+      "sha256": "64bb283bbd37e66502fef198d508af8618f6032fa6edac9558bcb34e7c6199a8"
+    },
+    {
+      "path": "assets/lab-european-world-ocean-schedule-alpha.png",
+      "bytes": 8512,
+      "sha256": "318b3955b1e5747f495bb280436452005bab23dc81f46abf6b430815a1e22620"
+    },
+    {
+      "path": "assets/lab-european-world-ocean-schedule-base.png",
+      "bytes": 2271083,
+      "sha256": "e64058f0643358b814cc8b9c5ca9b6705d42983b5a54af283d6c33e68c03da09"
+    },
+    {
+      "path": "assets/lab-european-world-ocean-schedule-depth.png",
+      "bytes": 1114759,
+      "sha256": "843c73ef904f3713763885683906022f45f150a23e8f1408716651aa859d1503"
+    },
+    {
+      "path": "assets/lab-european-world-ocean-schedule-light.png",
+      "bytes": 928855,
+      "sha256": "8b4f6be27c403d9a8bd53e08d448737e0d31cfbd0649b23b77cb76ff46be32bc"
+    },
+    {
+      "path": "assets/lab-european-world-ocean-schedule-occlusion.png",
+      "bytes": 1005933,
+      "sha256": "f7797aba160a4b2cdddfe924be878ad36746f4ea5c45f7ede6da32981420a730"
+    },
+    {
+      "path": "assets/lab-european-world-ocean-schedule-reduce-motion-foreground.png",
+      "bytes": 1779599,
+      "sha256": "19e2d6569212cf4c1ec961fb3e1ee30ae183d4d96e37c1622f49bc9ecea28d1a"
+    },
+    {
+      "path": "assets/lab-european-world-ocean-schedule-reduce-motion-underlay.png",
+      "bytes": 2177832,
+      "sha256": "7f6d2e8072cbe0364ea79b14f6412f2d61fce701d2fffade5b762576279a9359"
+    },
+    {
+      "path": "assets/lab-european-world-ocean-schedule-state-active.png",
+      "bytes": 2370198,
+      "sha256": "1d027edc04976b87162d33fe031f95c303f4be6d5601d7795e3708da8d174475"
+    },
+    {
+      "path": "assets/lab-european-world-ocean-schedule-state-before.png",
+      "bytes": 1926938,
+      "sha256": "c5831e4ae96f4acf3833307a7ea41dc2648061e2aa89638bdc28237e7ce74374"
+    },
+    {
+      "path": "assets/lab-european-world-ocean-schedule-state-completed.png",
+      "bytes": 2421270,
+      "sha256": "27b1fffa7ff286ba656d94ac7a1bc0c964e55ea7447e0b0af1e7d5372ac0071a"
+    },
+    {
+      "path": "assets/lab-first-farmers-land-transformation-stage-field-edges-alpha.png",
+      "bytes": 15117,
+      "sha256": "3c3646f154912c70ed72fcdd6215eeedcfb9a5269887e15b098eaa85fda26742"
+    },
+    {
+      "path": "assets/lab-first-farmers-land-transformation-stage-herd-lanes-and-daughters-alpha.png",
+      "bytes": 15146,
+      "sha256": "c99c8edb7fe13a9e87203285e7468350e5d4d46fee6a701b96b381dec23dd2a9"
+    },
+    {
+      "path": "assets/lab-first-farmers-land-transformation-stage-new-hearths-alpha.png",
+      "bytes": 15082,
+      "sha256": "e50c419a900e885ee036781c2e4f92325a7b25ce91fbb09b257897d754e2a205"
+    },
+    {
+      "path": "assets/lab-frontiers-northern-valleys-pressure-alpha.png",
+      "bytes": 8512,
+      "sha256": "318b3955b1e5747f495bb280436452005bab23dc81f46abf6b430815a1e22620"
+    },
+    {
+      "path": "assets/lab-frontiers-northern-valleys-pressure-base.png",
+      "bytes": 2257204,
+      "sha256": "fc286dfdef9e05e9d95cf8194e4ddf99d33d42d86c8b7575e2de0a2e1462770b"
+    },
+    {
+      "path": "assets/lab-frontiers-northern-valleys-pressure-depth.png",
+      "bytes": 996108,
+      "sha256": "bda54f285828f36e1793cfce3ec0a8d6c4ab6a33dd3cdc2b2d8305884c948b57"
+    },
+    {
+      "path": "assets/lab-frontiers-northern-valleys-pressure-light.png",
+      "bytes": 321404,
+      "sha256": "689a68e7526b9dd15c7bbb6d648c99dabe29e3dd34fac83732f1614daf322153"
+    },
+    {
+      "path": "assets/lab-frontiers-northern-valleys-pressure-occlusion.png",
+      "bytes": 896052,
+      "sha256": "70dc6f2b456ffc50d7cb8e704a769eda777a88dc9cb6186ce846a6bd9634b7b3"
+    },
+    {
+      "path": "assets/lab-frontiers-northern-valleys-pressure-reduce-motion-foreground.png",
+      "bytes": 982367,
+      "sha256": "16d3b0aacf734cb3c4b0e6bef1126aa96c38d88d596a6540a00b1d2a32f59325"
+    },
+    {
+      "path": "assets/lab-frontiers-northern-valleys-pressure-reduce-motion-underlay.png",
+      "bytes": 2145498,
+      "sha256": "eaf07745c84d6587df78c1ba33cd8cdd759ae9733bb4145e956a884d0ee9a918"
+    },
+    {
+      "path": "assets/lab-frontiers-northern-valleys-pressure-state-active.png",
+      "bytes": 2326802,
+      "sha256": "fd4f743a6271167df44c42b3c89143b88e3c7ce7cc37d196ce622db8080117dc"
+    },
+    {
+      "path": "assets/lab-frontiers-northern-valleys-pressure-state-before.png",
+      "bytes": 1689539,
+      "sha256": "77df9c052822f47b282f13c577b1e1eeb4da1a561b36290f679fed861871bcb2"
+    },
+    {
+      "path": "assets/lab-frontiers-northern-valleys-pressure-state-completed.png",
+      "bytes": 2402641,
+      "sha256": "e441034a5e314eea43db74d9bc0b32fefe27e57b3d99e09ed6412c723f4a64ba"
+    },
+    {
+      "path": "assets/review-world-aegean-crossing-background.png",
+      "bytes": 1994508,
+      "sha256": "a81955be3d462d650b6db8650de211a1fa344c170f2d09f4fd72290d2cb9510f"
+    },
+    {
+      "path": "assets/review-world-aegean-crossing-foreground-alpha.png",
+      "bytes": 8531,
+      "sha256": "1aba76870303cf76f48219be8b5a6b58d919c8efbe0609ee4dcf619e57f48542"
+    },
+    {
+      "path": "assets/review-world-aegean-crossing-foreground.png",
+      "bytes": 2901822,
+      "sha256": "6cee713dfb4cd325213173848717cce1d30416874442ed81572fb2206ad0dafb"
+    },
+    {
+      "path": "assets/review-world-aegean-crossing-mechanism-light-alpha.png",
+      "bytes": 57376,
+      "sha256": "d90f06a142756b9d40ff4af5236b9a4748e38f2151e4511cd879f02c543b5354"
+    },
+    {
+      "path": "assets/review-world-aegean-crossing-mechanism-light.png",
+      "bytes": 3450146,
+      "sha256": "11a32fdb81775bccb4bebef9c3df6fd9374c16b26ec614895a5a9a9ef18e6ac0"
+    },
+    {
+      "path": "assets/review-world-aegean-crossing-midground-alpha.png",
+      "bytes": 28635,
+      "sha256": "058c2ed53960bb630fb36014fb841d13dc6dead543b007dd84efaecdbb7247ce"
+    },
+    {
+      "path": "assets/review-world-aegean-crossing-midground.png",
+      "bytes": 3263106,
+      "sha256": "227283e11fcfd3de82d78603f6108963e88816f76bcb514e9c1a9286507d90a6"
+    },
+    {
+      "path": "assets/review-world-aegean-crossing-reduce-motion-foreground.png",
+      "bytes": 2890640,
+      "sha256": "e4ed03993392b6254a5b3701e9052b2524de54e83b60b76861651e09fcddbfc7"
+    },
+    {
+      "path": "assets/review-world-aegean-crossing-reduce-motion-mechanism-light.png",
+      "bytes": 3339509,
+      "sha256": "286f20346fbdf2a1e5d71fa8b0ec956aa1c05554c9b01cda24cb55dafa8bc114"
+    },
+    {
+      "path": "assets/review-world-aegean-crossing-reduce-motion-state-before.png",
+      "bytes": 2346455,
+      "sha256": "de1f7e6d18068e43d3ecdbc8c5c9e86314da0d889d10e25182a5b60bc18cae22"
+    },
+    {
+      "path": "assets/review-world-aegean-crossing-state-active.png",
+      "bytes": 3372000,
+      "sha256": "ce9c832aa0735de35091aade32c7ff515684a86d5aaa708ba5903be061289bd6"
+    },
+    {
+      "path": "assets/review-world-aegean-crossing-state-alpha.png",
+      "bytes": 28635,
+      "sha256": "058c2ed53960bb630fb36014fb841d13dc6dead543b007dd84efaecdbb7247ce"
+    },
+    {
+      "path": "assets/review-world-aegean-crossing-state-before.png",
+      "bytes": 2130082,
+      "sha256": "3504ed28505141642466d2d9bff48f34238617706ba4ea0b0d163c7fe5494c4c"
+    },
+    {
+      "path": "assets/review-world-aegean-crossing-state-completed.png",
+      "bytes": 3435861,
+      "sha256": "6a4347023530e43b9d4b8fec49ac3002879c66d9725f240160dede04c8404e07"
+    },
+    {
+      "path": "assets/review-world-european-farming-belt-background.png",
+      "bytes": 2227646,
+      "sha256": "b6b55678fea1ad44f7a5b86a532bb15023d00e338e7f553b0ff9879ff5e588bd"
+    },
+    {
+      "path": "assets/review-world-european-farming-belt-foreground-alpha.png",
+      "bytes": 8531,
+      "sha256": "1aba76870303cf76f48219be8b5a6b58d919c8efbe0609ee4dcf619e57f48542"
+    },
+    {
+      "path": "assets/review-world-european-farming-belt-foreground.png",
+      "bytes": 3368488,
+      "sha256": "60ef79d1b1fe623a00a094d4af63de3528d61ffae335d3897c036977a3540c1b"
+    },
+    {
+      "path": "assets/review-world-european-farming-belt-mechanism-light-alpha.png",
+      "bytes": 57376,
+      "sha256": "d90f06a142756b9d40ff4af5236b9a4748e38f2151e4511cd879f02c543b5354"
+    },
+    {
+      "path": "assets/review-world-european-farming-belt-mechanism-light.png",
+      "bytes": 3704157,
+      "sha256": "0d18215e907f0f6323d6ee18f7ad758d7d5f13fd06112ae7537b6bb46bc60def"
+    },
+    {
+      "path": "assets/review-world-european-farming-belt-midground-alpha.png",
+      "bytes": 28635,
+      "sha256": "058c2ed53960bb630fb36014fb841d13dc6dead543b007dd84efaecdbb7247ce"
+    },
+    {
+      "path": "assets/review-world-european-farming-belt-midground.png",
+      "bytes": 3578815,
+      "sha256": "138be670c53ee3f172fbfd12eb36b719da08cf4cfd103119b552d431e6b163b7"
+    },
+    {
+      "path": "assets/review-world-european-farming-belt-reduce-motion-foreground.png",
+      "bytes": 3349832,
+      "sha256": "e81e031d1e3480291c353a6e461dacf7765aba562b068748758150fa53551d75"
+    },
+    {
+      "path": "assets/review-world-european-farming-belt-reduce-motion-mechanism-light.png",
+      "bytes": 3579586,
+      "sha256": "be5db8622a7fc1300d3bc184537e474bff52d3de06876b8d68816205bbadf9da"
+    },
+    {
+      "path": "assets/review-world-european-farming-belt-reduce-motion-state-before.png",
+      "bytes": 2714569,
+      "sha256": "d3ccb13b0562815e7d78d3cc95dfbb4ef0fbd5c21d2a6cffb7fe09339a971c6a"
+    },
+    {
+      "path": "assets/review-world-european-farming-belt-reduce-motion-state-completed.png",
+      "bytes": 3186334,
+      "sha256": "926fb9879099492c82f8df27e5f5dc6498f58222046642770ead97f90bb45141"
+    },
+    {
+      "path": "assets/review-world-european-farming-belt-state-active.png",
+      "bytes": 3616114,
+      "sha256": "7ca3a45d56daeeb2b22ea7e2bcc16df56d0487954827f9252d87bb83e25a450a"
+    },
+    {
+      "path": "assets/review-world-european-farming-belt-state-alpha.png",
+      "bytes": 28635,
+      "sha256": "058c2ed53960bb630fb36014fb841d13dc6dead543b007dd84efaecdbb7247ce"
+    },
+    {
+      "path": "assets/review-world-european-farming-belt-state-before.png",
+      "bytes": 2585273,
+      "sha256": "f4cf24fdd99fcd80b53d1c90540571d6fdb29946cee563ca49d92e610d736f09"
+    },
+    {
+      "path": "assets/review-world-european-farming-belt-state-completed.png",
+      "bytes": 3710619,
+      "sha256": "10b4897c51e6df9271fda7521392e0fa12173e362d56cacc4b8930ecd613eed5"
+    },
+    {
+      "path": "assets/review-world-harvest-store-background.png",
+      "bytes": 2687483,
+      "sha256": "4f06dc12541890ca488246860036318eba0826f00934d8186fe5c63401c1249b"
+    },
+    {
+      "path": "assets/review-world-harvest-store-foreground-alpha.png",
+      "bytes": 8531,
+      "sha256": "1aba76870303cf76f48219be8b5a6b58d919c8efbe0609ee4dcf619e57f48542"
+    },
+    {
+      "path": "assets/review-world-harvest-store-foreground.png",
+      "bytes": 4708440,
+      "sha256": "1e112f2dfe58e29c85d0751c9642cc0aba2c29fe4639e3e453f2b12acc0ee3ef"
+    },
+    {
+      "path": "assets/review-world-harvest-store-interaction-overlay-alpha.png",
+      "bytes": 96445,
+      "sha256": "28faa4b7fa550ce80c3fc99c722ac725014e74f39c9e7ef7dfa6ed9f32c0e4b8"
+    },
+    {
+      "path": "assets/review-world-harvest-store-interaction-overlay.png",
+      "bytes": 5065707,
+      "sha256": "3f0ce8a17f283d1225064f8226e72c29ccedc90b8c286ef29f5dc2a818e2530b"
+    },
+    {
+      "path": "assets/review-world-harvest-store-mechanism-light-alpha.png",
+      "bytes": 57376,
+      "sha256": "d90f06a142756b9d40ff4af5236b9a4748e38f2151e4511cd879f02c543b5354"
+    },
+    {
+      "path": "assets/review-world-harvest-store-mechanism-light.png",
+      "bytes": 5058899,
+      "sha256": "a00c586ecc743cb17b572d6e7862dfdf1a35ab8b68cf29a0f05ef29e56e965ff"
+    },
+    {
+      "path": "assets/review-world-harvest-store-midground-alpha.png",
+      "bytes": 28635,
+      "sha256": "058c2ed53960bb630fb36014fb841d13dc6dead543b007dd84efaecdbb7247ce"
+    },
+    {
+      "path": "assets/review-world-harvest-store-midground.png",
+      "bytes": 4895789,
+      "sha256": "c7dae4828ffa8c779f8496ba99c74975f779fb5f146282c367d76ed28c3c5e00"
+    },
+    {
+      "path": "assets/review-world-harvest-store-reduce-motion-foreground.png",
+      "bytes": 4630691,
+      "sha256": "f9b22039c0b7e080610b3eb71a75d3f23cc5abb47bdd9d7d0df24d25ff9dbe97"
+    },
+    {
+      "path": "assets/review-world-harvest-store-reduce-motion-mechanism-light.png",
+      "bytes": 4921535,
+      "sha256": "8c6b4997adadfea71218eac1ac9f02dbba4a4d05399e0945e51d3786d2aa3df7"
+    },
+    {
+      "path": "assets/review-world-harvest-store-reduce-motion-state-active.png",
+      "bytes": 4340729,
+      "sha256": "9655a4c235d4c2ec74a931e19ca67bce3ebff76e45bb83533458f80d5bab5797"
+    },
+    {
+      "path": "assets/review-world-harvest-store-reduce-motion-state-before.png",
+      "bytes": 3890496,
+      "sha256": "a8f3619da2e5fb1227b5b25e2b28385e61feb895bc118ad7d8cd35d7dcf84af9"
+    },
+    {
+      "path": "assets/review-world-harvest-store-state-active.png",
+      "bytes": 4959129,
+      "sha256": "658765070f343534b75c04a21ec6b5bf0b72242be04dc2e900db48a9d84fbc73"
+    },
+    {
+      "path": "assets/review-world-harvest-store-state-alpha.png",
+      "bytes": 28635,
+      "sha256": "058c2ed53960bb630fb36014fb841d13dc6dead543b007dd84efaecdbb7247ce"
+    },
+    {
+      "path": "assets/review-world-harvest-store-state-before.png",
+      "bytes": 3688980,
+      "sha256": "d46a9b2dc319297cdb0c47d20408045ef7c40eb9a8403083b438b929803c51eb"
+    },
+    {
+      "path": "assets/review-world-harvest-store-state-completed.png",
+      "bytes": 5065941,
+      "sha256": "148aaaefe8e2bcd1494bf1640e7839562e9a6acf1274f82e5b5c79e90d8394cd"
+    },
+    {
+      "path": "assets/review-world-harvest-store-transparent.png",
+      "bytes": 4848304,
+      "sha256": "f3345a12a642e76ca2b4081a4fd48ceba1235ace7d4e6b7f6c329a06e36c58b0"
+    },
+    {
+      "path": "assets/review-world-iron-gates-danube-background.png",
+      "bytes": 2517611,
+      "sha256": "51806ab169b0bdc4699be6f3b812b0b63ff817fd8ddd5bfa72c9f334265dbcbe"
+    },
+    {
+      "path": "assets/review-world-iron-gates-danube-foreground-alpha.png",
+      "bytes": 8531,
+      "sha256": "1aba76870303cf76f48219be8b5a6b58d919c8efbe0609ee4dcf619e57f48542"
+    },
+    {
+      "path": "assets/review-world-iron-gates-danube-foreground.png",
+      "bytes": 3815093,
+      "sha256": "fe8d9d9850d8c2c5e11346a8621ee9d751be891235208f9adda64804a1042c1a"
+    },
+    {
+      "path": "assets/review-world-iron-gates-danube-mechanism-light-alpha.png",
+      "bytes": 57376,
+      "sha256": "d90f06a142756b9d40ff4af5236b9a4748e38f2151e4511cd879f02c543b5354"
+    },
+    {
+      "path": "assets/review-world-iron-gates-danube-mechanism-light.png",
+      "bytes": 4048151,
+      "sha256": "905c4b6ea5405a43ccff12bec07969e3ac6afad8e4e84fba661c489dfd14919e"
+    },
+    {
+      "path": "assets/review-world-iron-gates-danube-midground-alpha.png",
+      "bytes": 28635,
+      "sha256": "058c2ed53960bb630fb36014fb841d13dc6dead543b007dd84efaecdbb7247ce"
+    },
+    {
+      "path": "assets/review-world-iron-gates-danube-midground.png",
+      "bytes": 3900277,
+      "sha256": "d2a89ba563c7a5f9f6cf6959976421dc1e50d2cd322d015bd4a3cf93959146ba"
+    },
+    {
+      "path": "assets/review-world-iron-gates-danube-reduce-motion-foreground.png",
+      "bytes": 3734777,
+      "sha256": "79b9b753033ff25afa5a17bac5d7079678932f053091bbd390205d14c7afa8b2"
+    },
+    {
+      "path": "assets/review-world-iron-gates-danube-reduce-motion-mechanism-light.png",
+      "bytes": 3938002,
+      "sha256": "d31009c0e7ffc1f165a38f7b478279b9c3a6d072a06d601782924658ad2befd6"
+    },
+    {
+      "path": "assets/review-world-iron-gates-danube-reduce-motion-state-active.png",
+      "bytes": 3407762,
+      "sha256": "827177aabbb0752c0368429a65ab26b58ebcf4cf1ff2120f9db3ab710d9141be"
+    },
+    {
+      "path": "assets/review-world-iron-gates-danube-reduce-motion-state-before.png",
+      "bytes": 3064731,
+      "sha256": "d8bc2359089d6f665cef65b323357d7701cc3fb77570a50ab5d47b3e70fbc8ef"
+    },
+    {
+      "path": "assets/review-world-iron-gates-danube-reduce-motion-state-completed.png",
+      "bytes": 3502643,
+      "sha256": "614a876b90f0402f511e402ccd8095981b6fa13c4735caf6f76e7e0ee4e3e03b"
+    },
+    {
+      "path": "assets/review-world-iron-gates-danube-state-active.png",
+      "bytes": 3954041,
+      "sha256": "ad3d06cc0a88b244c854e64544cf846e2dc81ff8091e5365e377d357a0f4df6d"
+    },
+    {
+      "path": "assets/review-world-iron-gates-danube-state-alpha.png",
+      "bytes": 28635,
+      "sha256": "058c2ed53960bb630fb36014fb841d13dc6dead543b007dd84efaecdbb7247ce"
+    },
+    {
+      "path": "assets/review-world-iron-gates-danube-state-before.png",
+      "bytes": 3085565,
+      "sha256": "71d0ba7a273df479bff635ef9e3af2035567f662a52d06213e6ee52ec2a70272"
+    },
+    {
+      "path": "assets/review-world-iron-gates-danube-state-completed.png",
+      "bytes": 4062287,
+      "sha256": "124ab1556d0cca38176fdc254f1b72b10373380c16a4709099dd7a3eb3d5a418"
+    },
+    {
+      "path": "assets/review-world-longhouse-settlement-background.png",
+      "bytes": 3029574,
+      "sha256": "a172cd3b610fff9d5d0d65c9c729e8f9acb75adc24b356777f63fe81945c8408"
+    },
+    {
+      "path": "assets/review-world-longhouse-settlement-foreground-alpha.png",
+      "bytes": 8531,
+      "sha256": "1aba76870303cf76f48219be8b5a6b58d919c8efbe0609ee4dcf619e57f48542"
+    },
+    {
+      "path": "assets/review-world-longhouse-settlement-foreground.png",
+      "bytes": 5163801,
+      "sha256": "89d87cfdb2da8e75493c6c36ffb96d8fa49ea7ff823d338da28d22d685d1f03b"
+    },
+    {
+      "path": "assets/review-world-longhouse-settlement-mechanism-light-alpha.png",
+      "bytes": 57376,
+      "sha256": "d90f06a142756b9d40ff4af5236b9a4748e38f2151e4511cd879f02c543b5354"
+    },
+    {
+      "path": "assets/review-world-longhouse-settlement-mechanism-light.png",
+      "bytes": 5504727,
+      "sha256": "c51f386e43554ffac5af9cd054bea64758674d6b8691b400291ee2a2825eff50"
+    },
+    {
+      "path": "assets/review-world-longhouse-settlement-midground-alpha.png",
+      "bytes": 28635,
+      "sha256": "058c2ed53960bb630fb36014fb841d13dc6dead543b007dd84efaecdbb7247ce"
+    },
+    {
+      "path": "assets/review-world-longhouse-settlement-midground.png",
+      "bytes": 5342227,
+      "sha256": "18adfd43b60a2d55712b7fa3b72872ff8092a8b97e6d7fde36faace517fe55a2"
+    },
+    {
+      "path": "assets/review-world-longhouse-settlement-reduce-motion-foreground.png",
+      "bytes": 5126270,
+      "sha256": "b653ab716e8f5b5015f40679c487bbfd7c24fa5f0982d52f6b81ba03a72ff301"
+    },
+    {
+      "path": "assets/review-world-longhouse-settlement-reduce-motion-mechanism-light.png",
+      "bytes": 5376791,
+      "sha256": "ae98a3a6e4f663f09370017a02a8690426d46b4d42c5dd61eb149065d7ed3c9a"
+    },
+    {
+      "path": "assets/review-world-longhouse-settlement-reduce-motion-state-active.png",
+      "bytes": 4733674,
+      "sha256": "8e5e976b11f794dcb793c3d04105bffc5be093bff786e1798ca1c08d166b149c"
+    },
+    {
+      "path": "assets/review-world-longhouse-settlement-reduce-motion-state-before.png",
+      "bytes": 4287881,
+      "sha256": "deec3bfe02c89f22b8519bfb0d2e7e6b4705a1daa17170c8094b6594d10850e1"
+    },
+    {
+      "path": "assets/review-world-longhouse-settlement-reduce-motion-state-completed.png",
+      "bytes": 4858459,
+      "sha256": "470d860f5da8eef9e99751ad7ed41cea2e01fde9434a6b598715a7ed852ee73e"
+    },
+    {
+      "path": "assets/review-world-longhouse-settlement-state-active.png",
+      "bytes": 5401416,
+      "sha256": "f6aaab347f4f131af8a292eae800181a664eed39e759ea64c6c496e8d5ee203d"
+    },
+    {
+      "path": "assets/review-world-longhouse-settlement-state-alpha.png",
+      "bytes": 28635,
+      "sha256": "058c2ed53960bb630fb36014fb841d13dc6dead543b007dd84efaecdbb7247ce"
+    },
+    {
+      "path": "assets/review-world-longhouse-settlement-state-before.png",
+      "bytes": 3871384,
+      "sha256": "b5a5f298ebd3f22476b25f50e26c7b596bc4e4dce84544d9f6d8d7ecb7e077f6"
+    },
+    {
+      "path": "assets/review-world-longhouse-settlement-state-completed.png",
+      "bytes": 5536811,
+      "sha256": "fbb5e08a02c9a04991372a87a127448d397c7401e34fa213f111e1e75027fd65"
+    },
+    {
+      "path": "assets/review-world-thessaly-first-field-background.png",
+      "bytes": 1843971,
+      "sha256": "eb1eff5693b305924a5deabb81e3702fecbd51525f3de8c28dac829acc64e551"
+    },
+    {
+      "path": "assets/review-world-thessaly-first-field-foreground-alpha.png",
+      "bytes": 8531,
+      "sha256": "1aba76870303cf76f48219be8b5a6b58d919c8efbe0609ee4dcf619e57f48542"
+    },
+    {
+      "path": "assets/review-world-thessaly-first-field-foreground.png",
+      "bytes": 2913785,
+      "sha256": "fbb6a9670e8c5689315345aba9f53febdf387ee2e49b7920bfdd3bc95702b391"
+    },
+    {
+      "path": "assets/review-world-thessaly-first-field-mechanism-light-alpha.png",
+      "bytes": 57376,
+      "sha256": "d90f06a142756b9d40ff4af5236b9a4748e38f2151e4511cd879f02c543b5354"
+    },
+    {
+      "path": "assets/review-world-thessaly-first-field-mechanism-light.png",
+      "bytes": 3260343,
+      "sha256": "747f4d879e56db8463ff99c60a040346028fe1aaa1e30c109450f3974e817812"
+    },
+    {
+      "path": "assets/review-world-thessaly-first-field-midground-alpha.png",
+      "bytes": 28635,
+      "sha256": "058c2ed53960bb630fb36014fb841d13dc6dead543b007dd84efaecdbb7247ce"
+    },
+    {
+      "path": "assets/review-world-thessaly-first-field-midground.png",
+      "bytes": 3126584,
+      "sha256": "0a9102f622e18731fc9ba64e890ce99d8ba565e8f37d57cb921a5efb3ee3afbe"
+    },
+    {
+      "path": "assets/review-world-thessaly-first-field-reduce-motion-foreground.png",
+      "bytes": 2901543,
+      "sha256": "e2ae9727d5d781a574f71eadd4ae642d516e1635fde053a3b367274cc36189e7"
+    },
+    {
+      "path": "assets/review-world-thessaly-first-field-reduce-motion-mechanism-light.png",
+      "bytes": 3140324,
+      "sha256": "205dbe30825834ee2b2e7d1fcdec57b88fea7f0f5d1435b7e4eb0929f13afade"
+    },
+    {
+      "path": "assets/review-world-thessaly-first-field-reduce-motion-state-active.png",
+      "bytes": 2671165,
+      "sha256": "c31027f067bc08499ba1baa3ccdef8f050e6ad9e8a620c7eac4cbe770e544e58"
+    },
+    {
+      "path": "assets/review-world-thessaly-first-field-reduce-motion-state-before.png",
+      "bytes": 2331682,
+      "sha256": "5e89a8625674330c6621e450a14a6f4278943505533c9b87f263fe5b70856602"
+    },
+    {
+      "path": "assets/review-world-thessaly-first-field-state-active.png",
+      "bytes": 3178265,
+      "sha256": "2e052ca25cb0cb7a27c9bfd2510ba8b2ad2ab1961cfd37f1ff5237a5c7c32c50"
+    },
+    {
+      "path": "assets/review-world-thessaly-first-field-state-alpha.png",
+      "bytes": 28635,
+      "sha256": "058c2ed53960bb630fb36014fb841d13dc6dead543b007dd84efaecdbb7247ce"
+    },
+    {
+      "path": "assets/review-world-thessaly-first-field-state-before.png",
+      "bytes": 2354534,
+      "sha256": "261d0232b3171ed8d78bf5e01d30a55befc14640599758b5087cf18154d04675"
+    },
+    {
+      "path": "audio/first-farmers/continent-remade-responsive-v1/approach/score-master.m4a",
+      "bytes": 1271362,
+      "sha256": "78d15155c52c888c7ee8f2d207090b72d217fa72c6ebf5dd7e38540e400ef9c8"
+    },
+    {
+      "path": "audio/first-farmers/continent-remade-responsive-v1/approach/soundscape-master.m4a",
+      "bytes": 2209243,
+      "sha256": "4b7f19fd4690c19f9746cdef23c1cea888f94c50e8dc1ca744b2a60b0d73997a"
+    },
+    {
+      "path": "audio/first-farmers/continent-remade-responsive-v1/approach/spatial-detail-master.m4a",
+      "bytes": 1098636,
+      "sha256": "7e7d1d459adfadba6b61397a2de349fdc51c6dda8c5ce1b8b6e779bb0d0a8f71"
+    },
+    {
+      "path": "audio/first-farmers/continent-remade-responsive-v1/consequence/score-master.m4a",
+      "bytes": 1253467,
+      "sha256": "981fb35b1b26bbc8225f01b93a47f8a032da402253fd2f4cdd629c7318613074"
+    },
+    {
+      "path": "audio/first-farmers/continent-remade-responsive-v1/consequence/soundscape-master.m4a",
+      "bytes": 1941855,
+      "sha256": "37f14b2f08fa3af5f580733d9170a6fb9adcbd539f7f727867b45dbb8aa6ca54"
+    },
+    {
+      "path": "audio/first-farmers/continent-remade-responsive-v1/consequence/spatial-detail-master.m4a",
+      "bytes": 1075541,
+      "sha256": "faedac81f539ac9fefb94dfd9642d260a567d9e1f393ba767983a25695eccd9f"
+    },
+    {
+      "path": "audio/first-farmers/continent-remade-responsive-v1/engaged/score-master.m4a",
+      "bytes": 479098,
+      "sha256": "3ea2aee4c3aeaee8de09c29555fa9982d62388edc8e1b6ed3487ee862f293691"
+    },
+    {
+      "path": "audio/first-farmers/continent-remade-responsive-v1/engaged/soundscape-master.m4a",
+      "bytes": 660403,
+      "sha256": "2fdc12d22cff3b689ae1db83d6b9a8eb2b0c7c0a5f5453e01b673615565cf095"
+    },
+    {
+      "path": "audio/first-farmers/continent-remade-responsive-v1/engaged/spatial-detail-master.m4a",
+      "bytes": 517637,
+      "sha256": "0206fef501aae4efa69615256c176a086de261357b0bf53ad3b761b19c95671e"
+    },
+    {
+      "path": "audio/first-farmers/continent-remade-responsive-v1/resistance/score-master.m4a",
+      "bytes": 490798,
+      "sha256": "a8fd17084fdb5547ee017232f3ecf8d4155b43ef584100da34ad294cdbf0a1da"
+    },
+    {
+      "path": "audio/first-farmers/continent-remade-responsive-v1/resistance/soundscape-master.m4a",
+      "bytes": 710010,
+      "sha256": "bd69e41142f69c0cd88edc8259db59a2cfaedc31a507c4c2d0724f0a61e79da8"
+    },
+    {
+      "path": "audio/first-farmers/continent-remade-responsive-v1/resistance/spatial-detail-master.m4a",
+      "bytes": 728786,
+      "sha256": "1b81964bdbdb242bc165a761043e9ff16eae0e9111e45140c3752cb427d7e242"
+    },
+    {
+      "path": "audio/first-farmers/continent-remade-responsive-v1/waiting/score-master.m4a",
+      "bytes": 451965,
+      "sha256": "f8a144f54bdbc115e322086f3567bf156fd1ba8f3518a58dd8dd31152fa49f9d"
+    },
+    {
+      "path": "audio/first-farmers/continent-remade-responsive-v1/waiting/soundscape-master.m4a",
+      "bytes": 701605,
+      "sha256": "0f60e305a2a2c4e25cd89d3c9ec4ca049f2f53aedca32e094062212ca4e48719"
+    },
+    {
+      "path": "audio/first-farmers/continent-remade-responsive-v1/waiting/spatial-detail-master.m4a",
+      "bytes": 431549,
+      "sha256": "e988b8e64160bb061156ac08a730294b92e273add56f1dd1aed6749939d2488f"
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/approach/score-master.m4a",
+      "bytes": 1416823,
+      "sha256": "6d05d846836f32c71459b49057a0fcbffdde26f9151796540bdfc55dfe75ee7d"
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/approach/soundscape-master.m4a",
+      "bytes": 2730396,
+      "sha256": "0ad0730a307d71e33ed5a40eea3d6f1737bf4ecb23aa1f176e7c690c1036ab23"
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/approach/spatial-detail-master.m4a",
+      "bytes": 1621730,
+      "sha256": "26475e8e9c065f085b1ddd23b1443096fd8a63fff0c194c838efe406275a4089"
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/consequence/score-master.m4a",
+      "bytes": 1271613,
+      "sha256": "a00e1faa3d7245e064b82323cdef5f36690976eff362c3a992e0d4c9abc7b2f2"
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/consequence/soundscape-master.m4a",
+      "bytes": 2122430,
+      "sha256": "75c36a036da2f9fd34e3734124130a15ffa1710032f8897207073aa7a111d57a"
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/consequence/spatial-detail-master.m4a",
+      "bytes": 1097860,
+      "sha256": "9a22a09b0cb273eeb134fa2b00df79b1e98545da8e29571d48adc9570828bf29"
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/engaged/score-master.m4a",
+      "bytes": 521202,
+      "sha256": "fab2c50470f8eb1331fa8b6648c0fbea7cf5082cab0b05b4f4cdbe8203061c01"
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/engaged/soundscape-master.m4a",
+      "bytes": 707867,
+      "sha256": "f9e1f64849a635af46234cf11ff8577738a7f1b2b8a557dbd6a91e996280d75b"
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/engaged/spatial-detail-master.m4a",
+      "bytes": 646582,
+      "sha256": "f2b1031c3eddf5ad315b2773f19d46af32b933c4677674e2d2a8c0140067a1a4"
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/resistance/score-master.m4a",
+      "bytes": 540173,
+      "sha256": "5ffcd94adc2c5f0642125ad74d9c93b9da2b02254a37a00480859f01ca8764ed"
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/resistance/soundscape-master.m4a",
+      "bytes": 711203,
+      "sha256": "3e6ceda32bca59b456b7d03169f9a620aeefe9e403860326235159a4830530c0"
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/resistance/spatial-detail-master.m4a",
+      "bytes": 678675,
+      "sha256": "fe88c2cfd74b5a23f87d450d1120150ab9ce0bc7872377f4bbc325a1de20f070"
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/waiting/score-master.m4a",
+      "bytes": 503946,
+      "sha256": "71875145a9adcbcb324cf1ba0a05b30d6e208813ddaa1651377257477a10d38f"
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/waiting/soundscape-master.m4a",
+      "bytes": 683256,
+      "sha256": "6215df341677f55c4ef31cb1c2feca0cb8b1366b2979d9592d8565cd4e1c9cb5"
+    },
+    {
+      "path": "audio/first-farmers/harvest-responsive-v1/waiting/spatial-detail-master.m4a",
+      "bytes": 442031,
+      "sha256": "fed1ad93ec4dc23a330ce57f6f0dc5537e422164ffe6187d051fe9bb53cd5f27"
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/approach/score-master.m4a",
+      "bytes": 917267,
+      "sha256": "2cebd8fa4b2db0c12fc0179ed17cd704be20f28e182320dcb3b85ffe0865e29b"
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/approach/soundscape-master.m4a",
+      "bytes": 2355172,
+      "sha256": "a973d83c37aa5166dcfebd461f382a78f69655e292c58cb4537c2a16e9213c85"
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/approach/spatial-detail-master.m4a",
+      "bytes": 1429803,
+      "sha256": "2de60d0f60ed0020a9ea2044e9ef2ebb12a6e83ad3fe17bf35110b0532837f91"
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/consequence/score-master.m4a",
+      "bytes": 954790,
+      "sha256": "5ca8d936dd15c435dd91fadc392eb05474962d8829c67c1c2d10f32074803f90"
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/consequence/soundscape-master.m4a",
+      "bytes": 1800245,
+      "sha256": "16088b2eaca0563cc8e5092b90f02d81e72cedf8537fc537346c296e2d72823a"
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/consequence/spatial-detail-master.m4a",
+      "bytes": 1525001,
+      "sha256": "d605d133f255e5831a11e3370bae4202a0a57464215638f4017a7278bb93851a"
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/engaged/score-master.m4a",
+      "bytes": 362346,
+      "sha256": "a114e886406e36eda91d57ce51cb83ce893b0b5c7507c89c6b86f76c4d8ab225"
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/engaged/soundscape-master.m4a",
+      "bytes": 612696,
+      "sha256": "29c6a83d2b182dcfdd95d55648d51aeaaddcf2069ff6deb91490e388c0ca4ec2"
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/engaged/spatial-detail-master.m4a",
+      "bytes": 651519,
+      "sha256": "b08ec5ae97f79fc048b7eb71be2e45847333088b9ccb07fb15e282c0fe05cd8e"
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/resistance/score-master.m4a",
+      "bytes": 415550,
+      "sha256": "12aff23e263ca500339da787b440295f2e84ca5498d4e562e4a46a5b0e19c8dd"
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/resistance/soundscape-master.m4a",
+      "bytes": 624455,
+      "sha256": "a729f2d6ed6d786b413f46e4967e120568cd42c694d67b7df0fd6029a58bc709"
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/resistance/spatial-detail-master.m4a",
+      "bytes": 457698,
+      "sha256": "efaa60e82a38f119107d2bfe9cd5c1833c160623612829a9a5ab21ae10230eb0"
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/waiting/score-master.m4a",
+      "bytes": 354563,
+      "sha256": "cbf491d9690c5474c16287b1eb0845546a8708d4401ec417d3a05ebde8de6e56"
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/waiting/soundscape-master.m4a",
+      "bytes": 653003,
+      "sha256": "24034e92783d9085d0ca91d0c4a182a948f0da26befd539c4ef2468e002a44ea"
+    },
+    {
+      "path": "audio/first-farmers/household-crosses-responsive-v1/waiting/spatial-detail-master.m4a",
+      "bytes": 530456,
+      "sha256": "37ca58282cbe6b554a50c5229d7047562fa9860bfa7dbfb2c44eb8425ce70c9b"
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/approach/score-master.m4a",
+      "bytes": 987900,
+      "sha256": "c779c7438e3ef1b74580f94fbb9576104c6d9d575b467c9a42bafbe8b89ca313"
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/approach/soundscape-master.m4a",
+      "bytes": 2190938,
+      "sha256": "21ad5d485b22ed4e4ecf01521a45a7ab1e4ba3b33210036ec1274c8086e0e5be"
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/approach/spatial-detail-master.m4a",
+      "bytes": 1153876,
+      "sha256": "741d254af4badabe4fd93a30efeb4ab1bc2e2e8c2d05edfae4f42247bfdbe388"
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/consequence/score-master.m4a",
+      "bytes": 1163126,
+      "sha256": "a54e3f30f4db4766aac7b4b1761197d49ce66c5f01b8b75c81f5ef052c49a6ef"
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/consequence/soundscape-master.m4a",
+      "bytes": 1932628,
+      "sha256": "8341da814f3abdef6d912cd48f52af4f5139bfb6008cb2a2f47b2da98f3a9fc1"
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/consequence/spatial-detail-master.m4a",
+      "bytes": 1262715,
+      "sha256": "95542504288528d3f997fa9d1f9f4ad502016f803c79ca7bc8af37793a216140"
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/engaged/score-master.m4a",
+      "bytes": 481419,
+      "sha256": "9473e235a3108614b1f088f7a57679b9a8c607b757950cd1542383010a108473"
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/engaged/soundscape-master.m4a",
+      "bytes": 679192,
+      "sha256": "9e79d1b1a1d3657e51d5261963192d393b55e783c3586574f22f9575fd99f203"
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/engaged/spatial-detail-master.m4a",
+      "bytes": 649822,
+      "sha256": "10bea450a6edbf37c5d69a4b2688116f3b058b6b0a70727eb604f3c6cf3e8ef2"
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/resistance/score-master.m4a",
+      "bytes": 432103,
+      "sha256": "3cabcb8089a842fa99975499201bbbeb3041014b7d68d8dc064201d389565f65"
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/resistance/soundscape-master.m4a",
+      "bytes": 630951,
+      "sha256": "b7901ea6df184ee66043092afab15bcbaa61d383b5f890a0e3d30f37598836dc"
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/resistance/spatial-detail-master.m4a",
+      "bytes": 680840,
+      "sha256": "ca02055f79d2e8f1c25779b31ec03e8a5ef2762a3e9e5858e5b38ae15bdab76c"
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/waiting/score-master.m4a",
+      "bytes": 510890,
+      "sha256": "71adce8d6849442bb27418a724574fec6a8b858a59ad34ad6a647f66bbac9204"
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/waiting/soundscape-master.m4a",
+      "bytes": 690723,
+      "sha256": "593b77909085451abeda0ff4d51d9dc60088f45254ac22c92ad96815b45520d4"
+    },
+    {
+      "path": "audio/first-farmers/longhouse-responsive-v1/waiting/spatial-detail-master.m4a",
+      "bytes": 429674,
+      "sha256": "14a3efa9bb25bd50e235cba0d1d3e60ef724a8e94ff2ad17d4b274146a4f016d"
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/approach/score-master.m4a",
+      "bytes": 1271362,
+      "sha256": "78d15155c52c888c7ee8f2d207090b72d217fa72c6ebf5dd7e38540e400ef9c8"
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/approach/soundscape-master.m4a",
+      "bytes": 1831980,
+      "sha256": "081767d7008270acc6c24a9445894913de58a05f4ee8599b3fb0c9bf5e49bdf5"
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/approach/spatial-detail-master.m4a",
+      "bytes": 1232542,
+      "sha256": "458ba08fa270cb34d2c489d56b319eca11ce4356939674eff48a8dbe8a75eacf"
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/consequence/score-master.m4a",
+      "bytes": 1043961,
+      "sha256": "5dc1f9156ae783fc7846b39aac53ec3d3db3cbd8a66f0cc7bc8169049ecc8aae"
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/consequence/soundscape-master.m4a",
+      "bytes": 1595542,
+      "sha256": "24f0d9200581bfef01d957286d7143f70b9aaabcd018fa00f8602c484b83a23d"
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/consequence/spatial-detail-master.m4a",
+      "bytes": 1149094,
+      "sha256": "43f71c7eaa9158895f7d79cf4fe2fc9577249980f5051106a1f2fe761ea61d62"
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/engaged/score-master.m4a",
+      "bytes": 479098,
+      "sha256": "3ea2aee4c3aeaee8de09c29555fa9982d62388edc8e1b6ed3487ee862f293691"
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/engaged/soundscape-master.m4a",
+      "bytes": 650790,
+      "sha256": "a3999e44612094423eed2ab2fba481de69c996cae6b14f4fa246503888f0ac64"
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/engaged/spatial-detail-master.m4a",
+      "bytes": 602766,
+      "sha256": "a3cbed6953281aef97aa315d475f30f6287002944bcb836b2ca941d923bbdce4"
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/resistance/score-master.m4a",
+      "bytes": 490798,
+      "sha256": "a8fd17084fdb5547ee017232f3ecf8d4155b43ef584100da34ad294cdbf0a1da"
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/resistance/soundscape-master.m4a",
+      "bytes": 618972,
+      "sha256": "60f735fa69f9734d92d06fa537afa872f2b4f72d691896fe0a13ff6b53e5d704"
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/resistance/spatial-detail-master.m4a",
+      "bytes": 672483,
+      "sha256": "f8572b2c4f3f37125ce0e61b3c8c0762a233f7ed52130ca59eee56f2e25661c1"
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/waiting/score-master.m4a",
+      "bytes": 451965,
+      "sha256": "f8a144f54bdbc115e322086f3567bf156fd1ba8f3518a58dd8dd31152fa49f9d"
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/waiting/soundscape-master.m4a",
+      "bytes": 579099,
+      "sha256": "786ba402f2d3eff178bfe747f96147223a42bf2644632ec3bcabefcc07fb3a1d"
+    },
+    {
+      "path": "audio/first-farmers/more-mouths-responsive-v1/waiting/spatial-detail-master.m4a",
+      "bytes": 368813,
+      "sha256": "bea7763623960a4eac5ba0a7efcccff9974175578c6bdda47719c39598558fd8"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-contact-01.m4a",
+      "bytes": 341403,
+      "sha256": "df583b1d3ae09b0a3a5668f0cf65036ca7059630eac5abe58805958431fb3c18"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-contact-02.m4a",
+      "bytes": 387733,
+      "sha256": "e3cef20c01c8ef9f88dac84dd414f0af932d762e57838328128b7c649829f55e"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-continent-01.m4a",
+      "bytes": 344750,
+      "sha256": "dcae7586fb77608625d6c912917f0b25055b2146fbcfa4f76d8d55ed4fca9684"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-continent-02.m4a",
+      "bytes": 325581,
+      "sha256": "a76bf69a16f148587531817d58b46ee0e74bbe0c911d84deeae82d08ff1cc107"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-contraction-01.m4a",
+      "bytes": 326451,
+      "sha256": "c2707dcb76c54042876b74f8be5ee28ae4c1ec7989509a90819eefc60ff5ad4a"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-contraction-02.m4a",
+      "bytes": 324459,
+      "sha256": "4afe312d96fe68590ae38233342981c6b5693d67f789d3cf7b4ad5439fd1d506"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-crossing-01.m4a",
+      "bytes": 337065,
+      "sha256": "054ed88fab7ade8ed7a9ee08f77ea7d9b4f9f40956029990d9b4df3d18ca2fec"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-crossing-02.m4a",
+      "bytes": 395788,
+      "sha256": "a3e46141ac4d5f7644958abb38b20b7945853bf7cc9c781b481cf7306876cbb6"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-descent-01.m4a",
+      "bytes": 333719,
+      "sha256": "dba6a18e230d8a2271e58d7b1c67640616caa379d0e363318ebf5a17c29f4c2d"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-descent-02.m4a",
+      "bytes": 255690,
+      "sha256": "4a6499ff7173f110c2289c32d1a8166df457035505328397214c951c80d69723"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-ending-01.m4a",
+      "bytes": 336399,
+      "sha256": "ab89af8b4cb3776a2d3c2080ebd750d2f2ee6393aad9bdaff02053906db53249"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-ending-02.m4a",
+      "bytes": 305997,
+      "sha256": "4d95b190a6782aaabe50e1cd441124cff521415bbf5c363d0a540c68d9f649cd"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-frontier-01.m4a",
+      "bytes": 384023,
+      "sha256": "288ee4028ee77b7dc4f204b9df49e836f48d1a990a7065b8d2130dc65ee4ee28"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-frontier-02.m4a",
+      "bytes": 174315,
+      "sha256": "b4299e365f7a48b245847d6ea25356cbc011c1ca56a35501b1cd6e5daa76ff0b"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-frontier-consequence-01.m4a",
+      "bytes": 407477,
+      "sha256": "0030619c20b0b3dbd14d873e0b44de11b48e83605a381f0b75b0573079a1bfa7"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-frontier-consequence-02.m4a",
+      "bytes": 273890,
+      "sha256": "7478ba1536386045520a8b707c2315c272e91ce5c8c2960c509fce18f3f8347f"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-ground-01.m4a",
+      "bytes": 314859,
+      "sha256": "e925d0fd0b80838e365738b4e1b9e27020a558b4a7cf6d9159f02d67d1db92f3"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-ground-02.m4a",
+      "bytes": 381052,
+      "sha256": "a179cf4dabd7aa0d882739a298a723c4e4bb28c4cbaeefd990697d12c382ad5b"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-growth-01.m4a",
+      "bytes": 333051,
+      "sha256": "b7e27f9f3d65e62108d62054c5bc474c17653ec4056a7e9eefff914608d4a754"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-growth-02.m4a",
+      "bytes": 187837,
+      "sha256": "a1049fd2b82d9480b2e3be60a8ef80fb6c159e8c9033f0bebfebed2e1206f677"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-harvest-01.m4a",
+      "bytes": 228339,
+      "sha256": "e1370fad0ddefd2d2abab89e9fa93c5b7d197414d899239e9289ef5b29b9c5ed"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-harvest-02.m4a",
+      "bytes": 193899,
+      "sha256": "155adca97fe9d20805da443ea446e053b8703e8d03e32407f3d1e8140fc13f2f"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-harvest-03.m4a",
+      "bytes": 177670,
+      "sha256": "69deb120116fa2ab434d5fc8719bfd6263847d598337521c428a16150edf4840"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-harvest-04.m4a",
+      "bytes": 182360,
+      "sha256": "722c496bfd0f071da9baa994523d340960148372ee490e9e43293af56820b716"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-harvest-05.m4a",
+      "bytes": 203305,
+      "sha256": "2dc64586b5793c92f326b34f03098ef396c09b5d2d7cde36221e6366326fa1dc"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-house-01.m4a",
+      "bytes": 354188,
+      "sha256": "3df4579be9a17f4e98c9ed61b77a3ac5e8eb3034d789a72dab935a9c3c7a97bc"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-house-02.m4a",
+      "bytes": 211666,
+      "sha256": "b142869476553d96d200dbd36b79a0cc42d634f0ad59100cbedf93e62f6b9a7d"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-plot-01.m4a",
+      "bytes": 290263,
+      "sha256": "49269c13df090cebc69faa444ee64f0c4b6a21ae0bccac164f7fbdb15112b3d0"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-plot-02.m4a",
+      "bytes": 320914,
+      "sha256": "b1e29e367e2cbb72de72bcfeb82a010f3c0d4de1027ce28f152d6fb1c93225c5"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-records-01.m4a",
+      "bytes": 317712,
+      "sha256": "106878cc4a3ac2ab8a5ae878ddb780d6c9a207069c9a0571e837db5c15fc8ca4"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-records-02.m4a",
+      "bytes": 293380,
+      "sha256": "00fbf887df4d556176e41aefbfaab34a182e08b058186b636744b862b722c9c1"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-river-world-01.m4a",
+      "bytes": 459032,
+      "sha256": "ff90441ac98c5d4a9bc68f9d06bc531d916273222034d845999cded3d4e43160"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-river-world-02.m4a",
+      "bytes": 435493,
+      "sha256": "2a6e7b6e8c2da90ff7075162a90ba0c02cf0402be6fbcc689de951227e9b481c"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-stored-future-01.m4a",
+      "bytes": 337941,
+      "sha256": "25c1058bf1cb7e5437d5146a0aa923fa969c872a5022a4b289b090a57fd457cd"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-stored-future-02.m4a",
+      "bytes": 350121,
+      "sha256": "1c2ea5b96e36e5990eae1b103ea5dac704ef48070e4c25c8c40d95efd7c9b893"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-system-01.m4a",
+      "bytes": 390160,
+      "sha256": "88853d9ce7e814d5b91858af8aba26dfe7bb746f7c01af06b1c4fbcf7307c42e"
+    },
+    {
+      "path": "audio/first-farmers/review-narration/narration-ff-system-02.m4a",
+      "bytes": 395924,
+      "sha256": "9f68f538ae76513693ae8bf74a4e38e32fc0abc27379b4113fb150f12a3abe77"
+    },
+    {
+      "path": "audio/first-farmers/review-transitions/transition-aegean-thessaly-v1.m4a",
+      "bytes": 201074,
+      "sha256": "d4df036d89543f20e0ed69315aa050fe53cc6e0d4601d305283c3dcfc55472f4"
+    },
+    {
+      "path": "audio/first-farmers/review-transitions/transition-farming-belt-steppe-v1.m4a",
+      "bytes": 158756,
+      "sha256": "265bc377b72bc8cf21bdbb3e581c32b83400a0f5ebee303ec67b6ea91d497237"
+    },
+    {
+      "path": "audio/first-farmers/review-transitions/transition-store-iron-gates-v1.m4a",
+      "bytes": 199587,
+      "sha256": "6f1000e9d207e925c9143599aa2fdcaaf92168501b2cd8bcd3f2a78d0c453212"
+    },
+    {
+      "path": "audio/first-farmers/three-records-responsive-v1/approach/score-master.m4a",
+      "bytes": 1057733,
+      "sha256": "e7052ebfc2390e773035473f4d3183f6a1ccce436067cc8cb36fd4f254c373a5"
+    },
+    {
+      "path": "audio/first-farmers/three-records-responsive-v1/approach/soundscape-master.m4a",
+      "bytes": 1956811,
+      "sha256": "7797fba4f0be01c163f317750aeffcef71090d102cc56d894c266d8bd842c84b"
+    },
+    {
+      "path": "audio/first-farmers/three-records-responsive-v1/approach/spatial-detail-master.m4a",
+      "bytes": 1071225,
+      "sha256": "65a77ed0704532901e4fa766f0a1ce383af404097d37e41476811221c5c080d3"
+    },
+    {
+      "path": "audio/first-farmers/three-records-responsive-v1/consequence/score-master.m4a",
+      "bytes": 1098324,
+      "sha256": "21e59f7972bda0635c66eadb8b08f12e07e71c0dcdb469c26bf2276ff41c5dce"
+    },
+    {
+      "path": "audio/first-farmers/three-records-responsive-v1/consequence/soundscape-master.m4a",
+      "bytes": 1803248,
+      "sha256": "79d242913ea96597ed7e44f17faf4d080acaaa59393a7105cfa50df8829097e1"
+    },
+    {
+      "path": "audio/first-farmers/three-records-responsive-v1/consequence/spatial-detail-master.m4a",
+      "bytes": 1503955,
+      "sha256": "be068714ff76728d164d8f405a48e561c80ea5decebcce249653ef78803b875a"
+    },
+    {
+      "path": "audio/first-farmers/three-records-responsive-v1/engaged/score-master.m4a",
+      "bytes": 441769,
+      "sha256": "bb76891672f5e527500915330c137bda4148f6378d49c6f05b8a3acf49c2350d"
+    },
+    {
+      "path": "audio/first-farmers/three-records-responsive-v1/interaction/shared/carried-grain.m4a",
+      "bytes": 141928,
+      "sha256": "659c6f24ad875003e1e08f500209fd55df47590a1335529519c9c81f248a008b"
+    },
+    {
+      "path": "audio/first-farmers/three-records-responsive-v1/interaction/shared/domestic-herd.m4a",
+      "bytes": 539058,
+      "sha256": "36d930b5873f7e003e8143c0efa76b43af7d4cf86686f7cb504c423323f5785e"
+    },
+    {
+      "path": "audio/first-farmers/three-records-responsive-v1/interaction/shared/gorge-current.m4a",
+      "bytes": 2853167,
+      "sha256": "7ce3e6cf3b47471ba4f4fd5560671f9ff32a9388246dc87204c65dfd5d1d8ff2"
+    },
+    {
+      "path": "audio/first-farmers/three-records-responsive-v1/interaction/shared/household-voices.m4a",
+      "bytes": 515293,
+      "sha256": "cd30b3e1ab27974b6f9117e9c846401c01eebcaae79c832f54120095ba2c1ab1"
+    },
+    {
+      "path": "audio/first-farmers/three-records-responsive-v1/interaction/shared/landing-work.m4a",
+      "bytes": 108313,
+      "sha256": "7e2ea92126ba6ad5012f14dd6b2433d3f42a9931b6f3cc2898a218c10b19bfff"
+    },
+    {
+      "path": "audio/first-farmers/three-records-responsive-v1/interaction/shared/river-gear.m4a",
+      "bytes": 636256,
+      "sha256": "93025467d464be17ae52c1433673a586da83313db512a5ddd94a09ee60b0f49c"
+    },
+    {
+      "path": "audio/first-farmers/three-records-responsive-v1/interaction/shared/settlement-hearths.m4a",
+      "bytes": 596871,
+      "sha256": "ac19393e095ad1bcf472fdf956f6e611903736688f43ad72bbfa0ee600743ead"
+    },
+    {
+      "path": "audio/first-farmers/three-records-responsive-v1/resistance/score-master.m4a",
+      "bytes": 427561,
+      "sha256": "7abcc01ccc58d64ae0bf38174c0fff8377230ea22a38234fdb70cc4d838c800d"
+    },
+    {
+      "path": "audio/first-farmers/three-records-responsive-v1/waiting/score-master.m4a",
+      "bytes": 449189,
+      "sha256": "4f096a6e541bd739b3edcbbee3854efd1d1e311aa78c2cc50033277d9d7b66a0"
+    },
+    {
+      "path": "audio/lab-european-world-ocean-schedule-soundscape.m4a",
+      "bytes": 934803,
+      "sha256": "c302773717bf49506dd88b23c82907bd8b924714aa48b140515278df24851ade"
+    },
+    {
+      "path": "audio/lab-frontiers-northern-valleys-pressure-soundscape.m4a",
+      "bytes": 934418,
+      "sha256": "6f8234eec7baf1d11bb739ba015618615795a61a041f45e24909fc4f937fd279"
+    },
+    {
+      "path": "chapters/vertical-slice-development-v1.json",
+      "bytes": 465392,
+      "sha256": "6ee5fb2fb7ecfa980bd7889fb197d0ccf79ea8ac8bd337e7b7c710508343a61d"
+    }
+  ],
+  "manifestDigest": "ce5fbd8b80a1d80c982b3e274d34cd1924dbbff4b5c7f763abb9f3735baa3555",
+  "signature": {
+    "algorithm": "P-256-SHA256",
+    "keyID": "vertical-slice-development-key-v1",
+    "value": "MEQCIC1EydhIc/ASrBzXFWExunQhHphaTLdNTxQ24DhXETNqAiAHV4NtiDhx+Ri/cDhGXon3cx4JmJywn9Dweq8hEKyxXQ=="
+  }
+}

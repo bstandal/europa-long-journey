@@ -1,0 +1,198 @@
+{
+  "schemaVersion": 1,
+  "id": "longhouse-codex-concept-selection-v1",
+  "status": "CODEX_PROVISIONAL_DIRECTION_SELECTED_REQUIRES_REFINEMENT",
+  "shippingAllowed": false,
+  "editorApprovalClaimed": false,
+  "productionMasterAuthority": false,
+  "assetProductionPermitted": false,
+  "chapterID": "first-farmers",
+  "arcID": "first-farmers-arc-03",
+  "beatID": "beat-first-farmers-raise-longhouse",
+  "sceneID": "scene-first-farmers-longhouse-assembly",
+  "interactionID": "interaction-first-farmers-the-house-outlives",
+  "authorityBindings": [
+    {
+      "path": "native/blueprint/chapter-contracts.json",
+      "sha256": "1db83d0791460ba2dab6459c6cc300020fb0658bf70e1fb7f386c52c9903193e"
+    },
+    {
+      "path": "native/blueprint/arc-matrix.json",
+      "sha256": "8f4926f574ec0046b116ebca9f85a3246a8a2587cda023f94ab1b1ad10f58162"
+    },
+    {
+      "path": "native/blueprint/interaction-mapping.json",
+      "sha256": "5b27fce57af96c7b53e0dd5aee4bbcbb5436f1ffb4033ede018ec18dabb90728"
+    },
+    {
+      "path": "native/blueprint/authored-interaction-effects-01-12.json",
+      "sha256": "042006533ef0672c8a819dbcb043e6ceda6bdf05430c48ea0d2b47fd9ddf4333"
+    },
+    {
+      "path": "native/phase2/editor-review/first-farmers/first-farmers-native-draft-v1.json",
+      "sha256": "2c8363ed97da78387179f4ca57695b95b9b3df23cad7216952acb569633bcc4a"
+    }
+  ],
+  "visualReferences": [
+    {
+      "path": "site/assets/source/first-farmers/house-outlives-builders.png",
+      "sha256": "a289e25e3e2d532db0627b66977bcd58f64794c449ca8d47de4df319b68d782b",
+      "role": "WEB_SUBJECT_AND_MATERIAL_REFERENCE_ONLY",
+      "allowedAsNativeRawMaterial": false
+    },
+    {
+      "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+      "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca",
+      "role": "FRANCHISE_DEPTH_LIGHT_AND_MATERIAL_REFERENCE_ONLY",
+      "allowedAsLonghouseRawMaterial": false
+    }
+  ],
+  "generationProvenance": {
+    "tool": "BUILT_IN_CODEX_IMAGEGEN",
+    "purpose": "NON_SHIPPING_COMPOSITION_STUDIES",
+    "referencePolicy": "The web image supplies subject and material reference only; the Harvest candidate supplies franchise depth, light and material reference only.",
+    "studies": [
+      {
+        "imagePath": "native/design/phase1/longhouse/concepts/option-a-ground-becomes-frame.png",
+        "imageSha256": "003ef926b2b6019628fe221fd3f01881ad8f86f7e5534cd679c2b9dfde877c4b",
+        "promptPath": "native/design/phase1/longhouse/concepts/option-a-ground-becomes-frame.prompt.txt",
+        "promptSha256": "14c154499fae08751e836060ca2d8a2852a169493c82f2566884c732b93220ea"
+      },
+      {
+        "imagePath": "native/design/phase1/longhouse/concepts/option-b-threshold-spine.png",
+        "imageSha256": "377f34f0791d5d284c36f66a87db84e7f9c9c5c93f7ca953425b8c6ade4c5208",
+        "promptPath": "native/design/phase1/longhouse/concepts/option-b-threshold-spine.prompt.txt",
+        "promptSha256": "c8cb25604a3cd38f9f17e0b55f856c3e050c58c9404c56d05a92978f37c2b726"
+      },
+      {
+        "imagePath": "native/design/phase1/longhouse/concepts/option-c-plot-remembers.png",
+        "imageSha256": "8a890bc55627330b689c7b3033f45caf2589b8d2b5882932b331745853aa0357",
+        "promptPath": "native/design/phase1/longhouse/concepts/option-c-plot-remembers.prompt.txt",
+        "promptSha256": "30a9bf8105d232cd97c2467a79eb73514229bfbbdfb35c9af1e5a3aa39cb1815"
+      },
+      {
+        "imagePath": "native/design/phase1/longhouse/concepts/option-a2-ground-becomes-frame-refined.png",
+        "imageSha256": "c05eda2d16d39aebcb94b236072f868840af19dc50c44a76f6adefab13011dc4",
+        "promptPath": "native/design/phase1/longhouse/concepts/option-a2-ground-becomes-frame-refined.prompt.txt",
+        "promptSha256": "27b59d7b6693ba374a719148f2b30ec1cf59147b8d414a65bcbdf394e6869c22",
+        "editTarget": "option-a-ground-becomes-frame"
+      },
+      {
+        "imagePath": "native/design/phase1/longhouse/concepts/option-a3-inherited-ground.png",
+        "imageSha256": "6b68e37315d75a8ba006f12eede3021ff23465cf1b9a9705afab4fe39d7c0cc4",
+        "promptPath": "native/design/phase1/longhouse/concepts/option-a3-inherited-ground.prompt.txt",
+        "promptSha256": "8d05b3d59e32d5a5651bcddb18b9443e25c939ddfd1bda10f448c3ec6cf9500a",
+        "editReferences": [
+          "option-a2-ground-becomes-frame-refined",
+          "option-c-plot-remembers"
+        ]
+      },
+      {
+        "imagePath": "native/design/phase1/longhouse/concepts/option-a4-inherited-ground-readable.png",
+        "imageSha256": "1f166356445255c302f795623af2e56259f0924d153c41cf5c2a4d683d2b8ae7",
+        "promptPath": "native/design/phase1/longhouse/concepts/option-a4-inherited-ground-readable.prompt.txt",
+        "promptSha256": "14b52aab4be5d9936dd8ad3a37312d72ce11aab9be56eca1116184863167bad4",
+        "editTarget": "option-a3-inherited-ground"
+      },
+      {
+        "imagePath": "native/design/phase1/longhouse/concepts/option-a5-inherited-plot-threshold.png",
+        "imageSha256": "918f59d9d73d5bbb719b522d91fec769c2390e1743d315ff11d3ede5a5b52c57",
+        "promptPath": "native/design/phase1/longhouse/concepts/option-a5-inherited-plot-threshold.prompt.txt",
+        "promptSha256": "43d7a5d2d521babb6a3bc7776e04968e240bb702532d6ab9a0e88791d3c868b3",
+        "editTarget": "option-a4-inherited-ground-readable",
+        "disposition": "REJECTED_AS_REFINED_DIRECTION"
+      },
+      {
+        "imagePath": "native/design/phase1/longhouse/concepts/option-a6-shallow-inherited-footprint.png",
+        "imageSha256": "bb0dd35ac9eae089d435ac5925fb1b85f95fbbdc201d4912b95dab0a69e2aa11",
+        "promptPath": "native/design/phase1/longhouse/concepts/option-a6-shallow-inherited-footprint.prompt.txt",
+        "promptSha256": "3fde86e497cbfc5137bd57494db7d47b6b23da77fb71a819418b144d8759e9e9",
+        "editTarget": "option-a5-inherited-plot-threshold",
+        "disposition": "REJECTED_AS_REFINED_DIRECTION"
+      }
+    ],
+    "comparisonPath": "native/design/phase1/longhouse/concepts/reference-a2-a3-a4-390-comparison.png",
+    "comparisonSha256": "20351c6f9214e3bae4a847a580b31a6ffe62dabf13bc9a4cbc1aa043e8d72e81",
+    "refinementReviews": [
+      {
+        "path": "native/design/phase1/longhouse/refinement-review-a5-a6.json",
+        "sha256": "3a50b45899af9c80a577e8b87af269d5650a293f4982727a3d6ca0a0dcdbc250",
+        "comparisonPath": "native/design/phase1/longhouse/concepts/reference-a4-a5-a6-390-comparison.png",
+        "comparisonSha256": "18757f4a6fa8e55aa2b5737fae448c6427a7585885f5c759245046fecf0ffaf6"
+      }
+    ]
+  },
+  "selectedDirection": {
+    "id": "option-a4-inherited-ground-readable",
+    "path": "native/design/phase1/longhouse/concepts/option-a4-inherited-ground-readable.png",
+    "sha256": "1f166356445255c302f795623af2e56259f0924d153c41cf5c2a4d683d2b8ae7",
+    "pixelWidth": 862,
+    "pixelHeight": 1825,
+    "role": "COMPOSITION_DIRECTION_ONLY",
+    "reason": "The forest-bounded clearing restores unfinished landscape, packed post feet replace fantasy sockets, and posts, uninstalled hearth matter, storage and roofing fibre remain physically reachable in one continuous portrait world. The inherited former footprint is still too quiet at phone scale, so production inputs remain blocked."
+  },
+  "mandatoryRefinements": [
+    "Make one complete offset former footprint and its reworn threshold readable at 390-point width without outlines, glow, grids or open-hole confusion.",
+    "Separate old filled post marks, current open postholes and packed accepted posts through material state rather than colour coding.",
+    "Replace the oversized foreground shaft with progressive wedges, tamped loess and soil displacement around the accepted post.",
+    "Author bare, posts, hearth-first, storage-first, hearth-and-storage, roof-available and roof-settled states as separable assets.",
+    "Keep the first clearing bounded by substantial woodland so later settlement expansion remains visible work.",
+    "Give every manipulated component and destination a minimum 44-point effective touch envelope at the smallest supported crop.",
+    "Prove the load path from packed post through frame to roof without modern truss geometry or interface light."
+  ],
+  "rejectedDirections": [
+    {
+      "id": "option-a5-inherited-plot-threshold",
+      "path": "native/design/phase1/longhouse/concepts/option-a5-inherited-plot-threshold.png",
+      "sha256": "918f59d9d73d5bbb719b522d91fec769c2390e1743d315ff11d3ede5a5b52c57",
+      "reason": "The older footprint becomes visible, but its dark round marks can read as open pits and the reworn threshold is not distinct at 390 points."
+    },
+    {
+      "id": "option-a6-shallow-inherited-footprint",
+      "path": "native/design/phase1/longhouse/concepts/option-a6-shallow-inherited-footprint.png",
+      "sha256": "bb0dd35ac9eae089d435ac5925fb1b85f95fbbdc201d4912b95dab0a69e2aa11",
+      "reason": "The inherited marks become too faint at 390 points and the edit introduces ground-rendering drift beyond the authorised local correction."
+    },
+    {
+      "id": "option-a2-ground-becomes-frame-refined",
+      "path": "native/design/phase1/longhouse/concepts/option-a2-ground-becomes-frame-refined.png",
+      "sha256": "c05eda2d16d39aebcb94b236072f868840af19dc50c44a76f6adefab13011dc4",
+      "reason": "Superseded by A4: the open shaft, already lit hearth and broadly cleared landscape weaken physical assembly and leave too little later expansion work."
+    },
+    {
+      "id": "option-a3-inherited-ground",
+      "path": "native/design/phase1/longhouse/concepts/option-a3-inherited-ground.png",
+      "sha256": "6b68e37315d75a8ba006f12eede3021ff23465cf1b9a9705afab4fe39d7c0cc4",
+      "reason": "Superseded by A4: the forest and packed posts improved, but installed wattle and an indistinct hearth source baked too much into the base state."
+    },
+    {
+      "id": "option-a-ground-becomes-frame",
+      "path": "native/design/phase1/longhouse/concepts/option-a-ground-becomes-frame.png",
+      "sha256": "003ef926b2b6019628fe221fd3f01881ad8f86f7e5534cd679c2b9dfde877c4b",
+      "reason": "The illuminated foreground hole reads as a game socket and is superseded by A2."
+    },
+    {
+      "id": "option-b-threshold-spine",
+      "path": "native/design/phase1/longhouse/concepts/option-b-threshold-spine.png",
+      "sha256": "377f34f0791d5d284c36f66a87db84e7f9c9c5c93f7ca953425b8c6ade4c5208",
+      "reason": "The nearly complete roof and installed interior consume the causal work before the interaction begins."
+    },
+    {
+      "id": "option-c-plot-remembers",
+      "path": "native/design/phase1/longhouse/concepts/option-c-plot-remembers.png",
+      "sha256": "8a890bc55627330b689c7b3033f45caf2589b8d2b5882932b331745853aa0357",
+      "reason": "The inherited plot reads well, but the active components are dispersed and too small for direct manipulation."
+    }
+  ],
+  "comparison": {
+    "path": "native/design/phase1/longhouse/concepts/reference-a2-a3-a4-390-comparison.png",
+    "sha256": "20351c6f9214e3bae4a847a580b31a6ffe62dabf13bc9a4cbc1aa043e8d72e81"
+  },
+  "nextGate": "REFINED_DIRECTION_COMPARISON_WITH_MODULAR_STATES_AND_INHERITED_PLOT",
+  "forbiddenClaims": [
+    "EDITOR_APPROVED_AS_PRODUCTION_MASTER",
+    "PRODUCTION_ASSET_APPROVED",
+    "PRODUCTION_INPUTS_LOCKED",
+    "SHIPPING_ALLOWED"
+  ]
+}

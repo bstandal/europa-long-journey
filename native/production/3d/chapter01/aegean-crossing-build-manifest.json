@@ -1,0 +1,161 @@
+{
+  "schemaVersion": 1,
+  "assetVersion": "aegean-crossing-v1",
+  "canonicalTechnicalOutputs": true,
+  "qualityClassification": "CONTINUITY_PROOF",
+  "finalArtGate": "OPEN",
+  "classificationReason": "The asset proves Aegean staging, physical carrier continuity, runtime bindings, collision-ready interaction geometry, LOD generation and deterministic offline export. The procedural people and bovine do not meet the final hero-character target and must be replaced by the centrally produced final-art rigs.",
+  "tool": {
+    "name": "Blender",
+    "version": "5.2.0",
+    "buildHash": "fbe6228777e7",
+    "binaryPath": "/opt/homebrew/bin/blender"
+  },
+  "source": {
+    "authoritativeScript": "scripts/build_aegean_crossing.py",
+    "authoritativeScriptSHA256": "b89aeaa3684627d72425cef0fecf95f4580809e35b01949867cd7c6eb4af0fd2",
+    "buildWrapper": "scripts/build-aegean-crossing.sh",
+    "buildWrapperSHA256": "a8ff956ec1a80e45a67e7f6d8e43f97e5da6a053f06bc199d5298f6f958f70cb",
+    "artDirection": "art-direction/aegean-crossing-target-v1.png",
+    "artDirectionSHA256": "ebcf3bab25b4725dc0b45158c00675e7231d2cde5897f980ce3adb88b3e75e1e",
+    "artDirectionUse": "Composition and lighting reference only; not sampled, projected or shipped."
+  },
+  "determinism": {
+    "seed": 20260730,
+    "sourceDateEpoch": 315532800,
+    "fixedTimestampUTC": "1980-01-01T00:00:00Z",
+    "timestampPolicy": "Canonical data contains no wall-clock build time. Generated file and USDZ member mtimes are fixed to sourceDateEpoch.",
+    "topologyPolicy": "Face winding is preserved, face starts and face order are canonicalized, and face-varying data follows the canonical topology.",
+    "derivedNormalPolicy": "Derived normals are quantized to 0.001 with signed zero normalized after canonical topology ordering.",
+    "proof": "Two consecutive clean headless builds produced byte-identical canonical USD outputs."
+  },
+  "rights": {
+    "creator": "Codex-controlled Blender Python pipeline",
+    "externalAssets": [],
+    "geometryAndMaterials": "Project-authored procedural geometry and materials",
+    "licenseStatus": "No external geometry, texture, material, rig, animation or VFX asset is included."
+  },
+  "usdContract": {
+    "defaultPrim": "/western_anatolia_aegean",
+    "upAxis": "Y",
+    "metersPerUnit": 1,
+    "identifierPolicy": "USD prim identifiers use underscores; exact hyphenated runtime names are duplicated in displayName and userProperties:runtime_name."
+  },
+  "runtimeBindings": {
+    "western-anatolia-aegean": "/western_anatolia_aegean",
+    "crossing-boat": "/western_anatolia_aegean/crossing_boat",
+    "action-crossing-line": "/western_anatolia_aegean/action_crossing_line",
+    "seed-vessel": "/western_anatolia_aegean/seed_vessel",
+    "current-0": "/western_anatolia_aegean/current_0",
+    "current-1": "/western_anatolia_aegean/current_1",
+    "current-2": "/western_anatolia_aegean/current_2",
+    "current-3": "/western_anatolia_aegean/current_3",
+    "western-shore": "/western_anatolia_aegean/western_shore",
+    "person-rope-handler": "/western_anatolia_aegean/person_rope_handler",
+    "person-seed-keeper": "/western_anatolia_aegean/person_seed_keeper",
+    "person-stabilizer": "/western_anatolia_aegean/person_stabilizer",
+    "young-bovine": "/western_anatolia_aegean/young_bovine",
+    "camera-entry": "/western_anatolia_aegean/camera_entry",
+    "camera-action-close": "/western_anatolia_aegean/camera_action_close",
+    "camera-seed-close": "/western_anatolia_aegean/camera_seed_close",
+    "camera-shore-reveal": "/western_anatolia_aegean/camera_shore_reveal",
+    "transition-carrier-seed": "/western_anatolia_aegean/transition_carrier_seed",
+    "transition-western-shore": "/western_anatolia_aegean/transition_western_shore",
+    "interaction-origin": "/western_anatolia_aegean/interaction_origin"
+  },
+  "collisionContract": {
+    "runtimeName": "action-crossing-line",
+    "primPath": "/western_anatolia_aegean/action_crossing_line",
+    "geometryPrimPath": "/western_anatolia_aegean/action_crossing_line/action_crossing_line_geometry",
+    "collisionReady": true,
+    "collisionShape": "mesh",
+    "semanticRole": "primary-interaction",
+    "interactionId": "first-farmers-household-route",
+    "manipulationAxis": "line-tension"
+  },
+  "lods": [
+    {
+      "lod": 0,
+      "objects": 380,
+      "triangles": 125530,
+      "outputs": [
+        {
+          "path": "generated/aegean-crossing-v1/aegean-crossing-lod0.usda",
+          "bytes": 13813382,
+          "sha256": "45485ecb3009b19030f7c1fe2d43a23c635ea2add7fd29ef3557d82838cfce04"
+        },
+        {
+          "path": "generated/aegean-crossing-v1/aegean-crossing-lod0.usd",
+          "bytes": 2244276,
+          "sha256": "4ff29eaaeed0d5d0ad37ab1dc0dd7197c220caa080c52de3f17c3535b1422491"
+        },
+        {
+          "path": "generated/aegean-crossing-v1/aegean-crossing-lod0.usdc",
+          "bytes": 2244276,
+          "sha256": "4ff29eaaeed0d5d0ad37ab1dc0dd7197c220caa080c52de3f17c3535b1422491"
+        },
+        {
+          "path": "generated/aegean-crossing-v1/aegean-crossing-lod0.usdz",
+          "bytes": 2244442,
+          "sha256": "56b735d0f6293a470a9b5e0f4c3f610e5c7f4a23fe30198f2154030c465fa18c"
+        }
+      ]
+    },
+    {
+      "lod": 1,
+      "objects": 177,
+      "triangles": 15054,
+      "outputs": [
+        {
+          "path": "generated/aegean-crossing-v1/aegean-crossing-lod1.usda",
+          "bytes": 1765657,
+          "sha256": "c546673258350fe73ca21bc96533e5aa8adae1ef3278b1d4d39643630f1d897e"
+        },
+        {
+          "path": "generated/aegean-crossing-v1/aegean-crossing-lod1.usd",
+          "bytes": 397691,
+          "sha256": "ab8a7ad91d75b3a554a7b8ea5ba5f2951dc7e6361ff94b67ab2424e6dc2277ee"
+        },
+        {
+          "path": "generated/aegean-crossing-v1/aegean-crossing-lod1.usdc",
+          "bytes": 397691,
+          "sha256": "ab8a7ad91d75b3a554a7b8ea5ba5f2951dc7e6361ff94b67ab2424e6dc2277ee"
+        },
+        {
+          "path": "generated/aegean-crossing-v1/aegean-crossing-lod1.usdz",
+          "bytes": 397857,
+          "sha256": "9213184efad401787aa5ccea959b1db6c525ec434bbd2c00f1639a04fa8e0c19"
+        }
+      ]
+    }
+  ],
+  "validation": {
+    "usdchecker": "PASS (8/8 canonical USD files)",
+    "arkitAssetPackaging": "PASS",
+    "byteReproducibility": "PASS",
+    "requiredRuntimeBindings": "PASS",
+    "collisionMetadata": "PASS"
+  },
+  "nonCanonicalReviewArtifacts": [
+    {
+      "path": "generated/aegean-crossing-v1/aegean-crossing-lod0.blend",
+      "sha256": "8ea8a05baab0bd3bb2b49f0a784327e38fb8370c4ef102e6fe836f3ec78f08d0",
+      "purpose": "Inspectable Blender cache; not the source of authority or part of the byte-reproducibility claim."
+    },
+    {
+      "path": "generated/aegean-crossing-v1/preview/aegean-crossing-lod0.png",
+      "sha256": "c7dfeededb69a75d9f4d9fa33c5979d92865b5d0d9fb3813678856bd6e99a508",
+      "purpose": "Portrait review render; not a runtime asset."
+    },
+    {
+      "path": "generated/aegean-crossing-v1/generated-build-report.json",
+      "sha256": "0c5fed5955a6a7717c9f77f249f02524689c3b8102531ec633466e087cffa6ac",
+      "purpose": "Generated exhaustive binding and output report."
+    }
+  ],
+  "openGates": [
+    "Replace procedural hero humans and bovine with the centrally produced final-art rigs.",
+    "Run the physical iPhone performance, input, contact, haptics, thermals and battery gate.",
+    "Approve final authored lighting after hero-rig replacement."
+  ]
+}

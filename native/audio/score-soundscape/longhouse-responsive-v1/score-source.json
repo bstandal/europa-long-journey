@@ -1,0 +1,292 @@
+{
+  "schemaVersion": 1,
+  "kind": "responsive-symbolic-score",
+  "id": "longhouse-responsive-score-v1",
+  "status": "PROVISIONAL_NON_SHIPPING",
+  "shippingState": "PROHIBITED",
+  "output": {
+    "sampleRate": 48000,
+    "bitDepth": 24,
+    "channels": 2,
+    "container": "wav"
+  },
+  "ppq": 960,
+  "meter": {
+    "numerator": 4,
+    "denominator": 4
+  },
+  "tempoBPM": 54,
+  "direction": "Four material parts gather around one low ground. Posts establish the frame first; hearth, storage and roof may then enter in any order. A non-post part offered before the posts tightens without cinematic alarm or construction triumph.",
+  "motifs": [
+    {
+      "id": "foundation-fifth",
+      "notes": [
+        { "pitch": "D2", "atBeat": 0, "durationBeats": 3.2, "dynamic": "p", "articulation": "tenuto" },
+        { "pitch": "A2", "atBeat": 0.2, "durationBeats": 2.8, "dynamic": "pp", "articulation": "tenuto" }
+      ]
+    },
+    {
+      "id": "post-rise",
+      "notes": [
+        { "pitch": "D3", "atBeat": 0, "durationBeats": 0.55, "dynamic": "p", "articulation": "detached" },
+        { "pitch": "A3", "atBeat": 0.75, "durationBeats": 0.55, "dynamic": "p", "articulation": "detached" },
+        { "pitch": "D4", "atBeat": 1.5, "durationBeats": 0.9, "dynamic": "mp", "articulation": "tenuto" }
+      ]
+    },
+    {
+      "id": "hearth-catch",
+      "notes": [
+        { "pitch": "F3", "atBeat": 0, "durationBeats": 0.5, "dynamic": "pp", "articulation": "detached" },
+        { "pitch": "A3", "atBeat": 0.4, "durationBeats": 0.6, "dynamic": "p", "articulation": "detached" },
+        { "pitch": "D4", "atBeat": 1, "durationBeats": 1.2, "dynamic": "p", "articulation": "tenuto" }
+      ]
+    },
+    {
+      "id": "roof-span",
+      "notes": [
+        { "pitch": "A2", "atBeat": 0, "durationBeats": 1.2, "dynamic": "pp", "articulation": "tenuto" },
+        { "pitch": "D3", "atBeat": 0.4, "durationBeats": 1.2, "dynamic": "p", "articulation": "tenuto" },
+        { "pitch": "A3", "atBeat": 1.1, "durationBeats": 1.8, "dynamic": "p", "articulation": "legato" }
+      ]
+    },
+    {
+      "id": "wrong-order-knot",
+      "notes": [
+        { "pitch": "Eb3", "atBeat": 0, "durationBeats": 0.55, "dynamic": "mp", "articulation": "accent" },
+        { "pitch": "D3", "atBeat": 0.45, "durationBeats": 1.1, "dynamic": "p", "articulation": "tenuto" }
+      ]
+    },
+    {
+      "id": "house-held",
+      "notes": [
+        { "pitch": "D2", "atBeat": 0, "durationBeats": 2.6, "dynamic": "p", "articulation": "tenuto" },
+        { "pitch": "A2", "atBeat": 0.7, "durationBeats": 2.3, "dynamic": "p", "articulation": "legato" },
+        { "pitch": "D3", "atBeat": 1.5, "durationBeats": 2.4, "dynamic": "mp", "articulation": "legato" }
+      ]
+    }
+  ],
+  "regions": [
+    {
+      "id": "approach",
+      "timelineID": "longhouse-approach-v1",
+      "scoreStateID": "plot-marked-frame-unraised",
+      "durationSeconds": 48,
+      "loop": false,
+      "stems": [
+        {
+          "id": "ground",
+          "role": "Postholes and worked earth establish the load-bearing floor before any part is accepted",
+          "instrument": { "bank": 0, "program": 43, "label": "Contrabass" },
+          "gainDB": -17,
+          "pan": -0.18,
+          "phrases": [
+            { "motifID": "foundation-fifth", "atBeat": 0, "transposeSemitones": 0, "dynamicOffset": -7 },
+            { "motifID": "foundation-fifth", "atBeat": 12, "transposeSemitones": 0, "dynamicOffset": -6 },
+            { "motifID": "foundation-fifth", "atBeat": 24, "transposeSemitones": 0, "dynamicOffset": -5 },
+            { "motifID": "foundation-fifth", "atBeat": 36, "transposeSemitones": 0, "dynamicOffset": -4 }
+          ]
+        },
+        {
+          "id": "frame",
+          "role": "Separated post figures expose the order in which a frame can take weight",
+          "instrument": { "bank": 0, "program": 42, "label": "Cello" },
+          "gainDB": -19,
+          "pan": 0.12,
+          "phrases": [
+            { "motifID": "post-rise", "atBeat": 6, "transposeSemitones": -12, "dynamicOffset": -8 },
+            { "motifID": "post-rise", "atBeat": 18, "transposeSemitones": -12, "dynamicOffset": -7 },
+            { "motifID": "post-rise", "atBeat": 30, "transposeSemitones": -12, "dynamicOffset": -6 },
+            { "motifID": "post-rise", "atBeat": 39, "transposeSemitones": -12, "dynamicOffset": -5 }
+          ]
+        },
+        {
+          "id": "inhabited",
+          "role": "A distant domestic colour waits beyond the unassembled structure",
+          "instrument": { "bank": 0, "program": 15, "label": "Dulcimer" },
+          "gainDB": -22,
+          "pan": 0.28,
+          "phrases": [
+            { "motifID": "hearth-catch", "atBeat": 10, "transposeSemitones": -12, "dynamicOffset": -10 },
+            { "motifID": "hearth-catch", "atBeat": 26, "transposeSemitones": -12, "dynamicOffset": -9 },
+            { "motifID": "hearth-catch", "atBeat": 37.5, "transposeSemitones": -12, "dynamicOffset": -8 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "waiting",
+      "timelineID": "longhouse-waiting-bed-v1",
+      "scoreStateID": "components-wait-on-open-ground",
+      "durationSeconds": 15,
+      "loop": true,
+      "stems": [
+        {
+          "id": "ground",
+          "role": "The marked plot remains fixed until posts establish the frame; after that the remaining parts share no order",
+          "instrument": { "bank": 0, "program": 43, "label": "Contrabass" },
+          "gainDB": -18,
+          "pan": -0.18,
+          "phrases": [
+            { "motifID": "foundation-fifth", "atBeat": 0, "transposeSemitones": 0, "dynamicOffset": -9 },
+            { "motifID": "foundation-fifth", "atBeat": 7.2, "transposeSemitones": 0, "dynamicOffset": -8 }
+          ]
+        },
+        {
+          "id": "frame",
+          "role": "Widely spaced post figures leave the causal order open",
+          "instrument": { "bank": 0, "program": 42, "label": "Cello" },
+          "gainDB": -21,
+          "pan": 0.1,
+          "phrases": [
+            { "motifID": "post-rise", "atBeat": 2.2, "transposeSemitones": -12, "dynamicOffset": -10 },
+            { "motifID": "post-rise", "atBeat": 9.2, "transposeSemitones": -12, "dynamicOffset": -9 }
+          ]
+        },
+        {
+          "id": "inhabited",
+          "role": "The domestic line remains possible but incomplete",
+          "instrument": { "bank": 0, "program": 15, "label": "Dulcimer" },
+          "gainDB": -24,
+          "pan": 0.26,
+          "phrases": [
+            { "motifID": "hearth-catch", "atBeat": 5, "transposeSemitones": -12, "dynamicOffset": -12 },
+            { "motifID": "hearth-catch", "atBeat": 11, "transposeSemitones": -12, "dynamicOffset": -11 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "engaged",
+      "timelineID": "longhouse-engaged-bed-v1",
+      "scoreStateID": "accepted-parts-take-weight",
+      "durationSeconds": 15,
+      "loop": true,
+      "stems": [
+        {
+          "id": "ground",
+          "role": "The fixed plot takes each accepted load without accelerating",
+          "instrument": { "bank": 0, "program": 43, "label": "Contrabass" },
+          "gainDB": -16,
+          "pan": -0.18,
+          "phrases": [
+            { "motifID": "foundation-fifth", "atBeat": 0, "transposeSemitones": 0, "dynamicOffset": -7 },
+            { "motifID": "foundation-fifth", "atBeat": 6.8, "transposeSemitones": 0, "dynamicOffset": -6 }
+          ]
+        },
+        {
+          "id": "frame",
+          "role": "Post figures gather first; accepted hearth, storage and roof material may then enter in any order",
+          "instrument": { "bank": 0, "program": 42, "label": "Cello" },
+          "gainDB": -18,
+          "pan": 0.1,
+          "phrases": [
+            { "motifID": "post-rise", "atBeat": 0.8, "transposeSemitones": -12, "dynamicOffset": -7 },
+            { "motifID": "post-rise", "atBeat": 4.8, "transposeSemitones": -12, "dynamicOffset": -6 },
+            { "motifID": "post-rise", "atBeat": 8.8, "transposeSemitones": -12, "dynamicOffset": -5 }
+          ]
+        },
+        {
+          "id": "inhabited",
+          "role": "Hearth and shelter colour enter only while the structure becomes usable",
+          "instrument": { "bank": 0, "program": 15, "label": "Dulcimer" },
+          "gainDB": -20,
+          "pan": 0.28,
+          "phrases": [
+            { "motifID": "hearth-catch", "atBeat": 2.8, "transposeSemitones": -12, "dynamicOffset": -8 },
+            { "motifID": "hearth-catch", "atBeat": 9.8, "transposeSemitones": -12, "dynamicOffset": -7 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "resistance",
+      "timelineID": "longhouse-resistance-bed-v1",
+      "scoreStateID": "unsupported-order-holds",
+      "durationSeconds": 15,
+      "loop": true,
+      "stems": [
+        {
+          "id": "ground",
+          "role": "The plot remains unchanged when hearth, storage or roof is offered before the posts",
+          "instrument": { "bank": 0, "program": 43, "label": "Contrabass" },
+          "gainDB": -15,
+          "pan": -0.2,
+          "phrases": [
+            { "motifID": "foundation-fifth", "atBeat": 0, "transposeSemitones": 0, "dynamicOffset": -6 },
+            { "motifID": "foundation-fifth", "atBeat": 7, "transposeSemitones": 0, "dynamicOffset": -5 }
+          ]
+        },
+        {
+          "id": "frame",
+          "role": "A compact semitone knot marks a non-post part offered before the frame, without failure spectacle",
+          "instrument": { "bank": 0, "program": 42, "label": "Cello" },
+          "gainDB": -17,
+          "pan": 0.05,
+          "phrases": [
+            { "motifID": "wrong-order-knot", "atBeat": 1.5, "transposeSemitones": -12, "dynamicOffset": -5 },
+            { "motifID": "wrong-order-knot", "atBeat": 5.7, "transposeSemitones": -12, "dynamicOffset": -4 },
+            { "motifID": "wrong-order-knot", "atBeat": 9.9, "transposeSemitones": -12, "dynamicOffset": -3 }
+          ]
+        },
+        {
+          "id": "inhabited",
+          "role": "Domestic colour withdraws until the posts stand; no order is imposed on the three remaining parts",
+          "instrument": { "bank": 0, "program": 15, "label": "Dulcimer" },
+          "gainDB": -25,
+          "pan": 0.3,
+          "phrases": [
+            { "motifID": "wrong-order-knot", "atBeat": 3.6, "transposeSemitones": 0, "dynamicOffset": -13 },
+            { "motifID": "wrong-order-knot", "atBeat": 8, "transposeSemitones": 0, "dynamicOffset": -12 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "consequence",
+      "timelineID": "longhouse-consequence-v1",
+      "scoreStateID": "assembled-house-inherited-plot",
+      "durationSeconds": 45,
+      "loop": false,
+      "stems": [
+        {
+          "id": "ground",
+          "role": "The same marked ground remains beneath a completed and then inherited structure",
+          "instrument": { "bank": 0, "program": 43, "label": "Contrabass" },
+          "gainDB": -16,
+          "pan": -0.18,
+          "phrases": [
+            { "motifID": "house-held", "atBeat": 0, "transposeSemitones": 0, "dynamicOffset": -7 },
+            { "motifID": "foundation-fifth", "atBeat": 13, "transposeSemitones": 0, "dynamicOffset": -6 },
+            { "motifID": "house-held", "atBeat": 27, "transposeSemitones": 0, "dynamicOffset": -5 },
+            { "motifID": "foundation-fifth", "atBeat": 36, "transposeSemitones": 0, "dynamicOffset": -4 }
+          ]
+        },
+        {
+          "id": "frame",
+          "role": "The post figure widens into the roof span after the final dependency seals",
+          "instrument": { "bank": 0, "program": 42, "label": "Cello" },
+          "gainDB": -18,
+          "pan": 0.1,
+          "phrases": [
+            { "motifID": "roof-span", "atBeat": 4, "transposeSemitones": -12, "dynamicOffset": -8 },
+            { "motifID": "roof-span", "atBeat": 18, "transposeSemitones": -12, "dynamicOffset": -7 },
+            { "motifID": "roof-span", "atBeat": 31, "transposeSemitones": -12, "dynamicOffset": -6 },
+            { "motifID": "roof-span", "atBeat": 37, "transposeSemitones": -12, "dynamicOffset": -5 }
+          ]
+        },
+        {
+          "id": "inhabited",
+          "role": "Hearth colour survives the temporal cut into the rebuilt plot",
+          "instrument": { "bank": 0, "program": 15, "label": "Dulcimer" },
+          "gainDB": -20,
+          "pan": 0.28,
+          "phrases": [
+            { "motifID": "hearth-catch", "atBeat": 8, "transposeSemitones": -12, "dynamicOffset": -9 },
+            { "motifID": "hearth-catch", "atBeat": 24, "transposeSemitones": -12, "dynamicOffset": -8 },
+            { "motifID": "hearth-catch", "atBeat": 35, "transposeSemitones": -12, "dynamicOffset": -7 }
+          ]
+        }
+      ]
+    }
+  ]
+}

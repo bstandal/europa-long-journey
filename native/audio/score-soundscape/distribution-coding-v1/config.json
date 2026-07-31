@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "id": "first-farmers-responsive-aac-lc-384-alac-fallback-v1",
+  "status": "PROVISIONAL_NON_SHIPPING",
+  "shippingState": "PROHIBITED",
+  "trustDomain": "BACKSTAGE_AUDIO_DISTRIBUTION_PROBE",
+  "chapterID": "first-farmers",
+  "sourceCacheRoot": "native/audio/score-soundscape/cache",
+  "sourceReceiptPaths": [
+    "native/audio/score-soundscape/continent-remade-responsive-v1/render-receipt.json",
+    "native/audio/score-soundscape/harvest-responsive-v1/render-receipt.json",
+    "native/audio/score-soundscape/household-crosses-responsive-v1/render-receipt.json",
+    "native/audio/score-soundscape/longhouse-responsive-v1/render-receipt.json",
+    "native/audio/score-soundscape/more-mouths-responsive-v1/render-receipt.json",
+    "native/audio/score-soundscape/three-records-responsive-v1/render-receipt.json"
+  ],
+  "expectedInventory": {
+    "responsiveWAVAssets": 91,
+    "preExistingResponsiveM4AAssets": 0,
+    "sourceBytes": 750820004,
+    "sourceFrames": 125136000,
+    "scheduledDecodedFloat32Bytes": 1001088000
+  },
+  "sourceFormat": {
+    "codec": "pcm_s24le",
+    "sampleRate": 48000,
+    "bitDepth": 24,
+    "channels": 2
+  },
+  "candidateFormat": {
+    "container": "m4a",
+    "codec": "aac",
+    "profile": "LC",
+    "encoder": "ffmpeg-native-aac",
+    "bitRate": 384000,
+    "sampleRate": 48000,
+    "channels": 2,
+    "maximumDecoderTailPaddingFrames": 1024,
+    "maximumLoopSeamDelta": 0.005,
+    "maximumTruePeakDBFS": -1,
+    "losslessFallback": {
+      "codec": "alac",
+      "encoder": "ffmpeg-native-alac",
+      "sampleFormat": "s32p",
+      "reasons": [
+        "AAC_LOOP_SEAM_EXCEEDS_SOURCE_GATE",
+        "AAC_TRUE_PEAK_EXCEEDS_SOURCE_GATE"
+      ],
+      "requireDecodedPCMIdentityWithSource": true
+    }
+  },
+  "toolchain": {
+    "ffmpegPath": "/opt/homebrew/bin/ffmpeg",
+    "ffmpegVersion": "8.1.2",
+    "ffmpegSHA256": "dad4b30b36a1a999bfa4b6ffbde138bd17ee496c69e12eef638227dff2c6415c",
+    "ffprobePath": "/opt/homebrew/bin/ffprobe",
+    "ffprobeVersion": "8.1.2",
+    "ffprobeSHA256": "cfeefcc9207eb3fa424679228fe3848db2921b15537d26c1ccc4a7a61de95d00"
+  },
+  "approvalBoundary": {
+    "audioApproval": "OPEN",
+    "editorApproval": "OPEN",
+    "physicalIPhonePlayback": "OPEN",
+    "physicalIPhoneEnergy": "OPEN",
+    "runtimePathIntegration": "NOT_AUTHORIZED_BY_THIS_CANDIDATE",
+    "shippingApproval": "PROHIBITED"
+  }
+}

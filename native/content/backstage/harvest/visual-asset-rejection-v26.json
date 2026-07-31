@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "status": "REJECTED_GEOMETRIC_MASK_NEGATIVE_FIXTURE",
+  "shippingState": "PROHIBITED",
+  "editorApprovalState": "NOT_CLAIMED",
+  "productionState": "BLOCKED_AT_SUBJECT_SEGMENTATION_AND_CLEAN_PLATES",
+  "flatMaster": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+    "bytes": 5860864,
+    "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca",
+    "authorityPath": "native/content/backstage/harvest/production-master-authority-v26.provisional.json",
+    "authoritySHA256": "82ffe59bfa5582b6fd2fb3d085fdd39e923e748352b735ae4f0e7f43fde44bbc",
+    "allowedUse": "FLAT_CODEX_PROVISIONAL_NON_SHIPPING_MASTER_ONLY"
+  },
+  "rejectedEvidence": {
+    "dagSHA256BeforeRejectionMarker": "455ce0e77a3118680690e98cdd7837ea390841b7df89b2d02d2891a874e7c56e",
+    "receiptSHA256BeforeRejectionMarker": "e259d50d704aba047fa75eb39703b5fec855b8e59288d48c55a79e248612abd9",
+    "qaSHA256BeforeRejectionMarker": "91a412a0fbe726c718551264ed9335af0efa58636e80119ce1a8dac88171daa0",
+    "sourceInventorySHA256BeforeRejectionMarker": "06e0fde3c60d7f300d491efc6dcaf1027d1fd87e5ecc1fd84b067ae772be2bf3",
+    "symbolicRecipeSHA256BeforeRejectionMarker": "750db5c65e7931f56795c2d1a43452a799c00b81beeb6060a5b27d3dcca8c3d2"
+  },
+  "reasonCodes": [
+    "GEOMETRIC_MASK_NOT_SUBJECT_SEGMENTATION",
+    "CLEAN_PLATE_SMEAR_ARTIFACT",
+    "PARALLAX_EXTREMA_NOT_VISUALLY_PROVEN",
+    "STATE_TRANSITIONS_NOT_VISUALLY_PROVEN",
+    "HALO_GATE_INSUFFICIENT",
+    "BACKUP_SAME_HOST_ONLY"
+  ],
+  "requiredToResume": [
+    "Actual alpha silhouettes derived from the subjects in v26, not geometric approximations.",
+    "Clean plates without smears, duplicated people, duplicated architecture or discontinuous texture.",
+    "Combined visual comparisons at both camera-rail extrema for every moving layer.",
+    "Combined empty, receiving and consequence-state comparisons for all four stateful owners.",
+    "Edge comparisons over contrasting backgrounds that prove no matte fringe or layer halo.",
+    "A truthful backup mechanism that satisfies the production contract, or an explicit contract decision that the gate remains open."
+  ]
+}

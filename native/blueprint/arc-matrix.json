@@ -1,0 +1,1843 @@
+{
+  "schemaVersion": 2,
+  "status": "APPROVED_BY_EDITOR_IN_CHIEF",
+  "durationRule": {
+    "minimumMinutes": 8,
+    "maximumMinutes": 15,
+    "publicMetadata": false
+  },
+  "chapterCount": 24,
+  "arcCount": 55,
+  "coveredMovementCount": 290,
+  "chapters": [
+    {
+      "contentID": "first-farmers",
+      "editorApproval": "APPROVED",
+      "arcCount": 3,
+      "arcs": [
+        {
+          "arcID": "first-farmers-arc-01",
+          "title": "The River Before the Fields",
+          "targetDurationMinutes": 9,
+          "movementIDs": [
+            "before-the-fields",
+            "a-household-crosses"
+          ],
+          "situation": "The first farming households reach a European river world already anchored by settlement, burial and exchange.",
+          "mechanism": "People carry seed, livestock, tools and learned routines together across the Aegean and into the Danube corridor.",
+          "turn": "The field arrives as a complete living system rather than an isolated crop.",
+          "consequence": "Europe's inhabited river frontier becomes the meeting place of two durable ways of life.",
+          "handoff": "Arrival creates the harder problem: a harvest must now carry a household through the year.",
+          "principalNativeInteractionIDs": [
+            "interaction-first-farmers-a-household-crosses"
+          ],
+          "supportingSourceInteractionIDs": [
+            "first-farmers/before-the-fields"
+          ],
+          "worldTraceIDs": [
+            "trace-european-farming-belt"
+          ],
+          "worldEffectIDs": [
+            "effect-first-farmers-a-household-crosses"
+          ]
+        },
+        {
+          "arcID": "first-farmers-arc-02",
+          "title": "The Harvest Had to Last",
+          "targetDurationMinutes": 9,
+          "movementIDs": [
+            "the-harvest-had-to-last",
+            "at-the-iron-gates"
+          ],
+          "situation": "A farming household faces winter, spoilage and the obligation to reserve seed for the next sowing.",
+          "mechanism": "Food, reserve and seed compete inside one finite store while river and farming communities exchange people and practices.",
+          "turn": "Grain eaten now cannot answer scarcity or return to the soil.",
+          "consequence": "Farming becomes a discipline of deferred use and inherited obligation.",
+          "handoff": "Once stores and households endure, the settlement itself can outlive its builders.",
+          "principalNativeInteractionIDs": [
+            "interaction-first-farmers-the-harvest-had-to-last",
+            "interaction-first-farmers-at-the-iron-gates"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-seasonal-store",
+            "trace-european-farming-belt"
+          ],
+          "worldEffectIDs": [
+            "effect-first-farmers-the-harvest-had-to-last",
+            "effect-first-farmers-at-the-iron-gates"
+          ]
+        },
+        {
+          "arcID": "first-farmers-arc-03",
+          "title": "The House Outlives Its Builders",
+          "targetDurationMinutes": 10,
+          "movementIDs": [
+            "the-house-outlives",
+            "more-mouths-more-land",
+            "a-continent-remade"
+          ],
+          "situation": "Timber houses decay while repeated rebuilding fixes communities to the same European ground.",
+          "mechanism": "Household growth, field clearance, herd traffic and settlement memory expand across the loess plains.",
+          "turn": "A family economy becomes a demographic force able to remake whole landscapes.",
+          "consequence": "Europe becomes a continent of fields, herds and long-lived settlements.",
+          "handoff": "That settled order now faces a mobile power arriving from the steppe.",
+          "principalNativeInteractionIDs": [
+            "interaction-first-farmers-the-house-outlives",
+            "interaction-first-farmers-more-mouths-more-land",
+            "interaction-first-farmers-a-continent-remade"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-european-farming-belt"
+          ],
+          "worldEffectIDs": [
+            "effect-first-farmers-the-house-outlives",
+            "effect-first-farmers-more-mouths-more-land",
+            "effect-first-farmers-a-continent-remade"
+          ]
+        }
+      ]
+    },
+    {
+      "contentID": "steppe-comes-west",
+      "editorApproval": "APPROVED",
+      "arcCount": 2,
+      "arcs": [
+        {
+          "arcID": "steppe-comes-west-arc-01",
+          "title": "A World That Could Move",
+          "targetDurationMinutes": 10,
+          "movementIDs": [
+            "where-the-fields-end",
+            "a-world-that-could-move",
+            "the-wheel-carries-the-house"
+          ],
+          "situation": "Beyond Europe's last fields, wealth lives in herds and can move away from scarcity or danger.",
+          "mechanism": "Ox-drawn wagons join animals, people and possessions into mobile households with a wider practical reach.",
+          "turn": "The household itself becomes transportable.",
+          "consequence": "Mobility gives armed, patrilineal groups a new field of power west of the Black Sea.",
+          "handoff": "Moving households begin to claim land through fathers, graves and force.",
+          "principalNativeInteractionIDs": [
+            "interaction-steppe-comes-west-the-wheel-carries-the-house"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-steppe-westward-road"
+          ],
+          "worldEffectIDs": [
+            "effect-steppe-comes-west-the-wheel-carries-the-house"
+          ]
+        },
+        {
+          "arcID": "steppe-comes-west-arc-02",
+          "title": "The Fathers Disappear",
+          "targetDurationMinutes": 13,
+          "movementIDs": [
+            "the-mound-holds-the-fathers",
+            "the-fathers-disappear",
+            "speech-follows-power",
+            "the-gods-take-two-roads"
+          ],
+          "situation": "Steppe groups enter settled Europe carrying paternal authority, mobile wealth and an inherited sacred language.",
+          "mechanism": "Conquest, demographic asymmetry, household formation and descent reorder paternal lines and speech.",
+          "turn": "Across several regions, many sampled local male lines disappear as incoming lines spread.",
+          "consequence": "Steppe ancestry, Indo-European languages and religious grammar become European inheritances.",
+          "handoff": "Bronze gives the inherited order new weapons, symbols, routes and heroic forms.",
+          "principalNativeInteractionIDs": [
+            "interaction-steppe-comes-west-the-fathers-disappear",
+            "interaction-steppe-comes-west-the-gods-take-two-roads"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-indo-european-inheritance"
+          ],
+          "worldEffectIDs": [
+            "effect-steppe-comes-west-the-fathers-disappear",
+            "effect-steppe-comes-west-the-gods-take-two-roads"
+          ]
+        }
+      ]
+    },
+    {
+      "contentID": "bronze-europe",
+      "editorApproval": "APPROVED",
+      "arcCount": 2,
+      "arcs": [
+        {
+          "arcID": "bronze-europe-arc-01",
+          "title": "Bronze Crosses the Sea",
+          "targetDurationMinutes": 12,
+          "movementIDs": [
+            "a-sword-begins-in-an-older-world",
+            "copper-and-tin-had-to-meet",
+            "crete-faces-three-continents",
+            "the-sea-carries-power",
+            "the-palaces-count-the-world"
+          ],
+          "situation": "Europe enters an age whose decisive metal depends on materials found far apart.",
+          "mechanism": "Mines, passes, ships, palaces and writing join copper, tin, grain, cloth and authority.",
+          "turn": "The sea becomes a road across which rulers can count and command a connected world.",
+          "consequence": "European power acquires a metal, a maritime scale and palace institutions.",
+          "handoff": "Beyond the palaces, northern Europe makes the bronze world its own.",
+          "principalNativeInteractionIDs": [
+            "interaction-bronze-europe-copper-and-tin-had-to-meet"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-bronze-exchange"
+          ],
+          "worldEffectIDs": [
+            "effect-bronze-europe-copper-and-tin-had-to-meet"
+          ]
+        },
+        {
+          "arcID": "bronze-europe-arc-02",
+          "title": "The Heroic Age",
+          "targetDurationMinutes": 13,
+          "movementIDs": [
+            "the-north-makes-bronze-its-own",
+            "the-warrior-carries-his-rank",
+            "a-world-in-one-hold",
+            "when-the-palaces-burn",
+            "the-singer-outlives-the-scribe"
+          ],
+          "situation": "Nordic farms, Aegean warriors and an international ship carry different forms of one bronze civilisation.",
+          "mechanism": "Craft, rank, sacred image, cargo and trained violence make power visible and portable.",
+          "turn": "The palace network burns and its archives fall silent.",
+          "consequence": "Sung heroic memory preserves names, weapons and ideals after the scribal order disappears.",
+          "handoff": "The singer carries the age into the public world of the Greek polis.",
+          "principalNativeInteractionIDs": [
+            "interaction-bronze-europe-the-north-makes-bronze-its-own",
+            "interaction-bronze-europe-a-world-in-one-hold",
+            "interaction-bronze-europe-the-singer-outlives-the-scribe"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-bronze-exchange",
+            "trace-heroic-memory"
+          ],
+          "worldEffectIDs": [
+            "effect-bronze-europe-the-north-makes-bronze-its-own",
+            "effect-bronze-europe-a-world-in-one-hold",
+            "effect-bronze-europe-the-singer-outlives-the-scribe"
+          ]
+        }
+      ]
+    },
+    {
+      "contentID": "greece-and-the-citizen",
+      "editorApproval": "APPROVED",
+      "arcCount": 3,
+      "arcs": [
+        {
+          "arcID": "greece-and-the-citizen-arc-01",
+          "title": "The City Steps into the Light",
+          "targetDurationMinutes": 11,
+          "movementIDs": [
+            "after-the-palace",
+            "the-law-stands",
+            "the-polis-crosses-the-sea",
+            "sparta-makes-citizenship"
+          ],
+          "situation": "Greek communities inherit no restored palace capable of governing them.",
+          "mechanism": "Inscribed law, public office, sanctuary, agora and colonial foundation make authority visible and repeatable.",
+          "turn": "Citizenship becomes a bounded public status rather than attendance upon a king's hall.",
+          "consequence": "The polis establishes the first recognisably European public world.",
+          "handoff": "Sparta and Athens now construct citizen bodies strong enough to command war.",
+          "principalNativeInteractionIDs": [
+            "interaction-greece-and-the-citizen-the-law-stands"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-polis-public-ground"
+          ],
+          "worldEffectIDs": [
+            "effect-greece-and-the-citizen-the-law-stands"
+          ]
+        },
+        {
+          "arcID": "greece-and-the-citizen-arc-02",
+          "title": "Greece Defends Its Freedom",
+          "targetDurationMinutes": 12,
+          "movementIDs": [
+            "athens-makes-a-people",
+            "the-league-follows-sparta",
+            "the-cities-survive-together",
+            "the-people-take-their-place"
+          ],
+          "situation": "Independent cities face Persian imperial power with no single Greek state above them.",
+          "mechanism": "Athenian civic geography and participation combine with Spartan leadership and allied land and sea strength.",
+          "turn": "The coalition survives because different poleis supply capacities none possesses alone.",
+          "consequence": "Greek autonomy endures and citizenship acquires unmatched political reach in Athens.",
+          "handoff": "Victory turns alliance into command and opens a struggle between rival meanings of freedom.",
+          "principalNativeInteractionIDs": [
+            "interaction-greece-and-the-citizen-athens-makes-a-people",
+            "interaction-greece-and-the-citizen-the-people-take-their-place"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-polis-public-ground",
+            "trace-hellenic-coalition"
+          ],
+          "worldEffectIDs": [
+            "effect-greece-and-the-citizen-athens-makes-a-people",
+            "effect-greece-and-the-citizen-the-league-follows-sparta",
+            "effect-greece-and-the-citizen-the-cities-survive-together",
+            "effect-greece-and-the-citizen-the-people-take-their-place"
+          ]
+        },
+        {
+          "arcID": "greece-and-the-citizen-arc-03",
+          "title": "The War for the Greek World",
+          "targetDurationMinutes": 13,
+          "movementIDs": [
+            "two-freedoms-divide-greece",
+            "the-war-finds-no-field",
+            "persia-gives-sparta-the-sea",
+            "victory-puts-constitutions-on-trial"
+          ],
+          "situation": "Athenian protection and Spartan autonomy have become incompatible claims over the Greek world.",
+          "mechanism": "Fortification, fleet, allied resources, Persian finance and constitutional adaptation prolong the war.",
+          "turn": "Sparta wins only after changing its system and mastering the sea.",
+          "consequence": "Hegemony fails to end the civic argument; councils, assemblies and public law continue under later powers.",
+          "handoff": "Rome enters a Mediterranean already filled with citizens and scales their political form.",
+          "principalNativeInteractionIDs": [
+            "interaction-greece-and-the-citizen-persia-gives-sparta-the-sea"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-hellenic-coalition"
+          ],
+          "worldEffectIDs": [
+            "effect-greece-and-the-citizen-persia-gives-sparta-the-sea",
+            "effect-greece-and-the-citizen-victory-puts-constitutions-on-trial"
+          ]
+        }
+      ]
+    },
+    {
+      "contentID": "rome-gathers-europe",
+      "editorApproval": "APPROVED",
+      "arcCount": 3,
+      "arcs": [
+        {
+          "arcID": "rome-gathers-europe-arc-01",
+          "title": "Power Without a King",
+          "targetDurationMinutes": 11,
+          "movementIDs": [
+            "power-after-the-king",
+            "the-people-make-power-answer",
+            "defeat-teaches-rome-to-return",
+            "many-terms-of-defeat"
+          ],
+          "situation": "Rome removes its king but cannot dispense with effective public command.",
+          "mechanism": "Divided offices, public procedures, citizen conflict and graded settlements make power answerable and recoverable.",
+          "turn": "Defeat teaches Rome to restore armies and political relationships instead of accepting final collapse.",
+          "consequence": "A republic with multiple forms of incorporation begins to dominate Italy.",
+          "handoff": "Roads and colonies turn those relationships into an army that can return again and again.",
+          "principalNativeInteractionIDs": [
+            "interaction-rome-gathers-europe-the-people-make-power-answer"
+          ],
+          "supportingSourceInteractionIDs": [
+            "rome-gathers-europe/defeat-teaches-rome-to-return"
+          ],
+          "worldTraceIDs": [
+            "trace-roman-citizenship"
+          ],
+          "worldEffectIDs": [
+            "effect-rome-gathers-europe-the-people-make-power-answer"
+          ]
+        },
+        {
+          "arcID": "rome-gathers-europe-arc-02",
+          "title": "The Italian Engine",
+          "targetDurationMinutes": 12,
+          "movementIDs": [
+            "the-road-makes-an-army",
+            "hannibal-wins-battles",
+            "victory-enters-the-city",
+            "the-allies-demand-the-name"
+          ],
+          "situation": "Rome must assemble and replace forces across a peninsula of unequal allies and citizens.",
+          "mechanism": "Roads, colonies, treaties, allied manpower and differentiated obligations convert territory into sustained war capacity.",
+          "turn": "Hannibal wins great battles but cannot dissolve enough of the alliance system to end the war.",
+          "consequence": "Mediterranean conquest enlarges Rome while Italian allies force citizenship into the centre of the constitutional order.",
+          "handoff": "Long commands and conquered wealth now return to institutions built for annual civic competition.",
+          "principalNativeInteractionIDs": [
+            "interaction-rome-gathers-europe-the-road-makes-an-army",
+            "interaction-rome-gathers-europe-the-allies-demand-the-name"
+          ],
+          "supportingSourceInteractionIDs": [
+            "rome-gathers-europe/hannibal-wins-battles"
+          ],
+          "worldTraceIDs": [
+            "trace-roman-road-system",
+            "trace-roman-citizenship"
+          ],
+          "worldEffectIDs": [
+            "effect-rome-gathers-europe-the-road-makes-an-army",
+            "effect-rome-gathers-europe-the-allies-demand-the-name"
+          ]
+        },
+        {
+          "arcID": "rome-gathers-europe-arc-03",
+          "title": "The Roman Name",
+          "targetDurationMinutes": 12,
+          "movementIDs": [
+            "armies-follow-generals-home",
+            "the-emperor-governs-through-cities",
+            "service-opens-the-gate",
+            "the-name-crosses-the-empire"
+          ],
+          "situation": "Personal armies have broken the Republic while the provinces still require durable government.",
+          "mechanism": "Imperial command rests on professional armies, census, cities, service, local office and widening citizenship.",
+          "turn": "The Roman political identity becomes provincial before Caracalla makes citizenship the normal free status.",
+          "consequence": "Much of Europe lives inside a common Roman civic and legal order.",
+          "handoff": "Christian emperors and bishops inherit a public already joined by law, city and Roman name.",
+          "principalNativeInteractionIDs": [
+            "interaction-rome-gathers-europe-armies-follow-generals-home",
+            "interaction-rome-gathers-europe-service-opens-the-gate"
+          ],
+          "supportingSourceInteractionIDs": [
+            "rome-gathers-europe/the-emperor-governs-through-cities",
+            "rome-gathers-europe/the-name-crosses-the-empire"
+          ],
+          "worldTraceIDs": [
+            "trace-roman-citizenship"
+          ],
+          "worldEffectIDs": [
+            "effect-rome-gathers-europe-armies-follow-generals-home",
+            "effect-rome-gathers-europe-service-opens-the-gate"
+          ]
+        }
+      ]
+    },
+    {
+      "contentID": "empire-takes-cross",
+      "editorApproval": "APPROVED",
+      "arcCount": 3,
+      "arcs": [
+        {
+          "arcID": "empire-takes-cross-arc-01",
+          "title": "The Sign and New Rome",
+          "targetDurationMinutes": 11,
+          "movementIDs": [
+            "a-sign-before-battle",
+            "persecution-ends",
+            "the-emperor-builds",
+            "new-rome-rises"
+          ],
+          "situation": "A persecuted Church meets an emperor seeking victory, unity and a more strategic imperial centre.",
+          "mechanism": "Legal protection, patronage and urban foundation bring Christian worship into public Roman space.",
+          "turn": "Constantine founds New Rome where the Bosporus joins continents and seas.",
+          "consequence": "Christianity gains imperial scale while Constantinople acquires the position from which Rome can continue.",
+          "handoff": "The emperor now summons bishops and makes doctrine an affair of the Roman world.",
+          "principalNativeInteractionIDs": [
+            "interaction-empire-takes-cross-persecution-ends"
+          ],
+          "supportingSourceInteractionIDs": [
+            "empire-takes-cross/the-emperor-builds"
+          ],
+          "worldTraceIDs": [
+            "trace-constantinople-new-rome"
+          ],
+          "worldEffectIDs": [
+            "effect-empire-takes-cross-persecution-ends"
+          ]
+        },
+        {
+          "arcID": "empire-takes-cross-arc-02",
+          "title": "Faith Becomes Imperial Business",
+          "targetDurationMinutes": 13,
+          "movementIDs": [
+            "an-emperor-calls-a-council",
+            "the-creed-survives-emperors",
+            "the-state-confesses",
+            "the-city-grows-behind-walls",
+            "the-bishop-enters-the-city"
+          ],
+          "situation": "Christian bishops possess competing formulations while the empire needs a common public confession.",
+          "mechanism": "Council, creed, imperial action, walls and urban institutions bind Church and state without erasing their distinct authority.",
+          "turn": "The creed survives emperors who try to direct it, while bishops acquire durable civic weight.",
+          "consequence": "Constantinople becomes a fortified Christian capital and Nicene faith an authorised imperial order.",
+          "handoff": "Doctrine, city and office now require lasting forms in law, stone and worship.",
+          "principalNativeInteractionIDs": [
+            "interaction-empire-takes-cross-an-emperor-calls-a-council",
+            "interaction-empire-takes-cross-the-city-grows-behind-walls"
+          ],
+          "supportingSourceInteractionIDs": [
+            "empire-takes-cross/the-creed-survives-emperors",
+            "empire-takes-cross/the-bishop-enters-the-city"
+          ],
+          "worldTraceIDs": [
+            "trace-roman-christian-law",
+            "trace-constantinople-new-rome"
+          ],
+          "worldEffectIDs": [
+            "effect-empire-takes-cross-an-emperor-calls-a-council",
+            "effect-empire-takes-cross-the-city-grows-behind-walls"
+          ]
+        },
+        {
+          "arcID": "empire-takes-cross-arc-03",
+          "title": "Stone, Law and Dome",
+          "targetDurationMinutes": 13,
+          "movementIDs": [
+            "chalcedon-defines",
+            "rome-remains-in-east",
+            "law-gathered-again",
+            "wisdom-builds-a-dome",
+            "restoration-has-a-cost"
+          ],
+          "situation": "The western throne disappears while the eastern Roman state retains capital, law and imperial office.",
+          "mechanism": "Council, codification, architecture and organised restoration make Christian Rome materially visible.",
+          "turn": "Hagia Sophia rises after revolt as Justinian's recovered provinces strain the resources of the centre.",
+          "consequence": "Roman law and Christian kingship survive in a renewed eastern empire facing costly frontiers.",
+          "handoff": "In the west, bishops, monasteries and kings rebuild the inheritance without one emperor.",
+          "principalNativeInteractionIDs": [
+            "interaction-empire-takes-cross-wisdom-builds-a-dome"
+          ],
+          "supportingSourceInteractionIDs": [
+            "empire-takes-cross/law-gathered-again",
+            "empire-takes-cross/restoration-has-a-cost"
+          ],
+          "worldTraceIDs": [
+            "trace-roman-christian-law"
+          ],
+          "worldEffectIDs": [
+            "effect-empire-takes-cross-wisdom-builds-a-dome"
+          ]
+        }
+      ]
+    },
+    {
+      "contentID": "europe-reborn",
+      "editorApproval": "APPROVED",
+      "arcCount": 3,
+      "arcs": [
+        {
+          "arcID": "europe-reborn-arc-01",
+          "title": "Rule Outlives Rome",
+          "targetDurationMinutes": 11,
+          "movementIDs": [
+            "crown-leaves-the-west",
+            "bishop-keeps-the-city",
+            "frank-enters-the-font",
+            "rule-orders-the-day"
+          ],
+          "situation": "Western imperial command recedes while cities, property, literacy and Christian institutions remain.",
+          "mechanism": "Bishops, baptism and monastic rule convert inherited resources into government, legitimacy and durable time.",
+          "turn": "A rule copied across borders proves that an institution can survive the ruler and realm around it.",
+          "consequence": "Roman Christian civilisation acquires local bodies capable of carrying it through political fragmentation.",
+          "handoff": "Kingship now joins sacred rite, conquest and the written instruments of wider government.",
+          "principalNativeInteractionIDs": [
+            "interaction-europe-reborn-bishop-keeps-the-city",
+            "interaction-europe-reborn-rule-orders-the-day"
+          ],
+          "supportingSourceInteractionIDs": [
+            "europe-reborn/frank-enters-the-font"
+          ],
+          "worldTraceIDs": [
+            "trace-written-christian-commonwealth",
+            "trace-monastic-rule"
+          ],
+          "worldEffectIDs": [
+            "effect-europe-reborn-bishop-keeps-the-city",
+            "effect-europe-reborn-rule-orders-the-day"
+          ]
+        },
+        {
+          "arcID": "europe-reborn-arc-02",
+          "title": "The Written Commonwealth",
+          "targetDurationMinutes": 13,
+          "movementIDs": [
+            "king-receives-the-oil",
+            "frontier-enters-by-sword-and-font",
+            "word-travels-further-than-king",
+            "rome-crowns-western-emperor",
+            "heirs-divide-the-realm"
+          ],
+          "situation": "Frankish rulers need legitimacy and reach beyond the movement of their own court.",
+          "mechanism": "Anointing, conquest, capitulary, corrected book, delegated judgment and imperial title carry authority across distance.",
+          "turn": "The heirs divide the realm, but the written and Christian commonwealth survives the dynasty's partition.",
+          "consequence": "Europe can retain shared institutions while political centres multiply.",
+          "handoff": "Northern violence and eastern missions test how far the commonwealth can expand.",
+          "principalNativeInteractionIDs": [
+            "interaction-europe-reborn-word-travels-further-than-king",
+            "interaction-europe-reborn-heirs-divide-the-realm"
+          ],
+          "supportingSourceInteractionIDs": [
+            "europe-reborn/frontier-enters-by-sword-and-font"
+          ],
+          "worldTraceIDs": [
+            "trace-written-christian-commonwealth"
+          ],
+          "worldEffectIDs": [
+            "effect-europe-reborn-word-travels-further-than-king",
+            "effect-europe-reborn-heirs-divide-the-realm"
+          ]
+        },
+        {
+          "arcID": "europe-reborn-arc-03",
+          "title": "Europe Meets at Gniezno",
+          "targetDurationMinutes": 13,
+          "movementIDs": [
+            "shores-burn-and-connect",
+            "imperial-claim-moves-east",
+            "rulers-choose-christian-future",
+            "two-christian-roads-reach-north",
+            "europe-meets-at-gniezno"
+          ],
+          "situation": "Scandinavian ships, eastern rulers and rival mission roads enlarge Europe's political and Christian field.",
+          "mechanism": "Trade, conquest, baptism, language, alphabet, shrine, gift and archbishopric create recognised centres.",
+          "turn": "At Gniezno an emperor recognises a Polish Christian order without absorbing it.",
+          "consequence": "Europe can meet as one civilisation through several rulers and churches.",
+          "handoff": "That plurality sharpens the conflict over who appoints bishops and possesses ecclesiastical office.",
+          "principalNativeInteractionIDs": [
+            "interaction-europe-reborn-two-christian-roads-reach-north"
+          ],
+          "supportingSourceInteractionIDs": [
+            "europe-reborn/shores-burn-and-connect",
+            "europe-reborn/europe-meets-at-gniezno"
+          ],
+          "worldTraceIDs": [
+            "trace-written-christian-commonwealth"
+          ],
+          "worldEffectIDs": [
+            "effect-europe-reborn-two-christian-roads-reach-north"
+          ]
+        }
+      ]
+    },
+    {
+      "contentID": "papal-revolution",
+      "editorApproval": "APPROVED",
+      "arcCount": 3,
+      "arcs": [
+        {
+          "arcID": "papal-revolution-arc-01",
+          "title": "A Papacy Learns to Govern",
+          "targetDurationMinutes": 11,
+          "movementIDs": [
+            "emperor-judges-three-popes",
+            "reformers-build-government",
+            "cardinals-claim-election",
+            "milan-streets-judge-clergy"
+          ],
+          "situation": "Imperial intervention rescues the Roman see while revealing how dependent its reform remains.",
+          "mechanism": "Personnel, synods, legates, privileges and ordered election turn reform into repeatable government.",
+          "turn": "Milan's urban struggle makes clerical office a public jurisdictional question.",
+          "consequence": "The papacy acquires instruments able to project judgment beyond Rome.",
+          "handoff": "The bishop's combined altar, estate and royal service brings the two governments into direct collision.",
+          "principalNativeInteractionIDs": [
+            "interaction-papal-revolution-reformers-build-government"
+          ],
+          "supportingSourceInteractionIDs": [
+            "papal-revolution/cardinals-claim-election",
+            "papal-revolution/milan-streets-judge-clergy"
+          ],
+          "worldTraceIDs": [
+            "trace-canonical-election"
+          ],
+          "worldEffectIDs": [
+            "effect-papal-revolution-reformers-build-government"
+          ]
+        },
+        {
+          "arcID": "papal-revolution-arc-02",
+          "title": "Ring and Crown",
+          "targetDurationMinutes": 12,
+          "movementIDs": [
+            "bishop-serves-altar-crown",
+            "gregory-forbids-kings-hand",
+            "king-pope-depose",
+            "road-ends-canossa"
+          ],
+          "situation": "Bishops hold sacramental office and temporal power that neither pope nor king can abandon.",
+          "mechanism": "Appointment, prohibition, excommunication, oath, princely reception and penance make authority depend on recognised acts.",
+          "turn": "Canossa restores communion without deciding the German crown or the boundary of power.",
+          "consequence": "The conflict survives its most famous reconciliation and becomes a struggle between organised jurisdictions.",
+          "handoff": "War, imprisonment and failed settlements now force the acts of investiture apart.",
+          "principalNativeInteractionIDs": [
+            "interaction-papal-revolution-bishop-serves-altar-crown",
+            "interaction-papal-revolution-road-ends-canossa"
+          ],
+          "supportingSourceInteractionIDs": [
+            "papal-revolution/gregory-forbids-kings-hand"
+          ],
+          "worldTraceIDs": [
+            "trace-dual-jurisdiction"
+          ],
+          "worldEffectIDs": [
+            "effect-papal-revolution-bishop-serves-altar-crown",
+            "effect-papal-revolution-road-ends-canossa"
+          ]
+        },
+        {
+          "arcID": "papal-revolution-arc-03",
+          "title": "Two Jurisdictions",
+          "targetDurationMinutes": 12,
+          "movementIDs": [
+            "henry-takes-rome",
+            "compromise-beyond-empire",
+            "emperor-makes-pope-prisoner",
+            "worms-divides-ring-sceptre"
+          ],
+          "situation": "Possession of Rome and coercive privilege fail to create a settlement either government can sustain.",
+          "mechanism": "Regional compromise, reciprocal instruments and distinct ceremonies divide spiritual investiture from temporal regalia.",
+          "turn": "Worms makes each side recognise acts that belong to the other.",
+          "consequence": "Latin Europe contains two public jurisdictions that cannot fully absorb one another.",
+          "handoff": "Other European bodies can now seek office, property and jurisdiction in their own name.",
+          "principalNativeInteractionIDs": [
+            "interaction-papal-revolution-worms-divides-ring-sceptre"
+          ],
+          "supportingSourceInteractionIDs": [
+            "papal-revolution/henry-takes-rome",
+            "papal-revolution/emperor-makes-pope-prisoner"
+          ],
+          "worldTraceIDs": [
+            "trace-dual-jurisdiction"
+          ],
+          "worldEffectIDs": [
+            "effect-papal-revolution-worms-divides-ring-sceptre"
+          ]
+        }
+      ]
+    },
+    {
+      "contentID": "society-beyond-kin",
+      "editorApproval": "APPROVED",
+      "arcCount": 3,
+      "arcs": [
+        {
+          "arcID": "society-beyond-kin-arc-01",
+          "title": "Marriage Leaves the Clan",
+          "targetDurationMinutes": 11,
+          "movementIDs": [
+            "marriage-is-forbidden",
+            "circle-opens-outward",
+            "two-voices-make-bond",
+            "land-leaves-lineage"
+          ],
+          "situation": "Lineages keep marriage, inheritance and obligation inside dense kin networks.",
+          "mechanism": "The Church widens prohibited kin, makes consent decisive and receives land into enduring religious houses.",
+          "turn": "Two speaking persons become the legal makers of marriage.",
+          "consequence": "Households must seek bonds beyond the clan and property can leave the lineage circuit.",
+          "handoff": "A monastery demonstrates how unrelated people can become one durable house.",
+          "principalNativeInteractionIDs": [
+            "interaction-society-beyond-kin-circle-opens-outward"
+          ],
+          "supportingSourceInteractionIDs": [
+            "society-beyond-kin/two-voices-make-bond"
+          ],
+          "worldTraceIDs": [
+            "trace-consent-marriage"
+          ],
+          "worldEffectIDs": [
+            "effect-society-beyond-kin-circle-opens-outward"
+          ]
+        },
+        {
+          "arcID": "society-beyond-kin-arc-02",
+          "title": "Bodies Made by Choice",
+          "targetDurationMinutes": 12,
+          "movementIDs": [
+            "rule-makes-strangers-house",
+            "guild-creates-chosen-kin",
+            "oath-makes-people",
+            "commune-governs-own-name"
+          ],
+          "situation": "Europeans need reliable cooperation among people not born into one lineage.",
+          "mechanism": "Vow, rule, common property, mutual aid, oath, election and seal construct monasteries, guilds and communes.",
+          "turn": "A sworn crowd acquires officers and acts as one government.",
+          "consequence": "Chosen association becomes a practical source of authority, care and civic order.",
+          "handoff": "The common body must now keep property and identity while its members change.",
+          "principalNativeInteractionIDs": [
+            "interaction-society-beyond-kin-rule-makes-strangers-house",
+            "interaction-society-beyond-kin-commune-governs-own-name"
+          ],
+          "supportingSourceInteractionIDs": [
+            "society-beyond-kin/guild-creates-chosen-kin"
+          ],
+          "worldTraceIDs": [
+            "trace-corporate-body"
+          ],
+          "worldEffectIDs": [
+            "effect-society-beyond-kin-rule-makes-strangers-house",
+            "effect-society-beyond-kin-commune-governs-own-name"
+          ]
+        },
+        {
+          "arcID": "society-beyond-kin-arc-03",
+          "title": "The Institution Outlives Us",
+          "targetDurationMinutes": 12,
+          "movementIDs": [
+            "common-chest-many-keys",
+            "law-gives-body-name",
+            "students-become-nation",
+            "institution-outlives-us"
+          ],
+          "situation": "Shared property and distant members expose associations to mistrust and mortality.",
+          "mechanism": "Divided custody, legal personality, privilege, record and succession separate the body from any one member.",
+          "turn": "Students abroad use corporate organisation to become powerful strangers.",
+          "consequence": "Europe learns to build institutions whose offices, possessions and purposes endure across generations.",
+          "handoff": "These bodies send promises, ventures and capital farther than their founders can travel.",
+          "principalNativeInteractionIDs": [
+            "interaction-society-beyond-kin-institution-outlives-us"
+          ],
+          "supportingSourceInteractionIDs": [
+            "society-beyond-kin/common-chest-many-keys",
+            "society-beyond-kin/students-become-nation"
+          ],
+          "worldTraceIDs": [
+            "trace-corporate-body"
+          ],
+          "worldEffectIDs": [
+            "effect-society-beyond-kin-institution-outlives-us"
+          ]
+        }
+      ]
+    },
+    {
+      "contentID": "medieval-commercial-revolution",
+      "editorApproval": "APPROVED",
+      "arcCount": 2,
+      "arcs": [
+        {
+          "arcID": "medieval-commercial-revolution-arc-01",
+          "title": "The Written Voyage",
+          "targetDurationMinutes": 14,
+          "movementIDs": [
+            "ports-wake-before-kingdoms",
+            "notary-gives-voyage-memory",
+            "fair-keeps-its-date",
+            "one-stays-one-sails",
+            "loss-acquires-a-limit",
+            "contract-becomes-route"
+          ],
+          "situation": "Mediterranean merchants act across rulers, currencies and seas no single government controls.",
+          "mechanism": "Notary, fair calendar, commenda and bounded exposure give the voyage a durable legal form.",
+          "turn": "The contract possesses a route and a limit of loss before the ship possesses a favourable wind.",
+          "consequence": "Strangers can join capital and skill in repeatable enterprise without placing every possession at risk.",
+          "handoff": "The venture now requires courts, account money and settlement across the continent.",
+          "principalNativeInteractionIDs": [
+            "interaction-medieval-commercial-revolution-fair-keeps-its-date",
+            "interaction-medieval-commercial-revolution-contract-becomes-route"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-ledger-road",
+            "trace-bounded-commercial-risk"
+          ],
+          "worldEffectIDs": [
+            "effect-medieval-commercial-revolution-fair-keeps-its-date",
+            "effect-medieval-commercial-revolution-contract-becomes-route"
+          ]
+        },
+        {
+          "arcID": "medieval-commercial-revolution-arc-02",
+          "title": "The Promise Travels",
+          "targetDurationMinutes": 14,
+          "movementIDs": [
+            "count-guards-the-fair",
+            "money-becomes-language",
+            "promise-crosses-alps",
+            "ledger-sees-the-house",
+            "sea-can-be-insured",
+            "ledger-road-reaches-north"
+          ],
+          "situation": "Long-distance exchange remains vulnerable to unsafe roads, changing coin and maritime danger.",
+          "mechanism": "Safe conduct, money of account, netting, ledger and insurance make obligation and risk portable.",
+          "turn": "Metal settles only the remainder after written claims have crossed the Alps.",
+          "consequence": "European commerce gains memory, priced risk and routes capable of joining north and south.",
+          "handoff": "At Bruges, the ledger road meets the shipping world of Lübeck and Bergen.",
+          "principalNativeInteractionIDs": [
+            "interaction-medieval-commercial-revolution-promise-crosses-alps",
+            "interaction-medieval-commercial-revolution-sea-can-be-insured"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-ledger-road",
+            "trace-bounded-commercial-risk"
+          ],
+          "worldEffectIDs": [
+            "effect-medieval-commercial-revolution-promise-crosses-alps",
+            "effect-medieval-commercial-revolution-sea-can-be-insured"
+          ]
+        }
+      ]
+    },
+    {
+      "contentID": "hanseatic-north",
+      "editorApproval": "APPROVED",
+      "arcCount": 2,
+      "arcs": [
+        {
+          "arcID": "hanseatic-north-arc-01",
+          "title": "The Northern Year",
+          "targetDurationMinutes": 14,
+          "movementIDs": [
+            "dawn-comes-to-bryggen",
+            "lofoten-sends-summer-cargo",
+            "grain-returns-same-water",
+            "crown-grants-door",
+            "yard-becomes-government",
+            "privilege-must-be-defended"
+          ],
+          "situation": "Norway's seasonal catch and Baltic grain must cross long, cold routes to reach the people who need them.",
+          "mechanism": "Drying, navigation, reciprocal cargo, privilege, yard government and discipline make Bergen a northern commercial hinge.",
+          "turn": "The Bryggen yard becomes a corporate machine able to preserve foreign rights in daily work.",
+          "consequence": "Distance becomes a durable exchange between coast, city and crown.",
+          "handoff": "The same discipline must now join separate city governments into common action.",
+          "principalNativeInteractionIDs": [
+            "interaction-hanseatic-north-lofoten-sends-summer-cargo",
+            "interaction-hanseatic-north-yard-becomes-government"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-hanseatic-field",
+            "trace-delegated-city-covenant"
+          ],
+          "worldEffectIDs": [
+            "effect-hanseatic-north-lofoten-sends-summer-cargo",
+            "effect-hanseatic-north-yard-becomes-government"
+          ]
+        },
+        {
+          "arcID": "hanseatic-north-arc-02",
+          "title": "Cities Act Together",
+          "targetDurationMinutes": 14,
+          "movementIDs": [
+            "lubeck-joins-two-seas",
+            "agreement-becomes-fleet",
+            "markets-close-together",
+            "four-foreign-houses-watch-routes",
+            "edges-write-back",
+            "north-learns-collective-power"
+          ],
+          "situation": "No Hanseatic sovereign can command the towns, their rulers or the exposed ends of trade.",
+          "mechanism": "Delegated consent, diet, embargo, contributed fleet and four Kontore turn agreement into selective force and intelligence.",
+          "turn": "Separate seals authorise one covenant without surrendering the governments behind them.",
+          "consequence": "Northern cities can bargain with kings and defend a continental field of trade together.",
+          "handoff": "The Empire gives this European habit of agreement a larger constitutional home.",
+          "principalNativeInteractionIDs": [
+            "interaction-hanseatic-north-agreement-becomes-fleet",
+            "interaction-hanseatic-north-edges-write-back"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-delegated-city-covenant",
+            "trace-hanseatic-field"
+          ],
+          "worldEffectIDs": [
+            "effect-hanseatic-north-agreement-becomes-fleet",
+            "effect-hanseatic-north-edges-write-back"
+          ]
+        }
+      ]
+    },
+    {
+      "contentID": "empire-many-liberties",
+      "editorApproval": "APPROVED",
+      "arcCount": 2,
+      "arcs": [
+        {
+          "arcID": "empire-many-liberties-arc-01",
+          "title": "The Travelling Crown",
+          "targetDurationMinutes": 14,
+          "movementIDs": [
+            "rome-crowns-saxon",
+            "crown-has-no-capital",
+            "rights-accumulate",
+            "city-sends-law-east",
+            "princes-hold-realm",
+            "seven-electors-make-one-king"
+          ],
+          "situation": "A Roman imperial crown governs central Europe without a permanent capital or uniform administrative state.",
+          "mechanism": "Itinerary, charter, custom, urban law, princely right and electoral procedure carry authority across a plural realm.",
+          "turn": "The Golden Bull makes succession dependable without making the crown hereditary.",
+          "consequence": "The Empire turns accumulated rights and election into a durable constitution.",
+          "handoff": "Estates now need permanent procedures for law, peace and common action.",
+          "principalNativeInteractionIDs": [
+            "interaction-empire-many-liberties-crown-has-no-capital",
+            "interaction-empire-many-liberties-seven-electors-make-one-king"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-imperial-liberties"
+          ],
+          "worldEffectIDs": [
+            "effect-empire-many-liberties-crown-has-no-capital",
+            "effect-empire-many-liberties-seven-electors-make-one-king"
+          ]
+        },
+        {
+          "arcID": "empire-many-liberties-arc-02",
+          "title": "Liberty Inside Order",
+          "targetDurationMinutes": 14,
+          "movementIDs": [
+            "estates-enter-room",
+            "diet-outlaws-feud",
+            "circles-put-peace-on-map",
+            "augsburg-makes-division-governable",
+            "westphalia-keeps-mosaic",
+            "empire-ends-liberties-remain"
+          ],
+          "situation": "Feud, religious division and territorial variety threaten the public peace.",
+          "mechanism": "Diet, court, circles and confessional settlement give unequal powers shared instruments of government.",
+          "turn": "Westphalia preserves the mosaic by making negotiation and jurisdiction continuous.",
+          "consequence": "Real liberties endure because they live inside a common imperial order.",
+          "handoff": "Those distributed powers now assemble to defend Christian Europe at its frontiers.",
+          "principalNativeInteractionIDs": [
+            "interaction-empire-many-liberties-diet-outlaws-feud",
+            "interaction-empire-many-liberties-westphalia-keeps-mosaic"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-imperial-public-peace"
+          ],
+          "worldEffectIDs": [
+            "effect-empire-many-liberties-diet-outlaws-feud",
+            "effect-empire-many-liberties-westphalia-keeps-mosaic"
+          ]
+        }
+      ]
+    },
+    {
+      "contentID": "europe-holds-the-line",
+      "editorApproval": "APPROVED",
+      "arcCount": 2,
+      "arcs": [
+        {
+          "arcID": "europe-holds-the-line-arc-01",
+          "title": "The Broken Frontiers",
+          "targetDurationMinutes": 15,
+          "movementIDs": [
+            "kingdom-falls-one-campaign",
+            "northern-valleys-keep-crown",
+            "toledo-changes-hands",
+            "las-navas-opens-south",
+            "anatolia-breaks-open",
+            "europe-answers-clermont",
+            "christians-break-eastern-wall"
+          ],
+          "situation": "Christian polities lose Iberia and Anatolia to external conquest while western and eastern institutions remain divided.",
+          "mechanism": "Northern refuge, chartered settlement, coalition battle and armed pilgrimage rebuild positions after catastrophe.",
+          "turn": "The Fourth Crusade breaks Constantinople's defence from inside Christendom.",
+          "consequence": "European survival depends on repeatedly rebuilding lines that victories and internal fracture can both destroy.",
+          "handoff": "The eastern Roman capital falls, and the defence moves to Belgrade, the Danube and the Mediterranean.",
+          "principalNativeInteractionIDs": [
+            "interaction-europe-holds-the-line-northern-valleys-keep-crown",
+            "interaction-europe-holds-the-line-europe-answers-clermont"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-christian-frontier",
+            "trace-coalition-defence"
+          ],
+          "worldEffectIDs": [
+            "effect-europe-holds-the-line-northern-valleys-keep-crown",
+            "effect-europe-holds-the-line-europe-answers-clermont"
+          ]
+        },
+        {
+          "arcID": "europe-holds-the-line-arc-02",
+          "title": "The Frontier Turns",
+          "targetDurationMinutes": 15,
+          "movementIDs": [
+            "constantinople-falls-belgrade-holds",
+            "road-reaches-vienna",
+            "living-wall-guards-croatia",
+            "malta-holds-four-months",
+            "lepanto-breaks-battle-fleet",
+            "roads-converge-vienna",
+            "frontier-turns"
+          ],
+          "situation": "Ottoman conquest presses through Constantinople and the Danube toward central Europe.",
+          "mechanism": "Fortified cities, military-frontier communities, island harbours, coalition fleets and relief armies hold successive gates.",
+          "turn": "Vienna's defence in 1683 buys time for European roads to converge in a victorious relief.",
+          "consequence": "Coalition war recovers Hungary and Karlowitz fixes a new frontier farther south-east.",
+          "handoff": "Defensive ships, finance and maps now become the equipment of oceanic expansion.",
+          "principalNativeInteractionIDs": [
+            "interaction-europe-holds-the-line-living-wall-guards-croatia",
+            "interaction-europe-holds-the-line-frontier-turns"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-christian-frontier",
+            "trace-coalition-defence"
+          ],
+          "worldEffectIDs": [
+            "effect-europe-holds-the-line-living-wall-guards-croatia",
+            "effect-europe-holds-the-line-frontier-turns"
+          ]
+        }
+      ]
+    },
+    {
+      "contentID": "europe-turns-seaward",
+      "editorApproval": "APPROVED",
+      "arcCount": 2,
+      "arcs": [
+        {
+          "arcID": "europe-turns-seaward-arc-01",
+          "title": "The Atlantic Opens",
+          "targetDurationMinutes": 14,
+          "movementIDs": [
+            "portugal-takes-african-gate",
+            "islands-teach-ocean",
+            "way-home-bends-west",
+            "eastern-trade-western-price",
+            "dias-finds-turn",
+            "chart-reaches-calicut"
+          ],
+          "situation": "Western European kingdoms face the Atlantic as an exposed edge and eastern trade through routes they do not command.",
+          "mechanism": "Conquest, island settlement, return winds, repeated reconnaissance and state-held charts turn ocean uncertainty into learned geography.",
+          "turn": "The Cape route reaches Calicut by joining Portuguese experience to Indian Ocean pilotage.",
+          "consequence": "Europe gains direct strategic access to the Indian Ocean.",
+          "handoff": "A second road opens west while royal law tries to divide an ocean still incompletely measured.",
+          "principalNativeInteractionIDs": [
+            "interaction-europe-turns-seaward-way-home-bends-west",
+            "interaction-europe-turns-seaward-chart-reaches-calicut"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-atlantic-sea-road"
+          ],
+          "worldEffectIDs": [
+            "effect-europe-turns-seaward-way-home-bends-west",
+            "effect-europe-turns-seaward-chart-reaches-calicut"
+          ]
+        },
+        {
+          "arcID": "europe-turns-seaward-arc-02",
+          "title": "The World Road",
+          "targetDurationMinutes": 14,
+          "movementIDs": [
+            "columbus-crosses-other-way",
+            "meridian-divides-unknown-world",
+            "one-ship-closes-circle",
+            "cannon-holds-narrow-water",
+            "voyage-enters-archive",
+            "rival-europe-takes-sea"
+          ],
+          "situation": "Iberian crowns enter lands and oceans their charts and legal lines cannot yet contain.",
+          "mechanism": "Atlantic winds, treaty, circumnavigation, cannon, fortified bases, pilot archives and chartered capital make voyages repeatable.",
+          "turn": "One surviving ship closes the world's ocean circle and rival European states inherit the routes.",
+          "consequence": "The coast becomes a point of departure for a competitive European ocean system.",
+          "handoff": "The same print, state capacity and rivalry now divide Latin Christendom at home.",
+          "principalNativeInteractionIDs": [
+            "interaction-europe-turns-seaward-meridian-divides-unknown-world",
+            "interaction-europe-turns-seaward-cannon-holds-narrow-water"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-atlantic-sea-road",
+            "trace-pilot-archive"
+          ],
+          "worldEffectIDs": [
+            "effect-europe-turns-seaward-meridian-divides-unknown-world",
+            "effect-europe-turns-seaward-cannon-holds-narrow-water",
+            "effect-europe-turns-seaward-voyage-enters-archive"
+          ]
+        }
+      ]
+    },
+    {
+      "contentID": "reformation",
+      "editorApproval": "APPROVED",
+      "arcCount": 2,
+      "arcs": [
+        {
+          "arcID": "reformation-arc-01",
+          "title": "The Argument Escapes",
+          "targetDurationMinutes": 15,
+          "movementIDs": [
+            "indulgence-enters-print",
+            "worms-judges-the-book",
+            "vernacular-enters-the-house",
+            "reform-takes-second-road",
+            "prince-builds-a-church",
+            "catholic-europe-renews",
+            "augsburg-maps-division"
+          ],
+          "situation": "A university dispute enters a Latin Church whose courts and rulers expect argument to remain governable.",
+          "mechanism": "Print, translation, sermon, song, civic ordinance, school and visitation make rival confessions reproducible.",
+          "turn": "Catholic renewal answers Protestant institution-building with its own disciplined European programme.",
+          "consequence": "Augsburg contains Catholic and Lutheran division while leaving dangerous constitutional fault lines.",
+          "handoff": "Bohemian revolt turns those fault lines into a war the confessions cannot control.",
+          "principalNativeInteractionIDs": [
+            "interaction-reformation-indulgence-enters-print",
+            "interaction-reformation-prince-builds-a-church"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-confessional-print-network"
+          ],
+          "worldEffectIDs": [
+            "effect-reformation-indulgence-enters-print",
+            "effect-reformation-prince-builds-a-church"
+          ]
+        },
+        {
+          "arcID": "reformation-arc-02",
+          "title": "The Empire Burns and Survives",
+          "targetDurationMinutes": 15,
+          "movementIDs": [
+            "prague-window-opens-war",
+            "army-learns-to-feed-itself",
+            "magdeburg-becomes-warning",
+            "sweden-turns-the-field",
+            "war-outlives-confession",
+            "envoys-negotiate-under-arms",
+            "law-remains-after-armies"
+          ],
+          "situation": "Revolt in Prague joins confession, princely right and dynastic rivalry inside the Empire.",
+          "mechanism": "Contribution armies, allied finance, field adaptation, atrocity print and continuous negotiation sustain and eventually contain the war.",
+          "turn": "The struggle outlives confession and becomes a European contest over Habsburg power.",
+          "consequence": "Westphalia ends the imperial war and preserves religious plurality inside law.",
+          "handoff": "The surviving Habsburg crowns build another plural order along the Danube.",
+          "principalNativeInteractionIDs": [
+            "interaction-reformation-army-learns-to-feed-itself",
+            "interaction-reformation-envoys-negotiate-under-arms"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-westphalian-settlement"
+          ],
+          "worldEffectIDs": [
+            "effect-reformation-army-learns-to-feed-itself",
+            "effect-reformation-envoys-negotiate-under-arms"
+          ]
+        }
+      ]
+    },
+    {
+      "contentID": "habsburg-europe",
+      "editorApproval": "APPROVED",
+      "arcCount": 2,
+      "arcs": [
+        {
+          "arcID": "habsburg-europe-arc-01",
+          "title": "The Danube House",
+          "targetDurationMinutes": 15,
+          "movementIDs": [
+            "three-crowns-seek-a-king",
+            "frontier-becomes-an-institution",
+            "danube-opens-eastward",
+            "succession-becomes-common-law",
+            "maria-theresa-counts-the-realm",
+            "school-road-post",
+            "joseph-makes-service-a-vocation"
+          ],
+          "situation": "Dynastic succession joins three crowns under Ottoman pressure without merging their laws or political identities.",
+          "mechanism": "Frontier service, ratified succession, fiscal knowledge, roads, post, schools and civil office give the monarchy common work.",
+          "turn": "Maria Theresa and Joseph make continuous service rather than emergency the vocation of government.",
+          "consequence": "Distinct lands acquire a practical common future under one dynasty.",
+          "handoff": "The monarchy now enters the age of balance, revolution, constitution and mass transport.",
+          "principalNativeInteractionIDs": [
+            "interaction-habsburg-europe-three-crowns-seek-a-king",
+            "interaction-habsburg-europe-school-road-post"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-danube-common-home"
+          ],
+          "worldEffectIDs": [
+            "effect-habsburg-europe-three-crowns-seek-a-king",
+            "effect-habsburg-europe-school-road-post"
+          ]
+        },
+        {
+          "arcID": "habsburg-europe-arc-02",
+          "title": "The Braided Monarchy",
+          "targetDurationMinutes": 15,
+          "movementIDs": [
+            "vienna-balances-europe",
+            "revolution-frees-the-field",
+            "two-governments-share-a-crown",
+            "rights-enter-the-court",
+            "rails-braid-the-crownlands",
+            "city-holds-several-homes",
+            "war-breaks-the-braid"
+          ],
+          "situation": "Napoleonic war and national politics test whether several crownlands can remain one modern political home.",
+          "mechanism": "Diplomacy, emancipation, compromise, rights, court, railway and multilingual municipal life braid the lands together.",
+          "turn": "Mass suffrage enlarges participation just before total war replaces bargaining with command and hunger.",
+          "consequence": "The common home collapses in 1918, leaving its institutions and routes in successor states.",
+          "handoff": "Its measured infrastructure points to the scientific network that taught Europe to accumulate knowledge.",
+          "principalNativeInteractionIDs": [
+            "interaction-habsburg-europe-two-governments-share-a-crown",
+            "interaction-habsburg-europe-rails-braid-the-crownlands"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-danube-common-home",
+            "trace-habsburg-rail-braid"
+          ],
+          "worldEffectIDs": [
+            "effect-habsburg-europe-two-governments-share-a-crown",
+            "effect-habsburg-europe-rails-braid-the-crownlands"
+          ]
+        }
+      ]
+    },
+    {
+      "contentID": "scientific-revolution",
+      "editorApproval": "APPROVED",
+      "arcCount": 2,
+      "arcs": [
+        {
+          "arcID": "scientific-revolution-arc-01",
+          "title": "Nature Answers Measure",
+          "targetDurationMinutes": 14,
+          "movementIDs": [
+            "earth-becomes-a-planet",
+            "anatomist-takes-the-knife",
+            "tycho-builds-an-observatory",
+            "mars-refuses-the-circle",
+            "glass-adds-new-heavens",
+            "blood-completes-the-circuit"
+          ],
+          "situation": "Ancient texts command learning while observations of planet and body expose answers the inherited page cannot secure.",
+          "mechanism": "Print, dissection, observatory, exact table, glass and quantified demonstration place claims against the world.",
+          "turn": "Kepler trusts a measured discrepancy over the perfect circle.",
+          "consequence": "Cosmos and body become systems that can be corrected by shared observation.",
+          "handoff": "Mathematics and controlled experiment must now make invisible forces portable.",
+          "principalNativeInteractionIDs": [
+            "interaction-scientific-revolution-earth-becomes-a-planet",
+            "interaction-scientific-revolution-mars-refuses-the-circle"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-measured-page"
+          ],
+          "worldEffectIDs": [
+            "effect-scientific-revolution-earth-becomes-a-planet",
+            "effect-scientific-revolution-mars-refuses-the-circle"
+          ]
+        },
+        {
+          "arcID": "scientific-revolution-arc-02",
+          "title": "Knowledge Becomes Cumulative",
+          "targetDurationMinutes": 14,
+          "movementIDs": [
+            "geometry-takes-the-page",
+            "air-receives-weight",
+            "vacuum-enters-the-room",
+            "observation-enters-the-register",
+            "lensmakers-open-small-worlds",
+            "one-law-binds-earth-and-sky"
+          ],
+          "situation": "New observations remain fragile if confined to one instrument, room or investigator.",
+          "mechanism": "Geometry, barometer, pump, register, journal, lens and correspondence turn trials into public equipment.",
+          "turn": "Societies and printers give a result an address where others can preserve and attack it.",
+          "consequence": "Newton can bind earth and sky using a European inheritance accumulated across instruments and minds.",
+          "handoff": "The Dutch Republic gathers the shipping, credit, print and information that carry this knowledge.",
+          "principalNativeInteractionIDs": [
+            "interaction-scientific-revolution-geometry-takes-the-page",
+            "interaction-scientific-revolution-observation-enters-the-register"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-measured-page",
+            "trace-republic-of-letters"
+          ],
+          "worldEffectIDs": [
+            "effect-scientific-revolution-geometry-takes-the-page",
+            "effect-scientific-revolution-observation-enters-the-register"
+          ]
+        }
+      ]
+    },
+    {
+      "contentID": "dutch-republic",
+      "editorApproval": "APPROVED",
+      "arcCount": 2,
+      "arcs": [
+        {
+          "arcID": "dutch-republic-arc-01",
+          "title": "A Republic Rises",
+          "targetDurationMinutes": 14,
+          "movementIDs": [
+            "beggars-take-brill",
+            "provinces-make-a-union",
+            "antwerp-moves-north",
+            "fluyt-carries-the-baltic",
+            "capital-outlives-the-voyage",
+            "lake-becomes-a-ledger"
+          ],
+          "situation": "Revolt controls towns and waterways but lacks one crown capable of commanding all provinces.",
+          "mechanism": "Union, migration, efficient shipping, permanent joint capital and common engineering turn distributed authority into capacity.",
+          "turn": "Capital remains with the VOC while investors can leave through transferable claims.",
+          "consequence": "A small republic gains durable reach over ships, trade and reclaimed land.",
+          "handoff": "Its water, money and information now require institutions of trust.",
+          "principalNativeInteractionIDs": [
+            "interaction-dutch-republic-provinces-make-a-union",
+            "interaction-dutch-republic-capital-outlives-the-voyage"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-water-government",
+            "trace-dutch-credit-machine"
+          ],
+          "worldEffectIDs": [
+            "effect-dutch-republic-provinces-make-a-union",
+            "effect-dutch-republic-capital-outlives-the-voyage"
+          ]
+        },
+        {
+          "arcID": "dutch-republic-arc-02",
+          "title": "The System of Trust",
+          "targetDurationMinutes": 14,
+          "movementIDs": [
+            "bank-makes-money-stable",
+            "the-bourse-prices-the-world",
+            "republic-borrows-from-its-citizens",
+            "city-opens-a-market-for-mind",
+            "water-line-saves-the-republic",
+            "system-crosses-the-north-sea"
+          ],
+          "situation": "Worn coin, distant news, public debt and existential invasion threaten a federation without a royal treasury.",
+          "mechanism": "Municipal ledger money, exchange pricing, audited taxation, print and coordinated water defence make cooperation enforceable.",
+          "turn": "The republic reverses its own drainage system to stop invasion in 1672.",
+          "consequence": "Dutch methods of credit, banking and securities cross the North Sea into a larger constitutional power.",
+          "handoff": "The exchange keeps speaking as European information becomes public judgment.",
+          "principalNativeInteractionIDs": [
+            "interaction-dutch-republic-the-bourse-prices-the-world",
+            "interaction-dutch-republic-water-line-saves-the-republic"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-dutch-credit-machine",
+            "trace-water-government"
+          ],
+          "worldEffectIDs": [
+            "effect-dutch-republic-the-bourse-prices-the-world",
+            "effect-dutch-republic-water-line-saves-the-republic"
+          ]
+        }
+      ]
+    },
+    {
+      "contentID": "enlightenment-public-opinion",
+      "editorApproval": "APPROVED",
+      "arcCount": 2,
+      "arcs": [
+        {
+          "arcID": "enlightenment-public-opinion-arc-01",
+          "title": "Europe Learns to Compare",
+          "targetDurationMinutes": 14,
+          "movementIDs": [
+            "coffeehouse-makes-a-present",
+            "amsterdam-prints-beyond-borders",
+            "dictionary-teaches-doubt",
+            "spectator-finds-its-reader",
+            "voltaire-returns-with-england",
+            "laws-enter-comparison"
+          ],
+          "situation": "Readers in Europe's cities receive more news, books and foreign examples than any court can wholly command.",
+          "mechanism": "Coffeehouse, refugee press, dictionary, periodical, travel and comparative law turn custom and rule into objects of judgment.",
+          "turn": "A living foreign arrangement becomes evidence that inherited institutions can be measured against alternatives.",
+          "consequence": "Europe acquires a public language for examining how power preserves or destroys liberty.",
+          "handoff": "The public now organises knowledge and follows arguments into workshops and statutes.",
+          "principalNativeInteractionIDs": [
+            "interaction-enlightenment-public-opinion-coffeehouse-makes-a-present",
+            "interaction-enlightenment-public-opinion-voltaire-returns-with-england"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-european-public-opinion",
+            "trace-comparative-law"
+          ],
+          "worldEffectIDs": [
+            "effect-enlightenment-public-opinion-coffeehouse-makes-a-present",
+            "effect-enlightenment-public-opinion-voltaire-returns-with-england"
+          ]
+        },
+        {
+          "arcID": "enlightenment-public-opinion-arc-02",
+          "title": "Opinion Enters Government",
+          "targetDurationMinutes": 14,
+          "movementIDs": [
+            "encyclopedie-opens-the-workshop",
+            "edinburgh-invents-social-science",
+            "milan-makes-punishment-answer",
+            "rulers-answer-the-page",
+            "the-letter-stops-at-the-palace",
+            "opinion-enters-the-assembly"
+          ],
+          "situation": "Public judgment possesses reach but must still convert circulation into institutional action.",
+          "mechanism": "Encyclopaedia, club, university, penal argument, reform decree and assembly carry thought through collective bodies.",
+          "turn": "Beccaria's short book becomes a European legal consequence while palace-controlled reform shows its limit.",
+          "consequence": "By 1789 public opinion claims authority to constitute government itself.",
+          "handoff": "Material production is meanwhile acquiring its own cumulative engine in British mines and workshops.",
+          "principalNativeInteractionIDs": [
+            "interaction-enlightenment-public-opinion-encyclopedie-opens-the-workshop",
+            "interaction-enlightenment-public-opinion-rulers-answer-the-page"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-european-public-opinion"
+          ],
+          "worldEffectIDs": [
+            "effect-enlightenment-public-opinion-encyclopedie-opens-the-workshop",
+            "effect-enlightenment-public-opinion-rulers-answer-the-page"
+          ]
+        }
+      ]
+    },
+    {
+      "contentID": "rivalry-industrial-breakthrough",
+      "editorApproval": "APPROVED",
+      "arcCount": 2,
+      "arcs": [
+        {
+          "arcID": "rivalry-industrial-breakthrough-arc-01",
+          "title": "Power Multiplies",
+          "targetDurationMinutes": 14,
+          "movementIDs": [
+            "the-furnace-takes-coal",
+            "the-mine-breathes",
+            "improvement-becomes-a-calling",
+            "watt-closes-the-cylinder",
+            "the-building-becomes-a-machine",
+            "manchester-multiplies"
+          ],
+          "situation": "Ironmaking, mining and manufacture remain constrained by forest, water site and human scale.",
+          "mechanism": "Coke, steam, measured improvement, separate condensation and factory organisation reinforce one another.",
+          "turn": "Rotary steam releases the mill from the river's address.",
+          "consequence": "Manchester becomes a cluster in which machinery, labour, coal, credit and demand enlarge each other.",
+          "handoff": "The system needs stronger iron, faster transport and capital able to outlive a partnership.",
+          "principalNativeInteractionIDs": [
+            "interaction-rivalry-industrial-breakthrough-the-mine-breathes",
+            "interaction-rivalry-industrial-breakthrough-the-building-becomes-a-machine"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-industrial-power-system"
+          ],
+          "worldEffectIDs": [
+            "effect-rivalry-industrial-breakthrough-the-mine-breathes",
+            "effect-rivalry-industrial-breakthrough-the-building-becomes-a-machine"
+          ]
+        },
+        {
+          "arcID": "rivalry-industrial-breakthrough-arc-02",
+          "title": "Capital Finds a Body",
+          "targetDurationMinutes": 14,
+          "movementIDs": [
+            "iron-takes-a-new-form",
+            "the-railway-takes-time",
+            "the-continent-enters-the-hall",
+            "capital-outgrows-the-partnership",
+            "liability-finds-a-boundary",
+            "the-company-becomes-a-machine-for-the-future"
+          ],
+          "situation": "Industrial works require uniform materials, scheduled movement and fortunes larger than one household can risk.",
+          "mechanism": "Rolled iron, railway, exhibition, registration, corporate continuity and limited liability create durable scale.",
+          "turn": "Law draws a boundary around subscribed risk without dissolving the company's obligation.",
+          "consequence": "Europe can finance projects larger than a private fortune and longer than a working life.",
+          "handoff": "Rail becomes cable and carries Europe's industrial and legal system across the world.",
+          "principalNativeInteractionIDs": [
+            "interaction-rivalry-industrial-breakthrough-the-railway-takes-time",
+            "interaction-rivalry-industrial-breakthrough-liability-finds-a-boundary"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-industrial-power-system",
+            "trace-limited-company"
+          ],
+          "worldEffectIDs": [
+            "effect-rivalry-industrial-breakthrough-the-railway-takes-time",
+            "effect-rivalry-industrial-breakthrough-liability-finds-a-boundary"
+          ]
+        }
+      ]
+    },
+    {
+      "contentID": "european-world",
+      "editorApproval": "APPROVED",
+      "arcCount": 2,
+      "arcs": [
+        {
+          "arcID": "european-world-arc-01",
+          "title": "The World on Schedule",
+          "targetDurationMinutes": 15,
+          "movementIDs": [
+            "the-sea-acquires-a-law",
+            "steam-keeps-the-appointment",
+            "the-wire-crosses-water",
+            "the-isthmus-opens",
+            "twenty-states-agree-on-the-signal",
+            "the-earth-becomes-one-postal-territory",
+            "noon-is-made-common"
+          ],
+          "situation": "Ocean distance still governs trade, information and the enforcement of public purpose.",
+          "mechanism": "Fleet, steam packet, submarine cable, canal, telegraph convention, postal union and common time reduce distance through institutions.",
+          "turn": "Permanent protocols become as important as wire, ship and engine.",
+          "consequence": "Routes and offices across states can recognise the same message, address and hour.",
+          "handoff": "The scheduled world now enters continents through survey, railway and administrative city.",
+          "principalNativeInteractionIDs": [
+            "interaction-european-world-steam-keeps-the-appointment",
+            "interaction-european-world-twenty-states-agree-on-the-signal"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-global-schedule",
+            "trace-common-protocols"
+          ],
+          "worldEffectIDs": [
+            "effect-european-world-steam-keeps-the-appointment",
+            "effect-european-world-twenty-states-agree-on-the-signal"
+          ]
+        },
+        {
+          "arcID": "european-world-arc-02",
+          "title": "Europe at the Central Desk",
+          "targetDurationMinutes": 15,
+          "movementIDs": [
+            "the-survey-gives-the-state-a-map",
+            "the-railway-enters-india",
+            "dakar-builds-an-administrative-city",
+            "disease-enters-a-common-conference",
+            "the-map-enters-the-conference-room",
+            "paris-displays-the-system",
+            "the-world-reaches-london-before-dawn"
+          ],
+          "situation": "European powers seek to measure, connect and govern territories at planetary scale.",
+          "mechanism": "Survey, rail, port, school, public health, diplomatic procedure and exhibition join geography to archives and standards.",
+          "turn": "London's switchboard receives global action inside one working day.",
+          "consequence": "The world possesses a connected institutional order with a European centre.",
+          "handoff": "The same switchboard now carries mobilisation into Europe's civil war.",
+          "principalNativeInteractionIDs": [
+            "interaction-european-world-the-survey-gives-the-state-a-map",
+            "interaction-european-world-the-world-reaches-london-before-dawn"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-global-schedule",
+            "trace-common-protocols"
+          ],
+          "worldEffectIDs": [
+            "effect-european-world-the-survey-gives-the-state-a-map",
+            "effect-european-world-disease-enters-a-common-conference",
+            "effect-european-world-the-world-reaches-london-before-dawn"
+          ]
+        }
+      ]
+    },
+    {
+      "contentID": "europe-at-war",
+      "editorApproval": "APPROVED",
+      "arcCount": 2,
+      "arcs": [
+        {
+          "arcID": "europe-at-war-arc-01",
+          "title": "The Armed Peace Breaks",
+          "targetDurationMinutes": 15,
+          "movementIDs": [
+            "an-empire-is-proclaimed-in-a-conquered-palace",
+            "the-dreyfus-case-divides-the-street",
+            "the-continent-is-written-as-a-schedule",
+            "sarajevo-enters-vienna",
+            "the-timetable-empties-the-cities",
+            "the-front-becomes-a-factory-of-fire",
+            "four-empires-leave-the-map"
+          ],
+          "situation": "National unification, mass politics, alliances and conscription create a powerful but brittle continental order.",
+          "mechanism": "Rail schedules, administrative mobilisation, industry and household supply compress choice and sustain unprecedented war.",
+          "turn": "The expected short campaign becomes a factory of attrition that destroys four empires.",
+          "consequence": "Europe's global reach carries its civil war across the world and leaves a shattered imperial map.",
+          "handoff": "The peace must turn ruins, national claims and displaced people into a stable legal order.",
+          "principalNativeInteractionIDs": [
+            "interaction-europe-at-war-the-continent-is-written-as-a-schedule"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-continent-split-open"
+          ],
+          "worldEffectIDs": [
+            "effect-europe-at-war-the-continent-is-written-as-a-schedule"
+          ]
+        },
+        {
+          "arcID": "europe-at-war-arc-02",
+          "title": "Total Dominion and Ruin",
+          "targetDurationMinutes": 15,
+          "movementIDs": [
+            "the-peace-creates-the-stateless",
+            "the-movement-seizes-the-state",
+            "the-republic-loses-the-street",
+            "law-and-terror-reclassify-the-human-being",
+            "the-pact-opens-poland",
+            "european-jewry-is-marked-for-murder",
+            "berlin-falls-and-europe-is-divided"
+          ],
+          "situation": "Post-war states promise national self-government while millions lose secure membership and plural politics loses authority.",
+          "mechanism": "Mass movement, party organisation, racial law, terror, pact, occupation and administrative murder convert state machinery into domination.",
+          "turn": "Nazi Germany marks European Jewry for total murder and drives its system toward continental annihilation.",
+          "consequence": "Berlin falls, Nazi power is destroyed and Europe loses its old primacy into American and Soviet occupation.",
+          "handoff": "Two rival orders rise from the same ruin.",
+          "principalNativeInteractionIDs": [
+            "interaction-europe-at-war-the-peace-creates-the-stateless",
+            "interaction-europe-at-war-law-and-terror-reclassify-the-human-being",
+            "interaction-europe-at-war-berlin-falls-and-europe-is-divided"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-continent-split-open",
+            "trace-european-jewry-destroyed"
+          ],
+          "worldEffectIDs": [
+            "effect-europe-at-war-the-peace-creates-the-stateless",
+            "effect-europe-at-war-law-and-terror-reclassify-the-human-being",
+            "effect-europe-at-war-european-jewry-is-marked-for-murder",
+            "effect-europe-at-war-berlin-falls-and-europe-is-divided"
+          ]
+        }
+      ]
+    },
+    {
+      "contentID": "continent-rebuilt",
+      "editorApproval": "APPROVED",
+      "arcCount": 2,
+      "arcs": [
+        {
+          "arcID": "continent-rebuilt-arc-01",
+          "title": "Two Orders Rise",
+          "targetDurationMinutes": 14,
+          "movementIDs": [
+            "europe-counts-what-remains",
+            "the-atlantic-sends-machines",
+            "security-draws-two-roads",
+            "coal-and-steel-enter-one-ledger",
+            "the-treaty-acquires-a-court",
+            "democracy-enters-by-the-southern-door"
+          ],
+          "situation": "Europe must restore ordinary government while occupation lines harden into opposed security systems.",
+          "mechanism": "American aid, European allocation, Atlantic protection, coal-and-steel authority, market and court bind western recovery.",
+          "turn": "Treaty promises enter national courts and survive the governments that signed them.",
+          "consequence": "Western Europe creates a cumulative legal and economic order open to restored southern democracies.",
+          "handoff": "East of the line, nations must preserve public authority beneath Soviet force.",
+          "principalNativeInteractionIDs": [
+            "interaction-continent-rebuilt-the-atlantic-sends-machines",
+            "interaction-continent-rebuilt-the-treaty-acquires-a-court"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-western-legal-order"
+          ],
+          "worldEffectIDs": [
+            "effect-continent-rebuilt-the-atlantic-sends-machines",
+            "effect-continent-rebuilt-the-treaty-acquires-a-court"
+          ]
+        },
+        {
+          "arcID": "continent-rebuilt-arc-02",
+          "title": "The East Reclaims the Future",
+          "targetDurationMinutes": 14,
+          "movementIDs": [
+            "budapest-pulls-down-the-symbol",
+            "the-wall-confesses-the-system",
+            "prague-gives-socialism-a-human-voice",
+            "the-polish-pope-calls-a-nation-into-view",
+            "solidarity-builds-a-public-body",
+            "the-gates-open-across-the-continent"
+          ],
+          "situation": "Soviet power keeps eastern Europe through party, armour, border and enforced public falsehood.",
+          "mechanism": "Revolt, reform, church, pilgrimage, independent print, elected representation and negotiation preserve national and moral community.",
+          "turn": "Solidarity survives martial law and forces the Polish party back to the table.",
+          "consequence": "Eastern Europeans open borders, elections and streets until the divided roads meet in 1989.",
+          "handoff": "Recovered nations choose European law and Atlantic defence while Russia contests their choice.",
+          "principalNativeInteractionIDs": [
+            "interaction-continent-rebuilt-the-wall-confesses-the-system",
+            "interaction-continent-rebuilt-solidarity-builds-a-public-body"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-eastern-civic-memory"
+          ],
+          "worldEffectIDs": [
+            "effect-continent-rebuilt-the-wall-confesses-the-system",
+            "effect-continent-rebuilt-solidarity-builds-a-public-body"
+          ]
+        }
+      ]
+    },
+    {
+      "contentID": "europe-returns",
+      "editorApproval": "APPROVED",
+      "arcCount": 2,
+      "arcs": [
+        {
+          "arcID": "europe-returns-arc-01",
+          "title": "The Return Is Chosen",
+          "targetDurationMinutes": 14,
+          "movementIDs": [
+            "the-states-return-to-the-map",
+            "copenhagen-writes-the-doorway",
+            "article-five-moves-east",
+            "the-great-enlargement-rejoins-the-continent",
+            "russia-crosses-into-georgia",
+            "ukraine-chooses-the-european-square"
+          ],
+          "situation": "Freed eastern nations recover statehood and seek durable entry into the institutions of the West.",
+          "mechanism": "Constitutional reform, accession criteria, treaty ratification and alliance planning move Union law and Article Five east by consent.",
+          "turn": "Russia invades Georgia and Ukraine's citizens defend their European constitutional choice on the Maidan.",
+          "consequence": "The post-1989 settlement is revealed as a sovereign choice that external force intends to reverse.",
+          "handoff": "Russia seizes Crimea and opens the war that will become a full-scale invasion.",
+          "principalNativeInteractionIDs": [
+            "interaction-europe-returns-copenhagen-writes-the-doorway"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-eastern-return"
+          ],
+          "worldEffectIDs": [
+            "effect-europe-returns-copenhagen-writes-the-doorway",
+            "effect-europe-returns-the-great-enlargement-rejoins-the-continent"
+          ]
+        },
+        {
+          "arcID": "europe-returns-arc-02",
+          "title": "The Line Is Held",
+          "targetDurationMinutes": 15,
+          "movementIDs": [
+            "russia-seizes-crimea-and-opens-the-donbas-war",
+            "the-ceasefire-conceals-an-unfinished-war",
+            "kyiv-refuses-to-fall",
+            "the-invasion-enlarges-european-resolve",
+            "accession-becomes-working-law",
+            "europe-builds-the-power-to-endure"
+          ],
+          "situation": "Russia occupies Ukrainian territory and uses an unfinished war to constrain Ukraine's future.",
+          "mechanism": "Ukrainian defence, Union candidacy, allied support, NATO enlargement, accession work and continental logistics convert choice into endurance.",
+          "turn": "Kyiv refuses to fall and preserves the Ukrainian state.",
+          "consequence": "Europe rebuilds the legal, industrial and military capacity to sustain an open order at its eastern line.",
+          "handoff": "The route returns to the living world with the line illuminated because institutions and nations continue to hold it.",
+          "principalNativeInteractionIDs": [
+            "interaction-europe-returns-russia-seizes-crimea-and-opens-the-donbas-war",
+            "interaction-europe-returns-the-invasion-enlarges-european-resolve",
+            "interaction-europe-returns-europe-builds-the-power-to-endure"
+          ],
+          "supportingSourceInteractionIDs": [],
+          "worldTraceIDs": [
+            "trace-held-eastern-line"
+          ],
+          "worldEffectIDs": [
+            "effect-europe-returns-russia-seizes-crimea-and-opens-the-donbas-war",
+            "effect-europe-returns-the-invasion-enlarges-european-resolve",
+            "effect-europe-returns-europe-builds-the-power-to-endure"
+          ]
+        }
+      ]
+    }
+  ],
+  "interactionCounts": {
+    "principalNativeInteractions": 99,
+    "supportingMergedInteractions": 23,
+    "arcsPassingPrincipalRule": 55
+  }
+}

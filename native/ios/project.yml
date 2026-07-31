@@ -1,0 +1,616 @@
+name: LongWestJourney
+configs:
+  Debug: debug
+  Release: release
+  NON_SHIPPING_LIVE_TEST: release
+options:
+  bundleIdPrefix: com.thelongwest
+  createIntermediateGroups: true
+  deploymentTarget:
+    iOS: "26.4"
+  developmentLanguage: en
+  generateEmptyDirectories: true
+  groupSortPosition: top
+  xcodeVersion: "26.0"
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    SWIFT_STRICT_CONCURRENCY: complete
+    IPHONEOS_DEPLOYMENT_TARGET: "26.4"
+    TARGETED_DEVICE_FAMILY: "1"
+    SUPPORTS_MACCATALYST: NO
+    SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    GENERATE_INFOPLIST_FILE: YES
+    CURRENT_PROJECT_VERSION: 1
+    MARKETING_VERSION: 0.1.0
+    CODE_SIGN_STYLE: Automatic
+    ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: YES
+
+targets:
+  ContentKit:
+    type: framework
+    platform: iOS
+    sources: [Sources/ContentKit]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.foundation.content
+
+  ContentKitTestSupport:
+    type: framework
+    platform: iOS
+    sources: [Sources/ContentKitTestSupport]
+    dependencies:
+      - target: ContentKit
+      - sdk: CryptoKit.framework
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.foundation.content-test-support
+        SKIP_INSTALL: YES
+
+  JourneyDomain:
+    type: framework
+    platform: iOS
+    sources: [Sources/JourneyDomain]
+    dependencies:
+      - target: ContentKit
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.foundation.domain
+
+  JourneyContent:
+    type: framework
+    platform: iOS
+    sources: [Sources/JourneyContent]
+    dependencies:
+      - target: ContentDelivery
+      - target: ContentKit
+      - target: JourneyDomain
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.foundation.journey-content
+      configs:
+        NON_SHIPPING_LIVE_TEST:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) NON_SHIPPING_LIVE_TEST"
+
+  JourneyPersistence:
+    type: framework
+    platform: iOS
+    sources: [Sources/JourneyPersistence]
+    dependencies:
+      - target: ContentDelivery
+      - target: ContentKit
+      - target: JourneyContent
+      - target: ProgressStore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.foundation.journey-persistence
+
+  ProgressStore:
+    type: framework
+    platform: iOS
+    sources: [Sources/ProgressStore]
+    dependencies:
+      - target: ContentKit
+      - target: JourneyDomain
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.foundation.progress
+
+  ContentDelivery:
+    type: framework
+    platform: iOS
+    sources: [Sources/ContentDelivery]
+    dependencies:
+      - target: ContentKit
+      - target: ExperiencePreferences
+      - sdk: BackgroundAssets.framework
+      - sdk: CryptoKit.framework
+      - sdk: Network.framework
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.foundation.delivery
+
+  CommerceKit:
+    type: framework
+    platform: iOS
+    sources: [Sources/CommerceKit]
+    dependencies:
+      - target: ContentKit
+      - sdk: CryptoKit.framework
+      - sdk: Security.framework
+      - sdk: StoreKit.framework
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.foundation.commerce
+
+  ReleaseDiscovery:
+    type: framework
+    platform: iOS
+    sources: [Sources/ReleaseDiscovery]
+    dependencies:
+      - target: ContentDelivery
+      - target: ContentKit
+      - target: ExperiencePreferences
+      - sdk: CloudKit.framework
+      - sdk: CryptoKit.framework
+      - sdk: Security.framework
+      - sdk: UserNotifications.framework
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.foundation.release-discovery
+
+  DramaticAudio:
+    type: framework
+    platform: iOS
+    sources: [Sources/DramaticAudio]
+    dependencies:
+      - target: ContentKit
+      - target: ExperiencePreferences
+      - target: JourneyContent
+      - target: JourneyDomain
+      - target: ProgressStore
+      - target: QualityInstrumentation
+      - sdk: AVFAudio.framework
+      - sdk: CoreHaptics.framework
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.foundation.audio
+
+  SceneRuntime:
+    type: framework
+    platform: iOS
+    sources: [Sources/SceneRuntime]
+    dependencies:
+      - target: ContentKit
+      - target: JourneyDomain
+      - target: QualityInstrumentation
+      - sdk: ImageIO.framework
+      - sdk: Metal.framework
+      - sdk: MetalKit.framework
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.foundation.scene
+
+  ImmersiveRuntime:
+    type: framework
+    platform: iOS
+    sources:
+      - Sources/ImmersiveRuntime
+      # Generated continuity proofs for the simulator review path. These are
+      # deliberately excluded from Release until their final-art gates close.
+      - path: ../production/3d/chapter01/generated/aegean-crossing-v1/aegean-crossing-lod0.usdz
+        buildPhase: resources
+      - path: ../production/3d/chapter01/thessaly/outputs/thessaly-household-store.usdz
+        buildPhase: resources
+      - path: ../production/3d/chapter01/iron-gates/exports/iron-gates.usdz
+        buildPhase: resources
+      - path: ../production/3d/chapter01/longhouse/exports/longhouse.usdz
+        buildPhase: resources
+      - path: ../production/3d/chapter01/settlement/exports/settlement.usdz
+        buildPhase: resources
+    dependencies:
+      - target: ContentKit
+      - target: JourneyDomain
+      - target: QualityInstrumentation
+      - sdk: AVFAudio.framework
+      - sdk: CoreHaptics.framework
+      - sdk: RealityKit.framework
+      - sdk: SwiftUI.framework
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.foundation.immersive-runtime
+      configs:
+        NON_SHIPPING_LIVE_TEST:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) NON_SHIPPING_LIVE_TEST"
+        Release:
+          EXCLUDED_SOURCE_FILE_NAMES:
+            - aegean-crossing-lod0.usdz
+            - thessaly-household-store.usdz
+            - iron-gates.usdz
+            - longhouse.usdz
+            - settlement.usdz
+
+  JourneyAccessibility:
+    type: framework
+    platform: iOS
+    sources: [Sources/JourneyAccessibility]
+    dependencies:
+      - target: ContentKit
+      - target: JourneyDomain
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.foundation.accessibility
+
+  ChapterRuntime:
+    type: framework
+    platform: iOS
+    sources: [Sources/ChapterRuntime]
+    dependencies:
+      - target: ContentKit
+      - target: DramaticAudio
+      - target: JourneyAccessibility
+      - target: JourneyContent
+      - target: JourneyDomain
+      - target: ProgressStore
+      - target: SceneRuntime
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.foundation.chapter-runtime
+
+  ExperiencePreferences:
+    type: framework
+    platform: iOS
+    sources: [Sources/ExperiencePreferences]
+    dependencies:
+      - sdk: CryptoKit.framework
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.foundation.experience-preferences
+
+  QualityInstrumentation:
+    type: framework
+    platform: iOS
+    sources: [Sources/QualityInstrumentation]
+    dependencies:
+      - sdk: CryptoKit.framework
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.foundation.quality-instrumentation
+
+  JourneyApp:
+    type: application
+    platform: iOS
+    sources:
+      - Sources/JourneyApp
+      - path: ../phase2/generated/first-farmers.content-package.json
+        buildPhase: resources
+      - path: ../phase2/generated/first-farmers.payload-receipt.json
+        buildPhase: resources
+      - path: ../phase2/runtime-fixture/compiled/vertical-slice-development-v1.runtimefixture
+        type: folder
+        buildPhase: resources
+      - path: ../phase2/runtime-fixture/vertical-slice-development-trust-receipt.json
+        buildPhase: resources
+      - path: ../production/3d/chapter01/review-package/compiled/first-farmers-3d-review-v1.runtimefixture
+        type: folder
+        buildPhase: resources
+      - path: ../production/3d/chapter01/review-package/backstage/review-trust-receipt.json
+        buildPhase: resources
+    configFiles:
+      Debug: Config/Product.xcconfig
+      Release: Config/Product.xcconfig
+      NON_SHIPPING_LIVE_TEST: Config/Product.xcconfig
+    info:
+      path: Config/Info.plist
+      properties:
+        CFBundleDisplayName: "$(PRODUCT_DISPLAY_NAME)"
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        BAAppGroupID: "$(BACKGROUND_ASSETS_APP_GROUP_ID)"
+        BAHasManagedAssetPacks: true
+        BAUsesAppleHosting: true
+        LSRequiresIPhoneOS: true
+        UILaunchScreen: {}
+        UIRequiredDeviceCapabilities:
+          - arm64
+          - metal
+          - iphone-performance-gaming-tier
+        UIBackgroundModes:
+          - fetch
+          - remote-notification
+        UIStatusBarStyle: UIStatusBarStyleLightContent
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+    dependencies:
+      - target: ContentKit
+      - target: JourneyDomain
+      - target: JourneyContent
+      - target: JourneyPersistence
+      - target: ProgressStore
+      - target: ContentDelivery
+      - target: CommerceKit
+      - target: ReleaseDiscovery
+      - target: DramaticAudio
+      - target: ExperiencePreferences
+      - target: SceneRuntime
+      - target: ImmersiveRuntime
+      - target: JourneyAccessibility
+      - target: ChapterRuntime
+      - target: QualityInstrumentation
+      - target: AssetDownloaderExtension
+        embed: true
+      - sdk: AVFAudio.framework
+      - sdk: CoreHaptics.framework
+      - sdk: Metal.framework
+      - sdk: MetalKit.framework
+      - sdk: StoreKit.framework
+      - sdk: CloudKit.framework
+      - sdk: UserNotifications.framework
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.journey
+        PRODUCT_NAME: LongWestJourney
+        CODE_SIGN_ENTITLEMENTS: Config/JourneyApp.entitlements
+        GENERATE_INFOPLIST_FILE: NO
+        TARGETED_DEVICE_FAMILY: "1"
+        CURRENT_PROJECT_VERSION: 1
+        MARKETING_VERSION: 0.1.0
+        BACKGROUND_ASSETS_APP_GROUP_ID: group.com.thelongwest.journey.assets
+        LD_RUNPATH_SEARCH_PATHS:
+          - "$(inherited)"
+          - "@executable_path/Frameworks"
+      configs:
+        NON_SHIPPING_LIVE_TEST:
+          PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.journey.nonshippinglivetest
+          PRODUCT_DISPLAY_NAME: EUROCENTRIC LIVE TEST
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) NON_SHIPPING_LIVE_TEST"
+          SWIFT_OPTIMIZATION_LEVEL: "-O"
+          CODE_SIGN_ENTITLEMENTS: Config/NonShippingLiveTest.entitlements
+          BACKGROUND_ASSETS_APP_GROUP_ID: group.com.thelongwest.journey.nonshippinglivetest.assets
+          EXCLUDED_SOURCE_FILE_NAMES:
+            - first-farmers.content-package.json
+            - first-farmers.payload-receipt.json
+        Release:
+          EXCLUDED_SOURCE_FILE_NAMES:
+            - first-farmers.content-package.json
+            - first-farmers.payload-receipt.json
+            - vertical-slice-development-v1.runtimefixture
+            - vertical-slice-development-trust-receipt.json
+            - first-farmers-3d-review-v1.runtimefixture
+            - review-trust-receipt.json
+
+  AssetDownloaderExtension:
+    type: extensionkit-extension
+    platform: iOS
+    sources: [Sources/AssetDownloaderExtension]
+    info:
+      path: Config/AssetDownloaderExtension-Info.plist
+      properties:
+        CFBundleDisplayName: Content Delivery
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        EXAppExtensionAttributes:
+          EXExtensionPointIdentifier: com.apple.background-asset-downloader-extension
+    dependencies:
+      - sdk: BackgroundAssets.framework
+      - sdk: ExtensionFoundation.framework
+      - sdk: StoreKit.framework
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.journey.asset-downloader
+        PRODUCT_NAME: LongWestAssetDownloader
+        CODE_SIGN_ENTITLEMENTS: Config/AssetDownloaderExtension.entitlements
+        APPLICATION_EXTENSION_API_ONLY: YES
+        GENERATE_INFOPLIST_FILE: NO
+        SKIP_INSTALL: YES
+        CURRENT_PROJECT_VERSION: 1
+        MARKETING_VERSION: 0.1.0
+      configs:
+        NON_SHIPPING_LIVE_TEST:
+          PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.journey.nonshippinglivetest.asset-downloader
+          CODE_SIGN_ENTITLEMENTS: Config/NonShippingLiveTest.entitlements
+
+  LongWestNativeTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - Tests/ContentKitTests
+      - Tests/JourneyDomainTests
+      - Tests/JourneyContentTests
+      - Tests/ProgressStoreTests
+      - Tests/ContentDeliveryTests
+      - Tests/CommerceKitTests
+      - Tests/DramaticAudioTests
+      - Tests/SceneRuntimeTests
+      - Tests/ImmersiveRuntimeTests
+      - Tests/JourneyAccessibilityTests
+      - Tests/ChapterRuntimeTests
+      - Tests/QualityInstrumentationTests
+      - path: ../phase1/fixtures/harvest-option-1.scene.json
+        buildPhase: resources
+      - path: ../phase2/generated/first-farmers.content-package.json
+        buildPhase: resources
+      - path: ../phase2/generated/first-farmers.payload-receipt.json
+        buildPhase: resources
+      - path: ../phase2/generated/first-farmers.asset-requirements.json
+        buildPhase: resources
+      - path: ../phase2/generated/first-farmers.chapter.json
+        buildPhase: resources
+      - path: ../phase2/generated/first-farmers.world-seed.json
+        buildPhase: resources
+      - path: ../phase2/generated/first-farmers.projection-receipt.json
+        buildPhase: resources
+      - path: ../audio/score-soundscape/harvest-responsive-v1/work-object.json
+        buildPhase: resources
+      - path: ../audio/score-soundscape/longhouse-responsive-v1/longhouse-responsive-work-object.json
+        buildPhase: resources
+      - path: ../audio/score-soundscape/continent-remade-responsive-v1/continent-remade-responsive-work-object.json
+        buildPhase: resources
+      - path: ../audio/score-soundscape/more-mouths-responsive-v1/more-mouths-responsive-work-object.json
+        buildPhase: resources
+      - path: ../audio/score-soundscape/household-crosses-responsive-v1/household-crosses-responsive-work-object.json
+        buildPhase: resources
+      - path: ../audio/score-soundscape/three-records-responsive-v1/three-records-responsive-work-object.json
+        buildPhase: resources
+      - path: ../phase2/runtime-fixture/compiled/vertical-slice-development-v1.runtimefixture
+        type: folder
+        buildPhase: resources
+      - path: ../phase2/runtime-fixture/vertical-slice-development-trust-receipt.json
+        buildPhase: resources
+    dependencies:
+      - target: ContentKit
+      - target: ContentKitTestSupport
+      - target: JourneyDomain
+      - target: JourneyContent
+      - target: JourneyPersistence
+      - target: ProgressStore
+      - target: ContentDelivery
+      - target: CommerceKit
+      - target: ReleaseDiscovery
+      - target: DramaticAudio
+      - target: ExperiencePreferences
+      - target: SceneRuntime
+      - target: ImmersiveRuntime
+      - target: JourneyAccessibility
+      - target: ChapterRuntime
+      - target: QualityInstrumentation
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.foundation.tests
+        GENERATE_INFOPLIST_FILE: YES
+      configs:
+        Release:
+          EXCLUDED_SOURCE_FILE_NAMES:
+            - first-farmers.content-package.json
+            - first-farmers.payload-receipt.json
+            - first-farmers.asset-requirements.json
+            - first-farmers.chapter.json
+            - first-farmers.world-seed.json
+            - first-farmers.projection-receipt.json
+            - work-object.json
+            - longhouse-responsive-work-object.json
+            - continent-remade-responsive-work-object.json
+            - more-mouths-responsive-work-object.json
+            - household-crosses-responsive-work-object.json
+            - three-records-responsive-work-object.json
+
+  ReleaseDiscoveryTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [Tests/ReleaseDiscoveryTests]
+    dependencies:
+      - target: ContentDelivery
+      - target: ContentKit
+      - target: ExperiencePreferences
+      - target: ReleaseDiscovery
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.foundation.release-discovery-tests
+        GENERATE_INFOPLIST_FILE: YES
+
+  ExperiencePreferencesTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [Tests/ExperiencePreferencesTests]
+    dependencies:
+      - target: ExperiencePreferences
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.foundation.experience-preferences-tests
+        GENERATE_INFOPLIST_FILE: YES
+
+  JourneyAppUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [UITests/JourneyAppUITests]
+    dependencies:
+      - target: JourneyApp
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.journey.ui-tests
+        GENERATE_INFOPLIST_FILE: YES
+      configs:
+        NON_SHIPPING_LIVE_TEST:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) NON_SHIPPING_LIVE_TEST"
+
+schemes:
+  ExperiencePreferences:
+    build:
+      targets:
+        ExperiencePreferences: all
+        ExperiencePreferencesTests: [test]
+    test:
+      config: Debug
+      targets:
+        - name: ExperiencePreferencesTests
+          parallelizable: true
+
+  ReleaseDiscovery:
+    build:
+      targets:
+        ReleaseDiscovery: all
+        ReleaseDiscoveryTests: [test]
+    test:
+      config: Debug
+      targets:
+        - name: ReleaseDiscoveryTests
+          parallelizable: true
+
+  LongWestJourney:
+    build:
+      targets:
+        JourneyApp: all
+        LongWestNativeTests: [test]
+        ReleaseDiscoveryTests: [test]
+        ExperiencePreferencesTests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      gatherCoverageData: true
+      targets:
+        - name: LongWestNativeTests
+          parallelizable: false
+        - name: ReleaseDiscoveryTests
+          parallelizable: true
+        - name: ExperiencePreferencesTests
+          parallelizable: true
+        - name: JourneyAppUITests
+          parallelizable: false
+    archive:
+      config: Release
+
+  LongWestJourneyLiveTest:
+    build:
+      targets:
+        JourneyApp: all
+        JourneyAppUITests: [test]
+    test:
+      config: NON_SHIPPING_LIVE_TEST
+      targets:
+        - name: JourneyAppUITests
+          parallelizable: false
+    run:
+      config: NON_SHIPPING_LIVE_TEST
+      debugEnabled: false
+      commandLineArguments:
+        "--ui-testing-signed-runtime-fixture": true
+        "--ui-testing-signed-runtime-fixture-chapter=first-farmers": true
+        "--chapter01-immersive-review": true
+    profile:
+      config: NON_SHIPPING_LIVE_TEST
+      commandLineArguments:
+        "--ui-testing-signed-runtime-fixture": true
+        "--ui-testing-signed-runtime-fixture-chapter=first-farmers": true
+        "--chapter01-immersive-review": true
+    archive:
+      config: Release
+
+  Chapter01ImmersiveCleanStart:
+    build:
+      targets:
+        JourneyApp: all
+    run:
+      config: NON_SHIPPING_LIVE_TEST
+      debugEnabled: false
+      commandLineArguments:
+        "--ui-testing-reset-state": true
+        "--ui-testing-signed-runtime-fixture": true
+        "--ui-testing-signed-runtime-fixture-chapter=first-farmers": true
+        "--chapter01-immersive-review": true
+
+  Chapter01ImmersiveSpringResume:
+    build:
+      targets:
+        JourneyApp: all
+    run:
+      config: NON_SHIPPING_LIVE_TEST
+      debugEnabled: false
+      commandLineArguments:
+        "--ui-testing-reset-state": true
+        "--ui-testing-signed-runtime-fixture": true
+        "--ui-testing-signed-runtime-fixture-chapter=first-farmers": true
+        "--chapter01-immersive-review": true
+        "--chapter01-immersive-review-resume-spring": true

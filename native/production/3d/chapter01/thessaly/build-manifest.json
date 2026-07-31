@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 1,
+  "status": "CONTINUITY_PROOF",
+  "assetID": "chapter01-thessaly-household-store",
+  "cellID": "thessalian-household-store",
+  "canonicalSeed": "6073180321690504281",
+  "approvedForShipping": false,
+  "toolchain": {
+    "blender": {
+      "version": "5.2.0 LTS",
+      "buildHash": "fbe6228777e7",
+      "threads": 1
+    },
+    "pixarUSD": {
+      "version": "0.26.3",
+      "packageValidation": "/usr/bin/usdchecker --arkit"
+    }
+  },
+  "artDirectionReference": {
+    "path": "../art-direction/thessaly-harvest-target-v1.png",
+    "byteSize": 2605279,
+    "sha256": "5392d6f60eee34632b0376d97a437fce0af0946f86fa40684f61ed0142019905",
+    "embedded": false
+  },
+  "sources": [
+    {
+      "path": "README.md",
+      "role": "acceptance-scope",
+      "byteSize": 2859,
+      "sha256": "61eefce6d4a5d49003549b4d1e310261b602a05630ea38df33f2dc0fdcf8a146"
+    },
+    {
+      "path": "build.sh",
+      "role": "pinned-build-entrypoint",
+      "byteSize": 1216,
+      "sha256": "3482b95e9f9a9ee21d60b4f89888ce876de979d0753cc77e35a8bc120884925d"
+    },
+    {
+      "path": "build_thessaly.py",
+      "role": "procedural-authoring-source",
+      "byteSize": 85038,
+      "sha256": "98de65b44203372071b1ace9376da8b81574d59df78d7e91ccdfeb3715b05b7a"
+    },
+    {
+      "path": "validate_thessaly.py",
+      "role": "structural-validator",
+      "byteSize": 8553,
+      "sha256": "42d3f3eb4a1faf06745929042d10193d681d9c4e347fdab30d91eb6add564998"
+    },
+    {
+      "path": "entity-bindings.json",
+      "role": "runtime-binding-contract",
+      "byteSize": 4752,
+      "sha256": "edd0fe645f8aed922b46fffff9b8558244ad46b0ebbf71fb1e9b993b0e8e2bd2"
+    },
+    {
+      "path": "provenance.json",
+      "role": "rights-and-lineage-record",
+      "byteSize": 1368,
+      "sha256": "a782f78ea1952a705febc4af379bb41df22248ee3826d4b577c9e0a2e78a96f7"
+    }
+  ],
+  "runtimeArtifacts": [
+    {
+      "path": "outputs/thessaly-household-store.usd",
+      "format": "usda",
+      "lod": 0,
+      "byteSize": 5605217,
+      "sha256": "007854c286266c2fbb751e329e87d3e2fd2c29210fc0f54f937688ffa6986f32"
+    },
+    {
+      "path": "outputs/thessaly-household-store.usdc",
+      "format": "usdc",
+      "lod": 0,
+      "byteSize": 959048,
+      "sha256": "8cc1171d191002dd87b06c286b0198c269055a7a0fc6774965b93ed6ee6e6ba0"
+    },
+    {
+      "path": "outputs/thessaly-household-store-lod1.usdc",
+      "format": "usdc",
+      "lod": 1,
+      "byteSize": 725452,
+      "sha256": "408bae45c20d3b355cafd5f11846f62742f3cf2b62d4c9656b34992b15560742"
+    },
+    {
+      "path": "outputs/thessaly-household-store-lod2.usdc",
+      "format": "usdc",
+      "lod": 2,
+      "byteSize": 316701,
+      "sha256": "7b90816895367d270dece5b19a45844f1f82b80ec256a80d8189f465b2c89046"
+    },
+    {
+      "path": "outputs/thessaly-household-store.usdz",
+      "format": "usdz",
+      "lod": 0,
+      "byteSize": 959214,
+      "sha256": "42f3d71b5f0f9024ab8ee37b40b29057547d98f9f03390cb70fdf0a1a6a08b2d"
+    }
+  ],
+  "reviewOnlyArtifacts": [
+    {
+      "path": "outputs/preview-harvest.png",
+      "byteSize": 2770659,
+      "sha256": "437a20c2e33e6ae00ef71e3f8482f6c6f964d3d2cc869a5011cd55467e9ad4f1",
+      "canonical": false
+    },
+    {
+      "path": "outputs/preview-winter.png",
+      "byteSize": 2770654,
+      "sha256": "7407e913253c5c2b3dab379a4499dc70578637540b005f271ab52ec98a420866",
+      "canonical": false
+    },
+    {
+      "path": "outputs/preview-spring.png",
+      "byteSize": 2770656,
+      "sha256": "323d04cb33271c2ac82a72de825ed4f2bc16e0c7adc9be52e04f742980fc5663",
+      "canonical": false
+    }
+  ],
+  "determinism": {
+    "status": "PASS",
+    "method": "byte comparison after two independent Blender background processes",
+    "scope": [
+      "outputs/thessaly-household-store.usd",
+      "outputs/thessaly-household-store.usdc",
+      "outputs/thessaly-household-store-lod1.usdc",
+      "outputs/thessaly-household-store-lod2.usdc",
+      "outputs/thessaly-household-store.usdz"
+    ],
+    "excluded": [
+      "outputs/preview-harvest.png",
+      "outputs/preview-winter.png",
+      "outputs/preview-spring.png"
+    ]
+  },
+  "validation": {
+    "status": "PASS",
+    "realityKitUSDZCompliance": "PASS",
+    "bindings": "PASS",
+    "lodOrdering": "PASS",
+    "metrics": {
+      "cameras": 5,
+      "materials": 29,
+      "meshes": 501,
+      "vertices": 24814,
+      "lod0Triangles": 40702,
+      "lod1Triangles": 24996,
+      "lod2Triangles": 11444
+    }
+  },
+  "requiredRuntimeNames": [
+    "thessalian-household-store",
+    "action-grain-source",
+    "action-food",
+    "action-reserve",
+    "action-seed",
+    "food-grain",
+    "reserve-grain",
+    "seed-grain",
+    "worked-field",
+    "winter-rain",
+    "raised-store",
+    "household-hearth-flame"
+  ],
+  "limitations": [
+    "The two human figures are continuity stand-ins and must be replaced by the shared production human base.",
+    "Character anatomy, faces, grounded contact, winter precipitation scale, background atmosphere, and final lighting have not passed the visual gate.",
+    "Editor visual approval and the physical iPhone performance gate remain outstanding."
+  ]
+}

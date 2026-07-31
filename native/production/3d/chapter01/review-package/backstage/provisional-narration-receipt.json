@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "status": "NON_SHIPPING_TECHNICAL_REVIEW_AUDIO",
+  "shippingState": "PROHIBITED",
+  "finalNarrationGate": "OPEN",
+  "outputsAreFrozenPackageInputs": true,
+  "generatorReproducibilityAuthority": false,
+  "sourceScriptSHA256": "feb8e63ca30be213abaae82dc85ddf636f4912a71e19a0d01b69ba91289c84cd",
+  "voice": "Daniel",
+  "speechRateWordsPerMinute": 165,
+  "toolchain": {
+    "say": "macOS system say",
+    "ffmpeg": "ffmpeg version 8.1.2 Copyright (c) 2000-2026 the FFmpeg developers"
+  },
+  "outputs": [
+    {
+      "id": "narration-01",
+      "textSHA256": "ce2f20e395fef751f248e1bde518eda1d8e72e7ab7e4d4c035152e16778d1f6c",
+      "authoredDurationSeconds": 11,
+      "sampleRate": 48000,
+      "repositoryPath": "native/production/3d/chapter01/review-package/provisional-audio/narration-01.m4a",
+      "bytes": 208653,
+      "sha256": "281994e4233313aef0d59c1a85ec4e5ef7b4541377caf5767bdfc204bd2151d4"
+    },
+    {
+      "id": "narration-02",
+      "textSHA256": "f562c370233359bae290d0d934475c9337a2df236e62aeb6b1a14d51248c7111",
+      "authoredDurationSeconds": 7,
+      "sampleRate": 48000,
+      "repositoryPath": "native/production/3d/chapter01/review-package/provisional-audio/narration-02.m4a",
+      "bytes": 99862,
+      "sha256": "c2f69bcd39991bf28bfbb18de53f73930b7232db6e09fbbe2a35e521d1f64381"
+    },
+    {
+      "id": "narration-03",
+      "textSHA256": "8168e0937a2d4c6afe97c1d4de93a7c20e9a02cc0b3709a1a5b8268961ab767b",
+      "authoredDurationSeconds": 10,
+      "sampleRate": 48000,
+      "repositoryPath": "native/production/3d/chapter01/review-package/provisional-audio/narration-03.m4a",
+      "bytes": 146168,
+      "sha256": "d961e6908eee6cdd0ceac4a58600938dfa5a9a1f0c59f309be239c96a66627ad"
+    },
+    {
+      "id": "narration-04",
+      "textSHA256": "a1ac5f7f39cba6abbc6a155f2057eb695453c3a41d23f1dd6784f0c0866ea310",
+      "authoredDurationSeconds": 10,
+      "sampleRate": 48000,
+      "repositoryPath": "native/production/3d/chapter01/review-package/provisional-audio/narration-04.m4a",
+      "bytes": 145213,
+      "sha256": "68a48fd81314ae0cde191c55ac98d8bbf20899b684448a4e6c25a952b26e5f86"
+    },
+    {
+      "id": "narration-05",
+      "textSHA256": "5964bbb8362e2c014306a3879baf596ea9f3f673a801b9de0787d5d091a91d99",
+      "authoredDurationSeconds": 6,
+      "sampleRate": 48000,
+      "repositoryPath": "native/production/3d/chapter01/review-package/provisional-audio/narration-05.m4a",
+      "bytes": 80910,
+      "sha256": "c8aa488837b2732fca098619ee77bc1b2be2e2404dba757b1a934fc349dde575"
+    },
+    {
+      "id": "narration-06",
+      "textSHA256": "71bc5b654e176cc5eb63239852a7247a8d4572fb2eff0761ff93a2708c5db8c2",
+      "authoredDurationSeconds": 12,
+      "sampleRate": 48000,
+      "repositoryPath": "native/production/3d/chapter01/review-package/provisional-audio/narration-06.m4a",
+      "bytes": 228129,
+      "sha256": "69bdc2b532049394a54dbe31a017d69c482ab721dbac90b6fa9f9e5d7475702e"
+    },
+    {
+      "id": "narration-07",
+      "textSHA256": "dcad603cde20df894c0ff881ea36bd07c13818e54c28890b1379e8faa4aa6bd7",
+      "authoredDurationSeconds": 14,
+      "sampleRate": 48000,
+      "repositoryPath": "native/production/3d/chapter01/review-package/provisional-audio/narration-07.m4a",
+      "bytes": 272343,
+      "sha256": "fb2bc98e9362e893c75e7bc17e5b1e6faf7dd0f42a9118845fffe223ef9be446"
+    },
+    {
+      "id": "narration-08",
+      "textSHA256": "be5bac01bc9b783aa5af1c361e38210100e3a6eedf31e957ed9df151f469cc25",
+      "authoredDurationSeconds": 11,
+      "sampleRate": 48000,
+      "repositoryPath": "native/production/3d/chapter01/review-package/provisional-audio/narration-08.m4a",
+      "bytes": 185978,
+      "sha256": "49d071435a97a3cea63dbbe5702d4f64c740a1c1003dfac3e12446a00ea4e60e"
+    },
+    {
+      "id": "narration-09",
+      "textSHA256": "9b03998e05c4527357c56e0602e71785009a882388109ce3926ab3dac766c401",
+      "authoredDurationSeconds": 7,
+      "sampleRate": 48000,
+      "repositoryPath": "native/production/3d/chapter01/review-package/provisional-audio/narration-09.m4a",
+      "bytes": 145081,
+      "sha256": "9456013f1364db0c41921853ade33535f25035a1f21f4aa8ab7ea687b8182525"
+    },
+    {
+      "id": "narration-10",
+      "textSHA256": "e1c621c624bf30ca22d41af6d9a7236da26f7f95f4d08f0a38b868a708f5386d",
+      "authoredDurationSeconds": 9,
+      "sampleRate": 48000,
+      "repositoryPath": "native/production/3d/chapter01/review-package/provisional-audio/narration-10.m4a",
+      "bytes": 136068,
+      "sha256": "958993c7adf8b233c000061269bebd291c73592523ea27d83b9374f5a498723e"
+    }
+  ]
+}

@@ -1,0 +1,181 @@
+{
+  "schemaVersion": 1,
+  "manifestID": "chapter-01-review-transitions-v1",
+  "status": "NON_SHIPPING_REVIEW",
+  "shippingState": "PROHIBITED",
+  "milestone": "CHAPTER_01_REVIEW_READY",
+  "chapterID": "first-farmers",
+  "sampleRate": 48000,
+  "channelCount": 2,
+  "transitionCount": 3,
+  "derivedWithoutNewComposition": true,
+  "runtimeGenerationPermitted": false,
+  "shippingUsePermitted": false,
+  "authorization": {
+    "path": "native/audio/narration/review/chapter-01/review-authorization.json",
+    "bytes": 1929,
+    "sha256": "8ee929f5f53b7dd4a0fb751091ec5660001598cf90cff1e45f1b56e1e994a538"
+  },
+  "generator": {
+    "path": "native/audio/score-soundscape/chapter_01_review_transitions.py",
+    "bytes": 14834,
+    "sha256": "14286e489bb2be4ed4470f9c4d8da8b1246651544b41173e100d8297a3be3677"
+  },
+  "toolchain": {
+    "version": "8.1.2",
+    "executable": {
+      "path": "/opt/homebrew/Cellar/ffmpeg/8.1.2_1/bin/ffmpeg",
+      "bytes": 426224,
+      "sha256": "dad4b30b36a1a999bfa4b6ffbde138bd17ee496c69e12eef638227dff2c6415c"
+    }
+  },
+  "transitions": [
+    {
+      "transitionID": "transition-aegean-thessaly-v1",
+      "fromWorld": "aegean-crossing",
+      "toWorld": "thessaly-first-field",
+      "sourceA": {
+        "programKey": "household-crosses",
+        "receipt": {
+          "path": "native/audio/score-soundscape/household-crosses-responsive-v1/render-receipt.json",
+          "bytes": 49248,
+          "sha256": "9d57b009235bc9e621fdb69e9d680619f86886e8d26696823da0502792bc797d"
+        },
+        "receiptOutputPath": "consequence/program-preview.wav",
+        "audio": {
+          "path": "native/audio/score-soundscape/cache/household-crosses-responsive-v1/consequence/program-preview.wav",
+          "bytes": 15840044,
+          "sha256": "296b77cb0542a6491307c7fcd0c2121dac4f41cbfa9fa56d0f23b68b2aedd636"
+        }
+      },
+      "sourceB": {
+        "programKey": "harvest",
+        "receipt": {
+          "path": "native/audio/score-soundscape/harvest-responsive-v1/render-receipt.json",
+          "bytes": 49356,
+          "sha256": "cf7514b92111dac745c88abf9c2e875c2c327759c61e04bc7893c46cafec7d55"
+        },
+        "receiptOutputPath": "approach/program-preview.wav",
+        "audio": {
+          "path": "native/audio/score-soundscape/cache/harvest-responsive-v1/approach/program-preview.wav",
+          "bytes": 17280044,
+          "sha256": "b910348c5f96cd1286328b9025104c3186a93724177568f3e84add3bb729e9e1"
+        }
+      },
+      "derivation": {
+        "sourceTailFrames": 192000,
+        "destinationHeadFrames": 192000,
+        "crossfadeFrames": 96000,
+        "crossfadeCurve": "qsin",
+        "nominalOutputFrames": 288000,
+        "newCompositionAdded": false
+      },
+      "audio": {
+        "path": "native/audio/score-soundscape/chapter-01-review-transitions-v1/audio/transition-aegean-thessaly-v1.m4a",
+        "bytes": 201074,
+        "sha256": "d4df036d89543f20e0ed69315aa050fe53cc6e0d4601d305283c3dcfc55472f4",
+        "sampleRate": 48000,
+        "channelCount": 2,
+        "durationFrames": 288768
+      }
+    },
+    {
+      "transitionID": "transition-store-iron-gates-v1",
+      "fromWorld": "harvest-store",
+      "toWorld": "iron-gates-danube",
+      "sourceA": {
+        "programKey": "harvest",
+        "receipt": {
+          "path": "native/audio/score-soundscape/harvest-responsive-v1/render-receipt.json",
+          "bytes": 49356,
+          "sha256": "cf7514b92111dac745c88abf9c2e875c2c327759c61e04bc7893c46cafec7d55"
+        },
+        "receiptOutputPath": "consequence/program-preview.wav",
+        "audio": {
+          "path": "native/audio/score-soundscape/cache/harvest-responsive-v1/consequence/program-preview.wav",
+          "bytes": 14400044,
+          "sha256": "eb3e9dadefe81cbac047127b46cff8113cbecb76ab8cd8140d0bdbfda93b39d1"
+        }
+      },
+      "sourceB": {
+        "programKey": "three-records",
+        "receipt": {
+          "path": "native/audio/score-soundscape/three-records-responsive-v1/render-receipt.json",
+          "bytes": 46154,
+          "sha256": "e0ce18164c46b4060a1020e1760de1194001574f842bee59e9b8d42cf12c38ce"
+        },
+        "receiptOutputPath": "approach/program-preview.wav",
+        "audio": {
+          "path": "native/audio/score-soundscape/cache/three-records-responsive-v1/approach/program-preview.wav",
+          "bytes": 12960044,
+          "sha256": "28e2de3e8e9ef1a7589ea2efdb58a3d50ac69172227bda76719e7f489851283f"
+        }
+      },
+      "derivation": {
+        "sourceTailFrames": 192000,
+        "destinationHeadFrames": 192000,
+        "crossfadeFrames": 96000,
+        "crossfadeCurve": "qsin",
+        "nominalOutputFrames": 288000,
+        "newCompositionAdded": false
+      },
+      "audio": {
+        "path": "native/audio/score-soundscape/chapter-01-review-transitions-v1/audio/transition-store-iron-gates-v1.m4a",
+        "bytes": 199587,
+        "sha256": "6f1000e9d207e925c9143599aa2fdcaaf92168501b2cd8bcd3f2a78d0c453212",
+        "sampleRate": 48000,
+        "channelCount": 2,
+        "durationFrames": 288768
+      }
+    },
+    {
+      "transitionID": "transition-farming-belt-steppe-v1",
+      "fromWorld": "european-farming-belt",
+      "toWorld": "steppe-transition",
+      "sourceA": {
+        "programKey": "continent-remade",
+        "receipt": {
+          "path": "native/audio/score-soundscape/continent-remade-responsive-v1/render-receipt.json",
+          "bytes": 49174,
+          "sha256": "6112a9d8d08ba5e7d091b9b5b1b890c182f71ca8e4fbec6074f302f668429f59"
+        },
+        "receiptOutputPath": "approach/program-preview.wav",
+        "audio": {
+          "path": "native/audio/score-soundscape/cache/continent-remade-responsive-v1/approach/program-preview.wav",
+          "bytes": 13824044,
+          "sha256": "50fa9c736c76e28d1a7f68ab825d8dbdf1a99f765569db9ffe859b76d1ca6760"
+        }
+      },
+      "sourceB": {
+        "programKey": "continent-remade",
+        "receipt": {
+          "path": "native/audio/score-soundscape/continent-remade-responsive-v1/render-receipt.json",
+          "bytes": 49174,
+          "sha256": "6112a9d8d08ba5e7d091b9b5b1b890c182f71ca8e4fbec6074f302f668429f59"
+        },
+        "receiptOutputPath": "consequence/program-preview.wav",
+        "audio": {
+          "path": "native/audio/score-soundscape/cache/continent-remade-responsive-v1/consequence/program-preview.wav",
+          "bytes": 12960044,
+          "sha256": "58be609b1b4712498143da7c3427df48164bf40e39da847fbdbccf38c1221731"
+        }
+      },
+      "derivation": {
+        "sourceTailFrames": 192000,
+        "destinationHeadFrames": 192000,
+        "crossfadeFrames": 96000,
+        "crossfadeCurve": "qsin",
+        "nominalOutputFrames": 288000,
+        "newCompositionAdded": false
+      },
+      "audio": {
+        "path": "native/audio/score-soundscape/chapter-01-review-transitions-v1/audio/transition-farming-belt-steppe-v1.m4a",
+        "bytes": 158756,
+        "sha256": "265bc377b72bc8cf21bdbb3e581c32b83400a0f5ebee303ec67b6ea91d497237",
+        "sampleRate": 48000,
+        "channelCount": 2,
+        "durationFrames": 288768
+      }
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "cellID": "iron-gates",
+  "assetStatus": "CONTINUITY_PROOF",
+  "toolchain": {
+    "application": "Blender",
+    "version": "5.2.0 LTS",
+    "buildHash": "fbe6228777e7",
+    "platform": "macOS-arm64"
+  },
+  "deterministicSeed": 6000,
+  "counts": {
+    "meshObjects": 244,
+    "triangles": 21332
+  },
+  "inputs": {
+    "../later-cells-tools/chapter01_later_cells.py": {
+      "sha256": "bc110f30c2fe4c118e3a7337508af3ea87c1783f137b639e4994e0c2cb7052a4"
+    },
+    "scripts/generate.py": {
+      "sha256": "324f9a3706d9a937e530af6057824cfc9a93b59d153d6d2f4ef812537e00d346"
+    },
+    "scripts/validate.py": {
+      "sha256": "3f3c7e95ce5bd189122739c1bd59e1268cd614ddc85695f2fdefe4a313f61e19"
+    },
+    "scene-spec.json": {
+      "sha256": "0d59f875c321d072e0e4c1d5c0944905bacfa6a3b8be1eb4102666a6b334bb7a"
+    },
+    "entity-bindings.json": {
+      "sha256": "8aceb9d25923e19a4459fbc2370386efa48e7c14c7e398166140307f41efb99b"
+    },
+    "provenance.json": {
+      "sha256": "8ae89cf153aabf93f41657466c8af61ebc97f585805bbb44349495b0b9c91a13"
+    },
+    "../art-direction/iron-gates-landing-target-v1.png": {
+      "sha256": "45cb6a10bf173eec0aff5042b1ed0bb87ee76b244dbc404240219e7a92e15efb",
+      "use": "reference-only",
+      "embeddedInExport": false
+    }
+  },
+  "reproducibility": {
+    "cleanBuildsCompared": 2,
+    "byteIdenticalOutputs": [
+      "exports/iron-gates.usda",
+      "exports/iron-gates.usd",
+      "exports/iron-gates.usdc",
+      "exports/iron-gates.usdz",
+      "previews/iron-gates-portrait.png"
+    ],
+    "excludedOutput": {
+      "path": "exports/iron-gates.blend",
+      "reason": "Blender authoring containers include process-local data; the reviewable Python recipe is the source authority."
+    }
+  },
+  "outputs": {
+    "exports/iron-gates.blend": {
+      "sha256": "f191bef27118e4c0522b407fcec55dc0f077ae64b74f1d7db81cb7fa7c8f9f8e",
+      "bytes": 3970837,
+      "role": "generated-authoring-evidence",
+      "byteReproducible": false,
+      "hashValidation": false
+    },
+    "exports/iron-gates.usda": {
+      "sha256": "35bb713af837784ce2c493f2ed56836cce3481a91da8d0ccb81220b7cc98300f",
+      "bytes": 4151342,
+      "role": "canonical-inspection-layer",
+      "byteReproducible": true
+    },
+    "exports/iron-gates.usd": {
+      "sha256": "2e5422fda77c64f1bccc3c068592407e57bd8634b9bc89c31174f325607a37a9",
+      "bytes": 811819,
+      "role": "canonical-binary-stage",
+      "byteReproducible": true
+    },
+    "exports/iron-gates.usdc": {
+      "sha256": "2e5422fda77c64f1bccc3c068592407e57bd8634b9bc89c31174f325607a37a9",
+      "bytes": 811819,
+      "role": "runtime-stage",
+      "byteReproducible": true
+    },
+    "exports/iron-gates.usdz": {
+      "sha256": "53dd37fca673be93a189402e8368f8ebdcb512994486cbf6b18c6ec374ee31e4",
+      "bytes": 811985,
+      "role": "runtime-package",
+      "byteReproducible": true
+    },
+    "previews/iron-gates-portrait.png": {
+      "sha256": "b6320c4e5d4b517cd448d77bf7f5c23ad047d7e8d43da435a0c0231a37d91022",
+      "bytes": 1604416,
+      "role": "technical-portrait-receipt",
+      "byteReproducible": true
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "status": "PINNED_ZERO_COST_CANDIDATE",
+  "fluidSynth": {
+    "version": "2.5.6",
+    "sourceCommit": "e5b11058a619246cea42976dacb76ca54be3d45d",
+    "sourceArchiveSHA256": "0825f024c9cf7a18073739b83612d46542ecbfb349ae9147a1e9f08e2d524407",
+    "installedBinarySHA256": "eaec07113cbbac0899368788a9597eddae6ac0db30c1a5c1bbe8b19ee6c6a567",
+    "license": "LGPL-2.1-or-later; invoked as an unmodified local command-line renderer, never shipped in the app",
+    "sourceURL": "https://github.com/FluidSynth/fluidsynth/tree/e5b11058a619246cea42976dacb76ca54be3d45d"
+  },
+  "soundFont": {
+    "version": "MS Basic 0.2.0",
+    "repositoryCommit": "03c4afd5c9ae72b2698f6716e9e244ce53550495",
+    "repositoryBlobSHA1": "5be56b2fafa5eee347256cbe0d2fbfacd01702b6",
+    "bytes": 51278610,
+    "sha256": "5ea2375e8bd7d8e71def1036978c1621e85b66934169b6a2744b27b9b3c2d99c",
+    "license": "MIT",
+    "sourceURL": "https://raw.githubusercontent.com/musescore/MuseScore/03c4afd5c9ae72b2698f6716e9e244ce53550495/share/sound/MS%20Basic.sf3",
+    "licenseURL": "https://raw.githubusercontent.com/musescore/MuseScore/03c4afd5c9ae72b2698f6716e9e244ce53550495/share/sound/MS%20Basic_License.md",
+    "requiredNotice": "Retain the MuseScore_General, FluidR3, FluidR3Mono, S. Christian Collins, Ethan Winer and Michael Schorsch copyright acknowledgements and the MIT permission notice with any substantial redistributed derivative.",
+    "noticePath": "licenses/MS-Basic-0.2.0-LICENSE.md",
+    "noticeBytes": 3320,
+    "noticeSHA256": "bf7db123b5d6c0beb1a37f6e1b11c6f4dfd8fb6abd5d59ff282ea24a5cd932e5"
+  },
+  "ffmpeg": {
+    "version": "8.1.2",
+    "installedBinarySHA256": "dad4b30b36a1a999bfa4b6ffbde138bd17ee496c69e12eef638227dff2c6415c",
+    "license": "GPL-3.0-or-later local command-line inspection and conversion tool; outputs are not linked to or derived from FFmpeg code",
+    "source": "Existing Homebrew installation at /opt/homebrew/bin/ffmpeg"
+  }
+}

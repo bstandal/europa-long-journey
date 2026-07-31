@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "inputs": [
+    {
+      "path": "../characters/outputs/chapter01-hero-character-library.usdc",
+      "sha256": "0127d681b1dae5ede2d6acced1c596c23f08dee83a1c1f9be2f2c059b52f3140",
+      "purpose": "compatible skeleton joint order, rest transforms and bind transforms"
+    },
+    {
+      "path": "../characters/provenance.json",
+      "sha256": "fb306ea451a8709d4311daa03fb2fb2459d9b67b9f5ba85fc263442ee5dbba1b",
+      "purpose": "rights status of compatible rig dependency"
+    },
+    {
+      "path": "../../../../blueprint/first-farmers-experience-approval.json",
+      "sha256": "68a2edadf793050ae3fa6f45f871d851bfe9e1e471d96b2609eff49e238244df",
+      "purpose": "approved interaction IDs and projection digest"
+    },
+    {
+      "path": "../../../../ios/Sources/ImmersiveRuntime/Chapter01InteractionCatalog.swift",
+      "sha256": "9e6ab8a15e4fdd60edcd91cd834aacf784b91d25126b9ed0b78b5ee5bc4e17ff",
+      "purpose": "locked grammar and WorldEffect identifiers"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "assetVersion": "chapter01-directed-animation-library-v1",
+  "classification": "DIRECTED_ANIMATION_CONTACT_CANDIDATE",
+  "rightsGate": "PASS",
+  "shippingStatus": "RIGHTS_CLEARED_FINAL_CONTACT_OPEN",
+  "projectAuthored": [
+    {
+      "name": "All animation keys, timing, poses and contact windows",
+      "authority": "directed-animation-spec.json",
+      "rights": "Project-authored",
+      "externalMotionData": false,
+      "motionCapture": false
+    },
+    {
+      "name": "USD animation compiler, deterministic package writer and validators",
+      "authority": "scripts/",
+      "rights": "Project-authored"
+    }
+  ],
+  "compatibleRigDependency": {
+    "name": "Chapter 01 hero-character candidate",
+    "path": "../characters/outputs/chapter01-hero-character-library.usdc",
+    "licenseStatus": "RIGHTS_CLEARED",
+    "use": "Joint order, rest transforms and bind transforms only; no external animation data is consumed.",
+    "upstreamProvenance": "../characters/provenance.json"
+  },
+  "prohibitedInputs": [
+    "third-party animation clips",
+    "motion capture",
+    "dialogue performance",
+    "lip-sync data",
+    "free cloth or hair simulation caches",
+    "autonomous crowd simulation"
+  ],
+  "finalArtGate": "OPEN",
+  "openGates": [
+    "Integrate authored world-space contact sockets and deterministic IK in each world cell.",
+    "Review hand, foot and prop contact at final camera distance on the physical target iPhone.",
+    "Polish deformation against the final character, garment and animal candidates without changing domain authority."
+  ]
+}

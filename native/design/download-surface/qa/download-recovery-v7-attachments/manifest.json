@@ -1,0 +1,89 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "D5B59287-70AC-4E7F-A653-83556DDB5A14",
+        "deviceName" : "iPhone 17 Pro",
+        "exportedFileName" : "D8F97581-135D-40C8-B555-86D76599C798.txt",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "App UI hierarchy for com.thelongwest_0_0099EFC1-CE12-40AB-B6AF-4D615E0DD4A9.journey",
+        "timestamp" : 1784941245.975
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "D5B59287-70AC-4E7F-A653-83556DDB5A14",
+        "deviceName" : "iPhone 17 Pro",
+        "exportedFileName" : "B4AF6F0B-9851-4F6C-AD42-ED771EC3F3F6",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "UI Snapshot 2026-07-25 at 03.00.45 am",
+        "timestamp" : 1784941245.975
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "D5B59287-70AC-4E7F-A653-83556DDB5A14",
+        "deviceName" : "iPhone 17 Pro",
+        "exportedFileName" : "81D4D467-1F3A-418F-B626-B5888F421073.txt",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "Debug description for `\"offline-chapters-retry-status\" Button`_0_3DFEEAC2-5094-47D0-873A-E9A9AC0A9BE0.txt",
+        "timestamp" : 1784941245.879
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "D5B59287-70AC-4E7F-A653-83556DDB5A14",
+        "deviceName" : "iPhone 17 Pro",
+        "exportedFileName" : "F7EF7C38-5199-4A4D-BCC8-FC1CBCA15A46.txt",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "Debug description for `\"offline-chapters-retry-status\" Button`_0_1D965FE2-8E17-4DC9-943A-FE1B8375E03D.txt",
+        "timestamp" : 1784941244.945
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "D5B59287-70AC-4E7F-A653-83556DDB5A14",
+        "deviceName" : "iPhone 17 Pro",
+        "exportedFileName" : "361A02BD-71AF-48EE-9714-E743EA240B17.txt",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "Debug description for `\"offline-chapters-retry-status\" Button`_0_D4CDC405-58B9-45C1-B6C5-689EDD186180.txt",
+        "timestamp" : 1784941243.938
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "D5B59287-70AC-4E7F-A653-83556DDB5A14",
+        "deviceName" : "iPhone 17 Pro",
+        "exportedFileName" : "E7EDB102-DF16-4390-A8B0-C08906C6DFBA",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "Synthesized Event 2026-07-25 at 03.00.42 am",
+        "timestamp" : 1784941242.262
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "D5B59287-70AC-4E7F-A653-83556DDB5A14",
+        "deviceName" : "iPhone 17 Pro",
+        "exportedFileName" : "5650ECFB-A5B1-421C-8B46-DFBC1F3DF0D4",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "Synthesized Event 2026-07-25 at 03.00.41 am",
+        "timestamp" : 1784941241.368
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "D5B59287-70AC-4E7F-A653-83556DDB5A14",
+        "deviceName" : "iPhone 17 Pro",
+        "exportedFileName" : "F25AA2EE-716A-49AF-BF3B-7DCE0D00DF28",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "Synthesized Event 2026-07-25 at 03.00.39 am",
+        "timestamp" : 1784941239.912
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "D5B59287-70AC-4E7F-A653-83556DDB5A14",
+        "deviceName" : "iPhone 17 Pro",
+        "exportedFileName" : "40821A66-85DB-4898-99E2-3D7927F7C6FE.mp4",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "Screen Recording 2026-07-25 at 03.00.34 am.mp4",
+        "timestamp" : 1784941234.638
+      }
+    ],
+    "testIdentifier" : "JourneyAppUITests/testOfflineStatusBootstrapCanBeRetriedWithoutRelaunching()",
+    "testIdentifierURL" : "test://com.apple.xcode/LongWestJourney/JourneyAppUITests/JourneyAppUITests/testOfflineStatusBootstrapCanBeRetriedWithoutRelaunching"
+  }
+]

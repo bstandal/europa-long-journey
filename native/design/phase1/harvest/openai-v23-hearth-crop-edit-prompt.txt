@@ -1,0 +1,5 @@
+Use the exact editing instructions in this prompt. Edit only the attached crop:
+
+Edit Image 1. Replace only the handled metal cauldron at the left hearth with one plausible early-Neolithic hand-built fired-clay cooking pot in the same position and footprint. The pot has a low rounded thick-walled body, a subtly irregular hand-shaped rim, matte warm-brown clay, local soot darkening and physically coherent contact with the existing hearth stones and fire. It has no handle, bail, chain, suspension, glaze, metallic highlight or cauldron silhouette.
+
+Keep everything else exactly unchanged: the seated woman, child, hooded figure, faces, anatomy, hands, stirring stick, fire, smoke, stones, wall, roof, posts, lighting, camera and square crop. Do not add or remove any person or object. The setting is an early Neolithic farming settlement in Thessaly, 6500–6000 BC. No metal, wheel-thrown pottery, masonry, glass, writing, text, symbols, interface or modern object.

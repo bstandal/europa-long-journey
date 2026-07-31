@@ -1,0 +1,788 @@
+{
+  "schemaVersion": 1,
+  "sourceRoot": "site/src/data/chapters",
+  "chapterCount": 24,
+  "movementCount": 290,
+  "interactionCount": 122,
+  "chapters": [
+    {
+      "contentID": "bronze-europe",
+      "path": "site/src/data/chapters/bronze-europe.ts",
+      "sha256": "7918b13c99ea0138c95391c315dc2be469739ed6173778950423c5b3ca6b765d",
+      "movementCount": 10,
+      "interactionCount": 4,
+      "movementIDs": [
+        "a-sword-begins-in-an-older-world",
+        "copper-and-tin-had-to-meet",
+        "crete-faces-three-continents",
+        "the-sea-carries-power",
+        "the-palaces-count-the-world",
+        "the-north-makes-bronze-its-own",
+        "the-warrior-carries-his-rank",
+        "a-world-in-one-hold",
+        "when-the-palaces-burn",
+        "the-singer-outlives-the-scribe"
+      ],
+      "interactionMovementIDs": [
+        "copper-and-tin-had-to-meet",
+        "the-north-makes-bronze-its-own",
+        "a-world-in-one-hold",
+        "the-singer-outlives-the-scribe"
+      ]
+    },
+    {
+      "contentID": "continent-rebuilt",
+      "path": "site/src/data/chapters/continent-rebuilt.ts",
+      "sha256": "25c6b3e0c3efe83451ebaa667f9fc7de3b80aa462204c0d1dc723f3d21fcd7f1",
+      "movementCount": 12,
+      "interactionCount": 4,
+      "movementIDs": [
+        "europe-counts-what-remains",
+        "the-atlantic-sends-machines",
+        "security-draws-two-roads",
+        "coal-and-steel-enter-one-ledger",
+        "the-treaty-acquires-a-court",
+        "democracy-enters-by-the-southern-door",
+        "budapest-pulls-down-the-symbol",
+        "the-wall-confesses-the-system",
+        "prague-gives-socialism-a-human-voice",
+        "the-polish-pope-calls-a-nation-into-view",
+        "solidarity-builds-a-public-body",
+        "the-gates-open-across-the-continent"
+      ],
+      "interactionMovementIDs": [
+        "the-atlantic-sends-machines",
+        "the-treaty-acquires-a-court",
+        "the-wall-confesses-the-system",
+        "solidarity-builds-a-public-body"
+      ]
+    },
+    {
+      "contentID": "dutch-republic",
+      "path": "site/src/data/chapters/dutch-republic.ts",
+      "sha256": "210faaa694e7be8e0d2d13216b1ce1ea36681bad5975ef451a644caf8d80a860",
+      "movementCount": 12,
+      "interactionCount": 4,
+      "movementIDs": [
+        "beggars-take-brill",
+        "provinces-make-a-union",
+        "antwerp-moves-north",
+        "fluyt-carries-the-baltic",
+        "capital-outlives-the-voyage",
+        "lake-becomes-a-ledger",
+        "bank-makes-money-stable",
+        "the-bourse-prices-the-world",
+        "republic-borrows-from-its-citizens",
+        "city-opens-a-market-for-mind",
+        "water-line-saves-the-republic",
+        "system-crosses-the-north-sea"
+      ],
+      "interactionMovementIDs": [
+        "provinces-make-a-union",
+        "capital-outlives-the-voyage",
+        "the-bourse-prices-the-world",
+        "water-line-saves-the-republic"
+      ]
+    },
+    {
+      "contentID": "empire-many-liberties",
+      "path": "site/src/data/chapters/empire-many-liberties.ts",
+      "sha256": "84441f7bb1eb581f173ee431cba4f6cb466d23fbd3e9dab9c4a3bde3a04d3301",
+      "movementCount": 12,
+      "interactionCount": 4,
+      "movementIDs": [
+        "rome-crowns-saxon",
+        "crown-has-no-capital",
+        "rights-accumulate",
+        "city-sends-law-east",
+        "princes-hold-realm",
+        "seven-electors-make-one-king",
+        "estates-enter-room",
+        "diet-outlaws-feud",
+        "circles-put-peace-on-map",
+        "augsburg-makes-division-governable",
+        "westphalia-keeps-mosaic",
+        "empire-ends-liberties-remain"
+      ],
+      "interactionMovementIDs": [
+        "crown-has-no-capital",
+        "seven-electors-make-one-king",
+        "diet-outlaws-feud",
+        "westphalia-keeps-mosaic"
+      ]
+    },
+    {
+      "contentID": "empire-takes-cross",
+      "path": "site/src/data/chapters/empire-takes-cross.ts",
+      "sha256": "1cec7523a911865bcf06339a0a27498b0cbdadfb2a31a913a2d3b84ca55fad73",
+      "movementCount": 14,
+      "interactionCount": 9,
+      "movementIDs": [
+        "a-sign-before-battle",
+        "persecution-ends",
+        "the-emperor-builds",
+        "new-rome-rises",
+        "an-emperor-calls-a-council",
+        "the-creed-survives-emperors",
+        "the-state-confesses",
+        "the-city-grows-behind-walls",
+        "the-bishop-enters-the-city",
+        "chalcedon-defines",
+        "rome-remains-in-east",
+        "law-gathered-again",
+        "wisdom-builds-a-dome",
+        "restoration-has-a-cost"
+      ],
+      "interactionMovementIDs": [
+        "persecution-ends",
+        "the-emperor-builds",
+        "an-emperor-calls-a-council",
+        "the-creed-survives-emperors",
+        "the-city-grows-behind-walls",
+        "the-bishop-enters-the-city",
+        "law-gathered-again",
+        "wisdom-builds-a-dome",
+        "restoration-has-a-cost"
+      ]
+    },
+    {
+      "contentID": "enlightenment-public-opinion",
+      "path": "site/src/data/chapters/enlightenment-public-opinion.ts",
+      "sha256": "81e9f3a34cb01b3cc236cab26f609e16bcff56c764966b3cd40098bf8d3daf1c",
+      "movementCount": 12,
+      "interactionCount": 4,
+      "movementIDs": [
+        "coffeehouse-makes-a-present",
+        "amsterdam-prints-beyond-borders",
+        "dictionary-teaches-doubt",
+        "spectator-finds-its-reader",
+        "voltaire-returns-with-england",
+        "laws-enter-comparison",
+        "encyclopedie-opens-the-workshop",
+        "edinburgh-invents-social-science",
+        "milan-makes-punishment-answer",
+        "rulers-answer-the-page",
+        "the-letter-stops-at-the-palace",
+        "opinion-enters-the-assembly"
+      ],
+      "interactionMovementIDs": [
+        "coffeehouse-makes-a-present",
+        "voltaire-returns-with-england",
+        "encyclopedie-opens-the-workshop",
+        "rulers-answer-the-page"
+      ]
+    },
+    {
+      "contentID": "europe-at-war",
+      "path": "site/src/data/chapters/europe-at-war.ts",
+      "sha256": "00d994806c663f59e0e78e2015dd57721e3e2221656689f56edb892e16db567f",
+      "movementCount": 14,
+      "interactionCount": 4,
+      "movementIDs": [
+        "an-empire-is-proclaimed-in-a-conquered-palace",
+        "the-dreyfus-case-divides-the-street",
+        "the-continent-is-written-as-a-schedule",
+        "sarajevo-enters-vienna",
+        "the-timetable-empties-the-cities",
+        "the-front-becomes-a-factory-of-fire",
+        "four-empires-leave-the-map",
+        "the-peace-creates-the-stateless",
+        "the-movement-seizes-the-state",
+        "the-republic-loses-the-street",
+        "law-and-terror-reclassify-the-human-being",
+        "the-pact-opens-poland",
+        "european-jewry-is-marked-for-murder",
+        "berlin-falls-and-europe-is-divided"
+      ],
+      "interactionMovementIDs": [
+        "the-continent-is-written-as-a-schedule",
+        "the-peace-creates-the-stateless",
+        "law-and-terror-reclassify-the-human-being",
+        "berlin-falls-and-europe-is-divided"
+      ]
+    },
+    {
+      "contentID": "europe-holds-the-line",
+      "path": "site/src/data/chapters/europe-holds-the-line.ts",
+      "sha256": "888f35ca5bf7a6ef0fd9ccf9693303db1c713f6e85bc5047dedfeb9db205f922",
+      "movementCount": 14,
+      "interactionCount": 4,
+      "movementIDs": [
+        "kingdom-falls-one-campaign",
+        "northern-valleys-keep-crown",
+        "toledo-changes-hands",
+        "las-navas-opens-south",
+        "anatolia-breaks-open",
+        "europe-answers-clermont",
+        "christians-break-eastern-wall",
+        "constantinople-falls-belgrade-holds",
+        "road-reaches-vienna",
+        "living-wall-guards-croatia",
+        "malta-holds-four-months",
+        "lepanto-breaks-battle-fleet",
+        "roads-converge-vienna",
+        "frontier-turns"
+      ],
+      "interactionMovementIDs": [
+        "northern-valleys-keep-crown",
+        "europe-answers-clermont",
+        "living-wall-guards-croatia",
+        "frontier-turns"
+      ]
+    },
+    {
+      "contentID": "europe-reborn",
+      "path": "site/src/data/chapters/europe-reborn.ts",
+      "sha256": "500ddcefa1537bf79cf94f73ec9e40fc9c8f41c3f53411594c0dfff6e6ba2aac",
+      "movementCount": 14,
+      "interactionCount": 9,
+      "movementIDs": [
+        "crown-leaves-the-west",
+        "bishop-keeps-the-city",
+        "frank-enters-the-font",
+        "rule-orders-the-day",
+        "king-receives-the-oil",
+        "frontier-enters-by-sword-and-font",
+        "word-travels-further-than-king",
+        "rome-crowns-western-emperor",
+        "heirs-divide-the-realm",
+        "shores-burn-and-connect",
+        "imperial-claim-moves-east",
+        "rulers-choose-christian-future",
+        "two-christian-roads-reach-north",
+        "europe-meets-at-gniezno"
+      ],
+      "interactionMovementIDs": [
+        "bishop-keeps-the-city",
+        "frank-enters-the-font",
+        "rule-orders-the-day",
+        "frontier-enters-by-sword-and-font",
+        "word-travels-further-than-king",
+        "heirs-divide-the-realm",
+        "shores-burn-and-connect",
+        "two-christian-roads-reach-north",
+        "europe-meets-at-gniezno"
+      ]
+    },
+    {
+      "contentID": "europe-returns",
+      "path": "site/src/data/chapters/europe-returns.ts",
+      "sha256": "155b0153d405dfdec7ffbd52a22744dbcd5702938e7d5e5e6a8ba8bdebef6d3d",
+      "movementCount": 12,
+      "interactionCount": 4,
+      "movementIDs": [
+        "the-states-return-to-the-map",
+        "copenhagen-writes-the-doorway",
+        "article-five-moves-east",
+        "the-great-enlargement-rejoins-the-continent",
+        "russia-crosses-into-georgia",
+        "ukraine-chooses-the-european-square",
+        "russia-seizes-crimea-and-opens-the-donbas-war",
+        "the-ceasefire-conceals-an-unfinished-war",
+        "kyiv-refuses-to-fall",
+        "the-invasion-enlarges-european-resolve",
+        "accession-becomes-working-law",
+        "europe-builds-the-power-to-endure"
+      ],
+      "interactionMovementIDs": [
+        "copenhagen-writes-the-doorway",
+        "russia-seizes-crimea-and-opens-the-donbas-war",
+        "the-invasion-enlarges-european-resolve",
+        "europe-builds-the-power-to-endure"
+      ]
+    },
+    {
+      "contentID": "europe-turns-seaward",
+      "path": "site/src/data/chapters/europe-turns-seaward.ts",
+      "sha256": "3c578cf26b408de6d89043293d6ccaf7e9e66bb4ebbd6efe92ab7c52d0c7e91f",
+      "movementCount": 12,
+      "interactionCount": 4,
+      "movementIDs": [
+        "portugal-takes-african-gate",
+        "islands-teach-ocean",
+        "way-home-bends-west",
+        "eastern-trade-western-price",
+        "dias-finds-turn",
+        "chart-reaches-calicut",
+        "columbus-crosses-other-way",
+        "meridian-divides-unknown-world",
+        "one-ship-closes-circle",
+        "cannon-holds-narrow-water",
+        "voyage-enters-archive",
+        "rival-europe-takes-sea"
+      ],
+      "interactionMovementIDs": [
+        "way-home-bends-west",
+        "chart-reaches-calicut",
+        "meridian-divides-unknown-world",
+        "cannon-holds-narrow-water"
+      ]
+    },
+    {
+      "contentID": "european-world",
+      "path": "site/src/data/chapters/european-world.ts",
+      "sha256": "9a192b7323137984e9b313e1e7d47f7f620328b36f0dce0a8273250f0b194a37",
+      "movementCount": 14,
+      "interactionCount": 4,
+      "movementIDs": [
+        "the-sea-acquires-a-law",
+        "steam-keeps-the-appointment",
+        "the-wire-crosses-water",
+        "the-isthmus-opens",
+        "twenty-states-agree-on-the-signal",
+        "the-earth-becomes-one-postal-territory",
+        "noon-is-made-common",
+        "the-survey-gives-the-state-a-map",
+        "the-railway-enters-india",
+        "dakar-builds-an-administrative-city",
+        "disease-enters-a-common-conference",
+        "the-map-enters-the-conference-room",
+        "paris-displays-the-system",
+        "the-world-reaches-london-before-dawn"
+      ],
+      "interactionMovementIDs": [
+        "steam-keeps-the-appointment",
+        "twenty-states-agree-on-the-signal",
+        "the-survey-gives-the-state-a-map",
+        "the-world-reaches-london-before-dawn"
+      ]
+    },
+    {
+      "contentID": "first-farmers",
+      "path": "site/src/data/chapters/first-farmers.ts",
+      "sha256": "f3a5b37fc29465b9bf69d567499ed189aaa739b67e4ede140ddf81f7edb7f9ad",
+      "movementCount": 7,
+      "interactionCount": 7,
+      "movementIDs": [
+        "before-the-fields",
+        "a-household-crosses",
+        "the-harvest-had-to-last",
+        "at-the-iron-gates",
+        "the-house-outlives",
+        "more-mouths-more-land",
+        "a-continent-remade"
+      ],
+      "interactionMovementIDs": [
+        "before-the-fields",
+        "a-household-crosses",
+        "the-harvest-had-to-last",
+        "at-the-iron-gates",
+        "the-house-outlives",
+        "more-mouths-more-land",
+        "a-continent-remade"
+      ]
+    },
+    {
+      "contentID": "greece-and-the-citizen",
+      "path": "site/src/data/chapters/greece-and-the-citizen.ts",
+      "sha256": "5dd27223114ba2f2bfccb75dc91536eaf98072ecbd8a790bc48a7b734696718f",
+      "movementCount": 12,
+      "interactionCount": 4,
+      "movementIDs": [
+        "after-the-palace",
+        "the-law-stands",
+        "the-polis-crosses-the-sea",
+        "sparta-makes-citizenship",
+        "athens-makes-a-people",
+        "the-league-follows-sparta",
+        "the-cities-survive-together",
+        "the-people-take-their-place",
+        "two-freedoms-divide-greece",
+        "the-war-finds-no-field",
+        "persia-gives-sparta-the-sea",
+        "victory-puts-constitutions-on-trial"
+      ],
+      "interactionMovementIDs": [
+        "the-law-stands",
+        "athens-makes-a-people",
+        "the-people-take-their-place",
+        "persia-gives-sparta-the-sea"
+      ]
+    },
+    {
+      "contentID": "habsburg-europe",
+      "path": "site/src/data/chapters/habsburg-europe.ts",
+      "sha256": "1fe70a1314ce189b3f1ef8e057d11ae514405a1906c9e17ae0e13bc537368221",
+      "movementCount": 14,
+      "interactionCount": 4,
+      "movementIDs": [
+        "three-crowns-seek-a-king",
+        "frontier-becomes-an-institution",
+        "danube-opens-eastward",
+        "succession-becomes-common-law",
+        "maria-theresa-counts-the-realm",
+        "school-road-post",
+        "joseph-makes-service-a-vocation",
+        "vienna-balances-europe",
+        "revolution-frees-the-field",
+        "two-governments-share-a-crown",
+        "rights-enter-the-court",
+        "rails-braid-the-crownlands",
+        "city-holds-several-homes",
+        "war-breaks-the-braid"
+      ],
+      "interactionMovementIDs": [
+        "three-crowns-seek-a-king",
+        "school-road-post",
+        "two-governments-share-a-crown",
+        "rails-braid-the-crownlands"
+      ]
+    },
+    {
+      "contentID": "hanseatic-north",
+      "path": "site/src/data/chapters/hanseatic-north.ts",
+      "sha256": "e0afabeb8ed3924d447c7bdfff3ebe4f9060f0e91602768f554ad7f8f11153e8",
+      "movementCount": 12,
+      "interactionCount": 4,
+      "movementIDs": [
+        "dawn-comes-to-bryggen",
+        "lofoten-sends-summer-cargo",
+        "grain-returns-same-water",
+        "crown-grants-door",
+        "yard-becomes-government",
+        "privilege-must-be-defended",
+        "lubeck-joins-two-seas",
+        "agreement-becomes-fleet",
+        "markets-close-together",
+        "four-foreign-houses-watch-routes",
+        "edges-write-back",
+        "north-learns-collective-power"
+      ],
+      "interactionMovementIDs": [
+        "lofoten-sends-summer-cargo",
+        "yard-becomes-government",
+        "agreement-becomes-fleet",
+        "edges-write-back"
+      ]
+    },
+    {
+      "contentID": "medieval-commercial-revolution",
+      "path": "site/src/data/chapters/medieval-commercial-revolution.ts",
+      "sha256": "6d1bfb8e6b12cf1a1a86139f5cf51753c104c0abecf6a24ac5967d4f92228fa4",
+      "movementCount": 12,
+      "interactionCount": 4,
+      "movementIDs": [
+        "ports-wake-before-kingdoms",
+        "notary-gives-voyage-memory",
+        "fair-keeps-its-date",
+        "one-stays-one-sails",
+        "loss-acquires-a-limit",
+        "contract-becomes-route",
+        "count-guards-the-fair",
+        "money-becomes-language",
+        "promise-crosses-alps",
+        "ledger-sees-the-house",
+        "sea-can-be-insured",
+        "ledger-road-reaches-north"
+      ],
+      "interactionMovementIDs": [
+        "fair-keeps-its-date",
+        "contract-becomes-route",
+        "promise-crosses-alps",
+        "sea-can-be-insured"
+      ]
+    },
+    {
+      "contentID": "papal-revolution",
+      "path": "site/src/data/chapters/papal-revolution.ts",
+      "sha256": "f1c8af4d78655784fa333cfd1f421530c66a59743a562254fb02c23e4f5838df",
+      "movementCount": 12,
+      "interactionCount": 9,
+      "movementIDs": [
+        "emperor-judges-three-popes",
+        "reformers-build-government",
+        "cardinals-claim-election",
+        "milan-streets-judge-clergy",
+        "bishop-serves-altar-crown",
+        "gregory-forbids-kings-hand",
+        "king-pope-depose",
+        "road-ends-canossa",
+        "henry-takes-rome",
+        "compromise-beyond-empire",
+        "emperor-makes-pope-prisoner",
+        "worms-divides-ring-sceptre"
+      ],
+      "interactionMovementIDs": [
+        "reformers-build-government",
+        "cardinals-claim-election",
+        "milan-streets-judge-clergy",
+        "bishop-serves-altar-crown",
+        "gregory-forbids-kings-hand",
+        "road-ends-canossa",
+        "henry-takes-rome",
+        "emperor-makes-pope-prisoner",
+        "worms-divides-ring-sceptre"
+      ]
+    },
+    {
+      "contentID": "reformation",
+      "path": "site/src/data/chapters/reformation.ts",
+      "sha256": "269e693ee9362cb3e3ec28b312dca7b98fbcce190b55bb2f081a997ca5906d4c",
+      "movementCount": 14,
+      "interactionCount": 4,
+      "movementIDs": [
+        "indulgence-enters-print",
+        "worms-judges-the-book",
+        "vernacular-enters-the-house",
+        "reform-takes-second-road",
+        "prince-builds-a-church",
+        "catholic-europe-renews",
+        "augsburg-maps-division",
+        "prague-window-opens-war",
+        "army-learns-to-feed-itself",
+        "magdeburg-becomes-warning",
+        "sweden-turns-the-field",
+        "war-outlives-confession",
+        "envoys-negotiate-under-arms",
+        "law-remains-after-armies"
+      ],
+      "interactionMovementIDs": [
+        "indulgence-enters-print",
+        "prince-builds-a-church",
+        "army-learns-to-feed-itself",
+        "envoys-negotiate-under-arms"
+      ]
+    },
+    {
+      "contentID": "rivalry-industrial-breakthrough",
+      "path": "site/src/data/chapters/rivalry-industrial-breakthrough.ts",
+      "sha256": "b976abb8df1dfc6e960b4cc8d88e02608b414091a301be3eeb75abb45083f081",
+      "movementCount": 12,
+      "interactionCount": 4,
+      "movementIDs": [
+        "the-furnace-takes-coal",
+        "the-mine-breathes",
+        "improvement-becomes-a-calling",
+        "watt-closes-the-cylinder",
+        "the-building-becomes-a-machine",
+        "manchester-multiplies",
+        "iron-takes-a-new-form",
+        "the-railway-takes-time",
+        "the-continent-enters-the-hall",
+        "capital-outgrows-the-partnership",
+        "liability-finds-a-boundary",
+        "the-company-becomes-a-machine-for-the-future"
+      ],
+      "interactionMovementIDs": [
+        "the-mine-breathes",
+        "the-building-becomes-a-machine",
+        "the-railway-takes-time",
+        "liability-finds-a-boundary"
+      ]
+    },
+    {
+      "contentID": "rome-gathers-europe",
+      "path": "site/src/data/chapters/rome-gathers-europe.ts",
+      "sha256": "896091d8b5ff85924b5b23b0fbec05a560feadb862edcdeba544a90d9a86d993",
+      "movementCount": 12,
+      "interactionCount": 9,
+      "movementIDs": [
+        "power-after-the-king",
+        "the-people-make-power-answer",
+        "defeat-teaches-rome-to-return",
+        "many-terms-of-defeat",
+        "the-road-makes-an-army",
+        "hannibal-wins-battles",
+        "victory-enters-the-city",
+        "the-allies-demand-the-name",
+        "armies-follow-generals-home",
+        "the-emperor-governs-through-cities",
+        "service-opens-the-gate",
+        "the-name-crosses-the-empire"
+      ],
+      "interactionMovementIDs": [
+        "the-people-make-power-answer",
+        "defeat-teaches-rome-to-return",
+        "the-road-makes-an-army",
+        "hannibal-wins-battles",
+        "the-allies-demand-the-name",
+        "armies-follow-generals-home",
+        "the-emperor-governs-through-cities",
+        "service-opens-the-gate",
+        "the-name-crosses-the-empire"
+      ]
+    },
+    {
+      "contentID": "scientific-revolution",
+      "path": "site/src/data/chapters/scientific-revolution.ts",
+      "sha256": "443af74e2edfc26462c20428f4fc58c0a7cfc712c75bafda51322001cdbe4435",
+      "movementCount": 12,
+      "interactionCount": 4,
+      "movementIDs": [
+        "earth-becomes-a-planet",
+        "anatomist-takes-the-knife",
+        "tycho-builds-an-observatory",
+        "mars-refuses-the-circle",
+        "glass-adds-new-heavens",
+        "blood-completes-the-circuit",
+        "geometry-takes-the-page",
+        "air-receives-weight",
+        "vacuum-enters-the-room",
+        "observation-enters-the-register",
+        "lensmakers-open-small-worlds",
+        "one-law-binds-earth-and-sky"
+      ],
+      "interactionMovementIDs": [
+        "earth-becomes-a-planet",
+        "mars-refuses-the-circle",
+        "geometry-takes-the-page",
+        "observation-enters-the-register"
+      ]
+    },
+    {
+      "contentID": "society-beyond-kin",
+      "path": "site/src/data/chapters/society-beyond-kin.ts",
+      "sha256": "b81820950ac5aa113a920b19e5c7b6acac320c8f6635be12655c6aebfb6fbc97",
+      "movementCount": 12,
+      "interactionCount": 8,
+      "movementIDs": [
+        "marriage-is-forbidden",
+        "circle-opens-outward",
+        "two-voices-make-bond",
+        "land-leaves-lineage",
+        "rule-makes-strangers-house",
+        "guild-creates-chosen-kin",
+        "oath-makes-people",
+        "commune-governs-own-name",
+        "common-chest-many-keys",
+        "law-gives-body-name",
+        "students-become-nation",
+        "institution-outlives-us"
+      ],
+      "interactionMovementIDs": [
+        "circle-opens-outward",
+        "two-voices-make-bond",
+        "rule-makes-strangers-house",
+        "guild-creates-chosen-kin",
+        "commune-governs-own-name",
+        "common-chest-many-keys",
+        "students-become-nation",
+        "institution-outlives-us"
+      ]
+    },
+    {
+      "contentID": "steppe-comes-west",
+      "path": "site/src/data/chapters/steppe-comes-west.ts",
+      "sha256": "1f025368840d32d00e3857cd22701383d4e2375a7841be83c702a3447a0fa91f",
+      "movementCount": 7,
+      "interactionCount": 3,
+      "movementIDs": [
+        "where-the-fields-end",
+        "a-world-that-could-move",
+        "the-wheel-carries-the-house",
+        "the-mound-holds-the-fathers",
+        "the-fathers-disappear",
+        "speech-follows-power",
+        "the-gods-take-two-roads"
+      ],
+      "interactionMovementIDs": [
+        "the-wheel-carries-the-house",
+        "the-fathers-disappear",
+        "the-gods-take-two-roads"
+      ]
+    }
+  ],
+  "supportFiles": [
+    {
+      "path": "site/src/components/chapters/ChapterInteraction.astro",
+      "sha256": "858fdaf363f383b12ba78128503edd3946b15aa197710f230d3f5a2665ed46b8"
+    },
+    {
+      "path": "site/src/components/chapters/ChapterMovement.astro",
+      "sha256": "d1b9b8ff2f9a253cf3eb051f74d357597ce6b1580ca969f487038212d7d8310e"
+    },
+    {
+      "path": "site/src/components/chapters/ChapterStage.astro",
+      "sha256": "6aa2d9700f3c9c2bc4664f6dc93adbd27142cfcd9b1670cf863572c486d6130f"
+    },
+    {
+      "path": "site/src/components/chapters/interactions/ChristianCityInteraction.astro",
+      "sha256": "17a8f13f48f49d7a6285bebf6fe535a225b371d3eb6777be9262c216cd67af06"
+    },
+    {
+      "path": "site/src/components/chapters/interactions/ChristianCouncilInteraction.astro",
+      "sha256": "84bcbc6651e8275d8968dc114bba0f0646bf18b9957b5fab7d9f41775ba82feb"
+    },
+    {
+      "path": "site/src/components/chapters/interactions/ChristianPolicyInteraction.astro",
+      "sha256": "c6a188f7f8ce4b51341fe5450e340cc1a1b706b5f5df29b69d4f92402a4577be"
+    },
+    {
+      "path": "site/src/components/chapters/interactions/ChristianTraceInteraction.astro",
+      "sha256": "6e007c969b52f3c334f160a1fb2c6ccda3bdcda815767b1c51caa55b9995b4fb"
+    },
+    {
+      "path": "site/src/components/chapters/interactions/CitizenBodyInteraction.astro",
+      "sha256": "10ea410820bd1a83d3ce5b1b38d7446121617a27b6f0b6ef5f71bd223cf5105c"
+    },
+    {
+      "path": "site/src/components/chapters/interactions/CivicPathInteraction.astro",
+      "sha256": "031eacf4219ef26f0da9958c8427f5dfc543cc37b0a8a9fcb80d5352ed845c27"
+    },
+    {
+      "path": "site/src/components/chapters/interactions/CommonwealthInteraction.astro",
+      "sha256": "3aab18d1f3a60bcbf4c861e49ac8075d2f5e05ca2115f9ec4e594db2feb06318"
+    },
+    {
+      "path": "site/src/components/chapters/interactions/InscriptionInteraction.astro",
+      "sha256": "5e3faff53e8ffe28cca62edf5b3e3486610cf2402619b87de08e56b4b8e28de1"
+    },
+    {
+      "path": "site/src/components/chapters/interactions/KinInteraction.astro",
+      "sha256": "e9218b72ab8e8988a3ea538bfc7d040cd886a92b5cd5e1f17896d57dad1c13c1"
+    },
+    {
+      "path": "site/src/components/chapters/interactions/LedgerVoyageInteraction.astro",
+      "sha256": "a90558f48ca2b39a8e40b60dbb8e19a5159aa475bc46967c6a494fde0b2bce4a"
+    },
+    {
+      "path": "site/src/components/chapters/interactions/PapalInteraction.astro",
+      "sha256": "3253f1861832a9999a2290189530d9f0ec6aa1b4da032618965aa986c07a9891"
+    },
+    {
+      "path": "site/src/components/chapters/interactions/RomanCitizenshipInteraction.astro",
+      "sha256": "c49b79f136a1e667bd14d42d875a426505f1464ba4222771d24ec8f52cf64982"
+    },
+    {
+      "path": "site/src/components/chapters/interactions/RomanCommandInteraction.astro",
+      "sha256": "d13584b3b672039d75a3aa85e88d476756d86b095dc4b92ee6ebe4f669e157ef"
+    },
+    {
+      "path": "site/src/components/chapters/interactions/RomanConstitutionInteraction.astro",
+      "sha256": "5fe0db7916509e53082a273b41da316e1355c39798d30bb3794b8a49964c2c5f"
+    },
+    {
+      "path": "site/src/components/chapters/interactions/RomanNetworkInteraction.astro",
+      "sha256": "338bb42a8ee67644cef985ee18ea1cfac135bb0cafe8253cd21fa6f397dfe8c9"
+    },
+    {
+      "path": "site/src/components/chapters/interactions/RomanTraceInteraction.astro",
+      "sha256": "9a54ffe285d2d271dd8808d4af8b52224055f982caf8e08ed6ca0ad744d2c4dd"
+    },
+    {
+      "path": "site/src/components/chapters/interactions/SacredSpaceInteraction.astro",
+      "sha256": "e2cdda4758ac9e150e52d641a74937ef07e04f96e6603138c8da9f83bd6c6b72"
+    },
+    {
+      "path": "site/src/components/chapters/interactions/V2Interaction.astro",
+      "sha256": "570b9cfec2614e331f4fe17f27479f1a59d2e67f0b798674c97035324be8f842"
+    },
+    {
+      "path": "site/src/components/chapters/interactions/WarTimelineInteraction.astro",
+      "sha256": "1b49d7db2dfbc04691797006aa8f66b5b709c54db752cb7e3720b87f8146b2af"
+    },
+    {
+      "path": "site/src/data/chapters/index.ts",
+      "sha256": "15de0748364184489c29fed3cda61c3bd127ed424a916bf1eeb83021733448c1"
+    },
+    {
+      "path": "site/src/scripts/chapter-runtime.ts",
+      "sha256": "3559f1b6bb0d9260e1b662e2398ae4de9d98808656e5cf31c8b455d5dc8f1109"
+    },
+    {
+      "path": "site/src/types/chapter.ts",
+      "sha256": "a3ba2a6b748054bc577b9d0b2b678f7d95bf674588532a1c1b395ba7b0f3fe44"
+    }
+  ]
+}
+

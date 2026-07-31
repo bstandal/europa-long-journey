@@ -1,0 +1,486 @@
+{
+  "schemaVersion": 1,
+  "kind": "responsive-procedural-soundscape",
+  "id": "more-mouths-responsive-soundscape-v1",
+  "status": "PROVISIONAL_NON_SHIPPING",
+  "shippingState": "PROHIBITED",
+  "output": {
+    "sampleRate": 48000,
+    "bitDepth": 24,
+    "channels": 2,
+    "container": "wav"
+  },
+  "mixGroups": {
+    "soundscape": [
+      "settlement-hearths",
+      "clearing-work",
+      "herd-lanes"
+    ],
+    "spatialDetail": [
+      "stored-grain",
+      "household-fibre"
+    ]
+  },
+  "regions": [
+    {
+      "id": "approach",
+      "timelineID": "more-mouths-approach-v1",
+      "soundscapeStateID": "first-clearing-before-pressure",
+      "durationSeconds": 48,
+      "loop": false,
+      "layers": [
+        {
+          "id": "settlement-hearths",
+          "material": "fire",
+          "visibleSource": "The inherited hearth and the first additional smoke-bearing roofs within the visible clearing",
+          "generator": {
+            "algorithm": "small-hearth-fire-v1",
+            "seed": 55000103,
+            "density": 0.14,
+            "colour": 0.56
+          },
+          "gainDB": -31,
+          "pan": -0.42,
+          "loop": false
+        },
+        {
+          "id": "stored-grain",
+          "material": "grain",
+          "visibleSource": "Dry grain held in the visible household stores before settlement pressure begins",
+          "generator": {
+            "algorithm": "dry-grain-contact-v1",
+            "seed": 55000107,
+            "density": 0.12,
+            "colour": 0.61
+          },
+          "gainDB": -30,
+          "pan": 0.14,
+          "loop": false
+        },
+        {
+          "id": "household-fibre",
+          "material": "textile",
+          "visibleSource": "Baskets, roof ties and carrying straps moving between the visible houses and store",
+          "generator": {
+            "algorithm": "woven-fibre-friction-v1",
+            "seed": 55000109,
+            "density": 0.14,
+            "colour": 0.52
+          },
+          "gainDB": -30,
+          "pan": 0.34,
+          "loop": false
+        },
+        {
+          "id": "clearing-work",
+          "material": "work",
+          "visibleSource": "Tree fall, timber handling and field-edge work around the first expanding clearing",
+          "generator": {
+            "algorithm": "distant-material-work-v1",
+            "seed": 55000111,
+            "density": 0.2,
+            "colour": 0.46
+          },
+          "gainDB": -25,
+          "pan": 0.44,
+          "loop": false
+        },
+        {
+          "id": "herd-lanes",
+          "material": "herd",
+          "visibleSource": "Visible domestic herds moving on the worn lane between enclosure, water and pasture",
+          "generator": {
+            "algorithm": "herd-ground-movement-v1",
+            "seed": 55000101,
+            "density": 0.24,
+            "colour": 0.62
+          },
+          "gainDB": -27,
+          "pan": -0.1,
+          "loop": false
+        }
+      ],
+      "silenceWindows": [
+        {
+          "id": "before-open-ground",
+          "atSeconds": 44.5,
+          "durationSeconds": 2,
+          "reason": "Hold the complete household system at one clearing before the user lets settlement pressure open the ground.",
+          "entry": "authored-cut",
+          "exit": "authored-return"
+        }
+      ]
+    },
+    {
+      "id": "waiting",
+      "timelineID": "more-mouths-waiting-bed-v1",
+      "soundscapeStateID": "one-clearing-waits",
+      "durationSeconds": 15,
+      "loop": true,
+      "layers": [
+        {
+          "id": "settlement-hearths",
+          "material": "fire",
+          "visibleSource": "The original hearth continuing inside the one functioning household",
+          "generator": {
+            "algorithm": "small-hearth-fire-v1",
+            "seed": 55000117,
+            "density": 0.12,
+            "colour": 0.54
+          },
+          "gainDB": -34,
+          "pan": -0.4,
+          "loop": true
+        },
+        {
+          "id": "stored-grain",
+          "material": "grain",
+          "visibleSource": "Stored grain resting inside the visible house before another household takes ground",
+          "generator": {
+            "algorithm": "dry-grain-contact-v1",
+            "seed": 55000119,
+            "density": 0.08,
+            "colour": 0.59
+          },
+          "gainDB": -35,
+          "pan": 0.12,
+          "loop": true
+        },
+        {
+          "id": "household-fibre",
+          "material": "textile",
+          "visibleSource": "Roof fibre, baskets and carrying straps settling within the first clearing",
+          "generator": {
+            "algorithm": "woven-fibre-friction-v1",
+            "seed": 55000123,
+            "density": 0.08,
+            "colour": 0.49
+          },
+          "gainDB": -34,
+          "pan": 0.32,
+          "loop": true
+        },
+        {
+          "id": "clearing-work",
+          "material": "work",
+          "visibleSource": "Low maintenance at the visible field edge without new clearance",
+          "generator": {
+            "algorithm": "distant-material-work-v1",
+            "seed": 55000127,
+            "density": 0.09,
+            "colour": 0.43
+          },
+          "gainDB": -33,
+          "pan": 0.42,
+          "loop": true
+        },
+        {
+          "id": "herd-lanes",
+          "material": "herd",
+          "visibleSource": "The visible domestic herd standing and shifting within the established lane and enclosure",
+          "generator": {
+            "algorithm": "herd-ground-movement-v1",
+            "seed": 55000113,
+            "density": 0.12,
+            "colour": 0.58
+          },
+          "gainDB": -34,
+          "pan": -0.08,
+          "loop": true
+        }
+      ],
+      "silenceWindows": [
+        {
+          "id": "first-clearing-joint",
+          "atSeconds": 14.8,
+          "durationSeconds": 0.2,
+          "reason": "Separate identical waiting cycles while the first household, store and herd remain in place.",
+          "entry": "authored-cut",
+          "exit": "authored-return"
+        }
+      ]
+    },
+    {
+      "id": "engaged",
+      "timelineID": "more-mouths-engaged-bed-v1",
+      "soundscapeStateID": "work-and-herds-move-outward",
+      "durationSeconds": 15,
+      "loop": true,
+      "layers": [
+        {
+          "id": "settlement-hearths",
+          "material": "fire",
+          "visibleSource": "New hearths catching at each accepted household position beyond the first house",
+          "generator": {
+            "algorithm": "small-hearth-fire-v1",
+            "seed": 55000137,
+            "density": 0.38,
+            "colour": 0.65
+          },
+          "gainDB": -21,
+          "pan": -0.38,
+          "loop": true
+        },
+        {
+          "id": "stored-grain",
+          "material": "grain",
+          "visibleSource": "Seed and stored grain entering the newly visible households behind the advancing field edge",
+          "generator": {
+            "algorithm": "dry-grain-contact-v1",
+            "seed": 55000139,
+            "density": 0.3,
+            "colour": 0.64
+          },
+          "gainDB": -22,
+          "pan": 0.14,
+          "loop": true
+        },
+        {
+          "id": "household-fibre",
+          "material": "textile",
+          "visibleSource": "Baskets, roof ties and carrying straps moving outward with each accepted household",
+          "generator": {
+            "algorithm": "woven-fibre-friction-v1",
+            "seed": 55000143,
+            "density": 0.42,
+            "colour": 0.6
+          },
+          "gainDB": -20,
+          "pan": 0.34,
+          "loop": true
+        },
+        {
+          "id": "clearing-work",
+          "material": "work",
+          "visibleSource": "Visible tree fall, timber handling and field-edge work opening ground around the settlement",
+          "generator": {
+            "algorithm": "distant-material-work-v1",
+            "seed": 55000147,
+            "density": 0.5,
+            "colour": 0.51
+          },
+          "gainDB": -17,
+          "pan": 0.4,
+          "loop": true
+        },
+        {
+          "id": "herd-lanes",
+          "material": "herd",
+          "visibleSource": "Visible domestic herds moving outward on newly worn lanes between enclosure, water and pasture",
+          "generator": {
+            "algorithm": "herd-ground-movement-v1",
+            "seed": 55000131,
+            "density": 0.58,
+            "colour": 0.65
+          },
+          "gainDB": -18,
+          "pan": -0.06,
+          "loop": true
+        }
+      ],
+      "silenceWindows": [
+        {
+          "id": "new-hearth-catches",
+          "atSeconds": 7.3,
+          "durationSeconds": 0.16,
+          "reason": "Expose one newly accepted hearth before clearing work and herd traffic continue around it.",
+          "entry": "authored-cut",
+          "exit": "authored-return"
+        }
+      ]
+    },
+    {
+      "id": "resistance",
+      "timelineID": "more-mouths-resistance-bed-v1",
+      "soundscapeStateID": "herd-bunches-at-unopened-edge",
+      "durationSeconds": 15,
+      "loop": true,
+      "layers": [
+        {
+          "id": "settlement-hearths",
+          "material": "fire",
+          "visibleSource": "Established hearths continuing behind the next unopened field edge",
+          "generator": {
+            "algorithm": "small-hearth-fire-v1",
+            "seed": 55000153,
+            "density": 0.18,
+            "colour": 0.56
+          },
+          "gainDB": -31,
+          "pan": -0.4,
+          "loop": true
+        },
+        {
+          "id": "stored-grain",
+          "material": "grain",
+          "visibleSource": "Existing grain stores held behind the point where settlement pressure stops",
+          "generator": {
+            "algorithm": "dry-grain-contact-v1",
+            "seed": 55000159,
+            "density": 0.12,
+            "colour": 0.67
+          },
+          "gainDB": -32,
+          "pan": 0.1,
+          "loop": true
+        },
+        {
+          "id": "household-fibre",
+          "material": "textile",
+          "visibleSource": "Loaded baskets, seed-sack fibre and roof ties held at the unopened edge",
+          "generator": {
+            "algorithm": "woven-fibre-friction-v1",
+            "seed": 55000167,
+            "density": 0.5,
+            "colour": 0.7
+          },
+          "gainDB": -17,
+          "pan": 0.3,
+          "loop": true
+        },
+        {
+          "id": "clearing-work",
+          "material": "work",
+          "visibleSource": "Visible timber and field-edge work tightening where the next clearing has not yet opened",
+          "generator": {
+            "algorithm": "distant-material-work-v1",
+            "seed": 55000171,
+            "density": 0.28,
+            "colour": 0.59
+          },
+          "gainDB": -20,
+          "pan": 0.38,
+          "loop": true
+        },
+        {
+          "id": "herd-lanes",
+          "material": "herd",
+          "visibleSource": "Visible domestic herds bunching on the worn lane at the unopened edge",
+          "generator": {
+            "algorithm": "herd-ground-movement-v1",
+            "seed": 55000149,
+            "density": 0.7,
+            "colour": 0.72
+          },
+          "gainDB": -16,
+          "pan": -0.04,
+          "loop": true
+        }
+      ],
+      "silenceWindows": [
+        {
+          "id": "unopened-edge-holds",
+          "atSeconds": 11.55,
+          "durationSeconds": 0.2,
+          "reason": "Hold the herd and field work at the unopened edge before the established clearing returns.",
+          "entry": "authored-cut",
+          "exit": "authored-return"
+        }
+      ]
+    },
+    {
+      "id": "consequence",
+      "timelineID": "more-mouths-consequence-v1",
+      "soundscapeStateID": "some-roofs-empty-household-departs",
+      "durationSeconds": 45,
+      "loop": false,
+      "layers": [
+        {
+          "id": "settlement-hearths",
+          "material": "fire",
+          "visibleSource": "A reduced set of hearths after smoke has disappeared from some visible roofs",
+          "generator": {
+            "algorithm": "small-hearth-fire-v1",
+            "seed": 55000179,
+            "density": 0.15,
+            "colour": 0.66
+          },
+          "gainDB": -30,
+          "pan": -0.38,
+          "loop": false
+        },
+        {
+          "id": "stored-grain",
+          "material": "grain",
+          "visibleSource": "Carried seed moving out from the emptied houses toward another clearing",
+          "generator": {
+            "algorithm": "dry-grain-contact-v1",
+            "seed": 55000181,
+            "density": 0.28,
+            "colour": 0.63
+          },
+          "gainDB": -22,
+          "pan": 0.12,
+          "loop": false
+        },
+        {
+          "id": "household-fibre",
+          "material": "textile",
+          "visibleSource": "Seed sacks, carrying straps and household fibre leaving along the softened path",
+          "generator": {
+            "algorithm": "woven-fibre-friction-v1",
+            "seed": 55000183,
+            "density": 0.31,
+            "colour": 0.55
+          },
+          "gainDB": -21,
+          "pan": 0.3,
+          "loop": false
+        },
+        {
+          "id": "clearing-work",
+          "material": "work",
+          "visibleSource": "Sparse material handling around the houses that remain occupied",
+          "generator": {
+            "algorithm": "distant-material-work-v1",
+            "seed": 55000189,
+            "density": 0.12,
+            "colour": 0.45
+          },
+          "gainDB": -31,
+          "pan": 0.4,
+          "loop": false
+        },
+        {
+          "id": "herd-lanes",
+          "material": "herd",
+          "visibleSource": "Visible domestic herds leaving with the departing household along the worn lane",
+          "generator": {
+            "algorithm": "herd-ground-movement-v1",
+            "seed": 55000173,
+            "density": 0.24,
+            "colour": 0.68
+          },
+          "gainDB": -26,
+          "pan": -0.05,
+          "loop": false
+        }
+      ],
+      "silenceWindows": [
+        {
+          "id": "smoke-leaves-roofs",
+          "atSeconds": 15.5,
+          "durationSeconds": 4.5,
+          "reason": "Let the empty roofs and softened path stand before carried seed, animals and household material move onward.",
+          "entry": "authored-cut",
+          "exit": "authored-return"
+        }
+      ]
+    }
+  ],
+  "herdSynthesisBoundary": {
+    "algorithm": "herd-ground-movement-v1",
+    "audibleClaims": [
+      "clustered hoof contacts on earth",
+      "low group weight shifts",
+      "restrained breath and body movement"
+    ],
+    "excluded": [
+      "cattle or sheep calls",
+      "bells or tack",
+      "gallop rhythm",
+      "stampede",
+      "species identification"
+    ]
+  }
+}

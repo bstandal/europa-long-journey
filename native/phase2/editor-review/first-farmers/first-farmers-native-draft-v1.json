@@ -1,0 +1,672 @@
+{
+  "schemaVersion": 1,
+  "status": "CHAPTER_01_REVIEW_TEXT_FROZEN",
+  "shippingState": "PROHIBITED",
+  "chapterID": "first-farmers",
+  "title": "The First Farmers",
+  "period": "7000–3300 BC",
+  "locale": "en",
+  "targetDurationMinutes": 28,
+  "authorityBindings": [
+    {
+      "path": "site/src/data/chapters/first-farmers.ts",
+      "sha256": "f3a5b37fc29465b9bf69d567499ed189aaa739b67e4ede140ddf81f7edb7f9ad"
+    },
+    {
+      "path": "native/blueprint/chapter-contracts.json",
+      "sha256": "1db83d0791460ba2dab6459c6cc300020fb0658bf70e1fb7f386c52c9903193e"
+    },
+    {
+      "path": "native/blueprint/arc-matrix.json",
+      "sha256": "8f4926f574ec0046b116ebca9f85a3246a8a2587cda023f94ab1b1ad10f58162"
+    },
+    {
+      "path": "native/blueprint/interaction-mapping.json",
+      "sha256": "5b27fce57af96c7b53e0dd5aee4bbcbb5436f1ffb4033ede018ec18dabb90728"
+    },
+    {
+      "path": "native/blueprint/authored-interaction-effects-01-12.json",
+      "sha256": "042006533ef0672c8a819dbcb043e6ceda6bdf05430c48ea0d2b47fd9ddf4333"
+    }
+  ],
+  "chapterContract": {
+    "thesis": "Farming came to Europe with people who carried seed, animals and knowledge. It bound growing populations to land, season and stores made to outlast a single generation.",
+    "governingJudgement": "Farming remade Europe by tying households to stored futures, inherited ground and settlements built to outlive their founders.",
+    "ending": "Europe had become a continent of fields, herds and long-lived settlements.",
+    "handoff": "The settled continent now possesses fields, stores and paternal lines that steppe mobility can seize, reorder and inherit."
+  },
+  "pacing": {
+    "estimatedNarratedWords": 1334,
+    "narrationRateWordsPerMinute": 138,
+    "estimatedNarrationMinutes": 9.7,
+    "estimatedInteractionMinutes": 14.4,
+    "estimatedAuthoredSilenceAndTransitionsMinutes": 3.9,
+    "firstMeaningfulActionSeconds": 68,
+    "maximumPermittedPassiveIntervalSeconds": 90,
+    "checkpointRule": "Every beat boundary is durable; every interaction is continuously durable; narration resumes paused at the exact stored sample.",
+    "returnRule": "A return opens the exact beat, camera anchor, interaction state and narration sample. Optional reorientation never advances the cursor."
+  },
+  "arcs": [
+    {
+      "arcID": "first-farmers-arc-01",
+      "title": "The River Before the Fields",
+      "targetDurationMinutes": 9,
+      "situation": "The first farming households reach a European river world already anchored by settlement, burial and exchange.",
+      "mechanism": "People carry seed, livestock, tools and learned routines together across the Aegean and into the Danube corridor.",
+      "turn": "The field arrives as a complete living system rather than an isolated crop.",
+      "consequence": "Europe's inhabited river frontier becomes the meeting place of two durable ways of life.",
+      "handoff": "Arrival creates the harder problem: a harvest must now carry a household through the year.",
+      "beats": [
+        {
+          "beatID": "beat-first-farmers-river-world",
+          "movementIDs": ["before-the-fields"],
+          "sceneID": "scene-first-farmers-iron-gates-dawn",
+          "checkpoint": "onEntry",
+          "estimatedSeconds": 72,
+          "narrative": {
+            "eyebrow": "c. 7000 BC · The Iron Gates",
+            "heading": "The River Already Held a World",
+            "segments": [
+              {
+                "id": "ff-river-world-01",
+                "text": "Mist lies inside the Danube gorge. A net lifts silver from the current. Smoke rises from a house set back from the water. Beside the settlement, the dead hold this bank to generations already gone. The gorge is no empty passage. It has paths, landing places, fishing grounds and remembered ground."
+              },
+              {
+                "id": "ff-river-world-02",
+                "text": "The river sets the year. Spring runs fill the narrows. Summer opens the banks. Autumn draws food from forest and water. Winter pulls people back towards dependable channels and what earlier seasons preserved. Long before a field reaches the Danube, its people know how to return, store, exchange and endure."
+              }
+            ]
+          },
+          "sceneDirection": {
+            "camera": "Begin among black water and net stakes; rise slowly until house, cemetery and landing place share one frame.",
+            "livingMotion": ["river current", "net strain", "mist drift", "distant figures", "hearth smoke"],
+            "mechanismLight": "The returning boat wake carries the clearest light through near-black banks.",
+            "sound": "Close water, wet rope, one oar, low hearth, no score for the first twelve seconds."
+          }
+        },
+        {
+          "beatID": "beat-first-farmers-household-crosses",
+          "movementIDs": ["before-the-fields", "a-household-crosses"],
+          "sceneID": "scene-first-farmers-aegean-crossing",
+          "checkpoint": "continuous",
+          "estimatedSeconds": 208,
+          "narrative": {
+            "eyebrow": "7000–6500 BC · Western Anatolia",
+            "heading": "The Field Crosses the Sea",
+            "segments": [
+              {
+                "id": "ff-crossing-01",
+                "text": "On the eastern Aegean shore, a household gathers a world small enough to move. Emmer and einkorn wait in sacks. Sheep and goats crowd the waterline. Grinding stones, pots and cutting tools carry the work that stands between seed and bread."
+              },
+              {
+                "id": "ff-crossing-02",
+                "text": "The knowledge travels inside people. They know when to break the soil, how deep to set the seed, which animals to breed, where to keep grain dry and what must remain untouched for the next sowing. Remove any one part and the rest becomes harder to sustain. Carry the household west."
+              }
+            ],
+            "actionPrompt": "Carry the household"
+          },
+          "interaction": {
+            "id": "interaction-first-farmers-a-household-crosses",
+            "grammar": "trace",
+            "anchors": [
+              {"id": "western-anatolia", "x": 0.76, "y": 0.78, "reachedVariantID": "western-anatolia-loaded"},
+              {"id": "aegean-islands", "x": 0.58, "y": 0.61, "reachedVariantID": "aegean-passage-secured"},
+              {"id": "thessaly", "x": 0.43, "y": 0.44, "reachedVariantID": "thessaly-system-established"},
+              {"id": "danube-corridor", "x": 0.33, "y": 0.2}
+            ],
+            "tolerance": 0.075,
+            "causalContract": {
+              "immediateResponse": "Water parts beneath the finger; boat, animals and carried objects move only along the viable route.",
+              "visibleMechanism": "Each reached shore lights one indispensable part of the farming system and carries it into the next scene.",
+              "historicalConsequence": "The completed route deposits seed, sheep, cattle and tools beside an inhabited European riverbank.",
+              "persistentTrace": "trace-european-farming-belt"
+            },
+            "completionEffectID": "effect-first-farmers-a-household-crosses",
+            "haptics": ["contact", "drag", "seal"],
+            "reduceMotion": "The route fills segment by segment without camera travel; all deposited material remains visible."
+          },
+          "sceneDirection": {
+            "camera": "Follow one authored rail from shore-level loading to a high Danube approach; no free pan.",
+            "livingMotion": ["shallow water", "animal weight shifts", "grain dust", "wake"],
+            "mechanismLight": "Seed, animals and tools catch light only when their route segment is secured.",
+            "sound": "Timber hull, animal breath, cloth, surf narrowing into river water; the first motif begins as four separated tones that join on completion."
+          }
+        },
+        {
+          "beatID": "beat-first-farmers-living-system",
+          "movementIDs": ["a-household-crosses"],
+          "sceneID": "scene-first-farmers-thessaly-landing",
+          "checkpoint": "onEntry",
+          "estimatedSeconds": 88,
+          "narrative": {
+            "eyebrow": "The Aegean · Thessaly",
+            "heading": "Nothing Travels Alone",
+            "segments": [
+              {
+                "id": "ff-system-01",
+                "text": "The sacks do not make a farm. Seed requires cleared ground and a season of labour. Animals require water, breeding and winter care. Grain requires cutting, drying, threshing, grinding and a store that can defeat damp, insects and hunger. The household carries the links together."
+              },
+              {
+                "id": "ff-system-02",
+                "text": "Children learn by working beside adults. No written manual crosses the sea. Skill lives in hands, timing and repetition. When new houses rise in Thessaly, the field has arrived as a living system: people, plants, animals, tools and memory bound into one practice."
+              }
+            ]
+          },
+          "sceneDirection": {
+            "camera": "Move through one continuous unpacking: sack to hand, hoof to tether, stone to grain, seed to soil.",
+            "livingMotion": ["unloading", "grain pour", "goat tether", "hand grinding", "soil cut"],
+            "mechanismLight": "One travelling band of light joins every dependency in order.",
+            "sound": "The four crossing tones become one restrained working pulse beneath material detail."
+          }
+        },
+        {
+          "beatID": "beat-first-farmers-european-ground",
+          "movementIDs": ["a-household-crosses"],
+          "sceneID": "scene-first-farmers-thessaly-first-season",
+          "checkpoint": "onExit",
+          "estimatedSeconds": 88,
+          "narrative": {
+            "eyebrow": "Thessaly",
+            "heading": "The First Season Takes Hold",
+            "segments": [
+              {
+                "id": "ff-ground-01",
+                "text": "A roof closes against rain. Hooves mark the same enclosure night after night. A strip of earth darkens under the digging stick. The work is modest, but its direction is absolute. A household has opened European ground to the next sowing."
+              },
+              {
+                "id": "ff-ground-02",
+                "text": "Other households follow. Some routes turn through the Balkans and up the Danube; others run along Mediterranean coasts and islands. The journeys differ. The cargo remains joined. Farming spreads because people move with the complete practice and make it durable wherever they settle."
+              }
+            ]
+          },
+          "sceneDirection": {
+            "camera": "Hold the same ground while shelter, enclosure and first furrows appear through causal dissolves.",
+            "livingMotion": ["rain on thatch", "animals settling", "soil turning", "hands covering seed"],
+            "mechanismLight": "The buried seed line is the brightest element, then disappears beneath soil.",
+            "sound": "Rain becomes earth work; score falls away when the seed is covered."
+          }
+        },
+        {
+          "beatID": "beat-first-farmers-inhabited-frontier",
+          "movementIDs": ["before-the-fields", "a-household-crosses"],
+          "sceneID": "scene-first-farmers-danube-arrival",
+          "checkpoint": "onExit",
+          "estimatedSeconds": 84,
+          "narrative": {
+            "eyebrow": "The Danube Corridor",
+            "heading": "The Route Reaches an Inhabited River",
+            "segments": [
+              {
+                "id": "ff-frontier-01",
+                "text": "The route now bends north towards the gorge. Its newcomers do not meet wilderness. River communities already possess houses, graves, boats and exchange roads older than the field. They know the current, the forest and distant stone. The arriving household brings another kind of permanence."
+              },
+              {
+                "id": "ff-frontier-02",
+                "text": "Before these lives can meet, the harvest makes its first demand. What grows in one season must carry a household through the next."
+              }
+            ]
+          },
+          "sceneDirection": {
+            "camera": "Return to the opening riverbank from the opposite shore; the traced route remains faintly visible behind it.",
+            "livingMotion": ["two boats approaching", "dogs reacting", "smoke from both banks", "grain sacks under hide"],
+            "mechanismLight": "Light shifts from the completed route to one closed grain sack.",
+            "sound": "River motif returns; one dry grain impact cuts to silence."
+          }
+        }
+      ]
+    },
+    {
+      "arcID": "first-farmers-arc-02",
+      "title": "The Harvest Had to Last",
+      "targetDurationMinutes": 9,
+      "situation": "A farming household faces winter, spoilage and the obligation to reserve seed for the next sowing.",
+      "mechanism": "Food, reserve and seed compete inside one finite store while river and farming communities exchange people and practices.",
+      "turn": "Grain eaten now cannot answer scarcity or return to the soil.",
+      "consequence": "Farming becomes a discipline of deferred use and inherited obligation.",
+      "handoff": "Once stores and households endure, the settlement itself can outlive its builders.",
+      "beats": [
+        {
+          "beatID": "beat-first-farmers-harvest-allocation",
+          "movementIDs": ["the-harvest-had-to-last"],
+          "sceneID": "harvest-allocation-option-1",
+          "checkpoint": "continuous",
+          "estimatedSeconds": 210,
+          "narrative": {
+            "eyebrow": "6500–6000 BC · Thessaly",
+            "heading": "The Harvest Had to Last",
+            "segments": [
+              {"id": "ff-harvest-01", "text": "A field changed the shape of the year. The grain before you has been cut, dried and threshed. Nothing more will grow before winter. This store must answer three claims."},
+              {"id": "ff-harvest-02", "text": "Part will be eaten. Grain carried to the hearth becomes winter food. Once consumed, it cannot answer a longer season or return to the soil."},
+              {"id": "ff-harvest-03", "text": "Part must be kept against loss. Dry grain is lifted from the earth and closed away from damp, insects and hungry animals."},
+              {"id": "ff-harvest-04", "text": "And part must remain untouched. Seed grain is food refused in winter: the next field held inside the present harvest."},
+              {"id": "ff-harvest-05", "text": "Meet every obligation. What remains can ease winter, absorb loss or enlarge the next sowing. The same grain cannot do all three."}
+            ],
+            "actionPrompt": "Divide the harvest"
+          },
+          "interaction": {
+            "id": "interaction-first-farmers-the-harvest-had-to-last",
+            "grammar": "allocate",
+            "resourceName": "harvest shares",
+            "totalUnits": 12,
+            "unitSemantics": "INTERNAL_EQUAL_SHARES_WITHOUT_HISTORICAL_MEASUREMENT_CLAIM",
+            "destinations": [
+              {"id": "food", "title": "Winter food", "minimumUnits": 4},
+              {"id": "reserve", "title": "Protected reserve", "minimumUnits": 2},
+              {"id": "seed", "title": "Seed grain", "minimumUnits": 3}
+            ],
+            "surplusUnits": 3,
+            "completionRule": "SOURCE_EXHAUSTED_AND_EVERY_MINIMUM_MET",
+            "reversalPermittedUntilCommit": true,
+            "causalContract": {
+              "immediateResponse": "Every moved share visibly leaves the central pile and changes the receiving store.",
+              "visibleMechanism": "Three obligations compete for one finite material source; unmet obligations remain visible in the world.",
+              "historicalConsequence": "The completed distribution binds present consumption to reserve, seed and the next agricultural year.",
+              "persistentTrace": "trace-seasonal-store"
+            },
+            "completionEffectID": "effect-first-farmers-the-harvest-had-to-last",
+            "haptics": ["contact", "resistance", "transfer", "seal"],
+            "reduceMotion": "Shares transfer by opacity and count between fixed regions; obligations and consequence remain identical."
+          },
+          "sceneDirection": {
+            "camera": "One close shelter composition: harvest at centre, hearth low left, raised reserve rear, seed vessel right.",
+            "livingMotion": ["grain settle", "cloth edge", "hearth breath", "rain beyond shelter", "mouse shadow outside store"],
+            "mechanismLight": "Only moved grain and the obligation it satisfies receive clear light.",
+            "sound": "Individual grain, basket fibre, ceramic contact and winter rain; score yields to the allocation rhythm."
+          }
+        },
+        {
+          "beatID": "beat-first-farmers-stored-future",
+          "movementIDs": ["the-harvest-had-to-last"],
+          "sceneID": "scene-first-farmers-store-committed",
+          "checkpoint": "onExit",
+          "estimatedSeconds": 68,
+          "narrative": {
+            "eyebrow": "One Harvest · Three Futures",
+            "heading": "The Year Is Bound",
+            "segments": [
+              {
+                "id": "ff-stored-future-01",
+                "text": "Nothing has been created. The harvest has been divided across present hunger, future loss and the field to come. Every valid choice leaves the same obligation behind: winter consumption must stop before it consumes the grain kept for sowing."
+              },
+              {
+                "id": "ff-stored-future-02",
+                "text": "A missed fishing day can be answered by another current. A failed agricultural season reaches months ahead. The store turns memory into discipline. It makes survival depend on work already done and restraint maintained long after the field has gone dark."
+              }
+            ]
+          },
+          "sceneDirection": {
+            "camera": "Pull back only after commit; the three stores remain in the same frame while seasons pass beyond the doorway.",
+            "livingMotion": ["winter dark then autumn rain outside", "grain level fixed", "hearth consumption", "seed vessel opened"],
+            "mechanismLight": "Light leaves the hearth and arrives at the seed vessel with the autumn rain.",
+            "sound": "Authored silence across the season change; one low return of the farming motif at the next sowing."
+          }
+        },
+        {
+          "beatID": "beat-first-farmers-gorge-contact",
+          "movementIDs": ["at-the-iron-gates"],
+          "sceneID": "scene-first-farmers-iron-gates-contact",
+          "checkpoint": "onEntry",
+          "estimatedSeconds": 70,
+          "narrative": {
+            "eyebrow": "6200–5800 BC · The Iron Gates",
+            "heading": "Two Ways of Living Meet",
+            "segments": [
+              {
+                "id": "ff-contact-01",
+                "text": "At the gorge, fish and hides move towards the newcomers. Pottery, grain and domestic animals move towards the river settlements. Stone already travels through networks the farmers did not create. Boats carry every exchange more easily than the forest."
+              },
+              {
+                "id": "ff-contact-02",
+                "text": "The meeting enters daily life. Some river people take selected practices. Some join farming settlements. Some farming households include partners raised on the Danube. Goods, skills and people cross at different speeds, until neither bank contains the world it held before."
+              }
+            ]
+          },
+          "sceneDirection": {
+            "camera": "Track one exchanged object across the water, then reveal food, pottery, animals and people crossing on different paths.",
+            "livingMotion": ["fish unloaded", "pot passed hand to hand", "goat resisting boat", "stone tool lifted", "children watching"],
+            "mechanismLight": "Four exchange paths illuminate asynchronously rather than merging into one decorative glow.",
+            "sound": "The river motif and farming motif remain separate until shared household sounds enter."
+          }
+        },
+        {
+          "beatID": "beat-first-farmers-three-records",
+          "movementIDs": ["at-the-iron-gates"],
+          "sceneID": "scene-first-farmers-iron-gates-transformation",
+          "checkpoint": "continuous",
+          "estimatedSeconds": 115,
+          "narrative": {
+            "eyebrow": "The Gorge Through Time",
+            "heading": "Set the Records Together",
+            "segments": [
+              {
+                "id": "ff-records-01",
+                "text": "One moment cannot contain the frontier. Move the same riverbank through three states: the gorge before local farming, the generations of contact, and the later settlements in which farming has taken hold while river food and local ancestry remain."
+              },
+              {
+                "id": "ff-records-02",
+                "text": "The change is visible only when the records stand together. A settlement can receive grain before every household farms. A person can move before a practice does. A river route can survive while its cargo changes."
+              }
+            ],
+            "actionPrompt": "Move the gorge through three generations"
+          },
+          "interaction": {
+            "id": "interaction-first-farmers-at-the-iron-gates",
+            "grammar": "transform",
+            "stages": [
+              {"id": "river-communities", "controlID": "time-layer", "requiredAmount": 0.33},
+              {"id": "contact-households", "controlID": "time-layer", "requiredAmount": 0.66},
+              {"id": "later-settlements", "controlID": "time-layer", "requiredAmount": 1}
+            ],
+            "causalContract": {
+              "immediateResponse": "The same shore, house plots and graves transform beneath one continuous finger movement.",
+              "visibleMechanism": "Food, objects, ancestry and settlement form change on separate material layers and align only at the final threshold.",
+              "historicalConsequence": "Incoming farmers and established river communities now share households, practices and routes while farming moves up the Danube.",
+              "persistentTrace": "trace-european-farming-belt"
+            },
+            "completionEffectID": "effect-first-farmers-at-the-iron-gates",
+            "haptics": ["drag", "break", "seal"],
+            "reduceMotion": "Three discrete authored states replace the continuous dissolve; their causal order and consequence remain unchanged."
+          },
+          "sceneDirection": {
+            "camera": "Locked riverbank geometry across all stages; people, foods, buildings and routes transform without a montage cut.",
+            "livingMotion": ["water continuous across time", "house smoke changes", "boats multiply", "domestic animals enter", "fields appear above bank"],
+            "mechanismLight": "The same landing place anchors all three states and stays legible through darkness.",
+            "sound": "River bed remains sample-continuous; tools, animals and voices enter by stage."
+          }
+        },
+        {
+          "beatID": "beat-first-farmers-frontier-consequence",
+          "movementIDs": ["at-the-iron-gates"],
+          "sceneID": "scene-first-farmers-danube-to-loess",
+          "checkpoint": "onExit",
+          "estimatedSeconds": 77,
+          "narrative": {
+            "eyebrow": "The Danube Opens North",
+            "heading": "The Frontier Enters the Household",
+            "segments": [
+              {
+                "id": "ff-frontier-consequence-01",
+                "text": "The river frontier does not vanish. It moves inside the new settlements. Local knowledge joins imported seed. Older routes carry new cargo. Households combine people whose childhoods began in different worlds. Farming advances, but the continent it remakes enters the system with it."
+              },
+              {
+                "id": "ff-frontier-consequence-02",
+                "text": "Upstream, the route reaches deep loess: ground that yields to cultivation and timber that can raise a house. Grain can now outlast a season. The next house plot must outlast its first timbers."
+              }
+            ]
+          },
+          "sceneDirection": {
+            "camera": "Rise from shared riverbank to the Danube route and settle on one marked longhouse plot.",
+            "livingMotion": ["boat wake becoming route line", "forest canopy", "first post driven"],
+            "mechanismLight": "The river route becomes a worn ground path ending at a single posthole.",
+            "sound": "Water recedes into timber impact; no transition card."
+          }
+        }
+      ]
+    },
+    {
+      "arcID": "first-farmers-arc-03",
+      "title": "The House Outlives Its Builders",
+      "targetDurationMinutes": 10,
+      "situation": "Timber houses decay while repeated rebuilding fixes communities to the same European ground.",
+      "mechanism": "Household growth, field clearance, herd traffic and settlement memory expand across the loess plains.",
+      "turn": "A family economy becomes a demographic force able to remake whole landscapes.",
+      "consequence": "Europe becomes a continent of fields, herds and long-lived settlements.",
+      "handoff": "That settled order now faces a mobile power arriving from the steppe.",
+      "beats": [
+        {
+          "beatID": "beat-first-farmers-raise-longhouse",
+          "movementIDs": ["the-house-outlives"],
+          "sceneID": "scene-first-farmers-longhouse-assembly",
+          "checkpoint": "continuous",
+          "estimatedSeconds": 150,
+          "narrative": {
+            "eyebrow": "5600–4900 BC · The Loess Plains",
+            "heading": "Raise the House",
+            "segments": [
+              {"id": "ff-house-01", "text": "The plot begins as cuts in the soil. Posts must carry the frame. The hearth must sit where work, food and warmth can return each day. Storage must remain dry and close enough to guard. A roof must bind the parts into shelter."},
+              {"id": "ff-house-02", "text": "Raise the load-bearing frame. Then make the shelter fit for a household. Every piece changes what the household can preserve, repair and pass forward."}
+            ],
+            "actionPrompt": "Build the house that can be rebuilt"
+          },
+          "interaction": {
+            "id": "interaction-first-farmers-the-house-outlives",
+            "grammar": "assemble",
+            "components": [
+              {"id": "posts", "targetSlot": "frame", "prerequisites": []},
+              {"id": "hearth", "targetSlot": "centre", "prerequisites": ["posts"]},
+              {"id": "storage", "targetSlot": "dry-bay", "prerequisites": ["posts"]},
+              {"id": "roof", "targetSlot": "shelter", "prerequisites": ["posts"]}
+            ],
+            "causalContract": {
+              "immediateResponse": "Each accepted part takes weight and casts shadow; a part offered before the load-bearing frame stands meets material resistance.",
+              "visibleMechanism": "Posts establish the frame; hearth, store and roof then become one working household system in any order.",
+              "historicalConsequence": "A complete house plot can be repaired, inherited and rebuilt after its first timbers fail.",
+              "persistentTrace": "trace-european-farming-belt"
+            },
+            "completionEffectID": "effect-first-farmers-the-house-outlives",
+            "haptics": ["contact", "resistance", "seal"],
+            "reduceMotion": "Components appear in their accepted slots with weight and consequence but without spatial flight."
+          },
+          "sceneDirection": {
+            "camera": "Move from posthole level into the finished interior along one rail determined by assembly order.",
+            "livingMotion": ["post flex", "daub dust", "hearth catch", "grain poured", "roof fibres settle"],
+            "mechanismLight": "Accepted structural loads pass a narrow light path from ground to roof.",
+            "sound": "Wood strain, earth, fibre and fire form the rhythm; no generic construction triumph."
+          }
+        },
+        {
+          "beatID": "beat-first-farmers-plot-remains",
+          "movementIDs": ["the-house-outlives"],
+          "sceneID": "scene-first-farmers-longhouse-rebuilt",
+          "checkpoint": "onExit",
+          "estimatedSeconds": 55,
+          "narrative": {
+            "eyebrow": "The Same Plot · Another Generation",
+            "heading": "Timber Fails. The Place Endures.",
+            "segments": [
+              {"id": "ff-plot-01", "text": "Posts rot. Walls crack. Thatch gives way. Yet the path still reaches the threshold. The well remains. Worked ground surrounds the house, and old postholes hold its shape beneath the floor."},
+              {"id": "ff-plot-02", "text": "New timbers rise beside the old marks. The rebuilt house inherits more than a footprint. Cleared soil, stored grain, animal enclosures and neighbourly obligations make one generation's labour part of the life awaiting the next."}
+            ]
+          },
+          "sceneDirection": {
+            "camera": "Hold the completed assembly; age it to collapse, then rebuild beside the visible postholes without changing the plot.",
+            "livingMotion": ["rain wear", "timber sag", "grass return", "new post driven", "threshold reworn"],
+            "mechanismLight": "Old postholes stay lit beneath the new frame.",
+            "sound": "Years compress through material decay; one inherited hearth tone survives the cut."
+          }
+        },
+        {
+          "beatID": "beat-first-farmers-paternal-lines",
+          "movementIDs": ["the-house-outlives"],
+          "sceneID": "scene-first-farmers-household-descent",
+          "checkpoint": "onExit",
+          "estimatedSeconds": 55,
+          "narrative": {
+            "eyebrow": "Household · Descent · Place",
+            "heading": "The House Acquires a Line",
+            "segments": [
+              {"id": "ff-descent-01", "text": "In some farming communities, continuity runs strongly through fathers and sons. Women arrive from neighbouring groups and bind settlements to one another. The house plot, its dead and its worked ground give descent a durable address."},
+              {"id": "ff-descent-02", "text": "A family line can now inherit a store, a field and obligations fixed to place. Long before law writes property down, repeated work makes possession visible in the earth."}
+            ]
+          },
+          "sceneDirection": {
+            "camera": "Move through repeated thresholds rather than a family-tree graphic; arrivals, burials and rebuilt frames share the plot.",
+            "livingMotion": ["new household arrival", "burial procession", "child at work", "field boundary maintained"],
+            "mechanismLight": "The worn threshold is brighter than any face and persists across generations.",
+            "sound": "Footsteps repeat in the same spatial position while voices change."
+          }
+        },
+        {
+          "beatID": "beat-first-farmers-more-mouths",
+          "movementIDs": ["more-mouths-more-land"],
+          "sceneID": "scene-first-farmers-settlement-growth",
+          "checkpoint": "continuous",
+          "estimatedSeconds": 120,
+          "narrative": {
+            "eyebrow": "5500–4000 BC · The Danube and Loess Belt",
+            "heading": "One Hearth Becomes Several",
+            "segments": [
+              {"id": "ff-growth-01", "text": "Stored harvests and settled care allow households to grow. One roof becomes several. New hearths require new fields. New herds cut lanes between water, pasture and enclosure. The settlement begins to press beyond its first clearing."},
+              {"id": "ff-growth-02", "text": "Open the ground. Every new household carries seed and animals outward, but leaves roads, field edges and daughter settlements behind."}
+            ],
+            "actionPrompt": "Let the household become a landscape"
+          },
+          "interaction": {
+            "id": "interaction-first-farmers-more-mouths-more-land",
+            "grammar": "transform",
+            "stages": [
+              {"id": "new-hearths", "controlID": "settlement-pressure", "requiredAmount": 0.32},
+              {"id": "field-edges", "controlID": "settlement-pressure", "requiredAmount": 0.66},
+              {"id": "herd-lanes-and-daughters", "controlID": "settlement-pressure", "requiredAmount": 1}
+            ],
+            "causalContract": {
+              "immediateResponse": "Each increase lights a new hearth, pushes a field edge and wears a path into the ground.",
+              "visibleMechanism": "More households consume space and reproduce the farming system in daughter settlements.",
+              "historicalConsequence": "Cleared loess, herd lanes and new settlements remain cut into the landscape.",
+              "persistentTrace": "trace-european-farming-belt"
+            },
+            "completionEffectID": "effect-first-farmers-more-mouths-more-land",
+            "haptics": ["drag", "break", "seal"],
+            "reduceMotion": "The landscape advances through three static population states with identical thresholds."
+          },
+          "sceneDirection": {
+            "camera": "Rise from one hearth to a high oblique portrait landscape while preserving the first house as the fixed origin.",
+            "livingMotion": ["new smoke columns", "tree fall", "herd movement", "field work", "children on paths"],
+            "mechanismLight": "Each new hearth sends a line into its required field and path before the next can appear.",
+            "sound": "The inherited hearth pulse multiplies spatially; axes and animals remain material, never martial."
+          }
+        },
+        {
+          "beatID": "beat-first-farmers-growth-breaks",
+          "movementIDs": ["more-mouths-more-land"],
+          "sceneID": "scene-first-farmers-local-contraction",
+          "checkpoint": "onExit",
+          "estimatedSeconds": 50,
+          "narrative": {
+            "eyebrow": "Growth Is Not a Straight Line",
+            "heading": "Some Clearings Empty",
+            "segments": [
+              {"id": "ff-contraction-01", "text": "Expansion carries its own exposure. A failed harvest, disease, conflict or exhausted local ground can break a settlement's growth. Smoke disappears from some roofs. Grass closes paths. Young trees enter worked soil."},
+              {"id": "ff-contraction-02", "text": "The farming system survives by moving again. Households take seed, animals and learned routines to another clearing. Population rises and falls by region, yet every renewed settlement extends the world of fields and stores."}
+            ]
+          },
+          "sceneDirection": {
+            "camera": "Reverse through one edge of the completed growth scene: smoke out, roof dark, path soft, regrowth entering the field.",
+            "livingMotion": ["grass in path", "rain through roof", "saplings", "one departing cartless household"],
+            "mechanismLight": "A carried seed sack remains lit as the empty houses fall dark.",
+            "sound": "Settlement voices leave spatially; wind and regrowth occupy the same channels."
+          }
+        },
+        {
+          "beatID": "beat-first-farmers-continent-remade",
+          "movementIDs": ["a-continent-remade"],
+          "sceneID": "scene-first-farmers-europe-transformation",
+          "checkpoint": "continuous",
+          "estimatedSeconds": 120,
+          "narrative": {
+            "eyebrow": "4500–3300 BC · Europe",
+            "heading": "A Continent Remade",
+            "segments": [
+              {"id": "ff-continent-01", "text": "The first traced household has become a continental pattern. Fields break woodland along river valleys and fertile plains. Herds move between enclosure, water and pasture. Longhouses, wells and inherited plots hold growing communities to ground."},
+              {"id": "ff-continent-02", "text": "Carry the transformation across Europe. Keep the river beneath it. Keep the first route visible. The new landscape does not erase what came before; it makes fields, stores and permanent settlement the dominant structure through which later powers must move."}
+            ],
+            "actionPrompt": "Open the farming continent"
+          },
+          "interaction": {
+            "id": "interaction-first-farmers-a-continent-remade",
+            "grammar": "transform",
+            "stages": [
+              {"id": "danube-fields", "controlID": "continental-spread", "requiredAmount": 0.34},
+              {"id": "loess-settlements", "controlID": "continental-spread", "requiredAmount": 0.7},
+              {"id": "european-farming-belt", "controlID": "continental-spread", "requiredAmount": 1}
+            ],
+            "causalContract": {
+              "immediateResponse": "Fields, herds and settlement lights advance only along the accumulated route and viable ground.",
+              "visibleMechanism": "Household growth repeats the same coupled system across river corridors and fertile plains.",
+              "historicalConsequence": "Cleared fields, herds, longhouses and inherited settlement ground now cross the Danube and loess plains.",
+              "persistentTrace": "trace-european-farming-belt"
+            },
+            "completionEffectID": "effect-first-farmers-a-continent-remade",
+            "haptics": ["drag", "break", "seal"],
+            "reduceMotion": "Three authored map-landscape states reveal the same spread without sweeping camera motion."
+          },
+          "sceneDirection": {
+            "camera": "Begin inside one field and rise into a relief world whose routes retain physical depth; never become a flat infographic.",
+            "livingMotion": ["seasonal field change", "herd traffic", "settlement smoke", "river movement", "woodland edge"],
+            "mechanismLight": "The farming belt is lit by its stores and hearths, while near-black untouched terrain preserves scale.",
+            "sound": "Household motifs join across space; no triumphal swell, only accumulating human work."
+          }
+        },
+        {
+          "beatID": "beat-first-farmers-before-steppe",
+          "movementIDs": ["a-continent-remade"],
+          "sceneID": "scene-first-farmers-steppe-handoff",
+          "checkpoint": "onExit",
+          "estimatedSeconds": 50,
+          "narrative": {
+            "eyebrow": "By 3300 BC",
+            "heading": "Europe Had Become a Continent of Fields, Herds and Long-Lived Settlements",
+            "segments": [
+              {"id": "ff-ending-01", "text": "Their voices were never written down. Their structure remains. Seed grain kept for sowing, a store raised from damp, a field cleared for another year and a house rebuilt beside its dead have fixed growing populations to inherited ground."},
+              {"id": "ff-ending-02", "text": "East of this settled continent, another order is gathering power across open grass. It will not meet an empty Europe. It will meet fields to seize, stores to command, houses to inherit and paternal lines to reorder."}
+            ]
+          },
+          "chapterCompletionEffect": {
+            "id": "effect-first-farmers-chapter-complete",
+            "worldResult": "The living world retains the Aegean-to-Danube route, the seasonal store, longhouse plots, daughter clearings and the European farming belt for every later chapter."
+          },
+          "sceneDirection": {
+            "camera": "Return from continental height to one lit store, then turn the far horizon east without leaving the settled foreground.",
+            "livingMotion": ["grain dust", "field wind", "distant herd", "horizon weather"],
+            "mechanismLight": "The near store remains brightest; a cold moving line appears only at the eastern edge.",
+            "sound": "Farming motif holds in the foreground while a new low mobile rhythm enters beyond it and carries the handoff."
+          }
+        }
+      ]
+    }
+  ],
+  "interactionCoverage": {
+    "principalCount": 6,
+    "byGrammar": {
+      "trace": 1,
+      "allocate": 1,
+      "assemble": 1,
+      "transform": 3,
+      "pressure": 0
+    },
+    "sourceMapping": [
+      {"movementID": "before-the-fields", "disposition": "MERGE", "targetInteractionID": "interaction-first-farmers-a-household-crosses"},
+      {"movementID": "a-household-crosses", "disposition": "KEEP", "targetInteractionID": "interaction-first-farmers-a-household-crosses"},
+      {"movementID": "the-harvest-had-to-last", "disposition": "KEEP", "targetInteractionID": "interaction-first-farmers-the-harvest-had-to-last"},
+      {"movementID": "at-the-iron-gates", "disposition": "REWRITE", "targetInteractionID": "interaction-first-farmers-at-the-iron-gates"},
+      {"movementID": "the-house-outlives", "disposition": "REWRITE", "targetInteractionID": "interaction-first-farmers-the-house-outlives"},
+      {"movementID": "more-mouths-more-land", "disposition": "REWRITE", "targetInteractionID": "interaction-first-farmers-more-mouths-more-land"},
+      {"movementID": "a-continent-remade", "disposition": "REWRITE", "targetInteractionID": "interaction-first-farmers-a-continent-remade"}
+    ]
+  },
+  "accessibilityContract": {
+    "sameReducerForTouchAndVoiceOver": true,
+    "sameCompletionEffects": true,
+    "sceneSummariesRequired": 17,
+    "dynamicTypeOutsideMetalCanvas": true,
+    "reduceMotionPreservesCausalStates": true,
+    "narrationAndReadingTextShareExactSegments": true
+  },
+  "editorialRegression": {
+    "publicResearchApparatus": false,
+    "publicCaveatsAdded": 0,
+    "rivalNarrativesAdded": 0,
+    "webClaimsRemovedAsOutsideApprovedCausalSpine": [
+      "Georgian wine and qvevri continuity",
+      "genome-wide cognitive-performance variant discussion",
+      "pigmentation-selection excursus",
+      "Indo-European language-tree model excursus",
+      "pathogen chronology beyond the farming mechanism"
+    ]
+  },
+  "approvalBoundary": {
+    "alreadyApproved": ["chapter contract", "three-arc structure", "six principal interactions", "world-effect chain", "four factual repairs for the Chapter 01 review", "37-segment Chapter 01 review-text freeze"],
+    "notClaimed": ["final public wording", "final scene art", "final narration performance", "final score", "launch-package approval", "shipping approval"],
+    "nextMachineWork": "Bind the frozen segments to non-shipping narration cues, shared review worlds and the signed Chapter 01 review fixture."
+  }
+}

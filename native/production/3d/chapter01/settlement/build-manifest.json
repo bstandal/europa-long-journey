@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "cellID": "settlement",
+  "assetStatus": "CONTINUITY_PROOF",
+  "toolchain": {
+    "application": "Blender",
+    "version": "5.2.0 LTS",
+    "buildHash": "fbe6228777e7",
+    "platform": "macOS-arm64"
+  },
+  "deterministicSeed": 6000,
+  "counts": {
+    "meshObjects": 505,
+    "triangles": 33300
+  },
+  "inputs": {
+    "../later-cells-tools/chapter01_later_cells.py": {
+      "sha256": "bc110f30c2fe4c118e3a7337508af3ea87c1783f137b639e4994e0c2cb7052a4"
+    },
+    "scripts/generate.py": {
+      "sha256": "e3118ce25d9f7dd827dff8584c106ebe8eca93768158e54e8d4aa58eeae95197"
+    },
+    "scripts/validate.py": {
+      "sha256": "83d036d24ae8c112b19ecd9d2ce13b5287f07e9865bcc8117e59e7cbe6c2de5f"
+    },
+    "scene-spec.json": {
+      "sha256": "fad4e67b942c00c17de53f748cf14239e8b4e6b4befad547051c79540d62a6e8"
+    },
+    "entity-bindings.json": {
+      "sha256": "76dd35c3fa476e907f693e3c686d97437ab588c55206a654b185f0889caccb64"
+    },
+    "provenance.json": {
+      "sha256": "1637b5a2643a57622ae1f05897168253e25e774e143f185689dcb8209127aab1"
+    },
+    "../art-direction/settlement-finale-target-v1.png": {
+      "sha256": "2d4cf4d32879dd94d68b57a9f5def36649c721e7a2d8490bb48eb90116ecf0e9",
+      "use": "reference-only",
+      "embeddedInExport": false
+    }
+  },
+  "reproducibility": {
+    "cleanBuildsCompared": 2,
+    "byteIdenticalOutputs": [
+      "exports/settlement.usda",
+      "exports/settlement.usd",
+      "exports/settlement.usdc",
+      "exports/settlement.usdz",
+      "previews/settlement-portrait.png"
+    ],
+    "excludedOutput": {
+      "path": "exports/settlement.blend",
+      "reason": "Blender authoring containers include process-local data; the reviewable Python recipe is the source authority."
+    }
+  },
+  "outputs": {
+    "exports/settlement.blend": {
+      "sha256": "3f3317c3d5236007eef7a6a90420abe7e6434e95d840259f3f96c6b82ee74093",
+      "bytes": 6458295,
+      "role": "generated-authoring-evidence",
+      "byteReproducible": false,
+      "hashValidation": false
+    },
+    "exports/settlement.usda": {
+      "sha256": "bb338031257f5135c7afd2a6b9f95d16abcc684c6ea29fcd5e32b77567578d66",
+      "bytes": 6868217,
+      "role": "canonical-inspection-layer",
+      "byteReproducible": true
+    },
+    "exports/settlement.usd": {
+      "sha256": "b011ac77f2d47193dd546a3a88032ccea2798ae79b6948643fd0c5b04df73238",
+      "bytes": 878252,
+      "role": "canonical-binary-stage",
+      "byteReproducible": true
+    },
+    "exports/settlement.usdc": {
+      "sha256": "b011ac77f2d47193dd546a3a88032ccea2798ae79b6948643fd0c5b04df73238",
+      "bytes": 878252,
+      "role": "runtime-stage",
+      "byteReproducible": true
+    },
+    "exports/settlement.usdz": {
+      "sha256": "9ef38322607dbd22a89527315dfa6f8e2b09d1b3e440cf83cd8fdc47ac464ad0",
+      "bytes": 878418,
+      "role": "runtime-package",
+      "byteReproducible": true
+    },
+    "previews/settlement-portrait.png": {
+      "sha256": "5b97c630c3dd38628c15ff7ddbb1477130a97039c99a2a8d248c8cba34aab407",
+      "bytes": 1526840,
+      "role": "technical-portrait-receipt",
+      "byteReproducible": true
+    }
+  }
+}

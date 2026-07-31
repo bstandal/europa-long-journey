@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thelongwest.local/schemas/development-blueprint-projection-authority.schema.json",
+  "title": "Development Blueprint Projection Authority",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "kind",
+    "scope",
+    "status",
+    "authority",
+    "shippingState",
+    "packageID",
+    "keyID",
+    "trustDomain",
+    "claimsExcluded",
+    "chapterIDs",
+    "arcIDs",
+    "interactionIDs",
+    "effectIDs",
+    "payloadSHA256",
+    "contractSliceSHA256",
+    "arcSliceSHA256",
+    "interactionSliceSHA256",
+    "worldEffectSliceSHA256",
+    "projectionSHA256"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "kind": { "const": "DEVELOPMENT_BLUEPRINT_PROJECTION_AUTHORITY" },
+    "scope": { "const": "VERTICAL_SLICE" },
+    "status": { "const": "CODEX_PROVISIONAL_NON_SHIPPING_BLUEPRINT_PROJECTION" },
+    "authority": { "const": "codex-local-production" },
+    "shippingState": { "const": "PROHIBITED" },
+    "packageID": { "const": "vertical-slice-development-v1" },
+    "keyID": { "const": "vertical-slice-development-key-v1" },
+    "trustDomain": { "const": "the-long-west-vertical-slice-development-v1" },
+    "claimsExcluded": {
+      "const": ["EDITOR_APPROVAL", "SHIPPING_APPROVAL", "RELEASE_AUTHORITY"]
+    },
+    "chapterIDs": { "$ref": "#/$defs/stableIDArray" },
+    "arcIDs": { "$ref": "#/$defs/stableIDArray" },
+    "interactionIDs": { "$ref": "#/$defs/stableIDArray" },
+    "effectIDs": { "$ref": "#/$defs/stableIDArray" },
+    "payloadSHA256": { "$ref": "#/$defs/sha256" },
+    "contractSliceSHA256": { "$ref": "#/$defs/sha256" },
+    "arcSliceSHA256": { "$ref": "#/$defs/sha256" },
+    "interactionSliceSHA256": { "$ref": "#/$defs/sha256" },
+    "worldEffectSliceSHA256": { "$ref": "#/$defs/sha256" },
+    "projectionSHA256": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "stableIDArray": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+      }
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

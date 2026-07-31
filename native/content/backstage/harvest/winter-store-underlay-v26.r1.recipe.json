@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "id": "harvest-v26-winter-store-rail-underlay-r1",
+  "status": "CODEX_NON_SHIPPING_SOURCE_ONLY_UNDERLAY_RECIPE",
+  "shippingAllowed": false,
+  "editorApprovalClaimed": false,
+  "source": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+    "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca",
+    "pixelSize": [1290, 2796]
+  },
+  "bindings": [
+    {
+      "id": "rail-measurement",
+      "path": "native/content/backstage/harvest/destination-rail-disocclusion-measurement-v26.provisional.json",
+      "sha256": "cfb6c98449ec5c234de1eb65f0eeb0d8f47183380498e5a2b91e1fe3f4d21058"
+    },
+    {
+      "id": "semantic-mask-receipt",
+      "path": "native/content/backstage/harvest/semantic-masks-v26.provisional/segmentation-receipt.json",
+      "sha256": "4c378ffe243bdafd85b9c0476147d14b023389e9ea88d5f9884fcba3f3d75191"
+    },
+    {
+      "id": "allocation-earth-donor-authority",
+      "path": "native/content/backstage/harvest/allocation-earth-donor-mask-v26.source-authority.json",
+      "sha256": "38620a09307373db3c4636377e38d795a9008160c7f115f8644084ee906f310f"
+    }
+  ],
+  "masks": [
+    {
+      "id": "winter-food-vessel",
+      "path": "native/content/backstage/harvest/semantic-masks-v26.provisional/winter-food-vessel.png",
+      "sha256": "11a8029ac2497428b53c837cf8c0e903ec8f77e15a582cc712ebe1575c4aa9ff",
+      "pixelSize": [1290, 2796],
+      "expectedPixelCount": 5097,
+      "expectedByteMaskSha256": "e9b8918db167bc28a0654bdf5d8343f3f07c83f19ed09d0265b36535d4f61b07"
+    },
+    {
+      "id": "seated-man",
+      "path": "native/content/backstage/harvest/semantic-masks-v26.provisional/seated-man.png",
+      "sha256": "3aa8ac8b3a374cfbd1102d5b6cd1d259ebf746288cc771474ba2e19e1674991e",
+      "pixelSize": [1290, 2796],
+      "expectedPixelCount": 34187,
+      "expectedByteMaskSha256": "ac27826ffcc25b1c739089f95d22dc98f779e5317f01f487b9c600a459e88a5e"
+    },
+    {
+      "id": "allocation-earth",
+      "path": "native/content/backstage/harvest/semantic-donor-masks-v26.provisional/allocation-earth-surface.png",
+      "sha256": "d63af5cfa98031a1d1fa9f97f1f096885a8aa38aca75dbf4ff2803f141e46a3a",
+      "pixelSize": [1290, 2796],
+      "expectedPixelCount": 141776,
+      "expectedByteMaskSha256": "d2ad577582fb77f84e64189b28981541fd5368f03ce49aa0e84e8a485b29fdd2"
+    }
+  ],
+  "crop": { "x": 320, "y": 1420, "width": 450, "height": 500 },
+  "expressions": {
+    "subject": { "mask": "winter-food-vessel" },
+    "authorization": {
+      "op": "directionalReveal",
+      "input": { "mask": "winter-food-vessel" },
+      "motion": {
+        "minDx": 0,
+        "maxDx": 2,
+        "minDy": 0,
+        "maxDy": 37,
+        "authority": "rail-measurement"
+      },
+      "seamPixels": 12
+    },
+    "donor": {
+      "op": "union",
+      "inputs": [
+        { "mask": "seated-man" },
+        { "mask": "allocation-earth" }
+      ]
+    }
+  },
+  "synthesis": {
+    "method": "deterministic-source-only-patchmatch-v1",
+    "patchRadius": 3,
+    "guide": { "algorithm": "telea", "radius": 3, "blurSigma": 1.2 },
+    "initialCandidateCount": 64,
+    "sweeps": 6,
+    "randomCandidatesPerSweep": 16,
+    "tileSize": 64
+  },
+  "thresholds": {
+    "minimumDonorPixels": 40000,
+    "minimumValidDonorCenters": 35000,
+    "minimumUniqueDonorCenters": 2500,
+    "maximumDonorCenterReuse": 24,
+    "maximumGeneratedSharePerTile": 0.2,
+    "crossSeam": { "meanMaximum": 12, "p95Maximum": 36, "p99Maximum": 48 },
+    "interiorGradientRatio": { "minimum": 0.65, "maximum": 1.2 },
+    "generatedLuma": { "p01Minimum": 15, "p99Maximum": 145 },
+    "maximumMeanColorDelta": 12,
+    "changedTargetFraction": { "minimum": 0.99, "maximum": 1 }
+  },
+  "expected": {
+    "seedSha256": "1aa139cd19b0f26d1c91f6c4c3e72baf9a80b9c27eadc1d7282a388c086d6e82",
+    "subject": {
+      "pixelCount": 5097,
+      "byteMaskSha256": "b5bdaf295e3027ff839ac4a9f59c23e5438d0c359bbfba9b7e5009fb50786b03",
+      "boundsInclusive": [103, 207, 196, 295]
+    },
+    "authorization": {
+      "pixelCount": 4893,
+      "byteMaskSha256": "886f544bdc228591ca798c05b7349a184f84646c29e049114c3ab173907262ba",
+      "boundsInclusive": [103, 207, 196, 295]
+    },
+    "donor": {
+      "pixelCount": 46664,
+      "byteMaskSha256": "896aac5249447ecc3f568f77f9ae0101fcf709bd45b80607cf9009caf6ef1866",
+      "boundsInclusive": [0, 4, 311, 499]
+    },
+    "validDonorCenters": {
+      "pixelCount": 39205,
+      "byteMaskSha256": "848a7457e0bd7df62a6caa9218e2df1bf01538f229ca689667bda8a323bca054",
+      "boundsInclusive": [3, 7, 308, 496]
+    },
+    "candidateSha256": "0abb78dd3450e81aeb5ae67648561a50f78546bbd30655d00b01fcc55693625f"
+  },
+  "output": {
+    "directory": "native/.build/visual-assets/harvest-destination-underlays-v26/winter-store-r1",
+    "receiptPath": "native/content/backstage/harvest/winter-store-underlay-v26.r1.receipt.json",
+    "files": {
+      "candidate": "winter-store.png",
+      "authorization": "winter-store-authorization.png",
+      "subject": "winter-store-subject.png",
+      "donor": "winter-store-donor.png",
+      "validDonorCenters": "winter-store-valid-donor-centres.png",
+      "provenanceX": "winter-store-provenance-x.png",
+      "provenanceY": "winter-store-provenance-y.png"
+    }
+  }
+}

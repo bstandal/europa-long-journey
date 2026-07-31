@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "candidateID": "harvest-production-master-candidate-v26-garments-local-composite",
+  "status": "NON_SHIPPING_LOCAL_HISTORICAL_GARMENT_CORRECTION_CANDIDATE",
+  "shippingAllowed": false,
+  "parent": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v25-grain-local-composite.png",
+    "sha256": "5ddcef3511e0b29dd0ace635a26135290bcf50402531b7d55b60e30422873762",
+    "bytes": 5879816,
+    "width": 1290,
+    "height": 2796
+  },
+  "inputCrop": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-input-crop.png",
+    "sha256": "f08c1d0aff25952b59db9ab6a28103c0e1315db20fbb454de80b860bbc36442c",
+    "bytes": 2841594,
+    "width": 1290,
+    "height": 1290,
+    "construction": "Exact parent crop at x=0,y=1000,width=1290,height=1290 without resampling."
+  },
+  "prompt": {
+    "path": "native/design/phase1/harvest/openai-v26-garments-crop-edit-prompt.txt",
+    "sha256": "93f4c66932215391e2cc13976710ed095d7b6c7910589c0d1bf9c77f500896cf",
+    "bytes": 1378
+  },
+  "localEditSource": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-crop-edit-source.png",
+    "sha256": "1269d182ef1c60da5051167f4b43a13110864913f6fcefa22877b5e4bc01754a",
+    "bytes": 2454057,
+    "width": 1254,
+    "height": 1254,
+    "tool": "Codex built-in image edit",
+    "modelVersionExposed": false,
+    "seedExposed": false,
+    "directEditUse": "REJECTED_GLOBAL_REDRAW_RETAINED_ONLY_AS_LOCAL_GARMENT_SOURCE"
+  },
+  "authorizedMask": {
+    "source": {
+      "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-mask.svg",
+      "sha256": "8ad00bf85150a10c4d91090df86e256da3171b319c10e3a3828e89d2924e7da2",
+      "bytes": 2705
+    },
+    "hardRaster": {
+      "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-mask-hard.png",
+      "sha256": "b106ad7333662cfbcbb55eafefb2569243dfb10ef477bb5e960255687a55976f",
+      "bytes": 26978
+    },
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-mask.png",
+    "sha256": "8dd8cc0405fb4f10cb5db5a2276ff28f4236e038c368ea47b4d0af5d904f75e9",
+    "bytes": 69674,
+    "width": 1290,
+    "height": 1290,
+    "construction": "Five authored garment silhouettes with face, hand and lower-arm exclusions, rasterized at exact crop size and feathered with Gaussian sigma 4."
+  },
+  "compositor": {
+    "id": "ffmpeg-maskedmerge",
+    "pixelFormat": "gbrp-to-rgb24-png",
+    "editPlacement": "Scale the 1254x1254 local source to the exact 1290x1290 crop with Lanczos, then place it at x=0,y=1000 over the unchanged full parent through the authored mask."
+  },
+  "output": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+    "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca",
+    "bytes": 5860864,
+    "width": 1290,
+    "height": 2796
+  },
+  "codexPreflight": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-codex-preflight.md",
+    "sha256": "a48283d6270c1b165cc32873b5d3ab25bd2a5b9f6692530e84ea86717733f9fc",
+    "bytes": 2333,
+    "status": "CODEX_PROVISIONAL_NON_SHIPPING_REVIEW"
+  },
+  "audit": {
+    "materialResult": "PASS_PROVISIONAL_F5_MODERN_GARMENT_CUE_REMOVAL",
+    "outsideAuthorizedRegion": "PIXEL_IDENTICAL_IN_THREE_COMPLETE_RAW_FRAME_ANCHORS",
+    "outsideRegionRawFrameHashes": {
+      "aboveY1180": "d033d3285fca2739b093129849549d0871e1cb45e3bd8480d472bd54a4a816d1",
+      "belowY2300": "bb375ff7a632f133bf7803ae67eaaeb45b626046556077fc909bd04ad2e9dbc9",
+      "leftX60": "dc492ebdc797eafc391acb6a72e2d9ec17ead65f5fb63f73d8a1280f72a37c5b"
+    },
+    "psnrAverageDecibelsAgainstParent": 35.609663,
+    "ssimAgainstParent": 0.978717,
+    "sceneCanvasResult": "PASS_EXACT_1290_X_2796",
+    "productionMasterResult": "PENDING_ARTISTIC_GATE",
+    "layerDAGAuthority": "NOT_GRANTED",
+    "reason": "The flattened candidate removes concrete modern clothing cues inside a byte-bound local region. It remains non-shipping and grants no separated-asset authority."
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "status": "CODEX_CHATTERBOX_S3TOKENIZER_DEPENDENCY_PREFLIGHT_COMPLETE",
+  "purpose": "Pinned local speech-tokenizer dependency for the nonshipping Chatterbox-Turbo comparison spike",
+  "convertedModel": {
+    "modelID": "mlx-community/S3TokenizerV2",
+    "revision": "e0c9886f0e1c35ae85b1f27277416fb19fc72bec",
+    "private": false,
+    "gated": false,
+    "modelFileBytes": 494868984,
+    "modelFileSHA256": "928726bc1f206a613d36b8f49e297eae9c5593a21bf9b92ddfe2c23f85eb92cc",
+    "snapshotBytes": 494871088,
+    "conversionCardSHA256": "7114249e13d3487e1b3d7f5f91fefdce746679342dca7afc8e52b1617b66bea5"
+  },
+  "upstream": {
+    "modelID": "FunAudioLLM/CosyVoice2-0.5B",
+    "revision": "eec1ae6c79877dbd9379285cf8789c9e0879293d",
+    "officialSource": "https://github.com/FunAudioLLM/CosyVoice",
+    "license": "Apache-2.0",
+    "commercialUseClear": true,
+    "basis": "The official model card declares Apache-2.0 for the weights; the official repository uses Apache-2.0; an upstream collaborator explicitly confirms commercial use. The MLX repository states that this file is a mechanical conversion from that exact upstream model and declares no additional terms."
+  },
+  "localCode": {
+    "package": "mlx-audio",
+    "version": "0.4.5",
+    "license": "MIT",
+    "implementationPath": "native/audio/narration/.venv/lib/python3.14/site-packages/mlx_audio/codec/models/s3/model_v2.py",
+    "implementationSHA256": "617fc153f7602e8c12080585a616deccadb6c39c5ad1629d827d3f8d8c606a80"
+  },
+  "downloadPreflight": {
+    "availableBytes": 525511540736,
+    "expectedSnapshotBytes": 494871088,
+    "availableToExpectedRatio": 1061.916029,
+    "sufficientLocalSpace": true,
+    "telemetryProhibited": true,
+    "paidAPIProhibited": true,
+    "incrementalCostNOK": 0
+  },
+  "artifactRole": "NONSHIPPING_CHATTERBOX_DEPENDENCY_ONLY",
+  "shippingApproval": false
+}

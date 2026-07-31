@@ -1,0 +1,435 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thelongwest.invalid/schemas/visual-production-dag.schema.json",
+  "title": "Backstage visual asset production DAG",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "status",
+    "buildMode",
+    "contract",
+    "masterSourceID",
+    "sources",
+    "operations",
+    "recomposition",
+    "rejectedCandidates",
+    "backup"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "id": { "$ref": "#/$defs/stableID" },
+    "status": {
+      "enum": [
+        "PRODUCTION_INPUTS_LOCKED",
+        "CODEX_PROVISIONAL_NON_SHIPPING_INPUTS_LOCKED"
+      ]
+    },
+    "buildMode": {
+      "enum": [
+        "EDITOR_APPROVED_PRODUCTION_MASTER",
+        "CODEX_PROVISIONAL_NON_SHIPPING_DEVELOPMENT"
+      ]
+    },
+    "contract": { "$ref": "#/$defs/pathHash" },
+    "masterSourceID": { "$ref": "#/$defs/stableID" },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/source" }
+    },
+    "operations": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/operation" }
+    },
+    "recomposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["outputPath", "diffPath", "baseLayerOperationIDs", "masterSourceID"],
+      "properties": {
+        "outputPath": { "$ref": "#/$defs/path" },
+        "diffPath": { "$ref": "#/$defs/path" },
+        "baseLayerOperationIDs": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/stableID" },
+          "uniqueItems": true
+        },
+        "masterSourceID": { "$ref": "#/$defs/stableID" }
+      }
+    },
+    "rejectedCandidates": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/rejectedCandidate" }
+    },
+    "backup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceID",
+        "status",
+        "storageClass",
+        "locator",
+        "verificationRecord",
+        "bytes",
+        "sha256"
+      ],
+      "properties": {
+        "sourceID": { "$ref": "#/$defs/stableID" },
+        "status": { "const": "HASH_VERIFIED" },
+        "storageClass": { "enum": ["ENCRYPTED_EXISTING_PRIVATE_STORAGE", "TEST_REPOSITORY_COPY"] },
+        "locator": { "type": "string", "minLength": 1 },
+        "verificationRecord": { "$ref": "#/$defs/pathHash" },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "buildMode": { "const": "EDITOR_APPROVED_PRODUCTION_MASTER" } },
+        "required": ["buildMode"]
+      },
+      "then": {
+        "properties": { "status": { "const": "PRODUCTION_INPUTS_LOCKED" } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "buildMode": { "const": "CODEX_PROVISIONAL_NON_SHIPPING_DEVELOPMENT" } },
+        "required": ["buildMode"]
+      },
+      "then": {
+        "properties": { "status": { "const": "CODEX_PROVISIONAL_NON_SHIPPING_INPUTS_LOCKED" } }
+      }
+    }
+  ],
+  "$defs": {
+    "stableID": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "path": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)[A-Za-z0-9._/-]+$"
+    },
+    "pathHash": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "$ref": "#/$defs/path" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "fileRecord": {
+      "type": "object",
+      "required": ["path", "bytes", "sha256"],
+      "properties": {
+        "path": { "$ref": "#/$defs/path" },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "frame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y", "width", "height"],
+      "properties": {
+        "x": { "type": "number", "minimum": 0, "maximum": 1 },
+        "y": { "type": "number", "minimum": 0, "maximum": 1 },
+        "width": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 },
+        "height": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 }
+      }
+    },
+    "rights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "incrementalCostNOK", "license"],
+      "properties": {
+        "status": { "const": "COMMERCIAL_USE_CLEARED" },
+        "incrementalCostNOK": { "const": 0 },
+        "license": { "type": "string", "minLength": 1 }
+      }
+    },
+    "parentHash": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceID", "sha256"],
+      "properties": {
+        "sourceID": { "$ref": "#/$defs/stableID" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "weight": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "sha256"],
+      "properties": {
+        "id": { "$ref": "#/$defs/stableID" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["toolID", "version", "weights"],
+      "properties": {
+        "toolID": { "$ref": "#/$defs/stableID" },
+        "version": { "type": "string", "minLength": 1 },
+        "weights": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/weight" }
+        }
+      }
+    },
+    "creation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "toolIDs", "parentHashes", "prompt", "symbolicSource", "seed", "model"],
+      "properties": {
+        "mode": { "enum": ["generated", "authored", "derived"] },
+        "toolIDs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/stableID" }
+        },
+        "parentHashes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/parentHash" }
+        },
+        "prompt": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/pathHash" }
+          ]
+        },
+        "symbolicSource": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/pathHash" }
+          ]
+        },
+        "seed": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "integer", "minimum": 0 }
+          ]
+        },
+        "model": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/model" }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "mode": { "const": "generated" } }, "required": ["mode"] },
+          "then": {
+            "properties": {
+              "prompt": { "$ref": "#/$defs/pathHash" },
+              "symbolicSource": { "type": "null" },
+              "seed": { "type": "integer", "minimum": 0 },
+              "model": { "$ref": "#/$defs/model" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "mode": { "const": "authored" } }, "required": ["mode"] },
+          "then": {
+            "properties": {
+              "prompt": { "type": "null" },
+              "symbolicSource": { "$ref": "#/$defs/pathHash" },
+              "seed": { "type": "null" },
+              "model": { "type": "null" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "mode": { "const": "derived" } }, "required": ["mode"] },
+          "then": {
+            "properties": {
+              "prompt": { "type": "null" },
+              "symbolicSource": { "type": "null" },
+              "seed": { "type": "null" },
+              "model": { "type": "null" }
+            }
+          }
+        }
+      ]
+    },
+    "source": {
+      "allOf": [
+        { "$ref": "#/$defs/fileRecord" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "kind", "path", "bytes", "sha256", "dimensions", "creation", "rights"],
+          "properties": {
+            "id": { "$ref": "#/$defs/stableID" },
+            "kind": { "enum": ["approved-master", "provisional-master", "clean-plate", "layer-plate", "state-plate", "authored-mask"] },
+            "path": { "$ref": "#/$defs/path" },
+            "bytes": { "type": "integer", "minimum": 1 },
+            "sha256": { "$ref": "#/$defs/sha256" },
+            "dimensions": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["width", "height"],
+              "properties": {
+                "width": { "type": "integer", "minimum": 1 },
+                "height": { "type": "integer", "minimum": 1 }
+              }
+            },
+            "creation": { "$ref": "#/$defs/creation" },
+            "rights": { "$ref": "#/$defs/rights" },
+            "editorApproval": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["path", "sha256", "status"],
+              "properties": {
+                "path": { "$ref": "#/$defs/path" },
+                "sha256": { "$ref": "#/$defs/sha256" },
+                "status": { "const": "EDITOR_APPROVED_AS_PRODUCTION_MASTER" }
+              }
+            },
+            "provisionalAuthority": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["path", "sha256", "status"],
+              "properties": {
+                "path": { "$ref": "#/$defs/path" },
+                "sha256": { "$ref": "#/$defs/sha256" },
+                "status": { "const": "CODEX_PROVISIONAL_NON_SHIPPING_PRODUCTION_MASTER" }
+              }
+            }
+          },
+          "allOf": [
+            {
+              "if": { "properties": { "kind": { "const": "approved-master" } }, "required": ["kind"] },
+              "then": {
+                "required": ["editorApproval"],
+                "not": { "required": ["provisionalAuthority"] }
+              }
+            },
+            {
+              "if": { "properties": { "kind": { "const": "provisional-master" } }, "required": ["kind"] },
+              "then": {
+                "required": ["provisionalAuthority"],
+                "not": { "required": ["editorApproval"] }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "kind": {
+                    "not": { "enum": ["approved-master", "provisional-master"] }
+                  }
+                },
+                "required": ["kind"]
+              },
+              "then": {
+                "not": {
+                  "anyOf": [
+                    { "required": ["editorApproval"] },
+                    { "required": ["provisionalAuthority"] }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "operation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "outputRole",
+        "outputPath",
+        "sourceID",
+        "inputOperationIDs",
+        "alphaMaskOperationID",
+        "frame",
+        "maskType",
+        "authorizationMaskOperationID",
+        "toolIDs",
+        "parameters"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/stableID" },
+        "kind": { "enum": ["normalize-mask", "normalize-raster", "extract-layer", "encode-heif", "copy-source"] },
+        "outputRole": { "enum": ["scene-layer", "scene-mask", "reduce-motion-plate", "control-mask", "clean-plate", "working-layer"] },
+        "outputPath": { "$ref": "#/$defs/path" },
+        "sourceID": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/stableID" }
+          ]
+        },
+        "inputOperationIDs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/stableID" }
+        },
+        "alphaMaskOperationID": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/stableID" }
+          ]
+        },
+        "frame": { "$ref": "#/$defs/frame" },
+        "maskType": {
+          "oneOf": [
+            { "type": "null" },
+            { "enum": ["alpha", "depth", "light", "occlusion", "atmosphere", "authorization"] }
+          ]
+        },
+        "authorizationMaskOperationID": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/stableID" }
+          ]
+        },
+        "toolIDs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/stableID" }
+        },
+        "parameters": { "type": "object" }
+      }
+    },
+    "rejectedCandidate": {
+      "allOf": [
+        { "$ref": "#/$defs/fileRecord" },
+        {
+          "type": "object",
+          "required": ["id", "stage", "reasonCodes", "excludedFromShipping"],
+          "properties": {
+            "id": { "$ref": "#/$defs/stableID" },
+            "stage": { "type": "string", "minLength": 1 },
+            "reasonCodes": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]+$" }
+            },
+            "excludedFromShipping": { "const": true }
+          }
+        }
+      ]
+    }
+  }
+}

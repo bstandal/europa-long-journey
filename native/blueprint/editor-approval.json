@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED_BY_EDITOR_IN_CHIEF",
+  "authority": "editor-in-chief",
+  "scope": {
+    "chapterContracts": 24,
+    "arcChapters": 24,
+    "nativeArcs": 55
+  },
+  "approvedAt": "2026-07-27T10:06:53Z",
+  "decisionReference": "codex-user-approved-chapter-01-review-plan-2026-07-27",
+  "chapterContractsSHA256": "1db83d0791460ba2dab6459c6cc300020fb0658bf70e1fb7f386c52c9903193e",
+  "arcMatrixSHA256": "8f4926f574ec0046b116ebca9f85a3246a8a2587cda023f94ab1b1ad10f58162",
+  "phase0EditorialSHA256": "e99c299c772fd4471c057ad332391ccb40ca92fdea19ff98bc50924fa0b0e9ac"
+}

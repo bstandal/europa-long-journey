@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "status": "BACKSTAGE_COMBINED_VISUAL_QA_SPEC",
+  "shippingState": "PROHIBITED",
+  "source": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+    "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca",
+    "pixelSize": [1290, 2796]
+  },
+  "segmentationAuthority": {
+    "preflightPath": "native/content/backstage/harvest/segmentation-toolchain-sam2-preflight.json",
+    "preflightSha256": "8ba2433232e760c44f7784a1de7e6cf54bc4767e1435b7912cc96ef3742de3c6",
+    "receiptPath": "native/content/backstage/harvest/semantic-masks-v26.provisional/segmentation-receipt.json",
+    "receiptSha256": "4c378ffe243bdafd85b9c0476147d14b023389e9ea88d5f9884fcba3f3d75191"
+  },
+  "cleanPlateDiagnostics": {
+    "provenancePath": "native/content/backstage/harvest/clean-plate-diagnostics/provenance.json",
+    "provenanceSha256": "0131c6b216a6a97cd726a22e64fd9ea24a4e016f7f790f7c3afc976f660016ab",
+    "world": {
+      "path": "native/content/backstage/harvest/clean-plate-diagnostics/codex-imagegen-clean-world-original.png",
+      "sha256": "0ecedc15f01caa6d3d09fcf23366b23bbccebcb2948481eebb62ec48226e1974"
+    },
+    "settlement": {
+      "path": "native/content/backstage/harvest/clean-plate-diagnostics/codex-imagegen-clean-settlement-original.png",
+      "sha256": "d24c1d1b8c1bf7bbf555194b9fbd9f4e2c2c4e2ae8f2cc6376bc891872b5f8fd"
+    },
+    "authority": "DIAGNOSTIC_ONLY_REJECTED_AS_PRODUCTION_CLEAN_PLATES"
+  },
+  "masks": {
+    "settlement-shelter": "808903d213d4694f022a0f9930cda3c4f639e28476a584e862b381ebd49371d0",
+    "people-and-work": "90e9dcb55a980d3971b6da5c44174d352fe74729197c8300d96562a7c4547a2d",
+    "winter-food-vessel": "11a8029ac2497428b53c837cf8c0e903ec8f77e15a582cc712ebe1575c4aa9ff",
+    "protected-reserve-bin": "c4b360be6c7b9381f6966c56b7ba43279ad177105adf097680042e2aa4b28c7c",
+    "spring-seed-store": "60bd67ede5b3602993ca484c93e94d5d63b75f055f1c616d0aa9c50faf69a9c9",
+    "allocation-cloth": "f87a639685ccba48127cb3fbcfef46e611228e5c0645aa3d4c4c901589f06627",
+    "central-grain": "85dbd5f14ed998ed3874721948678acd0411e3e0e91d443c9d47555fc047aea3",
+    "foreground-occluders": "8810139ae423683c5434690a5698bd28940338790b75ba9d3ca897d98a29cf35"
+  },
+  "cleanPlateConstruction": {
+    "objectRemoval": {
+      "masks": [
+        "people-and-work",
+        "central-grain",
+        "foreground-occluders"
+      ],
+      "replacement": "settlement",
+      "dilationPixels": 24,
+      "featherPixels": 4
+    }
+  },
+  "layersBackToFront": [
+    { "id": "people", "masks": ["people-and-work"], "maximumShiftPixels": [3, 1] },
+    { "id": "grain", "masks": ["central-grain"], "maximumShiftPixels": [8, 3] },
+    { "id": "foreground", "masks": ["foreground-occluders"], "maximumShiftPixels": [10, 4] }
+  ],
+  "testScope": {
+    "includedMovingLayers": ["people", "grain", "foreground"],
+    "excludedPendingProductionCleanPlate": ["settlement-shelter", "allocation-cloth"],
+    "excludedAfterRejectedDiagnostic": ["winter-food-vessel", "protected-reserve-bin", "spring-seed-store"],
+    "excludedReason": "The diagnostic settlement replacement does not preserve source geometry closely enough to judge those displaced edges without dark seams or registration residues."
+  },
+  "alphaConstruction": {
+    "erodePixels": 1,
+    "featherPixels": 1.0,
+    "rgbPolicy": "STRAIGHT_ALPHA_SOURCE_RGB_REMAINS_UNMATTED"
+  },
+  "extrema": [
+    { "id": "negative", "multiplier": -1 },
+    { "id": "positive", "multiplier": 1 }
+  ],
+  "comparisonCrop": {
+    "id": "baseline-393x852-2x",
+    "sourcePixelRect": [103, 224, 1084, 2348],
+    "outputPixelSize": [786, 1704]
+  },
+  "haloInspectionRegions": [
+    { "id": "people", "pixelRect": [40, 1330, 620, 610] },
+    { "id": "grain", "pixelRect": [180, 2100, 900, 580] },
+    { "id": "foreground", "pixelRect": [0, 2250, 1290, 546] }
+  ],
+  "limits": {
+    "mayApprove": ["SOURCE_ALIGNED_MASK_ROUTE", "PARALLAX_EDGE_DIAGNOSTIC", "REDUCE_MOTION_PIXEL_PARITY"],
+    "mayNotApprove": ["CLEAN_PLATE", "LAYER_DAG", "STATE_VARIANT", "PRODUCTION_MASTER", "SHIPPING_ASSET"]
+  }
+}

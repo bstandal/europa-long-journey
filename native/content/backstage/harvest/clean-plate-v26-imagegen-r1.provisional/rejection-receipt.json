@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "receiptID": "harvest-v26-clean-plate-imagegen-r1-rejection",
+  "createdAt": "2026-07-25",
+  "scope": "NON_SHIPPING_BACKSTAGE_ONLY",
+  "status": "REJECTED_GLOBAL_COMPOSITION_DRIFT",
+  "acceptedCandidate": null,
+  "productionAssetAuthority": false,
+  "editorialApproval": false,
+  "source": {
+    "path": "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+    "sha256": "e00eebcac9c20b7cd4c30193ea21bc7f032981817840cb85694298240d0618ca",
+    "pixelWidth": 1290,
+    "pixelHeight": 2796,
+    "role": "sole edit target and immutable composition reference"
+  },
+  "editGuide": {
+    "path": "native/content/backstage/harvest/clean-plate-v26-imagegen-r1.provisional/edit-guide-sam2-union.png",
+    "sha256": "0cffd71897d71f5047555e5933b3dd6e30d99e76dbbad01c2691f2ee71232858",
+    "pixelWidth": 1290,
+    "pixelHeight": 2796,
+    "whiteMeans": "only region permitted to be reconstructed",
+    "blackMeans": "protected source pixels",
+    "derivedBy": "pixelwise lighten union; no geometric transformation",
+    "sourceMasks": [
+      "native/content/backstage/harvest/semantic-masks-v26.provisional/people-and-work.png",
+      "native/content/backstage/harvest/semantic-masks-v26.provisional/foreground-occluders.png",
+      "native/content/backstage/harvest/semantic-masks-v26.provisional/central-grain.png",
+      "native/content/backstage/harvest/semantic-masks-v26.provisional/allocation-cloth.png",
+      "native/content/backstage/harvest/semantic-masks-v26.provisional/winter-food-vessel.png",
+      "native/content/backstage/harvest/semantic-masks-v26.provisional/protected-reserve-bin.png",
+      "native/content/backstage/harvest/semantic-masks-v26.provisional/spring-seed-store.png"
+    ]
+  },
+  "toolMode": "built-in image_gen edit",
+  "attempts": [
+    {
+      "attemptID": "attempt-01-unguided",
+      "inputImages": [
+        "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png"
+      ],
+      "promptLines": [
+        "Use case: precise-object-edit",
+        "Asset type: NON_SHIPPING backstage clean plate candidate for a portrait 2.5D historical scene",
+        "Input image: Image 1 is the sole edit target and the immutable composition reference.",
+        "Primary request: Remove every human figure, including all partially visible hands and bodies at the frame edges. Also remove only the movable harvest and storage elements that need to exist later as independent layers: the central grain heap and its allocation cloth, the foreground baskets, the right-side baskets, jars, clay and wattle grain vessels, the open and lidded storage bins, and the harvested sheaf/pile being handled in the middle distance. Reconstruct the historically plausible empty earth, scattered straw, shelter wall, field and open space that were occluded by those removed elements.",
+        "Composition/framing: Preserve the exact original 1290 x 2796 portrait framing, viewpoint, crop, perspective, spatial proportions and depth hierarchy. Do not move, enlarge, shrink, rotate, recrop or redesign anything that remains.",
+        "Invariants: Keep the architecture, thatched roofs, every roof edge, beam, post and binding; keep the mountains, sky, distant field, distant huts and smoke, cattle, hearth and fire, lighting direction, shadows, colour grade, exposure, material texture and grain exactly aligned with Image 1. Preserve the cows exactly; they are not removal targets. Preserve the hearth and non-storage cooking elements.",
+        "Reconstruction: Fill removed regions seamlessly with continuations of the immediately surrounding historically plausible Neolithic surfaces. Under people and containers, continue compacted earth with sparse straw and natural wear. Behind figures under the shelter, continue the existing mud wall, posts and shadowed interior. Behind the distant worker and sheaf, continue the same harvested field and track. Do not invent replacement props.",
+        "Avoid: no new people, limbs, animals, vessels, baskets, tools, grain heaps, hay piles, furniture, buildings, openings, symbols, modern details, text or watermark. No duplicate beams, shifted roof geometry, altered cattle, smeared textures, repeated patterns, ghost silhouettes, halos, warped perspective, painterly patches or compositional drift. The result must read as the same untouched scene after removable layers have been lifted away."
+      ],
+      "builtInOutput": {
+        "path": "native/content/backstage/harvest/clean-plate-v26-imagegen-r1.provisional/candidate-built-in-original.png",
+        "sha256": "d3d5a703c940a7db120ade9087398e80f3a673648cf4b4defeda2473a6d25ab8",
+        "pixelWidth": 853,
+        "pixelHeight": 1844
+      },
+      "sourceResolutionReviewCopy": {
+        "path": "native/content/backstage/harvest/clean-plate-v26-imagegen-r1.provisional/candidate-source-resolution.png",
+        "sha256": "993349603d7224b401e773e583ce58ed584a81f3aa1d911e71f9bc9747557756",
+        "pixelWidth": 1290,
+        "pixelHeight": 2796,
+        "derivation": "Lanczos review upscale only; not a production master"
+      },
+      "verdict": "REJECTED_GLOBAL_COMPOSITION_DRIFT",
+      "findings": [
+        "The edit removed the requested people and movable harvest/storage elements.",
+        "The entire frame was regenerated: roof thatch, beams, posts, wall, field, cattle, hearth, light and ground no longer retain source geometry or pixels.",
+        "The native output resolution is lower than the 1290 x 2796 source."
+      ]
+    },
+    {
+      "attemptID": "attempt-02-sam2-guided",
+      "inputImages": [
+        "native/design/phase1/harvest/production-master-candidate-v26-garments-local-composite.png",
+        "native/content/backstage/harvest/clean-plate-v26-imagegen-r1.provisional/edit-guide-sam2-union.png"
+      ],
+      "promptLines": [
+        "Use case: precise-object-edit",
+        "Asset type: NON_SHIPPING backstage clean plate candidate for a portrait 2.5D historical scene",
+        "Input images: Image 1 is the sole edit target and immutable pixel/composition source. Image 2 is a registered black-and-white SAM2-derived edit guide at the exact same framing: white marks the only regions permitted to be reconstructed; black marks protected Image 1 pixels that must remain unchanged.",
+        "Primary request: In Image 1, remove the people and removable harvest/storage layers only inside the white regions of Image 2. Reconstruct those white regions as seamless continuations of the immediately adjacent historically plausible compacted earth, scattered straw, mud shelter wall, shadowed interior, harvested field and open space.",
+        "Hard edit boundary: Change only white regions from Image 2. Preserve all black-region pixels and structures from Image 1 exactly. Do not globally regenerate, relight, recolour, sharpen, restyle, recrop, resize or reinterpret Image 1. Black regions are not visual inspiration; they are locked source content.",
+        "Targets inside white guide: every full or partial human figure; the central grain heap and allocation cloth; foreground and right-side baskets; jars, clay/wattle grain vessels and open/lidded storage bins; the harvested sheaf/pile handled by the distant worker. Remove their complete silhouettes without leaving ghosts.",
+        "Protected invariants: exact original 1290 x 2796 portrait framing, camera, crop, perspective, roof and all thatch, every beam/post/binding, shelter wall outside the white guide, mountains, sky, distant field, huts and smoke, cattle, hearth/fire, light direction, shadows, colour grade, exposure, texture and film grain. Preserve the cows exactly. Preserve the hearth and non-storage cooking elements.",
+        "Avoid: no edits outside white mask regions; no new people, limbs, animals, baskets, vessels, tools, grain, hay piles, furniture, buildings, openings, symbols, text or watermark. No shifted roof or post geometry, altered wall, field, cattle or fire, duplicate structures, repeated texture, smeared fill, ghost silhouettes, halos, double geometry, warped perspective, painterly patches or composition drift. Return the same scene with only the guided removable layers lifted away."
+      ],
+      "builtInOutput": {
+        "path": "native/content/backstage/harvest/clean-plate-v26-imagegen-r1.provisional/candidate-guided-built-in-original.png",
+        "sha256": "d9a4ca14086c3ca162f8dadef56a5f92fb691d0c7b47dbf2eafe355b3cfbe634",
+        "pixelWidth": 852,
+        "pixelHeight": 1847
+      },
+      "sourceResolutionReviewCopy": {
+        "path": "native/content/backstage/harvest/clean-plate-v26-imagegen-r1.provisional/candidate-guided-source-resolution.png",
+        "sha256": "ed1d2dd7740c808811cf08b3d44252702bb291ba49cd0366b072d76c67363e48",
+        "pixelWidth": 1290,
+        "pixelHeight": 2796,
+        "derivation": "Lanczos review upscale only; not a production master"
+      },
+      "verdict": "REJECTED_GLOBAL_COMPOSITION_DRIFT",
+      "findings": [
+        "The white-only edit boundary was not respected.",
+        "Protected roof, beam, post, wall, hearth, field, cattle and ground regions were regenerated.",
+        "The native output resolution is lower than the 1290 x 2796 source."
+      ]
+    }
+  ],
+  "reviewArtifacts": {
+    "threeUpComparison": {
+      "path": "native/content/backstage/harvest/clean-plate-v26-imagegen-r1.provisional/source-attempt1-attempt2-comparison.png",
+      "sha256": "98b868e0134aaf19553448419842fe9b3d88a05be2d2efff02c41fa2d1445f64",
+      "layout": "left=source, center=attempt-01, right=attempt-02",
+      "pixelWidth": 3870,
+      "pixelHeight": 2796
+    },
+    "attempt01DifferenceX4": {
+      "path": "native/content/backstage/harvest/clean-plate-v26-imagegen-r1.provisional/source-candidate-difference-x4.png",
+      "sha256": "43a841a643a1c4d1a8ca9bd8c807f7e13b7dcc3137d444e55f8b1fe557bd1e93"
+    },
+    "attempt02DifferenceX4": {
+      "path": "native/content/backstage/harvest/clean-plate-v26-imagegen-r1.provisional/source-guided-candidate-difference-x4.png",
+      "sha256": "50273186d967826d4ca7f9ffe091db3cc7af6e86c18e347d9c79f8520c809572"
+    }
+  },
+  "finalDecision": {
+    "verdict": "REJECTED_GLOBAL_COMPOSITION_DRIFT",
+    "reason": "Neither built-in edit preserves source-aligned protected geometry or pixels. The SAM2-guided retry also regenerates the complete frame. A plausible empty scene is insufficient for a clean plate that must align with extracted v26 layers.",
+    "prohibitedUse": [
+      "shipping content",
+      "production clean plate",
+      "source-aligned layer reconstruction",
+      "production or editorial approval evidence"
+    ],
+    "localCompositeApplied": false,
+    "furtherBuiltInRetriesAuthorized": false
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "kind": "DEVELOPMENT_BLUEPRINT_PROJECTION_AUTHORITY",
+  "scope": "VERTICAL_SLICE",
+  "status": "CODEX_PROVISIONAL_NON_SHIPPING_BLUEPRINT_PROJECTION",
+  "authority": "codex-local-production",
+  "shippingState": "PROHIBITED",
+  "packageID": "vertical-slice-development-v1",
+  "keyID": "vertical-slice-development-key-v1",
+  "trustDomain": "the-long-west-vertical-slice-development-v1",
+  "claimsExcluded": [
+    "EDITOR_APPROVAL",
+    "SHIPPING_APPROVAL",
+    "RELEASE_AUTHORITY"
+  ],
+  "chapterIDs": [
+    "first-farmers",
+    "europe-holds-the-line",
+    "european-world"
+  ],
+  "arcIDs": [
+    "first-farmers-arc-01",
+    "first-farmers-arc-02",
+    "first-farmers-arc-03",
+    "europe-holds-the-line-arc-01",
+    "european-world-arc-01"
+  ],
+  "interactionIDs": [
+    "interaction-first-farmers-a-household-crosses",
+    "interaction-first-farmers-the-harvest-had-to-last",
+    "interaction-first-farmers-at-the-iron-gates",
+    "interaction-first-farmers-the-house-outlives",
+    "interaction-first-farmers-more-mouths-more-land",
+    "interaction-first-farmers-a-continent-remade",
+    "interaction-europe-holds-the-line-northern-valleys-keep-crown",
+    "interaction-european-world-steam-keeps-the-appointment"
+  ],
+  "effectIDs": [
+    "effect-first-farmers-a-household-crosses",
+    "effect-first-farmers-the-harvest-had-to-last",
+    "effect-first-farmers-at-the-iron-gates",
+    "effect-first-farmers-the-house-outlives",
+    "effect-first-farmers-more-mouths-more-land",
+    "effect-first-farmers-a-continent-remade",
+    "effect-europe-holds-the-line-northern-valleys-keep-crown",
+    "effect-europe-holds-the-line-europe-answers-clermont",
+    "effect-european-world-steam-keeps-the-appointment",
+    "effect-european-world-twenty-states-agree-on-the-signal"
+  ],
+  "payloadSHA256": "6ee5fb2fb7ecfa980bd7889fb197d0ccf79ea8ac8bd337e7b7c710508343a61d",
+  "contractSliceSHA256": "0d2b54985ec6496350a96365944666317c501b5f894f99b7602b8b63ad974f98",
+  "arcSliceSHA256": "fe8f675e752110a9970d2b4bb98f077bfce40985d665aafffa9a24e155524e4a",
+  "interactionSliceSHA256": "9cce157867aaaf7ae7412bf41dcbc511c6de5bca5e46353f65c88ec8d479e957",
+  "worldEffectSliceSHA256": "183d0db80ee25b3a091dbc3a3d2f19a1c1852b4250595d6fd6217a910b387fcb",
+  "projectionSHA256": "d3b76cd229759e36f32d5fe76f037c31c6912fe7698e842ea610f1adbbd928d3"
+}
