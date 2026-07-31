@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "cellID": "settlement",
+  "runtimeNameToUSDPath": {
+    "expanding-settlement-landscape": "/root/expanding_settlement_landscape",
+    "action-herd-route": "/root/expanding_settlement_landscape/state_default/action_herd_route",
+    "moving-herd": "/root/expanding_settlement_landscape/state_default/moving_herd",
+    "daughter-settlement": "/root/expanding_settlement_landscape/state_default/daughter_settlement",
+    "daughter-field": "/root/expanding_settlement_landscape/state_default/daughter_field",
+    "action-final-gate": "/root/expanding_settlement_landscape/state_default/action_final_gate",
+    "valley-water": "/root/expanding_settlement_landscape/state_default/valley_water",
+    "farming-trace-0": "/root/expanding_settlement_landscape/state_default/farming_trace_0",
+    "farming-trace-9": "/root/expanding_settlement_landscape/state_default/farming_trace_9",
+    "camera-expansion-herd": "/root/expanding_settlement_landscape/camera_expansion_herd",
+    "camera-expansion-field-edge": "/root/expanding_settlement_landscape/camera_expansion_field_edge",
+    "camera-expansion-daughter": "/root/expanding_settlement_landscape/camera_expansion_daughter",
+    "camera-expansion-final": "/root/expanding_settlement_landscape/camera_expansion_final",
+    "camera-expansion-reduce-motion": "/root/expanding_settlement_landscape/camera_expansion_reduce_motion",
+    "transition-in-surviving-posthole": "/root/expanding_settlement_landscape/transition_in_surviving_posthole",
+    "transition-out-eastern-horizon": "/root/expanding_settlement_landscape/transition_out_eastern_horizon"
+  }
+}

@@ -994,9 +994,9 @@
       "manifest": {
         "path": "native/audio/score-soundscape/chapter-01-review-transitions-v1/manifest.json",
         "bytes": 7117,
-        "sha256": "96133f559313f3d08125249050ce4430105cd05448148f2e30ea0784c8326351"
+        "sha256": "af96e0a24684283dc1c3b3214d14f7b3001b946fa5a8ec33cb9ed3c5b9891eb6"
       },
-      "manifestSHA256": "96133f559313f3d08125249050ce4430105cd05448148f2e30ea0784c8326351",
+      "manifestSHA256": "af96e0a24684283dc1c3b3214d14f7b3001b946fa5a8ec33cb9ed3c5b9891eb6",
       "status": "NON_SHIPPING_REVIEW",
       "shippingState": "PROHIBITED",
       "transitionCount": 3,
@@ -1252,16 +1252,16 @@
   },
   "sourcePayload": {
     "path": "native/phase2/generated/first-farmers.content-package.json",
-    "bytes": 442386,
-    "sha256": "fa69d84adf98b08558b825371f86024c89f30dea96145e3a3423364debd437b4"
+    "bytes": 443671,
+    "sha256": "52ff8427f2e26bdbe0205883d051972da51c31689ffa598ac56063a8d2ae5f60"
   },
   "experienceLab": {
     "path": "native/phase1/experience-lab.json",
     "bytes": 3957,
     "sha256": "02b8ea56805415f5144dbfa18445302ce97b560525a1c6b4d375ed4f0478b3ba"
   },
-  "payloadSHA256": "0e99e4f1f6e073333d5c91892d5906466fbf95472c806d19c61fe5d960b30885",
-  "manifestDigest": "4b0b7c2d33a61d0a43b22f33230bb9420fbbf3cd4a86de26e3ac886947e59c70",
+  "payloadSHA256": "6ee5fb2fb7ecfa980bd7889fb197d0ccf79ea8ac8bd337e7b7c710508343a61d",
+  "manifestDigest": "ce5fbd8b80a1d80c982b3e274d34cd1924dbbff4b5c7f763abb9f3735baa3555",
   "compiledFiles": [
     {
       "path": "assets/harvest-v26-parallax-alpha-foreground.png",
@@ -2540,8 +2540,8 @@
     },
     {
       "path": "chapters/vertical-slice-development-v1.json",
-      "bytes": 464103,
-      "sha256": "0e99e4f1f6e073333d5c91892d5906466fbf95472c806d19c61fe5d960b30885"
+      "bytes": 465392,
+      "sha256": "6ee5fb2fb7ecfa980bd7889fb197d0ccf79ea8ac8bd337e7b7c710508343a61d"
     }
   ],
   "claimsExcluded": [

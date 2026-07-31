@@ -3,14 +3,18 @@
 This directory contains the first executable foundation for **The Long West: EUROCENTRIC**. It is an
 engine and product-shell milestone, not a finished chapter or a substitute for the native bible.
 
+The editor-in-chief locked authored real-time 3D on 30 July 2026. No real-time 3D renderer or world
+cell is implemented here yet. The existing frame planner and Metal compositor are legacy non-shipping
+2.5D evidence unless a later 3D proof reuses a bounded subsystem explicitly.
+
 ## What is authoritative here
 
 - `Sources/ContentKit`: shipping content contracts. The schema intentionally has no research,
   historiography, confidence, counterargument or evidence-panel fields.
 - `Sources/JourneyDomain`: deterministic journey, interaction and cumulative-world state.
 - `Sources/ProgressStore`: an offline append journal with checksummed replay and atomic snapshots.
-- `Sources/SceneRuntime`: deterministic scene interaction, frame planning and the narrow Metal
-  compositor used for 2.5D rendering.
+- `Sources/SceneRuntime`: deterministic scene interaction plus the legacy frame planner and narrow
+  Metal compositor used by the former 2.5D prototype.
 - `Sources/JourneyAccessibility`: semantic equivalents for the five interaction grammars.
 - `Sources/DramaticAudio`: sample-indexed authored timelines and the iOS
   `AVAudioEngine`/Core Haptics transport.

@@ -1,0 +1,398 @@
+{
+  "animalLibrary": {
+    "classification": "ANIMAL_RIG_CANDIDATE",
+    "finalArtGate": "OPEN",
+    "rightsGate": "PASS",
+    "verifiedInputs": {
+      "sourceLOD0": {
+        "sha256": "b4b4dc7587ebf279110cc84cd27842cdb89be44785360484a8fd1671065960ec",
+        "source": "native/production/3d/chapter01/animals/outputs/chapter01-cattle-library-lod0.usdc"
+      },
+      "sourceLOD0USDZ": {
+        "sha256": "8501d7b3cd98481dbad74f362ac3927cbd40705ff5b09fcb56dfc4d54bb3902a",
+        "source": "native/production/3d/chapter01/animals/outputs/chapter01-cattle-library-lod0.usdz"
+      },
+      "sourceLOD1": {
+        "sha256": "e089b605a9cde6a799ef2423f768a8e90e5217b7680d7baaeb3bca82c1105eb6",
+        "source": "native/production/3d/chapter01/animals/outputs/chapter01-cattle-library-lod1.usdc"
+      },
+      "sourceLOD1USDZ": {
+        "sha256": "ccbc971f983ce8d986419e524868685c947ca7aac496ddf92aed2c6698e72c23",
+        "source": "native/production/3d/chapter01/animals/outputs/chapter01-cattle-library-lod1.usdz"
+      },
+      "sourceManifest": {
+        "sha256": "a8ae9fb056feb23f0ef6593d3eb177e329226b4e572031513f4c1dd434012835",
+        "source": "native/production/3d/chapter01/animals/build-manifest.json"
+      },
+      "sourceProvenance": {
+        "sha256": "a439872e105084745f0e68c67302d93c20d3daf77de361b404884add40d9fed2",
+        "source": "native/production/3d/chapter01/animals/provenance.json"
+      }
+    }
+  },
+  "assetVersion": "chapter01-enhanced-review-v1",
+  "byteReproducibility": "PASS",
+  "cells": [
+    {
+      "animalCount": 1,
+      "animalPaths": {
+        "/western_anatolia_aegean/young_bovine": "/western_anatolia_aegean/young_bovine/enhanced_review_animal"
+      },
+      "canonicalBindingCount": 20,
+      "cellID": "aegean-crossing",
+      "heroCount": 3,
+      "heroPaths": {
+        "/western_anatolia_aegean/person_rope_handler": "/western_anatolia_aegean/person_rope_handler/enhanced_review_hero",
+        "/western_anatolia_aegean/person_seed_keeper": "/western_anatolia_aegean/person_seed_keeper/enhanced_review_hero",
+        "/western_anatolia_aegean/person_stabilizer": "/western_anatolia_aegean/person_stabilizer/enhanced_review_hero"
+      },
+      "hiddenStandInMeshCount": 148,
+      "outputUSDC": "native/production/3d/chapter01/enhanced-review/generated/aegean-crossing/aegean-crossing-enhanced-review.usdc",
+      "outputUSDCSHA256": "51484a3bc149ef7f8baa9b7c9a8acd473776ee14ac6d0b49b3ae81c55a5c89ab",
+      "outputUSDZ": "native/production/3d/chapter01/enhanced-review/generated/aegean-crossing/aegean-crossing-enhanced-review.usdz",
+      "outputUSDZSHA256": "15a57a7184baf0bb37b27f95d3bb48c2f8f0fb6ea75360bc450b190a80484799",
+      "packageCompositionArcs": "CONTAINED",
+      "packageDependencyCount": 23,
+      "packageMemberOrder": [
+        "aegean-crossing-enhanced-review.usdc",
+        "source/aegean-crossing-lod0.usdc",
+        "hero/hero_adult_a.usdc",
+        "hero/hero_adult_b.usdc",
+        "hero/hero_youth.usdc",
+        "hero/textures/skin-adult-a-basecolor.png",
+        "hero/textures/skin-adult-b-basecolor.png",
+        "hero/textures/skin-youth-basecolor.png",
+        "hero/textures/woven-adult-a-basecolor.png",
+        "hero/textures/woven-adult-a-normal.png",
+        "hero/textures/woven-adult-b-basecolor.png",
+        "hero/textures/woven-adult-b-normal.png",
+        "hero/textures/woven-dark-adult-a-basecolor.png",
+        "hero/textures/woven-dark-adult-a-normal.png",
+        "hero/textures/woven-dark-adult-b-basecolor.png",
+        "hero/textures/woven-dark-adult-b-normal.png",
+        "hero/textures/woven-dark-youth-basecolor.png",
+        "hero/textures/woven-dark-youth-normal.png",
+        "hero/textures/woven-youth-basecolor.png",
+        "hero/textures/woven-youth-normal.png",
+        "animal/cattle_young-lod0.usdc",
+        "animal/textures/cattle-adult-hide-basecolor.png",
+        "animal/textures/cattle-hide-normal.png",
+        "animal/textures/cattle-young-hide-basecolor.png"
+      ],
+      "packagePayloadMatch": "PASS",
+      "poseRetention": {
+        "/western_anatolia_aegean/person_rope_handler": "Baked braced working pose; exact rope contact remains open.",
+        "/western_anatolia_aegean/person_seed_keeper": "Baked carrying pose is aligned to the seed vessel; exact hand contact remains open.",
+        "/western_anatolia_aegean/person_stabilizer": "Baked forward working pose is aligned to the bovine; exact hand contact remains open."
+      },
+      "protectedSubtrees": [],
+      "skeletonCount": 4,
+      "source": "native/production/3d/chapter01/generated/aegean-crossing-v1/aegean-crossing-lod0.usdc",
+      "sourcePackageMember": "aegean-crossing-lod0.usdc",
+      "sourcePackagePayloadMatch": "PASS",
+      "sourceSHA256": "4ff29eaaeed0d5d0ad37ab1dc0dd7197c220caa080c52de3f17c3535b1422491",
+      "sourceUSDZ": "native/production/3d/chapter01/generated/aegean-crossing-v1/aegean-crossing-lod0.usdz",
+      "sourceUSDZSHA256": "56b735d0f6293a470a9b5e0f4c3f610e5c7f4a23fe30198f2154030c465fa18c",
+      "usdcheckerARKit": "PASS"
+    },
+    {
+      "animalCount": 0,
+      "animalPaths": {},
+      "canonicalBindingCount": 30,
+      "cellID": "thessaly",
+      "heroCount": 2,
+      "heroPaths": {
+        "/Chapter01/thessalian_household_store/person_carrying_seed": "/Chapter01/thessalian_household_store/person_carrying_seed/enhanced_review_hero",
+        "/Chapter01/thessalian_household_store/person_grinding_grain": "/Chapter01/thessalian_household_store/person_grinding_grain/enhanced_review_hero"
+      },
+      "hiddenStandInMeshCount": 69,
+      "outputUSDC": "native/production/3d/chapter01/enhanced-review/generated/thessaly/thessaly-enhanced-review.usdc",
+      "outputUSDCSHA256": "1c7beac1316948c34f68bad0d71f1cacf50313b776eadc4b7c53b408f452f837",
+      "outputUSDZ": "native/production/3d/chapter01/enhanced-review/generated/thessaly/thessaly-enhanced-review.usdz",
+      "outputUSDZSHA256": "865f2df671a833b8c287fd15bfdb7c5bf5516792a733e20ebdff0706ec77cb77",
+      "packageCompositionArcs": "CONTAINED",
+      "packageDependencyCount": 19,
+      "packageMemberOrder": [
+        "thessaly-enhanced-review.usdc",
+        "source/thessaly-household-store.usdc",
+        "hero/hero_adult_a.usdc",
+        "hero/hero_adult_b.usdc",
+        "hero/hero_youth.usdc",
+        "hero/textures/skin-adult-a-basecolor.png",
+        "hero/textures/skin-adult-b-basecolor.png",
+        "hero/textures/skin-youth-basecolor.png",
+        "hero/textures/woven-adult-a-basecolor.png",
+        "hero/textures/woven-adult-a-normal.png",
+        "hero/textures/woven-adult-b-basecolor.png",
+        "hero/textures/woven-adult-b-normal.png",
+        "hero/textures/woven-dark-adult-a-basecolor.png",
+        "hero/textures/woven-dark-adult-a-normal.png",
+        "hero/textures/woven-dark-adult-b-basecolor.png",
+        "hero/textures/woven-dark-adult-b-normal.png",
+        "hero/textures/woven-dark-youth-basecolor.png",
+        "hero/textures/woven-dark-youth-normal.png",
+        "hero/textures/woven-youth-basecolor.png",
+        "hero/textures/woven-youth-normal.png"
+      ],
+      "packagePayloadMatch": "PASS",
+      "poseRetention": {
+        "/Chapter01/thessalian_household_store/person_carrying_seed": "Baked carrying pose is centred on the preserved bowl and grain; exact finger contact remains open.",
+        "/Chapter01/thessalian_household_store/person_grinding_grain": "The lowered root keeps the torso and hands at the quern; a dedicated kneeling deformation remains open."
+      },
+      "protectedSubtrees": [
+        "/Chapter01/thessalian_household_store/person_carrying_seed/seed_carrying_bowl",
+        "/Chapter01/thessalian_household_store/person_carrying_seed/seed_carrying_bowl_grain"
+      ],
+      "skeletonCount": 2,
+      "source": "native/production/3d/chapter01/thessaly/outputs/thessaly-household-store.usdc",
+      "sourcePackageMember": "thessaly-household-store.usdc",
+      "sourcePackagePayloadMatch": "PASS",
+      "sourceSHA256": "8cc1171d191002dd87b06c286b0198c269055a7a0fc6774965b93ed6ee6e6ba0",
+      "sourceUSDZ": "native/production/3d/chapter01/thessaly/outputs/thessaly-household-store.usdz",
+      "sourceUSDZSHA256": "42f3d71b5f0f9024ab8ee37b40b29057547d98f9f03390cb70fdf0a1a6a08b2d",
+      "usdcheckerARKit": "PASS"
+    },
+    {
+      "animalCount": 0,
+      "animalPaths": {},
+      "canonicalBindingCount": 12,
+      "cellID": "iron-gates",
+      "heroCount": 5,
+      "heroPaths": {
+        "/root/iron_gates_riverbank/state_default/iron_gates_bank_worker": "/root/iron_gates_riverbank/state_default/iron_gates_bank_worker/enhanced_review_hero",
+        "/root/iron_gates_riverbank/state_default/iron_gates_boat/iron_gates_boat_worker": "/root/iron_gates_riverbank/state_default/iron_gates_boat/iron_gates_boat_worker/enhanced_review_hero",
+        "/root/iron_gates_riverbank/state_default/iron_gates_boat/iron_gates_local_guide": "/root/iron_gates_riverbank/state_default/iron_gates_boat/iron_gates_local_guide/enhanced_review_hero",
+        "/root/iron_gates_riverbank/state_default/iron_gates_line_receiver": "/root/iron_gates_riverbank/state_default/iron_gates_line_receiver/enhanced_review_hero",
+        "/root/iron_gates_riverbank/state_default/iron_gates_settlement_resident": "/root/iron_gates_riverbank/state_default/iron_gates_settlement_resident/enhanced_review_hero"
+      },
+      "hiddenStandInMeshCount": 80,
+      "outputUSDC": "native/production/3d/chapter01/enhanced-review/generated/iron-gates/iron-gates-enhanced-review.usdc",
+      "outputUSDCSHA256": "76453b1ac0a5b870e6dbb90bb4137d4a57674972f0625a2da6e938500c8bdf63",
+      "outputUSDZ": "native/production/3d/chapter01/enhanced-review/generated/iron-gates/iron-gates-enhanced-review.usdz",
+      "outputUSDZSHA256": "c875f37e96c8cf31e70f6e923f808b7712286d11cf9335d390cd794413098bf6",
+      "packageCompositionArcs": "CONTAINED",
+      "packageDependencyCount": 19,
+      "packageMemberOrder": [
+        "iron-gates-enhanced-review.usdc",
+        "source/iron-gates.usdc",
+        "hero/hero_adult_a.usdc",
+        "hero/hero_adult_b.usdc",
+        "hero/hero_youth.usdc",
+        "hero/textures/skin-adult-a-basecolor.png",
+        "hero/textures/skin-adult-b-basecolor.png",
+        "hero/textures/skin-youth-basecolor.png",
+        "hero/textures/woven-adult-a-basecolor.png",
+        "hero/textures/woven-adult-a-normal.png",
+        "hero/textures/woven-adult-b-basecolor.png",
+        "hero/textures/woven-adult-b-normal.png",
+        "hero/textures/woven-dark-adult-a-basecolor.png",
+        "hero/textures/woven-dark-adult-a-normal.png",
+        "hero/textures/woven-dark-adult-b-basecolor.png",
+        "hero/textures/woven-dark-adult-b-normal.png",
+        "hero/textures/woven-dark-youth-basecolor.png",
+        "hero/textures/woven-dark-youth-normal.png",
+        "hero/textures/woven-youth-basecolor.png",
+        "hero/textures/woven-youth-normal.png"
+      ],
+      "packagePayloadMatch": "PASS",
+      "poseRetention": {
+        "/root/iron_gates_riverbank/state_default/iron_gates_bank_worker": "The inherited placeholder transform preserves the bank work position.",
+        "/root/iron_gates_riverbank/state_default/iron_gates_boat/iron_gates_boat_worker": "The inherited placeholder transform preserves the boat work position.",
+        "/root/iron_gates_riverbank/state_default/iron_gates_boat/iron_gates_local_guide": "The inherited placeholder transform preserves the guide's pole-facing stance; exact pole contact remains open.",
+        "/root/iron_gates_riverbank/state_default/iron_gates_line_receiver": "The inherited placeholder transform preserves the receiving stance; exact line contact remains open.",
+        "/root/iron_gates_riverbank/state_default/iron_gates_settlement_resident": "The inherited placeholder transform preserves the handoff position."
+      },
+      "protectedSubtrees": [
+        "/root/iron_gates_riverbank/state_default/iron_gates_boat/iron_gates_local_guide/guide_pole"
+      ],
+      "skeletonCount": 5,
+      "source": "native/production/3d/chapter01/iron-gates/exports/iron-gates.usdc",
+      "sourcePackageMember": "iron-gates.usdc",
+      "sourcePackagePayloadMatch": "PASS",
+      "sourceSHA256": "2e5422fda77c64f1bccc3c068592407e57bd8634b9bc89c31174f325607a37a9",
+      "sourceUSDZ": "native/production/3d/chapter01/iron-gates/exports/iron-gates.usdz",
+      "sourceUSDZSHA256": "53dd37fca673be93a189402e8368f8ebdcb512994486cbf6b18c6ec374ee31e4",
+      "usdcheckerARKit": "PASS"
+    },
+    {
+      "animalCount": 0,
+      "animalPaths": {},
+      "canonicalBindingCount": 15,
+      "cellID": "longhouse",
+      "heroCount": 4,
+      "heroPaths": {
+        "/root/danube_loess_longhouse/state_default/longhouse_worker_pulling": "/root/danube_loess_longhouse/state_default/longhouse_worker_pulling/enhanced_review_hero",
+        "/root/danube_loess_longhouse/state_default/longhouse_worker_raising": "/root/danube_loess_longhouse/state_default/longhouse_worker_raising/enhanced_review_hero",
+        "/root/danube_loess_longhouse/state_default/longhouse_worker_storage": "/root/danube_loess_longhouse/state_default/longhouse_worker_storage/enhanced_review_hero",
+        "/root/danube_loess_longhouse/state_default/longhouse_worker_weaving": "/root/danube_loess_longhouse/state_default/longhouse_worker_weaving/enhanced_review_hero"
+      },
+      "hiddenStandInMeshCount": 64,
+      "outputUSDC": "native/production/3d/chapter01/enhanced-review/generated/longhouse/longhouse-enhanced-review.usdc",
+      "outputUSDCSHA256": "f60024f822594437361b445b5bc70b9b4c69327a9f313a74ddc12f162e215d0a",
+      "outputUSDZ": "native/production/3d/chapter01/enhanced-review/generated/longhouse/longhouse-enhanced-review.usdz",
+      "outputUSDZSHA256": "1d48fcd64a96807d81ccde1d501d06c312d44814d273f80287bd5587c608d98e",
+      "packageCompositionArcs": "CONTAINED",
+      "packageDependencyCount": 19,
+      "packageMemberOrder": [
+        "longhouse-enhanced-review.usdc",
+        "source/longhouse.usdc",
+        "hero/hero_adult_a.usdc",
+        "hero/hero_adult_b.usdc",
+        "hero/hero_youth.usdc",
+        "hero/textures/skin-adult-a-basecolor.png",
+        "hero/textures/skin-adult-b-basecolor.png",
+        "hero/textures/skin-youth-basecolor.png",
+        "hero/textures/woven-adult-a-basecolor.png",
+        "hero/textures/woven-adult-a-normal.png",
+        "hero/textures/woven-adult-b-basecolor.png",
+        "hero/textures/woven-adult-b-normal.png",
+        "hero/textures/woven-dark-adult-a-basecolor.png",
+        "hero/textures/woven-dark-adult-a-normal.png",
+        "hero/textures/woven-dark-adult-b-basecolor.png",
+        "hero/textures/woven-dark-adult-b-normal.png",
+        "hero/textures/woven-dark-youth-basecolor.png",
+        "hero/textures/woven-dark-youth-normal.png",
+        "hero/textures/woven-youth-basecolor.png",
+        "hero/textures/woven-youth-normal.png"
+      ],
+      "packagePayloadMatch": "PASS",
+      "poseRetention": {
+        "/root/danube_loess_longhouse/state_default/longhouse_worker_pulling": "The inherited placeholder transform preserves the opposing pull position; line contact remains open.",
+        "/root/danube_loess_longhouse/state_default/longhouse_worker_raising": "The inherited placeholder transform preserves the raising position; overhead hand contact remains open.",
+        "/root/danube_loess_longhouse/state_default/longhouse_worker_storage": "The inherited placeholder transform preserves the storage handoff position.",
+        "/root/danube_loess_longhouse/state_default/longhouse_worker_weaving": "The inherited placeholder transform preserves the weaving station."
+      },
+      "protectedSubtrees": [],
+      "skeletonCount": 4,
+      "source": "native/production/3d/chapter01/longhouse/exports/longhouse.usdc",
+      "sourcePackageMember": "longhouse.usdc",
+      "sourcePackagePayloadMatch": "PASS",
+      "sourceSHA256": "79648a890f1a0955305ab33a173044d15fa5588d031a4b2221578c10ff2059c9",
+      "sourceUSDZ": "native/production/3d/chapter01/longhouse/exports/longhouse.usdz",
+      "sourceUSDZSHA256": "88f03db23bba9cea250fc51df67b5544a93cd52fa815e1b5dc0706a9814b03dd",
+      "usdcheckerARKit": "PASS"
+    },
+    {
+      "animalCount": 8,
+      "animalPaths": {
+        "/root/expanding_settlement_landscape/state_continent_transformed/final_barrier_herd/final_barrier_cattle_0": "/root/expanding_settlement_landscape/state_continent_transformed/final_barrier_herd/final_barrier_cattle_0/enhanced_review_animal",
+        "/root/expanding_settlement_landscape/state_continent_transformed/final_barrier_herd/final_barrier_cattle_1": "/root/expanding_settlement_landscape/state_continent_transformed/final_barrier_herd/final_barrier_cattle_1/enhanced_review_animal",
+        "/root/expanding_settlement_landscape/state_continent_transformed/final_barrier_herd/final_barrier_cattle_2": "/root/expanding_settlement_landscape/state_continent_transformed/final_barrier_herd/final_barrier_cattle_2/enhanced_review_animal",
+        "/root/expanding_settlement_landscape/state_default/moving_herd/herd_cattle_0": "/root/expanding_settlement_landscape/state_default/moving_herd/herd_cattle_0/enhanced_review_animal",
+        "/root/expanding_settlement_landscape/state_default/moving_herd/herd_cattle_1": "/root/expanding_settlement_landscape/state_default/moving_herd/herd_cattle_1/enhanced_review_animal",
+        "/root/expanding_settlement_landscape/state_default/moving_herd/herd_cattle_2": "/root/expanding_settlement_landscape/state_default/moving_herd/herd_cattle_2/enhanced_review_animal",
+        "/root/expanding_settlement_landscape/state_default/moving_herd/herd_cattle_3": "/root/expanding_settlement_landscape/state_default/moving_herd/herd_cattle_3/enhanced_review_animal",
+        "/root/expanding_settlement_landscape/state_default/moving_herd/herd_cattle_4": "/root/expanding_settlement_landscape/state_default/moving_herd/herd_cattle_4/enhanced_review_animal"
+      },
+      "canonicalBindingCount": 16,
+      "cellID": "settlement",
+      "heroCount": 2,
+      "heroPaths": {
+        "/root/expanding_settlement_landscape/state_continent_transformed/final_barrier_worker": "/root/expanding_settlement_landscape/state_continent_transformed/final_barrier_worker/enhanced_review_hero",
+        "/root/expanding_settlement_landscape/state_default/moving_herd/herd_guide_adult": "/root/expanding_settlement_landscape/state_default/moving_herd/herd_guide_adult/enhanced_review_hero"
+      },
+      "hiddenStandInMeshCount": 144,
+      "outputUSDC": "native/production/3d/chapter01/enhanced-review/generated/settlement/settlement-enhanced-review.usdc",
+      "outputUSDCSHA256": "ebeadd5abd5286152cb8d7c1823c1d06f669797b60d144964a812fad97e41c70",
+      "outputUSDZ": "native/production/3d/chapter01/enhanced-review/generated/settlement/settlement-enhanced-review.usdz",
+      "outputUSDZSHA256": "5ba53d971dbf0d4f85c8dadbb020f99a2544697c9cae877e752e4a653b6d34c9",
+      "packageCompositionArcs": "CONTAINED",
+      "packageDependencyCount": 23,
+      "packageMemberOrder": [
+        "settlement-enhanced-review.usdc",
+        "source/settlement.usdc",
+        "hero/hero_adult_a.usdc",
+        "hero/hero_adult_b.usdc",
+        "hero/hero_youth.usdc",
+        "hero/textures/skin-adult-a-basecolor.png",
+        "hero/textures/skin-adult-b-basecolor.png",
+        "hero/textures/skin-youth-basecolor.png",
+        "hero/textures/woven-adult-a-basecolor.png",
+        "hero/textures/woven-adult-a-normal.png",
+        "hero/textures/woven-adult-b-basecolor.png",
+        "hero/textures/woven-adult-b-normal.png",
+        "hero/textures/woven-dark-adult-a-basecolor.png",
+        "hero/textures/woven-dark-adult-a-normal.png",
+        "hero/textures/woven-dark-adult-b-basecolor.png",
+        "hero/textures/woven-dark-adult-b-normal.png",
+        "hero/textures/woven-dark-youth-basecolor.png",
+        "hero/textures/woven-dark-youth-normal.png",
+        "hero/textures/woven-youth-basecolor.png",
+        "hero/textures/woven-youth-normal.png",
+        "animal/cattle_adult-lod1.usdc",
+        "animal/textures/cattle-adult-hide-basecolor.png",
+        "animal/textures/cattle-hide-normal.png",
+        "animal/textures/cattle-young-hide-basecolor.png"
+      ],
+      "packagePayloadMatch": "PASS",
+      "poseRetention": {
+        "/root/expanding_settlement_landscape/state_continent_transformed/final_barrier_worker": "The inherited placeholder transform preserves the final barrier position; exact fastening contact remains open.",
+        "/root/expanding_settlement_landscape/state_default/moving_herd/herd_guide_adult": "The inherited placeholder transform preserves the herd-leading position; staff contact remains open."
+      },
+      "protectedSubtrees": [],
+      "skeletonCount": 10,
+      "source": "native/production/3d/chapter01/settlement/exports/settlement.usdc",
+      "sourcePackageMember": "settlement.usdc",
+      "sourcePackagePayloadMatch": "PASS",
+      "sourceSHA256": "b011ac77f2d47193dd546a3a88032ccea2798ae79b6948643fd0c5b04df73238",
+      "sourceUSDZ": "native/production/3d/chapter01/settlement/exports/settlement.usdz",
+      "sourceUSDZSHA256": "9ef38322607dbd22a89527315dfa6f8e2b09d1b3e440cf83cd8fdc47ac464ad0",
+      "usdcheckerARKit": "PASS"
+    }
+  ],
+  "classification": "GREYBOX_CONTINUITY_CANDIDATE",
+  "finalArtGate": "OPEN",
+  "generatedAt": "deterministic-build",
+  "heroLibrary": {
+    "classification": "HERO_RIG_CANDIDATE",
+    "finalArtGate": "OPEN",
+    "rightsGate": "PASS",
+    "sha256": "0127d681b1dae5ede2d6acced1c596c23f08dee83a1c1f9be2f2c059b52f3140",
+    "source": "native/production/3d/chapter01/characters/outputs/chapter01-hero-character-library.usdc",
+    "verifiedInputs": {
+      "sourceManifest": {
+        "sha256": "110e4160b56d4534a45653a9b560d7351a000b5adc46770c7b3d711e54c0a3e7",
+        "source": "native/production/3d/chapter01/characters/build-manifest.json"
+      },
+      "sourceProvenance": {
+        "sha256": "fb306ea451a8709d4311daa03fb2fb2459d9b67b9f5ba85fc263442ee5dbba1b",
+        "source": "native/production/3d/chapter01/characters/provenance.json"
+      },
+      "sourceUSDZ": {
+        "sha256": "b3a7a34f188401a5b9fabab8f98c2d67712eed557ac4c80785e90d9bdde6d63e",
+        "source": "native/production/3d/chapter01/characters/outputs/chapter01-hero-character-library.usdz"
+      }
+    }
+  },
+  "openGates": [
+    "Visual QA remains failed: continuity geometry, action poses and contacts do not meet simulator-candidate quality.",
+    "Final faces, hands, hair, costume and deformation are not approved.",
+    "Final cattle anatomy, fur, deformation and environment contact are not approved.",
+    "Exact hand-to-tool and foot-to-ground contact remains open.",
+    "The source cells remain continuity geometry rather than final environment art.",
+    "Physical iPhone performance, thermal and haptic gates remain open."
+  ],
+  "previews": {
+    "aegean-crossing": [
+      "native/production/3d/chapter01/enhanced-review/generated/aegean-crossing/previews/aegean-crossing-portrait.png",
+      "native/production/3d/chapter01/enhanced-review/generated/aegean-crossing/previews/aegean-crossing-line.png"
+    ],
+    "iron-gates": [
+      "native/production/3d/chapter01/enhanced-review/generated/iron-gates/previews/iron-gates-portrait.png",
+      "native/production/3d/chapter01/enhanced-review/generated/iron-gates/previews/iron-gates-handoff.png"
+    ],
+    "longhouse": [
+      "native/production/3d/chapter01/enhanced-review/generated/longhouse/previews/longhouse-portrait.png",
+      "native/production/3d/chapter01/enhanced-review/generated/longhouse/previews/longhouse-pulling.png"
+    ],
+    "settlement": [
+      "native/production/3d/chapter01/enhanced-review/generated/settlement/previews/settlement-portrait.png",
+      "native/production/3d/chapter01/enhanced-review/generated/settlement/previews/settlement-final.png"
+    ],
+    "thessaly": [
+      "native/production/3d/chapter01/enhanced-review/generated/thessaly/previews/thessaly-portrait.png"
+    ]
+  },
+  "schemaVersion": 1,
+  "shippingStatus": "BLOCKED"
+}

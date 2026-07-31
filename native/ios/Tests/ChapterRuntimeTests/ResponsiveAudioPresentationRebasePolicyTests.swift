@@ -19,7 +19,7 @@ final class ResponsiveAudioPresentationRebasePolicyTests: XCTestCase {
         )
     }
 
-    func testReducerProducedBeginSnapshotAndEndAreTheOnlyForwardRebases() throws {
+    func testReducerProducedResponsiveAudioChangesAreForwardRebases() throws {
         let fixture = try RuntimeTestFixture.trace()
         defer { try? FileManager.default.removeItem(at: fixture.packageRoot) }
         let waiting = try audioSnapshot(in: fixture, cursorSample: 0)
@@ -50,6 +50,29 @@ final class ResponsiveAudioPresentationRebasePolicyTests: XCTestCase {
             decision(fixture.state, moved),
             .rebase,
             "Several consecutive audio-only commits may be adopted together"
+        )
+    }
+
+    func testReadingAnchorRebasesAloneAndWithResponsiveAudio() throws {
+        let fixture = try RuntimeTestFixture.trace()
+        defer { try? FileManager.default.removeItem(at: fixture.packageRoot) }
+        let reading = try reducing(
+            .setReadingAnchor("paragraph-2"),
+            from: fixture.state
+        )
+        XCTAssertEqual(decision(fixture.state, reading), .rebase)
+
+        let audioAndReading = try reducing(
+            .beginResponsiveAudioSession(
+                chapterOpenNonce: UUID(),
+                generation: 1,
+                snapshot: try audioSnapshot(in: fixture, cursorSample: 0)
+            ),
+            from: reading
+        )
+        XCTAssertEqual(
+            decision(fixture.state, audioAndReading),
+            .rebase
         )
     }
 
@@ -140,11 +163,6 @@ final class ResponsiveAudioPresentationRebasePolicyTests: XCTestCase {
             ("camera", { state in
                 var session = try XCTUnwrap(state.activeChapter)
                 session.cameraAnchor = 0.75
-                state.activeChapter = session
-            }),
-            ("reading", { state in
-                var session = try XCTUnwrap(state.activeChapter)
-                session.readingAnchor = "paragraph-2"
                 state.activeChapter = session
             }),
             ("narration", { state in

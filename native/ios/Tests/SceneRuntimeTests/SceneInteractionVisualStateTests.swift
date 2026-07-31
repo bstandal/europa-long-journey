@@ -6,6 +6,93 @@ import JourneyDomain
 import XCTest
 
 final class SceneInteractionVisualStateTests: XCTestCase {
+    func testCausalCameraProgressFollowsDurableInteractionState() throws {
+        let fixture = try loadHarvestFixture()
+        let allocation = makeTestOnlyHarvestInteraction(fixture)
+        let partialAllocation = makeAllocationState(
+            interaction: allocation,
+            phase: .active,
+            allocations: ["food": 2, "reserve": 1, "seed": 3]
+        )
+        XCTAssertEqual(
+            SceneInteractionCameraProgressResolver.resolve(
+                authoredAnchor: 0,
+                interaction: allocation,
+                runtimeState: partialAllocation
+            ),
+            0.5,
+            accuracy: 0.000_001
+        )
+        XCTAssertEqual(
+            SceneInteractionCameraProgressResolver.resolve(
+                authoredAnchor: 0.72,
+                interaction: allocation,
+                runtimeState: partialAllocation
+            ),
+            0.72,
+            accuracy: 0.000_001
+        )
+
+        let transform = InteractionSpec(
+            id: "test-transform",
+            prompt: LocalizedStringSpec(
+                id: "test-transform-prompt",
+                launchEnglish: "Advance the landscape."
+            ),
+            grammar: .transform(
+                TransformInteractionSpec(
+                    stages: [
+                        TransformationStage(
+                            id: "fields",
+                            controlID: "spread",
+                            requiredAmount: 0.4
+                        ),
+                        TransformationStage(
+                            id: "settlements",
+                            controlID: "spread",
+                            requiredAmount: 0.8
+                        ),
+                    ]
+                )
+            ),
+            completionEffects: [],
+            accessibilityID: "test-transform-accessibility"
+        )
+        var transformState = InteractionRuntimeState(spec: transform)
+        transformState.phase = .active
+        transformState.progress = .transform(
+            TransformProgress(
+                completedStageCount: 1,
+                currentAmount: 0.4
+            )
+        )
+        XCTAssertEqual(
+            SceneInteractionCameraProgressResolver.resolve(
+                authoredAnchor: 0,
+                interaction: transform,
+                runtimeState: transformState
+            ),
+            0.75,
+            accuracy: 0.000_001
+        )
+
+        transformState.phase = .complete
+        transformState.progress = .transform(
+            TransformProgress(
+                completedStageCount: 2,
+                currentAmount: 0
+            )
+        )
+        XCTAssertEqual(
+            SceneInteractionCameraProgressResolver.resolve(
+                authoredAnchor: 0,
+                interaction: transform,
+                runtimeState: transformState
+            ),
+            1
+        )
+    }
+
     func testHarvestAllocateInitialPartialAndCompletedStatesSelectOnlyAuthoredVariants() throws {
         let fixture = try loadHarvestFixture()
         let scene = fixture.scene

@@ -1608,6 +1608,14 @@
             "scale": 1
           },
           {
+            "progress": 0.5,
+            "center": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scale": 1.0125
+          },
+          {
             "progress": 1,
             "center": {
               "x": 0.5,
@@ -4548,12 +4556,20 @@
             "scale": 1
           },
           {
-            "progress": 1,
+            "progress": 0.5,
             "center": {
               "x": 0.5,
               "y": 0.5
             },
             "scale": 1.025
+          },
+          {
+            "progress": 1,
+            "center": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scale": 1.065
           }
         ]
       },
@@ -5496,12 +5512,20 @@
             "scale": 1
           },
           {
-            "progress": 1,
+            "progress": 0.5,
             "center": {
               "x": 0.5,
               "y": 0.5
             },
             "scale": 1.025
+          },
+          {
+            "progress": 1,
+            "center": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scale": 1.065
           }
         ]
       },
@@ -6837,12 +6861,20 @@
             "scale": 1
           },
           {
-            "progress": 1,
+            "progress": 0.5,
             "center": {
               "x": 0.5,
               "y": 0.5
             },
             "scale": 1.025
+          },
+          {
+            "progress": 1,
+            "center": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scale": 1.065
           }
         ]
       },
@@ -7732,12 +7764,20 @@
             "scale": 1
           },
           {
-            "progress": 1,
+            "progress": 0.5,
             "center": {
               "x": 0.5,
               "y": 0.5
             },
             "scale": 1.025
+          },
+          {
+            "progress": 1,
+            "center": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scale": 1.065
           }
         ]
       },
@@ -8318,7 +8358,7 @@
           "startSample": 576000,
           "durationSamples": 2880000,
           "assetPath": "requirements/first-farmers/audio/score/beat-first-farmers-river-world.m4a",
-          "gain": 0.52
+          "gain": 0.26
         },
         {
           "cueID": "soundscape-beat-first-farmers-river-world",
@@ -8326,7 +8366,7 @@
           "startSample": 0,
           "durationSamples": 3456000,
           "assetPath": "requirements/first-farmers/audio/soundscape/beat-first-farmers-river-world.m4a",
-          "gain": 0.76
+          "gain": 0.38
         },
         {
           "cueID": "spatial-detail-beat-first-farmers-river-world",
@@ -8334,7 +8374,7 @@
           "startSample": 0,
           "durationSamples": 3456000,
           "assetPath": "requirements/first-farmers/audio/spatial-detail/beat-first-farmers-river-world.m4a",
-          "gain": 0.68
+          "gain": 0.34
         }
       ],
       "haptics": []
@@ -8383,7 +8423,7 @@
           "startSample": 0,
           "durationSamples": 9984000,
           "assetPath": "requirements/first-farmers/audio/score/beat-first-farmers-household-crosses.m4a",
-          "gain": 0.52
+          "gain": 0.26
         },
         {
           "cueID": "soundscape-beat-first-farmers-household-crosses",
@@ -8391,7 +8431,7 @@
           "startSample": 0,
           "durationSamples": 9984000,
           "assetPath": "requirements/first-farmers/audio/soundscape/beat-first-farmers-household-crosses.m4a",
-          "gain": 0.76
+          "gain": 0.38
         },
         {
           "cueID": "spatial-detail-beat-first-farmers-household-crosses",
@@ -8399,7 +8439,7 @@
           "startSample": 0,
           "durationSamples": 9984000,
           "assetPath": "requirements/first-farmers/audio/spatial-detail/beat-first-farmers-household-crosses.m4a",
-          "gain": 0.68
+          "gain": 0.34
         }
       ],
       "haptics": []
@@ -8414,7 +8454,7 @@
           "startSample": 0,
           "durationSamples": 2880000,
           "assetPath": "audio/first-farmers/household-crosses-responsive-v1/approach/score-master.wav",
-          "gain": 0.72
+          "gain": 0.558898
         },
         {
           "cueID": "household-crosses-responsive-audio-v1-approach-soundscape-master",
@@ -8422,7 +8462,7 @@
           "startSample": 0,
           "durationSamples": 2880000,
           "assetPath": "audio/first-farmers/household-crosses-responsive-v1/approach/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.636523
         },
         {
           "cueID": "household-crosses-responsive-audio-v1-approach-spatial-detail-master",
@@ -8430,7 +8470,7 @@
           "startSample": 0,
           "durationSamples": 2880000,
           "assetPath": "audio/first-farmers/household-crosses-responsive-v1/approach/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.698622
         },
         {
           "cueID": "household-crosses-responsive-audio-v1-approach-before-route-contact",
@@ -8452,7 +8492,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/household-crosses-responsive-v1/waiting/score-master.wav",
-          "gain": 0.72
+          "gain": 0.438867
         },
         {
           "cueID": "household-crosses-responsive-audio-v1-waiting-soundscape-master",
@@ -8460,7 +8500,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/household-crosses-responsive-v1/waiting/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.49982
         },
         {
           "cueID": "household-crosses-responsive-audio-v1-waiting-spatial-detail-master",
@@ -8468,7 +8508,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/household-crosses-responsive-v1/waiting/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.548583
         },
         {
           "cueID": "household-crosses-responsive-audio-v1-waiting-held-shallows-joint",
@@ -8490,7 +8530,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/household-crosses-responsive-v1/engaged/score-master.wav",
-          "gain": 0.72
+          "gain": 0.409574
         },
         {
           "cueID": "household-crosses-responsive-audio-v1-engaged-soundscape-master",
@@ -8498,7 +8538,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/household-crosses-responsive-v1/engaged/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.466459
         },
         {
           "cueID": "household-crosses-responsive-audio-v1-engaged-spatial-detail-master",
@@ -8506,7 +8546,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/household-crosses-responsive-v1/engaged/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.511968
         },
         {
           "cueID": "household-crosses-responsive-audio-v1-engaged-viable-route-breath",
@@ -8528,7 +8568,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/household-crosses-responsive-v1/resistance/score-master.wav",
-          "gain": 0.72
+          "gain": 0.664251
         },
         {
           "cueID": "household-crosses-responsive-audio-v1-resistance-soundscape-master",
@@ -8536,7 +8576,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/household-crosses-responsive-v1/resistance/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.756509
         },
         {
           "cueID": "household-crosses-responsive-audio-v1-resistance-spatial-detail-master",
@@ -8544,7 +8584,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/household-crosses-responsive-v1/resistance/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.830314
         },
         {
           "cueID": "household-crosses-responsive-audio-v1-resistance-off-route-hold",
@@ -8566,7 +8606,7 @@
           "startSample": 0,
           "durationSamples": 2640000,
           "assetPath": "audio/first-farmers/household-crosses-responsive-v1/consequence/score-master.wav",
-          "gain": 0.72
+          "gain": 0.641701
         },
         {
           "cueID": "household-crosses-responsive-audio-v1-consequence-soundscape-master",
@@ -8574,7 +8614,7 @@
           "startSample": 0,
           "durationSamples": 2640000,
           "assetPath": "audio/first-farmers/household-crosses-responsive-v1/consequence/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.730826
         },
         {
           "cueID": "household-crosses-responsive-audio-v1-consequence-spatial-detail-master",
@@ -8582,7 +8622,7 @@
           "startSample": 0,
           "durationSamples": 2640000,
           "assetPath": "audio/first-farmers/household-crosses-responsive-v1/consequence/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.802126
         },
         {
           "cueID": "household-crosses-responsive-audio-v1-consequence-before-system-joins",
@@ -8638,7 +8678,7 @@
           "startSample": 0,
           "durationSamples": 4224000,
           "assetPath": "requirements/first-farmers/audio/score/beat-first-farmers-living-system.m4a",
-          "gain": 0.52
+          "gain": 0.26
         },
         {
           "cueID": "soundscape-beat-first-farmers-living-system",
@@ -8646,7 +8686,7 @@
           "startSample": 0,
           "durationSamples": 4224000,
           "assetPath": "requirements/first-farmers/audio/soundscape/beat-first-farmers-living-system.m4a",
-          "gain": 0.76
+          "gain": 0.38
         },
         {
           "cueID": "spatial-detail-beat-first-farmers-living-system",
@@ -8654,7 +8694,7 @@
           "startSample": 0,
           "durationSamples": 4224000,
           "assetPath": "requirements/first-farmers/audio/spatial-detail/beat-first-farmers-living-system.m4a",
-          "gain": 0.68
+          "gain": 0.34
         }
       ],
       "haptics": []
@@ -8703,7 +8743,7 @@
           "startSample": 0,
           "durationSamples": 4224000,
           "assetPath": "requirements/first-farmers/audio/score/beat-first-farmers-european-ground.m4a",
-          "gain": 0.52
+          "gain": 0.26
         },
         {
           "cueID": "soundscape-beat-first-farmers-european-ground",
@@ -8711,7 +8751,7 @@
           "startSample": 0,
           "durationSamples": 4224000,
           "assetPath": "requirements/first-farmers/audio/soundscape/beat-first-farmers-european-ground.m4a",
-          "gain": 0.76
+          "gain": 0.38
         },
         {
           "cueID": "spatial-detail-beat-first-farmers-european-ground",
@@ -8719,7 +8759,7 @@
           "startSample": 0,
           "durationSamples": 4224000,
           "assetPath": "requirements/first-farmers/audio/spatial-detail/beat-first-farmers-european-ground.m4a",
-          "gain": 0.68
+          "gain": 0.34
         }
       ],
       "haptics": []
@@ -8768,7 +8808,7 @@
           "startSample": 0,
           "durationSamples": 4032000,
           "assetPath": "requirements/first-farmers/audio/score/beat-first-farmers-inhabited-frontier.m4a",
-          "gain": 0.52
+          "gain": 0.26
         },
         {
           "cueID": "soundscape-beat-first-farmers-inhabited-frontier",
@@ -8776,7 +8816,7 @@
           "startSample": 0,
           "durationSamples": 4032000,
           "assetPath": "requirements/first-farmers/audio/soundscape/beat-first-farmers-inhabited-frontier.m4a",
-          "gain": 0.76
+          "gain": 0.38
         },
         {
           "cueID": "spatial-detail-beat-first-farmers-inhabited-frontier",
@@ -8784,7 +8824,7 @@
           "startSample": 0,
           "durationSamples": 4032000,
           "assetPath": "requirements/first-farmers/audio/spatial-detail/beat-first-farmers-inhabited-frontier.m4a",
-          "gain": 0.68
+          "gain": 0.34
         }
       ],
       "haptics": []
@@ -8884,7 +8924,7 @@
           "startSample": 0,
           "durationSamples": 10080000,
           "assetPath": "requirements/first-farmers/audio/score/beat-first-farmers-harvest-allocation.m4a",
-          "gain": 0.52
+          "gain": 0.26
         },
         {
           "cueID": "soundscape-beat-first-farmers-harvest-allocation",
@@ -8892,7 +8932,7 @@
           "startSample": 0,
           "durationSamples": 10080000,
           "assetPath": "requirements/first-farmers/audio/soundscape/beat-first-farmers-harvest-allocation.m4a",
-          "gain": 0.76
+          "gain": 0.38
         },
         {
           "cueID": "spatial-detail-beat-first-farmers-harvest-allocation",
@@ -8900,7 +8940,7 @@
           "startSample": 0,
           "durationSamples": 10080000,
           "assetPath": "requirements/first-farmers/audio/spatial-detail/beat-first-farmers-harvest-allocation.m4a",
-          "gain": 0.68
+          "gain": 0.34
         }
       ],
       "haptics": []
@@ -8915,7 +8955,7 @@
           "startSample": 0,
           "durationSamples": 2880000,
           "assetPath": "audio/first-farmers/harvest-responsive-v1/approach/score-master.wav",
-          "gain": 0.72
+          "gain": 0.48678
         },
         {
           "cueID": "harvest-responsive-audio-v1-approach-soundscape-master",
@@ -8923,7 +8963,7 @@
           "startSample": 0,
           "durationSamples": 2880000,
           "assetPath": "audio/first-farmers/harvest-responsive-v1/approach/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.554388
         },
         {
           "cueID": "harvest-responsive-audio-v1-approach-spatial-detail-master",
@@ -8931,7 +8971,7 @@
           "startSample": 0,
           "durationSamples": 2880000,
           "assetPath": "audio/first-farmers/harvest-responsive-v1/approach/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.608475
         },
         {
           "cueID": "harvest-responsive-audio-v1-approach-before-first-share",
@@ -8953,7 +8993,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/harvest-responsive-v1/waiting/score-master.wav",
-          "gain": 0.72
+          "gain": 0.45955
         },
         {
           "cueID": "harvest-responsive-audio-v1-waiting-soundscape-master",
@@ -8961,7 +9001,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/harvest-responsive-v1/waiting/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.523376
         },
         {
           "cueID": "harvest-responsive-audio-v1-waiting-spatial-detail-master",
@@ -8969,7 +9009,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/harvest-responsive-v1/waiting/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.574437
         },
         {
           "cueID": "harvest-responsive-audio-v1-waiting-waiting-breath",
@@ -8991,7 +9031,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/harvest-responsive-v1/engaged/score-master.wav",
-          "gain": 0.72
+          "gain": 0.481208
         },
         {
           "cueID": "harvest-responsive-audio-v1-engaged-soundscape-master",
@@ -8999,7 +9039,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/harvest-responsive-v1/engaged/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.548042
         },
         {
           "cueID": "harvest-responsive-audio-v1-engaged-spatial-detail-master",
@@ -9007,7 +9047,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/harvest-responsive-v1/engaged/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.60151
         },
         {
           "cueID": "harvest-responsive-audio-v1-engaged-transfer-breath",
@@ -9029,7 +9069,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/harvest-responsive-v1/resistance/score-master.wav",
-          "gain": 0.72
+          "gain": 0.423967
         },
         {
           "cueID": "harvest-responsive-audio-v1-resistance-soundscape-master",
@@ -9037,7 +9077,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/harvest-responsive-v1/resistance/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.482852
         },
         {
           "cueID": "harvest-responsive-audio-v1-resistance-spatial-detail-master",
@@ -9045,7 +9085,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/harvest-responsive-v1/resistance/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.529959
         },
         {
           "cueID": "harvest-responsive-audio-v1-resistance-resistance-hold",
@@ -9067,7 +9107,7 @@
           "startSample": 0,
           "durationSamples": 2400000,
           "assetPath": "audio/first-farmers/harvest-responsive-v1/consequence/score-master.wav",
-          "gain": 0.72
+          "gain": 0.464871
         },
         {
           "cueID": "harvest-responsive-audio-v1-consequence-soundscape-master",
@@ -9075,7 +9115,7 @@
           "startSample": 0,
           "durationSamples": 2400000,
           "assetPath": "audio/first-farmers/harvest-responsive-v1/consequence/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.529436
         },
         {
           "cueID": "harvest-responsive-audio-v1-consequence-spatial-detail-master",
@@ -9083,7 +9123,7 @@
           "startSample": 0,
           "durationSamples": 2400000,
           "assetPath": "audio/first-farmers/harvest-responsive-v1/consequence/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.581089
         },
         {
           "cueID": "harvest-responsive-audio-v1-consequence-season-turns",
@@ -9139,7 +9179,7 @@
           "startSample": 0,
           "durationSamples": 3264000,
           "assetPath": "requirements/first-farmers/audio/score/beat-first-farmers-stored-future.m4a",
-          "gain": 0.52
+          "gain": 0.26
         },
         {
           "cueID": "soundscape-beat-first-farmers-stored-future",
@@ -9147,7 +9187,7 @@
           "startSample": 0,
           "durationSamples": 3264000,
           "assetPath": "requirements/first-farmers/audio/soundscape/beat-first-farmers-stored-future.m4a",
-          "gain": 0.76
+          "gain": 0.38
         },
         {
           "cueID": "spatial-detail-beat-first-farmers-stored-future",
@@ -9155,7 +9195,7 @@
           "startSample": 0,
           "durationSamples": 3264000,
           "assetPath": "requirements/first-farmers/audio/spatial-detail/beat-first-farmers-stored-future.m4a",
-          "gain": 0.68
+          "gain": 0.34
         }
       ],
       "haptics": []
@@ -9204,7 +9244,7 @@
           "startSample": 0,
           "durationSamples": 3360000,
           "assetPath": "requirements/first-farmers/audio/score/beat-first-farmers-gorge-contact.m4a",
-          "gain": 0.52
+          "gain": 0.26
         },
         {
           "cueID": "soundscape-beat-first-farmers-gorge-contact",
@@ -9212,7 +9252,7 @@
           "startSample": 0,
           "durationSamples": 3360000,
           "assetPath": "requirements/first-farmers/audio/soundscape/beat-first-farmers-gorge-contact.m4a",
-          "gain": 0.76
+          "gain": 0.38
         },
         {
           "cueID": "spatial-detail-beat-first-farmers-gorge-contact",
@@ -9220,7 +9260,7 @@
           "startSample": 0,
           "durationSamples": 3360000,
           "assetPath": "requirements/first-farmers/audio/spatial-detail/beat-first-farmers-gorge-contact.m4a",
-          "gain": 0.68
+          "gain": 0.34
         }
       ],
       "haptics": []
@@ -9269,7 +9309,7 @@
           "startSample": 0,
           "durationSamples": 5520000,
           "assetPath": "requirements/first-farmers/audio/score/beat-first-farmers-three-records.m4a",
-          "gain": 0.52
+          "gain": 0.26
         },
         {
           "cueID": "soundscape-beat-first-farmers-three-records",
@@ -9277,7 +9317,7 @@
           "startSample": 0,
           "durationSamples": 5520000,
           "assetPath": "requirements/first-farmers/audio/soundscape/beat-first-farmers-three-records.m4a",
-          "gain": 0.76
+          "gain": 0.38
         },
         {
           "cueID": "spatial-detail-beat-first-farmers-three-records",
@@ -9285,7 +9325,7 @@
           "startSample": 0,
           "durationSamples": 5520000,
           "assetPath": "requirements/first-farmers/audio/spatial-detail/beat-first-farmers-three-records.m4a",
-          "gain": 0.68
+          "gain": 0.34
         }
       ],
       "haptics": []
@@ -9300,7 +9340,7 @@
           "startSample": 0,
           "durationSamples": 2160000,
           "assetPath": "audio/first-farmers/three-records-responsive-v1/approach/score-master.wav",
-          "gain": 0.72
+          "gain": 0.409574
         },
         {
           "cueID": "three-records-responsive-audio-v1-approach-soundscape-master",
@@ -9308,7 +9348,7 @@
           "startSample": 0,
           "durationSamples": 2160000,
           "assetPath": "audio/first-farmers/three-records-responsive-v1/approach/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.466459
         },
         {
           "cueID": "three-records-responsive-audio-v1-approach-spatial-detail-master",
@@ -9316,7 +9356,7 @@
           "startSample": 0,
           "durationSamples": 2160000,
           "assetPath": "audio/first-farmers/three-records-responsive-v1/approach/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.511968
         }
       ],
       "haptics": []
@@ -9331,7 +9371,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/three-records-responsive-v1/waiting/score-master.wav",
-          "gain": 0.72
+          "gain": 0.585238
         },
         {
           "cueID": "three-records-responsive-audio-v1-waiting-gorge-current",
@@ -9339,7 +9379,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/gorge-current.wav",
-          "gain": 0.82
+          "gain": 0.658891
         },
         {
           "cueID": "three-records-responsive-audio-v1-waiting-river-gear",
@@ -9402,7 +9442,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/three-records-responsive-v1/engaged/score-master.wav",
-          "gain": 0.72
+          "gain": 0.578539
         },
         {
           "cueID": "three-records-responsive-audio-v1-engaged-gorge-current",
@@ -9410,7 +9450,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/gorge-current.wav",
-          "gain": 0.82
+          "gain": 0.658891
         },
         {
           "cueID": "three-records-responsive-audio-v1-engaged-river-gear",
@@ -9473,7 +9513,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/three-records-responsive-v1/resistance/score-master.wav",
-          "gain": 0.72
+          "gain": 0.695557
         },
         {
           "cueID": "three-records-responsive-audio-v1-resistance-gorge-current",
@@ -9481,7 +9521,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/three-records-responsive-v1/interaction/shared/gorge-current.wav",
-          "gain": 0.82
+          "gain": 0.658891
         },
         {
           "cueID": "three-records-responsive-audio-v1-resistance-river-gear",
@@ -9544,7 +9584,7 @@
           "startSample": 0,
           "durationSamples": 2160000,
           "assetPath": "audio/first-farmers/three-records-responsive-v1/consequence/score-master.wav",
-          "gain": 0.72
+          "gain": 0.533743
         },
         {
           "cueID": "three-records-responsive-audio-v1-consequence-soundscape-master",
@@ -9552,7 +9592,7 @@
           "startSample": 0,
           "durationSamples": 2160000,
           "assetPath": "audio/first-farmers/three-records-responsive-v1/consequence/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.607874
         },
         {
           "cueID": "three-records-responsive-audio-v1-consequence-spatial-detail-master",
@@ -9560,7 +9600,7 @@
           "startSample": 0,
           "durationSamples": 2160000,
           "assetPath": "audio/first-farmers/three-records-responsive-v1/consequence/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.667179
         }
       ],
       "haptics": []
@@ -9609,7 +9649,7 @@
           "startSample": 0,
           "durationSamples": 3696000,
           "assetPath": "requirements/first-farmers/audio/score/beat-first-farmers-frontier-consequence.m4a",
-          "gain": 0.52
+          "gain": 0.26
         },
         {
           "cueID": "soundscape-beat-first-farmers-frontier-consequence",
@@ -9617,7 +9657,7 @@
           "startSample": 0,
           "durationSamples": 3696000,
           "assetPath": "requirements/first-farmers/audio/soundscape/beat-first-farmers-frontier-consequence.m4a",
-          "gain": 0.76
+          "gain": 0.38
         },
         {
           "cueID": "spatial-detail-beat-first-farmers-frontier-consequence",
@@ -9625,7 +9665,7 @@
           "startSample": 0,
           "durationSamples": 3696000,
           "assetPath": "requirements/first-farmers/audio/spatial-detail/beat-first-farmers-frontier-consequence.m4a",
-          "gain": 0.68
+          "gain": 0.34
         }
       ],
       "haptics": []
@@ -9674,7 +9714,7 @@
           "startSample": 0,
           "durationSamples": 7200000,
           "assetPath": "requirements/first-farmers/audio/score/beat-first-farmers-raise-longhouse.m4a",
-          "gain": 0.52
+          "gain": 0.26
         },
         {
           "cueID": "soundscape-beat-first-farmers-raise-longhouse",
@@ -9682,7 +9722,7 @@
           "startSample": 0,
           "durationSamples": 7200000,
           "assetPath": "requirements/first-farmers/audio/soundscape/beat-first-farmers-raise-longhouse.m4a",
-          "gain": 0.76
+          "gain": 0.38
         },
         {
           "cueID": "spatial-detail-beat-first-farmers-raise-longhouse",
@@ -9690,7 +9730,7 @@
           "startSample": 0,
           "durationSamples": 7200000,
           "assetPath": "requirements/first-farmers/audio/spatial-detail/beat-first-farmers-raise-longhouse.m4a",
-          "gain": 0.68
+          "gain": 0.34
         }
       ],
       "haptics": []
@@ -9705,7 +9745,7 @@
           "startSample": 0,
           "durationSamples": 2304000,
           "assetPath": "audio/first-farmers/longhouse-responsive-v1/approach/score-master.wav",
-          "gain": 0.72
+          "gain": 0.475699
         },
         {
           "cueID": "longhouse-responsive-audio-v1-approach-soundscape-master",
@@ -9713,7 +9753,7 @@
           "startSample": 0,
           "durationSamples": 2304000,
           "assetPath": "audio/first-farmers/longhouse-responsive-v1/approach/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.541769
         },
         {
           "cueID": "longhouse-responsive-audio-v1-approach-spatial-detail-master",
@@ -9721,7 +9761,7 @@
           "startSample": 0,
           "durationSamples": 2304000,
           "assetPath": "audio/first-farmers/longhouse-responsive-v1/approach/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.594624
         },
         {
           "cueID": "longhouse-responsive-audio-v1-approach-before-first-post",
@@ -9743,7 +9783,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/longhouse-responsive-v1/waiting/score-master.wav",
-          "gain": 0.72
+          "gain": 0.409574
         },
         {
           "cueID": "longhouse-responsive-audio-v1-waiting-soundscape-master",
@@ -9751,7 +9791,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/longhouse-responsive-v1/waiting/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.466459
         },
         {
           "cueID": "longhouse-responsive-audio-v1-waiting-spatial-detail-master",
@@ -9759,7 +9799,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/longhouse-responsive-v1/waiting/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.511968
         },
         {
           "cueID": "longhouse-responsive-audio-v1-waiting-waiting-joint",
@@ -9781,7 +9821,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/longhouse-responsive-v1/engaged/score-master.wav",
-          "gain": 0.72
+          "gain": 0.365033
         },
         {
           "cueID": "longhouse-responsive-audio-v1-engaged-soundscape-master",
@@ -9789,7 +9829,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/longhouse-responsive-v1/engaged/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.415732
         },
         {
           "cueID": "longhouse-responsive-audio-v1-engaged-spatial-detail-master",
@@ -9797,7 +9837,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/longhouse-responsive-v1/engaged/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.456292
         },
         {
           "cueID": "longhouse-responsive-audio-v1-engaged-accepted-load",
@@ -9819,7 +9859,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/longhouse-responsive-v1/resistance/score-master.wav",
-          "gain": 0.72
+          "gain": 0.344614
         },
         {
           "cueID": "longhouse-responsive-audio-v1-resistance-soundscape-master",
@@ -9827,7 +9867,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/longhouse-responsive-v1/resistance/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.392477
         },
         {
           "cueID": "longhouse-responsive-audio-v1-resistance-spatial-detail-master",
@@ -9835,7 +9875,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/longhouse-responsive-v1/resistance/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.430767
         },
         {
           "cueID": "longhouse-responsive-audio-v1-resistance-unsupported-hold",
@@ -9857,7 +9897,7 @@
           "startSample": 0,
           "durationSamples": 2160000,
           "assetPath": "audio/first-farmers/longhouse-responsive-v1/consequence/score-master.wav",
-          "gain": 0.72
+          "gain": 0.509721
         },
         {
           "cueID": "longhouse-responsive-audio-v1-consequence-soundscape-master",
@@ -9865,7 +9905,7 @@
           "startSample": 0,
           "durationSamples": 2160000,
           "assetPath": "audio/first-farmers/longhouse-responsive-v1/consequence/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.580516
         },
         {
           "cueID": "longhouse-responsive-audio-v1-consequence-spatial-detail-master",
@@ -9873,7 +9913,7 @@
           "startSample": 0,
           "durationSamples": 2160000,
           "assetPath": "audio/first-farmers/longhouse-responsive-v1/consequence/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.637151
         },
         {
           "cueID": "longhouse-responsive-audio-v1-consequence-plot-outlives-timber",
@@ -9929,7 +9969,7 @@
           "startSample": 0,
           "durationSamples": 2640000,
           "assetPath": "requirements/first-farmers/audio/score/beat-first-farmers-plot-remains.m4a",
-          "gain": 0.52
+          "gain": 0.26
         },
         {
           "cueID": "soundscape-beat-first-farmers-plot-remains",
@@ -9937,7 +9977,7 @@
           "startSample": 0,
           "durationSamples": 2640000,
           "assetPath": "requirements/first-farmers/audio/soundscape/beat-first-farmers-plot-remains.m4a",
-          "gain": 0.76
+          "gain": 0.38
         },
         {
           "cueID": "spatial-detail-beat-first-farmers-plot-remains",
@@ -9945,7 +9985,7 @@
           "startSample": 0,
           "durationSamples": 2640000,
           "assetPath": "requirements/first-farmers/audio/spatial-detail/beat-first-farmers-plot-remains.m4a",
-          "gain": 0.68
+          "gain": 0.34
         }
       ],
       "haptics": []
@@ -9994,7 +10034,7 @@
           "startSample": 0,
           "durationSamples": 2640000,
           "assetPath": "requirements/first-farmers/audio/score/beat-first-farmers-paternal-lines.m4a",
-          "gain": 0.52
+          "gain": 0.26
         },
         {
           "cueID": "soundscape-beat-first-farmers-paternal-lines",
@@ -10002,7 +10042,7 @@
           "startSample": 0,
           "durationSamples": 2640000,
           "assetPath": "requirements/first-farmers/audio/soundscape/beat-first-farmers-paternal-lines.m4a",
-          "gain": 0.76
+          "gain": 0.38
         },
         {
           "cueID": "spatial-detail-beat-first-farmers-paternal-lines",
@@ -10010,7 +10050,7 @@
           "startSample": 0,
           "durationSamples": 2640000,
           "assetPath": "requirements/first-farmers/audio/spatial-detail/beat-first-farmers-paternal-lines.m4a",
-          "gain": 0.68
+          "gain": 0.34
         }
       ],
       "haptics": []
@@ -10059,7 +10099,7 @@
           "startSample": 0,
           "durationSamples": 5760000,
           "assetPath": "requirements/first-farmers/audio/score/beat-first-farmers-more-mouths.m4a",
-          "gain": 0.52
+          "gain": 0.26
         },
         {
           "cueID": "soundscape-beat-first-farmers-more-mouths",
@@ -10067,7 +10107,7 @@
           "startSample": 0,
           "durationSamples": 5760000,
           "assetPath": "requirements/first-farmers/audio/soundscape/beat-first-farmers-more-mouths.m4a",
-          "gain": 0.76
+          "gain": 0.38
         },
         {
           "cueID": "spatial-detail-beat-first-farmers-more-mouths",
@@ -10075,7 +10115,7 @@
           "startSample": 0,
           "durationSamples": 5760000,
           "assetPath": "requirements/first-farmers/audio/spatial-detail/beat-first-farmers-more-mouths.m4a",
-          "gain": 0.68
+          "gain": 0.34
         }
       ],
       "haptics": []
@@ -10090,7 +10130,7 @@
           "startSample": 0,
           "durationSamples": 2304000,
           "assetPath": "audio/first-farmers/more-mouths-responsive-v1/approach/score-master.wav",
-          "gain": 0.72
+          "gain": 0.5525
         },
         {
           "cueID": "more-mouths-responsive-audio-v1-approach-soundscape-master",
@@ -10098,7 +10138,7 @@
           "startSample": 0,
           "durationSamples": 2304000,
           "assetPath": "audio/first-farmers/more-mouths-responsive-v1/approach/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.629236
         },
         {
           "cueID": "more-mouths-responsive-audio-v1-approach-spatial-detail-master",
@@ -10106,7 +10146,7 @@
           "startSample": 0,
           "durationSamples": 2304000,
           "assetPath": "audio/first-farmers/more-mouths-responsive-v1/approach/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.690625
         },
         {
           "cueID": "more-mouths-responsive-audio-v1-approach-before-open-ground",
@@ -10128,7 +10168,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/more-mouths-responsive-v1/waiting/score-master.wav",
-          "gain": 0.72
+          "gain": 0.498118
         },
         {
           "cueID": "more-mouths-responsive-audio-v1-waiting-soundscape-master",
@@ -10136,7 +10176,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/more-mouths-responsive-v1/waiting/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.567301
         },
         {
           "cueID": "more-mouths-responsive-audio-v1-waiting-spatial-detail-master",
@@ -10144,7 +10184,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/more-mouths-responsive-v1/waiting/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.622648
         },
         {
           "cueID": "more-mouths-responsive-audio-v1-waiting-first-clearing-joint",
@@ -10166,7 +10206,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/more-mouths-responsive-v1/engaged/score-master.wav",
-          "gain": 0.72
+          "gain": 0.433843
         },
         {
           "cueID": "more-mouths-responsive-audio-v1-engaged-soundscape-master",
@@ -10174,7 +10214,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/more-mouths-responsive-v1/engaged/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.494099
         },
         {
           "cueID": "more-mouths-responsive-audio-v1-engaged-spatial-detail-master",
@@ -10182,7 +10222,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/more-mouths-responsive-v1/engaged/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.542304
         },
         {
           "cueID": "more-mouths-responsive-audio-v1-engaged-new-hearth-catches",
@@ -10204,7 +10244,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/more-mouths-responsive-v1/resistance/score-master.wav",
-          "gain": 0.72
+          "gain": 0.377861
         },
         {
           "cueID": "more-mouths-responsive-audio-v1-resistance-soundscape-master",
@@ -10212,7 +10252,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/more-mouths-responsive-v1/resistance/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.430342
         },
         {
           "cueID": "more-mouths-responsive-audio-v1-resistance-spatial-detail-master",
@@ -10220,7 +10260,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/more-mouths-responsive-v1/resistance/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.472327
         },
         {
           "cueID": "more-mouths-responsive-audio-v1-resistance-unopened-edge-holds",
@@ -10242,7 +10282,7 @@
           "startSample": 0,
           "durationSamples": 2160000,
           "assetPath": "audio/first-farmers/more-mouths-responsive-v1/consequence/score-master.wav",
-          "gain": 0.72
+          "gain": 0.498118
         },
         {
           "cueID": "more-mouths-responsive-audio-v1-consequence-soundscape-master",
@@ -10250,7 +10290,7 @@
           "startSample": 0,
           "durationSamples": 2160000,
           "assetPath": "audio/first-farmers/more-mouths-responsive-v1/consequence/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.567301
         },
         {
           "cueID": "more-mouths-responsive-audio-v1-consequence-spatial-detail-master",
@@ -10258,7 +10298,7 @@
           "startSample": 0,
           "durationSamples": 2160000,
           "assetPath": "audio/first-farmers/more-mouths-responsive-v1/consequence/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.622648
         },
         {
           "cueID": "more-mouths-responsive-audio-v1-consequence-smoke-leaves-roofs",
@@ -10314,7 +10354,7 @@
           "startSample": 0,
           "durationSamples": 2400000,
           "assetPath": "requirements/first-farmers/audio/score/beat-first-farmers-growth-breaks.m4a",
-          "gain": 0.52
+          "gain": 0.26
         },
         {
           "cueID": "soundscape-beat-first-farmers-growth-breaks",
@@ -10322,7 +10362,7 @@
           "startSample": 0,
           "durationSamples": 2400000,
           "assetPath": "requirements/first-farmers/audio/soundscape/beat-first-farmers-growth-breaks.m4a",
-          "gain": 0.76
+          "gain": 0.38
         },
         {
           "cueID": "spatial-detail-beat-first-farmers-growth-breaks",
@@ -10330,7 +10370,7 @@
           "startSample": 0,
           "durationSamples": 2400000,
           "assetPath": "requirements/first-farmers/audio/spatial-detail/beat-first-farmers-growth-breaks.m4a",
-          "gain": 0.68
+          "gain": 0.34
         }
       ],
       "haptics": []
@@ -10379,7 +10419,7 @@
           "startSample": 0,
           "durationSamples": 5760000,
           "assetPath": "requirements/first-farmers/audio/score/beat-first-farmers-continent-remade.m4a",
-          "gain": 0.52
+          "gain": 0.26
         },
         {
           "cueID": "soundscape-beat-first-farmers-continent-remade",
@@ -10387,7 +10427,7 @@
           "startSample": 0,
           "durationSamples": 5760000,
           "assetPath": "requirements/first-farmers/audio/soundscape/beat-first-farmers-continent-remade.m4a",
-          "gain": 0.76
+          "gain": 0.38
         },
         {
           "cueID": "spatial-detail-beat-first-farmers-continent-remade",
@@ -10395,7 +10435,7 @@
           "startSample": 0,
           "durationSamples": 5760000,
           "assetPath": "requirements/first-farmers/audio/spatial-detail/beat-first-farmers-continent-remade.m4a",
-          "gain": 0.68
+          "gain": 0.34
         }
       ],
       "haptics": []
@@ -10410,7 +10450,7 @@
           "startSample": 0,
           "durationSamples": 2304000,
           "assetPath": "audio/first-farmers/continent-remade-responsive-v1/approach/score-master.wav",
-          "gain": 0.72
+          "gain": 0.521594
         },
         {
           "cueID": "continent-remade-responsive-audio-v1-approach-soundscape-master",
@@ -10418,7 +10458,7 @@
           "startSample": 0,
           "durationSamples": 2304000,
           "assetPath": "audio/first-farmers/continent-remade-responsive-v1/approach/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.594037
         },
         {
           "cueID": "continent-remade-responsive-audio-v1-approach-spatial-detail-master",
@@ -10426,7 +10466,7 @@
           "startSample": 0,
           "durationSamples": 2304000,
           "assetPath": "audio/first-farmers/continent-remade-responsive-v1/approach/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.651992
         },
         {
           "cueID": "continent-remade-responsive-audio-v1-approach-before-the-belt-moves",
@@ -10448,7 +10488,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/continent-remade-responsive-v1/waiting/score-master.wav",
-          "gain": 0.72
+          "gain": 0.470254
         },
         {
           "cueID": "continent-remade-responsive-audio-v1-waiting-soundscape-master",
@@ -10456,7 +10496,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/continent-remade-responsive-v1/waiting/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.535567
         },
         {
           "cueID": "continent-remade-responsive-audio-v1-waiting-spatial-detail-master",
@@ -10464,7 +10504,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/continent-remade-responsive-v1/waiting/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.587817
         },
         {
           "cueID": "continent-remade-responsive-audio-v1-waiting-settled-ground-joint",
@@ -10486,7 +10526,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/continent-remade-responsive-v1/engaged/score-master.wav",
-          "gain": 0.72
+          "gain": 0.414317
         },
         {
           "cueID": "continent-remade-responsive-audio-v1-engaged-soundscape-master",
@@ -10494,7 +10534,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/continent-remade-responsive-v1/engaged/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.471861
         },
         {
           "cueID": "continent-remade-responsive-audio-v1-engaged-spatial-detail-master",
@@ -10502,7 +10542,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/continent-remade-responsive-v1/engaged/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.517896
         },
         {
           "cueID": "continent-remade-responsive-audio-v1-engaged-new-hearth-takes",
@@ -10524,7 +10564,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/continent-remade-responsive-v1/resistance/score-master.wav",
-          "gain": 0.72
+          "gain": 0.300146
         },
         {
           "cueID": "continent-remade-responsive-audio-v1-resistance-soundscape-master",
@@ -10532,7 +10572,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/continent-remade-responsive-v1/resistance/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.341833
         },
         {
           "cueID": "continent-remade-responsive-audio-v1-resistance-spatial-detail-master",
@@ -10540,7 +10580,7 @@
           "startSample": 0,
           "durationSamples": 720000,
           "assetPath": "audio/first-farmers/continent-remade-responsive-v1/resistance/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.375182
         },
         {
           "cueID": "continent-remade-responsive-audio-v1-resistance-unviable-edge-holds",
@@ -10562,7 +10602,7 @@
           "startSample": 0,
           "durationSamples": 2160000,
           "assetPath": "audio/first-farmers/continent-remade-responsive-v1/consequence/score-master.wav",
-          "gain": 0.72
+          "gain": 0.470254
         },
         {
           "cueID": "continent-remade-responsive-audio-v1-consequence-soundscape-master",
@@ -10570,7 +10610,7 @@
           "startSample": 0,
           "durationSamples": 2160000,
           "assetPath": "audio/first-farmers/continent-remade-responsive-v1/consequence/soundscape-master.wav",
-          "gain": 0.82
+          "gain": 0.535567
         },
         {
           "cueID": "continent-remade-responsive-audio-v1-consequence-spatial-detail-master",
@@ -10578,7 +10618,7 @@
           "startSample": 0,
           "durationSamples": 2160000,
           "assetPath": "audio/first-farmers/continent-remade-responsive-v1/consequence/spatial-detail-master.wav",
-          "gain": 0.9
+          "gain": 0.587817
         },
         {
           "cueID": "continent-remade-responsive-audio-v1-consequence-continent-held-in-view",
@@ -10634,7 +10674,7 @@
           "startSample": 0,
           "durationSamples": 2400000,
           "assetPath": "requirements/first-farmers/audio/score/beat-first-farmers-before-steppe.m4a",
-          "gain": 0.52
+          "gain": 0.26
         },
         {
           "cueID": "soundscape-beat-first-farmers-before-steppe",
@@ -10642,7 +10682,7 @@
           "startSample": 0,
           "durationSamples": 2400000,
           "assetPath": "requirements/first-farmers/audio/soundscape/beat-first-farmers-before-steppe.m4a",
-          "gain": 0.76
+          "gain": 0.38
         },
         {
           "cueID": "spatial-detail-beat-first-farmers-before-steppe",
@@ -10650,7 +10690,7 @@
           "startSample": 0,
           "durationSamples": 2400000,
           "assetPath": "requirements/first-farmers/audio/spatial-detail/beat-first-farmers-before-steppe.m4a",
-          "gain": 0.68
+          "gain": 0.34
         }
       ],
       "haptics": []
@@ -10852,7 +10892,7 @@
             "layerGains": [
               {
                 "layerID": "gorge-current",
-                "gain": 0.82
+                "gain": 0.658891
               },
               {
                 "layerID": "river-gear",
@@ -10885,19 +10925,19 @@
             "layerGains": [
               {
                 "layerID": "gorge-current",
-                "gain": 0.82
+                "gain": 0.658891
               },
               {
                 "layerID": "river-gear",
-                "gain": 0.32
+                "gain": 0.257128
               },
               {
                 "layerID": "landing-work",
-                "gain": 0.28
+                "gain": 0.224987
               },
               {
                 "layerID": "settlement-hearths",
-                "gain": 0.18
+                "gain": 0.144635
               },
               {
                 "layerID": "carried-grain",
@@ -10909,7 +10949,7 @@
               },
               {
                 "layerID": "household-voices",
-                "gain": 0.14
+                "gain": 0.112494
               }
             ]
           },
@@ -10918,31 +10958,31 @@
             "layerGains": [
               {
                 "layerID": "gorge-current",
-                "gain": 0.82
+                "gain": 0.658891
               },
               {
                 "layerID": "river-gear",
-                "gain": 0.42
+                "gain": 0.337481
               },
               {
                 "layerID": "landing-work",
-                "gain": 0.38
+                "gain": 0.30534
               },
               {
                 "layerID": "settlement-hearths",
-                "gain": 0.28
+                "gain": 0.224987
               },
               {
                 "layerID": "carried-grain",
-                "gain": 0.3
+                "gain": 0.241058
               },
               {
                 "layerID": "domestic-herd",
-                "gain": 0.24
+                "gain": 0.192846
               },
               {
                 "layerID": "household-voices",
-                "gain": 0.34
+                "gain": 0.273199
               }
             ]
           },
@@ -10951,31 +10991,31 @@
             "layerGains": [
               {
                 "layerID": "gorge-current",
-                "gain": 0.82
+                "gain": 0.658891
               },
               {
                 "layerID": "river-gear",
-                "gain": 0.48
+                "gain": 0.385693
               },
               {
                 "layerID": "landing-work",
-                "gain": 0.44
+                "gain": 0.353551
               },
               {
                 "layerID": "settlement-hearths",
-                "gain": 0.34
+                "gain": 0.273199
               },
               {
                 "layerID": "carried-grain",
-                "gain": 0.4
+                "gain": 0.32141
               },
               {
                 "layerID": "domestic-herd",
-                "gain": 0.32
+                "gain": 0.257128
               },
               {
                 "layerID": "household-voices",
-                "gain": 0.42
+                "gain": 0.337481
               }
             ]
           }

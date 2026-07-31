@@ -1,0 +1,197 @@
+{
+  "assetVersion": "chapter01-hero-characters-v3",
+  "canonicalOutputs": [
+    {
+      "bytes": 17766866,
+      "path": "characters/outputs/chapter01-hero-character-library.usdc",
+      "sha256": "1111194323155b3cf6e65452e7808fd752306462f8284e6d0060af2947739409"
+    },
+    {
+      "bytes": 29075325,
+      "path": "characters/outputs/chapter01-hero-character-library.usdz",
+      "sha256": "8f0ee94097b382a6debed4314f4f639700be889ea4a48acc8ff4421924d8cdf8"
+    },
+    {
+      "bytes": 3730636,
+      "path": "characters/outputs/textures/skin-adult-a-basecolor.png",
+      "sha256": "e897c4cc1b6ad5d10a7d2b2be92402feda4e772e6582dfaf0a1e8fc4621d8097"
+    },
+    {
+      "bytes": 3810424,
+      "path": "characters/outputs/textures/skin-adult-b-basecolor.png",
+      "sha256": "39c505ca224387bef0b20cd2bf513c3997c27c7e7434447228c9991b87cb8d01"
+    },
+    {
+      "bytes": 3595270,
+      "path": "characters/outputs/textures/skin-youth-basecolor.png",
+      "sha256": "03efe1f6b0ae52429649dcefc9dcaef6058032f874a251169cc3e2ed473c3874"
+    },
+    {
+      "bytes": 13926,
+      "path": "characters/outputs/textures/woven-adult-a-basecolor.png",
+      "sha256": "0ab9555d9d288977b0a43adf5ead8102400ce45ecc12aef38f5f0664c5a02277"
+    },
+    {
+      "bytes": 4736,
+      "path": "characters/outputs/textures/woven-adult-a-normal.png",
+      "sha256": "b9371a1777fcf874f1776500c0d9eab87cf0caf6c2c603174c05b9b7a3b66597"
+    },
+    {
+      "bytes": 32976,
+      "path": "characters/outputs/textures/woven-adult-b-basecolor.png",
+      "sha256": "618c1f1cb4ced3bb1f23c9283b56d501a3f8f60cd68125fb722fe3050b85879c"
+    },
+    {
+      "bytes": 4736,
+      "path": "characters/outputs/textures/woven-adult-b-normal.png",
+      "sha256": "b9371a1777fcf874f1776500c0d9eab87cf0caf6c2c603174c05b9b7a3b66597"
+    },
+    {
+      "bytes": 11260,
+      "path": "characters/outputs/textures/woven-dark-adult-a-basecolor.png",
+      "sha256": "30a502a1e20cef940ab232def99f49e2dcb5d12984309bba2086d916e0822718"
+    },
+    {
+      "bytes": 4736,
+      "path": "characters/outputs/textures/woven-dark-adult-a-normal.png",
+      "sha256": "b9371a1777fcf874f1776500c0d9eab87cf0caf6c2c603174c05b9b7a3b66597"
+    },
+    {
+      "bytes": 25337,
+      "path": "characters/outputs/textures/woven-dark-adult-b-basecolor.png",
+      "sha256": "93ba054bea5067d2d7f0d9ab6be95dc412586ef6c24d23d463992b5296fe87f5"
+    },
+    {
+      "bytes": 4736,
+      "path": "characters/outputs/textures/woven-dark-adult-b-normal.png",
+      "sha256": "b9371a1777fcf874f1776500c0d9eab87cf0caf6c2c603174c05b9b7a3b66597"
+    },
+    {
+      "bytes": 20080,
+      "path": "characters/outputs/textures/woven-dark-youth-basecolor.png",
+      "sha256": "ae18e0a5c349a87fb3e14de7d50236f1e4ad2e9d7fb996246553e1cfd41f47c3"
+    },
+    {
+      "bytes": 4736,
+      "path": "characters/outputs/textures/woven-dark-youth-normal.png",
+      "sha256": "b9371a1777fcf874f1776500c0d9eab87cf0caf6c2c603174c05b9b7a3b66597"
+    },
+    {
+      "bytes": 36398,
+      "path": "characters/outputs/textures/woven-youth-basecolor.png",
+      "sha256": "dac171c0bcb384d283e441fc63f26ff54dcd9037edc16227b62d9952576b37b9"
+    },
+    {
+      "bytes": 4736,
+      "path": "characters/outputs/textures/woven-youth-normal.png",
+      "sha256": "b9371a1777fcf874f1776500c0d9eab87cf0caf6c2c603174c05b9b7a3b66597"
+    }
+  ],
+  "determinism": {
+    "byteReproducibility": "PASS",
+    "comparedBuilds": 2,
+    "fixedTimestampUTC": "1980-01-01T00:00:00Z",
+    "pythonHashSeed": 0,
+    "sourceDateEpoch": 315532800
+  },
+  "finalArtGate": "OPEN",
+  "geometry": {
+    "blendShapePrimCount": 81,
+    "garmentAuthority": "project-authored-fitted-and-parametric-garment-v3",
+    "garmentExternalTopologyInputs": 0,
+    "meshPrimCount": 12,
+    "skeletonCount": 3,
+    "skinnedRootCount": 3
+  },
+  "openGates": [
+    "Complete final historical-costume review; the belted woven tunic is a restrained reconstruction, not an evidence claim for one exact cut.",
+    "Complete close-camera face, hand, eye, hair and contact polish in final scene lighting.",
+    "Integrate and validate the shared rigs in each world cell; this candidate is not integrated here."
+  ],
+  "qualityClassification": "HERO_RIG_CANDIDATE",
+  "reviewArtifacts": [
+    {
+      "bytes": 9015780,
+      "path": "characters/outputs/chapter01-hero-character-library.blend",
+      "sha256": "66a5b4f610207dfdebb640fa15b01244407ba059116992c82fc8941c5cfc2cd1"
+    },
+    {
+      "bytes": 1072753,
+      "path": "characters/outputs/chapter01-hero-character-preview.png",
+      "sha256": "76ba3b5e57bee73644d23df390d343bc50cd93f99dd722ddc5e0fc2070161f03"
+    },
+    {
+      "bytes": 797025,
+      "path": "characters/review/chapter01-hero-character-preview-before.png",
+      "sha256": "61e53825b3196fee348bc7d95d034c2618e41346a65168af754bad43156cd760"
+    },
+    {
+      "bytes": 1065583,
+      "path": "characters/review/chapter01-hero-character-preview-before-9x16.png",
+      "sha256": "e5308a3e7669e49028f14f1f504bdc38e253dc77b1d51849e990fa3c7b7631fa"
+    },
+    {
+      "bytes": 1455370,
+      "path": "characters/review/chapter01-hero-character-preview-comparison.png",
+      "sha256": "4f6f9c43581f366530bd3b80c3ef0033ba7e6db9df3cdc59961cfb54c4805f3d"
+    },
+    {
+      "bytes": 2412,
+      "path": "characters/VISUAL_REVIEW.md",
+      "sha256": "d59df606bc20cbd47f068d6f849a1caa51b7429a4264c2f219629e7691258ca7"
+    }
+  ],
+  "rootContract": {
+    "cloneableLocalOriginRoots": [
+      "hero_adult_a",
+      "hero_adult_b",
+      "hero_youth"
+    ],
+    "previewCameraLightsAndGroundExcluded": true,
+    "previewSpacingUsesNonExportedParents": true
+  },
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "bytes": 39400,
+      "path": "tooling/generate_hero_characters.py",
+      "sha256": "1beadd1c3429e304c6280cbfd75211f7b97acb3261f4729e96452778987c3c94"
+    },
+    {
+      "bytes": 5053,
+      "path": "tooling/validate_hero_character_usd.py",
+      "sha256": "3101cf55f45c11c4c6d715566494dd89470a63b10ee0ea368f04fe74a945a306"
+    },
+    {
+      "bytes": 4753,
+      "path": "tooling/write_hero_character_manifest.py",
+      "sha256": "a03ce8a8e4764db386490cd82a8a2fcad7899a1e41adfb0ee0d545a3f1fcba74"
+    },
+    {
+      "bytes": 4141,
+      "path": "tooling/build-hero-characters.sh",
+      "sha256": "4dfd2d76b4ab836832abe51aadfb2ca525551d6c07b330e16cc5e0b3fca2dc24"
+    },
+    {
+      "bytes": 3081,
+      "path": "characters/provenance.json",
+      "sha256": "9f6e59919fdf3ab5b77245a754e3e983d69970a416d25f81f2882cb7f6a366c7"
+    }
+  ],
+  "tool": {
+    "blenderBuildHash": "fbe6228777e7",
+    "blenderVersion": "5.2.0 LTS",
+    "mpfbCommit": "f4f4f1ffa8203585730a7ce433b66738777ba168",
+    "mpfbTag": "v2.0.15"
+  },
+  "validation": {
+    "arkitUsdchecker": "PASS",
+    "deterministicTextures": "PASS",
+    "externalGarmentTopologyAbsent": "PASS",
+    "hairRestClearanceAuthored": "PASS",
+    "localOriginRoots": "PASS",
+    "nineBySixteenReviewRender": "PASS",
+    "previewLeakage": "PASS",
+    "rightsGate": "PASS"
+  }
+}

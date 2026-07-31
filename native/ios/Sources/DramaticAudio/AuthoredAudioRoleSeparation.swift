@@ -141,11 +141,13 @@ public enum AuthoredAudioPlaybackBoundaryPolicy {
         available: Set<AuthoredAudioComponent>,
         usesVerifiedRoleSeparation: Bool,
         suppressesNarration: Bool,
-        narrationIsEnabled: Bool
+        narrationIsEnabled: Bool,
+        nonSpeakingIsOwnedExternally: Bool = false
     ) -> Set<AuthoredAudioComponent> {
         if usesVerifiedRoleSeparation {
             var result: Set<AuthoredAudioComponent> = []
-            if available.contains(.nonSpeaking) {
+            if !nonSpeakingIsOwnedExternally,
+               available.contains(.nonSpeaking) {
                 result.insert(.nonSpeaking)
             }
             if !suppressesNarration,
@@ -155,7 +157,8 @@ public enum AuthoredAudioPlaybackBoundaryPolicy {
             }
             return result
         }
-        guard !suppressesNarration,
+        guard !nonSpeakingIsOwnedExternally,
+              !suppressesNarration,
               available.contains(.wholeMix) else { return [] }
         return [.wholeMix]
     }

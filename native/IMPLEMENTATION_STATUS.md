@@ -1,15 +1,120 @@
 # Native implementation status
 
-Status date: 28 July 2026
+Status date: 30 July 2026
 
-## Current UX implementation closure — 28 July 2026
+## Authored real-time 3D medium lock — 30 July 2026
 
-This section supersedes the older current-result claims below. Those entries
-remain as dated historical evidence and must not be read as the state of the
-present tree.
+The editor-in-chief has locked authored real-time 3D as the global visual,
+spatial and interactive medium for all 24 Journey chapters. The decision is
+recorded in
+[`blueprint/real-time-3d-medium-lock-2026-07-30.md`](./blueprint/real-time-3d-medium-lock-2026-07-30.md).
 
-The First Farmers non-shipping runtime and the shared chapter shell now
-implement the agreed chapter journey:
+A real-time 3D substrate and five non-shipping continuity cells are now
+implemented. No cell or asset has final-art approval. The existing 17-scene
+Chapter 01 runtime, 2.5D frame planning, layer/mask fixtures and the UX results
+below remain non-shipping prototype evidence. Its three visible arcs, 17
+scenes, 37 text segments and 28-minute target are superseded for active
+production. They must not be extended as the public experience or its visual
+production foundation.
+
+The editor-approved Chapter 01 experience projection is
+[`blueprint/first-farmers-real-time-3d-experience-plan.md`](./blueprint/first-farmers-real-time-3d-experience-plan.md).
+Its timecoded flow manuscript is
+[`blueprint/first-farmers-3d-flow-script-v1.md`](./blueprint/first-farmers-3d-flow-script-v1.md).
+Their exact bytes and preserved contract, interaction and effect invariants are
+bound by
+[`blueprint/first-farmers-experience-approval.json`](./blueprint/first-farmers-experience-approval.json).
+P1.00 authority activation and the first RealityKit/V2 substrate are
+`LOCAL_COMPLETE`. Replacement visual production remains active and open.
+
+The general lessons extracted from this replan are now separated into the
+shared [`bibles/experience-bible.md`](./bibles/experience-bible.md). Chapter
+01's exact timings, human anchor and sensory motif remain chapter-specific or
+unproven until its complete greybox. Approval authorises the Chapter 01 flow;
+it does not approve public wording, production assets or the complete chapter.
+
+## Chapter 01 immersive 3D implementation — 30 July 2026
+
+The current non-shipping implementation now includes:
+
+- a strict signed `ContentPackagePayloadV2` for five world cells, six locked
+  sequences, 34 beats, ten narration bindings and the unchanged interaction
+  and `WorldEffect` authorities;
+- a full-screen virtual-camera `RealityView` route with no chapter page,
+  progress bar, `Previous`, `Continue` or `Return to current` controls;
+- deterministic interaction reduction, adaptive assistance, VoiceOver semantic
+  actions, Reduce Motion projection, current-plus-next cell residency and
+  physical carrier transitions;
+- durable restoration of stable world state, beat, camera, carrier,
+  assistance, interaction and sample cursor, including hard-kill replay gates;
+- package-backed offline audio with five environments, six mechanism programs,
+  six transitions and ten provisional narration files;
+- a deterministic development signature, complete-package integrity checks,
+  runtime admission, per-asset hashes, rollback tests and corrupt/missing asset
+  rejection;
+- separate clean-start and spring-resume simulator schemes plus one local
+  launch script and a review-only on-device NDJSON timing log; and
+- project-authored, rights-clear human, cattle, PBR-material and directed-
+  animation candidate pipelines. These remain candidates, not shipping art.
+
+The latest focused technical verification on 30 July 2026 is green:
+
+- `ImmersiveRuntimeTests`: `41/41`;
+- `AdaptiveAssistancePolicyTests`: `9/9`;
+- deterministic signed-package rebuild and tamper suite: `2/2`;
+- focused immersive simulator UI gate: `2/2`, covering full-screen portrait
+  ownership without retired book navigation and durable spring restoration;
+- fresh unsigned Release simulator build: `PASS`;
+- Release app boundary validator: `PASS_BOUNDARY_ONLY_NON_SHIPPING`, with no
+  review package, receipt, private key, runtime fixture or Chapter 01 review
+  artifact in the Release app;
+- signed canonical manifest digest:
+  `ce0290caeb00a4fe5ef8ab66467c628a94389380a944d8856a258697cbcd7db1`;
+- package manifest SHA-256:
+  `cc3ff0bb9c739db68729e00506b65eb42ff8f667ba99cd53df530b3703ac34c7`;
+- V2 payload SHA-256:
+  `383137fb50b8df7a8919004ced6cb71e7764f1d9b27e283e30509eeaba331c85`;
+  and
+- the current manifest contains 35 file records for the payload, five scene
+  graphs, one material carrier, one directed-animation library and 27 audio
+  files.
+
+The signed runtime resolves each cell through the verified V2 payload and
+open-edge verifier. It also verifies and RealityKit-decodes the shared material
+and animation libraries once per package context. Those two decoded libraries
+remain detached witnesses: the current cells do not yet apply the carrier
+materials to final meshes or play the directed clips on compatible final rigs.
+That visible integration is still a blocking art/contact task, not a completed
+runtime claim.
+
+The current five USDZ cells are `CONTINUITY_PROOF` assets. A later enhanced
+render pass was rejected by visual QA because action was obscured and the
+figures, materials and light remained visibly prototype-grade; those files are
+not mounted in the signed review package. The runtime now suppresses imported
+non-visual hit-proxy meshes after one such mesh family appeared as opaque black
+blocks in Simulator, while retaining the same collision and accessibility
+targets. It also suppresses imported transparent rain and current-guide
+geometry that RealityKit presented as opaque screen clutter. The Aegean sky
+shell now renders from inside the dome, the camera holds the working action
+closer, and the 15-second semantic assistance action is visible even when the
+player has not accumulated two misses. These are readability repairs; a
+side-by-side comparison with the locked art target still fails visual QA.
+
+Open blocking gates are final visual production and animation/contact quality,
+the final English narrator and complete dramatic mix, full unassisted
+simulator traversal after accepted art integration, and all physical iPhone
+performance, touch, speaker, haptic, thermal and battery measurements. The
+current Simulator app is a technical experience candidate, not the editor-ready
+or shipping chapter.
+
+## Superseded 2.5D UX implementation closure — 28 July 2026
+
+This section records the last tested state of the retired route and supersedes
+the older result claims below. Those entries remain dated historical evidence
+and must not be read as the active Chapter 01 production direction.
+
+The First Farmers non-shipping legacy runtime and the shared chapter shell
+implemented the former review journey:
 
 - `Begin`, `Resume` and deliberate review entry can start the verified authored
   sound directly. The former per-scene sound choice is removed. A fixed sound
@@ -35,7 +140,7 @@ implement the agreed chapter journey:
   quarantine token, while background, interruption and StoreKit/download waits
   invalidate every deferred audio-entry grant.
 
-Current verification on the exact working tree is green:
+The recorded verification of that prototype tree is green:
 
 - SwiftPM tests: `883/883`;
 - connected Xcode unit and UI tests: `1018/1018` on the dedicated iPhone 17 Pro,
@@ -84,11 +189,17 @@ Production authority remains unchanged:
 
 ## Gate state
 
-Phase 0 passed on 23 July 2026. All 24 chapter contracts and all 55 arc
-records are `APPROVED`; `blueprint/editor-approval.json` binds the approved
-contracts, arc matrix and aggregate editorial state by SHA-256.
+Phase 0 passed on 23 July 2026. All 24 chapter contracts and all 55 original
+arc records remain `APPROVED`; `blueprint/editor-approval.json` binds that
+historical editorial baseline by SHA-256. For active Chapter 01 production,
+the old three-arc projection is superseded by the separately byte-bound
+five-cell, six-sequence experience projection. The old `55 arcs / 722 minutes`
+aggregate is not a production completion quota.
 
-Phase 1 and Port 1 remain `IN_PRODUCTION`.
+The former 2.5D Phase 1 route is `SUSPENDED`. The rebased real-time 3D Port 1
+is `ACTIVE`: P1.00 is `LOCAL_COMPLETE`, while P1.01 onward remains open. The
+approval grants experience-flow authority only, not public wording, assets,
+integrated chapter or shipping approval.
 
 - `content/public/` contains zero files.
 - No complete production scene exists.
@@ -612,8 +723,9 @@ settlement shelter, allocation cloth, the remaining disocclusion underlays,
 complete state plates, the complete layer DAG and the complete scene. It grants
 no production-master, artistic, editor or shipping authority.
 
-The Harvest interaction manuscript remains `DRAFT_AWAITING_EDITOR_APPROVAL`
-and `PROHIBITED` for shipping.
+The retired Harvest-only interaction manuscript remains
+`DRAFT_AWAITING_EDITOR_APPROVAL` and `PROHIBITED` for shipping. Its status is
+separate from the approved five-cell Chapter 01 flow.
 
 ## Harvest responsive score and soundscape
 
@@ -844,28 +956,28 @@ Its authority is `synthesisPermitted=false`, `v11IsTerminal=true` and
 `requiresEditorDecision=true`. There is still no passing narration master,
 candidate promotion, voice choice, artistic approval or shipping authority.
 
-## What remains before Port 1 can pass
+## What remains before the rebased Port 1 can pass
 
 ### Production and artistic work
 
-- A production-approved Harvest master with source-aligned clean plates,
-  complete layers and masks, material state variants and full Reduce Motion
-  composition. The narrow people/grain/foreground Metal proof does not satisfy
-  this gate.
+- Runtime schemas and a projection gate that consume the approved Chapter 01
+  experience projection without freezing final public wording or restoring
+  the superseded arc/page projection.
+- A measured renderer/toolchain decision and one simple signed 3D world cell
+  with authored camera, deterministic state, direct touch, VoiceOver, Reduce
+  Motion, offline use and exact restoration.
+- A passing Chapter 01 figure/material proof at actual portrait distance for
+  people, animals, rope, water, soil and grain, with historical, anatomical and
+  material inspection.
+- A zero-cost, commercially cleared 3D asset chain with complete provenance and
+  no opaque editor file as its sole authority.
 - A passing two-voice narration stress set, provisional voice identity,
-  pronunciation lexicon, editor voice choice and complete artistic approval.
-- Finished Harvest narration and integrated artistic approval of score,
-  soundscape, silence and haptic direction.
-- One integrated Harvest scene from a signed package with production imagery,
-  causal allocation, audio, accessibility, offline operation and exact
-  restoration.
-- Four equivalent finished production scenes for the other interaction
-  grammars. Their technical adapters and signed fixtures already exist; their
-  production assets and complete scene direction do not.
-- The complete playable prologue, all 17 First Farmers beats and six
-  interactions, the two other free chapters and the cumulative living world.
-- All 21 paid chapters, production launch packages and full 24-chapter quality
-  parity.
+  pronunciation lexicon and a reproducible score/soundscape/haptic pipeline.
+- Local performance, failure and package evidence for the exact substrate.
+
+The continuity slice, truth slice, complete greybox, finished Thessalian
+quality cell and full Chapter 01 are later Port 2–3 gates. None may depend on
+the retired five-scene layer/mask laboratory.
 
 ### Completed local verification
 
@@ -904,23 +1016,13 @@ result.
 
 ## Immediate autonomous work order
 
-1. Keep narration closed at the V12 editor-decision gate. Do not retry V11 or
+1. Keep every legacy 2.5D visual extension closed. Preserve its tests and
+   evidence; do not author new plates, layers, masks or scene variants.
+2. Keep narration closed at the V12 editor-decision gate. Do not retry V11 or
    weaken the unchanged voice and artistic requirements.
-2. Hold Household Crosses visual implementation at the three displayed,
-   source-grounded 390 x 844 interaction-focus directions until the editor
-   selects one. Keep every corridor and reached-state image at
-   `FUTURE_PRODUCTION_ASSET_NOT_PRESENT` until a complete source plate, layer
-   set, state set and visual authority exist.
-3. Refine Longhouse A4 until the complete inherited footprint and reworn
-   threshold read at 390-point width, then register production source and slot
-   geometry against the approved layer DAG.
-4. Produce the remaining source-aligned Harvest disocclusion underlays and
-   material state plates; keep the rejected geometric DAG and both global
-   image-editor attempts quarantined.
-5. Build the complete Harvest and Longhouse scenes through the signed package,
-   including both motion modes, responsive audio, accessibility, offline use
-   and exact restoration.
-6. Recapture connected simulator and sanitizer evidence, then continue the next
-   safe scene machine before involving the editor-in-chief or the physical
-   iPhone. The current generic Release build and boundary-only scan already
-   pass.
+3. Use the byte-bound Chapter 01 experience projection as the sole active flow
+   authority; keep its exact timing and attention numbers `UNPROVEN` until the
+   complete greybox measures them.
+4. Execute the active sequence in
+   `WORK_BREAKDOWN.md`: 3D substrate, figure/material proof, continuity slice,
+   truth slice, complete greybox, finished quality cell and full Chapter 01.

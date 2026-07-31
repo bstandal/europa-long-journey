@@ -1,5 +1,10 @@
 # Native interaction bible
 
+[`experience-bible.md`](./experience-bible.md) controls chapter-level flow,
+human or institutional dependence, causal continuity and proof. This file
+controls the domain meaning and input behaviour of interactions inside that
+flow.
+
 ## The recurring action loop
 
 Every principal interaction follows one state transition:
@@ -45,7 +50,11 @@ Every `InteractionSpec` declares:
 - the named historical mechanism;
 - deterministic initial and intermediate states;
 - permitted actions and reversible local failure;
+- the person, group or institution whose complementary work makes the user's
+  contribution necessary;
 - immediate visual, sonic and haptic response;
+- the declared consequence path: a same-chapter material or systemic test, a
+  persistent ending or handoff, or a named later world-trace activation;
 - one persistent `WorldEffect`;
 - equivalent VoiceOver actions that dispatch the same domain action;
 - a fixed Reduce Motion representation of the same result.
@@ -66,14 +75,32 @@ its own persistent consequence.
 
 ## Pacing
 
-- A user normally performs the first meaningful action within 90 seconds.
-- An arc contains one to three principal interactions separated by authored
-  reading, listening and observation beats.
+- The opening reaches an unresolved historical pressure before explanatory
+  exposition becomes a content page. Each chapter sets and measures its own
+  first-action target; there is no generic 90-second allowance.
+- An arc contains one to three principal interactions joined by authored
+  action, listening, observation and quiet beats that continue the same causal
+  movement rather than reset it.
 - A principal interaction begins legibly without a tutorial overlay.
+- A later principal interaction must change the historical question or
+  material meaning. Repeating a mastered gesture under new art is not
+  progression.
 - The app journals every stable state, so it may be put down at any moment.
 - Returning opens at the same causal state; completed actions are not replayed.
 - After more than 72 hours, a short optional reorientation may restate the last
   consequence before returning to the exact saved state.
+
+## Guidance hierarchy
+
+The world directs attention before text appears:
+
+1. active resistance or change in the represented mechanism;
+2. another person's or institution's attention and complementary action;
+3. material sound, spatial relation and historically meaningful light;
+4. one short action cue after measured hesitation.
+
+A cue stays beside the acted object, disappears on contact and never becomes a
+tutorial overlay. Narration starts only after required precise input releases.
 
 ## Input and response budgets
 

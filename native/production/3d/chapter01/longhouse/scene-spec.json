@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "cellID": "longhouse",
+  "assetStatus": "CONTINUITY_PROOF",
+  "rootRuntimeName": "danube-loess-longhouse",
+  "metersPerUnit": 1,
+  "upAxis": "Z",
+  "deterministicSeed": 6000,
+  "authoredBoundsMeters": [24, 34, 9],
+  "artDirection": {
+    "path": "../art-direction/longhouse-load-target-v1.png",
+    "sha256": "47620055ccd76bd68cc94670100d7f93b657f7e07491251e520ac6122c5131b1",
+    "use": "composition-material-force-reference-only"
+  },
+  "runtimeNameContract": {
+    "sourceProperty": "userProperties:runtime_name",
+    "compatibilityProperty": "userProperties:runtimeName",
+    "usdDisplayName": "exact-runtime-name",
+    "usdPrimPath": "underscore-sanitized-and-recorded-in-entity-bindings.json"
+  },
+  "requiredEntities": [
+    {"runtimeName": "danube-loess-longhouse", "semanticRole": "world-cell-root"},
+    {"runtimeName": "longhouse-frame", "semanticRole": "durable-building-frame"},
+    {"runtimeName": "action-posts", "semanticRole": "principal-action", "collisionReady": true, "interactionID": "first-farmers-house-assemble"},
+    {"runtimeName": "action-hearth", "semanticRole": "persistent-household-hearth", "interactionID": "first-farmers-house-assemble"},
+    {"runtimeName": "action-hearth-flame", "semanticRole": "active-mechanism-light", "interactionID": "first-farmers-house-assemble"},
+    {"runtimeName": "action-storage", "semanticRole": "persistent-storage", "collisionReady": true, "interactionID": "first-farmers-house-assemble"},
+    {"runtimeName": "action-roof", "semanticRole": "principal-action-component", "collisionReady": true, "interactionID": "first-farmers-house-assemble"},
+    {"runtimeName": "longhouse-raising-line", "semanticRole": "shared-building-force", "collisionReady": true, "interactionID": "first-farmers-house-assemble"},
+    {"runtimeName": "camera-longhouse-approach", "semanticRole": "camera-anchor"},
+    {"runtimeName": "camera-longhouse-raise", "semanticRole": "camera-anchor"},
+    {"runtimeName": "camera-longhouse-hearth", "semanticRole": "camera-anchor"},
+    {"runtimeName": "camera-longhouse-repair", "semanticRole": "camera-anchor"},
+    {"runtimeName": "camera-longhouse-reduce-motion", "semanticRole": "reduce-motion-camera-anchor"},
+    {"runtimeName": "transition-in-threshold", "semanticRole": "transition-anchor"},
+    {"runtimeName": "transition-out-surviving-posthole", "semanticRole": "transition-anchor"}
+  ],
+  "stateCollections": [
+    "state-default",
+    "state-frame-raised",
+    "state-storm-damaged",
+    "state-repaired",
+    "state-succession"
+  ],
+  "lodPolicy": {
+    "distancesMeters": [0, 18, 38],
+    "groundGridSteps": [[28, 38], [14, 20], [7, 10]],
+    "maximumScreenSpaceError": [0, 1.8, 4.5]
+  },
+  "materialFamilies": [
+    "loess-earth",
+    "worked-oak",
+    "weathered-oak",
+    "bast-rope",
+    "dry-reed-thatch",
+    "fired-clay",
+    "cold-ash",
+    "hearth-ember",
+    "hearth-flame"
+  ],
+  "realityKitBoundary": {
+    "rendererMayCompleteHistoricalAction": false,
+    "actionCollision": "runtime-generated-from-collision-ready-metadata",
+    "stateAuthority": "JourneyDomain reducer",
+    "currentAndNextCellOnly": true
+  },
+  "knownVisualGate": "Hero workers, final timber/rope/thatch textures, weather and repair animation remain replacement assets; this package is not final art."
+}

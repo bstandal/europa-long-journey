@@ -34,6 +34,8 @@ struct LongWestJourneyApp: App {
                 "release-discovery-local-v1",
                 "release-install-contracts-local-v1",
                 "non-shipping-review-primary-audio-cursor-v1",
+                "chapter01-immersive-v1",
+                "chapter01-immersive-v2",
             ] {
                 try? FileManager.default.removeItem(
                     at: applicationSupport.appendingPathComponent(

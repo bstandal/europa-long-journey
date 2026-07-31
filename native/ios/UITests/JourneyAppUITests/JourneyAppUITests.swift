@@ -7,6 +7,64 @@ final class JourneyAppUITests: XCTestCase {
         continueAfterFailure = false
     }
 
+    func testImmersiveChapter01OwnsThePortraitCanvasWithoutBookNavigation()
+        throws {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "--ui-testing-reset-state",
+            "--ui-testing-signed-runtime-fixture",
+            "--ui-testing-signed-runtime-fixture-chapter=first-farmers",
+            "--chapter01-immersive-review",
+        ]
+        app.launch()
+
+        let world = app.descendants(matching: .any)[
+            "chapter01-immersive-world"
+        ]
+        XCTAssertTrue(world.waitForExistence(timeout: 12))
+        XCTAssertFalse(app.buttons["chapter-continue"].exists)
+        XCTAssertFalse(app.buttons["chapter-previous"].exists)
+        XCTAssertFalse(app.staticTexts["Return to current"].exists)
+
+        let controls = app.buttons["chapter01-compact-controls"]
+        XCTAssertTrue(controls.exists)
+        XCTAssertGreaterThanOrEqual(controls.frame.width, 44)
+        XCTAssertGreaterThanOrEqual(controls.frame.height, 44)
+        controls.tap()
+        XCTAssertTrue(
+            app.descendants(matching: .any)[
+                "chapter01-controls-surface"
+            ].waitForExistence(timeout: 3)
+        )
+        XCTAssertTrue(app.buttons["Sound on"].exists)
+        XCTAssertTrue(app.buttons["Captions on"].exists)
+        XCTAssertTrue(app.buttons["Leave chapter"].exists)
+    }
+
+    func testImmersiveChapter01SpringResumeUsesDurableReducerState() throws {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "--ui-testing-reset-state",
+            "--ui-testing-signed-runtime-fixture",
+            "--ui-testing-signed-runtime-fixture-chapter=first-farmers",
+            "--chapter01-immersive-review",
+            "--chapter01-immersive-review-resume-spring",
+        ]
+        app.launch()
+
+        let world = app.descendants(matching: .any)[
+            "chapter01-immersive-world"
+        ]
+        XCTAssertTrue(world.waitForExistence(timeout: 12))
+        XCTAssertEqual(
+            world.label,
+            "Finite harvest shared between food, reserve and spring seed"
+        )
+        XCTAssertEqual(world.value as? String, "37 percent complete")
+        XCTAssertFalse(app.buttons["chapter-continue"].exists)
+        XCTAssertFalse(app.staticTexts["Return to current"].exists)
+    }
+
     func testSignedFirstFarmersStartsAtCanonicalOpeningAndAdvancesIntoCrossing()
         throws {
         let app = XCUIApplication()
@@ -568,6 +626,83 @@ final class JourneyAppUITests: XCTestCase {
         XCTAssertFalse(app.buttons["chapter-failure-return-to-road"].exists)
     }
 
+    func testHouseholdCrossingTapScrollAndCompactRouteControlsStayUsable()
+        throws {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "--ui-testing-reset-state",
+            "--ui-testing-signed-runtime-fixture",
+            "--ui-testing-signed-runtime-fixture-beat=beat-first-farmers-household-crosses",
+        ]
+        app.launch()
+
+        let beat = app.descendants(matching: .any)[
+            "chapter-beat-beat-first-farmers-household-crosses"
+        ]
+        XCTAssertTrue(beat.waitForExistence(timeout: 12))
+
+        let road = app.buttons["chapter-road"]
+        let sound = app.buttons["chapter-sound-control"]
+        let previous = app.buttons["chapter-previous"]
+        let route = app.buttons["chapter-trace-advance"]
+        for control in [road, sound, previous, route] {
+            XCTAssertTrue(control.waitForExistence(timeout: 3))
+            XCTAssertTrue(control.isHittable)
+            XCTAssertGreaterThanOrEqual(control.frame.width, 44)
+            XCTAssertGreaterThanOrEqual(control.frame.height, 44)
+        }
+
+        app.coordinate(withNormalizedOffset: CGVector(dx: 0.50, dy: 0.45))
+            .tap()
+        XCTAssertFalse(
+            app.staticTexts["That movement cannot continue"]
+                .waitForExistence(timeout: 1)
+        )
+        XCTAssertFalse(
+            app.staticTexts["Start at the lit point and follow the route"]
+                .exists
+        )
+
+        let collapsedHeight = beat.frame.height
+        let scrollStart = beat.coordinate(
+            withNormalizedOffset: CGVector(dx: 0.50, dy: 0.20)
+        )
+        let scrollEnd = beat.coordinate(
+            withNormalizedOffset: CGVector(dx: 0.50, dy: -0.20)
+        )
+        scrollStart.press(forDuration: 0.05, thenDragTo: scrollEnd)
+        let expanded = XCTNSPredicateExpectation(
+            predicate: NSPredicate { _, _ in
+                beat.frame.height > collapsedHeight + 180
+            },
+            object: nil
+        )
+        XCTAssertEqual(
+            XCTWaiter.wait(for: [expanded], timeout: 3),
+            .completed
+        )
+
+        wait(for: route, toHaveValue: "0 of 4 route points reached")
+        for reachedAnchorCount in 1 ... 4 {
+            route.tap()
+            if reachedAnchorCount < 4 {
+                wait(
+                    for: route,
+                    toHaveValue:
+                        "\(reachedAnchorCount) of 4 route points reached",
+                    timeout: 8
+                )
+            }
+        }
+
+        let continueButton = app.buttons["chapter-continue"]
+        XCTAssertTrue(continueButton.waitForExistence(timeout: 8))
+        XCTAssertTrue(continueButton.isHittable)
+        XCTAssertGreaterThanOrEqual(continueButton.frame.width, 44)
+        XCTAssertGreaterThanOrEqual(continueButton.frame.height, 44)
+        XCTAssertFalse(app.buttons["chapter-failure-return-to-road"].exists)
+    }
+
 #if NON_SHIPPING_LIVE_TEST
     func testLiveFirstFarmersNeedsNoFixtureArgumentAndRestoresAfterHardKill()
         throws {
@@ -623,6 +758,286 @@ final class JourneyAppUITests: XCTestCase {
 
     func testLiveFirstFarmersRecordsHarvestAllocation() throws {
         try recordFirstFarmersInteraction(.harvestAllocation)
+    }
+
+    func testHarvestAllocationCanBeReadAdjustedAndCompletedWithoutHiddenCoordinates()
+        throws {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "--ui-testing-reset-state",
+            "--ui-testing-signed-runtime-fixture",
+            "--ui-testing-signed-runtime-fixture-beat=beat-first-farmers-harvest-allocation",
+        ]
+        app.launch()
+
+        let beat = app.descendants(matching: .any)[
+            "chapter-beat-beat-first-farmers-harvest-allocation"
+        ]
+        XCTAssertTrue(beat.waitForExistence(timeout: 12))
+
+        let narrativeToggle = app.buttons["chapter-narrative-toggle"]
+        XCTAssertTrue(narrativeToggle.waitForExistence(timeout: 3))
+        XCTAssertTrue(narrativeToggle.isHittable)
+        XCTAssertGreaterThanOrEqual(narrativeToggle.frame.height, 44)
+        let collapsedHeight = beat.frame.height
+        narrativeToggle.tap()
+        let expanded = XCTNSPredicateExpectation(
+            predicate: NSPredicate { _, _ in
+                beat.frame.height > collapsedHeight + 180
+            },
+            object: nil
+        )
+        XCTAssertEqual(
+            XCTWaiter.wait(for: [expanded], timeout: 3),
+            .completed
+        )
+        XCTAssertEqual(narrativeToggle.label, "Hide scene text")
+        XCTAssertTrue(narrativeToggle.isHittable)
+        narrativeToggle.tap()
+        let collapsed = XCTNSPredicateExpectation(
+            predicate: NSPredicate { _, _ in
+                beat.frame.height < collapsedHeight + 40
+            },
+            object: nil
+        )
+        XCTAssertEqual(
+            XCTWaiter.wait(for: [collapsed], timeout: 3),
+            .completed
+        )
+
+        let allocations = [
+            (id: "allocate-winter-food", units: 4),
+            (id: "allocate-protected-reserve", units: 2),
+            (id: "allocate-spring-seed", units: 6),
+        ]
+        let controls = allocations.map { allocation in
+            app.descendants(matching: .any)[
+                "chapter-semantic-\(allocation.id)"
+            ]
+        }
+        for control in controls {
+            XCTAssertTrue(control.waitForExistence(timeout: 3))
+            XCTAssertTrue(control.isHittable)
+            XCTAssertGreaterThanOrEqual(control.frame.height, 44)
+        }
+        XCTAssertLessThanOrEqual(controls[0].frame.maxX, controls[1].frame.minX)
+        XCTAssertLessThanOrEqual(controls[1].frame.maxX, controls[2].frame.minX)
+
+        for (allocation, control) in zip(allocations, controls) {
+            for currentUnits in 1 ... allocation.units {
+                control.coordinate(
+                    withNormalizedOffset: CGVector(dx: 0.82, dy: 0.66)
+                ).tap()
+                wait(
+                    for: control,
+                    toHaveValueBeginningWith: "Current \(currentUnits) ",
+                    timeout: 8
+                )
+            }
+        }
+
+        let commit = app.buttons["chapter-allocate-commit"]
+        XCTAssertTrue(commit.waitForExistence(timeout: 3))
+        XCTAssertTrue(commit.isEnabled)
+        XCTAssertTrue(commit.isHittable)
+        XCTAssertGreaterThanOrEqual(commit.frame.width, 44)
+        XCTAssertGreaterThanOrEqual(commit.frame.height, 44)
+        commit.tap()
+
+        let continueButton = app.buttons["chapter-continue"]
+        XCTAssertTrue(continueButton.waitForExistence(timeout: 8))
+        XCTAssertTrue(continueButton.isHittable)
+        XCTAssertFalse(app.buttons["chapter-failure-return-to-road"].exists)
+    }
+
+    func testHarvestAllocationRemainsInteractiveWhileSoundIsPlaying() throws {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "--ui-testing-reset-state",
+            "--ui-testing-signed-runtime-fixture",
+            "--ui-testing-signed-runtime-fixture-beat=beat-first-farmers-harvest-allocation",
+            "--ui-testing-scene-transition-audio-cursor-failure",
+        ]
+        app.launch()
+
+        let beat = app.descendants(matching: .any)[
+            "chapter-beat-beat-first-farmers-harvest-allocation"
+        ]
+        let phaseState = app.descendants(matching: .any)[
+            "responsive-audio-presentation-state"
+        ]
+        let runtimeState = app.descendants(matching: .any)[
+            "responsive-audio-runtime-state"
+        ]
+        let failure = app.buttons["chapter-failure-return-to-road"]
+        let failureDiagnostic = app.descendants(matching: .any)[
+            "signed-runtime-failure-diagnostic"
+        ]
+        XCTAssertTrue(beat.waitForExistence(timeout: 12))
+        XCTAssertTrue(phaseState.waitForExistence(timeout: 3))
+        XCTAssertTrue(runtimeState.waitForExistence(timeout: 3))
+
+        let soundControl = app.buttons["chapter-sound-control"]
+        XCTAssertTrue(soundControl.waitForExistence(timeout: 3))
+        XCTAssertEqual(soundControl.label, "Resume sound")
+        soundControl.tap()
+        _ = try waitForResponsiveAudioPlaybackState(
+            runtimeState,
+            playback: "playing",
+            pause: "none",
+            timeout: 8
+        )
+        wait(for: phaseState, toHaveValue: "playing:waiting")
+
+        let winterFood = app.descendants(matching: .any)[
+            "chapter-semantic-allocate-winter-food"
+        ]
+        XCTAssertTrue(winterFood.waitForExistence(timeout: 3))
+        winterFood.coordinate(
+            withNormalizedOffset: CGVector(dx: 0.82, dy: 0.66)
+        ).tap()
+        let allocationOrFailure = XCTNSPredicateExpectation(
+            predicate: NSPredicate { _, _ in
+                failure.exists
+                    || (winterFood.value as? String)?.hasPrefix("Current 1 ")
+                        == true
+            },
+            object: nil
+        )
+        XCTAssertEqual(
+            XCTWaiter.wait(for: [allocationOrFailure], timeout: 8),
+            .completed
+        )
+        XCTAssertFalse(
+            failure.exists,
+            "The first allocation replaced the scene while sound was playing: "
+                + (failureDiagnostic.exists
+                    ? String(describing: failureDiagnostic.value)
+                    : "no diagnostic")
+        )
+        wait(
+            for: winterFood,
+            toHaveValueBeginningWith: "Current 1 ",
+            timeout: 3
+        )
+        wait(
+            for: phaseState,
+            toHaveValueBeginningWith: "resumeRequired:",
+            timeout: 8
+        )
+        XCTAssertEqual(soundControl.label, "Resume sound")
+        winterFood.coordinate(
+            withNormalizedOffset: CGVector(dx: 0.82, dy: 0.66)
+        ).tap()
+        wait(
+            for: winterFood,
+            toHaveValueBeginningWith: "Current 2 ",
+            timeout: 8
+        )
+        XCTAssertFalse(failure.exists)
+        XCTAssertTrue(beat.exists)
+    }
+
+    func testHarvestRapidImageTapsAndFirstInputDoNotReplaceScene()
+        throws {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "--ui-testing-reset-state",
+            "--ui-testing-signed-runtime-fixture",
+            "--ui-testing-signed-runtime-fixture-beat=beat-first-farmers-harvest-allocation",
+        ]
+        app.launch()
+
+        let beat = app.descendants(matching: .any)[
+            "chapter-beat-beat-first-farmers-harvest-allocation"
+        ]
+        let winterFood = app.descendants(matching: .any)[
+            "chapter-semantic-allocate-winter-food"
+        ]
+        let touchSurface = app.descendants(matching: .any)[
+            "chapter-touch-surface"
+        ]
+        let soundControl = app.buttons["chapter-sound-control"]
+        let failure = app.buttons["chapter-failure-return-to-road"]
+        let failureDiagnostic = app.descendants(matching: .any)[
+            "signed-runtime-failure-diagnostic"
+        ]
+        let inputResolution = app.descendants(matching: .any)[
+            "chapter-input-resolution-diagnostic"
+        ]
+        XCTAssertTrue(beat.waitForExistence(timeout: 12))
+        XCTAssertTrue(winterFood.waitForExistence(timeout: 3))
+        XCTAssertTrue(touchSurface.waitForExistence(timeout: 3))
+        XCTAssertTrue(soundControl.waitForExistence(timeout: 3))
+        XCTAssertTrue(inputResolution.waitForExistence(timeout: 3))
+        XCTAssertEqual(soundControl.label, "Resume sound")
+
+        // Reproduce the user's fastest path: start sound, then tap the grain
+        // itself repeatedly before the audio and input authorities settle.
+        // These source-only taps may be ignored or show local feedback, but
+        // they must never replace the verified scene with a runtime failure.
+        soundControl.tap()
+        let grain = touchSurface.coordinate(
+            withNormalizedOffset: CGVector(dx: 0.50, dy: 0.80)
+        )
+        grain.doubleTap()
+        grain.doubleTap()
+        XCTAssertFalse(
+            failure.waitForExistence(timeout: 2),
+            "Rapid Harvest image taps replaced the scene: "
+                + (failureDiagnostic.exists
+                    ? String(describing: failureDiagnostic.value)
+                    : "no diagnostic")
+        )
+        XCTAssertTrue(beat.exists)
+
+        // A short drag beginning in empty sky is the exact source-polygon miss
+        // reported from the simulator. It is local input rejection and must not
+        // be promoted to a scene-authority failure.
+        touchSurface.coordinate(
+            withNormalizedOffset: CGVector(dx: 0.50, dy: 0.35)
+        ).press(
+            forDuration: 0.05,
+            thenDragTo: touchSurface.coordinate(
+                withNormalizedOffset: CGVector(dx: 0.58, dy: 0.40)
+            )
+        )
+        wait(
+            for: inputResolution,
+            toHaveValueBeginningWith: "source-miss:",
+            timeout: 8
+        )
+        XCTAssertFalse(failure.exists)
+        XCTAssertTrue(beat.exists)
+
+        // The next real reducer input must remain valid even if the authored
+        // approach bed crossed into its durable waiting phase during the taps.
+        winterFood.coordinate(
+            withNormalizedOffset: CGVector(dx: 0.82, dy: 0.66)
+        ).tap()
+        wait(
+            for: winterFood,
+            toHaveValueBeginningWith: "Current 1 ",
+            timeout: 8
+        )
+        XCTAssertFalse(
+            failure.exists,
+            "The approach boundary replaced Harvest after its first input: "
+                + (failureDiagnostic.exists
+                    ? String(describing: failureDiagnostic.value)
+                    : "no diagnostic")
+        )
+
+        winterFood.coordinate(
+            withNormalizedOffset: CGVector(dx: 0.82, dy: 0.66)
+        ).tap()
+        wait(
+            for: winterFood,
+            toHaveValueBeginningWith: "Current 2 ",
+            timeout: 8
+        )
+        XCTAssertFalse(failure.exists)
+        XCTAssertTrue(beat.exists)
     }
 
     func testLiveFirstFarmersRecordsThreeRecords() throws {
@@ -1002,8 +1417,12 @@ final class JourneyAppUITests: XCTestCase {
         let runtimeState = app.descendants(matching: .any)[
             "responsive-audio-runtime-state"
         ]
+        let primaryState = app.descendants(matching: .any)[
+            "primary-audio-runtime-state"
+        ]
         XCTAssertTrue(phaseState.waitForExistence(timeout: 12))
         XCTAssertTrue(runtimeState.waitForExistence(timeout: 3))
+        XCTAssertTrue(primaryState.waitForExistence(timeout: 3))
         XCTAssertEqual(phaseState.value as? String, "ready:waiting")
         let initialRuntime = try XCTUnwrap(runtimeState.value as? String)
         let bindingAuthority = try XCTUnwrap(
@@ -1039,6 +1458,11 @@ final class JourneyAppUITests: XCTestCase {
             for: runtimeState,
             toHaveValueBeginningWith:
                 "\(bindingAuthority);playback=playing;stage=approach;",
+            timeout: 8
+        )
+        wait(
+            for: primaryState,
+            toHaveValueContaining: "components=1;separated=1",
             timeout: 8
         )
 

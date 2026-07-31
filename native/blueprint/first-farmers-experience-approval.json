@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "kind": "chapter-experience-projection-approval",
+  "status": "APPROVED_BY_EDITOR_IN_CHIEF",
+  "authority": "editor-in-chief",
+  "approvedAt": "2026-07-30T17:57:30Z",
+  "decisionReference": "codex-user-approved-chapter-01-five-cell-six-sequence-build-2026-07-30",
+  "scope": {
+    "chapterID": "first-farmers",
+    "contractID": "contract-01",
+    "worldCellCount": 5,
+    "sequenceCount": 6,
+    "principalInteractionCount": 6
+  },
+  "principalInteractionIDs": [
+    "interaction-first-farmers-a-household-crosses",
+    "interaction-first-farmers-the-harvest-had-to-last",
+    "interaction-first-farmers-at-the-iron-gates",
+    "interaction-first-farmers-the-house-outlives",
+    "interaction-first-farmers-more-mouths-more-land",
+    "interaction-first-farmers-a-continent-remade"
+  ],
+  "approvedProjection": [
+    "single continuous action premise",
+    "five bounded 3D world cells",
+    "six-sequence causal order and material transitions",
+    "first-household human spine and physical grain motif",
+    "action-to-consequence ledger",
+    "narration functions and maximum density",
+    "retirement of the visible page, slider, puzzle and recovery-button flow"
+  ],
+  "timingAuthority": {
+    "state": "UNPROVEN_MEASURED_HYPOTHESIS",
+    "authoredCore": "13:35",
+    "expectedFirstPlay": "16:00-17:30",
+    "rule": "The complete greybox may shorten, rebalance or rebuild intervals; duration is not a quota."
+  },
+  "supersededProjection": {
+    "visibleArcCount": 3,
+    "sceneCount": 17,
+    "textSegmentCount": 37,
+    "plannedDurationMinutes": 28,
+    "retainedAs": "historical editorial and non-shipping prototype evidence only"
+  },
+  "excludedAuthority": [
+    "exact public wording",
+    "narration performance",
+    "3D engine or asset toolchain",
+    "people, animal, material or lighting production style",
+    "production or shipping assets",
+    "integrated chapter approval",
+    "shipping approval"
+  ],
+  "digestEncoding": "Source SHA-256 values use UTF-8 bytes; JSON slices use jq -cS with no trailing newline. The projection digest hashes the newline-delimited header and source hashes in projectionDigestOrder, including the final newline.",
+  "projectionDigestHeader": "long-west-first-farmers-experience-projection-v1",
+  "projectionDigestOrder": [
+    "experiencePlan",
+    "flowScript",
+    "contract01Slice",
+    "principalInteractionSlice",
+    "authoredInteractionEffectSlice",
+    "worldEffectSlice"
+  ],
+  "projectionSHA256": "50063fb6d3c174f02ad164b4024a3f9a6fd14055d1f9fc5555354dfeaa3dcb6b",
+  "sourceSHA256": {
+    "experiencePlan": "8eec8844443d1a285baa65cdf01db377d2057f427f70650aa56261872bda02a6",
+    "flowScript": "097cb2f41ef85a454ba90d7f6d24ec6c782055bf74c9922a7c3a69ebd8e4e294",
+    "contract01Slice": "b9f5828837389abc1814137394e97275ee1e3ac52a6abc7260a5050f786ed705",
+    "principalInteractionSlice": "92780932f09dfd9eb5f75e6de8256640faf1391e9cb2ac6ab70c8f101d4e4ef9",
+    "authoredInteractionEffectSlice": "338f836cb890e535275a032a520f8c79311b85bb46ec9681da1b90b9c7022f07",
+    "worldEffectSlice": "de096f7502f552eecd123e98541265de29ee63657bce3433198e389de0dc2cec"
+  }
+}

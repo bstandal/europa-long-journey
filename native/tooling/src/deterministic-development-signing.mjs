@@ -159,3 +159,12 @@ export function signVerticalSliceDevelopmentMessage(message) {
     nonce = modulo(nonce, curve.n - 1n) + 1n;
   }
 }
+
+// Review-only packages share the reproducible non-secret development key but
+// remain isolated by a distinct package ID, key ID and trust receipt. Release
+// compilation rejects every identity in this development trust domain.
+export const signDeterministicDevelopmentMessage =
+  signVerticalSliceDevelopmentMessage;
+
+export const deterministicDevelopmentPublicKey =
+  verticalSliceDevelopmentPublicKey;

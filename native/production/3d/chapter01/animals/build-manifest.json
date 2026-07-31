@@ -1,0 +1,198 @@
+{
+  "assetVersion": "chapter01-cattle-rigs-v1",
+  "canonicalOutputs": [
+    {
+      "bytes": 542953,
+      "path": "outputs/chapter01-cattle-library-lod0.usdc",
+      "sha256": "b4b4dc7587ebf279110cc84cd27842cdb89be44785360484a8fd1671065960ec"
+    },
+    {
+      "bytes": 1063377,
+      "path": "outputs/chapter01-cattle-library-lod0.usdz",
+      "sha256": "8501d7b3cd98481dbad74f362ac3927cbd40705ff5b09fcb56dfc4d54bb3902a"
+    },
+    {
+      "bytes": 282,
+      "path": "outputs/chapter01-cattle-library-lod0-report.json",
+      "sha256": "7f5eaf5d5db686cac173d4d8da0094550aa4d928fbc3680703050555749d1ac6"
+    },
+    {
+      "bytes": 300160,
+      "path": "outputs/chapter01-cattle-library-lod1.usdc",
+      "sha256": "e089b605a9cde6a799ef2423f768a8e90e5217b7680d7baaeb3bca82c1105eb6"
+    },
+    {
+      "bytes": 820666,
+      "path": "outputs/chapter01-cattle-library-lod1.usdz",
+      "sha256": "ccbc971f983ce8d986419e524868685c947ca7aac496ddf92aed2c6698e72c23"
+    },
+    {
+      "bytes": 281,
+      "path": "outputs/chapter01-cattle-library-lod1-report.json",
+      "sha256": "530c0be07a1174c181af4913e5a682df869eaf34b03a5cb23b026af1436bea5a"
+    },
+    {
+      "bytes": 103608,
+      "path": "outputs/textures/cattle-adult-hide-basecolor.png",
+      "sha256": "98f5a67b51984816d58df4112a3e6d72488bec9963b4ed2637cc8276cc83923a"
+    },
+    {
+      "bytes": 284498,
+      "path": "outputs/textures/cattle-hide-normal.png",
+      "sha256": "73773b21a5ef63d5926e86f394b575bb461fe80e55f112ee84c47b31d3d97e2a"
+    },
+    {
+      "bytes": 131458,
+      "path": "outputs/textures/cattle-young-hide-basecolor.png",
+      "sha256": "d18334f339d59f43263be66b8a3f98ec450044aab3e93966336badae8e7dfe7e"
+    }
+  ],
+  "classificationReason": "The library replaces primitive bovines with anatomically directed, skinned cattle for the boat and herd contexts. Final hair cards, deformation/contact polish, and world-cell lighting approval remain open.",
+  "determinism": {
+    "byteReproducibility": "PASS",
+    "comparedBuilds": 2,
+    "fixedTimestampUTC": "1980-01-01T00:00:00Z",
+    "pythonHashSeed": 0,
+    "sourceDateEpoch": 315532800
+  },
+  "directedClipContract": {
+    "cattle-adult": {
+      "barrier-weight-shift": [
+        40,
+        56
+      ],
+      "herd-walk": [
+        1,
+        33
+      ],
+      "rest": [
+        60,
+        64
+      ]
+    },
+    "cattle-young": {
+      "boat-brace": [
+        1,
+        32
+      ],
+      "boat-weight-shift": [
+        40,
+        56
+      ],
+      "rest": [
+        60,
+        64
+      ]
+    },
+    "fps": 24
+  },
+  "finalArtGate": "OPEN",
+  "geometry": {
+    "lods": [
+      {
+        "lod": 0,
+        "meshObjects": 74,
+        "polygons": 7674,
+        "triangles": 14276
+      },
+      {
+        "lod": 1,
+        "meshObjects": 74,
+        "polygons": 3756,
+        "triangles": 6744
+      }
+    ],
+    "meshPrimCount": [
+      74,
+      74
+    ],
+    "skeletonCount": [
+      2,
+      2
+    ],
+    "skinnedRootCount": [
+      2,
+      2
+    ]
+  },
+  "lodPolicy": {
+    "lod0": "close interaction and boat animal, target distance 0-9 m",
+    "lod1": "herd and middle-distance animals, target distance 9-30 m"
+  },
+  "openGates": [
+    "Replace procedural surface relief with approved final hair/fur treatment if close-camera review requires it.",
+    "Polish hoof-ground, body-barrier and boat-bracing contact after world-cell integration.",
+    "Approve anatomy, deformation, material response and herd variation in final authored lighting.",
+    "Pass physical iPhone frame, memory, thermal and battery gates in the complete cells."
+  ],
+  "qualityClassification": "ANIMAL_RIG_CANDIDATE",
+  "reviewArtifacts": [
+    {
+      "bytes": 284541,
+      "path": "outputs/chapter01-cattle-rig-library.blend",
+      "sha256": "9b85f3876e580cbd8be3cec5dc6751226ba593816991053cc9f472e6c0e368c5"
+    },
+    {
+      "bytes": 1124892,
+      "path": "outputs/chapter01-cattle-rig-preview-9x16.png",
+      "sha256": "d90fd4e7f7a1ad5d291300879a90675012c069ea981bde42b18eefd7646eed63"
+    }
+  ],
+  "rights": {
+    "externalAssets": [],
+    "geometry": "project-authored procedural Blender geometry",
+    "materialsAndTextures": "project-authored deterministic procedural maps and PBR materials",
+    "rigAndAnimation": "project-authored skeleton and directed keyframes",
+    "rightsGate": "PASS"
+  },
+  "rootContract": {
+    "cloneableLocalOriginRoots": [
+      "cattle_adult",
+      "cattle_young"
+    ],
+    "includedSpecies": [
+      "domestic-cattle"
+    ],
+    "previewCameraLightsGroundAndBoatExcluded": true
+  },
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "bytes": 45233,
+      "path": "generate_chapter01_cattle.py",
+      "sha256": "ba4b58c963494b22689988bf837b85e8209d04bc1884604d3b9c815ae16dd30d"
+    },
+    {
+      "bytes": 4757,
+      "path": "validate_cattle_usd.py",
+      "sha256": "edd05b0a16b77ad6257aaebf9e7d71d2d5741786ba1cb3cfd0bcf4a0d77168dc"
+    },
+    {
+      "bytes": 5913,
+      "path": "write_cattle_manifest.py",
+      "sha256": "1467e2cb89fb6525fb307b2015e890da4f902c3691b240d4fafcfc2d8f304656"
+    },
+    {
+      "bytes": 2515,
+      "path": "build-cattle-library.sh",
+      "sha256": "f17e7d63438c37503bf2e4e0cd5c5a6c78aa09dae3b7191b34af542db7d29731"
+    },
+    {
+      "bytes": 1343,
+      "path": "provenance.json",
+      "sha256": "a439872e105084745f0e68c67302d93c20d3daf77de361b404884add40d9fed2"
+    }
+  ],
+  "tool": {
+    "blenderBuildHash": "fbe6228777e7",
+    "blenderVersion": "5.2.0 LTS"
+  },
+  "validation": {
+    "arkitUsdchecker": "PASS",
+    "byteIdenticalUsdcAndUsdz": "PASS",
+    "directedClipMetadata": "PASS",
+    "localOriginRoots": "PASS",
+    "previewLeakage": "PASS",
+    "rightsGate": "PASS"
+  }
+}

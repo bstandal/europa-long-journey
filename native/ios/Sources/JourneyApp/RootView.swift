@@ -3,6 +3,7 @@ import ContentDelivery
 import ContentKit
 import JourneyContent
 import JourneyDomain
+import ImmersiveRuntime
 import ReleaseDiscovery
 import SceneRuntime
 import SwiftUI
@@ -2429,6 +2430,7 @@ private struct ChapterRouteView: View {
     let chapterID: ChapterID
     @ObservedObject var model: JourneyModel
     @StateObject private var session = ProductionChapterRouteSession()
+    @State private var lastReadyIdentity: ChapterRuntimeRouteIdentity?
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private enum CropResolution {
@@ -2439,6 +2441,54 @@ private struct ChapterRouteView: View {
     }
 
     var body: some View {
+        Group {
+            if chapterID == ChapterID("first-farmers"),
+               immersiveChapter01RouteIsActive {
+                immersiveChapter01Route
+            } else {
+                legacyChapterRoute
+            }
+        }
+        .onDisappear { session.deactivate() }
+    }
+
+    private var immersiveChapter01RouteIsActive: Bool {
+#if DEBUG || NON_SHIPPING_LIVE_TEST
+        ProcessInfo.processInfo.arguments.contains("--chapter01-immersive-review")
+#else
+        true
+#endif
+    }
+
+    @ViewBuilder
+    private var immersiveChapter01Route: some View {
+#if DEBUG || NON_SHIPPING_LIVE_TEST
+        switch DevelopmentChapter01ImmersiveReviewContent.result {
+        case let .success(resources):
+            Chapter01ImmersiveView(
+                storageURL: resources.storageURL,
+                runtimePackageContext: resources.runtimePackageContext,
+                sensoryCatalog: resources.sensoryCatalog,
+                sensoryResolver: resources.sensoryResolver
+            ) {
+                model.showWorld()
+            }
+        case .failure:
+            ContentUnavailableView(
+                message: "Chapter 01 could not be verified offline.",
+                actionTitle: "Return to the road"
+            ) {
+                model.showWorld()
+            }
+        }
+#else
+        Chapter01ImmersiveView {
+            model.showWorld()
+        }
+#endif
+    }
+
+    private var legacyChapterRoute: some View {
         GeometryReader { geometry in
             let canvasSize = SceneViewportCanvasMetrics.fullCanvasSize(
                 contentSize: SceneFrameSize(
@@ -2468,8 +2518,16 @@ private struct ChapterRouteView: View {
                             identity: identity
                         )
                         .task(id: identity) {
+                            lastReadyIdentity = identity
                             await session.activate(model: model, identity: identity)
                         }
+                    } else if model.chapterTransitionIsPending,
+                              let lastReadyIdentity {
+                        ProductionChapterView(
+                            model: model,
+                            session: session,
+                            identity: lastReadyIdentity
+                        )
                     } else if model.chapterTransitionIsPending {
                         ChapterPreparingRouteView()
                     } else {
@@ -2526,13 +2584,19 @@ private struct ChapterRouteView: View {
                         )
                     }
                 }
+            } else if model.chapterTransitionIsPending,
+                      let lastReadyIdentity {
+                ProductionChapterView(
+                    model: model,
+                    session: session,
+                    identity: lastReadyIdentity
+                )
             } else if model.chapterTransitionIsPending {
                 ChapterPreparingRouteView()
             } else {
                 ChapterUnavailableRouteView(chapterID: chapterID, model: model)
             }
         }
-        .onDisappear { session.deactivate() }
     }
 
     private func cropResolution(

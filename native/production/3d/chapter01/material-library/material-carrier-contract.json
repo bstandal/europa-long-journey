@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "carrierID": "chapter01-material-carrier-v1",
+  "classification": "MATERIAL_CANDIDATE",
+  "shippingStatus": "BLOCKED",
+  "finalArtGate": "OPEN",
+  "sourceLibraryID": "chapter01-mobile-pbr-materials-v1",
+  "sourceManifestSHA256": "c20a2015280c5acce757b56046d923989de926954da5cd0122451c4e0289d76e",
+  "rootPrimPath": "/Chapter01MaterialCarrier",
+  "runtimeRule": "Load for material extraction; do not mount the carrier swatches in the chapter world.",
+  "materials": [
+    {
+      "role": "soil",
+      "sourceMaterialID": "soil-dirt-v1",
+      "materialPrimPath": "/Chapter01MaterialCarrier/Materials/M_CH01_Soil",
+      "swatchEntityName": "Swatch_Soil",
+      "textureBindings": [
+        {
+          "channel": "baseColor",
+          "sourcePath": "materials/soil-dirt-v1/baseColor.jpg",
+          "packagePath": "textures/soil/baseColor.jpg"
+        },
+        {
+          "channel": "normal",
+          "sourcePath": "materials/soil-dirt-v1/normal.jpg",
+          "packagePath": "textures/soil/normal.jpg"
+        },
+        {
+          "channel": "roughness",
+          "sourcePath": "materials/soil-dirt-v1/roughness.jpg",
+          "packagePath": "textures/soil/roughness.jpg"
+        }
+      ]
+    },
+    {
+      "role": "dark-rock",
+      "sourceMaterialID": "gorge-dark-rock-v1",
+      "materialPrimPath": "/Chapter01MaterialCarrier/Materials/M_CH01_DarkRock",
+      "swatchEntityName": "Swatch_DarkRock",
+      "textureBindings": [
+        {
+          "channel": "baseColor",
+          "sourcePath": "materials/gorge-dark-rock-v1/baseColor.jpg",
+          "packagePath": "textures/dark-rock/baseColor.jpg"
+        },
+        {
+          "channel": "normal",
+          "sourcePath": "materials/gorge-dark-rock-v1/normal.jpg",
+          "packagePath": "textures/dark-rock/normal.jpg"
+        },
+        {
+          "channel": "roughness",
+          "sourcePath": "materials/gorge-dark-rock-v1/roughness.jpg",
+          "packagePath": "textures/dark-rock/roughness.jpg"
+        }
+      ]
+    },
+    {
+      "role": "timber",
+      "sourceMaterialID": "timber-fine-grain-v1",
+      "materialPrimPath": "/Chapter01MaterialCarrier/Materials/M_CH01_Timber",
+      "swatchEntityName": "Swatch_Timber",
+      "textureBindings": [
+        {
+          "channel": "baseColor",
+          "sourcePath": "materials/timber-fine-grain-v1/baseColor.jpg",
+          "packagePath": "textures/timber/baseColor.jpg"
+        },
+        {
+          "channel": "normal",
+          "sourcePath": "materials/timber-fine-grain-v1/normal.jpg",
+          "packagePath": "textures/timber/normal.jpg"
+        },
+        {
+          "channel": "roughness",
+          "sourcePath": "materials/timber-fine-grain-v1/roughness.jpg",
+          "packagePath": "textures/timber/roughness.jpg"
+        }
+      ]
+    },
+    {
+      "role": "cloth-neutral",
+      "sourceMaterialID": "cloth-rough-weave-v1",
+      "materialPrimPath": "/Chapter01MaterialCarrier/Materials/M_CH01_ClothNeutral",
+      "swatchEntityName": "Swatch_ClothNeutral",
+      "authoredBaseColorLinearRGB": [
+        0.42,
+        0.31,
+        0.2
+      ],
+      "sourceBaseColorPolicy": "REFERENCE_ONLY_NOT_PACKAGED",
+      "textureBindings": [
+        {
+          "channel": "normal",
+          "sourcePath": "materials/cloth-rough-weave-v1/normal.jpg",
+          "packagePath": "textures/cloth-neutral/normal.jpg"
+        },
+        {
+          "channel": "roughness",
+          "sourcePath": "materials/cloth-rough-weave-v1/roughness.jpg",
+          "packagePath": "textures/cloth-neutral/roughness.jpg"
+        }
+      ]
+    },
+    {
+      "role": "thatch",
+      "sourceMaterialID": "reed-thatch-v1",
+      "materialPrimPath": "/Chapter01MaterialCarrier/Materials/M_CH01_Thatch",
+      "swatchEntityName": "Swatch_Thatch",
+      "textureBindings": [
+        {
+          "channel": "baseColor",
+          "sourcePath": "materials/reed-thatch-v1/baseColor.jpg",
+          "packagePath": "textures/thatch/baseColor.jpg"
+        },
+        {
+          "channel": "normal",
+          "sourcePath": "materials/reed-thatch-v1/normal.jpg",
+          "packagePath": "textures/thatch/normal.jpg"
+        },
+        {
+          "channel": "roughness",
+          "sourcePath": "materials/reed-thatch-v1/roughness.jpg",
+          "packagePath": "textures/thatch/roughness.jpg"
+        }
+      ]
+    }
+  ],
+  "signedV2ReviewIntegration": {
+    "assetID": "asset-first-farmers-material-carrier-v1",
+    "assetKind": "material",
+    "packagePath": "immersive/first-farmers/materials/chapter01-material-carrier-v1.usdz",
+    "replaceFakePaths": [
+      "immersive/first-farmers/materials/material-01.usdz",
+      "immersive/first-farmers/materials/material-02.usdz",
+      "immersive/first-farmers/materials/material-03.usdz",
+      "immersive/first-farmers/materials/material-04.usdz",
+      "immersive/first-farmers/materials/material-05.usdz"
+    ],
+    "materialStateRule": "All provisional material states may reference the single carrier asset ID. Material extraction uses the stable role-to-prim table above; no cell scene is duplicated as a material asset.",
+    "domainContractImpact": "NONE"
+  }
+}

@@ -241,6 +241,48 @@ test("runtime fixture generator is byte-for-byte reproducible", async () => {
     exitPolicy?.kind === "bounded-fade"
       && exitPolicy.durationSamples === 9_600));
   assert.equal(payload.audioTimelines.length, 57);
+  const firstFarmersChapter = payload.chapters.find(({ id }) =>
+    id === "first-farmers");
+  const firstFarmersMainTimelineIDs = new Set(
+    firstFarmersChapter.arcs.flatMap(({ beats }) =>
+      beats.map(({ id }) => `audio-${id}`)),
+  );
+  const timelineByID = new Map(payload.audioTimelines.map((timeline) => [
+    timeline.id,
+    timeline,
+  ]));
+  let narratedBedCueCount = 0;
+  let transitionCueCount = 0;
+  const narratedBedGainByRole = new Map([
+    ["score", 0.26],
+    ["soundscape", 0.38],
+    ["spatialDetail", 0.34],
+  ]);
+  for (const timelineID of firstFarmersMainTimelineIDs) {
+    const timeline = timelineByID.get(timelineID);
+    assert.ok(timeline, `${timelineID}: projected main timeline is missing`);
+    for (const event of timeline.events) {
+      if (event.role === "narration") {
+        assert.equal(event.gain, 1, `${event.cueID}: narration gain drifted`);
+      } else if (event.cueID.startsWith("transition-")) {
+        transitionCueCount += 1;
+        assert.equal(
+          event.gain,
+          0.32,
+          `${event.cueID}: stacked transition must remain below narration`,
+        );
+      } else {
+        narratedBedCueCount += 1;
+        assert.equal(
+          event.gain,
+          narratedBedGainByRole.get(event.role),
+          `${event.cueID}: narrated bed gain drifted`,
+        );
+      }
+    }
+  }
+  assert.equal(narratedBedCueCount, 17 * 3);
+  assert.equal(transitionCueCount, 3);
   const responsiveAudio = requireRepresentativeFirstFarmersResponsiveAudio(payload);
   assert.deepEqual(responsiveAudio.programIDs, [
     "household-crosses-responsive-audio-v1",
@@ -252,6 +294,24 @@ test("runtime fixture generator is byte-for-byte reproducible", async () => {
   ]);
   assert.equal(responsiveAudio.timelineIDs.length, 30);
   assert.equal(responsiveAudio.assetPaths.length, 91);
+  const generatedPayload = JSON.parse(await readFile(
+    path.join(
+      fixtureRoot,
+      "../generated/first-farmers.content-package.json",
+    ),
+    "utf8",
+  ));
+  const generatedTimelineByID = new Map(
+    generatedPayload.audioTimelines.map((timeline) => [timeline.id, timeline]),
+  );
+  for (const timelineID of responsiveAudio.timelineIDs) {
+    assert.deepEqual(
+      timelineByID.get(timelineID).events.map(({ cueID, gain }) => ({ cueID, gain })),
+      generatedTimelineByID.get(timelineID).events
+        .map(({ cueID, gain }) => ({ cueID, gain })),
+      `${timelineID}: narrated-bed trim must not alter responsive interaction gains`,
+    );
+  }
   assert.deepEqual(responsiveAudio.decodedBufferEstimate, {
     steady: {
       bytes: 97_920_000,

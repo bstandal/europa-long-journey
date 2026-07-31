@@ -20,10 +20,15 @@ let package = Package(
         .library(name: "ReleaseDiscovery", targets: ["ReleaseDiscovery"]),
         .library(name: "DramaticAudio", targets: ["DramaticAudio"]),
         .library(name: "SceneRuntime", targets: ["SceneRuntime"]),
+        .library(name: "ImmersiveRuntime", targets: ["ImmersiveRuntime"]),
         .library(name: "JourneyAccessibility", targets: ["JourneyAccessibility"]),
         .library(name: "ChapterRuntime", targets: ["ChapterRuntime"]),
         .library(name: "ExperiencePreferences", targets: ["ExperiencePreferences"]),
         .library(name: "QualityInstrumentation", targets: ["QualityInstrumentation"]),
+        .executable(
+            name: "immersive-review-payload-compiler",
+            targets: ["ImmersiveReviewPayloadCompiler"]
+        ),
     ],
     targets: [
         .target(name: "ContentKit"),
@@ -83,6 +88,16 @@ let package = Package(
             ]
         ),
         .target(
+            name: "ImmersiveRuntime",
+            dependencies: ["ContentKit", "JourneyDomain", "QualityInstrumentation"],
+            linkerSettings: [
+                .linkedFramework("AVFAudio"),
+                .linkedFramework("CoreHaptics"),
+                .linkedFramework("RealityKit"),
+                .linkedFramework("SwiftUI"),
+            ]
+        ),
+        .target(
             name: "JourneyAccessibility",
             dependencies: ["ContentKit", "JourneyDomain"]
         ),
@@ -100,6 +115,10 @@ let package = Package(
         ),
         .target(name: "ExperiencePreferences"),
         .target(name: "QualityInstrumentation"),
+        .executableTarget(
+            name: "ImmersiveReviewPayloadCompiler",
+            dependencies: ["ContentKit", "ImmersiveRuntime"]
+        ),
         .target(
             name: "ContentKitTestSupport",
             dependencies: ["ContentKit"]
@@ -169,6 +188,10 @@ let package = Package(
         .testTarget(
             name: "SceneRuntimeTests",
             dependencies: ["ContentKit", "ContentKitTestSupport", "JourneyDomain", "SceneRuntime"]
+        ),
+        .testTarget(
+            name: "ImmersiveRuntimeTests",
+            dependencies: ["ContentKit", "JourneyDomain", "ImmersiveRuntime"]
         ),
         .testTarget(
             name: "JourneyAccessibilityTests",

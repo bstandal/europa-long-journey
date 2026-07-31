@@ -2047,7 +2047,7 @@ function projectChapter01ReviewMainTimelines(
         startSample: 0,
         durationSamples: transition.audio.durationFrames,
         assetPath: reviewTransitionPackagePath(transition),
-        gain: 1,
+        gain: 0.32,
       });
     }
     timelines.push(timeline);

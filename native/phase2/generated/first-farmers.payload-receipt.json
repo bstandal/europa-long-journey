@@ -70,7 +70,7 @@
     }
   ],
   "payloadPath": "native/phase2/generated/first-farmers.content-package.json",
-  "payloadSHA256": "fa69d84adf98b08558b825371f86024c89f30dea96145e3a3423364debd437b4",
+  "payloadSHA256": "52ff8427f2e26bdbe0205883d051972da51c31689ffa598ac56063a8d2ae5f60",
   "assetRequirementsPath": "native/phase2/generated/first-farmers.asset-requirements.json",
   "assetRequirementsSHA256": "58ab0efc1a966112a288e71c28516f5e42382ecc600016c4e06b0777d92b2395",
   "manuscriptSHA256": "e80a3182afef57faa569e89f2c9f12613b4f5744f02b819553eb79a71ef673e7",

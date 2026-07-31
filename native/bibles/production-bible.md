@@ -1,5 +1,9 @@
 # Codex-only production bible
 
+[`experience-bible.md`](./experience-bible.md) controls the complete chapter
+flow and its proof order. This file controls how that approved experience is
+produced, separated, inspected and promoted through the release pipeline.
+
 ## Authority
 
 The user is editor-in-chief. Every chapter begins with an approved contract
@@ -32,7 +36,7 @@ Codex produces and reviews assets through separate passes:
 
 1. historical/material brief;
 2. complete composition or sound concept;
-3. layer/stem production;
+3. 3D geometry, material and animation production, or audio stem production;
 4. visual or acoustic defect inspection;
 5. anachronism and continuity inspection;
 6. integration in the actual scene;
@@ -60,6 +64,20 @@ A later improvement to shared typography, rendering, interaction, audio,
 haptics, accessibility, persistence or packaging triggers an audit of every
 earlier chapter. The weakest required chapter determines release readiness.
 Nothing is frozen merely because it was produced earlier.
+
+After every complete chapter review, classify each new experiential finding as
+`SHARED`, `CHAPTER_SPECIFIC` or `UNPROVEN` under the experience bible. A shared
+improvement updates the common floor and triggers the same earlier-chapter
+audit. A chapter-specific technique remains in its chapter flow. A number or
+pattern without complete greybox evidence cannot become a production default.
+
+## Chapter experience proof
+
+The required chapter packet, complete greybox sequence, recorded evidence and
+learning classification live only in the experience bible. No final 3D art,
+final public wording or full chapter asset production begins before that gate
+has produced a byte-bound decision object for the consolidated editor review.
+An isolated scene, interaction, still or duration target cannot waive it.
 
 ## Causal world compilation
 

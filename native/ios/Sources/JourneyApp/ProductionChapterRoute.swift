@@ -573,7 +573,7 @@ final class ProductionChapterRouteSession: ObservableObject {
     private var inputReservationOwners: [
         ChapterRuntimeInputReservationGate.Token: JourneyModel
     ] = [:]
-    private var routeReplacementIsPending = false
+    @Published private(set) var routeReplacementIsPending = false
     private var deactivationIsPending = false
     private var instrumentedActionTokens: Set<PerformanceActionToken> = []
     private var reportedAssetFailureAuthority: PackageAssetFailureAuthority?
@@ -1223,6 +1223,9 @@ final class ProductionChapterRouteSession: ObservableObject {
             identity: identity
         )
         let activationRequest = activationRequestFence.begin()
+        let retainsOutgoingScene = shouldRetainOutgoingScene(
+            for: identity
+        )
         if self.model === model,
            self.identity == identity,
            runtime != nil,
@@ -1362,7 +1365,9 @@ final class ProductionChapterRouteSession: ObservableObject {
         alphaSampler.purge()
         alphaSampler = SceneImageAlphaMaskSampler()
         let routeAlphaSampler = alphaSampler
-        compositor.purgeTextureCache()
+        if !retainsOutgoingScene {
+            compositor.purgeTextureCache()
+        }
         presentation = nil
         failure = nil
 #if DEBUG
@@ -1379,7 +1384,13 @@ final class ProductionChapterRouteSession: ObservableObject {
         if case .notConfigured = compositor.state {
             _ = compositor.configure()
         }
-        guard case .readyForScene = compositor.state else {
+        let compositorCanPrepareReplacement: Bool = {
+            if case .readyForScene = compositor.state {
+                return true
+            }
+            return retainsOutgoingScene && compositor.hasDrawableScene
+        }()
+        guard compositorCanPrepareReplacement else {
             failure = ProductionChapterRouteFailure(
                 kind: .rendererUnavailable,
                 assetAuthority: nil
@@ -1488,6 +1499,27 @@ final class ProductionChapterRouteSession: ObservableObject {
                 expectedIdentity: identity
             )
         }
+    }
+
+    private func shouldRetainOutgoingScene(
+        for nextIdentity: ChapterRuntimeRouteIdentity
+    ) -> Bool {
+        guard let currentIdentity = identity,
+              runtime != nil,
+              presentation != nil,
+              failure == nil,
+              compositor.hasDrawableScene else {
+            return false
+        }
+        return currentIdentity.chapterID == nextIdentity.chapterID
+            && currentIdentity.packageID == nextIdentity.packageID
+            && currentIdentity.packageManifestDigest
+                == nextIdentity.packageManifestDigest
+            && currentIdentity.contentRevision
+                == nextIdentity.contentRevision
+            && currentIdentity.viewportCropID
+                == nextIdentity.viewportCropID
+            && currentIdentity.reduceMotion == nextIdentity.reduceMotion
     }
 
     private func persistenceOnlyReplacementPlaybackTask(
@@ -2293,6 +2325,7 @@ final class ProductionChapterRouteSession: ObservableObject {
         startEpoch: ResponsiveAudioPlaybackStartEpoch,
         model: JourneyModel,
         generation: UInt64,
+        nonSpeakingIsOwnedExternally: Bool = false,
         recordsJournalStart: Bool = true
     ) async -> PrimaryAudioStartOutcome {
         do {
@@ -2347,6 +2380,14 @@ final class ProductionChapterRouteSession: ObservableObject {
             // sound action. Persisting the preference is asynchronous, so the
             // transport must not inherit a momentarily stale muted value.
             playbackPreferences.soundEnabled = true
+            if nonSpeakingIsOwnedExternally,
+               playbackPreferences.narrationEnabled,
+               !usesVerifiedRoleSeparation {
+                // A combined responsive scene must never replay its authored
+                // bed through the indivisible primary whole mix. Without a
+                // verified narration partition, fail the deliberate start.
+                return .failed
+            }
             let availableComponents = Set(componentTimelines.keys)
             let narrationIsHeldForVoiceOver = playbackPreferences
                 .narrationEnabled
@@ -2368,7 +2409,9 @@ final class ProductionChapterRouteSession: ObservableObject {
                     suppressesNarration: narrationIsHeldForVoiceOver
                         || !playbackPreferences.narrationEnabled,
                     narrationIsEnabled:
-                        playbackPreferences.narrationEnabled
+                        playbackPreferences.narrationEnabled,
+                    nonSpeakingIsOwnedExternally:
+                        nonSpeakingIsOwnedExternally
                 )
             if let heldVoiceOverComponent {
                 retainedComponents.insert(heldVoiceOverComponent)
@@ -2512,7 +2555,9 @@ final class ProductionChapterRouteSession: ObservableObject {
                         suppressesNarration: narrationMustRemainHeld
                             || !playbackPreferences.narrationEnabled,
                         narrationIsEnabled:
-                            playbackPreferences.narrationEnabled
+                            playbackPreferences.narrationEnabled,
+                        nonSpeakingIsOwnedExternally:
+                            nonSpeakingIsOwnedExternally
                     )
                 guard componentsToPlay.contains(component) else {
                     try await componentPlayback.cursorStore.save(
@@ -2933,6 +2978,19 @@ final class ProductionChapterRouteSession: ObservableObject {
         let generation = routeGeneration
         responsiveAudioPlaybackTask = Task { @MainActor [weak self, weak model] in
             guard let self, let model else { return }
+            @MainActor
+            func restoreSceneAuthorityAfterFailedCombinedSoundStart() async {
+                guard let runtime = self.runtime,
+                      self.routeGeneration == generation,
+                      self.identity == routeKey.routeIdentity,
+                      self.responsiveAudioRouteKey == routeKey else { return }
+                await model
+                    .failClosedResponsiveAudioPresentationSynchronization(
+                        runtime: runtime,
+                        identity: routeKey.routeIdentity,
+                        playbackLease: routeKey.playbackLease
+                    )
+            }
             let primaryKey = self.primaryAudioRouteKey
             let primaryOutcome: PrimaryAudioStartOutcome
             if let primaryKey {
@@ -2946,12 +3004,17 @@ final class ProductionChapterRouteSession: ObservableObject {
                     // hard kill, while explicit pause still journals the
                     // primary cue. A second start record here would race the
                     // scene controller's deliberately audio-only rebase.
+                    nonSpeakingIsOwnedExternally: true,
                     recordsJournalStart: false
                 )
             } else {
                 primaryOutcome = .noEligibleComponent
             }
             guard primaryOutcome != .failed else {
+                // The primary setup can fail after starting and then pausing
+                // one component. Its exact narration cursor is already queued;
+                // restore the scene only after that pause reservation exists.
+                await restoreSceneAuthorityAfterFailedCombinedSoundStart()
                 guard self.responsiveAudioPolicy.completePlayback(
                     attempt,
                     didStart: false
@@ -3008,23 +3071,10 @@ final class ProductionChapterRouteSession: ObservableObject {
                                 identity: routeKey.routeIdentity
                             )
                             presentationWasSynchronized = true
-                        } else {
-                            await model
-                                .failClosedResponsiveAudioPresentationSynchronization(
-                                    runtime: runtime,
-                                    identity: routeKey.routeIdentity,
-                                    playbackLease: routeKey.playbackLease
-                                )
                         }
                     } catch is CancellationError {
                         return
                     } catch {
-                        await model
-                            .failClosedResponsiveAudioPresentationSynchronization(
-                                runtime: runtime,
-                                identity: routeKey.routeIdentity,
-                                playbackLease: routeKey.playbackLease
-                            )
 #if DEBUG
                         self.failureDiagnosticForTesting = String(reflecting: error)
 #endif
@@ -3057,6 +3107,11 @@ final class ProductionChapterRouteSession: ObservableObject {
                     || replacementWillPublishCurrentAuthority)
             if !mayPublishPlayback {
                 self.pausePrimaryAudioForBoundary()
+                // Pausing the primary timeline records an exact narration
+                // cursor. Route that metadata change through the existing
+                // physical-pause restore before another scene input can
+                // observe a stale controller presentation.
+                await restoreSceneAuthorityAfterFailedCombinedSoundStart()
             }
             guard self.responsiveAudioPolicy.completePlayback(
                 attempt,
@@ -4214,12 +4269,80 @@ final class ProductionChapterRouteSession: ObservableObject {
             // The new route identity constructs its own controller and audio.
             cancelPerformanceAction(instrumentedInput.actionToken)
             return
+        } catch let error as JourneyChapterRuntimeError
+            where error == .authoredAudioUnavailable {
+            // Sound is optional scene output. If its controller or cursor
+            // handoff fails, preserve whichever reducer state is currently
+            // authoritative and require an explicit audio resume. A completed
+            // interaction commit must never turn into a false scene-file
+            // failure, and a pre-commit audio failure leaves the same control
+            // available for an immediate retry.
+            cancelPerformanceAction(instrumentedInput.actionToken)
+            guard routeGeneration == generation,
+                  self.identity == identity,
+                  self.runtime?.controller === runtime.controller else {
+                return
+            }
+#if DEBUG
+            failureDiagnosticForTesting =
+                "audio-degraded:\(String(reflecting: error))"
+            chapterInputResolutionDiagnosticForTesting = "audio-degraded"
+#endif
+            requireExplicitResponsiveAudioResume()
+            let recovered = runtime.controller.presentation
+            do {
+                guard try await prepareForInput(
+                    recovered,
+                    alphaSampler: alphaSampler,
+                    runtime: runtime,
+                    generation: generation,
+                    expectedIdentity: identity
+                ) else { return }
+                guard routeGeneration == generation,
+                      self.identity == identity,
+                      self.runtime?.controller === runtime.controller else {
+                    return
+                }
+                presentation = recovered
+                adoptResponsiveAudioPresentation(
+                    recovered,
+                    identity: identity
+                )
+                scheduleEphemeralResponseCleanupIfNeeded(
+                    for: recovered,
+                    runtime: runtime,
+                    model: model,
+                    identity: identity,
+                    generation: generation
+                )
+            } catch is CancellationError {
+                return
+            } catch {
+#if DEBUG
+                failureDiagnosticForTesting +=
+                    ";recovery=\(String(reflecting: error))"
+#endif
+            }
+            return
         } catch let error as SceneTouchActionResolverError {
             // A finger may enter or leave an authored hit region. That is local
             // resistance, not a broken chapter or a persistence failure.
 #if DEBUG
             chapterInputResolutionDiagnosticForTesting =
                 "resolver-error:\(String(reflecting: error))"
+#endif
+            cancelPerformanceAction(instrumentedInput.actionToken)
+            return
+        } catch let error as SceneTouchGeometryError
+            where error == .outsideSourcePolygon
+                || error == .sourceAlphaRejected {
+            // Allocate owns the full visual surface so a drag can travel from
+            // the harvest to any store. A press that begins on sky, ground or
+            // transparent pixels is therefore an ordinary miss, not evidence
+            // that the verified scene package or its authority has failed.
+#if DEBUG
+            chapterInputResolutionDiagnosticForTesting =
+                "source-miss:\(String(reflecting: error))"
 #endif
             cancelPerformanceAction(instrumentedInput.actionToken)
             return
@@ -5291,6 +5414,7 @@ struct ChapterReviewView: View {
                    plan.cursor.beat.id == projection.selected.beat.id {
                     ChapterReviewNarrativeSurface(
                         projection: projection,
+                        bottomSafeAreaInset: geometry.safeAreaInsets.bottom,
                         initialReadingAnchor:
                             model.state.chapterReview?.readingAnchor,
                         persistReadingAnchor: {
@@ -5485,20 +5609,34 @@ private struct ChapterReviewChromeHeader: View {
     }
 
     var body: some View {
-        HStack(spacing: 8) {
-            Button("Road", action: road)
-                .font(.subheadline.weight(.semibold))
-                .lineLimit(1)
-                .foregroundStyle(
-                    Color(red: 0.88, green: 0.72, blue: 0.43)
-                )
-                .frame(minWidth: 58, minHeight: 44)
-                .background(.black.opacity(0.74), in: Capsule())
+        HStack(spacing: 6) {
+            Button(action: road) {
+                Image(systemName: "map.fill")
+                    .font(.system(size: 15, weight: .semibold))
+                    .foregroundStyle(
+                        Color(red: 0.88, green: 0.72, blue: 0.43)
+                    )
+                    .frame(width: 36, height: 36)
+                    .background(.black.opacity(0.74), in: Circle())
+                    .overlay {
+                        Circle().stroke(
+                            .white.opacity(
+                                contrast == .increased ? 0.30 : 0.12
+                            ),
+                            lineWidth: 1
+                        )
+                    }
+                    .frame(width: 44, height: 44)
+            }
+                .buttonStyle(.plain)
+                .frame(width: 44, height: 44)
+                .contentShape(Rectangle())
                 .disabled(controlsAreDisabled)
+                .accessibilityLabel("Road")
                 .accessibilityIdentifier("chapter-review-road")
 
             Button(action: openVisitedScenes) {
-                VStack(spacing: 3) {
+                VStack(spacing: 2) {
                     Text(projection.selected.chapter.title.launchEnglish)
                         .font(.caption2.weight(.semibold))
                         .foregroundStyle(
@@ -5522,8 +5660,8 @@ private struct ChapterReviewChromeHeader: View {
                     )
                     .frame(height: 4)
                 }
-                .padding(.horizontal, 12)
-                .frame(maxWidth: .infinity, minHeight: 52)
+                .padding(.horizontal, 10)
+                .frame(maxWidth: .infinity, minHeight: 44)
                 .background(.black.opacity(0.74), in: Capsule())
                 .overlay {
                     Capsule().stroke(
@@ -5559,7 +5697,7 @@ private struct ChapterReviewChromeHeader: View {
                         )
                     }
                 }
-                .frame(width: 44, height: 44)
+                .frame(width: 36, height: 36)
                 .background(.black.opacity(0.74), in: Circle())
                 .overlay {
                     Circle().stroke(
@@ -5569,8 +5707,11 @@ private struct ChapterReviewChromeHeader: View {
                         lineWidth: 1
                     )
                 }
+                .frame(width: 44, height: 44)
             }
             .buttonStyle(.plain)
+            .frame(width: 44, height: 44)
+            .contentShape(Rectangle())
             .disabled(
                 controlsAreDisabled
                     || playbackState == .starting
@@ -5599,6 +5740,7 @@ private struct ChapterReviewChromeHeader: View {
 
 private struct ChapterReviewNarrativeSurface: View {
     let projection: ChapterReviewProjection
+    let bottomSafeAreaInset: CGFloat
     let persistReadingAnchor: (String?) -> Void
     let returnsToCurrent: Bool
     let move: (BeatID) -> Void
@@ -5606,10 +5748,12 @@ private struct ChapterReviewNarrativeSurface: View {
     let transitionIsPending: Bool
     @State private var readingAnchor: String?
     @Environment(\.colorSchemeContrast) private var contrast
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @AccessibilityFocusState private var headingIsFocused: Bool
 
     init(
         projection: ChapterReviewProjection,
+        bottomSafeAreaInset: CGFloat,
         initialReadingAnchor: String?,
         persistReadingAnchor: @escaping (String?) -> Void,
         returnsToCurrent: Bool,
@@ -5618,6 +5762,7 @@ private struct ChapterReviewNarrativeSurface: View {
         transitionIsPending: Bool
     ) {
         self.projection = projection
+        self.bottomSafeAreaInset = bottomSafeAreaInset
         self.persistReadingAnchor = persistReadingAnchor
         self.returnsToCurrent = returnsToCurrent
         self.move = move
@@ -5680,37 +5825,65 @@ private struct ChapterReviewNarrativeSurface: View {
 
             VStack(spacing: 10) {
                 HStack(spacing: 10) {
-                    Button {
-                        if let beatID = projection.previousBeatID {
-                            move(beatID)
+                    if dynamicTypeSize.isAccessibilitySize {
+                        Button {
+                            moveToPrevious()
+                        } label: {
+                            Label("Previous", systemImage: "chevron.left")
+                                .frame(maxWidth: .infinity, minHeight: 44)
                         }
-                    } label: {
-                        Text("Previous")
-                            .frame(maxWidth: .infinity, minHeight: 44)
-                            .contentShape(Rectangle())
-                    }
-                    .buttonStyle(.bordered)
-                    .disabled(
-                        projection.previousBeatID == nil
-                            || transitionIsPending
-                    )
-                    .accessibilityIdentifier("chapter-review-previous")
+                        .buttonStyle(.bordered)
+                        .disabled(
+                            projection.previousBeatID == nil
+                                || transitionIsPending
+                        )
+                        .accessibilityIdentifier("chapter-review-previous")
 
-                    Button {
-                        if let beatID = projection.nextBeatID {
-                            move(beatID)
+                        Button {
+                            moveToNext()
+                        } label: {
+                            Label("Next", systemImage: "chevron.right")
+                                .frame(maxWidth: .infinity, minHeight: 44)
                         }
-                    } label: {
-                        Text("Next")
-                            .frame(maxWidth: .infinity, minHeight: 44)
-                            .contentShape(Rectangle())
+                        .buttonStyle(.bordered)
+                        .disabled(
+                            projection.nextBeatID == nil
+                                || transitionIsPending
+                        )
+                        .accessibilityIdentifier("chapter-review-next")
+                    } else {
+                        Button {
+                            moveToPrevious()
+                        } label: {
+                            reviewNavigationIcon("chevron.left")
+                        }
+                        .buttonStyle(.plain)
+                        .frame(width: 44, height: 44)
+                        .contentShape(Rectangle())
+                        .disabled(
+                            projection.previousBeatID == nil
+                                || transitionIsPending
+                        )
+                        .accessibilityLabel("Previous scene")
+                        .accessibilityIdentifier("chapter-review-previous")
+
+                        Spacer(minLength: 0)
+
+                        Button {
+                            moveToNext()
+                        } label: {
+                            reviewNavigationIcon("chevron.right")
+                        }
+                        .buttonStyle(.plain)
+                        .frame(width: 44, height: 44)
+                        .contentShape(Rectangle())
+                        .disabled(
+                            projection.nextBeatID == nil
+                                || transitionIsPending
+                        )
+                        .accessibilityLabel("Next scene")
+                        .accessibilityIdentifier("chapter-review-next")
                     }
-                    .buttonStyle(.bordered)
-                    .disabled(
-                        projection.nextBeatID == nil
-                            || transitionIsPending
-                    )
-                    .accessibilityIdentifier("chapter-review-next")
                 }
 
                 Button {
@@ -5728,7 +5901,7 @@ private struct ChapterReviewNarrativeSurface: View {
             }
             .padding(.horizontal, 18)
             .padding(.top, 12)
-            .safeAreaPadding(.bottom, 8)
+            .padding(.bottom, bottomSafeAreaInset + 8)
         }
         .background(
             .black.opacity(contrast == .increased ? 0.92 : 0.78)
@@ -5743,6 +5916,33 @@ private struct ChapterReviewNarrativeSurface: View {
         .onChange(of: readingAnchor) { _, anchor in
             persistReadingAnchor(anchor)
         }
+    }
+
+    private func moveToPrevious() {
+        if let beatID = projection.previousBeatID {
+            move(beatID)
+        }
+    }
+
+    private func moveToNext() {
+        if let beatID = projection.nextBeatID {
+            move(beatID)
+        }
+    }
+
+    private func reviewNavigationIcon(_ systemName: String) -> some View {
+        Image(systemName: systemName)
+            .font(.system(size: 16, weight: .semibold))
+            .foregroundStyle(Color(red: 0.82, green: 0.75, blue: 0.62))
+            .frame(width: 36, height: 36)
+            .background(.black.opacity(0.54), in: Circle())
+            .overlay {
+                Circle().stroke(
+                    .white.opacity(contrast == .increased ? 0.34 : 0.14),
+                    lineWidth: 1
+                )
+            }
+            .frame(width: 44, height: 44)
     }
 
     private var terminalResultSummary: String? {
@@ -5775,8 +5975,10 @@ struct ProductionChapterView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.accessibilityVoiceOverEnabled)
     private var voiceOverIsRunning
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var continuousGestureCancellationEpoch: UInt64 = 0
     @State private var sceneListIsPresented = false
+    @State private var narrativeIsExpanded = false
 
     private var presentation: ChapterScenePresentation? {
         session.presentation(for: identity)
@@ -5784,6 +5986,7 @@ struct ProductionChapterView: View {
 
     private var controlsAreDisabled: Bool {
         model.chapterTransitionIsPending
+            || session.routeReplacementIsPending
             || session.inputIsPending
             || session.lifecyclePresentationRefreshIsPending
             || session.audioPlaybackState == .starting
@@ -5945,10 +6148,21 @@ struct ProductionChapterView: View {
                         presentation.cursor.beat.interaction != nil
                         && presentation.journeyState.activeChapter?
                             .interaction?.phase != .complete
+                    let allocationIsIncomplete: Bool = {
+                        guard interactionIsIncomplete,
+                              let interaction = presentation.cursor.beat
+                                .interaction,
+                              case .allocate = interaction.grammar else {
+                            return false
+                        }
+                        return true
+                    }()
                     let narrativeHeightFraction = dynamicTypeSize
                         .isAccessibilitySize
                         ? 0.86
-                        : (interactionIsIncomplete ? 0.18 : 0.44)
+                        : (narrativeIsExpanded
+                            ? (interactionIsIncomplete ? 0.66 : 0.70)
+                            : (interactionIsIncomplete ? 0.18 : 0.32))
                     ZStack {
                         SceneMetalSurface(
                             compositor: session.compositor,
@@ -5982,6 +6196,27 @@ struct ProductionChapterView: View {
 #else
                         .accessibilityHidden(true)
 #endif
+                        if !dynamicTypeSize.isAccessibilitySize {
+                            ChapterTraceGuidanceOverlay(
+                                presentation: presentation
+                            )
+                            ChapterTransformGuidanceOverlay(
+                                presentation: presentation
+                            )
+                            if allocationIsIncomplete {
+                                ChapterAllocationControlsOverlay(
+                                    presentation: presentation,
+                                    controlsAreDisabled: controlsAreDisabled,
+                                    submit: { elementID, action in
+                                        session.submitVoiceOver(
+                                            elementID: elementID,
+                                            authoredAction: action,
+                                            expectedIdentity: identity
+                                        )
+                                    }
+                                )
+                            }
+                        }
                     }
                     .aspectRatio(
                         presentation.framePlan.viewport.width
@@ -5990,7 +6225,8 @@ struct ProductionChapterView: View {
                     )
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
 
-                    if !dynamicTypeSize.isAccessibilitySize {
+                    if !dynamicTypeSize.isAccessibilitySize,
+                       !allocationIsIncomplete {
                         ChapterSemanticInteractionSurface(
                             semanticModel: presentation.semanticInteractionModel,
                             submit: { elementID, action in
@@ -6016,8 +6252,10 @@ struct ProductionChapterView: View {
                         model: model,
                         session: session,
                         identity: identity,
+                        bottomSafeAreaInset: geometry.safeAreaInsets.bottom,
                         showsLinearSceneSummary:
                             dynamicTypeSize.isAccessibilitySize,
+                        narrativeIsExpanded: narrativeIsExpanded,
                         linearInteractionModel:
                             dynamicTypeSize.isAccessibilitySize
                                 ? presentation.semanticInteractionModel
@@ -6031,6 +6269,12 @@ struct ProductionChapterView: View {
                         },
                         controlsAreDisabled: controlsAreDisabled,
                         previousReviewBeatID: previousReviewBeatID,
+                        onNarrativeScrollChanged: { isScrolled in
+                            setNarrativeExpanded(isScrolled)
+                        },
+                        toggleNarrativeExpanded: {
+                            setNarrativeExpanded(!narrativeIsExpanded)
+                        },
                         openPrevious: {
                             guard let beatID = previousReviewBeatID else {
                                 return
@@ -6057,6 +6301,9 @@ struct ProductionChapterView: View {
                             : geometry.size.height * narrativeHeightFraction,
                         alignment: .bottom
                     )
+                    .onChange(of: presentation.cursor.beat.id) { _, _ in
+                        setNarrativeExpanded(false)
+                    }
 #if DEBUG
                     Color.black.opacity(0.001)
                         .frame(width: 1, height: 1)
@@ -6344,6 +6591,17 @@ struct ProductionChapterView: View {
             }
         }
     }
+
+    private func setNarrativeExpanded(_ isExpanded: Bool) {
+        guard narrativeIsExpanded != isExpanded else { return }
+        if reduceMotion {
+            narrativeIsExpanded = isExpanded
+        } else {
+            withAnimation(.easeInOut(duration: 0.24)) {
+                narrativeIsExpanded = isExpanded
+            }
+        }
+    }
 }
 
 private struct ChapterChromeHeader: View {
@@ -6404,26 +6662,34 @@ private struct ChapterChromeHeader: View {
     }
 
     var body: some View {
-        HStack(spacing: 8) {
-            Button("Road", action: returnToRoad)
-                .font(.subheadline.weight(.semibold))
-                .lineLimit(1)
-                .foregroundStyle(
-                    Color(red: 0.88, green: 0.72, blue: 0.43)
-                )
-                .frame(minWidth: 58, minHeight: 44)
-                .background(.black.opacity(0.72), in: Capsule())
-                .overlay {
-                    Capsule().stroke(
-                        .white.opacity(contrast == .increased ? 0.28 : 0.12),
-                        lineWidth: 1
+        HStack(spacing: 6) {
+            Button(action: returnToRoad) {
+                Image(systemName: "map.fill")
+                    .font(.system(size: 15, weight: .semibold))
+                    .foregroundStyle(
+                        Color(red: 0.88, green: 0.72, blue: 0.43)
                     )
-                }
+                    .frame(width: 36, height: 36)
+                    .background(.black.opacity(0.72), in: Circle())
+                    .overlay {
+                        Circle().stroke(
+                            .white.opacity(
+                                contrast == .increased ? 0.28 : 0.12
+                            ),
+                            lineWidth: 1
+                        )
+                    }
+                    .frame(width: 44, height: 44)
+            }
+                .buttonStyle(.plain)
+                .frame(width: 44, height: 44)
+                .contentShape(Rectangle())
                 .disabled(controlsAreDisabled || playbackState == .starting)
+                .accessibilityLabel("Road")
                 .accessibilityIdentifier("chapter-road")
 
             Button(action: openVisitedScenes) {
-                VStack(spacing: 4) {
+                VStack(spacing: 2) {
                     Text(presentation.cursor.chapter.title.launchEnglish)
                         .font(.caption2.weight(.semibold))
                         .foregroundStyle(
@@ -6446,8 +6712,8 @@ private struct ChapterChromeHeader: View {
                     )
                     .frame(height: 4)
                 }
-                .padding(.horizontal, 12)
-                .frame(maxWidth: .infinity, minHeight: 52)
+                .padding(.horizontal, 10)
+                .frame(maxWidth: .infinity, minHeight: 44)
                 .background(.black.opacity(0.72), in: Capsule())
                 .overlay {
                     Capsule().stroke(
@@ -6481,7 +6747,7 @@ private struct ChapterChromeHeader: View {
                             )
                     }
                 }
-                .frame(width: 44, height: 44)
+                .frame(width: 36, height: 36)
                 .background(.black.opacity(0.72), in: Circle())
                 .overlay {
                     Circle().stroke(
@@ -6489,8 +6755,11 @@ private struct ChapterChromeHeader: View {
                         lineWidth: 1
                     )
                 }
+                .frame(width: 44, height: 44)
             }
             .buttonStyle(.plain)
+            .frame(width: 44, height: 44)
+            .contentShape(Rectangle())
             .disabled(
                 controlsAreDisabled
                     || playbackState == .starting
@@ -6716,14 +6985,20 @@ private struct ChapterNarrativeSurface: View {
     @ObservedObject var model: JourneyModel
     @ObservedObject var session: ProductionChapterRouteSession
     let identity: ChapterRuntimeRouteIdentity
+    let bottomSafeAreaInset: CGFloat
     let showsLinearSceneSummary: Bool
+    let narrativeIsExpanded: Bool
     let linearInteractionModel: SemanticInteractionModel?
     let submitLinearInteraction: (String, AccessibilityActionSpec) -> Void
     let controlsAreDisabled: Bool
     let previousReviewBeatID: BeatID?
+    let onNarrativeScrollChanged: (Bool) -> Void
+    let toggleNarrativeExpanded: () -> Void
     let openPrevious: () -> Void
     @State private var readingAnchor: String?
+    @State private var narrativeScrollOffset: CGFloat = 0
     @Environment(\.colorSchemeContrast) private var contrast
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @AccessibilityFocusState private var headingIsFocused: Bool
 
     private var interactionIsComplete: Bool {
@@ -6742,6 +7017,28 @@ private struct ChapterNarrativeSurface: View {
         previousReviewBeatID != nil
     }
 
+    private var showsStandaloneActionControls: Bool {
+        if !interactionIsIncomplete {
+            return hasPrevious || canAdvance
+        }
+        guard let interaction = presentation.cursor.beat.interaction else {
+            return false
+        }
+        if case .allocate = interaction.grammar {
+            return dynamicTypeSize.isAccessibilitySize
+        }
+        return false
+    }
+
+    private var allocationIsIncomplete: Bool {
+        guard interactionIsIncomplete,
+              let interaction = presentation.cursor.beat.interaction,
+              case .allocate = interaction.grammar else {
+            return false
+        }
+        return true
+    }
+
     private var allocationCanCommit: Bool {
         guard let interaction = presentation.cursor.beat.interaction,
               case let .allocate(configuration) = interaction.grammar,
@@ -6758,13 +7055,59 @@ private struct ChapterNarrativeSurface: View {
 
     private var interactionStatus: String? {
         switch presentation.interactionFeedback {
-        case .contact: "Contact accepted"
-        case .progress: "In progress"
-        case .resistance: "That movement cannot continue"
-        case .threshold: "Threshold reached"
-        case .completed: "Complete"
-        case .some(.none), nil: nil
+        case .resistance:
+            if let interaction = presentation.cursor.beat.interaction {
+                switch interaction.grammar {
+                case .trace: "Start at the lit point and follow the route"
+                case .allocate: "Move grain between the visible stores"
+                case .assemble: "Place the part in its matching outline"
+                case .pressure: "Hold inside the balanced area"
+                case .transform: "Begin inside the highlighted area"
+                }
+            } else {
+                "Try the highlighted area"
+            }
+        case .contact, .progress, .threshold, .completed,
+             .some(.none), nil:
+            nil
         }
+    }
+
+    private var interactionInstruction: String? {
+        guard let interaction = presentation.cursor.beat.interaction,
+              !interactionIsComplete else { return nil }
+        return switch interaction.grammar {
+        case .trace:
+            "Drag through the lit points"
+        case .allocate:
+            "Drag grain or use − and +"
+        case .assemble:
+            "Drag each part into place"
+        case .pressure:
+            "Press and hold in balance"
+        case .transform:
+            "Drag upward through each change"
+        }
+    }
+
+    private var traceAdvanceAction: (
+        control: SemanticControl,
+        action: AccessibilityActionSpec
+    )? {
+        guard let interaction = presentation.cursor.beat.interaction,
+              case let .trace(configuration) = interaction.grammar,
+              case let .trace(progress)? = presentation.journeyState
+                .activeChapter?.interaction?.progress,
+              configuration.anchors.indices.contains(
+                  progress.reachedAnchorCount
+              ),
+              let semanticModel = presentation.semanticInteractionModel,
+              let control = semanticModel.controls
+                .first(where: { $0.id == "trace-route" }),
+              let action = control.actions.first(where: {
+                  $0.kind == .increment
+              }) else { return nil }
+        return (control, action)
     }
 
     var body: some View {
@@ -6835,6 +7178,22 @@ private struct ChapterNarrativeSurface: View {
             }
             .scrollPosition(id: $readingAnchor, anchor: .top)
             .scrollIndicators(.hidden)
+            .onScrollGeometryChange(for: CGFloat.self) { geometry in
+                geometry.contentOffset.y + geometry.contentInsets.top
+            } action: { _, offset in
+                narrativeScrollOffset = offset
+                if offset > 12 {
+                    onNarrativeScrollChanged(true)
+                }
+            }
+            .simultaneousGesture(
+                DragGesture(minimumDistance: 12).onEnded { value in
+                    if value.translation.height > 24,
+                       narrativeScrollOffset <= 1 {
+                        onNarrativeScrollChanged(false)
+                    }
+                }
+            )
 
             Divider().overlay(
                 .white.opacity(contrast == .increased ? 0.28 : 0.10)
@@ -6843,23 +7202,117 @@ private struct ChapterNarrativeSurface: View {
             VStack(alignment: .leading, spacing: 10) {
                 if let interaction = presentation.cursor.beat.interaction,
                    !interactionIsComplete {
-                    Text(
-                        presentation.cursor.beat.narrative.actionPrompt?
-                            .launchEnglish
-                            ?? interaction.prompt.launchEnglish
-                    )
-                    .font(
-                        .system(
-                            .callout,
-                            design: .serif,
-                            weight: .semibold
+                    HStack(alignment: .center, spacing: 12) {
+                        if hasPrevious {
+                            previousNavigationButton
+                        }
+
+                        Button(action: toggleNarrativeExpanded) {
+                            HStack(alignment: .center, spacing: 8) {
+                                VStack(alignment: .leading, spacing: 3) {
+                                    Text(
+                                        presentation.cursor.beat.narrative
+                                            .actionPrompt?.launchEnglish
+                                            ?? interaction.prompt.launchEnglish
+                                    )
+                                    .font(
+                                        .system(
+                                            .callout,
+                                            design: .serif,
+                                            weight: .semibold
+                                        )
+                                    )
+                                    .foregroundStyle(
+                                        Color(
+                                            red: 0.90,
+                                            green: 0.73,
+                                            blue: 0.43
+                                        )
+                                    )
+                                    .lineLimit(2)
+                                    .fixedSize(
+                                        horizontal: false,
+                                        vertical: true
+                                    )
+
+                                    if let interactionInstruction {
+                                        Text(interactionInstruction)
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                            .lineLimit(1)
+                                    }
+                                }
+                                .layoutPriority(1)
+
+                                Image(
+                                    systemName: narrativeIsExpanded
+                                        ? "chevron.down" : "chevron.up"
+                                )
+                                .font(.caption.weight(.semibold))
+                                .foregroundStyle(.secondary)
+                            }
+                            .frame(
+                                maxWidth: .infinity,
+                                minHeight: 44,
+                                alignment: .leading
+                            )
+                            .contentShape(Rectangle())
+                        }
+                        .buttonStyle(.plain)
+                        .disabled(controlsAreDisabled)
+                        .accessibilityLabel(
+                            narrativeIsExpanded
+                                ? "Hide scene text" : "Read scene text"
                         )
-                    )
-                    .foregroundStyle(
-                        Color(red: 0.90, green: 0.73, blue: 0.43)
-                    )
-                    .lineLimit(3)
-                    .fixedSize(horizontal: false, vertical: true)
+                        .accessibilityIdentifier("chapter-narrative-toggle")
+
+                        Spacer(minLength: 0)
+
+                        if let traceAdvanceAction {
+                            Button {
+                                session.submitVoiceOver(
+                                    elementID: traceAdvanceAction.control.id,
+                                    authoredAction: traceAdvanceAction.action,
+                                    expectedIdentity: identity
+                                )
+                            } label: {
+                                Image(systemName: "arrow.up.right")
+                                    .font(
+                                        .system(size: 16, weight: .semibold)
+                                    )
+                                    .foregroundStyle(.black)
+                                    .frame(width: 36, height: 36)
+                                    .background(
+                                        Color(
+                                            red: 0.82,
+                                            green: 0.64,
+                                            blue: 0.34
+                                        ),
+                                        in: Circle()
+                                    )
+                                    .frame(width: 44, height: 44)
+                            }
+                            .buttonStyle(.plain)
+                            .frame(width: 44, height: 44)
+                            .contentShape(Rectangle())
+                            .disabled(controlsAreDisabled)
+                            .accessibilityLabel(
+                                traceAdvanceAction.action.label.launchEnglish
+                            )
+                            .accessibilityValue(
+                                traceAdvanceAction.control.value ?? ""
+                            )
+                            .accessibilityHint(
+                                traceAdvanceAction.control.hint ?? ""
+                            )
+                            .accessibilityIdentifier(
+                                "chapter-trace-advance"
+                            )
+                        } else if allocationIsIncomplete,
+                                  !dynamicTypeSize.isAccessibilitySize {
+                            compactAllocationCommitButton
+                        }
+                    }
 
                     if let interactionStatus {
                         Text(interactionStatus)
@@ -6876,9 +7329,8 @@ private struct ChapterNarrativeSurface: View {
                     )
                 }
 
-                ViewThatFits(in: .horizontal) {
+                if showsStandaloneActionControls {
                     HStack(spacing: 10) { actionControls }
-                    VStack(spacing: 10) { actionControls }
                 }
 
                 if let audioFailure = model.responsiveAudioFailure {
@@ -6889,7 +7341,7 @@ private struct ChapterNarrativeSurface: View {
             }
             .padding(.horizontal, 18)
             .padding(.top, 12)
-            .safeAreaPadding(.bottom, 8)
+            .padding(.bottom, bottomSafeAreaInset + 8)
         }
         .background(
             .black.opacity(contrast == .increased ? 0.90 : 0.76)
@@ -6899,24 +7351,65 @@ private struct ChapterNarrativeSurface: View {
         .onAppear {
             readingAnchor = presentation.journeyState.activeChapter?
                 .readingAnchor
+            if readingAnchor != nil {
+                onNarrativeScrollChanged(true)
+            }
             if readingAnchor == nil { headingIsFocused = true }
+        }
+        .onDisappear {
+            onNarrativeScrollChanged(false)
         }
         .onChange(of: readingAnchor) { _, anchor in
             model.setReadingAnchor(anchor, expectedIdentity: identity)
         }
     }
 
+    private var compactAllocationCommitButton: some View {
+        Button {
+            session.submitTouch(
+                .commitAllocation,
+                expectedIdentity: identity
+            )
+        } label: {
+            Image(systemName: "checkmark")
+                .font(.system(size: 16, weight: .bold))
+                .foregroundStyle(allocationCanCommit ? .black : .secondary)
+                .frame(width: 36, height: 36)
+                .background(
+                    allocationCanCommit
+                        ? Color(red: 0.82, green: 0.64, blue: 0.34)
+                        : Color.white.opacity(0.08),
+                    in: Circle()
+                )
+                .overlay {
+                    if !allocationCanCommit {
+                        Circle().stroke(
+                            .white.opacity(
+                                contrast == .increased ? 0.34 : 0.14
+                            ),
+                            lineWidth: 1
+                        )
+                    }
+                }
+                .frame(width: 44, height: 44)
+        }
+        .buttonStyle(.plain)
+        .frame(width: 44, height: 44)
+        .contentShape(Rectangle())
+        .disabled(controlsAreDisabled || !allocationCanCommit)
+        .accessibilityLabel("Set the allocation")
+        .accessibilityHint(
+            allocationCanCommit
+                ? "Completes this scene"
+                : "Allocate all shares and meet every minimum first"
+        )
+        .accessibilityIdentifier("chapter-allocate-commit")
+    }
+
     @ViewBuilder
     private var actionControls: some View {
-        if hasPrevious {
-            Button(action: openPrevious) {
-                Text("Previous")
-                    .frame(minWidth: 88, minHeight: 44)
-            }
-                .buttonStyle(.bordered)
-                .tint(Color(red: 0.78, green: 0.70, blue: 0.56))
-                .disabled(controlsAreDisabled)
-                .accessibilityIdentifier("chapter-previous")
+        if hasPrevious && !interactionIsIncomplete {
+            previousNavigationButton
         }
 
         if let interaction = presentation.cursor.beat.interaction,
@@ -6940,32 +7433,99 @@ private struct ChapterNarrativeSurface: View {
         }
 
         if canAdvance {
-            Button {
-                session.prepareForBeatExit(
-                    expectedIdentity: identity
-                )
-                model.advanceCurrentBeat(expectedIdentity: identity)
-            } label: {
-                HStack {
-                    Text("Continue")
-                    Spacer()
-                    if model.chapterTransitionIsPending {
-                        ProgressView().tint(.black)
-                    } else {
-                        Image(systemName: "arrow.right")
-                    }
+            Spacer(minLength: 0)
+            if dynamicTypeSize.isAccessibilitySize {
+                Button {
+                    advance()
+                } label: {
+                    Label("Continue", systemImage: "chevron.right")
+                        .frame(minWidth: 112, minHeight: 44)
                 }
-                .frame(maxWidth: .infinity, minHeight: 44)
+                .buttonStyle(.borderedProminent)
+                .buttonBorderShape(.capsule)
+                .tint(Color(red: 0.82, green: 0.64, blue: 0.34))
+                .foregroundStyle(.black)
+                .disabled(controlsAreDisabled)
+                .accessibilityLabel("Continue")
+                .accessibilityIdentifier("chapter-continue")
+            } else {
+                Button {
+                    advance()
+                } label: {
+                    ZStack {
+                        if model.chapterTransitionIsPending {
+                            ProgressView().tint(.black)
+                        } else {
+                            Image(systemName: "chevron.right")
+                                .font(
+                                    .system(size: 16, weight: .semibold)
+                                )
+                        }
+                    }
+                    .foregroundStyle(.black)
+                    .frame(width: 36, height: 36)
+                    .background(
+                        Color(red: 0.82, green: 0.64, blue: 0.34),
+                        in: Circle()
+                    )
+                    .frame(width: 44, height: 44)
+                }
+                .buttonStyle(.plain)
+                .frame(width: 44, height: 44)
+                .contentShape(Rectangle())
+                .disabled(controlsAreDisabled)
+                .accessibilityLabel("Continue")
+                .accessibilityIdentifier("chapter-continue")
             }
-            .buttonStyle(.borderedProminent)
-            .tint(Color(red: 0.82, green: 0.64, blue: 0.34))
-            .foregroundStyle(.black)
-            .disabled(
-                controlsAreDisabled
-            )
-            .accessibilityIdentifier("chapter-continue")
         }
     }
+
+    @ViewBuilder
+    private var previousNavigationButton: some View {
+        if dynamicTypeSize.isAccessibilitySize {
+            Button(action: openPrevious) {
+                Label("Previous", systemImage: "chevron.left")
+                    .frame(minWidth: 112, minHeight: 44)
+            }
+            .buttonStyle(.bordered)
+            .buttonBorderShape(.capsule)
+            .tint(Color(red: 0.78, green: 0.70, blue: 0.56))
+            .disabled(controlsAreDisabled)
+            .accessibilityLabel("Previous scene")
+            .accessibilityIdentifier("chapter-previous")
+        } else {
+            Button(action: openPrevious) {
+                Image(systemName: "chevron.left")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundStyle(
+                        Color(red: 0.82, green: 0.75, blue: 0.62)
+                    )
+                    .frame(width: 36, height: 36)
+                    .background(.black.opacity(0.54), in: Circle())
+                    .overlay {
+                        Circle().stroke(
+                            .white.opacity(
+                                contrast == .increased ? 0.34 : 0.14
+                            ),
+                            lineWidth: 1
+                        )
+                    }
+                    .frame(width: 44, height: 44)
+            }
+            .buttonStyle(.plain)
+            .frame(width: 44, height: 44)
+            .contentShape(Rectangle())
+            .disabled(controlsAreDisabled)
+            .accessibilityLabel("Previous scene")
+            .accessibilityIdentifier("chapter-previous")
+        }
+    }
+
+    private func advance() {
+        session.prepareForBeatExit(expectedIdentity: identity)
+        model.advanceCurrentBeat(expectedIdentity: identity)
+    }
+
 }
 
 private struct ChapterLinearInteractionControls: View {
@@ -7320,6 +7880,690 @@ private struct SemanticControlElement: View {
     }
 }
 
+private struct ChapterTraceGuidanceOverlay: View {
+    let presentation: ChapterScenePresentation
+    @Environment(\.colorSchemeContrast) private var contrast
+
+    private var traceState: (
+        configuration: TraceInteractionSpec,
+        progress: TraceProgress
+    )? {
+        guard let interaction = presentation.cursor.beat.interaction,
+              case let .trace(configuration) = interaction.grammar,
+              let runtime = presentation.journeyState.activeChapter?
+                .interaction,
+              runtime.phase != .complete,
+              case let .trace(progress) = runtime.progress else {
+            return nil
+        }
+        return (configuration, progress)
+    }
+
+    var body: some View {
+        if let traceState {
+            Canvas { context, size in
+                let points = traceState.configuration.anchors.map {
+                    projectedTracePoint(
+                        $0,
+                        sourceRect: presentation.framePlan.camera.sourceRect,
+                        size: size
+                    )
+                }
+                guard let firstPoint = points.first else { return }
+
+                var route = Path()
+                route.move(to: firstPoint)
+                for point in points.dropFirst() {
+                    route.addLine(to: point)
+                }
+                context.stroke(
+                    route,
+                    with: .color(
+                        .white.opacity(contrast == .increased ? 0.58 : 0.36)
+                    ),
+                    style: StrokeStyle(
+                        lineWidth: contrast == .increased ? 2.5 : 2,
+                        lineCap: .round,
+                        lineJoin: .round,
+                        dash: [5, 7]
+                    )
+                )
+
+                let reachedCount = min(
+                    max(traceState.progress.reachedAnchorCount, 0),
+                    points.count
+                )
+                if reachedCount > 0 {
+                    var completedRoute = Path()
+                    completedRoute.move(to: firstPoint)
+                    for point in points.prefix(reachedCount).dropFirst() {
+                        completedRoute.addLine(to: point)
+                    }
+                    if reachedCount < points.count,
+                       let lastPoint = traceState.progress.lastPoint {
+                        completedRoute.addLine(
+                            to: projectedTracePoint(
+                                lastPoint,
+                                sourceRect:
+                                    presentation.framePlan.camera.sourceRect,
+                                size: size
+                            )
+                        )
+                    }
+                    context.stroke(
+                        completedRoute,
+                        with: .color(
+                            Color(red: 0.92, green: 0.74, blue: 0.40)
+                        ),
+                        style: StrokeStyle(
+                            lineWidth: contrast == .increased ? 4 : 3,
+                            lineCap: .round,
+                            lineJoin: .round
+                        )
+                    )
+                }
+
+                for (index, point) in points.enumerated() {
+                    if index < reachedCount {
+                        let marker = CGRect(
+                            x: point.x - 5,
+                            y: point.y - 5,
+                            width: 10,
+                            height: 10
+                        )
+                        context.fill(
+                            Path(ellipseIn: marker),
+                            with: .color(
+                                Color(red: 0.92, green: 0.74, blue: 0.40)
+                            )
+                        )
+                    } else if index == reachedCount {
+                        let halo = CGRect(
+                            x: point.x - 16,
+                            y: point.y - 16,
+                            width: 32,
+                            height: 32
+                        )
+                        let center = CGRect(
+                            x: point.x - 5,
+                            y: point.y - 5,
+                            width: 10,
+                            height: 10
+                        )
+                        context.fill(
+                            Path(ellipseIn: halo),
+                            with: .color(.black.opacity(0.46))
+                        )
+                        context.stroke(
+                            Path(ellipseIn: halo),
+                            with: .color(
+                                Color(red: 0.96, green: 0.78, blue: 0.43)
+                            ),
+                            lineWidth: contrast == .increased ? 3 : 2
+                        )
+                        context.fill(
+                            Path(ellipseIn: center),
+                            with: .color(
+                                Color(red: 0.96, green: 0.78, blue: 0.43)
+                            )
+                        )
+                    } else {
+                        let marker = CGRect(
+                            x: point.x - 3,
+                            y: point.y - 3,
+                            width: 6,
+                            height: 6
+                        )
+                        context.fill(
+                            Path(ellipseIn: marker),
+                            with: .color(.white.opacity(0.68))
+                        )
+                    }
+                }
+            }
+            .allowsHitTesting(false)
+            .accessibilityHidden(true)
+        }
+    }
+
+    private func projectedTracePoint(
+        _ point: NormalizedPoint,
+        sourceRect: SceneFrameRect,
+        size: CGSize
+    ) -> CGPoint {
+        guard sourceRect.width > 0, sourceRect.height > 0 else {
+            return .zero
+        }
+        return CGPoint(
+            x: size.width * CGFloat(
+                (point.x - sourceRect.x) / sourceRect.width
+            ),
+            y: size.height * CGFloat(
+                (point.y - sourceRect.y) / sourceRect.height
+            )
+        )
+    }
+}
+
+private struct ChapterTransformStageOverlayItem: Identifiable {
+    enum Phase {
+        case completed
+        case current
+        case waiting
+    }
+
+    let id: String
+    let label: String
+    let center: SceneFramePoint
+    let phase: Phase
+    let progress: Double
+}
+
+private struct ChapterTransformGuidanceOverlay: View {
+    let presentation: ChapterScenePresentation
+    @Environment(\.colorSchemeContrast) private var contrast
+
+    private var items: [ChapterTransformStageOverlayItem]? {
+        guard let interaction = presentation.cursor.beat.interaction,
+              case let .transform(configuration) = interaction.grammar,
+              case let .transform(visual)? =
+                presentation.cursor.scene.interactionVisualBinding,
+              let runtime = presentation.journeyState.activeChapter?
+                .interaction,
+              runtime.phase != .complete,
+              case let .transform(progress) = runtime.progress,
+              configuration.stages.count == visual.stages.count else {
+            return nil
+        }
+
+        let items = visual.stages.enumerated().compactMap {
+            index, stageVisual -> ChapterTransformStageOverlayItem? in
+            guard configuration.stages.indices.contains(index),
+                  configuration.stages[index].id == stageVisual.stageID,
+                  let hitRegion = presentation.framePlan
+                    .interactionHitRegions.first(where: {
+                        $0.interactionTargetID
+                            == stageVisual.interactionTargetID
+                    }),
+                  let center = chapterRegionCenter(hitRegion.viewportPath),
+                  let accessibilityElement = presentation.cursor.accessibility
+                    .elements.first(where: {
+                      $0.id == hitRegion.accessibilityElementID
+                  }) else {
+                return nil
+            }
+            let phase: ChapterTransformStageOverlayItem.Phase
+            if index < progress.completedStageCount {
+                phase = .completed
+            } else if index == progress.completedStageCount {
+                phase = .current
+            } else {
+                phase = .waiting
+            }
+            let stage = configuration.stages[index]
+            let stageProgress = phase == .completed
+                ? 1
+                : (phase == .current && stage.requiredAmount > 0
+                    ? min(max(
+                        progress.currentAmount / stage.requiredAmount,
+                        0
+                    ), 1)
+                    : 0)
+            return ChapterTransformStageOverlayItem(
+                id: stageVisual.stageID,
+                label: accessibilityElement.label.launchEnglish,
+                center: center,
+                phase: phase,
+                progress: stageProgress
+            )
+        }
+        return items.count == visual.stages.count ? items : nil
+    }
+
+    var body: some View {
+        if let items {
+            GeometryReader { geometry in
+                ZStack {
+                    Canvas { context, size in
+                        guard let first = items.first else { return }
+                        var path = Path()
+                        path.move(
+                            to: CGPoint(
+                                x: CGFloat(first.center.x) * size.width,
+                                y: CGFloat(first.center.y) * size.height
+                            )
+                        )
+                        for item in items.dropFirst() {
+                            path.addLine(
+                                to: CGPoint(
+                                    x: CGFloat(item.center.x) * size.width,
+                                    y: CGFloat(item.center.y) * size.height
+                                )
+                            )
+                        }
+                        context.stroke(
+                            path,
+                            with: .color(
+                                .white.opacity(
+                                    contrast == .increased ? 0.40 : 0.22
+                                )
+                            ),
+                            style: StrokeStyle(
+                                lineWidth: 2,
+                                lineCap: .round,
+                                dash: [4, 7]
+                            )
+                        )
+                    }
+
+                    ForEach(items) { item in
+                        ChapterTransformStageMarker(
+                            item: item,
+                            increasedContrast: contrast == .increased
+                        )
+                        .frame(width: 112, height: 86)
+                        .position(
+                            x: CGFloat(item.center.x) * geometry.size.width,
+                            y: CGFloat(item.center.y) * geometry.size.height
+                        )
+                    }
+                }
+            }
+            .allowsHitTesting(false)
+            .accessibilityHidden(true)
+        }
+    }
+}
+
+private struct ChapterTransformStageMarker: View {
+    let item: ChapterTransformStageOverlayItem
+    let increasedContrast: Bool
+
+    private let accent = Color(red: 0.94, green: 0.75, blue: 0.40)
+
+    var body: some View {
+        VStack(spacing: 7) {
+            Text(item.label)
+                .font(.caption2.weight(
+                    item.phase == .current ? .semibold : .regular
+                ))
+                .foregroundStyle(
+                    item.phase == .waiting
+                        ? .white.opacity(0.62)
+                        : .white.opacity(0.94)
+                )
+                .lineLimit(2)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 7)
+                .padding(.vertical, 4)
+                .background(.black.opacity(0.66), in: Capsule())
+
+            ZStack {
+                Circle()
+                    .fill(
+                        item.phase == .completed
+                            ? accent : .black.opacity(0.68)
+                    )
+                Circle()
+                    .stroke(
+                        item.phase == .waiting
+                            ? .white.opacity(
+                                increasedContrast ? 0.58 : 0.32
+                            )
+                            : accent,
+                        lineWidth: increasedContrast ? 2.5 : 2
+                    )
+                if item.phase == .current {
+                    Circle()
+                        .trim(from: 0, to: max(item.progress, 0.035))
+                        .stroke(
+                            accent,
+                            style: StrokeStyle(
+                                lineWidth: increasedContrast ? 4 : 3,
+                                lineCap: .round
+                            )
+                        )
+                        .rotationEffect(.degrees(-90))
+                        .padding(3)
+                    Image(systemName: "arrow.up")
+                        .font(.caption.weight(.bold))
+                        .foregroundStyle(accent)
+                } else if item.phase == .completed {
+                    Image(systemName: "checkmark")
+                        .font(.caption.weight(.bold))
+                        .foregroundStyle(.black)
+                } else {
+                    Circle()
+                        .fill(.white.opacity(0.54))
+                        .frame(width: 5, height: 5)
+                }
+            }
+            .frame(width: 32, height: 32)
+        }
+    }
+}
+
+private struct ChapterAllocationOverlayItem: Identifiable {
+    let id: String
+    let control: SemanticControl
+    let currentUnits: Int
+    let minimumUnits: Int
+    let center: SceneFramePoint
+}
+
+private struct ChapterAllocationOverlaySnapshot {
+    let items: [ChapterAllocationOverlayItem]
+    let remainingUnits: Int
+    let sourceLabelPosition: SceneFramePoint?
+}
+
+private struct ChapterAllocationControlsOverlay: View {
+    let presentation: ChapterScenePresentation
+    let controlsAreDisabled: Bool
+    let submit: (String, AccessibilityActionSpec) -> Void
+    @Environment(\.colorSchemeContrast) private var contrast
+
+    private var snapshot: ChapterAllocationOverlaySnapshot? {
+        guard let interaction = presentation.cursor.beat.interaction,
+              case let .allocate(configuration) = interaction.grammar,
+              let runtime = presentation.journeyState.activeChapter?
+                .interaction,
+              runtime.phase != .complete,
+              case let .allocate(progress) = runtime.progress,
+              case let .allocate(visual)? = presentation.cursor.scene
+                .interactionVisualBinding,
+              let semanticModel = presentation.semanticInteractionModel else {
+            return nil
+        }
+
+        let items: [ChapterAllocationOverlayItem] = configuration.destinations
+            .compactMap { destination -> ChapterAllocationOverlayItem? in
+            guard let destinationVisual = visual.destinations.first(where: {
+                $0.destinationID == destination.id
+            }), let hitRegion = presentation.framePlan.interactionHitRegions
+                .first(where: {
+                    $0.interactionTargetID
+                        == destinationVisual.interactionTargetID
+                }), let center = regionCenter(hitRegion.viewportPath),
+                  let control = semanticModel.controls.first(where: {
+                      $0.id == hitRegion.accessibilityElementID
+                  }) else {
+                return nil
+            }
+            let currentUnits = progress.allocations.first(where: {
+                $0.destinationID == destination.id
+            })?.units ?? 0
+            return ChapterAllocationOverlayItem(
+                id: destination.id,
+                control: control,
+                currentUnits: currentUnits,
+                minimumUnits: destination.minimumUnits,
+                center: center
+            )
+        }
+        guard items.count == configuration.destinations.count else {
+            return nil
+        }
+
+        let allocatedUnits = progress.allocations.reduce(0) {
+            $0 + $1.units
+        }
+        let sourcePosition: SceneFramePoint?
+        if let sourceRegion = presentation.framePlan
+            .interactionSourceHitRegion {
+            sourcePosition = sourceLabelPosition(
+                for: sourceRegion.viewportPath
+            )
+        } else {
+            sourcePosition = nil
+        }
+        return ChapterAllocationOverlaySnapshot(
+            items: items,
+            remainingUnits: max(configuration.totalUnits - allocatedUnits, 0),
+            sourceLabelPosition: sourcePosition
+        )
+    }
+
+    var body: some View {
+        if let snapshot {
+            GeometryReader { geometry in
+                let controlWidth = min(
+                    112,
+                    max(104, geometry.size.width * 0.285)
+                )
+                ZStack {
+                    ForEach(
+                        Array(snapshot.items.enumerated()),
+                        id: \.element.id
+                    ) { index, item in
+                        ChapterAllocationDestinationControl(
+                            item: item,
+                            controlsAreDisabled: controlsAreDisabled,
+                            submit: submit
+                        )
+                        .frame(width: controlWidth, height: 64)
+                        .position(
+                            x: horizontalControlPosition(
+                                index: index,
+                                count: snapshot.items.count,
+                                controlWidth: controlWidth,
+                                totalWidth: geometry.size.width
+                            ),
+                            y: clampedPosition(
+                                CGFloat(item.center.y) * geometry.size.height,
+                                halfExtent: 32,
+                                totalExtent: geometry.size.height
+                            )
+                        )
+                    }
+
+                    if let sourcePosition = snapshot.sourceLabelPosition {
+                        Label(
+                            "\(snapshot.remainingUnits) left",
+                            systemImage: "hand.draw"
+                        )
+                        .font(.caption2.weight(.semibold))
+                        .foregroundStyle(
+                            Color(red: 0.95, green: 0.85, blue: 0.64)
+                        )
+                        .padding(.horizontal, 10)
+                        .frame(minHeight: 28)
+                        .background(.black.opacity(0.72), in: Capsule())
+                        .overlay {
+                            Capsule().stroke(
+                                .white.opacity(
+                                    contrast == .increased ? 0.42 : 0.18
+                                ),
+                                lineWidth: 1
+                            )
+                        }
+                        .position(
+                            x: CGFloat(sourcePosition.x)
+                                * geometry.size.width,
+                            y: CGFloat(sourcePosition.y)
+                                * geometry.size.height
+                        )
+                        .allowsHitTesting(false)
+                        .accessibilityHidden(true)
+                    }
+                }
+            }
+        }
+    }
+
+    private func regionCenter(
+        _ path: [SceneFramePoint]
+    ) -> SceneFramePoint? {
+        guard let minimumX = path.map(\.x).min(),
+              let maximumX = path.map(\.x).max(),
+              let minimumY = path.map(\.y).min(),
+              let maximumY = path.map(\.y).max() else {
+            return nil
+        }
+        return SceneFramePoint(
+            x: (minimumX + maximumX) / 2,
+            y: (minimumY + maximumY) / 2
+        )
+    }
+
+    private func sourceLabelPosition(
+        for path: [SceneFramePoint]
+    ) -> SceneFramePoint? {
+        guard let center = regionCenter(path),
+              let minimumY = path.map(\.y).min(),
+              let maximumY = path.map(\.y).max() else {
+            return nil
+        }
+        return SceneFramePoint(
+            x: center.x,
+            y: minimumY + (maximumY - minimumY) * 0.24
+        )
+    }
+
+    private func clampedPosition(
+        _ value: CGFloat,
+        halfExtent: CGFloat,
+        totalExtent: CGFloat
+    ) -> CGFloat {
+        min(max(value, halfExtent + 4), totalExtent - halfExtent - 4)
+    }
+
+    private func horizontalControlPosition(
+        index: Int,
+        count: Int,
+        controlWidth: CGFloat,
+        totalWidth: CGFloat
+    ) -> CGFloat {
+        guard count > 1 else { return totalWidth / 2 }
+        let outerPadding: CGFloat = 10
+        let availableTravel = max(
+            totalWidth - (outerPadding * 2) - controlWidth,
+            0
+        )
+        return outerPadding + (controlWidth / 2)
+            + (CGFloat(index) * availableTravel / CGFloat(count - 1))
+    }
+}
+
+private struct ChapterAllocationDestinationControl: View {
+    let item: ChapterAllocationOverlayItem
+    let controlsAreDisabled: Bool
+    let submit: (String, AccessibilityActionSpec) -> Void
+    @Environment(\.colorSchemeContrast) private var contrast
+
+    private var increment: AccessibilityActionSpec? {
+        item.control.actions.first { $0.kind == .increment }
+    }
+
+    private var decrement: AccessibilityActionSpec? {
+        item.control.actions.first { $0.kind == .decrement }
+    }
+
+    private var availableAdjustments: [AccessibilityActionSpec] {
+        item.control.actions.filter {
+            $0.kind == .increment || $0.kind == .decrement
+        }
+    }
+
+    private var visualControl: some View {
+        VStack(spacing: 0) {
+            Text(
+                "\(item.control.label) · "
+                    + "\(item.currentUnits)/\(item.minimumUnits)"
+            )
+                .font(.caption2.weight(.semibold))
+                .foregroundStyle(
+                    Color(red: 0.95, green: 0.87, blue: 0.71)
+                )
+                .lineLimit(1)
+                .minimumScaleFactor(0.72)
+                .padding(.horizontal, 4)
+                .frame(height: 18)
+
+            HStack(spacing: 0) {
+                adjustmentButton(
+                    action: decrement,
+                    systemImage: "minus"
+                )
+
+                Spacer(minLength: 0)
+
+                adjustmentButton(
+                    action: increment,
+                    systemImage: "plus"
+                )
+            }
+            .frame(height: 44)
+        }
+        .background(
+            .black.opacity(contrast == .increased ? 0.90 : 0.74),
+            in: RoundedRectangle(cornerRadius: 12, style: .continuous)
+        )
+        .overlay {
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .stroke(
+                    .white.opacity(
+                        contrast == .increased ? 0.50 : 0.22
+                    ),
+                    lineWidth: 1
+                )
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(item.control.label)
+        .accessibilityValue(item.control.value ?? "")
+        .accessibilityHint(item.control.hint ?? "")
+        .accessibilityIdentifier("chapter-semantic-\(item.control.id)")
+    }
+
+    @ViewBuilder
+    var body: some View {
+        if increment != nil, decrement != nil {
+            visualControl.accessibilityAdjustableAction { direction in
+                guard !controlsAreDisabled else { return }
+                let action = direction == .increment
+                    ? increment : decrement
+                if let action { submit(item.control.id, action) }
+            }
+        } else {
+            visualControl.accessibilityActions {
+                ForEach(
+                    Array(availableAdjustments.enumerated()),
+                    id: \.offset
+                ) { _, action in
+                    Button(action.label.launchEnglish) {
+                        guard !controlsAreDisabled else { return }
+                        submit(item.control.id, action)
+                    }
+                }
+            }
+        }
+    }
+
+    private func adjustmentButton(
+        action: AccessibilityActionSpec?,
+        systemImage: String
+    ) -> some View {
+        Button {
+            guard !controlsAreDisabled, let action else { return }
+            submit(item.control.id, action)
+        } label: {
+            Image(systemName: systemImage)
+                .font(.system(size: 13, weight: .bold))
+                .foregroundStyle(
+                    action == nil
+                        ? Color.white.opacity(0.24)
+                        : Color(red: 0.95, green: 0.76, blue: 0.40)
+                )
+                .frame(width: 28, height: 28)
+                .background(.black.opacity(0.48), in: Circle())
+                .frame(width: 44, height: 44)
+                .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .disabled(controlsAreDisabled || action == nil)
+    }
+}
+
 private struct ChapterTouchSurface: View {
     let presentation: ChapterScenePresentation
     let cancellationEpoch: UInt64
@@ -7376,28 +8620,42 @@ private struct TraceTouchSurface: View {
     let submit: (SceneTouchIntent) -> Void
     let endGesture: () -> Void
     @State private var sampleAdmission = TraceTouchSampleAdmissionPolicy()
+    @State private var submittedStartPoint = false
 
     var body: some View {
         GeometryReader { geometry in
             Color.clear
                 .contentShape(Rectangle())
                 .gesture(
-                    DragGesture(minimumDistance: 0, coordinateSpace: .local)
+                    DragGesture(minimumDistance: 8, coordinateSpace: .local)
                         .onChanged { value in
-                            let point = normalized(value.location, in: geometry.size)
-                            guard sampleAdmission.admits(point) else { return }
-                            submit(.trace(viewportPoint: point))
+                            if !submittedStartPoint {
+                                submittedStartPoint = true
+                                submitTracePoint(
+                                    value.startLocation,
+                                    in: geometry.size
+                                )
+                            }
+                            submitTracePoint(value.location, in: geometry.size)
                         }
                         .onEnded { _ in
+                            submittedStartPoint = false
                             sampleAdmission.endGesture()
                             endGesture()
                         }
                 )
                 .onDisappear {
+                    submittedStartPoint = false
                     sampleAdmission.endGesture()
                     endGesture()
                 }
         }
+    }
+
+    private func submitTracePoint(_ location: CGPoint, in size: CGSize) {
+        let point = normalized(location, in: size)
+        guard sampleAdmission.admits(point) else { return }
+        submit(.trace(viewportPoint: point))
     }
 }
 
@@ -7546,7 +8804,10 @@ private struct AllocateTouchSurface: View {
             Color.clear
                 .contentShape(Rectangle())
                 .gesture(
-                    DragGesture(minimumDistance: 0, coordinateSpace: .local)
+                    // A tap on the image has no allocation meaning. Wait for
+                    // deliberate movement before resolving the authored
+                    // harvest source and destination geometry.
+                    DragGesture(minimumDistance: 8, coordinateSpace: .local)
                         .onChanged { value in
                             let source = normalized(value.startLocation, in: geometry.size)
                             let current = normalized(value.location, in: geometry.size)
@@ -7742,12 +9003,19 @@ private struct TransformTouchSurface: View {
                 .gesture(
                     DragGesture(minimumDistance: 0, coordinateSpace: .local)
                         .onChanged { value in
-                            let point = normalized(value.startLocation, in: geometry.size)
-                            let distance = dragProgress(value.translation, in: geometry.size)
+                            let distance = upwardDragProgress(
+                                value.translation,
+                                in: geometry.size
+                            )
+                            guard distance > currentAmount else { return }
+                            let point = normalized(
+                                value.startLocation,
+                                in: geometry.size
+                            )
                             submit(
                                 .adjustTarget(
                                     viewportPoint: point,
-                                    amount: max(currentAmount, distance)
+                                    amount: distance
                                 )
                             )
                         }
@@ -7768,6 +9036,29 @@ private func normalized(_ point: CGPoint, in size: CGSize) -> SceneFramePoint {
 private func dragProgress(_ translation: CGSize, in size: CGSize) -> Double {
     let denominator = max(min(size.width, size.height) * 0.42, 1)
     return clamped(hypot(translation.width, translation.height) / denominator)
+}
+
+private func upwardDragProgress(
+    _ translation: CGSize,
+    in size: CGSize
+) -> Double {
+    let denominator = max(size.height * 0.38, 1)
+    return clamped(-translation.height / denominator)
+}
+
+private func chapterRegionCenter(
+    _ path: [SceneFramePoint]
+) -> SceneFramePoint? {
+    guard let minimumX = path.map(\.x).min(),
+          let maximumX = path.map(\.x).max(),
+          let minimumY = path.map(\.y).min(),
+          let maximumY = path.map(\.y).max() else {
+        return nil
+    }
+    return SceneFramePoint(
+        x: (minimumX + maximumX) / 2,
+        y: (minimumY + maximumY) / 2
+    )
 }
 
 private func clamped(_ value: Double) -> Double {

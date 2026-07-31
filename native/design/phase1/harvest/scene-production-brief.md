@@ -1,5 +1,11 @@
 # The Harvest Had to Last — scene production brief
 
+> **Superseded visual pipeline — 30 July 2026.** The selected composition and
+> causal interaction remain references. The plate, layer, mask and overscan
+> production instructions below must not be executed. Reconstruct the scene
+> under the authored real-time 3D medium lock and the Chapter 01 experience
+> plan.
+
 ## Status and authority
 
 | Field | Value |

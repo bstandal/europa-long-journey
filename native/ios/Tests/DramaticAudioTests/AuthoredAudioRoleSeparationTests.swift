@@ -89,6 +89,26 @@ final class AuthoredAudioRoleSeparationTests: XCTestCase {
             "A narration-disabled run must retain only the independently authored bed"
         )
         XCTAssertEqual(
+            AuthoredAudioPlaybackBoundaryPolicy.componentsToPlay(
+                available: separated,
+                usesVerifiedRoleSeparation: true,
+                suppressesNarration: false,
+                narrationIsEnabled: true,
+                nonSpeakingIsOwnedExternally: true
+            ),
+            [.narration],
+            "A responsive program must remain the only non-speaking owner"
+        )
+        XCTAssertTrue(
+            AuthoredAudioPlaybackBoundaryPolicy.componentsToPlay(
+                available: separated,
+                usesVerifiedRoleSeparation: true,
+                suppressesNarration: true,
+                narrationIsEnabled: true,
+                nonSpeakingIsOwnedExternally: true
+            ).isEmpty
+        )
+        XCTAssertEqual(
             AuthoredAudioPlaybackBoundaryPolicy
                 .componentToPauseForVoiceOver(
                     available: separated,
@@ -113,6 +133,16 @@ final class AuthoredAudioRoleSeparationTests: XCTestCase {
                     usesVerifiedRoleSeparation: false
                 ),
             .wholeMix
+        )
+        XCTAssertTrue(
+            AuthoredAudioPlaybackBoundaryPolicy.componentsToPlay(
+                available: fallback,
+                usesVerifiedRoleSeparation: false,
+                suppressesNarration: false,
+                narrationIsEnabled: true,
+                nonSpeakingIsOwnedExternally: true
+            ).isEmpty,
+            "An indivisible whole mix cannot accompany an external bed"
         )
     }
 

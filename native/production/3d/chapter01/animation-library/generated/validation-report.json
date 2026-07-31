@@ -1,0 +1,53 @@
+{
+  "authoredSpec": {
+    "clipCount": 20,
+    "contactWindowCount": 51,
+    "loopClipCount": 6
+  },
+  "compiledUSD": {
+    "animationCount": 51,
+    "animationWitnessCount": 51,
+    "jointCount": 53,
+    "rigProfileCount": 3,
+    "rootMotionDisabled": true,
+    "skeletonCount": 51
+  },
+  "inputLocks": [
+    {
+      "path": "../characters/outputs/chapter01-hero-character-library.usdc",
+      "sha256": "0127d681b1dae5ede2d6acced1c596c23f08dee83a1c1f9be2f2c059b52f3140"
+    },
+    {
+      "path": "../characters/provenance.json",
+      "sha256": "fb306ea451a8709d4311daa03fb2fb2459d9b67b9f5ba85fc263442ee5dbba1b"
+    },
+    {
+      "path": "../../../../blueprint/first-farmers-experience-approval.json",
+      "sha256": "68a2edadf793050ae3fa6f45f871d851bfe9e1e471d96b2609eff49e238244df"
+    },
+    {
+      "path": "../../../../ios/Sources/ImmersiveRuntime/Chapter01InteractionCatalog.swift",
+      "sha256": "9e6ab8a15e4fdd60edcd91cd834aacf784b91d25126b9ed0b78b5ee5bc4e17ff"
+    }
+  ],
+  "libraryID": "chapter01-directed-animation-library-v1",
+  "lockedRuntimeContract": {
+    "grammarCounts": {
+      "allocate": 1,
+      "assemble": 1,
+      "trace": 1,
+      "transform": 3
+    },
+    "interactionCount": 6
+  },
+  "policy": {
+    "autonomousCrowdSimulationAbsent": true,
+    "dialogueAbsent": true,
+    "domainCompletionForbidden": true,
+    "freeClothHairSimulationAbsent": true,
+    "lipSyncAbsent": true,
+    "thirdPartyMotionAbsent": true
+  },
+  "schemaVersion": 1,
+  "status": "PASS"
+}

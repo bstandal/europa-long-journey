@@ -79,6 +79,14 @@ const receiptPath = path.join(generatedRoot, "first-farmers.payload-receipt.json
 
 const sampleRate = 48_000;
 const narrationWordsPerMinute = 138;
+const responsiveVoiceClearTargetLUFSByRegion = Object.freeze({
+  approach: -32,
+  waiting: -32,
+  engaged: -32,
+  resistance: -29,
+  consequence: -32,
+});
+const gainPrecision = 1_000_000;
 const reviewSeedGrainMechanismFocus = "One finite harvest, divided into twelve equal illustrative runtime shares, must become winter food, protected reserve and seed grain before the grain in the foreground is exhausted.";
 const activationRule = "EVERY_PATH_MUST_BE_REPLACED_BY_A_VERIFIED_PACKAGE_ASSET_AND_EVERY_INTERACTIVE_BEAT_MUST_BIND_A_PRODUCTION_AUTHORED_VALIDATED_RESPONSIVE_AUDIO_PROGRAM_BEFORE_COMPILATION";
 const allowedHapticSemantics = new Set([
@@ -452,6 +460,12 @@ function genericScene(beat, interaction) {
     ];
   const mechanism = interaction?.causalContract.visibleMechanism
     ?? beat.sceneDirection.mechanismLight;
+  const finalCameraScale = interaction?.grammar === "trace"
+    ? 1.025
+    : (interaction ? 1.065 : 1.025);
+  const midpointCameraScale = interaction?.grammar === "trace"
+    ? 1.0125
+    : 1.025;
 
   return {
     id: sceneID,
@@ -465,7 +479,16 @@ function genericScene(beat, interaction) {
     cameraRail: {
       keyframes: [
         { progress: 0, center: { x: 0.5, y: 0.5 }, scale: 1 },
-        { progress: 1, center: { x: 0.5, y: 0.5 }, scale: 1.025 },
+        ...(interaction ? [{
+          progress: 0.5,
+          center: { x: 0.5, y: 0.5 },
+          scale: midpointCameraScale,
+        }] : []),
+        {
+          progress: 1,
+          center: { x: 0.5, y: 0.5 },
+          scale: finalCameraScale,
+        },
       ],
     },
     atmosphere: atmosphereFor(beat),
@@ -691,7 +714,7 @@ function audioTimeline(chapterID, arcID, beat) {
       startSample: scoreStart,
       durationSamples: Math.max(0, beatDurationSamples - scoreStart),
       assetPath: `requirements/first-farmers/audio/score/${beat.beatID}.m4a`,
-      gain: 0.52,
+      gain: 0.26,
     },
     {
       cueID: `soundscape-${beat.beatID}`,
@@ -699,7 +722,7 @@ function audioTimeline(chapterID, arcID, beat) {
       startSample: 0,
       durationSamples: beatDurationSamples,
       assetPath: `requirements/first-farmers/audio/soundscape/${beat.beatID}.m4a`,
-      gain: 0.76,
+      gain: 0.38,
     },
     {
       cueID: `spatial-detail-${beat.beatID}`,
@@ -707,7 +730,7 @@ function audioTimeline(chapterID, arcID, beat) {
       startSample: 0,
       durationSamples: beatDurationSamples,
       assetPath: `requirements/first-farmers/audio/spatial-detail/${beat.beatID}.m4a`,
-      gain: 0.68,
+      gain: 0.34,
     },
   ];
   // Interaction haptics belong to the deterministic interaction reducer and
@@ -810,19 +833,77 @@ function placeholderResponsiveAudio(arcID, beat) {
   };
 }
 
+function responsiveRegionForTimeline(workObject, timelineID) {
+  const program = workObject.responsiveProgram;
+  if (timelineID === program.approachTimelineID) return "approach";
+  if (timelineID === program.consequenceTimelineID) return "consequence";
+  const interactionBed = program.interactionBeds.find((bed) =>
+    bed.timelineID === timelineID);
+  assert.ok(
+    interactionBed,
+    `${workObject.id}: timeline ${timelineID} is not bound to a responsive region`,
+  );
+  return interactionBed.phase;
+}
+
+function responsiveVoiceClearScalar(workObject, region) {
+  const integratedLUFS = workObject.previewMetrics?.[region]?.integratedLUFS;
+  const targetLUFS = responsiveVoiceClearTargetLUFSByRegion[region];
+  assert.ok(
+    Number.isFinite(integratedLUFS),
+    `${workObject.id}: ${region} preview is missing integrated loudness`,
+  );
+  assert.ok(
+    Number.isFinite(targetLUFS),
+    `${workObject.id}: ${region} has no voice-clear loudness target`,
+  );
+  return Math.min(1, 10 ** ((targetLUFS - integratedLUFS) / 20));
+}
+
+function responsiveInteractionVoiceClearScalar(workObject) {
+  return Math.min(
+    ...["waiting", "engaged", "resistance"].map((region) =>
+      responsiveVoiceClearScalar(workObject, region)),
+  );
+}
+
+function roundGain(value) {
+  return Math.round(value * gainPrecision) / gainPrecision;
+}
+
 function publicResponsiveTimelines(workObject) {
-  return deepClone(workObject.timelines).map((timeline) => ({
-    ...timeline,
-    events: timeline.events.map((event) => {
-      const namespacedEvent = {
-        ...event,
-        cueID: `${workObject.id}-${event.cueID}`,
-      };
-      if (event.role !== "silence") return namespacedEvent;
-      const { assetPath: _nonShippingNull, ...publicEvent } = namespacedEvent;
-      return publicEvent;
-    }),
-  }));
+  const causalMixCueIDs = new Set(
+    workObject.responsiveProgram.causalMix?.layers.flatMap(({ cueIDs }) =>
+      Object.values(cueIDs)) ?? [],
+  );
+  const causalMixVoiceClearScalar = causalMixCueIDs.size > 0
+    ? responsiveInteractionVoiceClearScalar(workObject)
+    : undefined;
+  return deepClone(workObject.timelines).map((timeline) => {
+    const region = responsiveRegionForTimeline(workObject, timeline.id);
+    const voiceClearScalar = responsiveVoiceClearScalar(workObject, region);
+    return {
+      ...timeline,
+      events: timeline.events.map((event) => {
+        const namespacedEvent = {
+          ...event,
+          cueID: `${workObject.id}-${event.cueID}`,
+        };
+        if (event.role !== "silence") {
+          return {
+            ...namespacedEvent,
+            gain: roundGain(
+              event.gain * (causalMixCueIDs.has(event.cueID)
+                ? causalMixVoiceClearScalar
+                : voiceClearScalar),
+            ),
+          };
+        }
+        const { assetPath: _nonShippingNull, ...publicEvent } = namespacedEvent;
+        return publicEvent;
+      }),
+    };
+  });
 }
 
 function publicResponsiveProgram(workObject) {
@@ -831,6 +912,12 @@ function publicResponsiveProgram(workObject) {
   for (const layer of program.causalMix.layers) {
     for (const phase of ["waiting", "engaged", "resistance"]) {
       layer.cueIDs[phase] = `${workObject.id}-${layer.cueIDs[phase]}`;
+    }
+  }
+  const interactionVoiceClearScalar = responsiveInteractionVoiceClearScalar(workObject);
+  for (const state of program.causalMix.states) {
+    for (const layerGain of state.layerGains) {
+      layerGain.gain = roundGain(layerGain.gain * interactionVoiceClearScalar);
     }
   }
   return program;

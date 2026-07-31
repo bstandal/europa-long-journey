@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "status": "NON_SHIPPING_TECHNICAL_REVIEW_AUDIO",
+  "shippingState": "PROHIBITED",
+  "voice": "Daniel",
+  "speechRateWordsPerMinute": 165,
+  "cues": [
+    {
+      "id": "narration-01",
+      "text": "Farming moved west with Anatolian households. They carried seed, livestock, tools, containers and the learned routines that made the parts work together."
+    },
+    {
+      "id": "narration-02",
+      "text": "Repeated crossings carried the complete system onto Aegean shores and into Thessaly."
+    },
+    {
+      "id": "narration-03",
+      "text": "Nothing more will ripen before winter. This harvest must feed the household, cover loss and preserve seed for spring."
+    },
+    {
+      "id": "narration-04",
+      "text": "Grain eaten in winter cannot cover later loss or return to the soil. The household's autumn decision now governs spring."
+    },
+    {
+      "id": "narration-05",
+      "text": "The protected seed returns to worked soil instead of the hearth."
+    },
+    {
+      "id": "narration-06",
+      "text": "At the Iron Gates, incoming farmers met established river communities. People and practices crossed through older routes, while river foods and local ancestry persisted unevenly."
+    },
+    {
+      "id": "narration-07",
+      "text": "Timber failed; the threshold, worked ground, graves and postholes remained. In some communities, fathers and sons held strongly to these inherited places, while women often arrived from neighbouring groups."
+    },
+    {
+      "id": "narration-08",
+      "text": "More households required more fields and herd lanes. Some clearings emptied and returned to grass and young trees; the carried system continued."
+    },
+    {
+      "id": "narration-09",
+      "text": "By 3300 BC, Europe had become a continent of fields, herds and long-lived settlements."
+    },
+    {
+      "id": "narration-10",
+      "text": "The steppe would meet fields to seize, stores to command, houses to inherit and paternal lines to reorder."
+    }
+  ]
+}

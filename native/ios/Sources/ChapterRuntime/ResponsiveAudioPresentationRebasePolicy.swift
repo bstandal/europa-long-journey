@@ -3,10 +3,11 @@ import JourneyDomain
 /// Decides whether a scene presentation may adopt a newer Journey state
 /// without constructing a new verified chapter runtime.
 ///
-/// Responsive audio deliberately shares the Journey journal with scene input.
-/// Its cursor and playback lease do not change the authored scene projection,
+/// Responsive audio and reading position deliberately share the Journey
+/// journal with scene input. Neither changes the authored scene projection,
 /// but every other durable field remains scene authority and must invalidate a
-/// stale presentation. This policy keeps that exception explicit and testable.
+/// stale presentation. This policy keeps those exceptions explicit and
+/// testable.
 public enum ResponsiveAudioPresentationRebaseDecision: Equatable, Sendable {
     case unchanged
     case rebase
@@ -39,6 +40,7 @@ public enum ResponsiveAudioPresentationRebasePolicy {
             publishedSession.responsiveAudioSessionGeneration
         normalizedSession.responsiveAudioSessionIsActive =
             publishedSession.responsiveAudioSessionIsActive
+        normalizedSession.readingAnchor = publishedSession.readingAnchor
         normalized.activeChapter = normalizedSession
 
         return normalized == published ? .rebase : .reject

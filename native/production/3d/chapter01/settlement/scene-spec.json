@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "cellID": "settlement",
+  "assetStatus": "CONTINUITY_PROOF",
+  "rootRuntimeName": "expanding-settlement-landscape",
+  "metersPerUnit": 1,
+  "upAxis": "Z",
+  "deterministicSeed": 6000,
+  "authoredBoundsMeters": [38, 58, 13],
+  "artDirection": {
+    "path": "../art-direction/settlement-finale-target-v1.png",
+    "sha256": "2d4cf4d32879dd94d68b57a9f5def36649c721e7a2d8490bb48eb90116ecf0e9",
+    "use": "close-barrier-action-and-landscape-depth-reference-only"
+  },
+  "runtimeNameContract": {
+    "sourceProperty": "userProperties:runtime_name",
+    "compatibilityProperty": "userProperties:runtimeName",
+    "usdDisplayName": "exact-runtime-name",
+    "usdPrimPath": "underscore-sanitized-and-recorded-in-entity-bindings.json"
+  },
+  "requiredEntities": [
+    {"runtimeName": "expanding-settlement-landscape", "semanticRole": "world-cell-root"},
+    {"runtimeName": "action-herd-route", "semanticRole": "principal-action", "collisionReady": true, "interactionID": "first-farmers-expansion-transform"},
+    {"runtimeName": "moving-herd", "semanticRole": "dependent-herd", "interactionID": "first-farmers-expansion-transform"},
+    {"runtimeName": "daughter-settlement", "semanticRole": "persistent-daughter-settlement"},
+    {"runtimeName": "daughter-field", "semanticRole": "worked-field"},
+    {"runtimeName": "action-final-gate", "semanticRole": "principal-action", "collisionReady": true, "interactionID": "first-farmers-final-commitment"},
+    {"runtimeName": "valley-water", "semanticRole": "scenery", "collisionReady": true},
+    {"runtimeName": "farming-trace-0", "semanticRole": "persistent-working-trace"},
+    {"runtimeName": "farming-trace-9", "semanticRole": "persistent-working-trace"},
+    {"runtimeName": "camera-expansion-herd", "semanticRole": "camera-anchor"},
+    {"runtimeName": "camera-expansion-field-edge", "semanticRole": "camera-anchor"},
+    {"runtimeName": "camera-expansion-daughter", "semanticRole": "camera-anchor"},
+    {"runtimeName": "camera-expansion-final", "semanticRole": "camera-anchor"},
+    {"runtimeName": "camera-expansion-reduce-motion", "semanticRole": "reduce-motion-camera-anchor"},
+    {"runtimeName": "transition-in-surviving-posthole", "semanticRole": "transition-anchor"},
+    {"runtimeName": "transition-out-eastern-horizon", "semanticRole": "transition-anchor"}
+  ],
+  "stateCollections": [
+    "state-default",
+    "state-herd-route-open",
+    "state-daughter-settlement-grown",
+    "state-abandoned-regrowth",
+    "state-continent-transformed"
+  ],
+  "lodPolicy": {
+    "distancesMeters": [0, 18, 38],
+    "terrainGridSteps": [[50, 65], [24, 32], [10, 14]],
+    "maximumScreenSpaceError": [0, 1.8, 4.5]
+  },
+  "materialFamilies": [
+    "field-green",
+    "regrowth-green",
+    "loess-earth",
+    "wet-earth",
+    "danube-water",
+    "worked-oak",
+    "weathered-oak",
+    "bast-rope",
+    "cattle-hide",
+    "cattle-hide-light",
+    "bone-and-horn",
+    "dry-grain"
+  ],
+  "realityKitBoundary": {
+    "rendererMayCompleteHistoricalAction": false,
+    "actionCollision": "runtime-generated-from-collision-ready-metadata",
+    "stateAuthority": "JourneyDomain reducer",
+    "currentAndNextCellOnly": true
+  },
+  "knownVisualGate": "Hero people/cattle, final vegetation, final architecture, weather, and field/route textures remain replacement assets; this package is not final art."
+}

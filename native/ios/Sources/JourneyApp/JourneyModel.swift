@@ -491,6 +491,7 @@ final class JourneyModel: ObservableObject {
     private var responsiveAudioStartAdmissionDiagnosticForTesting = "none"
     @Published private var responsiveAudioCursorFailureDiagnosticForTesting =
         "none"
+    private var sceneTransitionAudioCursorFailureInjectionDidRun = false
     @Published private var responsiveAudioPresentationSyncDiagnosticForTesting =
         "none"
     @Published private var responsiveAudioLastEphemeralPhaseForTesting = "none"
@@ -4353,10 +4354,17 @@ final class JourneyModel: ObservableObject {
             pendingResponsiveAudioPhaseIntent = phase
             return presentation
         case .commit:
-            break
+            // The controller can cross its automatic approach boundary while
+            // this scene transaction is awaiting its durable interaction
+            // commit. Retain only the semantic phase until the gate releases:
+            // `finish` will first materialize the fresh waiting-boundary
+            // snapshot and only then apply this live response phase.
+            pendingResponsiveAudioPhaseIntent = nil
+            if responsiveAudioSceneMutationGate.deferPhaseIfNeeded(phase) {
+                return presentation
+            }
         }
 
-        pendingResponsiveAudioPhaseIntent = nil
         do {
             // `selectInteractionPhase` also returns a snapshot action for
             // durable callers. A scene response deliberately discards it:
@@ -4370,12 +4378,15 @@ final class JourneyModel: ObservableObject {
             }
 #endif
         } catch {
-            controller.stopWithoutPersisting()
-            responsiveAudioController = nil
-            cancelPendingResponsiveAudioBinding()
+            failClosedResponsiveAudioCursorImmediately(
+                diagnostic: "scenePhase;error="
+                    + Self.responsiveAudioCursorErrorType(error)
+            )
             responsiveAudioFailure =
                 "The authored sound state no longer matched this interaction."
-            throw JourneyChapterRuntimeError.persistenceUnavailable
+            // The reducer transition is already durable. Audio is optional
+            // output, so a failed live phase must pause and refresh the sound
+            // authority without replacing the usable scene.
         }
         return presentation
     }
@@ -4622,11 +4633,13 @@ final class JourneyModel: ObservableObject {
                   reduceMotion: identity.reduceMotion
               ), responsiveAudioExplicitStartAuthorizationForCurrentRoute()
                 == playbackLease else { return }
-        responsiveAudioController?.stopWithoutPersisting()
-        responsiveAudioController = nil
-        responsiveAudioLifecycleToken = UUID()
-        cancelPendingResponsiveAudioBinding()
-        await retireResponsiveAudioCursorProtection()
+        // Use the same exact-pause episode as lifecycle and cursor failures.
+        // Its durable completion performs a full scene-controller restore, so
+        // a primary narration cursor recorded while this start is unwound
+        // cannot leave the next interaction on stale Journey authority.
+        failClosedResponsiveAudioCursorImmediately(
+            diagnostic: "presentationSynchronization"
+        )
         responsiveAudioFailure =
             "The authored sound paused before its scene could be synchronized."
     }
@@ -4761,6 +4774,14 @@ final class JourneyModel: ObservableObject {
     private func materializeDeferredResponsiveAudioIntents(
         _ intents: ResponsiveAudioSceneMutationGate.DeferredIntents
     ) -> Bool {
+        // A phase observed after the native transport crossed its approach
+        // boundary cannot overtake that boundary's Journey commit. The
+        // boundary completion callback applies this intent only after the
+        // durable waiting snapshot and cursor-authority handoff succeed.
+        if intents.automaticBoundary != nil,
+           let phase = intents.phase {
+            pendingResponsiveAudioPhaseIntent = phase
+        }
         var queuedDurability = false
         if let automaticBoundary = intents.automaticBoundary {
             queuedDurability = materializeResponsiveAudioAutomaticBoundary(
@@ -4770,6 +4791,7 @@ final class JourneyModel: ObservableObject {
         var audioAction: JourneyAction?
         do {
             if let phase = intents.phase,
+               intents.automaticBoundary == nil,
                let responsiveAudioController {
                 _ = try responsiveAudioController.selectInteractionPhase(
                     phase
@@ -4784,9 +4806,11 @@ final class JourneyModel: ObservableObject {
                 }
             }
         } catch {
-            responsiveAudioController?.stopWithoutPersisting()
-            responsiveAudioController = nil
-            cancelPendingResponsiveAudioBinding()
+            pendingResponsiveAudioPhaseIntent = nil
+            failClosedResponsiveAudioCursorImmediately(
+                diagnostic: "deferredIntent;error="
+                    + Self.responsiveAudioCursorErrorType(error)
+            )
             responsiveAudioFailure =
                 "The authored sound paused before its place could be verified."
             audioAction = nil
@@ -4817,13 +4841,30 @@ final class JourneyModel: ObservableObject {
             lastCommittedSequence = latest.sequence
             state = latest.state
             do {
+#if DEBUG
+                if !sceneTransitionAudioCursorFailureInjectionDidRun,
+                   ProcessInfo.processInfo.arguments.contains(
+                       "--ui-testing-scene-transition-audio-cursor-failure"
+                   ) {
+                    sceneTransitionAudioCursorFailureInjectionDidRun = true
+                    throw JourneyChapterRuntimeError.persistenceUnavailable
+                }
+#endif
                 try await rotateResponsiveAudioCursorAuthorityIfNeeded()
+            } catch let error as JourneyChapterRuntimeError
+                where error == .routeAuthorityChanged {
+                throw error
             } catch {
                 failClosedResponsiveAudioCursorImmediately(
                     diagnostic: "handoffAfterSceneTransition;error="
                         + Self.responsiveAudioCursorErrorType(error)
                 )
-                throw JourneyChapterRuntimeError.persistenceUnavailable
+                // The interaction and its optional audio follow-up are
+                // already durable. Losing the crash-cursor handoff must pause
+                // sound, but it cannot replace the usable scene with a file
+                // or persistence failure after the user's action succeeded.
+                responsiveAudioFailure =
+                    "Sound paused. Continue the scene, then use the sound control to resume."
             }
             refreshChapterPresentation(bindResponsiveAudio: false)
             await recordHistoricalExperienceTransition(
@@ -5871,6 +5912,7 @@ final class JourneyModel: ObservableObject {
                 _ = self.finishResponsiveAudioAutomaticBoundary(
                     intent.token
                 )
+                self.pendingResponsiveAudioPhaseIntent = nil
                 self.failClosedResponsiveAudioCursorImmediately(
                     diagnostic: "automaticBoundaryDurableCommit"
                 )
@@ -5916,6 +5958,7 @@ final class JourneyModel: ObservableObject {
             pendingResponsiveAudioPhaseIntent = nil
             return false
         } catch {
+            pendingResponsiveAudioPhaseIntent = nil
             failClosedResponsiveAudioCursorImmediately(
                 diagnostic: "automaticBoundaryPhase;error="
                     + Self.responsiveAudioCursorErrorType(error)

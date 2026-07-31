@@ -1293,14 +1293,14 @@
     },
     {
       "path": "chapters/vertical-slice-development-v1.json",
-      "bytes": 464103,
-      "sha256": "0e99e4f1f6e073333d5c91892d5906466fbf95472c806d19c61fe5d960b30885"
+      "bytes": 465392,
+      "sha256": "6ee5fb2fb7ecfa980bd7889fb197d0ccf79ea8ac8bd337e7b7c710508343a61d"
     }
   ],
-  "manifestDigest": "4b0b7c2d33a61d0a43b22f33230bb9420fbbf3cd4a86de26e3ac886947e59c70",
+  "manifestDigest": "ce5fbd8b80a1d80c982b3e274d34cd1924dbbff4b5c7f763abb9f3735baa3555",
   "signature": {
     "algorithm": "P-256-SHA256",
     "keyID": "vertical-slice-development-key-v1",
-    "value": "MEUCIQC10b/pRgfhwTv7Wbg86XD9xxZbXkDCmrvqjLuuAHoU8gIgMZ4QTeFqrR/Z8J9P2tro844djakkya9HsShHNV3Tp30="
+    "value": "MEQCIC1EydhIc/ASrBzXFWExunQhHphaTLdNTxQ24DhXETNqAiAHV4NtiDhx+Ri/cDhGXon3cx4JmJywn9Dweq8hEKyxXQ=="
   }
 }

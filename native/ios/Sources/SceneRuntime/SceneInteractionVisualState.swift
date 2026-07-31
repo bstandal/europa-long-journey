@@ -884,6 +884,83 @@ public enum SceneFrameRequestFactoryError: Error, Equatable, Sendable {
     case unexpectedInteraction
 }
 
+/// Couples the authored camera rail to durable causal progress. The camera is
+/// presentation derived: it adds no second save authority, and restoration
+/// reconstructs the same view from the interaction reducer state.
+public enum SceneInteractionCameraProgressResolver {
+    public static func resolve(
+        authoredAnchor: Double,
+        interaction: InteractionSpec?,
+        runtimeState: InteractionRuntimeState?
+    ) -> Double {
+        let boundedAuthoredAnchor = min(max(authoredAnchor, 0), 1)
+        guard let interaction, let runtimeState,
+              runtimeState.interactionID == interaction.id else {
+            return boundedAuthoredAnchor
+        }
+        if runtimeState.phase == .complete {
+            return 1
+        }
+
+        let causalProgress: Double
+        switch (interaction.grammar, runtimeState.progress) {
+        case let (.trace(configuration), .trace(progress)):
+            guard !configuration.anchors.isEmpty else {
+                return boundedAuthoredAnchor
+            }
+            causalProgress = Double(progress.reachedAnchorCount)
+                / Double(configuration.anchors.count)
+
+        case let (.allocate(configuration), .allocate(progress)):
+            guard configuration.totalUnits > 0 else {
+                return boundedAuthoredAnchor
+            }
+            let allocatedUnits = progress.allocations.reduce(0) {
+                $0 + $1.units
+            }
+            causalProgress = Double(allocatedUnits)
+                / Double(configuration.totalUnits)
+
+        case let (.assemble(configuration), .assemble(progress)):
+            guard !configuration.components.isEmpty else {
+                return boundedAuthoredAnchor
+            }
+            causalProgress = Double(progress.placements.count)
+                / Double(configuration.components.count)
+
+        case let (.pressure(configuration), .pressure(progress)):
+            guard configuration.requiredHoldMillis > 0 else {
+                return boundedAuthoredAnchor
+            }
+            causalProgress = Double(progress.stableMillis)
+                / Double(configuration.requiredHoldMillis)
+
+        case let (.transform(configuration), .transform(progress)):
+            guard configuration.stages.indices.contains(
+                progress.completedStageCount
+            ) else {
+                return boundedAuthoredAnchor
+            }
+            let stage = configuration.stages[
+                progress.completedStageCount
+            ]
+            let withinStage = stage.requiredAmount > 0
+                ? progress.currentAmount / stage.requiredAmount : 0
+            causalProgress = (
+                Double(progress.completedStageCount)
+                    + min(max(withinStage, 0), 1)
+            ) / Double(configuration.stages.count)
+
+        default:
+            return boundedAuthoredAnchor
+        }
+        return max(
+            boundedAuthoredAnchor,
+            min(max(causalProgress, 0), 1)
+        )
+    }
+}
+
 public enum SceneFrameRequestFactory {
     public static func make(
         scene: SceneSpec,
@@ -923,10 +1000,15 @@ public enum SceneFrameRequestFactory {
             }
             visualState = try SceneInteractionVisualStateResolver.staticState(for: scene)
         }
+        let cameraProgress = SceneInteractionCameraProgressResolver.resolve(
+            authoredAnchor: session.cameraAnchor,
+            interaction: interaction,
+            runtimeState: session.interaction
+        )
 
         return SceneFrameRequest(
             viewportCropID: viewportCropID,
-            cameraProgress: session.cameraAnchor,
+            cameraProgress: cameraProgress,
             visualState: visualState,
             deterministicTick: snapshot.deterministicTick,
             reduceMotion: reduceMotion

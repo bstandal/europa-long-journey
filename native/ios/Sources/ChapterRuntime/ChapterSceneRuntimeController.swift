@@ -646,7 +646,7 @@ public final class ChapterSceneRuntimeController {
                 return nil
             }
             let authority = await committer.currentCommittedSnapshot()
-            try reconcileResponsiveAudioAuthorityIfPossible(
+            try reconcilePresentationMetadataAuthorityIfPossible(
                 authority.state,
                 interactionFeedback: presentation.interactionFeedback,
                 directManipulation: presentation.directManipulation
@@ -682,10 +682,10 @@ public final class ChapterSceneRuntimeController {
 
     /// Reprojects one externally committed responsive-audio change into this
     /// controller before a route publishes that playback has started. The
-    /// committer may have advanced only its monotonic event metadata and the
-    /// active chapter session's four responsive-audio fields. Any other durable
-    /// change still invalidates this controller instead of being hidden by a
-    /// broad presentation refresh.
+    /// committer may have advanced only its monotonic event metadata, the
+    /// active chapter session's responsive-audio fields, and its reading
+    /// anchor. Any other durable change still invalidates this controller
+    /// instead of being hidden by a broad presentation refresh.
     @discardableResult
     public func synchronizeResponsiveAudioPresentation(
         preserving interactionFeedback: InteractionFeedback? = nil,
@@ -694,7 +694,7 @@ public final class ChapterSceneRuntimeController {
         try await acquireTransitionSlot()
         return try await finishAcceptedTransition { [self] in
             let state = await committer.currentCommittedState()
-            try reconcileResponsiveAudioAuthorityIfPossible(
+            try reconcilePresentationMetadataAuthorityIfPossible(
                 state,
                 interactionFeedback: interactionFeedback,
                 directManipulation: directManipulation
@@ -1173,7 +1173,7 @@ public final class ChapterSceneRuntimeController {
     }
 
     private func requirePublishedAuthority(_ state: JourneyState) throws {
-        try reconcileResponsiveAudioAuthorityIfPossible(
+        try reconcilePresentationMetadataAuthorityIfPossible(
             state,
             interactionFeedback: presentation.interactionFeedback,
             directManipulation: presentation.directManipulation
@@ -1183,12 +1183,11 @@ public final class ChapterSceneRuntimeController {
         }
     }
 
-    /// Closes the user race between a durable audio start/checkpoint and the
-    /// route session's explicit presentation refresh. This is deliberately not
-    /// a general rebase seam: camera, narration, interaction, beat, route,
-    /// package, world and every inactive chapter session must remain byte-for-
-    /// byte equivalent at the value level.
-    private func reconcileResponsiveAudioAuthorityIfPossible(
+    /// Closes races caused by durable audio checkpoints or reading-position
+    /// saves. This is deliberately not a general rebase seam: camera,
+    /// narration, interaction, beat, route, package, world and every inactive
+    /// chapter session must remain byte-for-byte equivalent at the value level.
+    private func reconcilePresentationMetadataAuthorityIfPossible(
         _ state: JourneyState,
         interactionFeedback: InteractionFeedback?,
         directManipulation: SceneDirectManipulationState?

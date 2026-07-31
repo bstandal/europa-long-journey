@@ -406,6 +406,54 @@ final class ChapterSceneRuntimeControllerTests: XCTestCase {
         XCTAssertEqual(journalCount, 3)
     }
 
+    func testVoiceOverAdoptsPersistedReadingAnchorBeforeInput() async throws {
+        let fixture = try RuntimeTestFixture.trace()
+        defer { try? FileManager.default.removeItem(at: fixture.packageRoot) }
+        let journal = JournalSpy()
+        let committer = DurableJourneyCommitter(
+            restoredState: fixture.state,
+            lastSequence: 0,
+            append: { request in try await journal.append(request.event) }
+        )
+        let controller = try await ChapterSceneRuntimeController(
+            committer: committer,
+            coordinator: fixture.coordinator,
+            assets: fixture.inventory,
+            viewportCropID: "baseline-393x852",
+            reduceMotion: false
+        )
+        let readingAnchor = try XCTUnwrap(
+            controller.presentation.cursor.beat.narrative.paragraphs.last?
+                .id.rawValue
+        )
+        let readingCommit = try await committer.commit(
+            .setReadingAnchor(readingAnchor)
+        )
+        XCTAssertNotEqual(
+            controller.presentation.journeyState,
+            readingCommit.state
+        )
+
+        let authoredAction = try XCTUnwrap(
+            fixture.accessibility.elements.first?.actions.first
+        )
+        let transition = try await controller.submitVoiceOver(
+            elementID: "route-control-accessibility",
+            authoredAction: authoredAction
+        )
+        guard case let .trace(progress)? = transition.presentation.journeyState
+            .activeChapter?.interaction?.progress else {
+            return XCTFail("VoiceOver must continue after saving reading position")
+        }
+        XCTAssertEqual(progress.reachedAnchorCount, 1)
+        XCTAssertEqual(
+            transition.presentation.journeyState.activeChapter?.readingAnchor,
+            readingAnchor
+        )
+        let journalCount = await journal.count()
+        XCTAssertEqual(journalCount, 2)
+    }
+
     func testTouchReconcilesEndedResponsiveAudioSessionBeforeInput() async throws {
         let fixture = try RuntimeTestFixture.trace()
         defer { try? FileManager.default.removeItem(at: fixture.packageRoot) }
@@ -578,6 +626,102 @@ final class ChapterSceneRuntimeControllerTests: XCTestCase {
         )
         let journalCount = await journal.count()
         XCTAssertEqual(journalCount, 3)
+    }
+
+    func testPhysicalPauseRestoreAdoptsNarrationRecordedWhileCombinedAudioStartUnwinds() async throws {
+        let fixture = try RuntimeTestFixture.harvestAllocate()
+        defer { try? FileManager.default.removeItem(at: fixture.packageRoot) }
+        let journal = JournalSpy()
+        let committer = DurableJourneyCommitter(
+            restoredState: fixture.state,
+            lastSequence: 0,
+            append: { request in try await journal.append(request.event) }
+        )
+        let controller = try await ChapterSceneRuntimeController(
+            committer: committer,
+            coordinator: fixture.coordinator,
+            assets: fixture.inventory,
+            viewportCropID: "baseline-393x852",
+            reduceMotion: false
+        )
+
+        _ = try await committer.commit(
+            .beginResponsiveAudioSession(
+                chapterOpenNonce: UUID(),
+                generation: 1,
+                snapshot: try waitingResponsiveAudioSnapshot(in: fixture)
+            )
+        )
+        _ = try await committer.commit(
+            .setNarration(
+                cueID: "harvest-narration",
+                sampleOffset: 480,
+                enabled: true,
+                playing: false
+            )
+        )
+        let suspended = try await committer.commit(
+            .suspendChapter(atEpochMillis: 123_456)
+        )
+
+        do {
+            _ = try await controller.synchronizeResponsiveAudioPresentation()
+            XCTFail(
+                "A primary-audio pause cursor cannot enter through the responsive-audio-only seam"
+            )
+        } catch {
+            XCTAssertEqual(
+                error as? ChapterSceneRuntimeControllerError,
+                .presentationDivergedFromCommitter
+            )
+        }
+
+        let restored = try await controller.restorePresentation()
+        XCTAssertEqual(restored.journeyState, suspended.state)
+        XCTAssertEqual(
+            restored.journeyState.activeChapter?.narration.sampleOffset,
+            480
+        )
+        XCTAssertFalse(
+            try XCTUnwrap(
+                restored.journeyState.activeChapter?.narration.isPlaying
+            )
+        )
+        XCTAssertEqual(
+            restored.journeyState.activeChapter?.lastVisitedAtEpochMillis,
+            123_456
+        )
+
+        let source = try XCTUnwrap(
+            restored.framePlan.interactionSourceHitRegion
+        )
+        let destination = try XCTUnwrap(
+            restored.framePlan.interactionHitRegions.first {
+                $0.interactionTargetID == "winter-food-target"
+            }
+        )
+        let transition = try await controller.submitTouch(
+            .allocateDrop(
+                sourceViewportPoint: centroid(source.viewportPath),
+                destinationViewportPoint: centroid(destination.viewportPath),
+                destinationUnits: 1,
+                progress: 0.9
+            ),
+            alphaSampler: OpaqueMaskSampler()
+        )
+        guard case let .allocate(allocation)? = transition.presentation
+            .journeyState.activeChapter?.interaction?.progress else {
+            return XCTFail(
+                "The restored Harvest scene must accept its next allocation"
+            )
+        }
+        XCTAssertEqual(
+            allocation.allocations.first { $0.destinationID == "food" }?
+                .units,
+            1
+        )
+        let journalCount = await journal.count()
+        XCTAssertEqual(journalCount, 4)
     }
 
     func testResponsiveAudioSynchronizationRejectsCameraDrift() async throws {

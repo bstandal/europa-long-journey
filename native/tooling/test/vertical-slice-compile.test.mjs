@@ -18,7 +18,10 @@ import {
   compileFutureReleasePackage,
   compilePublicPackage,
 } from "../src/compile.mjs";
-import { verticalSliceDevelopmentIdentity } from "../src/development-trust.mjs";
+import {
+  chapter01ImmersiveReviewIdentity,
+  verticalSliceDevelopmentIdentity,
+} from "../src/development-trust.mjs";
 import {
   compileDevelopmentVerticalSlice,
   createDevelopmentProjectionAuthority,
@@ -643,13 +646,16 @@ test("provisional authority cannot claim launch identity, production key or edit
   }
 });
 
-test("release compiler refuses the development-only signing key ID", async () => {
-  await assert.rejects(
-    () => compilePublicPackage("/tmp/source-a", "/tmp/output-b", {
-      keyID: verticalSliceDevelopmentIdentity.keyID,
-    }),
-    /vertical-slice development keys are forbidden for release packages/,
-  );
+test("release compiler refuses every development-only signing key ID", async () => {
+  for (const keyID of [
+    verticalSliceDevelopmentIdentity.keyID,
+    chapter01ImmersiveReviewIdentity.keyID,
+  ]) {
+    await assert.rejects(
+      () => compilePublicPackage("/tmp/source-a", "/tmp/output-b", { keyID }),
+      /vertical-slice development keys are forbidden for release packages/,
+    );
+  }
 });
 
 test("shipping compilers refuse the provisional development authority option", async () => {

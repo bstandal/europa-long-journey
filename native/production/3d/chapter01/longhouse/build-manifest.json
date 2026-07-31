@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "cellID": "longhouse",
+  "assetStatus": "CONTINUITY_PROOF",
+  "toolchain": {
+    "application": "Blender",
+    "version": "5.2.0 LTS",
+    "buildHash": "fbe6228777e7",
+    "platform": "macOS-arm64"
+  },
+  "deterministicSeed": 6000,
+  "counts": {
+    "meshObjects": 413,
+    "triangles": 18372
+  },
+  "inputs": {
+    "../later-cells-tools/chapter01_later_cells.py": {
+      "sha256": "bc110f30c2fe4c118e3a7337508af3ea87c1783f137b639e4994e0c2cb7052a4"
+    },
+    "scripts/generate.py": {
+      "sha256": "0d5178e871e90f13cd426d1b8828dd87c8f98135e5c4722ada6ece03ca51a7e2"
+    },
+    "scripts/validate.py": {
+      "sha256": "67ea37568206e8b6142f8c46990ca986cb28b5cd5da85a2bd30929d4d028272c"
+    },
+    "scene-spec.json": {
+      "sha256": "3b975d4f328b81e72948665122cab8305fb92a10359b1593f94f1a2fc8121f5c"
+    },
+    "entity-bindings.json": {
+      "sha256": "633e8fc261b4d07d4d35ffd5406e29ddf412c0e552d0e130727f2713cd4730c9"
+    },
+    "provenance.json": {
+      "sha256": "d867c01f0efcd6712d2a79e4a39398729aabe4ec692fa73a530d2e32e49dcbed"
+    },
+    "../art-direction/longhouse-load-target-v1.png": {
+      "sha256": "47620055ccd76bd68cc94670100d7f93b657f7e07491251e520ac6122c5131b1",
+      "use": "reference-only",
+      "embeddedInExport": false
+    }
+  },
+  "reproducibility": {
+    "cleanBuildsCompared": 2,
+    "byteIdenticalOutputs": [
+      "exports/longhouse.usda",
+      "exports/longhouse.usd",
+      "exports/longhouse.usdc",
+      "exports/longhouse.usdz",
+      "previews/longhouse-portrait.png"
+    ],
+    "excludedOutput": {
+      "path": "exports/longhouse.blend",
+      "reason": "Blender authoring containers include process-local data; the reviewable Python recipe is the source authority."
+    }
+  },
+  "outputs": {
+    "exports/longhouse.blend": {
+      "sha256": "83b470a4edaa4c41017a508166e5fc1ef222c7dd6c9ae2f895b59f5eb5d99d54",
+      "bytes": 4899008,
+      "role": "generated-authoring-evidence",
+      "byteReproducible": false,
+      "hashValidation": false
+    },
+    "exports/longhouse.usda": {
+      "sha256": "9d3132e318222013220f2d4286343d5485ffa42385bb36dae5405bc1c09ed508",
+      "bytes": 4134943,
+      "role": "canonical-inspection-layer",
+      "byteReproducible": true
+    },
+    "exports/longhouse.usd": {
+      "sha256": "79648a890f1a0955305ab33a173044d15fa5588d031a4b2221578c10ff2059c9",
+      "bytes": 494155,
+      "role": "canonical-binary-stage",
+      "byteReproducible": true
+    },
+    "exports/longhouse.usdc": {
+      "sha256": "79648a890f1a0955305ab33a173044d15fa5588d031a4b2221578c10ff2059c9",
+      "bytes": 494155,
+      "role": "runtime-stage",
+      "byteReproducible": true
+    },
+    "exports/longhouse.usdz": {
+      "sha256": "88f03db23bba9cea250fc51df67b5544a93cd52fa815e1b5dc0706a9814b03dd",
+      "bytes": 494321,
+      "role": "runtime-package",
+      "byteReproducible": true
+    },
+    "previews/longhouse-portrait.png": {
+      "sha256": "cac6279ca655391e0071728a05788488c84833672a7762a5eaf12f8a2ca8f710",
+      "bytes": 1687039,
+      "role": "technical-portrait-receipt",
+      "byteReproducible": true
+    }
+  }
+}

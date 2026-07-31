@@ -1,0 +1,18 @@
+{
+  "animationFrameRange": [
+    1,
+    64
+  ],
+  "classification": "ANIMAL_RIG_CANDIDATE",
+  "finalArtGate": "OPEN",
+  "fps": 24,
+  "lod": 1,
+  "meshObjects": 74,
+  "polygons": 3756,
+  "roots": [
+    "cattle-adult",
+    "cattle-young"
+  ],
+  "skeletons": 2,
+  "triangles": 6744
+}

@@ -648,6 +648,19 @@ public final class SceneMetalCompositor: NSObject, ObservableObject, MTKViewDele
 
     @Published public private(set) var state: SceneMetalCompositorState = .notConfigured
 
+    /// True while the compositor can keep presenting an already verified
+    /// frame. A replacement may decode behind that frame; cold preparation
+    /// remains dark because there is no prepared scene to retain.
+    public var hasDrawableScene: Bool {
+        guard preparedScene != nil else { return false }
+        return switch state {
+        case .preparing, .sceneReady:
+            true
+        case .notConfigured, .readyForScene, .failed:
+            false
+        }
+    }
+
     private var device: (any MTLDevice)?
     private var pipelines: PipelineSet?
     private var commandQueue: (any MTLCommandQueue)?
@@ -812,7 +825,6 @@ public final class SceneMetalCompositor: NSObject, ObservableObject, MTKViewDele
         }
         preparationGeneration &+= 1
         let generation = preparationGeneration
-        preparedScene = nil
         transientResponseStartedAtMilliseconds = nil
         transition(to: .preparing(sceneID: framePlan.sceneID))
 
@@ -1015,7 +1027,7 @@ public final class SceneMetalCompositor: NSObject, ObservableObject, MTKViewDele
     }
 
     public func draw(in view: MTKView) {
-        guard case .sceneReady = state, let preparedScene else {
+        guard hasDrawableScene, let preparedScene else {
             if state == .readyForScene {
                 transition(to: .failed(.sceneNotPrepared))
             }
@@ -1671,7 +1683,7 @@ public struct SceneMetalSurface: View {
     public var body: some View {
         ZStack {
             Color(red: 0.018, green: 0.020, blue: 0.019)
-            if case .sceneReady = compositor.state {
+            if compositor.hasDrawableScene {
                 SceneMetalView(compositor: compositor)
             }
             if let failure = compositor.state.failure {

@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "cellID": "iron-gates",
+  "runtimeNameToUSDPath": {
+    "iron-gates-riverbank": "/root/iron_gates_riverbank",
+    "iron-gates-boat": "/root/iron_gates_riverbank/state_default/iron_gates_boat",
+    "action-landing-line": "/root/iron_gates_riverbank/state_default/action_landing_line",
+    "guide-pole": "/root/iron_gates_riverbank/state_default/iron_gates_boat/iron_gates_local_guide/guide_pole",
+    "iron-gates-local-guide": "/root/iron_gates_riverbank/state_default/iron_gates_boat/iron_gates_local_guide",
+    "iron-gates-line-receiver": "/root/iron_gates_riverbank/state_default/iron_gates_line_receiver",
+    "camera-iron-gates-entry": "/root/iron_gates_riverbank/camera_iron_gates_entry",
+    "camera-iron-gates-landing": "/root/iron_gates_riverbank/camera_iron_gates_landing",
+    "camera-iron-gates-handoff": "/root/iron_gates_riverbank/camera_iron_gates_handoff",
+    "camera-iron-gates-reduce-motion": "/root/iron_gates_riverbank/camera_iron_gates_reduce_motion",
+    "transition-in-river-current": "/root/iron_gates_riverbank/transition_in_river_current",
+    "transition-out-shared-material": "/root/iron_gates_riverbank/transition_out_shared_material"
+  }
+}

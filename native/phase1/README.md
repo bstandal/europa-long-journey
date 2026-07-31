@@ -1,6 +1,14 @@
 # Phase 1 experience laboratory
 
-Phase 1 is active. [experience-lab.json](./experience-lab.json) fixes five
+Status: `LEGACY_2_5D_LAB_SUSPENDED_2026_07_30`
+
+The authored real-time 3D medium lock supersedes this laboratory's visual
+production route. Its interaction, reducer, accessibility and restoration
+evidence may be reused, but its frame, layer, mask and compositor plan cannot
+be extended into shipping scenes. See
+[`../blueprint/real-time-3d-medium-lock-2026-07-30.md`](../blueprint/real-time-3d-medium-lock-2026-07-30.md).
+
+[experience-lab.json](./experience-lab.json) fixes five
 laboratory scenes from the three free chapters, one for each native interaction
 grammar. The set is an implementation boundary, not a shipping content package.
 

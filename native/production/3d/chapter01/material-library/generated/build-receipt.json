@@ -1,0 +1,23 @@
+{
+  "archive": {
+    "byteCount": 10638864,
+    "compression": "ZIP_STORED",
+    "path": "chapter01-mobile-pbr-materials-v1.zip",
+    "sha256": "85dc87db0742e00e0b74ead817c22ba94709a1fccde321e92d2a2012195ef5bf"
+  },
+  "classification": "MATERIAL_CANDIDATE",
+  "finalArtGate": "OPEN",
+  "libraryID": "chapter01-mobile-pbr-materials-v1",
+  "mapCount": 15,
+  "materialCount": 5,
+  "packagedManifestSHA256": "c82e3b994bd28d5538c2d66b6f1ffdc7533e1476d36b753cacc9aecab77d3a77",
+  "reproducibility": {
+    "byteIdentical": true,
+    "independentArchivesCompared": 2,
+    "volatileMetadataIncluded": false
+  },
+  "rightsDecision": "PASS",
+  "schemaVersion": 1,
+  "shippingStatus": "BLOCKED",
+  "sourceManifestSHA256": "c20a2015280c5acce757b56046d923989de926954da5cd0122451c4e0289d76e"
+}

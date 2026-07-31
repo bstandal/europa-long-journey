@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "cellID": "settlement",
+  "assetStatus": "CONTINUITY_PROOF",
+  "creator": "Codex-controlled procedural production",
+  "tool": {"name": "Blender", "version": "5.2.0 LTS", "licence": "GPL-3.0-or-later"},
+  "incrementalCost": 0,
+  "billingCredentialRequired": false,
+  "externalHumanContributor": false,
+  "externalAssets": [],
+  "geometrySource": "Project-authored deterministic Python primitives and topology",
+  "materialSource": "Project-authored symbolic PBR recipes; no downloaded textures",
+  "referenceOnly": [{"path": "../art-direction/settlement-finale-target-v1.png", "sha256": "2d4cf4d32879dd94d68b57a9f5def36649c721e7a2d8490bb48eb90116ecf0e9", "embeddedInExport": false}],
+  "commercialRights": "Project-authored outputs; no third-party asset rights required",
+  "releaseGate": "BLOCKED_FINAL_VISUAL_ASSET_APPROVAL"
+}

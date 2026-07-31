@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "cellID": "longhouse",
+  "assetStatus": "CONTINUITY_PROOF",
+  "creator": "Codex-controlled procedural production",
+  "tool": {"name": "Blender", "version": "5.2.0 LTS", "licence": "GPL-3.0-or-later"},
+  "incrementalCost": 0,
+  "billingCredentialRequired": false,
+  "externalHumanContributor": false,
+  "externalAssets": [],
+  "geometrySource": "Project-authored deterministic Python primitives and topology",
+  "materialSource": "Project-authored symbolic PBR recipes; no downloaded textures",
+  "referenceOnly": [{"path": "../art-direction/longhouse-load-target-v1.png", "sha256": "47620055ccd76bd68cc94670100d7f93b657f7e07491251e520ac6122c5131b1", "embeddedInExport": false}],
+  "commercialRights": "Project-authored outputs; no third-party asset rights required",
+  "releaseGate": "BLOCKED_FINAL_VISUAL_ASSET_APPROVAL"
+}

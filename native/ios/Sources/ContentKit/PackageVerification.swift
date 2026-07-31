@@ -179,6 +179,25 @@ public struct VerifiedContentPackage: Sendable {
     }
 }
 
+/// A Chapter 01 immersive payload admitted through the same signed manifest
+/// boundary as the launch packages. The separate type prevents a V2 package
+/// from being mistaken for the retired scene-card payload at runtime.
+public struct VerifiedImmersiveContentPackageV2: Sendable {
+    public let manifest: SignedPackageManifest
+    public let payload: ContentPackagePayloadV2
+    public let verificationScope: ContentPackageVerificationScope
+
+    init(
+        manifest: SignedPackageManifest,
+        payload: ContentPackagePayloadV2,
+        verificationScope: ContentPackageVerificationScope
+    ) {
+        self.manifest = manifest
+        self.payload = payload
+        self.verificationScope = verificationScope
+    }
+}
+
 public enum PackageVerificationError: Error, Equatable, Sendable, CustomStringConvertible {
     case malformedManifest(String)
     case unsupportedSchema(required: SchemaVersion, supported: SchemaVersion)
@@ -328,6 +347,103 @@ public enum ContentPackageVerifier {
             payload: payload,
             verificationScope: .runtimeAdmission
         )
+    }
+
+    /// Performs complete offline verification of the bounded Chapter 01 V2
+    /// package before it can enter PackageActivator's immutable generations.
+    public static func verifyImmersiveV2Package(
+        at packageRoot: URL,
+        expectedPackage: ContentPackageSpec,
+        trustedPublicKeys: [String: Data],
+        supportedSchema: SchemaVersion,
+        runtimeVersion: SchemaVersion
+    ) throws -> VerifiedImmersiveContentPackageV2 {
+        let root = packageRoot.resolvingSymlinksInPath().standardizedFileURL
+        let manifestURL = root.appending(path: manifestFileName, directoryHint: .notDirectory)
+        let manifestData = try Data(contentsOf: manifestURL, options: [.mappedIfSafe])
+        let manifest = try verifyManifest(
+            manifestData,
+            expectedPackage: expectedPackage,
+            trustedPublicKeys: trustedPublicKeys,
+            supportedSchema: supportedSchema,
+            runtimeVersion: runtimeVersion
+        )
+        try verifyInstalledTree(root: root, manifest: manifest)
+        let payload = try decodeCanonicalImmersiveV2Payload(
+            root: root,
+            manifest: manifest,
+            digestVerifiedOnly: false
+        )
+        try validate(payload, manifest: manifest, expectedPackage: expectedPackage)
+        return VerifiedImmersiveContentPackageV2(
+            manifest: manifest,
+            payload: payload,
+            verificationScope: .completePackage
+        )
+    }
+
+    /// Cold-start admission hashes only the canonical payload. Each large V2
+    /// asset remains bound to both the signed outer record and its inner V2
+    /// record and must cross `verifyImmersiveV2Asset` before decode/open.
+    public static func admitImmersiveV2PackageAtRuntime(
+        at packageRoot: URL,
+        expectedPackage: ContentPackageSpec,
+        trustedPublicKeys: [String: Data],
+        supportedSchema: SchemaVersion,
+        runtimeVersion: SchemaVersion
+    ) throws -> VerifiedImmersiveContentPackageV2 {
+        let root = packageRoot.resolvingSymlinksInPath().standardizedFileURL
+        let manifestURL = root.appending(path: manifestFileName, directoryHint: .notDirectory)
+        let manifestData = try Data(contentsOf: manifestURL, options: [.mappedIfSafe])
+        let manifest = try verifyManifest(
+            manifestData,
+            expectedPackage: expectedPackage,
+            trustedPublicKeys: trustedPublicKeys,
+            supportedSchema: supportedSchema,
+            runtimeVersion: runtimeVersion
+        )
+        try verifyInstalledTreeMetadata(root: root, manifest: manifest)
+        let payload = try decodeCanonicalImmersiveV2Payload(
+            root: root,
+            manifest: manifest,
+            digestVerifiedOnly: true
+        )
+        try validate(payload, manifest: manifest, expectedPackage: expectedPackage)
+        return VerifiedImmersiveContentPackageV2(
+            manifest: manifest,
+            payload: payload,
+            verificationScope: .runtimeAdmission
+        )
+    }
+
+    /// Returns a URL only after the exact V2 asset bytes have been checked at
+    /// their decode/open edge. No network fallback is part of this boundary.
+    public static func verifyImmersiveV2Asset(
+        path: String,
+        in verifiedPackage: VerifiedImmersiveContentPackageV2,
+        packageRoot: URL
+    ) throws -> URL {
+        guard let asset = verifiedPackage.payload.assets.first(where: { $0.path == path }),
+              let record = verifiedPackage.manifest.files.first(where: { $0.path == path }),
+              asset.byteCount == record.bytes,
+              asset.sha256 == record.sha256 else {
+            throw PackageVerificationError.packageSpecMismatch(
+                "immersive asset is not bound to the signed inventory: \(path)"
+            )
+        }
+        let root = packageRoot.resolvingSymlinksInPath().standardizedFileURL
+        let url = root.appending(path: path, directoryHint: .notDirectory).standardizedFileURL
+        guard url.path.hasPrefix(root.path + "/") else {
+            throw PackageVerificationError.unsafePath(path)
+        }
+        let (bytes, digest) = try streamedDigest(url)
+        guard bytes == record.bytes else {
+            throw PackageVerificationError.fileSizeMismatch(path)
+        }
+        guard digest == record.sha256 else {
+            throw PackageVerificationError.fileDigestMismatch(path)
+        }
+        return url
     }
 
     /// Verifies the complete signed manifest contract without reading payload
@@ -779,6 +895,37 @@ public enum ContentPackageVerifier {
         return try ContentDocumentDecoder.decodePackage(candidate.data)
     }
 
+    private static func decodeCanonicalImmersiveV2Payload(
+        root: URL,
+        manifest: SignedPackageManifest,
+        digestVerifiedOnly: Bool
+    ) throws -> ContentPackagePayloadV2 {
+        let payloadPath = "chapters/\(manifest.packageID.rawValue).json"
+        guard let record = manifest.files.first(where: { $0.path == payloadPath }) else {
+            throw PackageVerificationError.missingContentPayload
+        }
+        let data = try Data(
+            contentsOf: root.appending(path: payloadPath, directoryHint: .notDirectory),
+            options: [.mappedIfSafe]
+        )
+        if digestVerifiedOnly {
+            guard Int64(data.count) == record.bytes else {
+                throw PackageVerificationError.fileSizeMismatch(payloadPath)
+            }
+            guard hexDigest(SHA256.hash(data: data)) == record.sha256 else {
+                throw PackageVerificationError.fileDigestMismatch(payloadPath)
+            }
+        }
+        let payload = try ImmersiveContentDocumentV2.decode(data)
+        let canonicalData = try ImmersiveContentDocumentV2.encode(payload)
+        guard data == canonicalData else {
+            throw PackageVerificationError.packageSpecMismatch(
+                "immersive payload bytes are not canonical"
+            )
+        }
+        return payload
+    }
+
     private static func validate(
         _ payload: ContentPackagePayload,
         manifest: SignedPackageManifest,
@@ -795,6 +942,44 @@ public enum ContentPackageVerifier {
         }
         guard Set(payload.chapters.map(\.id)) == Set(expectedPackage.chapterIDs) else {
             throw PackageVerificationError.packageSpecMismatch("payload chapter ownership changed")
+        }
+    }
+
+    private static func validate(
+        _ payload: ContentPackagePayloadV2,
+        manifest: SignedPackageManifest,
+        expectedPackage: ContentPackageSpec
+    ) throws {
+        guard payload.packageID == manifest.packageID else {
+            throw PackageVerificationError.packageIdentityMismatch
+        }
+        guard payload.schemaVersion == manifest.schemaVersion else {
+            throw PackageVerificationError.unsupportedSchema(
+                required: payload.schemaVersion,
+                supported: manifest.schemaVersion
+            )
+        }
+        guard expectedPackage.chapterIDs == [payload.chapterID] else {
+            throw PackageVerificationError.packageSpecMismatch(
+                "immersive payload chapter ownership changed"
+            )
+        }
+        let payloadPath = "chapters/\(manifest.packageID.rawValue).json"
+        let outerByPath = Dictionary(uniqueKeysWithValues: manifest.files.map { ($0.path, $0) })
+        let expectedPaths = Set(payload.assets.map(\.path) + [payloadPath])
+        guard Set(outerByPath.keys) == expectedPaths else {
+            throw PackageVerificationError.packageSpecMismatch(
+                "immersive payload and signed file inventories differ"
+            )
+        }
+        for asset in payload.assets {
+            guard let record = outerByPath[asset.path],
+                  asset.byteCount == record.bytes,
+                  asset.sha256 == record.sha256 else {
+                throw PackageVerificationError.packageSpecMismatch(
+                    "immersive asset integrity differs from the signed inventory: \(asset.path)"
+                )
+            }
         }
     }
 

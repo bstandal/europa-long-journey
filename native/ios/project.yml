@@ -173,6 +173,45 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.foundation.scene
 
+  ImmersiveRuntime:
+    type: framework
+    platform: iOS
+    sources:
+      - Sources/ImmersiveRuntime
+      # Generated continuity proofs for the simulator review path. These are
+      # deliberately excluded from Release until their final-art gates close.
+      - path: ../production/3d/chapter01/generated/aegean-crossing-v1/aegean-crossing-lod0.usdz
+        buildPhase: resources
+      - path: ../production/3d/chapter01/thessaly/outputs/thessaly-household-store.usdz
+        buildPhase: resources
+      - path: ../production/3d/chapter01/iron-gates/exports/iron-gates.usdz
+        buildPhase: resources
+      - path: ../production/3d/chapter01/longhouse/exports/longhouse.usdz
+        buildPhase: resources
+      - path: ../production/3d/chapter01/settlement/exports/settlement.usdz
+        buildPhase: resources
+    dependencies:
+      - target: ContentKit
+      - target: JourneyDomain
+      - target: QualityInstrumentation
+      - sdk: AVFAudio.framework
+      - sdk: CoreHaptics.framework
+      - sdk: RealityKit.framework
+      - sdk: SwiftUI.framework
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.thelongwest.foundation.immersive-runtime
+      configs:
+        NON_SHIPPING_LIVE_TEST:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) NON_SHIPPING_LIVE_TEST"
+        Release:
+          EXCLUDED_SOURCE_FILE_NAMES:
+            - aegean-crossing-lod0.usdz
+            - thessaly-household-store.usdz
+            - iron-gates.usdz
+            - longhouse.usdz
+            - settlement.usdz
+
   JourneyAccessibility:
     type: framework
     platform: iOS
@@ -234,6 +273,11 @@ targets:
         buildPhase: resources
       - path: ../phase2/runtime-fixture/vertical-slice-development-trust-receipt.json
         buildPhase: resources
+      - path: ../production/3d/chapter01/review-package/compiled/first-farmers-3d-review-v1.runtimefixture
+        type: folder
+        buildPhase: resources
+      - path: ../production/3d/chapter01/review-package/backstage/review-trust-receipt.json
+        buildPhase: resources
     configFiles:
       Debug: Config/Product.xcconfig
       Release: Config/Product.xcconfig
@@ -271,6 +315,7 @@ targets:
       - target: DramaticAudio
       - target: ExperiencePreferences
       - target: SceneRuntime
+      - target: ImmersiveRuntime
       - target: JourneyAccessibility
       - target: ChapterRuntime
       - target: QualityInstrumentation
@@ -313,6 +358,8 @@ targets:
             - first-farmers.payload-receipt.json
             - vertical-slice-development-v1.runtimefixture
             - vertical-slice-development-trust-receipt.json
+            - first-farmers-3d-review-v1.runtimefixture
+            - review-trust-receipt.json
 
   AssetDownloaderExtension:
     type: extensionkit-extension
@@ -357,6 +404,7 @@ targets:
       - Tests/CommerceKitTests
       - Tests/DramaticAudioTests
       - Tests/SceneRuntimeTests
+      - Tests/ImmersiveRuntimeTests
       - Tests/JourneyAccessibilityTests
       - Tests/ChapterRuntimeTests
       - Tests/QualityInstrumentationTests
@@ -404,6 +452,7 @@ targets:
       - target: DramaticAudio
       - target: ExperiencePreferences
       - target: SceneRuntime
+      - target: ImmersiveRuntime
       - target: JourneyAccessibility
       - target: ChapterRuntime
       - target: QualityInstrumentation
@@ -529,10 +578,39 @@ schemes:
       commandLineArguments:
         "--ui-testing-signed-runtime-fixture": true
         "--ui-testing-signed-runtime-fixture-chapter=first-farmers": true
+        "--chapter01-immersive-review": true
     profile:
       config: NON_SHIPPING_LIVE_TEST
       commandLineArguments:
         "--ui-testing-signed-runtime-fixture": true
         "--ui-testing-signed-runtime-fixture-chapter=first-farmers": true
+        "--chapter01-immersive-review": true
     archive:
       config: Release
+
+  Chapter01ImmersiveCleanStart:
+    build:
+      targets:
+        JourneyApp: all
+    run:
+      config: NON_SHIPPING_LIVE_TEST
+      debugEnabled: false
+      commandLineArguments:
+        "--ui-testing-reset-state": true
+        "--ui-testing-signed-runtime-fixture": true
+        "--ui-testing-signed-runtime-fixture-chapter=first-farmers": true
+        "--chapter01-immersive-review": true
+
+  Chapter01ImmersiveSpringResume:
+    build:
+      targets:
+        JourneyApp: all
+    run:
+      config: NON_SHIPPING_LIVE_TEST
+      debugEnabled: false
+      commandLineArguments:
+        "--ui-testing-reset-state": true
+        "--ui-testing-signed-runtime-fixture": true
+        "--ui-testing-signed-runtime-fixture-chapter=first-farmers": true
+        "--chapter01-immersive-review": true
+        "--chapter01-immersive-review-resume-spring": true

@@ -1,0 +1,383 @@
+{
+  "schemaVersion": 1,
+  "libraryID": "chapter01-directed-animation-library-v1",
+  "classification": "DIRECTED_ANIMATION_CONTACT_CANDIDATE",
+  "framesPerSecond": 30,
+  "coordinateSystem": {
+    "upAxis": "Y",
+    "frontAxis": "-Z",
+    "metersPerUnit": 1
+  },
+  "rigContract": {
+    "sourceAsset": "../characters/outputs/chapter01-hero-character-library.usdc",
+    "profiles": [
+      {
+        "id": "adult-a",
+        "role": "adult",
+        "cloneableRoot": "hero_adult_a",
+        "skeletonPath": "/root/hero_adult_a/hero_adult_a_rig/hero_adult_a_body_rig"
+      },
+      {
+        "id": "adult-b",
+        "role": "adult",
+        "cloneableRoot": "hero_adult_b",
+        "skeletonPath": "/root/hero_adult_b/hero_adult_b_rig/hero_adult_b_body_rig"
+      },
+      {
+        "id": "youth",
+        "role": "youth",
+        "cloneableRoot": "hero_youth",
+        "skeletonPath": "/root/hero_youth/hero_youth_rig/hero_youth_body_rig"
+      }
+    ],
+    "retargeting": "profile-specific-rest-and-bind-transforms-with-identical-joint-order",
+    "rootMotion": "disabled"
+  },
+  "authoringRules": {
+    "domainCompletion": "forbidden",
+    "animationEventsAreAuthoritative": false,
+    "dialogue": false,
+    "lipSync": false,
+    "freeClothSimulation": false,
+    "freeHairSimulation": false,
+    "autonomousCrowds": false,
+    "sceneContactResolution": "deterministic-runtime-ik-from-authored-targets"
+  },
+  "clips": [
+    {
+      "id": "human.line-hold.enter",
+      "durationFrames": 30,
+      "loopMode": "once-hold-last",
+      "roles": ["adult", "youth"],
+      "safeIncompleteFrame": 0,
+      "keys": [
+        {"frame": 0, "joints": {"pelvis": [0, 0, 0], "spine_02": [0, 0, 0], "upperarm_l": [0, 0, 18], "lowerarm_l": [0, 0, 8], "upperarm_r": [0, 0, -18], "lowerarm_r": [0, 0, -8]}},
+        {"frame": 15, "rootOffset": [0, 0, -0.04], "joints": {"pelvis": [5, 0, 0], "spine_02": [-7, 0, 0], "upperarm_l": [-32, -10, 34], "lowerarm_l": [-48, 0, 12], "hand_l": [0, -16, 0], "upperarm_r": [-30, 10, -34], "lowerarm_r": [-50, 0, -12], "hand_r": [0, 16, 0]}},
+        {"frame": 30, "rootOffset": [0, 0, -0.07], "joints": {"pelvis": [8, 0, 0], "spine_02": [-10, 0, 0], "upperarm_l": [-38, -12, 38], "lowerarm_l": [-58, 0, 12], "hand_l": [0, -20, 0], "upperarm_r": [-36, 12, -38], "lowerarm_r": [-60, 0, -12], "hand_r": [0, 20, 0]}}
+      ],
+      "contactWindows": [
+        {"effector": "hand_l", "targetSocket": "line-grip-left", "startFrame": 12, "peakFrame": 24, "endFrame": 30, "mode": "grip"},
+        {"effector": "hand_r", "targetSocket": "line-grip-right", "startFrame": 12, "peakFrame": 24, "endFrame": 30, "mode": "grip"}
+      ]
+    },
+    {
+      "id": "human.line-hold.resist-loop",
+      "durationFrames": 48,
+      "loopMode": "loop",
+      "roles": ["adult", "youth"],
+      "safeIncompleteFrame": 0,
+      "keys": [
+        {"frame": 0, "rootOffset": [0, 0, -0.07], "joints": {"pelvis": [8, 0, 0], "spine_02": [-10, 0, 0], "upperarm_l": [-38, -12, 38], "lowerarm_l": [-58, 0, 12], "upperarm_r": [-36, 12, -38], "lowerarm_r": [-60, 0, -12], "thigh_l": [-8, 0, 0], "thigh_r": [-8, 0, 0]}},
+        {"frame": 24, "rootOffset": [0.015, -0.012, -0.10], "joints": {"pelvis": [11, -2, 1], "spine_02": [-13, 3, 0], "upperarm_l": [-42, -15, 40], "lowerarm_l": [-64, 0, 14], "upperarm_r": [-40, 15, -40], "lowerarm_r": [-66, 0, -14], "thigh_l": [-11, 0, 3], "thigh_r": [-10, 0, -3]}},
+        {"frame": 48, "rootOffset": [0, 0, -0.07], "joints": {"pelvis": [8, 0, 0], "spine_02": [-10, 0, 0], "upperarm_l": [-38, -12, 38], "lowerarm_l": [-58, 0, 12], "upperarm_r": [-36, 12, -38], "lowerarm_r": [-60, 0, -12], "thigh_l": [-8, 0, 0], "thigh_r": [-8, 0, 0]}}
+      ],
+      "contactWindows": [
+        {"effector": "hand_l", "targetSocket": "line-grip-left", "startFrame": 0, "peakFrame": 24, "endFrame": 48, "mode": "locked-grip"},
+        {"effector": "hand_r", "targetSocket": "line-grip-right", "startFrame": 0, "peakFrame": 24, "endFrame": 48, "mode": "locked-grip"},
+        {"effector": "foot_l", "targetSocket": "ground-brace-left", "startFrame": 0, "peakFrame": 24, "endFrame": 48, "mode": "plant"},
+        {"effector": "foot_r", "targetSocket": "ground-brace-right", "startFrame": 0, "peakFrame": 24, "endFrame": 48, "mode": "plant"}
+      ]
+    },
+    {
+      "id": "human.vessel.two-hand-handover",
+      "durationFrames": 45,
+      "loopMode": "once-hold-last",
+      "roles": ["adult", "youth"],
+      "safeIncompleteFrame": 0,
+      "keys": [
+        {"frame": 0, "joints": {"spine_02": [0, 0, 0], "upperarm_l": [-24, -8, 28], "lowerarm_l": [-52, 0, 10], "upperarm_r": [-24, 8, -28], "lowerarm_r": [-52, 0, -10]}},
+        {"frame": 22, "rootOffset": [0, 0, -0.08], "joints": {"pelvis": [8, 0, 0], "spine_02": [-12, 0, 0], "upperarm_l": [-42, -10, 32], "lowerarm_l": [-70, 0, 12], "hand_l": [0, -12, 0], "upperarm_r": [-42, 10, -32], "lowerarm_r": [-70, 0, -12], "hand_r": [0, 12, 0]}},
+        {"frame": 45, "rootOffset": [0, -0.04, -0.12], "joints": {"pelvis": [12, 0, 0], "spine_02": [-17, 0, 0], "upperarm_l": [-46, -8, 29], "lowerarm_l": [-76, 0, 14], "hand_l": [0, -18, 0], "upperarm_r": [-46, 8, -29], "lowerarm_r": [-76, 0, -14], "hand_r": [0, 18, 0]}}
+      ],
+      "contactWindows": [
+        {"effector": "hand_l", "targetSocket": "vessel-handle-left", "startFrame": 4, "peakFrame": 22, "endFrame": 45, "mode": "support"},
+        {"effector": "hand_r", "targetSocket": "vessel-handle-right", "startFrame": 4, "peakFrame": 22, "endFrame": 45, "mode": "support"}
+      ]
+    },
+    {
+      "id": "human.seed.sow",
+      "durationFrames": 42,
+      "loopMode": "once",
+      "roles": ["adult", "youth"],
+      "safeIncompleteFrame": 0,
+      "keys": [
+        {"frame": 0, "joints": {"pelvis": [0, 0, 0], "spine_02": [0, 0, 0], "upperarm_r": [-15, 0, -12], "lowerarm_r": [-38, 0, -8]}},
+        {"frame": 18, "rootOffset": [0, -0.18, -0.12], "joints": {"pelvis": [28, 0, 0], "spine_02": [-34, 0, 0], "upperarm_r": [-48, 5, -20], "lowerarm_r": [-76, 0, -5], "hand_r": [10, 0, 0], "thigh_l": [-32, 0, 0], "calf_l": [46, 0, 0], "thigh_r": [-10, 0, 0], "calf_r": [20, 0, 0]}},
+        {"frame": 30, "rootOffset": [0, -0.20, -0.16], "joints": {"pelvis": [30, 0, 0], "spine_02": [-38, 0, 0], "upperarm_r": [-62, 8, -18], "lowerarm_r": [-88, 0, -4], "hand_r": [18, 0, 0], "thigh_l": [-34, 0, 0], "calf_l": [48, 0, 0], "thigh_r": [-12, 0, 0], "calf_r": [22, 0, 0]}},
+        {"frame": 42, "rootOffset": [0, -0.12, -0.08], "joints": {"pelvis": [18, 0, 0], "spine_02": [-22, 0, 0], "upperarm_r": [-34, 4, -14], "lowerarm_r": [-54, 0, -6], "thigh_l": [-20, 0, 0], "calf_l": [32, 0, 0], "thigh_r": [-6, 0, 0], "calf_r": [12, 0, 0]}}
+      ],
+      "contactWindows": [
+        {"effector": "hand_r", "targetSocket": "furrow-seed-contact", "startFrame": 21, "peakFrame": 30, "endFrame": 34, "mode": "release-material"},
+        {"effector": "foot_l", "targetSocket": "ground-kneel-left", "startFrame": 12, "peakFrame": 24, "endFrame": 38, "mode": "plant"}
+      ]
+    },
+    {
+      "id": "human.grain.transfer",
+      "durationFrames": 38,
+      "loopMode": "once",
+      "roles": ["adult", "youth"],
+      "safeIncompleteFrame": 0,
+      "keys": [
+        {"frame": 0, "joints": {"upperarm_l": [-18, 0, 18], "lowerarm_l": [-42, 0, 8], "upperarm_r": [-18, 0, -18], "lowerarm_r": [-42, 0, -8]}},
+        {"frame": 18, "rootOffset": [0, -0.10, -0.12], "joints": {"pelvis": [18, 0, 0], "spine_02": [-24, 0, 0], "upperarm_l": [-52, -8, 28], "lowerarm_l": [-82, 0, 10], "upperarm_r": [-52, 8, -28], "lowerarm_r": [-82, 0, -10]}},
+        {"frame": 30, "rootOffset": [0.08, -0.05, -0.02], "joints": {"pelvis": [8, 16, 0], "spine_02": [-14, -12, 0], "upperarm_l": [-38, -12, 36], "lowerarm_l": [-68, 0, 12], "upperarm_r": [-38, 12, -30], "lowerarm_r": [-64, 0, -10]}},
+        {"frame": 38, "joints": {"upperarm_l": [-18, 0, 18], "lowerarm_l": [-42, 0, 8], "upperarm_r": [-18, 0, -18], "lowerarm_r": [-42, 0, -8]}}
+      ],
+      "contactWindows": [
+        {"effector": "hand_l", "targetSocket": "grain-measure-left", "startFrame": 8, "peakFrame": 18, "endFrame": 31, "mode": "carry"},
+        {"effector": "hand_r", "targetSocket": "grain-measure-right", "startFrame": 8, "peakFrame": 18, "endFrame": 31, "mode": "carry"}
+      ]
+    },
+    {
+      "id": "human.store.lift-wet",
+      "durationFrames": 44,
+      "loopMode": "once-hold-last",
+      "roles": ["adult", "youth"],
+      "safeIncompleteFrame": 0,
+      "keys": [
+        {"frame": 0, "joints": {"pelvis": [18, 0, 0], "spine_02": [-22, 0, 0], "upperarm_l": [-48, -8, 24], "lowerarm_l": [-72, 0, 10], "upperarm_r": [-48, 8, -24], "lowerarm_r": [-72, 0, -10]}},
+        {"frame": 22, "rootOffset": [0, 0.06, 0], "joints": {"pelvis": [10, 0, 0], "spine_02": [-14, 0, 0], "upperarm_l": [-30, -10, 30], "lowerarm_l": [-62, 0, 12], "upperarm_r": [-30, 10, -30], "lowerarm_r": [-62, 0, -12]}},
+        {"frame": 44, "rootOffset": [0, 0.14, 0], "joints": {"pelvis": [4, 0, 0], "spine_02": [-8, 0, 0], "upperarm_l": [-18, -12, 34], "lowerarm_l": [-54, 0, 12], "upperarm_r": [-18, 12, -34], "lowerarm_r": [-54, 0, -12]}}
+      ],
+      "contactWindows": [
+        {"effector": "hand_l", "targetSocket": "wet-store-left", "startFrame": 0, "peakFrame": 24, "endFrame": 44, "mode": "lift"},
+        {"effector": "hand_r", "targetSocket": "wet-store-right", "startFrame": 0, "peakFrame": 24, "endFrame": 44, "mode": "lift"}
+      ]
+    },
+    {
+      "id": "human.store.repair",
+      "durationFrames": 54,
+      "loopMode": "once",
+      "roles": ["adult", "youth"],
+      "safeIncompleteFrame": 0,
+      "keys": [
+        {"frame": 0, "joints": {"pelvis": [22, 0, 0], "spine_02": [-28, 0, 0], "upperarm_r": [-50, 6, -24], "lowerarm_r": [-74, 0, -8]}},
+        {"frame": 18, "rootOffset": [0, -0.12, -0.10], "joints": {"pelvis": [30, 0, 0], "spine_02": [-38, 0, 0], "upperarm_r": [-68, 8, -24], "lowerarm_r": [-94, 0, -6], "hand_r": [14, 0, 0], "thigh_l": [-28, 0, 0], "calf_l": [40, 0, 0]}},
+        {"frame": 34, "rootOffset": [0.06, -0.12, -0.08], "joints": {"pelvis": [28, 12, 0], "spine_02": [-36, -10, 0], "upperarm_l": [-46, -8, 24], "lowerarm_l": [-76, 0, 8], "upperarm_r": [-42, 8, -30], "lowerarm_r": [-72, 0, -12], "thigh_l": [-26, 0, 0], "calf_l": [38, 0, 0]}},
+        {"frame": 54, "rootOffset": [0, -0.05, -0.02], "joints": {"pelvis": [10, 0, 0], "spine_02": [-14, 0, 0], "upperarm_l": [-24, -6, 20], "lowerarm_l": [-48, 0, 8], "upperarm_r": [-24, 6, -20], "lowerarm_r": [-48, 0, -8]}}
+      ],
+      "contactWindows": [
+        {"effector": "hand_r", "targetSocket": "spoiled-grain-margin", "startFrame": 12, "peakFrame": 20, "endFrame": 27, "mode": "separate"},
+        {"effector": "hand_l", "targetSocket": "reserve-vessel-left", "startFrame": 28, "peakFrame": 36, "endFrame": 45, "mode": "support"},
+        {"effector": "hand_r", "targetSocket": "reserve-transfer", "startFrame": 30, "peakFrame": 39, "endFrame": 47, "mode": "transfer"}
+      ]
+    },
+    {
+      "id": "human.store.seal",
+      "durationFrames": 36,
+      "loopMode": "once-hold-last",
+      "roles": ["adult", "youth"],
+      "safeIncompleteFrame": 0,
+      "keys": [
+        {"frame": 0, "joints": {"pelvis": [18, 0, 0], "spine_02": [-24, 0, 0], "upperarm_l": [-36, -8, 24], "lowerarm_l": [-64, 0, 10], "upperarm_r": [-36, 8, -24], "lowerarm_r": [-64, 0, -10]}},
+        {"frame": 20, "rootOffset": [0, -0.06, -0.08], "joints": {"pelvis": [24, 0, 0], "spine_02": [-32, 0, 0], "upperarm_l": [-54, -10, 28], "lowerarm_l": [-86, 0, 12], "hand_l": [12, 0, 0], "upperarm_r": [-54, 10, -28], "lowerarm_r": [-86, 0, -12], "hand_r": [12, 0, 0]}},
+        {"frame": 36, "rootOffset": [0, -0.04, -0.04], "joints": {"pelvis": [15, 0, 0], "spine_02": [-20, 0, 0], "upperarm_l": [-40, -8, 24], "lowerarm_l": [-70, 0, 10], "upperarm_r": [-40, 8, -24], "lowerarm_r": [-70, 0, -10]}}
+      ],
+      "contactWindows": [
+        {"effector": "hand_l", "targetSocket": "spring-vessel-seal-left", "startFrame": 8, "peakFrame": 22, "endFrame": 36, "mode": "press"},
+        {"effector": "hand_r", "targetSocket": "spring-vessel-seal-right", "startFrame": 8, "peakFrame": 22, "endFrame": 36, "mode": "press"}
+      ]
+    },
+    {
+      "id": "human.guide-pole.plant",
+      "durationFrames": 42,
+      "loopMode": "once-hold-last",
+      "roles": ["adult"],
+      "safeIncompleteFrame": 0,
+      "keys": [
+        {"frame": 0, "joints": {"upperarm_l": [-20, -12, 30], "lowerarm_l": [-48, 0, 10], "upperarm_r": [-34, 8, -20], "lowerarm_r": [-62, 0, -8]}},
+        {"frame": 22, "rootOffset": [0, -0.04, -0.10], "joints": {"pelvis": [12, 0, 0], "spine_02": [-18, 0, 0], "upperarm_l": [-54, -16, 42], "lowerarm_l": [-76, 0, 14], "upperarm_r": [-68, 12, -24], "lowerarm_r": [-92, 0, -8], "thigh_l": [-12, 0, 4], "thigh_r": [-10, 0, -4]}},
+        {"frame": 42, "rootOffset": [0, -0.02, -0.16], "joints": {"pelvis": [16, 0, 0], "spine_02": [-22, 0, 0], "upperarm_l": [-62, -18, 44], "lowerarm_l": [-82, 0, 14], "upperarm_r": [-76, 12, -26], "lowerarm_r": [-100, 0, -8], "thigh_l": [-16, 0, 5], "thigh_r": [-14, 0, -5]}}
+      ],
+      "contactWindows": [
+        {"effector": "hand_l", "targetSocket": "guide-pole-upper", "startFrame": 0, "peakFrame": 24, "endFrame": 42, "mode": "grip"},
+        {"effector": "hand_r", "targetSocket": "guide-pole-lower", "startFrame": 0, "peakFrame": 24, "endFrame": 42, "mode": "grip"},
+        {"effector": "prop.guide-pole-tip", "targetSocket": "riverbed-known-lee", "startFrame": 18, "peakFrame": 32, "endFrame": 42, "mode": "plant"}
+      ]
+    },
+    {
+      "id": "human.landing-line.hold",
+      "durationFrames": 45,
+      "loopMode": "loop",
+      "roles": ["adult"],
+      "safeIncompleteFrame": 0,
+      "keys": [
+        {"frame": 0, "rootOffset": [0, 0, -0.06], "joints": {"pelvis": [8, -8, 0], "spine_02": [-12, 6, 0], "upperarm_l": [-34, -18, 36], "lowerarm_l": [-60, 0, 12], "upperarm_r": [-44, 12, -28], "lowerarm_r": [-72, 0, -10]}},
+        {"frame": 22, "rootOffset": [-0.02, -0.02, -0.10], "joints": {"pelvis": [12, -12, 0], "spine_02": [-16, 10, 0], "upperarm_l": [-40, -22, 40], "lowerarm_l": [-68, 0, 14], "upperarm_r": [-50, 16, -32], "lowerarm_r": [-80, 0, -12]}},
+        {"frame": 45, "rootOffset": [0, 0, -0.06], "joints": {"pelvis": [8, -8, 0], "spine_02": [-12, 6, 0], "upperarm_l": [-34, -18, 36], "lowerarm_l": [-60, 0, 12], "upperarm_r": [-44, 12, -28], "lowerarm_r": [-72, 0, -10]}}
+      ],
+      "contactWindows": [
+        {"effector": "hand_l", "targetSocket": "landing-line-left", "startFrame": 0, "peakFrame": 22, "endFrame": 45, "mode": "locked-grip"},
+        {"effector": "hand_r", "targetSocket": "landing-line-right", "startFrame": 0, "peakFrame": 22, "endFrame": 45, "mode": "locked-grip"}
+      ]
+    },
+    {
+      "id": "human.steering.brace",
+      "durationFrames": 48,
+      "loopMode": "loop",
+      "roles": ["adult"],
+      "safeIncompleteFrame": 0,
+      "keys": [
+        {"frame": 0, "rootOffset": [0, 0, -0.08], "joints": {"pelvis": [10, 10, 0], "spine_02": [-14, -8, 0], "upperarm_l": [-52, -10, 26], "lowerarm_l": [-78, 0, 10], "upperarm_r": [-28, 14, -34], "lowerarm_r": [-58, 0, -12], "thigh_l": [-12, 0, 4], "thigh_r": [-10, 0, -4]}},
+        {"frame": 24, "rootOffset": [0.02, -0.02, -0.12], "joints": {"pelvis": [14, 14, 0], "spine_02": [-19, -12, 0], "upperarm_l": [-60, -12, 28], "lowerarm_l": [-86, 0, 12], "upperarm_r": [-34, 18, -38], "lowerarm_r": [-66, 0, -14], "thigh_l": [-15, 0, 5], "thigh_r": [-13, 0, -5]}},
+        {"frame": 48, "rootOffset": [0, 0, -0.08], "joints": {"pelvis": [10, 10, 0], "spine_02": [-14, -8, 0], "upperarm_l": [-52, -10, 26], "lowerarm_l": [-78, 0, 10], "upperarm_r": [-28, 14, -34], "lowerarm_r": [-58, 0, -12], "thigh_l": [-12, 0, 4], "thigh_r": [-10, 0, -4]}}
+      ],
+      "contactWindows": [
+        {"effector": "hand_l", "targetSocket": "steering-bar-left", "startFrame": 0, "peakFrame": 24, "endFrame": 48, "mode": "push"},
+        {"effector": "hand_r", "targetSocket": "steering-bar-right", "startFrame": 0, "peakFrame": 24, "endFrame": 48, "mode": "brace"},
+        {"effector": "foot_l", "targetSocket": "boat-brace-left", "startFrame": 0, "peakFrame": 24, "endFrame": 48, "mode": "plant"}
+      ]
+    },
+    {
+      "id": "human.longhouse.frame-raise",
+      "durationFrames": 60,
+      "loopMode": "once-hold-last",
+      "roles": ["adult"],
+      "safeIncompleteFrame": 0,
+      "keys": [
+        {"frame": 0, "rootOffset": [0, -0.12, -0.08], "joints": {"pelvis": [24, 0, 0], "spine_02": [-30, 0, 0], "upperarm_l": [-34, -12, 34], "lowerarm_l": [-62, 0, 12], "upperarm_r": [-34, 12, -34], "lowerarm_r": [-62, 0, -12], "thigh_l": [-24, 0, 4], "calf_l": [32, 0, 0], "thigh_r": [-18, 0, -4], "calf_r": [26, 0, 0]}},
+        {"frame": 30, "rootOffset": [0, -0.02, -0.04], "joints": {"pelvis": [12, 0, 0], "spine_02": [-16, 0, 0], "upperarm_l": [-62, -14, 40], "lowerarm_l": [-88, 0, 14], "upperarm_r": [-62, 14, -40], "lowerarm_r": [-88, 0, -14], "thigh_l": [-12, 0, 3], "calf_l": [18, 0, 0], "thigh_r": [-10, 0, -3], "calf_r": [16, 0, 0]}},
+        {"frame": 60, "rootOffset": [0, 0.05, 0], "joints": {"pelvis": [4, 0, 0], "spine_02": [-8, 0, 0], "upperarm_l": [-82, -12, 34], "lowerarm_l": [-108, 0, 12], "upperarm_r": [-82, 12, -34], "lowerarm_r": [-108, 0, -12], "thigh_l": [-5, 0, 2], "thigh_r": [-5, 0, -2]}}
+      ],
+      "contactWindows": [
+        {"effector": "hand_l", "targetSocket": "raising-line-left", "startFrame": 0, "peakFrame": 38, "endFrame": 60, "mode": "locked-grip"},
+        {"effector": "hand_r", "targetSocket": "raising-line-right", "startFrame": 0, "peakFrame": 38, "endFrame": 60, "mode": "locked-grip"},
+        {"effector": "foot_l", "targetSocket": "loess-brace-left", "startFrame": 0, "peakFrame": 30, "endFrame": 60, "mode": "plant"},
+        {"effector": "foot_r", "targetSocket": "loess-brace-right", "startFrame": 0, "peakFrame": 30, "endFrame": 60, "mode": "plant"}
+      ]
+    },
+    {
+      "id": "human.longhouse.wedge",
+      "durationFrames": 40,
+      "loopMode": "once-hold-last",
+      "roles": ["adult", "youth"],
+      "safeIncompleteFrame": 0,
+      "keys": [
+        {"frame": 0, "rootOffset": [0, -0.16, -0.10], "joints": {"pelvis": [28, 0, 0], "spine_02": [-34, 0, 0], "upperarm_l": [-44, -8, 26], "lowerarm_l": [-72, 0, 10], "upperarm_r": [-52, 8, -22], "lowerarm_r": [-82, 0, -8], "thigh_l": [-30, 0, 0], "calf_l": [44, 0, 0]}},
+        {"frame": 22, "rootOffset": [0, -0.20, -0.16], "joints": {"pelvis": [34, 0, 0], "spine_02": [-42, 0, 0], "upperarm_l": [-58, -10, 30], "lowerarm_l": [-88, 0, 12], "upperarm_r": [-70, 8, -24], "lowerarm_r": [-102, 0, -8], "hand_r": [12, 0, 0], "thigh_l": [-34, 0, 0], "calf_l": [48, 0, 0]}},
+        {"frame": 40, "rootOffset": [0, -0.16, -0.10], "joints": {"pelvis": [28, 0, 0], "spine_02": [-34, 0, 0], "upperarm_l": [-44, -8, 26], "lowerarm_l": [-72, 0, 10], "upperarm_r": [-52, 8, -22], "lowerarm_r": [-82, 0, -8], "thigh_l": [-30, 0, 0], "calf_l": [44, 0, 0]}}
+      ],
+      "contactWindows": [
+        {"effector": "hand_l", "targetSocket": "post-wedge-support", "startFrame": 4, "peakFrame": 22, "endFrame": 40, "mode": "support"},
+        {"effector": "hand_r", "targetSocket": "post-wedge-drive", "startFrame": 14, "peakFrame": 24, "endFrame": 32, "mode": "drive"}
+      ]
+    },
+    {
+      "id": "human.longhouse.roof-brace",
+      "durationFrames": 48,
+      "loopMode": "loop",
+      "roles": ["adult"],
+      "safeIncompleteFrame": 0,
+      "keys": [
+        {"frame": 0, "rootOffset": [0, 0, -0.05], "joints": {"pelvis": [6, 0, 0], "spine_02": [-10, 0, 0], "upperarm_l": [-78, -10, 30], "lowerarm_l": [-104, 0, 10], "upperarm_r": [-78, 10, -30], "lowerarm_r": [-104, 0, -10]}},
+        {"frame": 24, "rootOffset": [0, -0.02, -0.08], "joints": {"pelvis": [10, 0, 0], "spine_02": [-14, 0, 0], "upperarm_l": [-84, -12, 34], "lowerarm_l": [-112, 0, 12], "upperarm_r": [-84, 12, -34], "lowerarm_r": [-112, 0, -12]}},
+        {"frame": 48, "rootOffset": [0, 0, -0.05], "joints": {"pelvis": [6, 0, 0], "spine_02": [-10, 0, 0], "upperarm_l": [-78, -10, 30], "lowerarm_l": [-104, 0, 10], "upperarm_r": [-78, 10, -30], "lowerarm_r": [-104, 0, -10]}}
+      ],
+      "contactWindows": [
+        {"effector": "hand_l", "targetSocket": "roof-brace-left", "startFrame": 0, "peakFrame": 24, "endFrame": 48, "mode": "load-bearing"},
+        {"effector": "hand_r", "targetSocket": "roof-brace-right", "startFrame": 0, "peakFrame": 24, "endFrame": 48, "mode": "load-bearing"}
+      ]
+    },
+    {
+      "id": "human.longhouse.post-replace",
+      "durationFrames": 54,
+      "loopMode": "once-hold-last",
+      "roles": ["adult"],
+      "safeIncompleteFrame": 0,
+      "keys": [
+        {"frame": 0, "rootOffset": [0, -0.08, -0.08], "joints": {"pelvis": [18, 0, 0], "spine_02": [-24, 0, 0], "upperarm_l": [-44, -10, 30], "lowerarm_l": [-70, 0, 12], "upperarm_r": [-44, 10, -30], "lowerarm_r": [-70, 0, -12]}},
+        {"frame": 28, "rootOffset": [0.04, -0.04, -0.02], "joints": {"pelvis": [10, 12, 0], "spine_02": [-16, -10, 0], "upperarm_l": [-60, -14, 36], "lowerarm_l": [-88, 0, 14], "upperarm_r": [-54, 16, -34], "lowerarm_r": [-82, 0, -14]}},
+        {"frame": 54, "rootOffset": [0, 0.04, 0], "joints": {"pelvis": [4, 0, 0], "spine_02": [-8, 0, 0], "upperarm_l": [-34, -8, 24], "lowerarm_l": [-62, 0, 10], "upperarm_r": [-34, 8, -24], "lowerarm_r": [-62, 0, -10]}}
+      ],
+      "contactWindows": [
+        {"effector": "hand_l", "targetSocket": "replacement-post-left", "startFrame": 0, "peakFrame": 30, "endFrame": 54, "mode": "guide"},
+        {"effector": "hand_r", "targetSocket": "replacement-post-right", "startFrame": 0, "peakFrame": 30, "endFrame": 54, "mode": "guide"},
+        {"effector": "prop.replacement-post-foot", "targetSocket": "old-post-mark", "startFrame": 34, "peakFrame": 48, "endFrame": 54, "mode": "seat"}
+      ]
+    },
+    {
+      "id": "human.herd.guide",
+      "durationFrames": 48,
+      "loopMode": "loop",
+      "roles": ["adult", "youth"],
+      "safeIncompleteFrame": 0,
+      "keys": [
+        {"frame": 0, "rootOffset": [0, 0, 0], "joints": {"pelvis": [4, -8, 0], "spine_02": [-6, 6, 0], "upperarm_l": [-26, -12, 28], "lowerarm_l": [-48, 0, 10], "upperarm_r": [-42, 12, -34], "lowerarm_r": [-70, 0, -12], "thigh_l": [-16, 0, 4], "calf_l": [18, 0, 0], "thigh_r": [12, 0, -4], "calf_r": [8, 0, 0]}},
+        {"frame": 24, "rootOffset": [0, -0.02, -0.04], "joints": {"pelvis": [6, 8, 0], "spine_02": [-8, -6, 0], "upperarm_l": [-42, -14, 34], "lowerarm_l": [-68, 0, 12], "upperarm_r": [-24, 14, -30], "lowerarm_r": [-50, 0, -10], "thigh_l": [12, 0, 4], "calf_l": [8, 0, 0], "thigh_r": [-16, 0, -4], "calf_r": [18, 0, 0]}},
+        {"frame": 48, "rootOffset": [0, 0, 0], "joints": {"pelvis": [4, -8, 0], "spine_02": [-6, 6, 0], "upperarm_l": [-26, -12, 28], "lowerarm_l": [-48, 0, 10], "upperarm_r": [-42, 12, -34], "lowerarm_r": [-70, 0, -12], "thigh_l": [-16, 0, 4], "calf_l": [18, 0, 0], "thigh_r": [12, 0, -4], "calf_r": [8, 0, 0]}}
+      ],
+      "contactWindows": [
+        {"effector": "hand_r", "targetSocket": "animal-line-forward", "startFrame": 0, "peakFrame": 24, "endFrame": 48, "mode": "guide"},
+        {"effector": "foot_l", "targetSocket": "terrain-left", "startFrame": 0, "peakFrame": 24, "endFrame": 48, "mode": "footfall"},
+        {"effector": "foot_r", "targetSocket": "terrain-right", "startFrame": 0, "peakFrame": 24, "endFrame": 48, "mode": "footfall"}
+      ]
+    },
+    {
+      "id": "human.field.stake-drive",
+      "durationFrames": 45,
+      "loopMode": "once-hold-last",
+      "roles": ["adult"],
+      "safeIncompleteFrame": 0,
+      "keys": [
+        {"frame": 0, "rootOffset": [0, -0.06, -0.08], "joints": {"pelvis": [16, 0, 0], "spine_02": [-22, 0, 0], "upperarm_l": [-38, -8, 26], "lowerarm_l": [-66, 0, 10], "upperarm_r": [-38, 8, -26], "lowerarm_r": [-66, 0, -10]}},
+        {"frame": 22, "rootOffset": [0, -0.12, -0.14], "joints": {"pelvis": [26, 0, 0], "spine_02": [-34, 0, 0], "upperarm_l": [-68, -10, 30], "lowerarm_l": [-96, 0, 12], "upperarm_r": [-68, 10, -30], "lowerarm_r": [-96, 0, -12]}},
+        {"frame": 32, "rootOffset": [0, -0.17, -0.17], "joints": {"pelvis": [32, 0, 0], "spine_02": [-42, 0, 0], "upperarm_l": [-78, -8, 26], "lowerarm_l": [-108, 0, 10], "upperarm_r": [-78, 8, -26], "lowerarm_r": [-108, 0, -10]}},
+        {"frame": 45, "rootOffset": [0, -0.10, -0.10], "joints": {"pelvis": [20, 0, 0], "spine_02": [-28, 0, 0], "upperarm_l": [-48, -8, 24], "lowerarm_l": [-76, 0, 10], "upperarm_r": [-48, 8, -24], "lowerarm_r": [-76, 0, -10]}}
+      ],
+      "contactWindows": [
+        {"effector": "hand_l", "targetSocket": "field-stake-left", "startFrame": 0, "peakFrame": 28, "endFrame": 45, "mode": "drive"},
+        {"effector": "hand_r", "targetSocket": "field-stake-right", "startFrame": 0, "peakFrame": 28, "endFrame": 45, "mode": "drive"},
+        {"effector": "prop.field-stake-foot", "targetSocket": "prepared-earth-slot", "startFrame": 18, "peakFrame": 32, "endFrame": 45, "mode": "seat"}
+      ]
+    },
+    {
+      "id": "human.barrier.hold",
+      "durationFrames": 48,
+      "loopMode": "loop",
+      "roles": ["adult"],
+      "safeIncompleteFrame": 0,
+      "keys": [
+        {"frame": 0, "rootOffset": [0, 0, -0.06], "joints": {"pelvis": [8, -10, 0], "spine_02": [-12, 8, 0], "upperarm_l": [-38, -14, 38], "lowerarm_l": [-66, 0, 14], "upperarm_r": [-42, 16, -36], "lowerarm_r": [-70, 0, -14], "thigh_l": [-12, 0, 5], "thigh_r": [-10, 0, -5]}},
+        {"frame": 24, "rootOffset": [-0.02, -0.02, -0.11], "joints": {"pelvis": [13, -14, 0], "spine_02": [-18, 12, 0], "upperarm_l": [-46, -18, 42], "lowerarm_l": [-76, 0, 16], "upperarm_r": [-50, 20, -40], "lowerarm_r": [-80, 0, -16], "thigh_l": [-16, 0, 6], "thigh_r": [-14, 0, -6]}},
+        {"frame": 48, "rootOffset": [0, 0, -0.06], "joints": {"pelvis": [8, -10, 0], "spine_02": [-12, 8, 0], "upperarm_l": [-38, -14, 38], "lowerarm_l": [-66, 0, 14], "upperarm_r": [-42, 16, -36], "lowerarm_r": [-70, 0, -14], "thigh_l": [-12, 0, 5], "thigh_r": [-10, 0, -5]}}
+      ],
+      "contactWindows": [
+        {"effector": "hand_l", "targetSocket": "barrier-line-left", "startFrame": 0, "peakFrame": 24, "endFrame": 48, "mode": "locked-grip"},
+        {"effector": "hand_r", "targetSocket": "barrier-line-right", "startFrame": 0, "peakFrame": 24, "endFrame": 48, "mode": "locked-grip"},
+        {"effector": "foot_l", "targetSocket": "barrier-brace-left", "startFrame": 0, "peakFrame": 24, "endFrame": 48, "mode": "plant"},
+        {"effector": "foot_r", "targetSocket": "barrier-brace-right", "startFrame": 0, "peakFrame": 24, "endFrame": 48, "mode": "plant"}
+      ]
+    },
+    {
+      "id": "human.barrier.anchor",
+      "durationFrames": 45,
+      "loopMode": "once-hold-last",
+      "roles": ["adult"],
+      "safeIncompleteFrame": 0,
+      "keys": [
+        {"frame": 0, "rootOffset": [0, 0, -0.06], "joints": {"pelvis": [8, -10, 0], "spine_02": [-12, 8, 0], "upperarm_l": [-38, -14, 38], "lowerarm_l": [-66, 0, 14], "upperarm_r": [-42, 16, -36], "lowerarm_r": [-70, 0, -14]}},
+        {"frame": 24, "rootOffset": [0.06, -0.12, -0.10], "joints": {"pelvis": [24, 16, 0], "spine_02": [-32, -12, 0], "upperarm_l": [-62, -18, 42], "lowerarm_l": [-92, 0, 16], "upperarm_r": [-66, 20, -40], "lowerarm_r": [-96, 0, -16], "thigh_l": [-26, 0, 5], "calf_l": [36, 0, 0]}},
+        {"frame": 36, "rootOffset": [0.08, -0.16, -0.14], "joints": {"pelvis": [30, 18, 0], "spine_02": [-38, -14, 0], "upperarm_l": [-72, -18, 38], "lowerarm_l": [-102, 0, 14], "upperarm_r": [-74, 20, -36], "lowerarm_r": [-104, 0, -14], "thigh_l": [-30, 0, 5], "calf_l": [42, 0, 0]}},
+        {"frame": 45, "rootOffset": [0.04, -0.08, -0.06], "joints": {"pelvis": [16, 8, 0], "spine_02": [-22, -6, 0], "upperarm_l": [-48, -12, 30], "lowerarm_l": [-78, 0, 12], "upperarm_r": [-50, 14, -28], "lowerarm_r": [-80, 0, -12]}}
+      ],
+      "contactWindows": [
+        {"effector": "hand_l", "targetSocket": "barrier-anchor-line", "startFrame": 0, "peakFrame": 32, "endFrame": 45, "mode": "wrap"},
+        {"effector": "hand_r", "targetSocket": "barrier-anchor-post", "startFrame": 14, "peakFrame": 34, "endFrame": 45, "mode": "brace"},
+        {"effector": "prop.barrier-line-knot", "targetSocket": "final-gate-anchor", "startFrame": 28, "peakFrame": 38, "endFrame": 45, "mode": "seat"}
+      ]
+    },
+    {
+      "id": "human.work.safe-release",
+      "durationFrames": 21,
+      "loopMode": "once-hold-last",
+      "roles": ["adult", "youth"],
+      "safeIncompleteFrame": 21,
+      "keys": [
+        {"frame": 0, "joints": {"pelvis": [10, 0, 0], "spine_02": [-14, 0, 0], "upperarm_l": [-42, -8, 30], "lowerarm_l": [-70, 0, 10], "upperarm_r": [-42, 8, -30], "lowerarm_r": [-70, 0, -10]}},
+        {"frame": 10, "joints": {"pelvis": [6, 0, 0], "spine_02": [-9, 0, 0], "upperarm_l": [-28, -5, 24], "lowerarm_l": [-54, 0, 8], "upperarm_r": [-28, 5, -24], "lowerarm_r": [-54, 0, -8]}},
+        {"frame": 21, "joints": {"pelvis": [0, 0, 0], "spine_02": [0, 0, 0], "upperarm_l": [-12, 0, 14], "lowerarm_l": [-26, 0, 6], "upperarm_r": [-12, 0, -14], "lowerarm_r": [-26, 0, -6]}}
+      ],
+      "contactWindows": []
+    }
+  ]
+}

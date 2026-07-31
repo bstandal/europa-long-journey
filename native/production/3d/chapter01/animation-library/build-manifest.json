@@ -1,0 +1,115 @@
+{
+  "assetVersion": "chapter01-directed-animation-library-v1",
+  "canonicalOutputs": [
+    {
+      "bytes": 248864,
+      "path": "generated/chapter01-directed-animation-library.usdc",
+      "sha256": "612e9b4d46347b714650971f90451c4e7004a1c2e8f003d6ea9ca493b6c57ad9"
+    },
+    {
+      "bytes": 249158,
+      "path": "generated/chapter01-directed-animation-library.usdz",
+      "sha256": "73185448045d2f3459ce2221a6998469122a1fa38893fa880bad5e51dd5a3cf3"
+    },
+    {
+      "bytes": 1496,
+      "path": "generated/validation-report.json",
+      "sha256": "8ab4e848a89065e4ad22b70d27817a5ec1f4b67ad21794e20046d325ba6a8fe8"
+    }
+  ],
+  "determinism": {
+    "blendByteIdentical": "OPEN",
+    "canonicalOutputsByteIdentical": "PASS",
+    "comparedBuilds": 2,
+    "fixedZipTimestampUTC": "1980-01-01T00:00:00Z",
+    "rootMotionDisabled": true
+  },
+  "finalContactGate": "OPEN",
+  "geometry": {
+    "animationWitnessCount": 51,
+    "clipCount": 20,
+    "contactWindowCount": 51,
+    "jointCount": 53,
+    "loopClipCount": 6,
+    "rigProfileCount": 3,
+    "skeletonCount": 51
+  },
+  "openGates": [
+    "Integrate authored world-space contact sockets and deterministic IK in each world cell.",
+    "Review hand, foot and prop contact at final camera distance on the physical target iPhone.",
+    "Polish deformation against the final character, garment and animal candidates without changing domain authority."
+  ],
+  "qualityClassification": "DIRECTED_ANIMATION_CONTACT_CANDIDATE",
+  "reviewArtifacts": [
+    {
+      "bytes": 124637,
+      "path": "generated/chapter01-directed-animation-library.blend",
+      "sha256": "dbc5f95dca0b7dfd6a28586c2ceff9e9c80069607bf75f4adfb3c91bef0687bb"
+    }
+  ],
+  "rightsGate": "PASS",
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "bytes": 29107,
+      "path": "directed-animation-spec.json",
+      "sha256": "1266c28f49f0abeaa6103b9fa8d561418cdf1804ab41968d2025dd13ed3a03cf"
+    },
+    {
+      "bytes": 3716,
+      "path": "integration-contract.json",
+      "sha256": "3a250da8e0ac33e29ef9269773aebf260e596c823610280fd0be561a04df1e2f"
+    },
+    {
+      "bytes": 1003,
+      "path": "inputs.lock.json",
+      "sha256": "24b93ca90cdb4ff05c6ff3740f6433256c09dafc839e9c5cdde5267eeb1aa4d1"
+    },
+    {
+      "bytes": 1594,
+      "path": "provenance.json",
+      "sha256": "2cc2e1f557665123ab975a95121d1a3a739821b1ff478dfbc524056a3298e6a4"
+    },
+    {
+      "bytes": 3299,
+      "path": "README.md",
+      "sha256": "59eadcd9ba7e067f1ea58a4ebe08bab7ffd7ae7d28af0753440d31c7079852e8"
+    },
+    {
+      "bytes": 16409,
+      "path": "scripts/generate_animation_library.py",
+      "sha256": "ee80249222ebee099aa713522eebaf5687d5bfc2ef7c742b48b14b6fb997486f"
+    },
+    {
+      "bytes": 12558,
+      "path": "scripts/validate_animation_library.py",
+      "sha256": "9d0eb9649137b2968513db5fb05a0b6958f0337d289ac375c2dc2c3a3df13b40"
+    },
+    {
+      "bytes": 4280,
+      "path": "scripts/write_manifest.py",
+      "sha256": "9cf397000093446b4a018b17dc866bd04a9a0d5e42a948b6aeb722178da3126e"
+    },
+    {
+      "bytes": 3304,
+      "path": "scripts/build.sh",
+      "sha256": "376779dfbb4b4a1a3b1359901d8d8b7e0f6dce628d8342ea3c5f7086029f0fcd"
+    }
+  ],
+  "tool": {
+    "blenderBuildHash": "fbe6228777e7",
+    "blenderVersion": "5.2.0 LTS",
+    "usdToolchain": "Apple USD tools plus Blender-bundled pxr"
+  },
+  "validation": {
+    "approvedInteractionContract": "PASS",
+    "arkitUsdcheckerUSDC": "PASS",
+    "arkitUsdcheckerUSDZ": "PASS",
+    "domainAuthority": "PASS",
+    "inputLocks": "PASS",
+    "realityKitOfflineImport": "PASS",
+    "realityKitProfileAnimationResources": 51,
+    "rightsGate": "PASS",
+    "usdSchema": "PASS"
+  }
+}

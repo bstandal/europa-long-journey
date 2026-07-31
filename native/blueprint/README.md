@@ -28,6 +28,36 @@ These files define the editorial and structural baseline for the native Journey.
 - `validate.mjs`: dependency-free structural gate for the complete Phase 0 blueprint.
 - `generate-editor-approval-brief.mjs`: deterministic generator and stale-file check for the editor review artifact.
 
+## Post-Phase-0 experience projections
+
+[`../bibles/experience-bible.md`](../bibles/experience-bible.md) is the shared
+authority for turning approved contracts into complete native chapter flows.
+Experience projections remain backstage and cannot change an approved thesis,
+causal spine, interaction identity, `WorldEffect`, ending or handoff.
+
+Chapter 01 has two editor-approved projection documents for its active build:
+
+- [`first-farmers-real-time-3d-experience-plan.md`](./first-farmers-real-time-3d-experience-plan.md)
+- [`first-farmers-3d-flow-script-v1.md`](./first-farmers-3d-flow-script-v1.md)
+
+Their exact source bytes and locked Chapter 01 invariants are bound by
+[`first-farmers-experience-approval.json`](./first-farmers-experience-approval.json).
+
+They control Chapter 01's experience projection for this build. They are not
+authority for another chapter's timing, human spine, sensory motif or gesture.
+Their exact pacing hypotheses remain `UNPROVEN` until the complete greybox
+passes the experience bible's gate.
+
+P1.00 has superseded the three-arc, 17-scene, 37-text-segment and 28-minute
+Chapter 01 projection for active production. The old projection and Phase 0
+arc matrix remain historical editorial and prototype evidence; they are not a
+runtime target or downstream completion quota for Chapter 01. This activation
+does not change `contract-01`, the six approved interaction IDs, grammars or
+effects, the ending or the handoff. It grants no exact public wording, asset,
+integrated-chapter or shipping authority. The replacement uses five world
+cells and six continuous sequences; its 13:35 authored map and expected
+first-play range remain measured hypotheses rather than a new frozen duration.
+
 ## Authority and status
 
 - Every chapter contract and arc chapter is `APPROVED`. Only the editor-in-chief may reopen an approved contract.

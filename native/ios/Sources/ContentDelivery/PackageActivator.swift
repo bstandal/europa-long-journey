@@ -52,6 +52,33 @@ public struct ContentPackageActivationVerifier: PackageActivationVerifying {
     }
 }
 
+/// Non-shipping Chapter 01 review packages use the existing immutable
+/// generation, activation and rollback machinery with the strict V2 decoder.
+public struct ImmersiveContentPackageV2ActivationVerifier: PackageActivationVerifying {
+    public init() {}
+
+    public func verifyPackage(
+        at packageRoot: URL,
+        expectedPackage: ContentPackageSpec,
+        trustedPublicKeys: [String: Data],
+        supportedSchema: SchemaVersion,
+        runtimeVersion: SchemaVersion
+    ) throws -> VerifiedActivationReceipt {
+        let verified = try ContentPackageVerifier.verifyImmersiveV2Package(
+            at: packageRoot,
+            expectedPackage: expectedPackage,
+            trustedPublicKeys: trustedPublicKeys,
+            supportedSchema: supportedSchema,
+            runtimeVersion: runtimeVersion
+        )
+        return VerifiedActivationReceipt(
+            packageID: verified.manifest.packageID,
+            packageVersion: verified.manifest.packageVersion,
+            manifestDigest: verified.manifest.manifestDigest
+        )
+    }
+}
+
 public struct ActivatedPackage: Equatable, Sendable {
     public let generation: InstalledPackageGeneration
     public let packageURL: URL

@@ -9,7 +9,18 @@ export const verticalSliceDevelopmentIdentity = Object.freeze({
   shippingState: "PROHIBITED",
 });
 
+export const chapter01ImmersiveReviewIdentity = Object.freeze({
+  packageID: "first-farmers-3d-review-v1",
+  keyID: "chapter-01-immersive-review-key-v1",
+  trustDomain: "the-long-west-chapter-01-immersive-review-v1",
+  receiptKind: "long-west-chapter-01-immersive-review-receipt-v1",
+  shippingState: "PROHIBITED",
+});
+
 export function isDevelopmentOnlySigningKeyID(value) {
   return value === verticalSliceDevelopmentIdentity.keyID
-    || (typeof value === "string" && value.startsWith("vertical-slice-development-"));
+    || value === chapter01ImmersiveReviewIdentity.keyID
+    || (typeof value === "string"
+      && (value.startsWith("vertical-slice-development-")
+        || value.startsWith("chapter-01-immersive-review-")));
 }

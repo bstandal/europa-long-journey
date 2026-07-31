@@ -1,5 +1,9 @@
 # Native audio bible
 
+[`experience-bible.md`](./experience-bible.md) controls when explanation,
+silence and sensory return belong in the chapter flow. This file controls voice,
+sound, score, haptics and runtime audio inside that standard.
+
 ## Franchise voice
 
 The work has one pre-produced English narrator. The voice is controlled,
@@ -20,8 +24,12 @@ Casting is a blocking production gate:
    If the voice later changes, all narration is regenerated; generations are
    never mixed inside the work.
 
-The canonical narrative script generates reading text, narration cues and
-accessibility text. Final alignment must show no added, removed or changed word.
+The canonical approved cue text generates narration and its timed caption
+transcript. Those two forms remain word-exact. The native Journey does not
+require a parallel continuous reading-text version of the website manuscript.
+VoiceOver may add necessary spatial and operational descriptions, but it must
+dispatch the same domain action and may not alter the historical claim,
+consequence or editorial voice.
 
 ## Performance and files
 
@@ -58,6 +66,17 @@ weapons, machines, bells, animals or materials are factual defects.
 Haptics use a restrained semantic set: contact, drag, resistance, transfer,
 break and seal. The sound and haptic event serve the same historical action.
 
+Each chapter considers one mechanism-bound sensory motif. When used, it must
+come from a real material, practice, institution or recurring state and may
+change, disappear or return only when that source does. It is never a musical
+jingle, interface notification or mandatory franchise signature. A chapter may
+deliberately use no recurring motif.
+
+Narration names causal meaning or necessary precision after staging has made
+the event readable. It does not repeat a visible inventory, speak over precise
+input or make an otherwise passive interval interesting. Final cue wording and
+density freeze only after the silent greybox has passed.
+
 ## Runtime behaviour
 
 - Audio never starts before explicit user choice.
@@ -69,4 +88,3 @@ break and seal. The sound and haptic event serve the same historical action.
 - Cold restoration returns with audio paused.
 - Narration, consequences and essential cues remain available offline with the
   installed chapter package.
-

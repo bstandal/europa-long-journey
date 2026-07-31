@@ -26,6 +26,10 @@ const harvestFixturePath = path.join(
   repositoryRoot,
   "native/phase1/fixtures/harvest-option-1.scene.json",
 );
+const harvestWorkObjectPath = path.join(
+  repositoryRoot,
+  "native/audio/score-soundscape/harvest-responsive-v1/work-object.json",
+);
 const longhouseWorkObjectPath = path.join(
   repositoryRoot,
   "native/audio/score-soundscape/longhouse-responsive-v1/longhouse-responsive-work-object.json",
@@ -46,9 +50,48 @@ const threeRecordsWorkObjectPath = path.join(
   repositoryRoot,
   "native/audio/score-soundscape/three-records-responsive-v1/three-records-responsive-work-object.json",
 );
+const responsiveWorkObjectPaths = [
+  harvestWorkObjectPath,
+  longhouseWorkObjectPath,
+  continentRemadeWorkObjectPath,
+  moreMouthsWorkObjectPath,
+  householdCrossesWorkObjectPath,
+  threeRecordsWorkObjectPath,
+];
+const responsiveVoiceClearTargetLUFSByRegion = Object.freeze({
+  approach: -32,
+  waiting: -32,
+  engaged: -32,
+  resistance: -29,
+  consequence: -32,
+});
+const gainPrecision = 1_000_000;
 
 const sha256 = (value) => createHash("sha256").update(value).digest("hex");
 const readJSON = async (file) => JSON.parse(await readFile(file, "utf8"));
+const roundGain = (value) => Math.round(value * gainPrecision) / gainPrecision;
+
+function responsiveRegionForTimeline(workObject, timelineID) {
+  if (timelineID === workObject.responsiveProgram.approachTimelineID) return "approach";
+  if (timelineID === workObject.responsiveProgram.consequenceTimelineID) return "consequence";
+  const interactionBed = workObject.responsiveProgram.interactionBeds.find((bed) =>
+    bed.timelineID === timelineID);
+  assert.ok(interactionBed, `${workObject.id}: unbound responsive timeline ${timelineID}`);
+  return interactionBed.phase;
+}
+
+function responsiveVoiceClearScalar(workObject, region) {
+  const integratedLUFS = workObject.previewMetrics[region].integratedLUFS;
+  const targetLUFS = responsiveVoiceClearTargetLUFSByRegion[region];
+  return Math.min(1, 10 ** ((targetLUFS - integratedLUFS) / 20));
+}
+
+function responsiveInteractionVoiceClearScalar(workObject) {
+  return Math.min(
+    ...["waiting", "engaged", "resistance"].map((region) =>
+      responsiveVoiceClearScalar(workObject, region)),
+  );
+}
 
 function collectAssetPaths(value, output = []) {
   if (Array.isArray(value)) {
@@ -136,6 +179,94 @@ test("payload generator is deterministic and the canonical validator accepts its
     receipt.wireProof.interactiveAudioState,
     "SIX_PROVISIONAL_AUTHORED_PROGRAMS_WIRED_WITH_ZERO_REQUIREMENT_PLACEHOLDERS",
   );
+});
+
+test("all six responsive programs project regional voice-clear gains and conservative causal gains", async () => {
+  const [projected, ...workObjects] = await Promise.all([
+    projectedPayloadDocuments(),
+    ...responsiveWorkObjectPaths.map(readJSON),
+  ]);
+  const payload = JSON.parse(projected.payloadBytes);
+  const projectedTimelineByID = new Map(
+    payload.audioTimelines.map((timeline) => [timeline.id, timeline]),
+  );
+  const projectedProgramByID = new Map(
+    payload.responsiveAudioPrograms.map((program) => [program.id, program]),
+  );
+
+  assert.equal(workObjects.length, 6);
+  for (const workObject of workObjects) {
+    const seenRegions = new Set();
+    const causalMixCueIDs = new Set(
+      workObject.responsiveProgram.causalMix?.layers.flatMap(({ cueIDs }) =>
+        Object.values(cueIDs)) ?? [],
+    );
+    const interactionScalar = causalMixCueIDs.size > 0
+      ? responsiveInteractionVoiceClearScalar(workObject)
+      : undefined;
+    for (const sourceTimeline of workObject.timelines) {
+      const region = responsiveRegionForTimeline(workObject, sourceTimeline.id);
+      const scalar = responsiveVoiceClearScalar(workObject, region);
+      const targetLUFS = responsiveVoiceClearTargetLUFSByRegion[region];
+      const projectedTimeline = projectedTimelineByID.get(sourceTimeline.id);
+      seenRegions.add(region);
+
+      assert.ok(projectedTimeline, `${workObject.id}: missing ${sourceTimeline.id}`);
+      assert.ok(scalar > 0 && scalar <= 1, `${workObject.id}: ${region} gain must not boost`);
+      assert.ok(
+        workObject.previewMetrics[region].integratedLUFS + (20 * Math.log10(scalar))
+          <= targetLUFS + 1e-9,
+        `${workObject.id}: ${region} exceeds ${targetLUFS} LUFS`,
+      );
+
+      for (const sourceEvent of sourceTimeline.events) {
+        const projectedEvent = projectedTimeline.events.find(({ cueID }) =>
+          cueID === `${workObject.id}-${sourceEvent.cueID}`);
+        assert.ok(projectedEvent, `${workObject.id}: missing cue ${sourceEvent.cueID}`);
+        if (sourceEvent.role === "silence") {
+          assert.equal(projectedEvent.gain, sourceEvent.gain);
+          continue;
+        }
+        const eventScalar = causalMixCueIDs.has(sourceEvent.cueID)
+          ? interactionScalar
+          : scalar;
+        assert.equal(projectedEvent.gain, roundGain(sourceEvent.gain * eventScalar));
+        assert.ok(projectedEvent.gain <= sourceEvent.gain);
+      }
+      const sourceScore = sourceTimeline.events.find(({ role }) => role === "score");
+      assert.ok(sourceScore, `${workObject.id}: ${region} is missing its score cue`);
+      const projectedScore = projectedTimeline.events.find(({ cueID }) =>
+        cueID === `${workObject.id}-${sourceScore.cueID}`);
+      assert.ok(projectedScore, `${workObject.id}: ${region} projected score is missing`);
+      assert.equal(
+        projectedScore.gain,
+        roundGain(sourceScore.gain * scalar),
+        `${workObject.id}: ${region} score must retain its regional scalar`,
+      );
+    }
+    assert.deepEqual(
+      seenRegions,
+      new Set(["approach", "waiting", "engaged", "resistance", "consequence"]),
+      `${workObject.id}: expected one authored timeline for every responsive region`,
+    );
+
+    const sourceCausalMix = workObject.responsiveProgram.causalMix;
+    if (!sourceCausalMix) continue;
+    const projectedCausalMix = projectedProgramByID.get(workObject.id).causalMix;
+    for (const sourceState of sourceCausalMix.states) {
+      const projectedState = projectedCausalMix.states.find(({ completedStageCount }) =>
+        completedStageCount === sourceState.completedStageCount);
+      assert.ok(projectedState);
+      for (const sourceLayerGain of sourceState.layerGains) {
+        const projectedLayerGain = projectedState.layerGains.find(({ layerID }) =>
+          layerID === sourceLayerGain.layerID);
+        assert.equal(
+          projectedLayerGain.gain,
+          roundGain(sourceLayerGain.gain * interactionScalar),
+        );
+      }
+    }
+  }
 });
 
 test("Raise the House remains receipt-bound in the fully authored six-program projection", async () => {
@@ -310,19 +441,16 @@ test("Three Records projects its common-player causal mix without backstage prod
       layer.cueIDs[phase] = `${workObject.id}-${layer.cueIDs[phase]}`;
     }
   }
+  const interactionScalar = responsiveInteractionVoiceClearScalar(workObject);
+  for (const state of expectedCausalMix.states) {
+    for (const layerGain of state.layerGains) {
+      layerGain.gain = roundGain(layerGain.gain * interactionScalar);
+    }
+  }
   assert.deepEqual(program.causalMix, expectedCausalMix);
   assert.deepEqual(
     program.causalMix.states.map(({ completedStageCount }) => completedStageCount),
     [0, 1, 2, 3],
-  );
-  assert.deepEqual(
-    program.causalMix.states.map(({ layerGains }) => layerGains.map(({ gain }) => gain)),
-    [
-      [0.82, 0, 0, 0, 0, 0, 0],
-      [0.82, 0.32, 0.28, 0.18, 0, 0, 0.14],
-      [0.82, 0.42, 0.38, 0.28, 0.3, 0.24, 0.34],
-      [0.82, 0.48, 0.44, 0.34, 0.4, 0.32, 0.42],
-    ],
   );
   const publicMixKeys = new Set(deepKeys(program.causalMix));
   for (const backstageKey of [
@@ -404,8 +532,20 @@ test("all seventeen scenes, thirty-seven manuscript cues and accessibility specs
     assert.deepEqual(baseTimeline.haptics, []);
     const baseNarration = baseTimeline.events.filter(({ role }) => role === "narration");
     assert.equal(baseNarration.length, beat.narrative.segments.length);
+    assert.ok(baseNarration.every(({ gain }) => gain === 1));
     assert.ok(baseNarration.every(({ startSample, durationSamples }) =>
       startSample + durationSamples <= beat.estimatedSeconds * 48_000));
+    assert.deepEqual(
+      baseTimeline.events
+        .filter(({ role }) => role !== "narration")
+        .map(({ role, gain }) => [role, gain]),
+      [
+        ["score", 0.26],
+        ["soundscape", 0.38],
+        ["spatialDetail", 0.34],
+      ],
+      `${beat.beatID}: narrated bed must retain the voice-clear authored mix`,
+    );
     for (const segment of beat.narrative.segments) {
       const cueID = `narration-${segment.id}`;
       const event = eventByCueID.get(cueID);

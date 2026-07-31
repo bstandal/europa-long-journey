@@ -163,6 +163,46 @@ final class ResponsiveAudioSceneMutationGateTests: XCTestCase {
         ))
     }
 
+    func testOverlappingPhaseIsMaterializedOnlyAfterBoundaryDurability()
+        throws {
+        var gate = ResponsiveAudioSceneMutationGate()
+        let controller = BoundaryControllerIdentity()
+        let scene = try XCTUnwrap(try gate.begin(
+            requiresResponsiveAudio: true,
+            controllerIsReady: true
+        ))
+
+        XCTAssertEqual(
+            gate.receiveAutomaticBoundary(
+                controllerIdentifier: ObjectIdentifier(controller)
+            ),
+            .deferred
+        )
+        XCTAssertTrue(gate.deferPhaseIfNeeded(.engaged))
+
+        var harness = DeferredBoundaryPhaseOrderingHarness()
+        XCTAssertTrue(gate.finish(scene) { harness.accept($0) })
+        let boundary = try XCTUnwrap(harness.boundary)
+        XCTAssertEqual(
+            boundary.controllerIdentifier,
+            ObjectIdentifier(controller)
+        )
+        XCTAssertTrue(gate.automaticBoundaryDurabilityIsPending)
+        XCTAssertNil(harness.materializedPhase)
+        XCTAssertEqual(harness.events, [.boundaryQueued])
+
+        harness.boundaryDidComplete(
+            durably: gate.finishAutomaticBoundary(boundary.token)
+        )
+
+        XCTAssertFalse(gate.automaticBoundaryDurabilityIsPending)
+        XCTAssertEqual(harness.materializedPhase, .engaged)
+        XCTAssertEqual(
+            harness.events,
+            [.boundaryQueued, .boundaryDurable, .phaseMaterialized]
+        )
+    }
+
     func testDeferredBoundaryRejectsDifferentControllerAndDuplicateRelease()
         throws {
         var gate = ResponsiveAudioSceneMutationGate()
@@ -200,6 +240,54 @@ private enum BoundaryOverlapPoint: String, CaseIterable {
 }
 
 private final class BoundaryControllerIdentity {}
+
+/// Deterministic model of JourneyModel's callback seam: a phase delivered in
+/// the same intent as an automatic boundary is retained until that boundary's
+/// exact gate token has crossed durability. This deliberately has no clock or
+/// transport dependency, so the overlap cannot turn into a timing-only test.
+private struct DeferredBoundaryPhaseOrderingHarness {
+    enum Event: Equatable {
+        case boundaryQueued
+        case boundaryDurable
+        case phaseMaterialized
+    }
+
+    private(set) var boundary:
+        ResponsiveAudioSceneMutationGate.AutomaticBoundaryIntent?
+    private(set) var materializedPhase: ResponsiveInteractionAudioPhase?
+    private(set) var events: [Event] = []
+    private var retainedPhase: ResponsiveInteractionAudioPhase?
+
+    mutating func accept(
+        _ intents: ResponsiveAudioSceneMutationGate.DeferredIntents
+    ) {
+        if let automaticBoundary = intents.automaticBoundary {
+            boundary = automaticBoundary
+            retainedPhase = intents.phase
+            events.append(.boundaryQueued)
+            return
+        }
+        materialize(intents.phase)
+    }
+
+    mutating func boundaryDidComplete(durably: Bool) {
+        guard durably else {
+            retainedPhase = nil
+            return
+        }
+        events.append(.boundaryDurable)
+        materialize(retainedPhase)
+        retainedPhase = nil
+    }
+
+    private mutating func materialize(
+        _ phase: ResponsiveInteractionAudioPhase?
+    ) {
+        guard let phase else { return }
+        materializedPhase = phase
+        events.append(.phaseMaterialized)
+    }
+}
 
 @MainActor
 private final class ResponsiveAudioSceneMutationIntegrationHarness {

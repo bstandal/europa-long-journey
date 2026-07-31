@@ -138,7 +138,8 @@ When implementing from a selected generated mock, treat that image as the source
   responsiveness, memory, thermal load, battery, storage, launch, interruption and exact restoration.
   The project uses one owned physical test iPhone in the iPhone 15 Pro performance class or newer; all
   other screen variants run in the simulator. Every chapter must pass on that exact recorded physical
-  device: historical and editorial review; interaction-purpose review; complete 2.5D direction;
+  device: historical and editorial review; interaction-purpose review; complete authored real-time 3D
+  direction;
   finished transitions, sound and haptics or explicitly justified restraint; VoiceOver, Dynamic Type,
   Increased Contrast and Reduce Motion parity; a network-denied cold launch, complete use, termination
   and restoration; content-package integrity; and the agreed device budgets. If the owned phone is
@@ -257,13 +258,31 @@ When implementing from a selected generated mock, treat that image as the source
   clear `Download all` action. Purchasing, restoring, push notification delivery and initial package
   download may require the network. Once a package is installed, its complete chapter, narration,
   sound, interactions, accessible alternatives and saved state must remain fully usable offline.
-- The iPhone Journey uses 2.5D as its primary visual and spatial grammar. Build scenes from authored
-  depth layers with restrained editorial camera movement, parallax, masks, light, atmosphere and
-  interactive historical objects or system states. Preserve control of viewpoint and causal focus;
-  do not turn the Journey into a freely navigable 3D world. Existing stills are source plates for
-  layered scene packages, not finished backgrounds. Runtime motion is deterministic and offline;
-  generative video is not the default. Any scene that genuinely requires true 3D is an explicit
-  exception and must be justified by a historical understanding that 2.5D cannot provide.
+- The iPhone Journey uses authored real-time 3D as its primary visual, spatial and interactive medium
+  across all 24 chapters. Every action-bearing object, surface, route and historical system state must
+  exist in the same genuine 3D scene state, so weight, depth, occlusion, material response, time and
+  persistent consequence arise from the world the user is acting upon rather than from simulated
+  depth layers. This global medium decision was locked by the editor-in-chief on 30 July 2026; only the
+  editor-in-chief may reopen it.
+- Real-time 3D does not authorize an open world, a player avatar, joystick traversal, generic physics
+  play or exploration padding. Author the camera, traversal envelope, dramatic timing and causal
+  focus. The user acts directly on historical materials and systems while the documented outcome stays
+  fixed. A chapter may stream several bounded 3D volumes, but their transitions must preserve the felt
+  continuity of one journey through action, material, place or a persistent trace rather than expose a
+  sequence of content cards.
+- Use 2D only where it performs a non-spatial role: typography, accessibility, interface, textures,
+  distant mattes, sky, selected effects and Reduce Motion equivalents. It may not replace the
+  authoritative geometry or state of anything the user manipulates or whose historical consequence
+  must remain visible. Existing stills are composition and art-direction references, never shipping
+  backgrounds or a production substitute for the 3D scene. Runtime state, motion and restoration stay
+  deterministic and fully offline; generative video is not the default.
+- Treat source prose as a production score for what the native world must make the user understand,
+  not as body copy the user is required to read. A native chapter must form one enacted causal journey
+  through historical pressure, dependent action, material or institutional response, persistent
+  consequence and the next pressure. It fails if the same experience could remain a sequence of
+  pictures, prose and audio with small interactive interruptions. The shared flow, proof and learning-
+  transfer rules live in `native/bibles/experience-bible.md`; chapter-specific timing, characters,
+  motifs and gestures cannot become franchise rules before a complete greybox proves them.
 - Preserve the dark identity through the rule `Darkness frames the evidence`. Near-black frames,
   separates and gives depth; readable midtones reveal people, materials and action; one historically
   meaningful mechanism carries the clearest light. Do not brighten the app into a generic interface,
@@ -288,25 +307,27 @@ When implementing from a selected generated mock, treat that image as the source
   context, but must not replay completed work or discard the preserved state.
 - Selected visual target: ideation option 1, “The Cartographic Procession”.
 - Chapter 01 deep-dive target: the revised “River to Field” direction, using a low, cinematic
-  Neolithic landscape, unboxed editorial copy and historically phrased controls embedded in the
-  scene. Its representative title is “The Harvest Had to Last”; avoid the earlier phrase “The year
-  closes around the field”.
+  Neolithic landscape and historically meaningful actions embedded in the scene. Default play has no
+  reading panels or persistent prose over the world; language appears only where the experience cannot
+  carry the required historical precision by action, image and sound. Its representative title is
+  “The Harvest Had to Last”; avoid the earlier phrase “The year closes around the field”.
 - The editor-in-chief selected native Phase 1 visual option 1 for “The Harvest Had to Last” on
   23 July 2026. Its source of truth is `native/design/phase1/harvest/selected-direction.png`: the
   remaining harvest occupies the near foreground, while winter food, protected reserve and spring
   seed are three material destinations in one inhabited settlement. Preserve that depth hierarchy,
   direct grain manipulation and simultaneous visibility of all three consequences. The selected
-  image is a non-shipping composition target, not a finished plate: rebuild its text in SwiftUI,
-  replace generated dashed arrows with paths and material response inside the world, provide the
-  required overscan and depth layers, and correct any anatomical or historical generation defect
+  image is a non-shipping composition target, not a finished plate: reconstruct the action-bearing
+  settlement, grain, people, structures and three consequences as authored real-time 3D; render any
+  necessary language in the native interface layer; replace generated dashed arrows with paths and
+  material response inside the world; and correct any anatomical or historical generation defect
   without reopening the selected composition.
 - On 23 July 2026 the editor-in-chief approved
   `native/design/phase1/harvest/reconstruction-master-draft-v2.png` as the exact
   composition-and-anatomy target for that reconstruction. Preserve its depth hierarchy, inhabited
   settlement, one finite foreground grain source, empty destinations and lighting direction. The
-  approval does not authorize the current pixels for shipping, enlargement or layer extraction;
-  full-resolution reconstruction, clean plates, state variants, masks, asset provenance and a
-  separate production-asset approval remain mandatory.
+  approval does not authorize the current pixels for shipping, enlargement, texture extraction or
+  geometry inference. Modelled geometry, authored materials, lighting, animation and state variants,
+  interaction bindings, asset provenance and a separate production-asset approval remain mandatory.
 - Chapter 02, “The Steppe Comes West”, is organised around four locked contributions: a new
   mobility built from horses, herds and wagons; a new power order built from armed male groups and
   patrilineal descent; a new Indo-European language landscape; and a religious inheritance that
@@ -323,7 +344,9 @@ When implementing from a selected generated mock, treat that image as the source
   to Bronze Europe. The horizon supports this progression but never replaces it.
 - Chapter 02 contains exactly three major interactions, placed in movements 3, 5 and 7: mobility,
   regional paternal-line turnover and Eurasian inheritance. The four intervening movements remain
-  controlled reading beats so the chapter alternates attention instead of becoming a row of widgets.
+  controlled authored beats so the chapter alternates attention instead of becoming a row of widgets.
+  Their reading, listening or observation function stays inside the enacted 3D journey; it does not
+  authorise native reading pages, cards or a return to the website flow.
 - Chapter 03, “Bronze Europe”, is a larger level-two profile reached from the long road. Scope it to
   roughly 15–20 minutes of attentive use, but do not surface that estimate in public copy.
 - For the current website only, organise Bronze Europe in three information layers: the continuous
