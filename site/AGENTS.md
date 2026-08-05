@@ -6,9 +6,30 @@ Before making substantial visual changes, use the Product Design plugin's `get-c
 
 When implementing from a selected generated mock, treat that image as the source of truth for layout, component anatomy, density, spacing, color, typography, visible content, and hierarchy.
 
-## The Long West: EUROCENTRIC — locked decisions
+## Current product direction — Mac restart, 5 August 2026
 
-### Franchise and product architecture
+- The existing website is the only starting point for the new Mac project. Website-specific rules in
+  this file remain authoritative for the website, and the civilisational and editorial constitution
+  remains authoritative for the work.
+- The iPhone project under `../native/` is frozen. Preserve it, but do not continue it unless the user
+  explicitly reopens it.
+- Every rule below that specifies an iPhone or native product decision is historical and non-binding
+  for Mac work. This includes naming and franchise architecture, product ambition, real-time 3D,
+  portrait layout, chapter and interaction structure, visual targets, narration, offline behaviour,
+  persistence, packages, commerce, testing hardware and production restrictions.
+- Do not translate, adapt or reuse an iPhone choice merely because it is already documented or built.
+  The Mac product begins from first principles, and each product or design decision requires fresh
+  reasoning and, where it materially sets direction, explicit user approval.
+- No Mac framework, architecture, interface, visual medium, interaction model, navigation, commercial
+  model or production method has been chosen.
+
+## The Long West: EUROCENTRIC — website/editorial rules and frozen iPhone history
+
+In the sections below, website and editorial instructions retain their stated authority. Anything that
+describes the native iPhone product is retained only as historical documentation and does not govern a
+Mac app.
+
+### Frozen iPhone franchise and product architecture — historical
 
 - “The Long West” is the locked franchise name and intellectual umbrella for a family of products.
   The native iPhone work is titled “The Long West: EUROCENTRIC”. The franchise uses conceptual work
@@ -73,24 +94,30 @@ When implementing from a selected generated mock, treat that image as the source
   claim, widening a date or quantity, or removing an unnecessary detail. Then restore uninterrupted
   narrative flow. If no confident formulation remains defensible, stop and present the issue privately
   to the user; never publish academic uncertainty as a substitute for an editorial decision.
-- Apply this constitution to franchise names, work titles, subtitles, App Store metadata, launch
-  positioning, visual direction, agent recommendations and public prose. A European work title must
-  grant Europe civilisational scale and agency. “Conceptual” does not mean an academic theme of
-  ambiguity, instability, deficiency or self-critique.
-- Reject product-level names and framings whose dominant idea is that Europe is contested, restless,
+- For the existing website and its current EUROCENTRIC identity, apply this constitution to names,
+  subtitles, positioning, visual direction, recommendations and public prose. A European work title
+  must grant Europe civilisational scale and agency. “Conceptual” does not mean an academic theme of
+  ambiguity, instability, deficiency or self-critique. This does not choose or constrain the Mac app's
+  product name, subtitle, App Store positioning, visual direction, icon, cover or franchise
+  architecture; all remain undecided.
+- For the existing website, reject names and framings whose dominant idea is that Europe is
+  contested, restless,
   unfinished, fractured, troubled, guilty, shadowed, burdened, paradoxical or in need of a reckoning,
   unless the user explicitly replaces the affirmative position with such a thesis. Conflict, defeat
   and catastrophe may still be named directly at chapter level when they are the historical subject.
-- Treat “EUROCENTRIC” as a deliberate affirmative claim of centre, not an accusation that requires
+- Within the existing website identity, treat “EUROCENTRIC” as a deliberate affirmative claim of
+  centre, not an accusation that requires
   explanation, ironic distance or softening. Do not add a defensive subtitle or recommend decentring
-  the work to anticipate hypothetical academic, press, political or App Store objections. Report a
+  the website to anticipate hypothetical academic, press or political objections. Report a
   concrete legal, platform or comprehension risk separately; it does not reopen the editorial stance.
-- Every future title recommendation for this European work must pass five gates: Europe or a European
-  achievement is the active centre; the dominant valence is affirmative; the claim covers the complete
+- Every title recommendation for the existing EUROCENTRIC website identity must pass five gates:
+  Europe or a European achievement is the active centre; the dominant valence is affirmative; the
+  claim covers the complete
   work; it carries comparable civilisational weight beside “Manifest Destiny”; and it is strong in
-  speech, on an icon and on a cover. Do not add noncompliant candidates merely to lengthen a list.
+  speech and as a publication title. Do not add noncompliant candidates merely to lengthen a list.
+  Establish fresh naming criteria if and when the user opens Mac naming.
 
-### Locked product ambition and launch constitution
+### Frozen iPhone product ambition and launch constitution — historical
 
 - The internal objective is to make “The Long West: EUROCENTRIC” the best product of its type on the
   App Store and a world-leading work of native, interactive historical nonfiction. No comparable
@@ -104,6 +131,13 @@ When implementing from a selected generated mock, treat that image as the source
   Maintain a named, dated benchmark set and repeat the comparison at vertical-slice, content-complete
   and release-candidate stages. A release candidate fails if the comparison cannot identify concrete
   areas of clear leadership or leaves an unexamined deficit in a core quality.
+- The ambition is judged at product level. Do not turn it into an impossible
+  requirement that every asset, frame or subsystem must beat the strongest
+  specialist product in every category. A benchmark failure must identify a
+  user-visible, materially important deficit in the complete experience. A
+  cosmetic difference visible only in diagnostic slow motion is tracked and
+  repaired in proportion to its impact; it does not automatically invalidate
+  an otherwise coherent chapter.
 - A clean native port of the website, parity with a leading competitor, a beautiful digital book or one
   exceptional showcase scene fails the objective. The finished work must establish clear superiority
   through the complete journey and make history something the user directly explores and acts upon,
@@ -121,6 +155,12 @@ When implementing from a selected generated mock, treat that image as the source
   opening sequence, vertical slice or curated route. All 24 Journey chapters are mandatory for public
   launch. Excellence elsewhere cannot compensate for one chapter below the shared standard, and no
   chapter receives an exception because it is less famous, appears late or costs more to finish.
+- Chapter 01 is the production-rate proof for the 24-chapter programme. Until
+  its complete production method, revision volume, asset reuse, package size
+  and finished minutes are measured, schedules and throughput for the
+  remaining chapters are `UNPROVEN_PROGRAM_SCALE`. This status does not reduce
+  the mandatory launch scope or quality bar and cannot be presented as a
+  delivery forecast.
 - Equal quality means equal editorial command, authored intent and production finish, not identical
   duration, motion or interaction density. Deliberate stillness, silence or restraint may be the best
   treatment when the history requires it, but it must be authored and validated rather than left as a
@@ -135,7 +175,7 @@ When implementing from a selected generated mock, treat that image as the source
   technology and speed to a first demo are secondary. A spectacular vertical slice fails if its
   production method cannot be repeated, inspected, revised and tested at the same level throughout.
 - Before full production scales, define supported physical devices and measurable budgets for frame
-  responsiveness, memory, thermal load, battery, storage, launch, interruption and exact restoration.
+  responsiveness, memory, thermal load, battery, storage, launch, interruption and restoration.
   The project uses one owned physical test iPhone in the iPhone 15 Pro performance class or newer; all
   other screen variants run in the simulator. Every chapter must pass on that exact recorded physical
   device: historical and editorial review; interaction-purpose review; complete authored real-time 3D
@@ -173,6 +213,9 @@ When implementing from a selected generated mock, treat that image as the source
   or another production tool. Keep authoritative project state in versionable source, data and asset
   files that Codex can inspect and modify. Avoid opaque editor-only scene state and binary authoring
   formats. External account, legal and release approvals may still require explicit user action.
+- The user does not use Figma. Do not propose Figma boards, Figma handoffs or optional Figma copies.
+  Record visual audits, design decisions, comparison images and review evidence as versioned Markdown
+  and assets beside the affected project source so the repository remains the complete authority.
 - Production is restricted to the user and Codex. Do not plan, recommend, commission, hire or require
   a human narrator, actor, composer, sound designer, artist, animator, editor, translator, historian,
   consultant, tester or other external contributor. Codex may orchestrate available generative,
@@ -181,6 +224,13 @@ When implementing from a selected generated mock, treat that image as the source
   the user explicitly reverses it. It does not lower the product ambition or any launch gate; solve the
   resulting production challenge through stronger tooling, repeated generation, adversarial review,
   source verification, automation and iteration rather than external human labour.
+- Context-free Codex walkthroughs are model-based adversarial QA. They may find
+  ambiguity, broken affordances and inconsistent causality, but they are not
+  independent human usability evidence and cannot substantiate claims about
+  broad first-time comprehension, retention, delight or completion. Under the
+  no-external-human rule, the editor-in-chief's uncoached run is the only human
+  pre-release qualitative evidence. General user outcomes remain unproven
+  until real post-launch evidence exists.
 - The user has bounded historical agency, not authorship of an alternative timeline. Let the user act
   on real resources, routes, institutions, relationships and constraints; local states may change,
   fail and be reversed. The documented historical spine and its principal outcomes remain fixed. Each
@@ -288,7 +338,8 @@ When implementing from a selected generated mock, treat that image as the source
   meaningful mechanism carries the clearest light. Do not brighten the app into a generic interface,
   and do not let uniform underexposure hide the period-specific world.
 - Provide an optional, pre-produced English narration track that follows user-controlled pacing,
-  restores at the exact spoken position and remains fully available offline after installation. It is
+  restores the exact committed source cursor after controlled interruption and remains fully available
+  offline after installation. Sudden process death follows the durable-checkpoint rule below. It is
   distinct from accessibility VoiceOver and is never generated live at runtime. Narration, score,
   soundscape, spatial detail, silence and haptics form one authored dramatic system and must meet the
   same exceptional artistic bar as image, prose and interaction. Production remains restricted to the
@@ -301,10 +352,14 @@ When implementing from a selected generated mock, treat that image as the source
   it from shorter meaningful beats with natural places to stop, while allowing the user to leave at
   any moment without confirmation, penalty or lost progress. Persist the current content-pack
   version, chapter, movement, narrative beat, stable historical state, interaction progress, camera
-  anchor and reading or narration position locally and offline. Restoration must survive ordinary
-  backgrounding and system termination and return the user to the same causal point rather than to a
-  home screen or the start of a movement. Brief reorientation after a longer absence may reconstruct
-  context, but must not replay completed work or discard the preserved state.
+  anchor and reading or narration position locally and offline. Controlled
+  pause and backgrounding restore the committed state and media cursor exactly.
+  Sudden process termination restores the latest durably committed causal
+  checkpoint, opened paused, never a partially applied action. A transient
+  finger contact or uncommitted physics frame is not reconstructed after the
+  process has died. Brief reorientation after a longer absence may reconstruct
+  context, but must not replay completed work, duplicate effects or discard the
+  last durable state.
 - Selected visual target: ideation option 1, “The Cartographic Procession”.
 - Chapter 01 deep-dive target: the revised “River to Field” direction, using a low, cinematic
   Neolithic landscape and historically meaningful actions embedded in the scene. Default play has no

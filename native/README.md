@@ -1,21 +1,24 @@
 # The Long West native production
 
+> **Frozen 5 August 2026.** This iPhone project is inactive and preserved for possible future return.
+> Do not delete or continue it without an explicit user decision. Its product, design, architecture and
+> production choices do not govern the new Mac exploration; the website is that work's sole starting
+> point.
+
 This directory contains the native iPhone production system for **The Long
 West: EUROCENTRIC**. The website remains source material; it is not the native
 runtime specification.
 
-[PRODUCTION_PLAN.md](./PRODUCTION_PLAN.md) is the authoritative phase sequence
-from the current foundation to App Store release. It defines dependencies,
-deliverables and go/no-go gates. [IMPLEMENTATION_STATUS.md](./IMPLEMENTATION_STATUS.md)
+[PRODUCTION_PLAN.md](./PRODUCTION_PLAN.md) was the authoritative phase sequence
+for the attempted path to App Store release. It records dependencies,
+deliverables and go/no-go gates as they stood at freezing. [IMPLEMENTATION_STATUS.md](./IMPLEMENTATION_STATUS.md)
 records the dated state actually achieved. [WORK_BREAKDOWN.md](./WORK_BREAKDOWN.md)
-translates the phase sequence into concrete work packages, dependencies,
-completion evidence and editor decision points.
+records the former work packages, dependencies, completion evidence and editor decision points.
 
-The editor-in-chief locked authored real-time 3D as the global Journey medium
+The editor-in-chief had locked authored real-time 3D as the global iPhone Journey medium
 on 30 July 2026. The durable decision is
 [`blueprint/real-time-3d-medium-lock-2026-07-30.md`](./blueprint/real-time-3d-medium-lock-2026-07-30.md).
-Existing 2.5D runtime and asset work is non-shipping prototype evidence, not the
-current visual production route.
+That decision remains part of the frozen iPhone record and does not govern Mac work.
 
 ## Directory contract
 
@@ -40,7 +43,7 @@ current visual production route.
   the compiler may read an explicit control record but never copies backstage
   data into a package.
 
-## Current production gate
+## Production gate at freezing
 
 Phase 0 was approved by the editor-in-chief on 23 July 2026. All 24 chapter
 contracts and 55 native arcs are `APPROVED`; the exact approved files are bound
@@ -48,18 +51,21 @@ by SHA-256 in `blueprint/editor-approval.json`. The four resolved contract
 decisions are archived in `blueprint/editor-review.md`, and the complete
 readable scope is in `blueprint/editor-approval-brief.md`.
 
-The former 2.5D Phase 1 visual route is suspended. The rebased real-time 3D
-Port 1 is `NOT_STARTED`; reusable non-visual platform evidence remains valid
-but cannot pass the new gate by itself. The five-scene laboratory set, selected
-visual direction, strict `SceneSpec` contract, deterministic frame planner and
-non-shipping Harvest fixture remain as prototype evidence. Harvest state
-variants come from reducer state, its direct response is deterministic, Reduce
-Motion preserves the consequence and a hard-kill restoration test rebuilds an
-identical frame plan. The Harvest manuscript and interaction recommendation is
-also stored as a non-shipping editor-review draft. No real-time 3D substrate,
-production cell, audio master, complete continuity/truth slice or vertical
-slice has passed. Production package compilation remains fail-closed: Phase 0
-approval does not approve later narration, scenes, audio or public payloads.
+The former 2.5D Phase 1 visual route is suspended. The approved Chapter 01
+real-time 3D projection has five cells, six sequences and six unchanged causal
+interactions. A signed RealityKit substrate and five continuity cells exist,
+but every visible cell is classified `TECHNICAL_GREYBOX_CONTINUITY_PROOF` and
+is blocked from Release. It proves selected runtime contracts only; it is not
+visual evidence.
+
+The editor-approved requirements reset of 4 August 2026 is recorded in
+[`production/3d/chapter01/REQUIREMENTS_RESET_2026-08-04.md`](./production/3d/chapter01/REQUIREMENTS_RESET_2026-08-04.md).
+The active sequence at freezing was method proof, complete Chapter 01 greybox, complete
+`0:00–2:30` production slice, remaining Chapter 01 blocks and complete chapter.
+Both `CHAPTER_01_3D_SLICE_READY` and `CHAPTER_01_3D_CHAPTER_READY` remain
+`CANDIDATE`. Production package compilation remains fail-closed: neither Phase
+0 approval nor the requirements reset approves narration, scenes, audio or a
+public payload.
 
 The Swift and tooling code includes deterministic reducers and a
 grammar-neutral driver for all five interactions, durable write-ahead progress,
@@ -73,18 +79,14 @@ implementations and local tests. They have not been exercised against the
 project's real Apple services or a physical iPhone. This is not a vertical
 slice and does not count as completion of Phase 1 or Port 1.
 
-## Execution order
+## Former execution order
 
-Chapter 01's experience projection requires editor approval before the new 3D
-substrate starts; that decision is the only current way to open the rebased
-visual work. Afterward Codex completes local production, offline tests and
-simulator-verifiable work before requesting later editor decisions,
-Apple-account actions or the physical test iPhone. Provisional manuscripts,
-voices and assets stay non-shipping until their consolidated approvals.
-Physical-device and live Apple-service checks remain mandatory release gates
-in the final validation round.
+Chapter 01's experience projection, premium sculptural direction and revised
+proof model had been approved. The planned next work was the method proof and
+full greybox before the complete 2:30 slice. That sequence is preserved as
+history and must not be executed while the project is frozen.
 
-## Local gates
+## Historical local gates
 
 ```sh
 cd native/tooling
@@ -95,7 +97,7 @@ npm run validate:ios
 ```
 
 The complete local gate, including production preflights, Swift Package tests
-and a generated iOS simulator build/test, runs with:
+and a generated iOS simulator build/test, was run with:
 
 ```sh
 native/scripts/verify-native.sh
@@ -104,11 +106,10 @@ native/scripts/verify-native.sh
 `IMPLEMENTATION_STATUS.md` records whether that command currently passes. A
 passing component suite is not a substitute for the complete command.
 
-## Physical iPhone gate
+## Physical iPhone gates
 
-When the recorded test iPhone and retained run artifacts are available, the
-current First Farmers physical performance and restoration receipt contract is
-enforced by one Codex-controlled command:
+The older general physical protocol remains useful infrastructure and legacy
+2.5D evidence:
 
 ```sh
 node native/scripts/validate-physical-device-protocol.mjs --require-pass
@@ -123,15 +124,29 @@ separately for diagnosis. Neither a simulator nor the protocol document itself
 can produce a physical pass, and the command never creates evidence or editor
 approval.
 
-This receipt contract currently covers the locked performance, power, thermal,
-audio and restoration run classes. Live StoreKit, physical accessibility and
-airplane-mode editorial gates remain separate release blockers until their own
-retained evidence is bound into the same command.
+That command cannot qualify the new Chapter 01 3D slice or chapter. Their
+active fail-closed gates are evaluated with:
 
-The physical mute-to-silence requirement of at most 100 milliseconds is not
-yet claimable by this receipt contract. The raw report has no retained,
-hash-bound mute-request and observed-silence timestamps, so this remains an
-evidence-contract gap rather than a declared measurement.
+```sh
+node native/scripts/validate-chapter-01-3d-gates.mjs --json
+node native/scripts/validate-chapter-01-3d-gates.mjs --require-slice-pass
+node native/scripts/validate-chapter-01-3d-gates.mjs --require-chapter-pass
+```
+
+The 3D physical receipt binds the exact app record, signed package, device and
+OS; retains raw trace roles; requires three warmed runs; derives dropped-frame
+rate from retained counts; and records the worst result. Manual visual and
+editor evidence binds an uncut capture and explicit decision. Until these
+artifacts exist, both 3D gates remain `CANDIDATE`.
+
+Live StoreKit, physical accessibility and airplane-mode editorial gates remain
+separate release blockers until their retained evidence is bound to the
+corresponding complete candidate.
+
+The legacy physical mute-to-silence requirement of at most 100 milliseconds is
+not yet claimable. Its raw report has no retained, hash-bound mute-request and
+observed-silence timestamps, so it remains historical evidence-contract debt,
+not a measurement for the new 3D gate.
 
 The package compiler writes only to a disposable staging directory. It fails
 on backstage paths, forbidden research fields, academic leakage, invalid
@@ -155,5 +170,6 @@ and SHA-256 in the frozen source inventory; generated originals use a separate
 project-owned lineage type.
 
 No chapter is production-ready merely because it validates. Editor approval,
-finished authored real-time 3D direction, final audio, accessibility parity, offline operation,
-exact restoration and the physical-device quality gates remain mandatory.
+finished authored real-time 3D direction, final audio, accessible equivalence,
+offline operation, durable checkpoint restoration and the physical-device
+quality gates remain mandatory.

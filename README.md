@@ -6,6 +6,13 @@ illuminated route and four families of optional map interactions.
 
 The site is built with Astro, TypeScript and PixiJS. Public prose and interface copy are English.
 
+## Current product direction
+
+The website is the active product and the sole starting point for a new Mac exploration. The earlier
+iPhone project under `native/` is frozen and preserved as historical work. Its product, design,
+architecture and production decisions do not govern the Mac project. No Mac technology, interface or
+product model has been selected.
+
 ## Live site
 
 [bstandal.github.io/europa-long-journey](https://bstandal.github.io/europa-long-journey/)

@@ -1,6 +1,80 @@
 # Native implementation status
 
-Status date: 30 July 2026
+Status date: 5 August 2026
+
+Current project status: `FROZEN_INACTIVE`
+
+The iPhone project was frozen on 5 August 2026. Everything below records the last achieved iPhone
+state and is retained for possible future return. It is not an active work queue and has no authority
+over the new Mac exploration.
+
+## Chapter 01 requirements reset — 4 August 2026
+
+The editor-in-chief approved the realistic zero-cost production model in
+[`production/3d/chapter01/REQUIREMENTS_RESET_2026-08-04.md`](./production/3d/chapter01/REQUIREMENTS_RESET_2026-08-04.md).
+Premium sculptural real-time 3D, the chapter thesis, five cells, six sequence
+order, six interaction IDs and their `WorldEffect` results remain unchanged.
+The editor-in-chief has also accepted the visual level in the 5 August video
+reference recorded in
+[`production/3d/chapter01/art-direction/PREMIUM_SCULPTURAL_DIRECTION.md`](./production/3d/chapter01/art-direction/PREMIUM_SCULPTURAL_DIRECTION.md)
+as sufficient for S1. It is a quality reference, not an asset or licence.
+The ten narration texts in the approved flow script are the Chapter 01 build
+baseline. Greybox may measure placement and motivate a private cut proposal;
+Codex cannot change their public words without a new editor decision.
+
+The active production order is now `M0_METHOD → G1_GREYBOX → S1_SLICE →
+P1_REMAINDER → F1_CHAPTER`. `S1_SLICE` is the complete uninterrupted
+`0:00–2:30` sequence and is the first editor-facing visual approval gate. The
+existing five cells remain rejected continuity proof. No art, narration,
+accessibility, device or release gate was promoted by changing the proof
+contract; `CHAPTER_01_3D_SLICE_READY` and
+`CHAPTER_01_3D_CHAPTER_READY` remain `CANDIDATE`.
+
+G1 now has one canonical data authority at
+[`production/3d/chapter01/g1-greybox/authoring/chapter01-g1-authoring.json`](./production/3d/chapter01/g1-greybox/authoring/chapter01-g1-authoring.json).
+It compiles to the signed, non-shipping package
+`first-farmers-g1-greybox-v1`: five cells, six sequences, the initial 34-beat
+calibration ledger, 21 local or reducer-bound actions, six explicit carriers
+and the ten unchanged narration cues. The verified payload owns beat order,
+timing, camera, presentation, action, checkpoint, audio and carrier bindings;
+the legacy Swift script is not consulted under G1 admission. A test fixture
+with another beat count compiles and runs without a Swift edit.
+
+The app-owned `.g1Traversal` admission can end only in
+`g1TraversalCompleted`; it has no Chapter-completion authority. Journey schema
+7 preserves all unrelated progress and removes only obsolete, non-shipped
+Chapter 01 immersive state. The normal simulator route is now `Road →
+Begin/Resume Chapter 01 → Pause → Back to the road → Resume`, with exact
+checkpoint and cursor restoration. The five G1 USDZ files are deterministic
+technical proxies and are prohibited at the Release boundary. They are not
+S1 art candidates.
+
+Current verification is 1,073 Swift tests with zero failures, 61 focused G1
+and release-boundary Node tests with zero failures, and two passing dedicated
+`Chapter01G1Greybox` simulator UI tests. They cover the real road/resume path
+and a direct physical drag on the visible opening line. The project-wide
+NON_SHIPPING compilation boundary keeps those development identities active in
+every linked framework, while a separately built Release app rejects them and
+passes the byte-level Release boundary validator. Two candidate builds have
+the same catalog hash. The signed manifest digest is
+`85fb9b180c8409d9cba7d48976bc6c1374bc1d8d99b508ec0331cefeb12548ff`;
+the canonical authoring SHA-256 is
+`4febcb0c8c48296354ed0b320cb8fd2eea9232e851d1cb95a75f7af8b46b91d9`.
+
+The exact candidate also passes the retained structural/runtime evidence run:
+6 authoring/payload/reducer/whole-traversal tests, 1 generated-scene-contract
+test and 3 signed RealityKit projection tests. The whole-traversal checks now
+bind direct-touch/VoiceOver domain parity and reconstruct the complete route
+after every declared durable action and every transition step. That scoped
+receipt grants no experiential or quality status.
+
+`G1_GREYBOX` remains `CANDIDATE`. No complete unbroken direct-touch run,
+natural split runs, silent-causality assessment, modality traversal, offline
+run, hard-kill matrix, measured timing ledger or isolated model-QA pair has
+been promoted to the seven final evidence roles. `post-greybox-evidence.json`
+therefore does not exist, and the `--require-g1-ready` gate fails closed. Those
+are execution and editing gates for the exact candidate, not missing runtime
+authority.
 
 ## Authored real-time 3D medium lock — 30 July 2026
 
@@ -21,9 +95,12 @@ The editor-approved Chapter 01 experience projection is
 [`blueprint/first-farmers-real-time-3d-experience-plan.md`](./blueprint/first-farmers-real-time-3d-experience-plan.md).
 Its timecoded flow manuscript is
 [`blueprint/first-farmers-3d-flow-script-v1.md`](./blueprint/first-farmers-3d-flow-script-v1.md).
-Their exact bytes and preserved contract, interaction and effect invariants are
-bound by
+Their 30 July bytes and preserved contract, interaction and effect invariants
+remain archived in
 [`blueprint/first-farmers-experience-approval.json`](./blueprint/first-farmers-experience-approval.json).
+The revised requirement bytes are separately rebound by
+[`blueprint/first-farmers-requirements-reset-approval.json`](./blueprint/first-farmers-requirements-reset-approval.json)
+without changing those invariants.
 P1.00 authority activation and the first RealityKit/V2 substrate are
 `LOCAL_COMPLETE`. Replacement visual production remains active and open.
 
@@ -31,7 +108,9 @@ The general lessons extracted from this replan are now separated into the
 shared [`bibles/experience-bible.md`](./bibles/experience-bible.md). Chapter
 01's exact timings, human anchor and sensory motif remain chapter-specific or
 unproven until its complete greybox. Approval authorises the Chapter 01 flow;
-it does not approve public wording, production assets or the complete chapter.
+the 4 August reset additionally locks the ten cue texts as the build baseline.
+It does not approve narration performance or placement, production assets or
+the complete chapter.
 
 ## Chapter 01 immersive 3D implementation — 30 July 2026
 
@@ -45,10 +124,12 @@ The current non-shipping implementation now includes:
 - deterministic interaction reduction, adaptive assistance, VoiceOver semantic
   actions, Reduce Motion projection, current-plus-next cell residency and
   physical carrier transitions;
-- durable restoration of stable world state, beat, camera, carrier,
-  assistance, interaction and sample cursor, including hard-kill replay gates;
+- restoration of committed world state, beat, camera, carrier, assistance,
+  interaction and media cursor, with exact controlled-interruption restore and
+  atomic latest-durable-checkpoint recovery after sudden process death;
 - package-backed offline audio with five environments, six mechanism programs,
-  six transitions and ten provisional narration files;
+  six transitions and ten provisional-voice narration files using the approved
+  cue text;
 - a deterministic development signature, complete-package integrity checks,
   runtime admission, per-asset hashes, rollback tests and corrupt/missing asset
   rejection;
@@ -96,9 +177,12 @@ blocks in Simulator, while retaining the same collision and accessibility
 targets. It also suppresses imported transparent rain and current-guide
 geometry that RealityKit presented as opaque screen clutter. The Aegean sky
 shell now renders from inside the dome, the camera holds the working action
-closer, and the 15-second semantic assistance action is visible even when the
-player has not accumulated two misses. These are readability repairs; a
-side-by-side comparison with the locked art target still fails visual QA.
+closer, and the delayed standard-touch semantic assistance action is visible
+after 15 seconds even when the player has not accumulated two misses.
+VoiceOver exposes the active semantic action immediately once the world is
+playable; its availability is independent of the delayed visual-assistance
+button. The other changes are readability repairs; a side-by-side comparison
+with the locked art target still fails visual QA.
 
 Open blocking gates are final visual production and animation/contact quality,
 the final English narrator and complete dramatic mix, full unassisted
@@ -354,10 +438,12 @@ disk use, not this decoded working set. The estimate does not include the rest
 of the process footprint and leaves only 2,080,000 bytes of steady audio-budget
 headroom.
 
-The physical protocol now includes separate, explicitly paired Harvest and
-complete First Farmers battery sets. Each set requires three alternating
-30-minute app and static-reference runs. The full-chapter run covers the
-28-minute authored traversal. The unchanged release budgets remain 60 fps,
+`SUPERSEDED_2026-08-04`: the following protocol describes the retired 2.5D
+projection and cannot qualify the real-time 3D chapter. It included separate,
+explicitly paired Harvest and complete First Farmers battery sets. Each set
+required three alternating 30-minute app and static-reference runs. Its
+full-chapter run covered the retired 28-minute authored traversal. Its release
+budgets were 60 fps,
 p99 displayed frame time at or below 25 ms, sustained physical footprint below
 500 MiB, thermal state no worse than `fair`, absolute battery loss at or below
 8 percentage points and no more than 3 percentage points above its paired
@@ -374,11 +460,12 @@ production-master or shipping authority.
 
 ### Physical and live Apple final gate
 
-Real StoreKit, Apple-hosted asset packs, CloudKit, APNs and the recorded test
-iPhone remain mandatory. They are deliberately deferred until all safe local,
-offline and simulator work has been exhausted. No current result claims a
-physical floor-device, thermal, battery, hard-kill, live-purchase, live-push or
-live-hosted-download pass.
+`SUPERSEDED_2026-08-04`: CloudKit/APNs release discovery and the unpublished
+deep-dive package are no longer launch-critical without a newly demonstrated
+product need. Real StoreKit, Apple-hosted asset packs and the recorded test
+iPhone remain mandatory and are deferred until the corresponding complete
+candidates exist. No current result claims a physical floor-device, thermal,
+battery, hard-kill, live-purchase or live-hosted-download pass.
 
 ## Approved product and content authority
 
@@ -462,9 +549,9 @@ The local runtime-authority gate is closed:
   all recover the accepted pre-failure cursor and reject the later cursor
   touched by the failed physical pause.
 
-This closes the simulator failure seam. Sample-exact physical interruption,
-hard-kill timing and device lifecycle behaviour remain in the final recorded
-iPhone gate.
+This closes the simulator failure seam. Exact committed-source-cursor restore
+for controlled interruption, the physically measured durable-cursor bound for
+hard kill and device lifecycle behaviour remain in the recorded iPhone gate.
 
 ## Signed five-grammar technical fixture
 
@@ -956,28 +1043,30 @@ Its authority is `synthesisPermitted=false`, `v11IsTerminal=true` and
 `requiresEditorDecision=true`. There is still no passing narration master,
 candidate promotion, voice choice, artistic approval or shipping authority.
 
-## What remains before the rebased Port 1 can pass
+## What remains before the Chapter 01 slice can pass
 
 ### Production and artistic work
 
 - Runtime schemas and a projection gate that consume the approved Chapter 01
   experience projection without freezing final public wording or restoring
   the superseded arc/page projection.
-- A measured renderer/toolchain decision and one simple signed 3D world cell
-  with authored camera, deterministic state, direct touch, VoiceOver, Reduce
-  Motion, offline use and exact restoration.
-- A passing Chapter 01 figure/material proof at actual portrait distance for
-  people, animals, rope, water, soil and grain, with historical, anatomical and
-  material inspection.
+- One non-promoting premium-sculptural method proof at actual portrait distance
+  for the hardest representative human, animal, water, rope, soil and grain
+  problems. Its assets remain candidates until the complete slice passes.
+- A complete five-cell Chapter 01 greybox that measures pacing, causal
+  comprehension, navigation, carrier continuity and every stable checkpoint
+  before final slice art is completed.
 - A zero-cost, commercially cleared 3D asset chain with complete provenance and
   no opaque editor file as its sole authority.
-- A passing two-voice narration stress set, provisional voice identity,
-  pronunciation lexicon and a reproducible score/soundscape/haptic pipeline.
+- One or two rights-cleared narrator candidates on the actual Chapter 01 cue
+  set, a pronunciation lexicon and a reproducible score/soundscape/haptic
+  pipeline.
 - Local performance, failure and package evidence for the exact substrate.
 
-The continuity slice, truth slice, complete greybox, finished Thessalian
-quality cell and full Chapter 01 are later Port 2–3 gates. None may depend on
-the retired five-scene layer/mask laboratory.
+After the greybox, the complete `0:00–2:30` slice must pass visual, causal,
+navigation, accessibility, restore and physical-device review. Only then does
+production scale to the remaining Chapter 01 blocks. None may depend on the
+retired five-scene layer/mask laboratory.
 
 ### Completed local verification
 
@@ -1005,24 +1094,27 @@ result.
 - Live StoreKit purchase, pending, restore, refund and revocation.
 - Live Apple-hosted package transfer, interruption, storage failure, update and
   rollback.
-- Live CloudKit release discovery and one APNs notification for an actually
-  available deep dive.
 - Recorded physical-iPhone frame pacing, memory, thermal, battery, cold start,
-  hard kill, exact restoration, VoiceOver, Dynamic Type, Increased Contrast,
-  Reduce Motion and complete fly-mode use.
+  controlled restoration, hard-kill checkpoint recovery, VoiceOver, Dynamic
+  Type, Increased Contrast, Reduce Motion and complete fly-mode use.
 - The editor-in-chief's final manuscript, interaction, visual, voice, scene,
   chapter and release decisions after the corresponding complete candidates
   exist.
+
+CloudKit/APNs release discovery and an unpublished deep-dive package are
+deferred outside the launch-critical path unless a later concrete product need
+reopens them.
 
 ## Immediate autonomous work order
 
 1. Keep every legacy 2.5D visual extension closed. Preserve its tests and
    evidence; do not author new plates, layers, masks or scene variants.
-2. Keep narration closed at the V12 editor-decision gate. Do not retry V11 or
-   weaken the unchanged voice and artistic requirements.
+2. Retain V11/V12 as negative historical evidence. Evaluate one or two fresh,
+   rights-cleared candidates on the actual Chapter 01 cue set without weakening
+   the voice or artistic requirements.
 3. Use the byte-bound Chapter 01 experience projection as the sole active flow
-   authority; keep its exact timing and attention numbers `UNPROVEN` until the
-   complete greybox measures them.
-4. Execute the active sequence in
-   `WORK_BREAKDOWN.md`: 3D substrate, figure/material proof, continuity slice,
-   truth slice, complete greybox, finished quality cell and full Chapter 01.
+   authority; treat its timing and attention numbers as `UNPROVEN` calibration
+   hypotheses until the complete greybox measures them.
+4. Execute the active sequence in `WORK_BREAKDOWN.md`: non-promoting method
+   proof, complete greybox, complete 2:30 production slice, remaining blocks
+   and full Chapter 01.

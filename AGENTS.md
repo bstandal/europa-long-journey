@@ -1,13 +1,28 @@
 # Project-wide instructions
 
+## Current product direction — Mac restart, 5 August 2026
+
+- The iPhone project under `native/` is frozen and inactive. Preserve every file. Do not delete,
+  reorganise, modernise, continue or treat that work as an active product unless the user explicitly
+  reopens it.
+- The frozen iPhone work has no design or architectural authority over the new Mac project. This
+  includes its franchise architecture, authored real-time 3D medium, interaction grammars, chapter
+  contracts, portrait composition, navigation, runtime, state model, content packages, StoreKit model,
+  offline model, narration system, visual direction, production process, zero-cost rule and restriction
+  on external human contributors. These choices are historical evidence only. Reuse requires a new,
+  explicit decision on its own merits.
+- The existing website is the sole product starting point for the Mac exploration. It provides the
+  current public work, content and observed user experience. It is not automatically a Mac runtime,
+  information architecture or visual specification.
+- Start the Mac product from first principles. No Mac framework, architecture, interaction model,
+  visual medium, navigation, content structure, commercial model, delivery model or production method
+  has been selected. Do not infer one from prior iPhone discussions or artifacts.
 - Before doing editorial, design, product or implementation work anywhere in this repository, read
-  `site/AGENTS.md` in full. Its locked franchise, civilisational, product-ambition and native-production
-  decisions apply project-wide, including to future iPhone code outside `site/`. Later instructions that
-  explicitly describe the existing website remain website-only and cannot override the native rules.
+  `site/AGENTS.md` in full. Its civilisational and editorial constitution continues to govern the
+  existing work. Website-specific rules govern the website. Sections describing the frozen iPhone
+  product are historical and do not govern Mac work.
 - The user is editor-in-chief. The editorial authority and fact-check firewall in `site/AGENTS.md`
   governs every researcher, writer, reviewer, subagent and automated production step.
-- Production is restricted to the user and Codex-controlled tools. Do not introduce external human
-  contributors unless the user explicitly reverses that hard rule.
 
 ## Editorial authority and fact-check firewall
 
@@ -37,8 +52,9 @@
   date or quantity, or one precise limitation, then continue the story. Never narrate historiography or
   the research process unless that dispute is itself the historical subject.
 - Claim registers, sources, confidence scores, counterarguments and source disputes cannot generate
-  public caveats, badges, panels, `What survived`, evidence views or optional modes. The native product
-  has no public research apparatus unless the user explicitly orders one.
+  public caveats, badges, panels, `What survived`, evidence views or optional modes. The frozen iPhone
+  product had no public research apparatus. That historical choice does not decide how the future Mac
+  product presents the website's existing public sources or evidence.
 - A verifier never writes public prose. It returns a structured factual finding; the narrative writer
   makes the smallest necessary correction in the established voice. A correction that could alter the
   thesis, causal spine, narrative weight or civilisational stance must be presented privately to the
@@ -55,7 +71,10 @@
   regression check. Do not allow the same balancing, hedging or scholarly-throat-clearing pattern to
   return in later chapters or production stages.
 
-## Editorial enforcement in production
+## Frozen iPhone editorial enforcement — historical
+
+The rules in this section are retained for the archived iPhone production. They do not specify the
+Mac product or its architecture. The project-wide editorial authority above remains active.
 
 - Give every native chapter an approved editorial contract stored beside its narrative source. The
   contract fixes the chapter thesis, Europe-centred causal spine, required emphases, governing
@@ -79,7 +98,10 @@
   prose. Editorial regression is a release-blocking failure on the same level as corrupt content,
   broken restoration or failed offline use.
 
-## Locked native launch decisions
+## Frozen iPhone launch decisions — historical
+
+The decisions below document the attempted iPhone product. They are inactive and must not be carried
+into Mac exploration without a new, explicit user decision.
 
 - Launch in English only, with a localisation-ready content and interface architecture. Do not let
   future localisation requirements weaken or genericise the approved English voice.
@@ -96,10 +118,12 @@
   complete experience and saved state work without a network connection. Purchase, restore, push and
   initial content delivery are the only permitted network edges for the launch product.
 - Provide an optional, pre-produced English narration track that follows user-controlled pacing,
-  restores at the exact spoken position and remains fully available offline after installation. It is
-  distinct from accessibility VoiceOver and is never generated live at runtime. Narration, score,
-  soundscape, spatial detail, silence and haptics are one authored dramatic system and must reach the
-  same exceptional artistic bar as image, prose and interaction.
+  restores the exact committed source cursor after controlled pause or backgrounding and remains fully
+  available offline after installation. Sudden process death resumes paused from the latest durable
+  cursor within the physically proven bound; this is not a promise of sample-perfect loudspeaker
+  output. Narration is distinct from accessibility VoiceOver and is never generated live at runtime.
+  Narration, score, soundscape, spatial detail, silence and haptics are one authored dramatic system
+  and must reach the same exceptional artistic bar as image, prose and interaction.
 - Preserve the dark identity through the rule `Darkness frames the evidence`: near-black frames and
   separates; readable midtones reveal people, materials and action; one historically meaningful
   mechanism carries the clearest light. Do not brighten the product into a generic interface or let

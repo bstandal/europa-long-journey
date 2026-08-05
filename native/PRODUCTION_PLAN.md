@@ -1,6 +1,9 @@
 # Arbeidsbeskrivelse fra dagens tilstand til lansering
 
-Status: `AUTHORITATIVE_PRODUCTION_SEQUENCE`
+Status: `FROZEN_HISTORICAL`
+
+Denne iPhone-planen ble fryst 5. august 2026. Den bevares som historisk arbeid for en mulig senere
+gjenåpning, men er ikke en aktiv produksjonssekvens og har ingen autoritet over den nye Mac-utforskningen.
 
 Produkt: `The Long West: EUROCENTRIC`
 
@@ -35,11 +38,12 @@ release gjelder fortsatt. Den visuelle produksjonslinjen utledes fra målte
 sanntids-3D-bevis i Chapter 01 før produksjonen skaleres.
 
 [`bibles/experience-bible.md`](./bibles/experience-bible.md) er den felles
-porten for helhetsflyt. Før endelig offentlig ordlyd, sluttkunst eller full
-kapittelproduksjon må opplevelsespakken, silent-greyboxen, full-run-testen og
-læringsoverføringen der være gjennomført. De foreslåtte Chapter 01-tidene og
-grepene kan ikke bli produksjonsstandard før greyboxen har bevist dem og
-editor-in-chief har godkjent projeksjonen.
+porten for helhetsflyt. Før sluttkunst, full kapittelproduksjon eller frysing av
+offentlig ordlyd som ikke allerede er særskilt editorgodkjent, må
+opplevelsespakken, silent-greyboxen, full-run-testen og læringsoverføringen der
+være gjennomført. De foreslåtte Chapter 01-tidene og grepene kan ikke bli
+produksjonsstandard før greyboxen har bevist dem og editor-in-chief har
+godkjent projeksjonen.
 
 ### Gjennomføringsrekkefølge uten løpende brukerinvolvering
 
@@ -52,18 +56,18 @@ det nå mellom `LOCAL_COMPLETE` og `PASS`:
 - `PASS` krever i tillegg de oppførte redaktørgodkjenningene, fysisk
   iPhone-bevis og reelle Apple-tjenester der porten krever det.
 
-Én redaktørport ligger uttrykkelig før Port 7: editor-in-chief må godkjenne
-Chapter 01s nye opplevelsesprojeksjon og erstatningen av den gamle
-bueprojeksjonen før sanntids-3D-arbeidet kan starte. Denne godkjenningen åpner
-bare produksjonsløpet; den godkjenner ikke endelig ordlyd, motor, assets,
-integrert kapittel eller shipping.
+Tre avgrensede Chapter 01-beslutninger ligger før Port 7. Den første er lukket:
+editor-in-chief godkjente opplevelsesprojeksjonen og erstatningen av den gamle
+bueprojeksjonen. Deretter kommer bare den komplette produksjonsslicen
+`S1_SLICE` og det komplette kapitlet `F1_CHAPTER`, begge på fysisk iPhone.
+Ingen av disse godkjenner shipping eller den senere release candidate.
 
 Et lokalt delresultat kan aldri omtales som en bestått scene, et bestått
 kapittel eller releasebevis. Det kan likevel åpne neste Codex-lokale
-arbeidspakke. Slik fullføres alt arbeid som ikke trenger brukeren før én samlet
-sluttgate. Et valg eller en enhetstest i sluttgaten som endrer en foreløpig
-baseline, utløser ny produksjon og regresjon av alle berørte leveranser før
-release.
+arbeidspakke. Unntakene er de eksplisitte `S1_SLICE`- og `F1_CHAPTER`-portene,
+som bare kan passeres av editoren på den målte telefonkandidaten. Et valg eller
+en enhetstest som endrer en foreløpig baseline, utløser ny produksjon og
+regresjon av alle berørte leveranser før release.
 
 ## 1. Ferdigtilstanden
 
@@ -85,8 +89,10 @@ alle disse punktene:
   konsekvens og etterlater et varig spor.
 - De 48 verdenssporene, 106 bueeffektene og 152 senere aktiveringene fungerer
   som én kumulativ historie, også når kapitler åpnes fra alternative innganger.
-- En avbrutt økt gjenopptas ved samme kausale punkt med korrekt scene,
-  interaksjonstilstand, kamerastilling, tekstanker og lydposisjon.
+- Kontrollert pause og bakgrunning gjenopptas med eksakt committed state og
+  mediecursor. Etter plutselig prosessdød åpnes siste varig bekreftede kausale
+  checkpoint pauset, uten delvis handling, duplisert effekt eller forsøk på å
+  gjenskape en finger som ikke lenger berører skjermen.
 - Alle installerte kapitler, bilder, interaksjoner, tilgjengelighetsalternativer,
   narrasjon og lyd fungerer uten nett.
 - Prologen og de tre gratiskapitlene ligger i basisinstallasjonen. Ett permanent
@@ -138,11 +144,12 @@ iPhone. Før sluttgaten kan den bare være `LOCAL_COMPLETE`.
    konkurrerende fortelling i produktet.
 5. Hvert synlig og hørbart shippingasset trenger kilde eller modell,
    lisensgrunnlag, transformasjonshistorikk, hash og separat assetgodkjenning.
-6. Codex skalerer ikke en uprøvd metode. Chapter 01s 3D-substrat, figur- og
-   materialbevis, kontinuitets- og sannhetssnitt, komplette greybox og ferdige
-   kvalitetscelle må lukke sine lokale porter før metoden skaleres til resten av
-   verket. Releasemyndighet oppstår først når den samlede sluttgaten har gitt de
-   samme leveransene `PASS`.
+6. Codex skalerer ikke en uprøvd metode. Chapter 01 går gjennom ett avgrenset,
+   ikke-promoterende kunst-/verktøybevis, komplett greybox, komplett `0:00–2:30`
+   produksjonsslice og deretter resten av kapitlet. Full produksjon av andre
+   kapitler åpnes først når Chapter 01 har målt kvalitet, revisjonsvolum,
+   gjenbruk, ytelse og ferdige minutter. Releasemyndighet oppstår først når den
+   samlede sluttgaten har gitt leveransene `PASS`.
 7. En senere forbedring av renderer, typografi, interaksjon, lyd, haptikk,
    tilgjengelighet, lagring eller pakking utløser revisjon av tidligere arbeid.
 8. Ingen offentlig lanseringsdato fastsettes før alle 24 kapitler har bestått.
@@ -158,12 +165,14 @@ iPhone. Før sluttgaten kan den bare være `LOCAL_COMPLETE`.
 
 ```mermaid
 flowchart LR
-    A["Godkjent Phase 0"] --> B["Codex-lokal Port 1–6"]
-    B --> C["Lokal release candidate"]
-    C --> D["Samlet sluttgate: editor, fysisk iPhone og Apple-konto"]
-    D --> E["Regresjon av berørte leveranser"]
-    E --> F["Port 7 PASS"]
-    F --> G["Port 8: App Review og lansering"]
+    A["Godkjent Phase 0"] --> B["P1–P2: metode og komplett greybox"]
+    B --> C["S1: komplett slice · editor + iPhone"]
+    C --> D["F1: komplett Chapter 01 · editor + iPhone"]
+    D --> E["P4–P6: Codex-lokal fullproduksjon"]
+    E --> F["Lokal release candidate"]
+    F --> G["Port 7: editor, iPhone og Apple-konto"]
+    G --> H["Berørt regresjon og Port 7 PASS"]
+    H --> I["Port 8: App Review og lansering"]
 ```
 
 Arbeid kan gå parallelt, og en lokal milepæl kan åpne neste lokale
@@ -175,8 +184,9 @@ arbeidspakke. Ingen senere leveranse kan kompensere for en feilet releaseport.
 
 Bevis at én avgrenset Chapter 01-celle kan eksistere som deterministisk,
 interaktiv sanntids-3D på iPhone-portrett med klarerte rettigheter og null ny
-kostnad. Porten beviser produksjonsmiddelet; den produserer ikke sluttkunst eller
-fryser offentlig ordlyd.
+kostnad. Porten beviser produksjonsmiddelet; den produserer ikke sluttkunst,
+narrasjonsprestasjon eller shippingtekst. Chapter 01s ti godkjente bygg-cues
+forblir ordrette gjennom målingen.
 
 ### 3D-substrat og figur-/materialbevis
 
@@ -184,13 +194,18 @@ fryser offentlig ordlyd.
   bueprojeksjonen, bind ny approval-digest og kontroller at kapittelkontrakt,
   seks interaction-ID-er og `WorldEffect`-er, avslutning og handoff er uendret.
   Regenerer alle avledede bue-/bevegelses- og varighetstotaler, approval-briefs
-  og validatorforventninger. Bind deretter opplevelsespakken uten endelig
-  offentlig ordlyd.
-- Mål aktuelle native renderer- og verktøykandidater mot samme lille
-  Chapter 01-celle før motor og assetkjede bindes.
+  og validatorforventninger. Bind deretter opplevelsespakken til den godkjente
+  build-ordlyden uten å gi shippinggodkjenning.
+- Bevis RealityKit som eneste aktive runtimehypotese mot én liten Chapter
+  01-celle og mål
+  hvilke konfigurasjoner og assetgrenser den tåler. En egen Metal-renderer er
+  ikke en parallell kandidat; den kan bare åpnes gjennom en ny editorbeslutning
+  etter et dokumentert RealityKit-avvik på fysisk telefon. Runtimevalget fryses
+  først når den komplette 2:30-slicen består fysisk enhetsport.
 - Bygg en enkel verdenscelle med versjonert scenegraph, stabil objekt- og
   tilstandsidentitet, regissert kamera, direkte touch, VoiceOver, Reduce Motion,
-  offline pakkelast og eksakt restaurering.
+  offline pakkelast, eksakt kontrollert pause og gjenopptakelse fra siste
+  varige checkpoint etter prosessdød.
 - Bevis Chapter 01s erklærte figur- og materialsett ved faktisk portrettavstand.
   Inventaret eies av den godkjente kapittelprojeksjonen og kan ikke bli en
   global assetliste.
@@ -207,17 +222,19 @@ fryser offentlig ordlyd.
 
 - Dokumenter en kostnadsfri og kommersielt klarert stemme-, musikk-,
   lydeffekt- og haptikkjede.
-- Produser seks anonyme engelske stemmekandidater mot samme verifiserte
-  auditionsett og én uavbrutt tjue minutters stresstest for hver av de to
-  sterkeste. Endelig stemme velges i den samlede sluttgaten.
+- Produser én eller to rettighetsklarerte engelske kandidater mot de faktiske
+  Chapter 01-cueene. Bare en kandidat som består ord, uttale, rytme, langvindu,
+  emosjonell kontroll og reproduksjon trenger å gå videre. Endelig stemme
+  velges i den samlede sluttgaten; antall kandidater er ikke et kvalitetsmål.
 - Bevis redigerbar score, kildebundet soundscape, regissert stillhet og det
   semantiske haptikksettet uten å produsere endelig Chapter 01-tidslinje.
 - Bevar og koble innholdsprojeksjon, utviklingssignering, samplebundet lyd,
   write-ahead-lagring, atomisk installasjon, hashkontroll, rollback og
   nettverksnektet bruk uten avhengighet til den gamle 2.5D-compositoren.
 - Lås repeterbar simulator- og fysisk enhetsprotokoll for frame time, minne,
-  batteri, termikk, kaldstart, avbrudd og lagringspress. Fysisk kjøring og reelle
-  Apple-tjenester ligger i Port 7.
+  batteri, termikk, kaldstart, avbrudd og lagringspress. Første kvalifiserende
+  kjøring skjer ved S1, helkapittelkjøringen ved F1 og RC-regresjonen i Port 7.
+  Reelle Apple-tjenester ligger i Port 7.
 
 ### Utgangsport
 
@@ -227,68 +244,84 @@ signert offlinepakke. Det er fortsatt et teknisk og kunstnerisk bevis, ikke en
 ferdig celle. `PASS` gis først i Port 7 mot den valgte motoren, eksakte
 assetbytene og den fysiske testtelefonen.
 
+Den komplette greyboxen kan starte når runtime-, domene-, pakke- og
+restoregrensene den faktisk trenger er lokale. Et avvist metodebevis eller en
+åpen fortellerstemme fortsetter parallelt og kan blokkere produksjonsslicen,
+men kan ikke blokkere bygging og måling av hele greyboxflyten.
+
 Hvis den kostnadsfrie visuelle eller auditive kjeden er uttømt uten å nå nivået,
 legges ett dokumentert valg frem når ingen annen lokal arbeidslinje kan
 fortsette. Kvalitetskravet senkes ikke, og kostnader innføres ikke i det skjulte.
 
-## 6. Port 2 — bevis Chapter 01-kontinuitet og historisk handling
+## 6. Port 2 — bygg og mål hele Chapter 01-greyboxen
 
-Port 2 bruker den editor-godkjente Chapter 01-opplevelsesprojeksjonen og
-substratet fra Port 1. De foreslåtte lengdene på kontinuitets- og
-sannhetssnittene er `UNPROVEN` Chapter 01-hypoteser; de blir ikke franchisegrenser.
+Port 2 bruker den editor-godkjente Chapter 01-opplevelsesprojeksjonen og de
+ferdige tekniske runtimegrensene fra Port 1. Dagens 34-beat-ledger, `13:35` authored core,
+`16:00–17:30` first-play-vindu og de tidligere navngitte kontinuitets- og
+sannhetsintervallene er `UNPROVEN` redigeringshypoteser. Ingen av dem er en
+selvstendig promoteringsport eller en franchisegrense.
 
 ### Leveranser
 
-- Bygg kontinuitetssnittet som er erklært i den godkjente Chapter 01-projeksjonen.
-  Ingen identitet, last eller kausal state kan byttes ut i overgangen.
-- Bygg kapittelprojeksjonens sannhetssnitt. Tidligere handling må vende tilbake
-  som fysisk konsekvens og skape neste forpliktelse.
-- Kjør begge snittene uten narrasjon, captions eller score. Problem, avhengighet,
-  handling, konsekvens og handoff skal leses fra mennesker, materiale, rom og
-  lydkilder.
+- Bygg alle fem celler, seks sekvenser, seks interaksjoner og den østlige
+  håndoffen som én komplett greybox uten sluttkunst.
+- Bevis hver carrier, identitet, overgang og tilbakevendende materiell
+  konsekvens i den komplette flyten. De gamle kontinuitets- og
+  sannhetsintervallene brukes som diagnostiske vinduer inne i gjennomspillet,
+  ikke som egne kandidater.
+- Kjør hele greyboxen uten narrasjon, captions eller score. Den lokale
+  situasjonen, mekanismen, den delte handlingen, den materielle konsekvensen og
+  handoffen skal leses fra mennesker, materiale og rom. Datoer og abstrakte
+  langtidsfortolkninger kan bæres av den korte narrasjonen senere.
 - Kjør natural first-use, standard touch, VoiceOver og Reduce Motion gjennom
   samme domenestater. Logg nøling, passiv tid, respons og misforståelser.
-- Tvangsavslutt under hver handling og overgang; gjenopprett eksakt kamera,
-  materialstate, interaksjon og lydposisjon uten recovery-kontroll.
-- Pakk snittene i utviklingens signerte, nettverksnektede tillitsdomene og mål
-  de lokale ytelses-, minne- og lagringsgrensene.
+- Tvangsavslutt rundt hver varige handling og overgang. Gjenopprett eksakt
+  siste fsync-bekreftede domene- og materialstate, nærmeste autoritative
+  kameraanker og en mediecursor innen den målte hard-kill-grensen. Kald retur
+  åpnes pauset; pågående grep må tas på nytt.
+- Pakk hele greyboxen i utviklingens signerte, nettverksnektede tillitsdomene
+  og mål de lokale ytelses-, minne- og lagringsgrensene.
 - Bygg om et intervall som mister kausal forståelse før neste vending. Kutt det
   hvis vendingen ikke skaper en ny historisk konsekvens.
 
 ### Utgangsport
 
-Port 2 blir `LOCAL_COMPLETE` når begge snitt består silent-, first-use-,
-tilgjengelighets-, offline- og restaureringsporten, og ett bytebundet
-beslutningsobjekt viser hva 3D faktisk løste, hva som måtte bygges om og hvilke
-Chapter 01-hypoteser som fortsatt er `UNPROVEN`. Full kapittelgreybox følger i
-Port 3; de tidligere fem 2.5D-laboratoriescenene er ikke en avhengighet.
+Port 2 blir `LOCAL_COMPLETE` og kan sette `G1_GREYBOX = GREYBOX_READY` når den
+komplette flyten består silent-, first-use-, full-run-, tilgjengelighets-,
+offline- og restaureringsporten. Ett bytebundet beslutningsobjekt fryser den
+målte beatledgeren, dokumenterer hva som ble slått sammen, bygget om eller
+kuttet, og viser hvilke hypoteser som fortsatt er `UNPROVEN`. Dette er ikke
+visuell godkjenning. De tidligere fem 2.5D-laboratoriescenene er ikke en
+avhengighet.
 
 ## 7. Port 3 — bygg hele `The First Farmers`
 
-Dette er første fullstendige bevis på produktet. Den gjeldende godkjente
-projeksjonen består av tre buer og 28 minutter; den foreslåtte, kortere
-3D-omarbeidingen erstatter den først når editor-in-chief godkjenner Chapter
-01-opplevelsesprojeksjonen. Porten følger den sist godkjente projeksjonen og
-gjør ingen av tidsmålene til felles standard.
+Dette er første fullstendige bevis på produktet. Den godkjente
+3D-projeksjonen består av fem celler og seks sekvenser. Dens `13:35` authored
+core og `16:00–17:30` natural first play er målte hypoteser, ikke
+varighetskvoter. Porten følger den godkjente kausale rekkefølgen og de seks
+interaksjonskontraktene; pacing kan måles, bygges om og kuttes uten å gjøre et
+Chapter 01-tall til felles standard.
 
 ### Arbeid
 
 - Projiser den godkjente kapittelkontrakten til opplevelsespakken i
-  `bibles/experience-bible.md`, uten å fryse endelig offentlig ordlyd.
-- Bygg hele Chapter 01 og handoffen som én komplett greybox. Kjør silent-,
-  first-use-, full-run-, tilgjengelighets- og restaureringsbeviset; bygg om
-  svake intervaller, kutt tomme vendinger og klassifiser læringene før
-  sluttproduksjon.
-- Bygg den komplette spillbare prologen og overgangen inn i Chapter 01, slik at
-  vertikalsnittet starter ved kald installasjon og ender i et permanent
-  verdensspor.
-- Frys deretter kanonisk offentlig manus og beatdata fra den målte flyten. Kjør
-  konkret F1–F7-verifikasjon backstage og redaksjonell regresjonsport.
-- Produser først én ferdig thessalisk kvalitetscelle med geometri, materialer,
-  rigg eller tilstandsautorisert animasjon, lys, interaksjon, lyd og ytelse.
-  Mål revisjons- og assetmetoden før den skaleres.
-- Produser deretter de fire øvrige 3D-verdenscellene, alle overganger,
-  interaksjoner, stillhetsbeats, tilstander og atmosfære.
+  `bibles/experience-bible.md`, med de ti godkjente cue-tekstene uendret.
+- Bruk den komplette godkjente greyboxens målte beatledger, overgangskart og
+  læringsklassifisering som autoritet for sluttproduksjonen.
+- Integrer Chapter 01 i den virkelige kapittelveien med pause, `Back to the
+  road` og eksakt ett-trykks `Resume`. Prologen endres ikke i denne
+  produksjonsblokken; direkte utviklerstart kan bare brukes diagnostisk.
+- Bind deretter den godkjente offentlige bygg-baselinen til beatdata fra den
+  målte flyten. Et foreslått tekstkutt eller en ordendring går tilbake til
+  editor-in-chief. Kjør konkret F1–F7-verifikasjon backstage og redaksjonell
+  regresjonsport.
+- Etter den komplette greyboxen produseres hele `0:00–2:30` fra Aegeerhavet
+  gjennom `finite-harvest` som én sammenhengende produksjonsslice med endelig
+  geometri, materialer, kontakt, lyd, tilgjengelighet og ytelsesprofil.
+- Når slicen består simulator-, editor- og fysisk enhetsporten, produseres de
+  resterende sekvensene i kausale blokker. Delt rigg- eller runtimeendring
+  regresjonstester tidligere blokker.
 - Produser narrasjon i lange opptak, del den ved naturlige pust og bind hver cue
   til manus og lydposisjon.
 - Komponer score, soundscape, stillhet og haptiske hendelser for hele kapitlet.
@@ -311,14 +344,17 @@ gjør ingen av tidsmålene til felles standard.
 - Alle buer eller erstatningsbevegelser i den sist godkjente projeksjonen holder
   narrativt trykk gjennom sitt målte tidsrom og har naturlige stoppunkter.
 - Brukeren kan forlate appen ved hvert beat og under hver interaksjon uten tap.
-- Kontrollert lydpause gjenopptas sample-eksakt. Hard-kill gir høyst 250 ms
-  lydavvik og åpner med lyd pauset.
+- Kontrollert lydpause gjenopptar eksakt transportcursor. Hard-kill åpner siste
+  varige checkpoint pauset; dagens 250 ms cursorforsinkelse er en hypotese som
+  måles og fryses i den komplette produksjonsslicen. Ingen port hevder
+  sampleperfekt høyttalerutgang.
 - Kaldstart viser gjenopprettet bilde innen 1,5 sekunder og full interaktivitet
   innen 2 sekunder.
 - Simulatoren og automatiske instrumenteringsbaner viser ingen kjent
   overskridelse av 60 fps-målet, p99 frame time under 25 ms eller vedvarende
-  minne under 500 MB. Termikk, batteri og faktisk gulvytelse forblir uprøvd
-  frem til Port 7.
+  minne under 500 MB. S1 måler termikk, batteri og faktisk ytelse på den
+  registrerte telefonen; ytelse på en annen minimumsmodell forblir ubevist til
+  den faktisk er målt.
 - Hele kapitlet kan installeres, fullføres, tvangsavsluttes og gjenopptas i
   flymodus.
 - VoiceOver, alle Dynamic Type-størrelser, Increased Contrast og Reduce Motion
@@ -326,19 +362,22 @@ gjør ingen av tidsmålene til felles standard.
 - Konkurrenttilgjengelighet og versjoner re-sjekkes, og en ny datert
   benchmarkgjennomgang lagrer opptak, lyd og testbevis fra dette eksakte
   vertikalsnittet.
-- Benchmarken viser ledelse over Paladin på kausal interaksjon, narrativ kommando
-  og kumulativ verden, paritet med The Room på taktilitet og paritet med Audible
-  på offline posisjonsrestaurering.
+- Benchmarken identifiserer konkrete områder der den komplette opplevelsen
+  leder, og ingen uundersøkt eller materielt brukermerket `DEFICIT` står igjen i
+  et kjerneområde. Den krever ikke at hvert subsystem slår ulike
+  spesialistprodukter på deres sterkeste enkeltkategori.
 - Codex legger frem én komplett anbefalt opplevelse med bytebundne manus-,
-  bilde- og lydobjekter. Editor-in-chief godkjenner den på fysisk iPhone i
-  Port 7.
-- Produksjonsmetoden kan gjentas 23 ganger uten særskilt håndarbeid utenfor
-  Codex.
+  bilde- og lydobjekter. Editor-in-chief godkjenner den komplette
+  kapittelkandidaten på fysisk iPhone i `F1_CHAPTER`.
+- Produksjonsmålingen viser hvilke deler som kan gjenbrukes, hvilke som må
+  forfattes per kapittel og hvilken gjennomstrømning som faktisk er oppnådd.
+  Prognosen for de resterende 23 kapitlene forblir
+  `UNPROVEN_PROGRAM_SCALE` frem til dette beviset finnes.
 
 Codex skalerer først den lokale metoden når hele kapitlet er
 `LOCAL_COMPLETE` og bilde-, lyd- og revisjonsgjennomstrømningen er målt.
-Dette åpner lokal produksjon, ikke shipping eller en portpåstand. Port 3 får
-`PASS` først etter den samlede redaktør- og enhetsrunden i Port 7.
+Dette åpner lokal produksjon, ikke shipping. Port 3 får sin Chapter 01-`PASS`
+ved `F1_CHAPTER`; den senere releasekandidaten må fortsatt bestå Port 7.
 
 ## 8. Port 4 — prolog, levende verden og gratistriad
 
@@ -433,10 +472,13 @@ Hvert kapittel går gjennom samme sekvens:
    restaureringsankere.
 2. Bygg hele kapittelet som greybox. Kjør silent-, first-use-, full-run-,
    tilgjengelighets- og restaureringsbeviset, bygg om eller kutt svake
-   intervaller og klassifiser alle læringer før sluttkunst eller endelig ordlyd.
-3. Skriv offentlig manus i den godkjente stemmen fra den målte flyten. Hver bue
-   følger sin kausale bevegelse; ro og stillhet må endre forståelse, forventning
-   eller følelse, ikke bli tomrom mellom tekstblokker.
+   intervaller og klassifiser alle læringer før sluttkunst eller frysing av
+   ordlyd som fortsatt er åpen.
+3. Skriv offentlig manus i den godkjente stemmen fra den målte flyten når
+   ordlyden ikke allerede er editorgodkjent. For Chapter 01 måles plasseringen
+   av de ti godkjente cue-tekstene; selve ordene åpnes ikke. Hver bue følger sin
+   kausale bevegelse; ro og stillhet må endre forståelse, forventning eller
+   følelse, ikke bli tomrom mellom tekstblokker.
 4. Verifiser konkrete påstander backstage, lukk alle F1–F7-funn og kjør
    redaksjonell regresjon. Bevar Codex' anbefalte redaksjonelle baseline som et
    bytebundet redaktørobjekt; endelig offentlig tekstgodkjenning skjer samlet i
@@ -460,10 +502,14 @@ Hvert kapittel går gjennom samme sekvens:
    Motion med full konsekvensparitet.
 12. Bind foreløpige assethasher straks filene fryses, lag separate
     godkjenningsobjekter og integrer deretter en signert lokal testpakke.
-13. Test hele kapitlet i flymodus. Kontrollert lydpause skal være sample-eksakt;
-    hard-kill skal avvike høyst 250 ms og kald retur skal ha lyd pauset.
-14. Tvangsavslutt ved hvert beat og ved 0, 25, 50, 75 og 100 prosent av hver
-    hovedinteraksjon.
+13. Test hele kapitlet i flymodus. Kontrollert lydpause skal lagre eksakt
+    transportcursor. Hard-kill skal gjenåpne siste varige checkpoint pauset og
+    holde den varige mediecursoren innen grensen som den komplette
+    produksjonsslicen målte og frøs; det gis ingen påstand om sampleperfekt
+    fysisk høyttalerutgang.
+14. Tvangsavslutt før, under og etter hver varige commitgrense og ved utvalgte
+    mellomtilstander i hver hovedinteraksjon. Utfallet skal være lineært gammel
+    eller ny komplett state, aldri en delvis handling.
 15. Test bakgrunning, simulerte lydruteendringer og prosessdød ved alle
     narrasjonscues. Reell Siri-/telefonavbruddsmatrise flyttes til Port 7.
 16. Kjør all tilgjengelig simulatorprofilering. Ytelse, termikk, batteri,
@@ -536,32 +582,20 @@ manus, visuelle retninger eller lydidentiteter.
   SHA-256.
 - Test kjøp, restore og offline eierskap mot de eksakte releasepakkene.
 - Test nedlastingsavbrudd, nettutfall, lite lagringsplass, feil hash/signatur,
-  oppdatering og rollback uten tap av tidligere installasjon eller progresjon.
+  oppdatering og rollback av nedlastede pakker uten tap av tidligere
+  installasjon eller progresjon. Bundlet essential-innhold valideres før decode
+  og repareres gjennom appoppdatering eller reinstallasjon; runtime kan ikke
+  rulle tilbake bytes som følger selve appen.
 
-### Fremtidig dypdykk
+### Utenfor launchkritisk vei
 
-- Bygg én upublisert prøvepakke med ny, stabil innholds-ID.
-- Bruk en separat offentlig source root med én `Release`, tilhørende payload,
-  eget bytebundet godkjenningsobjekt og komplett assetproveniens. Den kan ikke
-  låne launchpakkenes godkjenningsmyndighet; endelig editorgodkjenning samles i
-  Port 7.
-- Fest dypdykket til korrekt tid og sted i den eksisterende verdenen.
-- La pakken lese relevant tidligere world state.
-- Last den ned og aktiver den uten ny runtimekode.
-- Hvis et dypdykk trenger en ny runtimefunksjon, må funksjonen leveres i en
-  godkjent appoppdatering før pakken kan publiseres.
-- Bevis komplett offlinebruk etter installasjon.
-- Bevis katalog, deduplisering og varslingsintensjon lokalt. Publiser den i den
-  reelle testkatalogen og send nøyaktig ett CloudKit/APNs-varsel i Port 7, når
-  testinnholdet faktisk er tilgjengelig.
-- Be om varslingsrettighet først etter at brukeren har opplevd historien.
-- Test tillatelse som ubestemt, godkjent og avslått; duplikat release-event,
-  avsluttet app, offline enhet, korrekt deep link og en pakke som ennå ikke er
-  ferdig aktivert. Ingen tilstand kan gi mer enn ett varsel, og varselet kan
-  ikke sendes før innholdet faktisk er tilgjengelig.
-
-Betalingsmodellen for senere dypdykk avgjøres etter inntekt og er ikke del av
-lanseringsporten.
+En upublisert dypdykkpakke, CloudKit release discovery og APNs-varsling er
+fjernet fra launchkritisk produksjon. De obligatoriske 24 kapitlene,
+StoreKit-rettigheten, Apple-hostede pakker, `Download all`, integritet og
+offlinebruk beviser den faktiske launchreisen. Fremtidig innhold og push kan
+bare åpnes etter en ny editorbeslutning når et konkret brukerbehov ikke kan
+løses av App Store-/Background Assets-metadata. Eksisterende prototypekode kan
+bevares frakoblet uten å skape releaseavhengighet.
 
 ### Budsjettport
 
@@ -592,9 +626,9 @@ lanseringsporten.
 Port 6 blir `LOCAL_COMPLETE` når budsjettporten og den lokale
 content-complete-porten består, alle åtte kandidater fungerer separat og
 samlet i utviklingens tillitsdomene, den kumulative verdenen er deterministisk,
-og dypdykkssystemet er lokalt bevist uten egen server eller ny runtimekode.
-`PASS` gis i Port 7 etter bytegodkjenning, produksjonssignering, fysisk
-gjennomspilling og reell Apple-tjenesterunde.
+og den obligatoriske kjøps-/leveringsreisen virker uten den utsatte
+dypdykk-/pushfunksjonen. `PASS` gis i Port 7 etter bytegodkjenning,
+produksjonssignering, fysisk gjennomspilling og reell StoreKit-/pakkerunde.
 
 ## 11. Port 7 — release candidate
 
@@ -602,19 +636,19 @@ Release candidate gjelder de eksakte bytefilene som skal sendes til Apple.
 
 ### Samlet sluttgate
 
-Port 7 er første punkt der prosjektet krever den fysiske iPhonen og all videre
-aktiv involvering fra editor-in-chief etter den ene tidlige godkjenningen av
-Chapter 01s opplevelses- og bueprojeksjon. Codex legger da frem ferdige,
-anbefalte og bytebundne beslutningsobjekter samlet: fortellerstemme, 3D-substrat,
-kontinuitets- og sannhetssnitt, ferdig Chapter 01-kvalitetscelle, prolog,
-kapittelmanus og hovedretninger, alle 24 integrerte kapitler, åtte
+Port 7 er den samlede releaseporten. Før den har Chapter 01 bare to meningsfulle
+editor-/telefonkontroller: den komplette `0:00–2:30`-slicen og det komplette
+kapitlet. Codex legger i Port 7 frem ferdige,
+anbefalte og bytebundne beslutningsobjekter samlet: fortellerstemme, RealityKit-
+substrat, komplett Chapter 01-greybox, komplett 2:30-slice, ferdig Chapter 01,
+prolog, kapittelmanus og hovedretninger, alle 24 integrerte kapitler, åtte
 pakkeinventarer, pris og App Store-presentasjon. Nødvendige Apple-kontohandlinger
 gis som én konkret sjekkliste.
 
 Redaktørvalg fryses før produksjonsmastere og releasepakker signeres på nytt.
-Deretter kjøres all berørt regresjon. Den fysiske telefonen brukes først når
-det finnes én sammenhengende kandidat å måle, og reelle Apple-tjenester testes
-mot den samme versjonssammenhengen.
+Deretter kjøres all berørt regresjon. Den fysiske telefonen brukes ved den
+komplette 2:30-slicen og det komplette Chapter 01, deretter på nytt mot RC.
+Reelle Apple-tjenester testes mot den samme endelige versjonssammenhengen.
 
 ### Full funksjonell matrise
 
@@ -628,17 +662,20 @@ mot den samme versjonssammenhengen.
   og iOS-versjon. Hvis telefonen er nyere enn iPhone 15 Pro, registreres den
   allerede godkjente enkelt-enhetsrisikoen uten å late som testen ble kjørt på
   gulvmodellen.
-- Tvangsavslutning ved hvert beat og ved alle definerte interaksjonspunkter
-  består.
-- Kontrollert lydpause er sample-eksakt; hard-kill-avvik er høyst 250 ms.
+- Tvangsavslutning rundt hver varige commitgrense og ved representative
+  mellomtilstander består med enten gammel eller ny komplett state.
+- Kontrollert lydpause gjenopptar eksakt transportcursor; hard-kill åpner siste
+  varige checkpoint pauset og holder varig cursorforsinkelse innen den fysisk
+  målte slicegrensen.
 - Bakgrunning, lydruteendring, Siri-/telefonavbrudd og prosessdød består ved alle
   narrasjonscues; kald retur åpner alltid med lyd pauset.
 - Kaldstart, full bruk, avslutning og restaurering består i flymodus.
 - StoreKit purchase, avbrudd, pending, restore, refund og revocation består.
 - Hele StoreKit-feilmatrisen fra Port 4 kjøres på nytt mot RC-entitlement og
   eksakte releasepakker.
-- Alle download-, integritets-, oppdaterings- og rollbackfeil består uten tap av
-  installert innhold eller progresjon.
+- Alle download-, integritets-, oppdaterings- og rollbackfeil for nedlastede
+  pakker består uten tap av installert innhold eller progresjon. Korrupt bundlet
+  essential-innhold stopper før decode og gir en stabil retur-/reparasjonsvei.
 - Feil skjema/minimum runtime, pakke-ID/entitlement, filstørrelse, path escape,
   manglende/erstattet fil og digestendring før decode avvises. Appoppdatering
   under nedlasting, prosessdød under pause/resume, eldre pakke og full disk
@@ -649,14 +686,16 @@ mot den samme versjonssammenhengen.
 
 ### Fysisk ytelse
 
-- 60 fps på den fysiske testtelefonen.
-- p99 frame time under 25 ms.
-- Synlig respons begynner innen 50 ms for hver prinsipale interaksjon.
-- Vedvarende minne under 500 MB.
-- Gjenopprettet bilde innen 1,5 sekunder og full interaktivitet innen 2 sekunder.
-- Ingen alvorlig termisk tilstand etter 30 minutter.
-- Det numeriske batteribudsjettet og lagringspressprotokollen som ble låst i
-  Port 1 består for hvert kapittel.
+- Hvert representativt spor kjøres tre ganger på den navngitte telefonen etter
+  kontrollert akklimatisering med eksakt iOS-, app- og pakkehash.
+- Metal System Trace avleder presenterte frames, p99 frame time og
+  dropped-frame-rate; selvrapporterte scalars alene er ikke bevis.
+- De foreløpige målene er 60 fps, p99 ≤25 ms, synlig respons ≤50 ms,
+  physical footprint ≤500 MiB, gjenopprettet bilde ≤1,5 sekunder og full
+  interaktivitet ≤2 sekunder på denne telefonen.
+- Høyeste observerte termiske tilstand gjennom hvert 30-minuttersløp,
+  batteribruk og lagringspress rapporteres. Resultatet er ikke en påstand om en
+  uprøvd minimumsmodell dersom den eide telefonen er nyere.
 
 ### Kunstnerisk og redaksjonell nulliste
 
@@ -679,9 +718,12 @@ mot den samme versjonssammenhengen.
 - Hver scene og skjerm har logisk VoiceOver-rekkefølge, fullførbar semantisk
   handling, samme slutthash som standardinput og tap-/step-alternativ for drag
   og hold.
-- Ingen Dynamic Type-størrelse gir avkorting, overlapp eller interaktive mål
-  under 44 pt. Increased Contrast er lesbart, og Reduce Motion beholder samme
-  kausale overlays og forgrunnsokklusjon.
+- Ingen relevant Dynamic Type-størrelse gir avkorting, overlapp eller
+  interaktive mål under 44 pt. Store accessibility-størrelser kan bruke
+  sekvensielle captions eller en kort pauset leseflate. Increased Contrast er
+  lesbart, og Reduce Motion/VoiceOver bevarer samme informasjon, oppgave,
+  historiske konsekvens og domenehash; kamera, fokusrekkefølge og bevegelse kan
+  være modalitetstilpasset.
 - Kvaliteten er fordelt gjennom hele verket og tåler særskilt gjennomgang av
   det svakeste kapitlet.
 
@@ -691,10 +733,12 @@ mot den samme versjonssammenhengen.
   benchmarksettet.
 - Dokumenter hver benchmarkdimensjon med faktisk build, opptak, lyd eller
   testresultat.
-- RC feiler ved et kjerne-`DEFICIT`, ved `NOT TESTED`, når svakeste kapittel
-  ligger under det sterkeste relevante sammenligningsproduktet, når poleringen
-  er konsentrert i åpningen, eller når en interaksjon ikke kan begrunnes av
-  kapittelets konkrete historiske mekanisme.
+- RC feiler ved et materielt kjerne-`DEFICIT`, ved `NOT TESTED`, når svakeste
+  kapittel ligger under det felles produksjonsgulvet, når poleringen er
+  konsentrert i åpningen, eller når en interaksjon ikke kan begrunnes av
+  kapittelets konkrete historiske mekanisme. Benchmarken må vise konkrete
+  områder med ledelse i den komplette opplevelsen; den krever ikke at hvert
+  subsystem slår en annen spesialistapp i dens sterkeste enkeltkategori.
 - Fastsett engangsprisen.
 - Produser ikon, screenshots, App Preview, produkttekst,
   personvernopplysninger og IAP-presentasjon fra det ferdige verket.
@@ -703,12 +747,9 @@ mot den samme versjonssammenhengen.
 - Forbered en sannferdig redaksjonell featuring-henvendelse som viser det
   faktiske produktet uten påståtte priser eller kvalitetsstempler.
 - Frys og versjonsbind metadata, screenshots, App Preview, personvernsvar,
-  StoreKit-ID/pris, asset-pack-versjoner, CloudKit-skjema/releasekatalog og
-  pushkonfigurasjon sammen med RC-beviset.
-- Deploy skjema, indekser og security roles fra CloudKit development til
-  production. Verifiser produksjons-container-ID, APNs-entitlements og
-  releasekatalog mot RC. Produksjonsoppføringer for upublisert innhold forblir
-  inaktive og kan ikke utløse varsel før faktisk publisering.
+  StoreKit-ID/pris og asset-pack-versjoner sammen med RC-beviset. CloudKit/APNs
+  inngår bare dersom den utsatte funksjonen senere er åpnet gjennom en ny
+  editorbeslutning.
 - Arkiver RC med produksjonssignering, samme versjons- og byggnummer som
   bevispakken, og valider den distribuerte arkivfilen før opplasting.
 - Fullfør aldersgrense, eksport-/krypteringserklæring, Privacy Manifest,
@@ -723,9 +764,9 @@ mot den samme versjonssammenhengen.
 
 Port 7 består bare når samme RC-bygg og de eksakte åtte pakkehashene har bestått
 hele funksjons-, ytelses-, lyd-, tilgjengelighets-, offline-, integritets- og
-benchmarkmatrisen; produksjonsnøkkel, CloudKit/APNs, App Store-materiale og
-kontokrav er versjonsbundet til samme kandidat; og editor-in-chief har godkjent
-de eksakte offentlige bytefilene.
+benchmarkmatrisen; produksjonsnøkkel, App Store-materiale og kontokrav er
+versjonsbundet til samme kandidat; og editor-in-chief har godkjent de eksakte
+offentlige bytefilene.
 
 ## 12. Port 8 — App Review, lansering og første drift
 
@@ -741,8 +782,8 @@ de eksakte offentlige bytefilene.
   velg `Download all`, verifiser og aktiver alle sju Apple-hostede pakker, slå
   av nettet og åpne minst ett kapittel fra hver av de åtte payloadene. Spill
   narrasjon og en prinsipal interaksjon, tvangsavslutt og gjenoppta lagret state.
-- Gjenta produksjonssmoke for CloudKit-katalog og APNs mot den godkjente
-  binæren.
+- Kjør CloudKit/APNs-produksjonssmoke bare dersom den utsatte funksjonen senere
+  er åpnet gjennom en ny editorbeslutning og inngår i den godkjente RC-en.
 - Kontroller at storefront, pris, IAP, personvern og pakker samsvarer med RC.
 - Hold tilbake release dersom den Apple-godkjente binæren eller pakkeversjonen
   avviker fra den godkjente RC-en.
@@ -766,7 +807,8 @@ basis-payload, IAP-et og de sju Apple-hostede pakkene samsvarer med den
 editor-godkjente RC-en; versjonsnummer, byggnummer, pakkehasher, pris,
 personvernopplysninger og produksjonskonfigurasjon er identiske; og den
 Apple-prosesserte binæren består sandboxkjøp, restore, `Download all`,
-CloudKit/APNs og den beskrevne åtte-payloaders flymodusrunden på testtelefonen.
+og den beskrevne åtte-payloaders flymodusrunden på testtelefonen. CloudKit/APNs
+inngår bare dersom funksjonen senere er eksplisitt åpnet og del av RC-en.
 Enhver forskjell holder utgivelsen tilbake. Editor-in-chief gir den siste
 publiseringsgodkjenningen.
 
@@ -780,7 +822,7 @@ Et kapittel er ikke ferdig før følgende sett er komplett og bundet sammen:
 | Public manuscript | Én kanonisk engelsk tekst med beat- og cue-ankere. |
 | Backstage verification | Alle konkrete funn er `PASS` eller lukket med minste faktiske reparasjon. `EDITOR_DECISION` teller først når editor-in-chief har avgjort saken og utfallet er lagret backstage. |
 | Editorial regression | Ingen akademisk lekkasje eller konkurrerende fortellerstemme. |
-| Experience packet and greybox | Spillbar premiss, trykkurve, handling–avhengighet–konsekvens-ledger, overgangs-/identitetskart, menneskelig eller institusjonell ryggrad, sanseplan, narrasjonsfunksjoner og stoppankere er dokumentert. Komplett silent-, first-use-, full-run-, tilgjengelighets- og restaureringsgreybox består før sluttkunst og endelig ordlyd. |
+| Experience packet and greybox | Spillbar premiss, trykkurve, handling–avhengighet–konsekvens-ledger, overgangs-/identitetskart, menneskelig eller institusjonell ryggrad, sanseplan, narrasjonsfunksjoner og stoppankere er dokumentert. Komplett silent-, first-use-, full-run-, tilgjengelighets- og restaureringsgreybox består før sluttkunst og før ordlyd som ikke allerede er særskilt editorgodkjent fryses. |
 | Arc dramaturgy | Hver bue eller editor-godkjent erstatningsbevegelse holder sitt målte tidsrom og har navngitt situasjon, mekanisme, vending, konsekvens, handoff og naturlige stoppunkter. |
 | Beat and scene plan | Hver situasjon, mekanisme, vending, konsekvens og handoff har en scene- eller stillhetsfunksjon. |
 | Interaction plan | Hver hovedinteraksjon har grammatikk, state, motstand, respons, `WorldEffect`, VoiceOver og Reduce Motion. |
@@ -802,8 +844,9 @@ lokalt arbeid:
 - den ene tidlige godkjenningen av Chapter 01s opplevelsesprojeksjon og
   supersedering av den gamle bueprojeksjonen; den åpner Port 1, men gir ingen
   asset-, tekst-, kapittel- eller shippinggodkjenning;
-- valg av endelig fortellerstemme etter seks kandidater og to stresstester;
-- godkjenning av Chapter 01s ferdige kvalitetscelle og visuelle
+- valg av endelig fortellerstemme etter at minst én rettighetsklarert kandidat
+  har bestått de faktiske Chapter 01-cueene og langvinduet;
+- godkjenning av Chapter 01s komplette 2:30-slice og visuelle
   produksjonsmetode;
 - go/no-go for hele `The First Farmers`;
 - godkjenning av hovedretningen og endelig offentlig manus for hvert kapittel,
@@ -826,15 +869,15 @@ en trygg lokal arbeidslinje fortsatt kan fortsette.
 
 | Risiko | Nåværende bevis | Lukking |
 |---|---|---|
-| Sanntids-3D-substrat og verktøykjede | 3D er låst som medium, men ingen motor, verdenscelle, produksjonsgeometri eller materialkjede er valgt eller målt. | Port 1: signert offline substrat samt figur-/materialbevis; fysisk bevis i Port 7. |
-| Forteller og lydverk til 0 kroner | Pinned lokal narrasjons-, score- og soundscapeproduksjon har tekniske preflights og eksakt proveniens; ingen produksjonsstemme eller ferdig kunstnerisk tidslinje er godkjent. | Seks kandidater, to stresstester, valgt stemme og komplett Chapter 01-lyd med klarerte rettigheter. |
-| Repeterbar kvalitet gjennom hele det godkjente verket | Ingen komplett 3D-celle eller kapittel er ferdig. | Chapter 01s substrat, sannhetssnitt, fullstendige greybox, ferdige kvalitetscelle og hele kapittel må dokumentere gjennomstrømning og revisjonsbehov; produksjonsprognosen bruker de projeksjonsutledede minuttene etter P1.00. |
+| Sanntids-3D-substrat og verktøykjede | 3D er låst som medium; RealityKit er eneste aktive hypotese, men ingen produksjonsslice er fysisk godkjent. | Port 1: signert offline substrat og metodebevis. Den komplette S1-slicens fysiske port fryser runtimevalget; målt svikt stopper for editorbeslutning. |
+| Forteller og lydverk til 0 kroner | Pinned lokal narrasjons-, score- og soundscapeproduksjon har tekniske preflights og eksakt proveniens; ingen produksjonsstemme eller ferdig kunstnerisk tidslinje er godkjent. | Én eller to kandidater prøves mot de faktiske Chapter 01-cueene. Minst én må bestå språk, uttrykk, langvindu, reproduksjon og rettigheter før stemmen kan velges. Hvis kjeden uttømmes, stopper porten for editorbeslutning; den ommerkes ikke til bevist. |
+| Repeterbar kvalitet gjennom hele det godkjente verket | Ingen komplett produksjons-3D-slice eller kapittel er ferdig. | Chapter 01s substrat, komplette greybox, komplette 2:30-slice og hele kapittel må dokumentere gjennomstrømning og revisjonsbehov; produksjonsprognosen bruker den målte flyten etter greyboxen. |
 | Svakeste kapittel | Kan ikke måles ennå. | Bølgevis svakeste-mot-sterkeste-port og tilbakeføring av forbedringer. |
 | Lagring og termikk | Kontrakter og budsjetter finnes; produksjonsassets finnes ikke. | Enhetsprofilering ved hver port og hard bytekontroll per pakke. |
-| Apple-tjenester | Native StoreKit-, Background Assets-, CloudKit/APNs- og varslingsadaptere med lokale tester finnes; ekte produkt, pakker, container og push er ikke prøvd. | Fullfør lokal integrasjon først; kjør signert tjenestespike og produksjonskonfigurasjon samlet i Port 7 og ny smoke etter godkjenning. |
+| Apple-tjenester | Native StoreKit- og Background Assets-adaptere har lokale tester; ekte produkt og pakker er ikke prøvd. CloudKit/APNs-prototypen er utsatt og frakoblet launchkritisk vei. | Fullfør lokal kjøps-/leveringsintegrasjon først; kjør signert StoreKit-/pakkerunde samlet i Port 7 og ny smoke etter godkjenning. |
 | Verdenskontinuitet | Deterministisk foundation-replay består på planlagt data. | Full replay mot faktiske 24 kapitler og åtte releasepakker. |
 | Rettigheter og proveniens | Native-registeret er korrekt tomt. De fleste webassets er blokkert. | Hvert shippingasset trenger eksplisitt klarering og bytebundet provenienslinje. |
-| Fysisk enhetsdekning | En låst seksdelt protokoll finnes; ingen fysisk kjøring er gjort. Én testtelefon er tillatt, og simulator dekker øvrige størrelser. | Fullfør simulatorvariantmatrisen først. Kjør alle fysiske kapittel-, pakke- og feilporter samlet i Port 7; registrer modellforskjellen mot iPhone 15 Pro dersom telefonen er nyere. |
+| Fysisk enhetsdekning | En legacyprotokoll og ny 3D-receiptkontrakt finnes; ingen kvalifiserende 3D-kjøring er gjort. Én testtelefon er tillatt, og simulator dekker øvrige størrelser. | Kjør S1 og F1 på den registrerte telefonen når komplette kandidater finnes. Kjør deretter alle 24 kapitler, pakker og RC-feilporter samlet i Port 7; registrer modellforskjellen mot iPhone 15 Pro dersom telefonen er nyere. |
 | Markedsretensjon | Kan ikke bevises uten eksterne brukere. | Bevis friksjon, dramaturgi, stabilitet og intern sammenheng; mål faktisk bruk etter lansering uten å påstå avhengighet på forhånd. |
 | Apple featuring | Apple avgjør. | Lever et ferdig verk og en sannferdig redaksjonell presentasjon; ingen overfladiske featuregrep. |
 
@@ -854,21 +897,22 @@ en trygg lokal arbeidslinje fortsatt kan fortsette.
 
 ## 17. Neste arbeidsblokk
 
-Arbeidet starter i denne rekkefølgen:
+Arbeidet fortsetter i denne rekkefølgen:
 
-1. Få Chapter 01s opplevelsesprojeksjon editor-godkjent, superseder den gamle
-   bueprojeksjonen, bind approval-digesten og deretter opplevelsespakken uten
-   endelig offentlig ordlyd.
-2. Mål renderer- og verktøykandidater og bygg det signerte 3D-substratet.
+1. Bind den allerede godkjente 30. juli-projeksjonen og 4. august-resetten som
+   én aktiv autoritetskjede, og verifiser at tese, fem celler, seks sekvenser,
+   seks interaksjoner, effekter, ending og handoff er uendret.
+2. Bevis RealityKit- og verktøykjeden og bygg det signerte 3D-substratet.
 3. Lukk figur-/materialbeviset ved faktisk portrettavstand.
-4. Bevis nullkost lydpipeline og produser seks stemmekandidater parallelt uten
-   å fryse Chapter 01s endelige tidslinje.
-5. Bygg og mål Chapter 01s kontinuitetssnitt.
-6. Bygg og mål Chapter 01s sannhetssnitt.
-7. Bygg hele kapittelets silent-, first-use-, full-run-, tilgjengelighets- og
-   restaureringsgreybox.
-8. Produser én ferdig kvalitetscelle og bevis at metoden kan gjentas.
-9. Produser hele `The First Farmers` fra den målte flyten.
-10. Fortsett gjennom alle trygge lokale porter og samle ferdige
+4. Bevis nullkost lydpipeline med én eller to faktiske Chapter 01-kandidater
+   uten å fryse den endelige tidslinjen.
+5. Bygg et kort, ikke-promoterende visuelt metodebevis for premium skulpturell
+   retning og RealityKit-kjeden.
+6. Bygg hele kapittelets silent-, first-use-, full-run-, tilgjengelighets- og
+   restaureringsgreybox; mål og klipp pacing før sluttkunst.
+7. Produser hele `0:00–2:30`-slicen og bevis metoden i simulator, hos editor og
+   på fysisk iPhone.
+8. Produser hele `The First Farmers` i blokker fra den målte flyten.
+9. Fortsett gjennom alle trygge lokale porter og samle ferdige
    redaktørobjekter uten å avbryte brukeren.
-11. Kjør editorvalg, fysisk iPhone og reelle Apple-tjenester samlet i Port 7.
+10. Kjør den endelige RC-runden og reelle Apple-tjenester samlet i Port 7.
